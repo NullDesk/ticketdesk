@@ -374,6 +374,7 @@
     <Content Include="App_Data\TicketDesk_Reference_log.ldf">
       <DependentUpon>TicketDesk_Reference.mdf</DependentUpon>
     </Content>
+    <Content Include="License.txt" />
     <Content Include="WebAd.config" />
     <None Include="App_Themes\TicketDeskTheme\TicketDeskLogo.psd" />
     <Content Include="DownloadAttachment.ashx" />
