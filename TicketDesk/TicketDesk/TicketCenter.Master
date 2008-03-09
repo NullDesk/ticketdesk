@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/TicketDeskMain.Master" AutoEventWireup="true"
+    CodeBehind="TicketCenter.master.cs" Inherits="TicketDesk.TicketCenter1" %>
+
+<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainContentPlaceHolder">
+    <div class="SubMenuContainer">
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: center; width:25%; border-right: solid 1px #666666;">
+                        <asp:HyperLink ID="UnassignedTicketsMenuLink" runat="server" NavigateUrl="TicketCenter.aspx?View=unassigned"
+                            Text="Unassigned Tickets" />
+                    </td>
+                    <td style="text-align: center; width: 25%; border-right: solid 1px #666666;">
+                        <asp:HyperLink ID="AssignedTicketsMenuLink" runat="server" NavigateUrl="TicketCenter.aspx?View=assigned"
+                            Text="Assigned Tickets" />
+                    </td>
+                    <td style="text-align: center; width: 25%; border-right: solid 1px #666666;">
+                        <asp:HyperLink ID="StatusTicketsMenuLink" runat="server" NavigateUrl="TicketCenter.aspx?View=status"
+                            Text="Tickets by Status" />
+                    </td>
+                    <%-- <td style="text-align: center; border-right: solid 1px #666666;">
+                            <asp:HyperLink ID="ResolvedTicketsMenuLink" runat="server" NavigateUrl="TicketCenter.aspx?View=resolved"
+                                Text="Resolved Tickets" />
+                        </td>
+                        <td style="text-align: center; border-right: solid 1px #666666;">
+                            <asp:HyperLink ID="ClosedTicketsMenuLink" runat="server" NavigateUrl="TicketCenter.aspx?View=closed"
+                                Text="Closed Tickets" />
+                        </td>--%>
+                    <td style="text-align: center; width:25%;">
+                        <asp:HyperLink ID="TagsTicketMenuLink" runat="server" NavigateUrl="TicketCenter.aspx?View=tagsandcategories"
+                            Text="Tags & Categories" />
+                    </td>
+                </tr>
+            </table>
+        </div><div class="SubContentContainer">
+        
+        <asp:ContentPlaceHolder ID="SubContentPlaceHolder" runat="server" />
+    </div>
+</asp:Content>

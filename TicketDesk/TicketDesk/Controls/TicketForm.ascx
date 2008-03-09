@@ -1,0 +1,131 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TicketForm.ascx.cs"
+    Inherits="TicketDesk.Controls.TicketForm" %>
+<%@ Register src="TagPicker.ascx" tagname="TagPicker" tagprefix="uc1" %>
+
+<%@ Register src="EditDetails.ascx" tagname="EditDetails" tagprefix="uc2" %>
+
+<asp:ScriptManager runat="server" ID="ajaxScriptManager">
+</asp:ScriptManager>
+<table cellpadding="2" style="width: 950px;">
+    <tbody>
+        <tr>
+            <td>
+                Title:
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic"
+                    ErrorMessage="Please fill out a title for the new ticket." ControlToValidate="TitleTextBox">*</asp:RequiredFieldValidator>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:TextBox ID="TitleTextBox" runat="server" Width="100%" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="2">
+                    <tbody>
+                        <tr>
+                            <td>
+                                Type:
+                                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="TypeDropDownList"
+                                    Display="Dynamic" ErrorMessage="Please choose a valid ticket type." Operator="NotEqual"
+                                    ValueToCompare="-">*</asp:CompareValidator>
+                            </td>
+                            <td>
+                                Category:<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="CategoryDropDownList"
+                                    Display="Dynamic" ErrorMessage="Please choose a valid category." Operator="NotEqual"
+                                    ValueToCompare="-">*</asp:CompareValidator>
+                            </td>
+                            <td>
+                                Priority:
+                            </td>
+                            <td>
+                                Customers:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:DropDownList ID="TypeDropDownList" runat="server">
+                                    <asp:ListItem Text="-- select --" Value="-" Selected="True" />
+                                    <asp:ListItem Text="Question" Value="Question" />
+                                    <asp:ListItem Text="Problem" Value="Problem" />
+                                    <asp:ListItem Text="Request" Value="Request" />
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="CategoryDropDownList" runat="server">
+                                    <asp:ListItem Text="-- select --" Value="-" Selected="True" />
+                                    <asp:ListItem Text="Hardware" Value="Hardware" />
+                                    <asp:ListItem Text="Software" Value="Software" />
+                                    <asp:ListItem Text="Network/Services" Value="Network/Services" />
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="PriorityDropDownList" runat="server">
+                                    <asp:ListItem Text="" Value="" Selected="True" />
+                                    <asp:ListItem Text="Low" Value="Low" />
+                                    <asp:ListItem Text="Medium" Value="Low" />
+                                    <asp:ListItem Text="High" Value="Low" />
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:CheckBox ID="AffectsCustomerCheckBox" Text="Has impact on customer(s)" runat="server" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+                <uc2:EditDetails ID="EditDetailsControl" runat="server" />
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+               
+            </td>
+        </tr>
+        
+       
+        <tr>
+            <td>
+                <asp:UpdatePanel ID="OwnerUpdatePanel" runat="server">
+                    <ContentTemplate>
+                        <table cellpadding="2" style="margin-top: 10px;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <asp:CheckBox ID="CreateOnBehalfTextBox" AutoPostBack="true" runat="server" Text="Create on behalf of another user"
+                                            OnCheckedChanged="CreateOnBehalfTextBox_CheckedChanged" />
+                                    </td>
+                                    <td>
+                                        <asp:Panel ID="OwnerPanel" runat="server" Visible="false">
+                                            <asp:DropDownList Width="200px" ID="OwnerDropDownList" runat="server">
+                                                <asp:ListItem Text="-- select --" Value="-" Selected="True" />
+                                            </asp:DropDownList>
+                                            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="OwnerDropDownList"
+                                                Display="Dynamic" ErrorMessage="Please select a valid owner for this ticket."
+                                                Operator="NotEqual" ValueToCompare="-">*</asp:CompareValidator>
+                                            <ajaxToolkit:ListSearchExtender runat="server" TargetControlID="OwnerDropDownList">
+                                            </ajaxToolkit:ListSearchExtender>
+                                        </asp:Panel>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <uc1:TagPicker ID="TagPickerControl" runat="server" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+

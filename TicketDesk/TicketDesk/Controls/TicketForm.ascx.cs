@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using TicketDesk.Engine;
+using TicketDesk.Engine.Linq;
+using System.Collections.Generic;
+
+namespace TicketDesk.Controls
+{
+    public partial class TicketForm : System.Web.UI.UserControl
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if(!Page.IsPostBack)
+            {
+                
+                bool EnableFullMode = (SecurityManager.IsStaffOrAdmin);
+                PriorityDropDownList.Enabled = (SecurityManager.SubmitterCanEditPriority || EnableFullMode);
+
+                OwnerUpdatePanel.Visible = EnableFullMode;
+
+                OwnerDropDownList.Items.AddRange(GetOwnerUserList());
+            }
+        }
+
+        public Ticket GetNewTicket()
+        {
+            Ticket ticket = null;
+            if(Page.IsValid)
+            {
+                DateTime now = DateTime.Now;
+                string user = Page.User.Identity.GetFormattedUserName();
+                ticket = new Ticket();
+                ticket.Type = TypeDropDownList.SelectedValue;
+                ticket.Category = CategoryDropDownList.SelectedValue;
+                ticket.Title = TitleTextBox.Text;
+                ticket.IsHtml = false;
+                ticket.Details = EditDetailsControl.Details;
+                if(!string.IsNullOrEmpty(PriorityDropDownList.SelectedValue))
+                {
+                    ticket.Priority = PriorityDropDownList.SelectedValue;
+                }
+                string[] tags = TagManager.GetTagsFromString(TagPickerControl.TagList);
+                ticket.TagList = string.Join(",", tags);
+                ticket.AffectsCustomer = AffectsCustomerCheckBox.Checked;
+                ticket.PublishedToKb = false;
+                ticket.CreatedBy = user;
+                ticket.CreatedDate = now;
+                if(CreateOnBehalfTextBox.Checked)
+                {
+                    ticket.Owner = OwnerDropDownList.SelectedValue;
+                }
+                else
+                {
+                    ticket.Owner = user;
+                }
+                ticket.CurrentStatus = "Active";
+                ticket.CurrentStatusSetBy = user;
+                ticket.CurrentStatusDate = now;
+
+
+                TicketComment openingComment = new TicketComment();
+                if(CreateOnBehalfTextBox.Checked)
+                {
+                    openingComment.CommentEvent = string.Format("created the ticket on behalf of {0}", SecurityManager.GetUserDisplayName(ticket.Owner));
+                }
+                else
+                {
+                    openingComment.CommentEvent = string.Format("created the ticket");
+                }
+                openingComment.CommentedBy = user;
+                openingComment.CommentedDate = now;
+                ticket.TicketComments.Add(openingComment);
+
+                foreach(string tag in tags)
+                {
+                    TicketTag tTag = new TicketTag();
+                    tTag.TagName = tag;
+                    ticket.TicketTags.Add(tTag);
+                }
+
+                
+            }
+            return ticket;
+        }
+
+        public ListItem[] GetOwnerUserList()
+        {
+            User[] users = SecurityManager.GetUsersInRoleType("TicketSubmittersRoleName");
+            var userItems = from user in users
+                    where user.Name.ToUpperInvariant() != HttpContext.Current.User.Identity.Name.ToUpperInvariant()
+                    select new ListItem(user.DisplayName, user.Name);
+
+            return userItems.ToArray();
+        }
+
+        protected void CreateOnBehalfTextBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OwnerPanel.Visible = CreateOnBehalfTextBox.Checked;
+        }
+    }
+}

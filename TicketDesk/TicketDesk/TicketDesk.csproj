@@ -1,0 +1,456 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TicketDesk</RootNamespace>
+    <AssemblyName>TicketDesk</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="NewTicket.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Controls\TicketForm.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\AddComment.ascx.cs">
+      <DependentUpon>AddComment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AddComment.ascx.designer.cs">
+      <DependentUpon>AddComment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AssignPopup.ascx.cs">
+      <DependentUpon>AssignPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AssignPopup.ascx.designer.cs">
+      <DependentUpon>AssignPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Attachments.ascx.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Attachments.ascx.designer.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangeDetailsPopup.ascx.cs">
+      <DependentUpon>ChangeDetailsPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangeDetailsPopup.ascx.designer.cs">
+      <DependentUpon>ChangeDetailsPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangePriorityPopup.ascx.cs">
+      <DependentUpon>ChangePriorityPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangePriorityPopup.ascx.designer.cs">
+      <DependentUpon>ChangePriorityPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CancelMoreInfoPopup.ascx.cs">
+      <DependentUpon>CancelMoreInfoPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CancelMoreInfoPopup.ascx.designer.cs">
+      <DependentUpon>CancelMoreInfoPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CloseTicketPopup.ascx.cs">
+      <DependentUpon>CloseTicketPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CloseTicketPopup.ascx.designer.cs">
+      <DependentUpon>CloseTicketPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangeOwnedByPopup.ascx.cs">
+      <DependentUpon>ChangeOwnedByPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangeOwnedByPopup.ascx.designer.cs">
+      <DependentUpon>ChangeOwnedByPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangeCategoryPopup.ascx.cs">
+      <DependentUpon>ChangeCategoryPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangeCategoryPopup.ascx.designer.cs">
+      <DependentUpon>ChangeCategoryPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangeTagsPopup.ascx.cs">
+      <DependentUpon>ChangeTagsPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangeTagsPopup.ascx.designer.cs">
+      <DependentUpon>ChangeTagsPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangeTitleTypePopup.ascx.cs">
+      <DependentUpon>ChangeTitleTypePopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangeTitleTypePopup.ascx.designer.cs">
+      <DependentUpon>ChangeTitleTypePopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChangeAffectsCustomerPopup.ascx.cs">
+      <DependentUpon>ChangeAffectsCustomerPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ChangeAffectsCustomerPopup.ascx.designer.cs">
+      <DependentUpon>ChangeAffectsCustomerPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DisplayTicket.ascx.cs">
+      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\DisplayTicket.ascx.designer.cs">
+      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ResolvePopup.ascx.cs">
+      <DependentUpon>ResolvePopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ResolvePopup.ascx.designer.cs">
+      <DependentUpon>ResolvePopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditDetails.ascx.cs">
+      <DependentUpon>EditDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\EditDetails.ascx.designer.cs">
+      <DependentUpon>EditDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GiveUpPopup.ascx.cs">
+      <DependentUpon>GiveUpPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\GiveUpPopup.ascx.designer.cs">
+      <DependentUpon>GiveUpPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ForceCloseTicketPopup.ascx.cs">
+      <DependentUpon>ForceCloseTicketPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ForceCloseTicketPopup.ascx.designer.cs">
+      <DependentUpon>ForceCloseTicketPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReOpenPopup.ascx.cs">
+      <DependentUpon>ReOpenPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ReOpenPopup.ascx.designer.cs">
+      <DependentUpon>ReOpenPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RequestMoreInfoPopup.ascx.cs">
+      <DependentUpon>RequestMoreInfoPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\RequestMoreInfoPopup.ascx.designer.cs">
+      <DependentUpon>RequestMoreInfoPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TagPicker.ascx.cs">
+      <DependentUpon>TagPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TagPicker.ascx.designer.cs">
+      <DependentUpon>TagPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TakeOverPopup.ascx.cs">
+      <DependentUpon>TakeOverPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TakeOverPopup.ascx.designer.cs">
+      <DependentUpon>TakeOverPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TicketList.ascx.cs">
+      <DependentUpon>TicketList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TicketList.ascx.designer.cs">
+      <DependentUpon>TicketList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmailTicketView.ascx.cs">
+      <DependentUpon>EmailTicketView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\EmailTicketView.ascx.designer.cs">
+      <DependentUpon>EmailTicketView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadAttachment.ashx.cs">
+      <DependentUpon>DownloadAttachment.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Extensions.cs" />
+    <Compile Include="Engine\Linq\TicketComment.cs" />
+    <Compile Include="Engine\Linq\TicketData.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketData.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Linq\TicketDataDataContext.cs" />
+    <Compile Include="Engine\NotificationManager.cs" />
+    <Compile Include="Engine\ProfileCommon.cs" />
+    <Compile Include="Engine\QueryStringNameValueCollection.cs" />
+    <Compile Include="Engine\SecurityManager.cs" />
+    <Compile Include="Engine\TagManager.cs" />
+    <Compile Include="Engine\User.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyTickets.aspx.cs">
+      <DependentUpon>MyTickets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyTickets.aspx.designer.cs">
+      <DependentUpon>MyTickets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewTicket.aspx.cs">
+      <DependentUpon>NewTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewTicket.aspx.designer.cs">
+      <DependentUpon>NewTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TagsAutoComplete.asmx.cs">
+      <DependentUpon>TagsAutoComplete.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TicketCenter.aspx.cs">
+      <DependentUpon>TicketCenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketCenter.aspx.designer.cs">
+      <DependentUpon>TicketCenter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketCenter.Master.cs">
+      <DependentUpon>TicketCenter.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketCenter.Master.designer.cs">
+      <DependentUpon>TicketCenter.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TicketDeskMain.Master.cs">
+      <DependentUpon>TicketDeskMain.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketDeskMain.Master.designer.cs">
+      <DependentUpon>TicketDeskMain.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TicketForm.ascx.cs">
+      <DependentUpon>TicketForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TicketForm.ascx.designer.cs">
+      <DependentUpon>TicketForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketSearch.aspx.cs">
+      <DependentUpon>TicketSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketSearch.aspx.designer.cs">
+      <DependentUpon>TicketSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoles.aspx.cs">
+      <DependentUpon>UserRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserRoles.aspx.designer.cs">
+      <DependentUpon>UserRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTicket.aspx.cs">
+      <DependentUpon>ViewTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewTicket.aspx.designer.cs">
+      <DependentUpon>ViewTicket.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Linq\TicketData.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>TicketData.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Copy of TicketDesk.mdf">
+    </Content>
+    <Content Include="App_Data\Copy of TicketDeskSecurity.MDF">
+    </Content>
+    <Content Include="App_Data\Copy of TicketDeskSecurity_log.ldf">
+      <DependentUpon>Copy of TicketDeskSecurity.MDF</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Copy of TicketDesk_log.ldf">
+      <DependentUpon>Copy of TicketDesk.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\StockUsers.txt" />
+    <Content Include="App_Data\TicketDeskSecurity_Reference.MDF">
+    </Content>
+    <Content Include="App_Data\TicketDeskSecurity_Reference_log.ldf">
+      <DependentUpon>TicketDeskSecurity_Reference.MDF</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SQL.txt" />
+    <Content Include="App_Data\TicketDesk.mdf">
+    </Content>
+    <Content Include="App_Data\TicketDeskSecurity.MDF">
+    </Content>
+    <Content Include="App_Data\TicketDeskSecurity_log.ldf">
+      <DependentUpon>TicketDeskSecurity.MDF</DependentUpon>
+    </Content>
+    <Content Include="App_Data\TicketDesk_log.ldf">
+      <DependentUpon>TicketDesk.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\TicketDesk_Reference.mdf">
+    </Content>
+    <Content Include="App_Data\TicketDesk_Reference_log.ldf">
+      <DependentUpon>TicketDesk_Reference.mdf</DependentUpon>
+    </Content>
+    <Content Include="WebAd.config" />
+    <None Include="App_Themes\TicketDeskTheme\TicketDeskLogo.psd" />
+    <Content Include="DownloadAttachment.ashx" />
+    <None Include="Engine\Linq\TicketData.dbml.layout">
+      <DependentUpon>TicketData.dbml</DependentUpon>
+    </None>
+    <Content Include="WebSql.config" />
+    <Content Include="Controls\Attachments.ascx" />
+    <Content Include="Controls\ChangeTitleTypePopup.ascx" />
+    <Content Include="Controls\ChangeAffectsCustomerPopup.ascx" />
+    <Content Include="Controls\DisplayTicket.ascx" />
+    <Content Include="Controls\EmailTicketView.ascx" />
+    <Content Include="Controls\Images\delete.gif" />
+    <Content Include="TicketCenter.Master" />
+    <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\GreenGradient.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\LeftMenuBar.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\MenuGradient.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\RightMenuBar.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\TicketDeskLogo.jpg" />
+    <Content Include="Controls\AddComment.ascx" />
+    <Content Include="Controls\AssignPopup.ascx" />
+    <Content Include="Controls\CancelMoreInfoPopup.ascx" />
+    <Content Include="Controls\ChangeDetailsPopup.ascx" />
+    <Content Include="Controls\CloseTicketPopup.ascx" />
+    <Content Include="Controls\ChangeOwnedByPopup.ascx" />
+    <Content Include="Controls\ChangeCategoryPopup.ascx" />
+    <Content Include="Controls\ChangeTagsPopup.ascx" />
+    <Content Include="Controls\ResolvePopup.ascx" />
+    <Content Include="Controls\EditDetails.ascx" />
+    <Content Include="Controls\GiveUpPopup.ascx" />
+    <Content Include="Controls\ForceCloseTicketPopup.ascx" />
+    <Content Include="Controls\ReOpenPopup.ascx" />
+    <Content Include="Controls\RequestMoreInfoPopup.ascx" />
+    <Content Include="Controls\Images\edit.gif" />
+    <Content Include="Controls\ChangePriorityPopup.ascx" />
+    <Content Include="Controls\TagPicker.ascx" />
+    <Content Include="Controls\TakeOverPopup.ascx" />
+    <Content Include="Controls\TicketList.ascx" />
+    <Content Include="MyTickets.aspx" />
+    <Content Include="App_Themes\TicketDeskTheme\main.css" />
+    <Content Include="Login.aspx" />
+    <Content Include="Services\TagsAutoComplete.asmx" />
+    <Content Include="TicketCenter.aspx" />
+    <Content Include="TicketDeskMain.Master" />
+    <Content Include="TicketSearch.aspx" />
+    <Content Include="UserRoles.aspx" />
+    <Content Include="ViewTicket.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AjaxControlToolkit\AjaxControlToolkit.csproj">
+      <Project>{B3B89160-3224-476E-9076-70B500C816CF}</Project>
+      <Name>AjaxControlToolkit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57359</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/TicketDesk</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,54 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TicketDeskMain.master.cs"
+    Inherits="TicketDesk.TicketDeskMain" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div class="HeadContainer">
+            <div id="WelcomeBox" runat="server" style="float: right; margin-top: 5px; margin-right: 10px;
+                white-space: nowrap;">
+                Welcome:
+                <asp:Label ID="UserDisplayNameLabel" runat="server" />
+                <span id="FormsStatusDisplayPanel" runat="server">|
+                    <asp:LoginStatus ID="LoginStatusControl" runat="server" />
+                    <span id="UserRolesDisplayPanel" runat="server">|
+                        <asp:HyperLink ID="UserRolesLink" runat="server" NavigateUrl="~/UserRoles.aspx" Text="Manage Users" />
+                    </span></span>
+            </div>
+        </div>
+        <div class="MenuContainer">
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: center; width: 25%;">
+                        <asp:HyperLink ID="TicketCenterLink" NavigateUrl="~/TicketCenter.aspx" runat="server"
+                            Text="Ticket Center" />
+                    </td>
+                    <td style="text-align: center; width: 25%;">
+                        <asp:HyperLink ID="MyTicketsLink" NavigateUrl="~/MyTickets.aspx" runat="server" Text="My Tickets" />
+                    </td>
+                    <td style="text-align: center; width: 25%;">
+                        <asp:HyperLink ID="TicketSearchLink" NavigateUrl="~/TicketSearch.aspx" runat="server"
+                            Text="Ticket Search" />
+                    </td>
+                    <td style="text-align: center; width: 25%;">
+                        <asp:HyperLink ID="NewTicketMenuLink" runat="server" NavigateUrl="NewTicket.aspx"
+                            Text="Submit new ticket" />
+                    </td>
+                    <%--<td style="text-align: center;">
+                        Knowledge Base
+                    </td>--%>
+                </tr>
+            </table>
+        </div>
+        <div class="ContentContainer">
+            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />
+        </div>
+    </div>
+    </form>
+</body>
+</html>

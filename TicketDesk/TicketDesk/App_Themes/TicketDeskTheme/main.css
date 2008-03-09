@@ -1,0 +1,312 @@
+﻿body
+{
+	margin: 0px;
+	font-family: Verdana, Helvetica, Arial, Sans-Serif;
+	font-size: 8pt;
+}
+p
+{
+	margin: 5px;
+}
+hr
+{
+	margin: 0px;
+}
+.HeadContainer
+{
+	padding: 5px;
+	height: 40px;
+	background-color: #CDF2B3;
+	background-image: url(  'TicketDeskLogo.jpg' );
+	background-repeat: no-repeat;
+}
+.MenuContainer
+{
+	background-image: url(  'CenterMenuBar.gif' );
+	background-repeat: repeat-x;
+	background-position: left;
+	padding: 3px;
+	border-top: solid 1px #A0A0A0;
+	border-left: solid 1px #A0A0A0;
+	border-right: solid 1px #A0A0A0;
+	background-color: #aaa8a8;
+	color: #ffffff;
+}
+.LeftMenu
+{
+	float: left;
+	width: 4px;
+	height: 25px;
+	background-image: url(  'LeftMenuBar.gif' );
+	background-repeat: no-repeat;
+	background-position: left;
+}
+
+.RightMenu
+{
+	float: right;
+	width: 4px;
+	height: 25px;
+	background-image: url(  'RightMenuBar.gif' );
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.MenuContainer a:link, .MenuContainer a:visited, .MenuContainer a:active
+{
+	color: #ffffff;
+}
+
+.SubMenuContainer
+{
+	border: solid 1px #A0A0A0;
+	background-color: #E6E6E6;
+	margin-bottom: 0px;
+}
+.SubContentContainer
+{
+}
+.ContentContainer
+{
+	padding: 5px;
+	
+	border: solid 1px #A0A0A0;
+}
+.MenuItem
+{
+	width: 25%;
+}
+
+.Block
+{
+	border: solid 1px #A0A0A0;
+	background-color: #ffffff;
+	margin: 3px;
+}
+
+.BlockHeader
+{
+	background-image: url(  'GreenGradient.gif' );
+	background-repeat: repeat-x;
+	background-position: bottom;
+	background-color: #CDF2B3;
+	padding: 3px;
+	font-size: 10pt;
+}
+
+.BlockSubHeader
+{
+	border-top: solid 1px #A0A0A0;
+	background-color: #FFFFDD;
+	padding: 3px;
+	font-size: 10pt;
+}
+
+.BlockBody
+{
+	padding: 3px;
+	border-top: solid 1px #A0A0A0;
+}
+
+
+
+
+.autocomplete_completionListElement
+{
+	visibility: hidden;
+	margin: 0px !important;
+	background-color: inherit;
+	color: windowtext;
+	border: buttonshadow;
+	border-width: 1px;
+	border-style: solid;
+	overflow: auto;
+	height: 200px;
+	text-align: left;
+	list-style-type: none;
+}
+
+/* AutoComplete highlighted item */
+
+.autocomplete_highlightedListItem
+{
+	background-color: #ffff99;
+	color: black;
+	padding: 1px;
+}
+
+/* AutoComplete item */
+
+.autocomplete_listItem
+{
+	background-color: window;
+	color: windowtext;
+	padding: 1px;
+}
+
+.ModalBackground
+{
+	background-color: Gray;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+
+.ModalPopupHandle
+{
+	text-align: center;
+	font-size: 10pt;
+	background-color: #CDF2B3;
+	padding: 3px;
+}
+
+.ModalPopup
+{
+	background-color: #ffffdd;
+	border-style: solid;
+	border-color: Gray;
+	padding: 3px;
+	width: 400px;
+}
+
+INPUT[type="text"], SELECT, textarea, INPUT[type="password"]
+{
+	border: 1px solid Silver;
+	font: 8pt verdana;
+	overflow: auto;
+}
+
+INPUT[type="button"], INPUT[type="submit"]
+{
+	border: 1px solid #000000;
+	font: 8pt verdana;
+	background-color: #F0F0F0;
+}
+
+ INPUT[type="file"]
+{
+	border: 1px solid #000000;
+	font: 8pt verdana;
+	
+}
+
+.CommentBox
+{
+}
+
+.CommentHead
+{
+	padding: 3px;
+	font-size: 9pt;
+	color: #416523;
+}
+.CommentSeperator
+{
+	color: #CDCDCD;
+	height: 1px;
+}
+.CommentText
+{
+	display: block;
+	padding-left: 15px;
+}
+.ListSearchGrid
+{
+	font-size: 7pt;
+	padding: 0px;
+}
+.ListSearch
+{
+	font-size: 7pt;
+	padding: 2px;
+}
+
+.TicketListAltRow
+{
+	background-color: #F1FCEE;
+	border-bottom: solid 1px #CDCDCD;
+}
+.TicketListRow
+{
+	background-color: #FFFFFF;
+	border-bottom: solid 1px #CDCDCD;
+}
+
+.TicketListAltRow td, .TicketListRow td
+{
+	border-bottom: solid 1px #CDCDCD;
+	white-space: nowrap;
+}
+
+.TicketListTable
+{
+	width: 100%;
+	background-color: #FFFFFF;
+	border-collapse: collapse;
+	border: solid 1px #A0A0A0;
+}
+
+.TicketListHeaderRow
+{
+	background-image: url(  'GreenGradient.gif' );
+	background-repeat: repeat-x;
+	background-position: bottom;
+	background-color: #CDF2B3;
+	color: #000000;
+}
+
+
+.TicketListHeaderRow th
+{
+	border-bottom: solid 1px #A0A0A0;
+}
+
+.TicketListPagerRow
+{
+	background-image: url(  'GreenGradient.gif' );
+	background-repeat: repeat-x;
+	background-position: bottom;
+	background-color: #CDF2B3;
+}
+
+.TicketListPagerRow td
+{
+	color: #000000;
+	border-top: solid 1px #A0A0A0;
+	text-align: center;
+	font-size: larger;
+}
+
+.SortLink:link, .SortLink:visited, .SortLink:active
+{
+	color: #3e62a6;
+}
+.SortLink:hover
+{
+	color: #ce8b10;
+}
+
+
+
+.SortDirectionIndicator
+{
+	font-size: 12pt;
+}
+
+
+.SearchTermsTable td
+{
+	padding-top: 15px;
+}
+
+.TagsListPanel
+{
+	margin-right: 15px;
+}
+
+
+
+a:link, a:visited, a:active
+{
+	color: #3e62a6;
+}
+

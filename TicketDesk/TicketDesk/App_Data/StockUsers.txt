@@ -1,0 +1,5 @@
+﻿user: admin
+pwd:  admin
+
+user: client
+pwd:  client

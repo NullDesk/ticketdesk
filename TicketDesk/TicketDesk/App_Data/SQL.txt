@@ -1,0 +1,114 @@
+﻿
+/****** Object:  Table [dbo].[Tickets]    Script Date: 03/08/2008 17:22:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tickets](
+	[TicketId] [int] IDENTITY(1,1) NOT NULL,
+	[Type] [nvarchar](50) NOT NULL,
+	[Category] [nvarchar](50) NOT NULL,
+	[Title] [nvarchar](500) NOT NULL,
+	[Details] [ntext] NOT NULL,
+	[IsHtml] [bit] NOT NULL CONSTRAINT [DF_Tickets_IsHtml]  DEFAULT ((0)),
+	[TagList] [nvarchar](100) NULL,
+	[CreatedBy] [nvarchar](100) NOT NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_Tickets_CreatedDate]  DEFAULT (getdate()),
+	[Owner] [nvarchar](100) NOT NULL,
+	[AssignedTo] [nvarchar](100) NULL,
+	[CurrentStatus] [nvarchar](50) NOT NULL,
+	[CurrentStatusDate] [datetime] NOT NULL,
+	[CurrentStatusSetBy] [nvarchar](100) NOT NULL,
+	[LastUpdateBy] [nvarchar](100) NOT NULL,
+	[LastUpdateDate] [datetime] NOT NULL,
+	[Priority] [nvarchar](25) NULL,
+	[AffectsCustomer] [bit] NOT NULL CONSTRAINT [DF_Tickets_AffectsCustomer]  DEFAULT ((0)),
+	[PublishedToKb] [bit] NOT NULL CONSTRAINT [DF_Tickets_PublishedToKb]  DEFAULT ((0)),
+	[Version] [timestamp] NOT NULL,
+ CONSTRAINT [PK_Tickets] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TicketAttachments]    Script Date: 03/08/2008 17:22:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[TicketAttachments](
+	[TicketId] [int] NOT NULL,
+	[FileId] [int] IDENTITY(1,1) NOT NULL,
+	[FileName] [nvarchar](255) NOT NULL,
+	[FileSize] [int] NOT NULL,
+	[FileType] [nvarchar](50) NOT NULL,
+	[UploadedBy] [nvarchar](100) NOT NULL,
+	[UploadedDate] [datetime] NOT NULL,
+	[FileContents] [varbinary](max) NOT NULL,
+ CONSTRAINT [PK_TicketAttachments] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC,
+	[FileId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[TicketTags]    Script Date: 03/08/2008 17:22:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TicketTags](
+	[TicketTagId] [int] IDENTITY(1,1) NOT NULL,
+	[TagName] [nvarchar](100) NOT NULL,
+	[TicketId] [int] NOT NULL,
+ CONSTRAINT [PK_TicketTags] PRIMARY KEY CLUSTERED 
+(
+	[TicketTagId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TicketComments]    Script Date: 03/08/2008 17:22:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TicketComments](
+	[TicketId] [int] NOT NULL,
+	[CommentId] [int] IDENTITY(1,1) NOT NULL,
+	[CommentEvent] [nvarchar](500) NULL,
+	[Comment] [ntext] NULL,
+	[IsHtml] [bit] NOT NULL CONSTRAINT [DF_TicketComments_IsHtml]  DEFAULT ((0)),
+	[CommentedBy] [nvarchar](100) NOT NULL,
+	[CommentedDate] [datetime] NOT NULL CONSTRAINT [DF_TicketComments_CommentDate]  DEFAULT (getdate()),
+	[Version] [timestamp] NOT NULL,
+ CONSTRAINT [PK_TicketComments] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC,
+	[CommentId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  ForeignKey [FK_TicketAttachments_Tickets]    Script Date: 03/08/2008 17:22:43 ******/
+ALTER TABLE [dbo].[TicketAttachments]  WITH CHECK ADD  CONSTRAINT [FK_TicketAttachments_Tickets] FOREIGN KEY([TicketId])
+REFERENCES [dbo].[Tickets] ([TicketId])
+GO
+ALTER TABLE [dbo].[TicketAttachments] CHECK CONSTRAINT [FK_TicketAttachments_Tickets]
+GO
+/****** Object:  ForeignKey [FK_TicketComments_Tickets]    Script Date: 03/08/2008 17:22:43 ******/
+ALTER TABLE [dbo].[TicketComments]  WITH CHECK ADD  CONSTRAINT [FK_TicketComments_Tickets] FOREIGN KEY([TicketId])
+REFERENCES [dbo].[Tickets] ([TicketId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[TicketComments] CHECK CONSTRAINT [FK_TicketComments_Tickets]
+GO
+/****** Object:  ForeignKey [FK_TicketTags_Tickets]    Script Date: 03/08/2008 17:22:43 ******/
+ALTER TABLE [dbo].[TicketTags]  WITH CHECK ADD  CONSTRAINT [FK_TicketTags_Tickets] FOREIGN KEY([TicketId])
+REFERENCES [dbo].[Tickets] ([TicketId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[TicketTags] CHECK CONSTRAINT [FK_TicketTags_Tickets]
+GO
