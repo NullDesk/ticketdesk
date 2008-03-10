@@ -376,7 +376,6 @@
       <DependentUpon>TicketDesk_Reference.mdf</DependentUpon>
     </Content>
     <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="bin\ar\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\cs\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\de\AjaxControlToolkit.resources.dll" />
