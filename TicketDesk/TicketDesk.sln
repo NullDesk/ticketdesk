@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk", "TicketDesk\TicketDesk.csproj", "{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxControlToolkit", "AjaxControlToolkit\AjaxControlToolkit.csproj", "{B3B89160-3224-476E-9076-70B500C816CF}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
@@ -30,12 +28,6 @@ Global
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3B89160-3224-476E-9076-70B500C816CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3B89160-3224-476E-9076-70B500C816CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3B89160-3224-476E-9076-70B500C816CF}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3B89160-3224-476E-9076-70B500C816CF}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{B3B89160-3224-476E-9076-70B500C816CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3B89160-3224-476E-9076-70B500C816CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

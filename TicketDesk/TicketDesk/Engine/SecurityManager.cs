@@ -1,21 +1,25 @@
-﻿using System;
-using System.Data;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://www.codeplex.com/TicketDesk/Project/License.aspx
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
-using System.Web.Configuration;
-using System.DirectoryServices;
-using System.Collections.Generic;
-using System.Text;
-using System.DirectoryServices.AccountManagement;
 using System.Web.Caching;
-using System.Collections.Specialized;
+using System.Web.Configuration;
+using System.Web.Security;
 
 namespace TicketDesk.Engine
 {

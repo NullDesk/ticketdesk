@@ -1,5 +1,19 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TicketList.ascx.cs"
     Inherits="TicketDesk.Controls.TicketList" %>
+<%  // TicketDesk - Attribution notice
+    // Contributor(s):
+    //
+    //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+    //
+    // This file is distributed under the terms of the Microsoft Public 
+    // License (Ms-PL). See http://www.codeplex.com/TicketDesk/Project/License.aspx
+    // for the complete terms of use. 
+    //
+    // For any distribution that contains code from this file, this notice of 
+    // attribution must remain intact, and a copy of the license must be 
+    // provided to the recipient.
+%>
+
 <div style="position: relative; float: right; margin-right:5px;">
     Items/page:<asp:DropDownList TabIndex="1" ID="PageSizeDropDownList" runat="server" AutoPostBack="true"
         OnLoad="PageSizeDropDownList_Load" OnSelectedIndexChanged="PageSizeDropDownList_SelectedIndexChanged">
