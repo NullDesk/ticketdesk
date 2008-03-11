@@ -16,7 +16,8 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
+<asp:ScriptManager runat="server">
+            </asp:ScriptManager>
     <div class="Block">
         <div class="BlockHeader">
             Manage User Roles
@@ -53,7 +54,12 @@
                                         <asp:CheckBoxList ID="UserRolesList" runat="server" AutoPostBack="True" 
                                             onselectedindexchanged="UserRolesList_SelectedIndexChanged">
                                         </asp:CheckBoxList>
+                                        <asp:Label ID="MessageLabel" runat="server" style="color:#ff0000;" />
                                         <br />
+                                    </div>
+                                    <div class="BlockBody">
+                                    <asp:Button ID="DeleteUserButton" runat="server" Text="Delete User" />
+                                    <ajaxToolkit:ConfirmButtonExtender ID="DeleteUserConfirm" ConfirmText="Are you sure you would like to delete this user (this action cannot be undone)?" runat="server" TargetControlID="DeleteUserButton" />
                                     </div>
                                 </div>
                             </asp:Panel>

@@ -30,6 +30,7 @@ namespace TicketDesk
             {
                 Page.Response.Redirect("~/", true);// this page can only be used with forms authentication. AD authentication assumes user managment happens outside the scope of the web application.
             }
+            MessageLabel.Text = string.Empty;
             if(!Page.IsPostBack)
             {
                 
@@ -70,7 +71,7 @@ namespace TicketDesk
                             Roles.CreateRole(li.Value);
                         }
                         Roles.AddUserToRole(UserListBox.SelectedValue, li.Value);
-
+                        
                     }
                 }
                 else
@@ -80,7 +81,9 @@ namespace TicketDesk
                         Roles.RemoveUserFromRole(UserListBox.SelectedValue, li.Value);
                     }
                 }
+                
             }
+            MessageLabel.Text = "Roles Changed!";
         }
 
 
