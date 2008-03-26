@@ -162,10 +162,10 @@
                         Text='<%# Eval("Title") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="OwnerLabel" runat="server" Text='<%# Eval("Owner") %>' />
+                    <asp:Label ID="OwnerLabel" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("Owner")) %>' />
                 </td>
                 <td>
-                    <asp:Label ID="AssignedToLabel" runat="server" Text='<%# Eval("AssignedTo") %>' />
+                    <asp:Label ID="AssignedToLabel" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("AssignedTo")) %>' />
                 </td>
                 <td>
                     <asp:Label ID="CurrentStatusLabel" runat="server" Text='<%# Eval("CurrentStatus") %>' />
