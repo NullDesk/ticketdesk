@@ -48,6 +48,10 @@ namespace TicketDesk.Controls
             ChangeTitleTypePopupControl.Visible = EnableEditControls;
             ChangeAffectsCustomerPopupControl.Visible = EnableEditControls;
             ChangeOwnedByPopupControl.Visible = EnableEditControls;
+            
+            AddCommentsContainer.Visible = EnableEditControls;
+            AttachmentsContainer.ColSpan = EnableEditControls ? 1 : 2;
+
             if(EnableEditControls)
             {
                 HookupEditControlEvents();
@@ -230,6 +234,8 @@ namespace TicketDesk.Controls
             {
                 TicketChanged();
             }
+            DisplayEditControls();
+            DisplayActionControls();
             PopulateDisplay();
         }
 

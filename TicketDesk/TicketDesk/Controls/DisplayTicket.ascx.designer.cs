@@ -329,6 +329,15 @@ namespace TicketDesk.Controls {
         protected global::System.Web.UI.WebControls.Label LastUpdateDate;
         
         /// <summary>
+        /// AddCommentsContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell AddCommentsContainer;
+        
+        /// <summary>
         /// AddCommentControl control.
         /// </summary>
         /// <remarks>
@@ -336,6 +345,15 @@ namespace TicketDesk.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::TicketDesk.Controls.AddComment AddCommentControl;
+        
+        /// <summary>
+        /// AttachmentsContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell AttachmentsContainer;
         
         /// <summary>
         /// AttachmentsControl control.

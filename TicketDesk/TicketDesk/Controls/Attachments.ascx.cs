@@ -25,7 +25,7 @@ namespace TicketDesk.Controls
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            AttachmentsUpdatePanel.Visible = (TicketToDisplay.CurrentStatus != "Closed");
+            AttachmentsUpdatePanel.Visible = (TicketToDisplay != null) && (TicketToDisplay.CurrentStatus != "Closed");
         }
 
         private Ticket _ticket;

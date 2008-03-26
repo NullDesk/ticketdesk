@@ -219,7 +219,7 @@
         <table style="width: 100%;">
             <tbody>
                 <tr>
-                    <td style="vertical-align: top; width: 60%;">
+                    <td style="vertical-align: top; width: 60%;"  id="AddCommentsContainer"  runat="server">
                         <div class="Block">
                             <div class="BlockHeader">
                                 Add Comment:
@@ -229,7 +229,7 @@
                             </div>
                         </div>
                     </td>
-                    <td style="vertical-align: top; width: 40%;">
+                    <td style="vertical-align: top; width: 40%;"  id="AttachmentsContainer"  runat="server">
                         <div class="Block">
                             <div class="BlockHeader">
                                 Attachments:
