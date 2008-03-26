@@ -48,7 +48,7 @@ namespace TicketDesk.Controls
                 ticket.Category = CategoryDropDownList.SelectedValue;
                 ticket.Title = TitleTextBox.Text;
                 ticket.IsHtml = false;
-                ticket.Details = EditDetailsControl.Details;
+                ticket.Details = Server.HtmlEncode(EditDetailsControl.Details);
                 if(!string.IsNullOrEmpty(PriorityDropDownList.SelectedValue))
                 {
                     ticket.Priority = PriorityDropDownList.SelectedValue;

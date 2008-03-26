@@ -70,7 +70,7 @@ namespace TicketDesk.Controls
             comment.CommentEvent = string.Format("has closed the ticket by force");
             if(CommentsTextBox.Text.Trim() != string.Empty)
             {
-                comment.Comment = CommentsTextBox.Text.Trim();
+                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
             }
             
 
@@ -79,7 +79,7 @@ namespace TicketDesk.Controls
             comment.IsHtml = false;
             if(CommentsTextBox.Text.Trim() != string.Empty)
             {
-                comment.Comment = CommentsTextBox.Text.Trim();
+                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
             }
 
             TicketToDisplay.TicketComments.Add(comment);

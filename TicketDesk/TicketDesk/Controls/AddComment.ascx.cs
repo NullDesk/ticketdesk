@@ -73,7 +73,7 @@ namespace TicketDesk.Controls
             }
             
             comment.IsHtml = false;
-            comment.Comment = AddCommentsTextBox.Text.Trim();
+            comment.Comment = Server.HtmlEncode(AddCommentsTextBox.Text).Trim();
             AddCommentsTextBox.Text = string.Empty;
             TicketToDisplay.TicketComments.Add(comment);
 

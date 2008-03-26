@@ -48,7 +48,7 @@ namespace TicketDesk.Controls
                 }
                 else
                 {
-                    EditDetailsControl.Details = TicketToDisplay.Details.FormatAsHtml();
+                    EditDetailsControl.Details = TicketToDisplay.Details;
                 }
             }
 
@@ -65,7 +65,7 @@ namespace TicketDesk.Controls
         {
             if(Page.IsValid)
             {
-                TicketToDisplay.Details = EditDetailsControl.Details;
+                TicketToDisplay.Details = Server.HtmlEncode(EditDetailsControl.Details);
                 TicketToDisplay.IsHtml = false;
 
                 TicketComment comment = new TicketComment();
@@ -78,7 +78,7 @@ namespace TicketDesk.Controls
                 comment.IsHtml = false;
                 if(CommentsTextBox.Text.Trim() != string.Empty)
                 {
-                    comment.Comment = CommentsTextBox.Text.Trim();
+                    comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
                 }
                 else
                 {

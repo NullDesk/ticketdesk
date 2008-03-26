@@ -89,7 +89,7 @@ namespace TicketDesk.Controls
             comment.IsHtml = false;
             if(CommentsTextBox.Text.Trim() != string.Empty)
             {
-                comment.Comment = CommentsTextBox.Text.Trim();
+                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
             }
             else
             {
