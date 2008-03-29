@@ -27,6 +27,11 @@ namespace TicketDesk
             {
                 StaffUserList.Items.AddRange(GetStaffUserList());
                 SubmitterUserList.Items.AddRange(GetSubmitterUserList());
+                CategoryList.DataSource = SettingsManager.CategoriesList;
+                CategoryList.DataBind();
+                TypeList.DataSource = SettingsManager.TicketTypesList;
+                TypeList.DataBind();
+
             }
             else
             {

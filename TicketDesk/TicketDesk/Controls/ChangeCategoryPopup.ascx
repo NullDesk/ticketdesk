@@ -34,8 +34,7 @@
             <asp:RequiredFieldValidator ValidationGroup="CategoryChangePopup" ID="RequiredFieldValidator1"
                 runat="server" ErrorMessage="You must choose a Category." ControlToValidate="CategoryList"
                 Display="Dynamic" Text="*" /><asp:RadioButtonList ValidationGroup="CategoryChangePopup"
-                    ID="CategoryList" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                </asp:RadioButtonList>
+                    ID="CategoryList" runat="server" RepeatDirection="Vertical" RepeatLayout="Flow" />
             
             <br />
             <br />

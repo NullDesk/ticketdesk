@@ -1,0 +1,23 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/TicketDeskMain.Master" AutoEventWireup="true"
+    CodeBehind="Admin.master.cs" Inherits="TicketDesk.Admin.Admin" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+    <div class="SubMenuContainer">
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <td>
+                        <asp:HyperLink ID="AdminHomeLink" runat="server" NavigateUrl="Default.aspx" Text="Admin Home" />
+                        |
+                        <asp:HyperLink ID="SettingsLink" runat="server" NavigateUrl="Settings.aspx" Text="Site Settings" />
+                        <span id="UsersLinkContainer" runat="server">|
+                            <asp:HyperLink ID="UsersLink" runat="server" NavigateUrl="UserRoles.aspx" Text="Users & Roles" />
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <asp:ContentPlaceHolder ID="AdminContentPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>

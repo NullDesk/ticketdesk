@@ -92,6 +92,7 @@ hr
 	background-color: #CDF2B3;
 	padding: 3px;
 	font-size: 10pt;
+	font-weight:bold;
 }
 
 .BlockSubHeader
@@ -136,6 +137,36 @@ hr
 }
 
 /* AutoComplete item */
+
+
+.reorderList
+{
+	white-space:nowrap;
+}
+.reorderList li 
+{
+	font-size:larger;
+	list-style:none;
+}
+.reorderListCallbackStyle 
+{
+	border:thin blue inset;	
+}
+.reorderListCallbackStyle table 
+{
+	background-color:#5377A9;	
+	color:Black;
+}
+
+.DragHandle
+{
+	margin:3px;
+	height:15px;
+	width:15px;
+	background-image:url('body_bg.gif');
+	background-repeat:repeat;
+	
+}
 
 .autocomplete_listItem
 {
@@ -310,3 +341,31 @@ a:link, a:visited, a:active
 	color: #3e62a6;
 }
 
+.WarningText
+{
+	color:#ff0000;
+}
+
+.AdminItemContainer_Settings
+{
+	background-image:url('Setting.jpg');
+	background-position:left;
+	background-repeat:no-repeat;
+	padding-left:55px;
+	padding-top:35px;
+	width:100%;
+	height:50px;
+	
+}
+
+.AdminItemContainer_Users
+{
+	background-image:url('users.jpg');
+	background-position:left;
+	background-repeat:no-repeat;
+	padding-left:55px;
+	padding-top:35px;
+	width:100%;
+	height:50px;
+	
+}

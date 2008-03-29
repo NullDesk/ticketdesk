@@ -90,11 +90,8 @@
                                             Category:
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="CategoryList" runat="server">
+                                            <asp:DropDownList ID="CategoryList" runat="server" AppendDataBoundItems="true">
                                                 <asp:ListItem Text="Any Category" Value="any" />
-                                                <asp:ListItem Text="Hardware" Value="Hardware" />
-                                                <asp:ListItem Text="Software" Value="Software" />
-                                                <asp:ListItem Text="Network/Services" Value="Network/Services" />
                                             </asp:DropDownList>
                                         </td>
                                         <td style="width: 15px;">
@@ -112,11 +109,9 @@
                                             Type:
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="TypeList" runat="server">
+                                            <asp:DropDownList ID="TypeList" runat="server" AppendDataBoundItems="true">
                                                 <asp:ListItem Text="Any Type" Value="any" />
-                                                <asp:ListItem Text="Question" Value="Question" />
-                                                <asp:ListItem Text="Problem" Value="Problem" />
-                                                <asp:ListItem Text="Request" Value="Request" />
+                                              
                                             </asp:DropDownList>
                                         </td>
                                         <td style="width: 15px;">

@@ -77,13 +77,13 @@ namespace TicketDesk {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl UserRolesDisplayPanel;
         
         /// <summary>
-        /// UserRolesLink control.
+        /// AdminLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink UserRolesLink;
+        protected global::System.Web.UI.WebControls.HyperLink AdminLink;
         
         /// <summary>
         /// TicketCenterLink control.

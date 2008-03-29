@@ -5,9 +5,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk", "TicketDesk\Ti
 EndProject
 Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "TicketDesk.csproj_deploy", "TicketDesk.csproj_deploy\TicketDesk.csproj_deploy.wdproj", "{90585EB6-3A33-4070-8BD7-19F0F0D0C269}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxControlToolkit", "AjaxControlToolkit\AjaxControlToolkit.csproj", "{B3B89160-3224-476E-9076-70B500C816CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AjaxToolKitRequiredBinaries", "AjaxToolKitRequiredBinaries", "{D0ACAAD0-CC9F-47C8-B4AB-7EB2C308F6D4}"
+	ProjectSection(SolutionItems) = preProject
+		Binaries\BuildVsi.dll = Binaries\BuildVsi.dll
+		Binaries\JavaScriptCommentStripper.dll = Binaries\JavaScriptCommentStripper.dll
+		Binaries\Microsoft.Web.Testing.dll = Binaries\Microsoft.Web.Testing.dll
+		Binaries\Tools.dll = Binaries\Tools.dll
+		Binaries\Tools.netmodule = Binaries\Tools.netmodule
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -17,6 +28,9 @@ Global
 		SccProjectUniqueName2 = TicketDesk.csproj_deploy\\TicketDesk.csproj_deploy.wdproj
 		SccProjectName2 = TicketDesk.csproj_deploy
 		SccLocalPath2 = TicketDesk.csproj_deploy
+		SccProjectUniqueName3 = AjaxControlToolkit\\AjaxControlToolkit.csproj
+		SccProjectName3 = AjaxControlToolkit
+		SccLocalPath3 = AjaxControlToolkit
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +54,14 @@ Global
 		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.FullPreCompile|Any CPU.Build.0 = FullPreCompile|Any CPU
 		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Release|Any CPU.ActiveCfg = FullPreCompile|Any CPU
 		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Release|Any CPU.Build.0 = FullPreCompile|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.EditablePreCompile|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.EditablePreCompile|Any CPU.Build.0 = Release|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.FullPreCompile|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.FullPreCompile|Any CPU.Build.0 = Release|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B89160-3224-476E-9076-70B500C816CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

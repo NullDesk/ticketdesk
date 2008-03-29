@@ -59,17 +59,14 @@ namespace TicketDesk.Controls
         {
             PriorityList.SelectedIndex = -1;
             PriorityList.Items.Clear();
-            if(TicketToDisplay.Priority != "Low")
+
+            string[] priorities = SettingsManager.PrioritiesList;
+            foreach(string p in priorities)
             {
-                PriorityList.Items.Add("Low");
-            }
-            if(TicketToDisplay.Priority != "Medium")
-            {
-                PriorityList.Items.Add("Medium");
-            }
-            if(TicketToDisplay.Priority != "High")
-            {
-                PriorityList.Items.Add("High");
+                if(TicketToDisplay.Priority != p)
+                {
+                    PriorityList.Items.Add(p);
+                }
             }
         }
 

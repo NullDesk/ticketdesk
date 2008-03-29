@@ -32,9 +32,7 @@
         <div style="padding: 5px;">
             <br />
             Type:<asp:DropDownList ValidationGroup="TitleTypeChangePopup" ID="TypeDropDownList" runat="server" style="width:200px;">
-                <asp:ListItem Text="Question" Value="Question" />
-                <asp:ListItem Text="Problem" Value="Problem" />
-                <asp:ListItem Text="Request" Value="Request" />
+                
             </asp:DropDownList>
             <br /><br />
             Title:<br />

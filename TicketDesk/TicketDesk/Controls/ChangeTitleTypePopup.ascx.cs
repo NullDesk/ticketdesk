@@ -13,6 +13,8 @@
 using System;
 using System.Web.UI;
 using TicketDesk.Engine.Linq;
+using TicketDesk.Engine;
+using System.Web.UI.WebControls;
 
 namespace TicketDesk.Controls
 {
@@ -47,7 +49,13 @@ namespace TicketDesk.Controls
             if(!Page.IsPostBack && Visible)
             {
                 TypeDropDownList.SelectedIndex = -1;
-                TypeDropDownList.Items.FindByValue(TicketToDisplay.Type).Selected = true;
+                TypeDropDownList.DataSource = SettingsManager.TicketTypesList;
+                TypeDropDownList.DataBind();
+                ListItem item = TypeDropDownList.Items.FindByValue(TicketToDisplay.Type);
+                if(item != null)
+                {
+                    item.Selected = true;
+                }
                 TitleTextBox.Text = TicketToDisplay.Title;
             }
         }

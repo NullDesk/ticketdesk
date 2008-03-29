@@ -35,8 +35,7 @@
             <asp:RequiredFieldValidator ValidationGroup="PriorityChangePopup" ID="RequiredFieldValidator1"
                 runat="server" ErrorMessage="You must choose a priority." ControlToValidate="PriorityList"
                 Display="Dynamic" Text="*" /><asp:RadioButtonList ValidationGroup="PriorityChangePopup"
-                    ID="PriorityList" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                </asp:RadioButtonList>
+                    ID="PriorityList" runat="server" RepeatDirection="Vertical" RepeatLayout="Flow" />
             
             <br />
             <br />

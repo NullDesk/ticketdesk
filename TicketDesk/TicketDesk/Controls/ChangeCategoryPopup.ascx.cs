@@ -13,6 +13,7 @@
 using System;
 using System.Web.UI;
 using TicketDesk.Engine.Linq;
+using TicketDesk.Engine;
 
 namespace TicketDesk.Controls
 {
@@ -44,7 +45,6 @@ namespace TicketDesk.Controls
             if(!Page.IsPostBack && Visible)
             {
                 BuildCategoryList();
-                
             }
            
         }
@@ -53,17 +53,12 @@ namespace TicketDesk.Controls
         {
             CategoryList.SelectedIndex = -1;
             CategoryList.Items.Clear();
-            if(TicketToDisplay.Category != "Hardware")
+            foreach(string c in SettingsManager.CategoriesList)
             {
-                CategoryList.Items.Add("Hardware");
-            }
-            if(TicketToDisplay.Category != "Software")
-            {
-                CategoryList.Items.Add("Software");
-            }
-            if(TicketToDisplay.Category != "Network/Services")
-            {
-                CategoryList.Items.Add("Network/Services");
+                if(TicketToDisplay.Category != c)
+                {
+                    CategoryList.Items.Add(c);
+                }
             }
         }
 

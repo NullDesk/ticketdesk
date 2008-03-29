@@ -28,8 +28,19 @@ namespace TicketDesk.Controls
             {
                 
                 bool EnableFullMode = (SecurityManager.IsStaffOrAdmin);
-                PriorityDropDownList.Enabled = (SecurityManager.SubmitterCanEditPriority || EnableFullMode);
+                
+                TypeDropDownList.DataSource = SettingsManager.TicketTypesList;
+                TypeDropDownList.DataBind();
 
+                PriorityDropDownList.DataSource = SettingsManager.PrioritiesList;
+                PriorityDropDownList.DataBind();
+
+                CategoryDropDownList.DataSource = SettingsManager.CategoriesList;
+                CategoryDropDownList.DataBind();
+
+                PriorityDropDownList.Enabled = (SecurityManager.SubmitterCanEditPriority || EnableFullMode);
+                
+                
                 OwnerUpdatePanel.Visible = EnableFullMode;
 
                 OwnerDropDownList.Items.AddRange(GetOwnerUserList());

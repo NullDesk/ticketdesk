@@ -42,6 +42,9 @@ namespace TicketDesk.Engine.Linq
     partial void InsertTicket(Ticket instance);
     partial void UpdateTicket(Ticket instance);
     partial void DeleteTicket(Ticket instance);
+    partial void InsertSetting(Setting instance);
+    partial void UpdateSetting(Setting instance);
+    partial void DeleteSetting(Setting instance);
     #endregion
 		
 		public TicketDataDataContext() : 
@@ -103,6 +106,14 @@ namespace TicketDesk.Engine.Linq
 			get
 			{
 				return this.GetTable<Ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Setting> Settings
+		{
+			get
+			{
+				return this.GetTable<Setting>();
 			}
 		}
 	}
@@ -1399,6 +1410,92 @@ namespace TicketDesk.Engine.Linq
 		{
 			this.SendPropertyChanging();
 			entity.Ticket = null;
+		}
+	}
+	
+	[Table(Name="dbo.Settings")]
+	public partial class Setting : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SettingName;
+		
+		private string _SettingValue;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSettingNameChanging(string value);
+    partial void OnSettingNameChanged();
+    partial void OnSettingValueChanging(string value);
+    partial void OnSettingValueChanged();
+    #endregion
+		
+		public Setting()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_SettingName", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SettingName
+		{
+			get
+			{
+				return this._SettingName;
+			}
+			set
+			{
+				if ((this._SettingName != value))
+				{
+					this.OnSettingNameChanging(value);
+					this.SendPropertyChanging();
+					this._SettingName = value;
+					this.SendPropertyChanged("SettingName");
+					this.OnSettingNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_SettingValue", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string SettingValue
+		{
+			get
+			{
+				return this._SettingValue;
+			}
+			set
+			{
+				if ((this._SettingValue != value))
+				{
+					this.OnSettingValueChanging(value);
+					this.SendPropertyChanging();
+					this._SettingValue = value;
+					this.SendPropertyChanged("SettingValue");
+					this.OnSettingValueChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

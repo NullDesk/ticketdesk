@@ -35,15 +35,12 @@
                         Set Priority:
                     </td>
                     <td>
-                        <asp:RequiredFieldValidator ValidationGroup="AssignPopup" ID="RequiredFieldValidator1"
+                        <asp:RequiredFieldValidator ValidationGroup="TakeOverPopup" ID="RequiredFieldValidator1"
                             runat="server" ErrorMessage="You must choose a priority." ControlToValidate="PriorityList"
                             Display="Dynamic" Text="*" />
-                        <asp:RadioButtonList ValidationGroup="AssignPopup" ID="PriorityList" runat="server"
-                            RepeatDirection="Horizontal" RepeatLayout="Flow">
-                            <asp:ListItem Text="Low" Value="Low" Selected="True" />
-                            <asp:ListItem Text="Medium" Value="Medium" />
-                            <asp:ListItem Text="High" Value="High" />
-                        </asp:RadioButtonList>
+                        <asp:RadioButtonList ValidationGroup="TakeOverPopup" ID="PriorityList" runat="server"
+                            RepeatDirection="Vertical" RepeatLayout="Flow" />
+                           
                     </td>
                 </tr>
                 <tr>

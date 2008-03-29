@@ -55,7 +55,8 @@ namespace TicketDesk.Controls
 
             if(!Page.IsPostBack)
             {
-
+                PriorityList.DataSource = SettingsManager.PrioritiesList;
+                PriorityList.DataBind();
             }
         }
 

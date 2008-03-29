@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="TicketDesk" Class="TicketDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\TicketDesk.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TicketDeskConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|TicketDesk.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TicketDeskConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.TicketAttachments" Member="TicketAttachments">
     <Type Name="TicketAttachment">
       <Column Name="TicketId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -60,6 +60,12 @@
       <Association Name="Ticket_TicketAttachment" Member="TicketAttachments" OtherKey="TicketId" Type="TicketAttachment" />
       <Association Name="Ticket_TicketTag" Member="TicketTags" OtherKey="TicketId" Type="TicketTag" />
       <Association Name="Ticket_TicketComment" Member="TicketComments" OtherKey="TicketId" Type="TicketComment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Settings" Member="Settings">
+    <Type Name="Setting">
+      <Column Name="SettingName" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SettingValue" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

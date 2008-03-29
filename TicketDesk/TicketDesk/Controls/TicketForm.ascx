@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TicketForm.ascx.cs"
     Inherits="TicketDesk.Controls.TicketForm" %>
-<%@ Register src="TagPicker.ascx" tagname="TagPicker" tagprefix="uc1" %>
-
-<%@ Register src="EditDetails.ascx" tagname="EditDetails" tagprefix="uc2" %>
+<%@ Register Src="TagPicker.ascx" TagName="TagPicker" TagPrefix="uc1" %>
+<%@ Register Src="EditDetails.ascx" TagName="EditDetails" TagPrefix="uc2" %>
 <%  // TicketDesk - Attribution notice
     // Contributor(s):
     //
@@ -16,7 +15,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManager runat="server" ID="ajaxScriptManager">
 </asp:ScriptManager>
 <table cellpadding="2" style="width: 950px;">
@@ -58,27 +56,19 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:DropDownList ID="TypeDropDownList" runat="server">
+                                <asp:DropDownList ID="TypeDropDownList" AppendDataBoundItems="true" runat="server">
                                     <asp:ListItem Text="-- select --" Value="-" Selected="True" />
-                                    <asp:ListItem Text="Question" Value="Question" />
-                                    <asp:ListItem Text="Problem" Value="Problem" />
-                                    <asp:ListItem Text="Request" Value="Request" />
+                                   
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:DropDownList ID="CategoryDropDownList" runat="server">
+                                <asp:DropDownList ID="CategoryDropDownList" runat="server" AppendDataBoundItems="true">
                                     <asp:ListItem Text="-- select --" Value="-" Selected="True" />
-                                    <asp:ListItem Text="Hardware" Value="Hardware" />
-                                    <asp:ListItem Text="Software" Value="Software" />
-                                    <asp:ListItem Text="Network/Services" Value="Network/Services" />
                                 </asp:DropDownList>
                             </td>
                             <td>
-                                <asp:DropDownList ID="PriorityDropDownList" runat="server">
+                                <asp:DropDownList ID="PriorityDropDownList" runat="server" AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" Selected="True" />
-                                    <asp:ListItem Text="Low" Value="Low" />
-                                    <asp:ListItem Text="Medium" Value="Low" />
-                                    <asp:ListItem Text="High" Value="Low" />
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -91,18 +81,13 @@
         </tr>
         <tr>
             <td>
-                
                 <uc2:EditDetails ID="EditDetailsControl" runat="server" />
-                
             </td>
         </tr>
         <tr>
             <td>
-               
             </td>
         </tr>
-        
-       
         <tr>
             <td>
                 <asp:UpdatePanel ID="OwnerUpdatePanel" runat="server">
@@ -140,5 +125,3 @@
         </tr>
     </tbody>
 </table>
-
-

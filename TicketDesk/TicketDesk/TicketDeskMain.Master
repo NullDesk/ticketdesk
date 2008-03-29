@@ -30,7 +30,7 @@
                 <span id="FormsStatusDisplayPanel" runat="server">|
                     <asp:LoginStatus ID="LoginStatusControl" runat="server" />
                     <span id="UserRolesDisplayPanel" runat="server">|
-                        <asp:HyperLink ID="UserRolesLink" runat="server" NavigateUrl="~/UserRoles.aspx" Text="Manage Users" />
+                        <asp:HyperLink ID="AdminLink" runat="server" NavigateUrl="~/Admin/Default.aspx" Text="Administration" />
                     </span></span>
             </div>
         </div>

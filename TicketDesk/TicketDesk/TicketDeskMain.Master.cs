@@ -28,7 +28,7 @@ namespace TicketDesk
 
                 UserDisplayNameLabel.Text = Page.User.Identity.GetUserDisplayName();
                 FormsStatusDisplayPanel.Visible = (authenticationSection.Mode == AuthenticationMode.Forms);
-                UserRolesDisplayPanel.Visible = (authenticationSection.Mode == AuthenticationMode.Forms) && (SecurityManager.IsAdmin);
+                UserRolesDisplayPanel.Visible = (SecurityManager.IsAdmin);
                 LoginStatusControl.Visible = (authenticationSection.Mode == AuthenticationMode.Forms);
             }
             else
