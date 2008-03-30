@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TicketDeskMain.master.cs"
     Inherits="TicketDesk.TicketDeskMain" %>
+
 <%  // TicketDesk - Attribution notice
     // Contributor(s):
     //
@@ -13,7 +14,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -29,9 +29,9 @@
                 <asp:Label ID="UserDisplayNameLabel" runat="server" />
                 <span id="FormsStatusDisplayPanel" runat="server">|
                     <asp:LoginStatus ID="LoginStatusControl" runat="server" />
-                    <span id="UserRolesDisplayPanel" runat="server">|
-                        <asp:HyperLink ID="AdminLink" runat="server" NavigateUrl="~/Admin/Default.aspx" Text="Administration" />
-                    </span></span>
+                </span><span id="UserRolesDisplayPanel" runat="server">|
+                    <asp:HyperLink ID="AdminLink" runat="server" NavigateUrl="~/Admin/Default.aspx" Text="Administration" />
+                </span>
             </div>
         </div>
         <div class="MenuContainer">

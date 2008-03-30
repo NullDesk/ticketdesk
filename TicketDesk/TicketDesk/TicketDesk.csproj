@@ -392,7 +392,7 @@
     <Content Include="Admin\Settings.aspx" />
     <Content Include="Admin\UserRoles.aspx" />
     <Content Include="App_Data\StockUsers.txt" />
-    <Content Include="App_Data\SQL.txt" />
+    <Content Include="App_Data\NewInstallSQL.txt" />
     <Content Include="App_Data\TicketDesk.mdf">
     </Content>
     <Content Include="App_Data\TicketDeskSecurity.MDF">
@@ -413,6 +413,7 @@
     <Content Include="ReadMe.txt" />
     <Content Include="WebAd.config" />
     <Content Include="Admin\Admin.Master" />
+    <None Include="App_Data\Update_1.0_to_1.1.SQL" />
     <None Include="App_Themes\TicketDeskTheme\TicketDeskLogo.psd" />
     <Content Include="DownloadAttachment.ashx" />
     <None Include="Engine\Linq\TicketData.dbml.layout">
