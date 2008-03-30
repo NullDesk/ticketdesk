@@ -291,6 +291,7 @@
       <DependentUpon>DownloadAttachment.ashx</DependentUpon>
     </Compile>
     <Compile Include="Engine\Extensions.cs" />
+    <Compile Include="Engine\Linq\Ticket.cs" />
     <Compile Include="Engine\Linq\TicketComment.cs" />
     <Compile Include="Engine\Linq\TicketData.designer.cs">
       <AutoGen>True</AutoGen>

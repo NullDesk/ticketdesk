@@ -59,22 +59,14 @@ namespace TicketDesk.Engine
 
                 TicketComment comment = ticket.TicketComments.Single(tc => tc.CommentedDate == (ticket.TicketComments.Max(tcm => tcm.CommentedDate)));
 
-                List<MailAddress> addressesToSendTo = new List<MailAddress>();
-                if(!string.IsNullOrEmpty(ticket.Owner) && ticket.Owner != ticket.LastUpdateBy)
-                {
-                    AddEmailForUser(ticket.Owner, addressesToSendTo);
-                }
-                if(!string.IsNullOrEmpty(ticket.AssignedTo) && ticket.AssignedTo != ticket.LastUpdateBy)
-                {
-                    AddEmailForUser(ticket.AssignedTo, addressesToSendTo);
-                }
+               
                 string displayFrom = ConfigurationManager.AppSettings["FromEmailDisplayName"];
                 string addressFrom = ConfigurationManager.AppSettings["FromEmailAddress"];
                 MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
 
                 string subject = string.Format("Ticket {0} changed - {1} {2}", ticket.TicketId.ToString(), comment.CommentedBy, comment.CommentEvent);
                 string body = string.Format("{0}{1}{2}", "<html><head></head><body>", stringBuilder.ToString(), "</body></html>");
-                foreach(MailAddress toAddr in addressesToSendTo)
+                foreach(MailAddress toAddr in ticket.GetNotificationEmailAddressesForUsers())
                 {
                     MailMessage msg = new MailMessage(fromAddr, toAddr);
                     msg.Subject = subject;
@@ -95,20 +87,6 @@ namespace TicketDesk.Engine
             }
         }
 
-        /// <summary>
-        /// Adds the email address for a user to a list of addresses.
-        /// </summary>
-        /// <param name="user">The user whose email should be added.</param>
-        /// <param name="addressesToSendTo">The collection of addresses to 
-        /// add the user's email address to.</param>
-        private static void AddEmailForUser(string user, List<MailAddress> addressesToSendTo)
-        {
-            string email = SecurityManager.GetUserEmailAddress(user);
-            if(!string.IsNullOrEmpty(email))
-            {
-                MailAddress addy = new MailAddress(email, SecurityManager.GetUserDisplayName(user));
-                addressesToSendTo.Add(addy);
-            }
-        }
+        
     }
 }
