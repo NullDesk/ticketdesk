@@ -68,7 +68,17 @@ namespace TicketDesk.Engine
             {
                 userName = GetAdUserProperty(userName, "displayName");
             }
-
+            else
+            {
+                if(!string.IsNullOrEmpty(userName))
+                {
+                    MembershipUser user = Membership.GetUser(userName);
+                    if(user != null && !string.IsNullOrEmpty(user.Comment))
+                    {
+                        userName = user.Comment;
+                    }
+                }
+            }
             return userName;
         }
 

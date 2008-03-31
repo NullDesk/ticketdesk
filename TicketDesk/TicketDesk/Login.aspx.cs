@@ -15,6 +15,7 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace TicketDesk
 {
@@ -22,6 +23,10 @@ namespace TicketDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!Page.IsPostBack)
+            {
+                LoginForm.Focus();
+            }
             AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
 
             if(authenticationSection.Mode != AuthenticationMode.Forms)
@@ -32,6 +37,11 @@ namespace TicketDesk
 
         protected void CreateUserForm_CreatedUser(object sender, EventArgs e)
         {
+            MembershipUser user = Membership.GetUser(CreateUserForm.UserName);
+            TextBox tb = (TextBox)CreateUserForm.CreateUserStep.ContentTemplateContainer.FindControl("DisplayName");
+            user.Comment = tb.Text;
+            Membership.UpdateUser(user);
+
             if(Convert.ToBoolean(ConfigurationManager.AppSettings["CreateSqlMembershipRegistrationsAsSubmitters"]))
             {
                 string defaultRole = ConfigurationManager.AppSettings["TicketSubmittersRoleName"];
@@ -42,6 +52,11 @@ namespace TicketDesk
                 Roles.AddUserToRole(CreateUserForm.UserName, defaultRole);
             }
             FormsAuthentication.RedirectFromLoginPage(CreateUserForm.UserName,false);
+        }
+
+        protected void CreateUserForm_CreatingUser(object sender, System.Web.UI.WebControls.LoginCancelEventArgs e)
+        {
+            
         }
 
         

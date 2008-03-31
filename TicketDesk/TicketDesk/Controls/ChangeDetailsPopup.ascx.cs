@@ -51,10 +51,7 @@ namespace TicketDesk.Controls
                     EditDetailsControl.Details = Server.HtmlDecode(TicketToDisplay.Details);
                 }
             }
-
         }
-
-        
 
         /// <summary>
         /// Handles the Click event of the ChangePriorityButton control.
