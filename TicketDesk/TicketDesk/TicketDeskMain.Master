@@ -1,4 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TicketDeskMain.master.cs"
+﻿
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TicketDeskMain.master.cs"
     Inherits="TicketDesk.TicketDeskMain" %>
 
 <%  // TicketDesk - Attribution notice
@@ -28,7 +29,8 @@
                 Welcome:
                 <asp:Label ID="UserDisplayNameLabel" runat="server" />
                 <span id="FormsStatusDisplayPanel" runat="server">|
-                    <asp:LoginStatus ID="LoginStatusControl" runat="server" />
+                    <asp:LoginStatus ID="LoginStatusControl" runat="server" /> |
+                    <asp:HyperLink ID="EditMyAccountLink" runat="server" NavigateUrl="~/MyAccount.aspx" Text="My Account" />
                 </span><span id="UserRolesDisplayPanel" runat="server">|
                     <asp:HyperLink ID="AdminLink" runat="server" NavigateUrl="~/Admin/Default.aspx" Text="Administration" />
                 </span>

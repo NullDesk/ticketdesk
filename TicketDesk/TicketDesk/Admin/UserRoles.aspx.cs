@@ -33,7 +33,7 @@ namespace TicketDesk
             MessageLabel.Text = string.Empty;
             if(!Page.IsPostBack)
             {
-                
+
 
                 MembershipUserCollection uc = Membership.GetAllUsers();
 
@@ -71,7 +71,7 @@ namespace TicketDesk
                             Roles.CreateRole(li.Value);
                         }
                         Roles.AddUserToRole(UserListBox.SelectedValue, li.Value);
-                        
+
                     }
                 }
                 else
@@ -81,9 +81,29 @@ namespace TicketDesk
                         Roles.RemoveUserFromRole(UserListBox.SelectedValue, li.Value);
                     }
                 }
-                
+
             }
             MessageLabel.Text = "Roles Changed!";
+        }
+
+        protected void DeleteUserButton_Click(object sender, EventArgs e)
+        {
+
+            if(Membership.DeleteUser(UserListBox.SelectedValue, true))
+            {
+                MessageLabel.Text = string.Format("User '{0}' has been Deleted", UserListBox.SelectedValue);
+
+                MembershipUserCollection uc = Membership.GetAllUsers();
+
+                UserRolesPanel.Visible = false;
+                UserListBox.SelectedIndex = -1;
+                UserListBox.DataSource = Membership.GetAllUsers();
+                UserListBox.DataBind();
+            }
+            else
+            {
+                MessageLabel.Text = "Failed to delete user!";
+            }
         }
 
 

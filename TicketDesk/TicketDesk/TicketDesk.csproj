@@ -313,6 +313,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MyAccount.aspx.cs">
+      <DependentUpon>MyAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyAccount.aspx.designer.cs">
+      <DependentUpon>MyAccount.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MyTickets.aspx.cs">
       <DependentUpon>MyTickets.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -411,6 +418,7 @@
     <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="Controls\Images\save.gif" />
     <Content Include="License.txt" />
+    <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
     <Content Include="WebAd.config" />
     <Content Include="Admin\Admin.Master" />

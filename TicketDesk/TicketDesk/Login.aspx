@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/TicketDeskMain.Master" Theme="TicketDeskTheme"
+﻿<%@ Page Language="C#" MasterPageFile="~/TicketDeskMain.Master" Title="Login" Theme="TicketDeskTheme"
     AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TicketDesk.Login" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainContentPlaceHolder">

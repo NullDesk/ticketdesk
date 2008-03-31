@@ -68,6 +68,15 @@ namespace TicketDesk {
         protected global::System.Web.UI.WebControls.LoginStatus LoginStatusControl;
         
         /// <summary>
+        /// EditMyAccountLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink EditMyAccountLink;
+        
+        /// <summary>
         /// UserRolesDisplayPanel control.
         /// </summary>
         /// <remarks>

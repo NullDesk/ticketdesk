@@ -1,5 +1,18 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TicketTypesEditor.ascx.cs"
     Inherits="TicketDesk.Admin.Controls.TicketTypesEditor" %>
+<%  // TicketDesk - Attribution notice
+    // Contributor(s):
+    //
+    //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+    //
+    // This file is distributed under the terms of the Microsoft Public 
+    // License (Ms-PL). See http://www.codeplex.com/TicketDesk/Project/License.aspx
+    // for the complete terms of use. 
+    //
+    // For any distribution that contains code from this file, this notice of 
+    // attribution must remain intact, and a copy of the license must be 
+    // provided to the recipient.
+%>
 <asp:ScriptManagerProxy ID="TicketTypesEditorScriptManagerProxy" runat="server">
 </asp:ScriptManagerProxy>
 <asp:UpdatePanel ID="TicketTypesEditorUpdatePanel" runat="server">
@@ -24,13 +37,15 @@
                                         CommandName="edit" />
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="TypeNameTextBox" runat="server" Text='<%# Container.DataItem %>' />
-                                    <asp:ImageButton ID="SaveType" ToolTip="Save Type" runat="server" ImageUrl="~/Controls/Images/save.gif"
-                                        CommandName="update" />
+                                    <asp:Panel ID="ButtonGroupPanel" runat="server" DefaultButton="SaveType">
+                                        <asp:TextBox ID="TypeNameTextBox" runat="server" Text='<%# Container.DataItem %>' />
+                                        <asp:ImageButton ID="SaveType" ToolTip="Save Type" runat="server" ImageUrl="~/Controls/Images/save.gif"
+                                            CommandName="update" /></asp:Panel>
                                 </EditItemTemplate>
                                 <InsertItemTemplate>
-                                    <asp:TextBox ID="AddTypeNameTextBox" runat="server" />
-                                    <asp:Button ID="AddType" runat="server" Text="Add" CommandName="insert" />
+                                    <asp:Panel ID="ButtonGroupPanel" runat="server" DefaultButton="AddType">
+                                        <asp:TextBox ID="AddTypeNameTextBox" runat="server" />
+                                        <asp:Button ID="AddType" runat="server" Text="Add" CommandName="insert" /></asp:Panel>
                                 </InsertItemTemplate>
                             </ajaxToolkit:ReorderList>
                             <asp:Label ID="Message" runat="server" CssClass="WarningText" />
@@ -56,6 +71,5 @@
                 </tr>
             </tbody>
         </table>
-        
     </ContentTemplate>
 </asp:UpdatePanel>

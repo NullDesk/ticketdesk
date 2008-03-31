@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" Theme="TicketDeskTheme" MasterPageFile="~/TicketCenter.Master"
     AutoEventWireup="true" CodeBehind="TicketCenter.aspx.cs" Inherits="TicketDesk.TicketCenter"
-    Title="Untitled Page" %>
+    %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="Controls/TicketList.ascx" TagName="TicketList" TagPrefix="uc1" %>

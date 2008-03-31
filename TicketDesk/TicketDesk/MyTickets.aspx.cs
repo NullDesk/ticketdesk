@@ -33,22 +33,26 @@ namespace TicketDesk
             switch(viewMode)
             {
                 case "open":
+                    Page.Title = "My Tickets - Open";
                     OpenTicketsMenuLink.Font.Bold = true;
                     MyOpenTicketsLinqDataSource.WhereParameters["UserName"].DefaultValue = Page.User.Identity.GetFormattedUserName();
                     TicketListControl.DataSourceID = "MyOpenTicketsLinqDataSource";
                     
                     break;
                 case "owned":
+                    Page.Title = "My Tickets - Owned by Me";
                     OwnedTicketsMenuLink.Font.Bold = true;
                     MySubmittedTicketsLinqDataSource.WhereParameters["UserName"].DefaultValue = Page.User.Identity.GetFormattedUserName();
                     TicketListControl.DataSourceID = "MySubmittedTicketsLinqDataSource";
                     break;
                 case "assigned":
+                    Page.Title = "My Tickets - Assigned to Me";
                     AssignedTicketsMenuLink.Font.Bold = true;
                     MyAssignedTicketsLinqDataSource.WhereParameters["UserName"].DefaultValue = Page.User.Identity.GetFormattedUserName();
                     TicketListControl.DataSourceID = "MyAssignedTicketsLinqDataSource";
                     break;
                 case "all":
+                    Page.Title = "My Tickets - All My Tickets";
                     AllTicketsMenuLink.Font.Bold = true;
                     MyAllTicketsLinqDataSource.WhereParameters["UserName"].DefaultValue = Page.User.Identity.GetFormattedUserName();
                     TicketListControl.DataSourceID = "MyAllTicketsLinqDataSource";

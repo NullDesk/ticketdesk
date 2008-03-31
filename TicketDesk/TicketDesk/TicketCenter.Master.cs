@@ -23,21 +23,19 @@ namespace TicketDesk
             {
                 case "unassigned":
                     UnassignedTicketsMenuLink.Font.Bold = true;
+                    Page.Title = "Ticket Center - Unassigned Tickets";
                     break;
                 case "assigned":
                     AssignedTicketsMenuLink.Font.Bold = true;
+                    Page.Title = "Ticket Center - Assigned Tickets";
                     break;
                 case "status":
                     StatusTicketsMenuLink.Font.Bold = true;
+                    Page.Title = "Ticket Center - Tickets by Status";
                     break;
-                //case "resolved":
-                //    ResolvedTicketsMenuLink.Font.Bold = true;
-                //    break;
-                //case "closed":
-                //    ClosedTicketsMenuLink.Font.Bold = true;
-                //    break;
                 case "tagsandcategories":
                     TagsTicketMenuLink.Font.Bold = true;
+                    Page.Title = "Ticket Center - Tags & Categories";
                     break;
             }
         }

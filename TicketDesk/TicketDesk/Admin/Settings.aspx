@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" Theme="TicketDeskTheme" MasterPageFile="~/Admin/Admin.Master"
     AutoEventWireup="true" CodeBehind="Settings.aspx.cs" Inherits="TicketDesk.Admin.Settings"
-    Title="Untitled Page" %>
+    Title="TicketDesk Site Settings" %>
 
 <%@ Register Src="Controls/TicketTypesEditor.ascx" TagName="TicketTypesEditor" TagPrefix="ticketDesk" %>
 <%@ Register Src="Controls/TicketCategoriesEditor.ascx" TagName="TicketCategoriesEditor"
@@ -28,7 +28,7 @@
     <ajaxToolkit:Accordion ID="SettingsAccordion" runat="server" SelectedIndex="0" CssClass="Block"
         HeaderCssClass="BlockHeader" HeaderSelectedCssClass="BlockHeader" ContentCssClass="BlockBody"
         FadeTransitions="false" FramesPerSecond="40" TransitionDuration="250" AutoSize="None"
-        RequireOpenedPane="false" SuppressHeaderPostbacks="true">
+        RequireOpenedPane="true" SuppressHeaderPostbacks="true">
         <Panes>
             <ajaxToolkit:AccordionPane ID="AccordionPane1" runat="server">
                 <Header>

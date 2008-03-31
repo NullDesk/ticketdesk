@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Theme="TicketDeskTheme" MasterPageFile="~/TicketDeskMain.Master"
+﻿<%@ Page Language="C#" Theme="TicketDeskTheme" Title="Submit New Ticket" MasterPageFile="~/TicketDeskMain.Master"
     AutoEventWireup="true"  CodeBehind="NewTicket.aspx.cs" Inherits="TicketDesk.NewTicket" %>
 
 <%@ Register Src="Controls/TicketForm.ascx" TagName="TicketForm" TagPrefix="uc1" %>
