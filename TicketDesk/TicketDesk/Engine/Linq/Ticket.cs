@@ -48,7 +48,7 @@ namespace TicketDesk.Engine.Linq
         /// <returns></returns>
         public List<MailAddress> GetNotificationEmailAddressesForUsers(params string[] additionalUsers)
         {
-            List<MailAddress> addresses = null;
+            List<MailAddress> addresses = new List<MailAddress>();
             AddNotificationEmailAddress(Owner);
             AddNotificationEmailAddress(AssignedTo);
             foreach(string user in additionalUsers)
@@ -57,7 +57,7 @@ namespace TicketDesk.Engine.Linq
             }
             if(notificationAddresses.Count > 0)
             {
-                addresses = notificationAddresses.Values.ToList();
+                addresses.AddRange(notificationAddresses.Values.ToList());
             }
             return addresses;
         }
