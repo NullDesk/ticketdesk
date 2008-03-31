@@ -48,7 +48,7 @@ namespace TicketDesk.Controls
                 }
                 else
                 {
-                    EditDetailsControl.Details = TicketToDisplay.Details;
+                    EditDetailsControl.Details = Server.HtmlDecode(TicketToDisplay.Details);
                 }
             }
 
