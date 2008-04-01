@@ -1,4 +1,28 @@
-﻿Installation:
+﻿Upgrade:
+
+	To upgrade TicketDesk 1.0 to 1.1:
+	
+	     * Copy the updated web application files to the web server.
+	     
+         * Run the scrip "/app_data/Update_1.0_to_1.1.SQL" against your database
+         
+		 * Edit the web.config as appropriate (see the section Configuration section for more info)
+		 
+		      - Please note, the web.config contains a new section that you may need to edit:
+		      
+		          <location path="Admin">
+					<system.web>
+					  <authorization>
+						<allow roles="Administrators"/>
+						<deny users="*"/>
+					  </authorization>
+					</system.web>
+				  </location>
+				  
+				  
+				You will need to put the correct role name for your SQL role or AD group to allow admin users access to the new admin tools. 
+
+Installation:
 
     Pre-compiled distributions: 
     	
@@ -83,6 +107,8 @@ Configuration:
             		
             * <authorization> This specifies which roles are allowed to access TicketDesk. If you customize the role names in the <appsettings> section you will also have to change the roles in <authorization> as well.
     		
+    		* <location path="Admin"><system.web><authorization> specifies which role is allows to access the admin pages. 
+    		
     Configuration Settings with Active Directory Security:
 
         The WebAd.config file contains the settings that are needed when using TicketDesk with Active Directory security. 
@@ -105,6 +131,7 @@ Configuration:
 
             * <authorization> This specifies which AD groups are allowed to access TicketDesk. These should be the same group names as are specified in the <appsettings> section.
     		
+    		* <location path="Admin"><system.web><authorization> specifies which AD group is allowed to access the admin pages. 
 	
 Security 
 
