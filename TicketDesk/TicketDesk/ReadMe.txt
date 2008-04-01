@@ -148,8 +148,6 @@ Security
         User name = Admin
         Password = admin
         	
-        There is currently no change-password feature:
-        	
         You should create a new account, promote it to the admin role then remove the default admin account.
 	
     AD Security: 
