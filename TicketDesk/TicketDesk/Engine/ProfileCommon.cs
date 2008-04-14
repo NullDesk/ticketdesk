@@ -12,6 +12,8 @@
 // provided to the recipient.
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
+using System.Text;
 
 namespace TicketDesk.Engine
 {
@@ -26,6 +28,11 @@ namespace TicketDesk.Engine
     /// </remarks>
     public class ProfileCommon
     {
+
+
+        
+
+
         /// <summary>
         /// Gets or sets the ticket list sort field.
         /// </summary>
@@ -33,44 +40,19 @@ namespace TicketDesk.Engine
         /// The default is the LastUpdateDate if not specified in the user's profile nor web.config
         /// </remarks>
         /// <value>The ticket list sort field.</value>
-        public string TicketListSortField
+        public string TicketListSortExpressions
         {
             get
             {
-                if(HttpContext.Current.Profile.GetPropertyValue("TicketListSortField") == null)
-                {
-                    return "LastUpdateDate";
-                }
-                return (string)HttpContext.Current.Profile.GetPropertyValue("TicketListSortField");
+                return (string)HttpContext.Current.Profile.GetPropertyValue("TicketListSortExpressions");
             }
             set
             {
-                HttpContext.Current.Profile.SetPropertyValue("TicketListSortField", value);
+                HttpContext.Current.Profile.SetPropertyValue("TicketListSortExpressions", value);
             }
         }
 
-        /// <summary>
-        /// Gets or sets the ticket list sort direction.
-        /// </summary>
-        /// <remarks>
-        /// The default is a descending sort if not specified in the user's profile nor web.config
-        /// </remarks>
-        /// <value>The ticket list sort direction.</value>
-        public System.Web.UI.WebControls.SortDirection TicketListSortDirection
-        {
-            get
-            {
-                if(HttpContext.Current.Profile.GetPropertyValue("TicketListSortDirection") == null)
-                {
-                    return SortDirection.Descending;
-                }
-                return (System.Web.UI.WebControls.SortDirection)HttpContext.Current.Profile.GetPropertyValue("TicketListSortDirection");
-            }
-            set
-            {
-                HttpContext.Current.Profile.SetPropertyValue("TicketListSortDirection", value);
-            }
-        }
+      
 
         /// <summary>
         /// Gets or sets the ticket list items per page.

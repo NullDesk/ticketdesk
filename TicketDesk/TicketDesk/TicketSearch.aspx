@@ -2,145 +2,150 @@
     AutoEventWireup="true" CodeBehind="TicketSearch.aspx.cs" Inherits="TicketDesk.TicketSearch"
     Title="Ticket Search" %>
 
-<%@ Register Src="Controls/TicketList.ascx" TagName="TicketList" TagPrefix="uc1" %>
+<%@ Register Src="Controls/TicketList.ascx" TagName="TicketList" TagPrefix="TicketDesk" %>
+<%@ Register Src="Controls/ComplexSortEditor.ascx" TagName="ComplexSortEditor" TagPrefix="TicketDesk" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-<%  // TicketDesk - Attribution notice
-    // Contributor(s):
-    //
-    //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
-    //
-    // This file is distributed under the terms of the Microsoft Public 
-    // License (Ms-PL). See http://www.codeplex.com/TicketDesk/Project/License.aspx
-    // for the complete terms of use. 
-    //
-    // For any distribution that contains code from this file, this notice of 
-    // attribution must remain intact, and a copy of the license must be 
-    // provided to the recipient.
-%>
-
+    <%  // TicketDesk - Attribution notice
+        // Contributor(s):
+        //
+        //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+        //
+        // This file is distributed under the terms of the Microsoft Public 
+        // License (Ms-PL). See http://www.codeplex.com/TicketDesk/Project/License.aspx
+        // for the complete terms of use. 
+        //
+        // For any distribution that contains code from this file, this notice of 
+        // attribution must remain intact, and a copy of the license must be 
+        // provided to the recipient.
+    %>
     <asp:ScriptManager runat="server">
     </asp:ScriptManager>
-    <div class="Block">
-        <div class="BlockHeader">
-            Select your search options:</div>
-        <div class="BlockBody">
-            <table >
-                <tbody>
-                    <tr>
-                        <td>
-                            <table cellpadding="3">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Search For:<asp:RequiredFieldValidator runat="server" ControlToValidate="SearchTerms" Text="*" ErrorMessage="Search words must be provided." /><br />
-                                            <asp:TextBox Style="width: 350px;" ID="SearchTerms" runat="server"></asp:TextBox>
-                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:CheckBox ID="SearchTitleCheckBox" runat="server" Checked="true" Text="Search Title" />
-                                            <asp:CheckBox ID="SearchDetailsCheckBox" runat="server" Checked="false" Text="Search Details" />
-                                            <asp:CheckBox ID="SearchTagsCheckBox" runat="server" Checked="false" Text="Search Tags" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <asp:Button ID="SearchNow" runat="server" Text="Search" OnClick="SearchNow_Click" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td>
-                            <table cellpadding="3">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Status:
-                                        </td>
-                                        <td>
-                                            <asp:DropDownList ID="StatusList" runat="server">
-                                                <asp:ListItem Text="Any Status" Value="Any" />
-                                                <asp:ListItem Text="Not Closed" Value="Open" />
-                                                <asp:ListItem Text="Only Active" Value="Active" />
-                                                <asp:ListItem Text="Only More Info" Value="More Info" />
-                                                <asp:ListItem Text="Only Resolved" Value="Resolved" />
-                                                <asp:ListItem Text="Only Closed" Value="Closed" />
-                                            </asp:DropDownList>
-                                        </td>
-                                        <td style="width: 15px;">
-                                            &nbsp;
-                                        </td>
-                                        <td>
-                                            Assigned To:
-                                        </td>
-                                        <td>
-                                            <asp:DropDownList ID="StaffUserList" Style="width: 150px;" AppendDataBoundItems="true"
-                                                runat="server">
-                                                <asp:ListItem Text="Anyone" Value="any" />
-                                            </asp:DropDownList>
-                                            <ajaxToolkit:ListSearchExtender ID="StaffListSearchExtender" runat="server" PromptCssClass="ListSearch"
-                                                TargetControlID="StaffUserList">
-                                            </ajaxToolkit:ListSearchExtender>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Category:
-                                        </td>
-                                        <td>
-                                            <asp:DropDownList ID="CategoryList" runat="server" AppendDataBoundItems="true">
-                                                <asp:ListItem Text="Any Category" Value="any" />
-                                            </asp:DropDownList>
-                                        </td>
-                                        <td style="width: 15px;">
-                                            &nbsp;
-                                        </td>
-                                        <td>
-                                           &nbsp;
-                                        </td>
-                                        <td>
-                                          &nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Type:
-                                        </td>
-                                        <td>
-                                            <asp:DropDownList ID="TypeList" runat="server" AppendDataBoundItems="true">
-                                                <asp:ListItem Text="Any Type" Value="any" />
-                                              
-                                            </asp:DropDownList>
-                                        </td>
-                                        <td style="width: 15px;">
-                                            &nbsp;
-                                        </td>
-                                        <td>
-                                             Owned By:
-                                        </td>
-                                        <td>
-                                              <asp:DropDownList ID="SubmitterUserList" Style="width: 150px;" AppendDataBoundItems="true"
-                                                runat="server">
-                                                <asp:ListItem Text="Anyone" Value="any" />
-                                            </asp:DropDownList>
-                                            <ajaxToolkit:ListSearchExtender ID="SubmitterListSearchExtender" runat="server" PromptCssClass="ListSearch"
-                                                TargetControlID="SubmitterUserList">
-                                            </ajaxToolkit:ListSearchExtender>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div runat="server" id="TicketSearchResults" visible="false">
-        <uc1:TicketList ID="TicketListControl" runat="server" />
-    </div>
+    <br />
+    <asp:UpdatePanel ID="TicketSearchUpdatePanel" runat="server">
+        <ContentTemplate>
+            <div class="Block">
+                <div class="BlockHeader">
+                    Select your search options:</div>
+                <div class="BlockBody">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table cellpadding="3">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Search For:<asp:RequiredFieldValidator runat="server" ControlToValidate="SearchTerms"
+                                                        Text="*" ErrorMessage="Search words must be provided." /><br />
+                                                    <asp:TextBox Style="width: 350px;" ID="SearchTerms" runat="server"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:CheckBox ID="SearchTitleCheckBox" runat="server" Checked="true" Text="Search Title" />
+                                                    <asp:CheckBox ID="SearchDetailsCheckBox" runat="server" Checked="false" Text="Search Details" />
+                                                    <asp:CheckBox ID="SearchTagsCheckBox" runat="server" Checked="false" Text="Search Tags" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:Button ID="SearchNow" runat="server" Text="Search" OnClick="SearchNow_Click" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table cellpadding="3">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Status:
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="StatusList" runat="server">
+                                                        <asp:ListItem Text="Any Status" Value="Any" />
+                                                        <asp:ListItem Text="Not Closed" Value="Open" />
+                                                        <asp:ListItem Text="Only Active" Value="Active" />
+                                                        <asp:ListItem Text="Only More Info" Value="More Info" />
+                                                        <asp:ListItem Text="Only Resolved" Value="Resolved" />
+                                                        <asp:ListItem Text="Only Closed" Value="Closed" />
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td style="width: 15px;">
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    Assigned To:
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="StaffUserList" Style="width: 150px;" AppendDataBoundItems="true"
+                                                        runat="server">
+                                                        <asp:ListItem Text="Anyone" Value="any" />
+                                                    </asp:DropDownList>
+                                                    <ajaxToolkit:ListSearchExtender ID="StaffListSearchExtender" runat="server" PromptCssClass="ListSearch"
+                                                        TargetControlID="StaffUserList">
+                                                    </ajaxToolkit:ListSearchExtender>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Category:
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="CategoryList" runat="server" AppendDataBoundItems="true">
+                                                        <asp:ListItem Text="Any Category" Value="any" />
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td style="width: 15px;">
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Type:
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="TypeList" runat="server" AppendDataBoundItems="true">
+                                                        <asp:ListItem Text="Any Type" Value="any" />
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td style="width: 15px;">
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    Owned By:
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="SubmitterUserList" Style="width: 150px;" AppendDataBoundItems="true"
+                                                        runat="server">
+                                                        <asp:ListItem Text="Anyone" Value="any" />
+                                                    </asp:DropDownList>
+                                                    <ajaxToolkit:ListSearchExtender ID="SubmitterListSearchExtender" runat="server" PromptCssClass="ListSearch"
+                                                        TargetControlID="SubmitterUserList">
+                                                    </ajaxToolkit:ListSearchExtender>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div runat="server" id="TicketSearchResults" visible="false">
+                <TicketDesk:ComplexSortEditor ID="SortEditor" runat="server" />
+                <TicketDesk:TicketList ID="TicketListControl" runat="server" />
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <asp:LinqDataSource ID="SearchTicketsLinqDataSource" runat="server" ContextTypeName="TicketDesk.Engine.Linq.TicketDataDataContext"
         Select="new (TicketId, Type, Category, Title, Owner, AssignedTo, CurrentStatus, AffectsCustomer, Priority, CreatedDate, LastUpdateDate)"
         TableName="Tickets">

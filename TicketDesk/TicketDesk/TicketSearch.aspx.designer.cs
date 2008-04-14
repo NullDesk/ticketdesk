@@ -14,6 +14,15 @@ namespace TicketDesk {
     public partial class TicketSearch {
         
         /// <summary>
+        /// TicketSearchUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel TicketSearchUpdatePanel;
+        
+        /// <summary>
         /// SearchTerms control.
         /// </summary>
         /// <remarks>
@@ -129,6 +138,15 @@ namespace TicketDesk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl TicketSearchResults;
+        
+        /// <summary>
+        /// SortEditor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Controls.ComplexSortEditor SortEditor;
         
         /// <summary>
         /// TicketListControl control.

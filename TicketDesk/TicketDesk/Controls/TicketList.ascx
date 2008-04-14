@@ -13,10 +13,12 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
-<div style="position: relative; float: right; margin-right:5px;">
-    Items/page:<asp:DropDownList TabIndex="1" ID="PageSizeDropDownList" runat="server" AutoPostBack="true"
-        OnLoad="PageSizeDropDownList_Load" OnSelectedIndexChanged="PageSizeDropDownList_SelectedIndexChanged">
+<asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
+</asp:ScriptManagerProxy>
+<div style="position: relative; float: right; margin-right: 5px;">
+  
+    Items/page:<asp:DropDownList TabIndex="1" ID="PageSizeDropDownList" runat="server"
+        AutoPostBack="true" OnLoad="PageSizeDropDownList_Load" OnSelectedIndexChanged="PageSizeDropDownList_SelectedIndexChanged">
         <asp:ListItem Text="10" Value="10"></asp:ListItem>
         <asp:ListItem Text="20" Value="20"></asp:ListItem>
         <asp:ListItem Text="30" Value="30"></asp:ListItem>
@@ -25,7 +27,8 @@
     </asp:DropDownList>
 </div>
 <div style="clear: both;">
-    <asp:ListView ID="TicketListView" runat="server" OnSorted="TicketListView_Sorted">
+    <asp:ListView ID="TicketListView" runat="server" 
+        onitemcommand="TicketListView_ItemCommand">
         <AlternatingItemTemplate>
             <tr class="TicketListAltRow">
                 <td>
@@ -68,52 +71,52 @@
                         <table id="itemPlaceholderContainer" runat="server" border="0" cellpadding="3" class="TicketListTable">
                             <tr runat="server" class="TicketListHeaderRow">
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="TicketIdSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="TicketIdSortLink" CommandName="ChangeSort"
                                         CommandArgument="TicketId" Text="ID" OnLoad="SortLinkLoading" /><asp:Label ID="SortDirectionTicketId"
                                             runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="TypeSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="TypeSortLink" CommandName="ChangeSort"
                                         CommandArgument="Type" Text="Type" OnLoad="SortLinkLoading" /><asp:Label ID="SortDirectionType"
                                             runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server" style="width: 100%; white-space: normal;">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="TitleSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="TitleSortLink" CommandName="ChangeSort"
                                         CommandArgument="Title" Text="Title" OnLoad="SortLinkLoading" /><asp:Label ID="SortDirectionTitle"
                                             runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="OwnerSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="OwnerSortLink" CommandName="ChangeSort"
                                         CommandArgument="Owner" Text="Owner" OnLoad="SortLinkLoading" /><asp:Label ID="SortDirectionOwner"
                                             runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="AssignedToSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="AssignedToSortLink" CommandName="ChangeSort"
                                         CommandArgument="AssignedTo" Text="Assigned" OnLoad="SortLinkLoading" /><asp:Label
                                             ID="SortDirectionAssignedTo" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="CurrentStatusSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="CurrentStatusSortLink" CommandName="ChangeSort"
                                         CommandArgument="CurrentStatus" OnLoad="SortLinkLoading" Text="Status" /><asp:Label
                                             ID="SortDirectionCurrentStatus" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="CategorySortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="CategorySortLink" CommandName="ChangeSort"
                                         CommandArgument="Category" Text="Category" OnLoad="SortLinkLoading" /><asp:Label
                                             ID="SortDirectionCategory" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="PrioritySortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="PrioritySortLink" CommandName="ChangeSort"
                                         CommandArgument="Priority" Text="Priority" OnLoad="SortLinkLoading" /><asp:Label
                                             ID="SortDirectionPriority" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="CreatedDateSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="CreatedDateSortLink" CommandName="ChangeSort"
                                         CommandArgument="CreatedDate" Text="Created" OnLoad="SortLinkLoading" /><asp:Label
                                             ID="SortDirectionCreatedDate" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
                                 <th runat="server">
-                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="LastUpdateDateSortLink" CommandName="Sort"
+                                    <asp:LinkButton runat="server" CssClass="SortLink" ID="LastUpdateDateSortLink" CommandName="ChangeSort"
                                         CommandArgument="LastUpdateDate" Text="Updated" OnLoad="SortLinkLoading" /><asp:Label
                                             ID="SortDirectionLastUpdateDate" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>

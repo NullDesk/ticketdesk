@@ -203,6 +203,13 @@
     <Compile Include="Controls\ChangeAffectsCustomerPopup.ascx.designer.cs">
       <DependentUpon>ChangeAffectsCustomerPopup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ComplexSortEditor.ascx.cs">
+      <DependentUpon>ComplexSortEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ComplexSortEditor.ascx.designer.cs">
+      <DependentUpon>ComplexSortEditor.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DisplayTicket.ascx.cs">
       <DependentUpon>DisplayTicket.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -304,6 +311,8 @@
     <Compile Include="Engine\QueryStringNameValueCollection.cs" />
     <Compile Include="Engine\SecurityManager.cs" />
     <Compile Include="Engine\SettingsManager.cs" />
+    <Compile Include="Engine\UserSort.cs" />
+    <Compile Include="Engine\UserSortExpressions.cs" />
     <Compile Include="Engine\TagManager.cs" />
     <Compile Include="Engine\User.cs" />
     <Compile Include="Login.aspx.cs">
@@ -416,7 +425,13 @@
     <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="Controls\ComplexSortEditor.ascx" />
+    <Content Include="Controls\Images\edit.gif" />
+    <Content Include="Controls\Images\delete.gif" />
+    <Content Include="Controls\Images\editor_small.gif" />
     <Content Include="Controls\Images\save.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\settings.gif" />
+    <Content Include="Controls\Images\swap.gif" />
     <Content Include="License.txt" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
@@ -434,7 +449,7 @@
     <Content Include="Controls\ChangeAffectsCustomerPopup.ascx" />
     <Content Include="Controls\DisplayTicket.ascx" />
     <Content Include="Controls\EmailTicketView.ascx" />
-    <Content Include="Controls\Images\delete.gif" />
+    <Content Include="Controls\Images\delete2.gif" />
     <Content Include="TicketCenter.Master" />
     <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />
     <Content Include="App_Themes\TicketDeskTheme\GreenGradient.gif" />
@@ -456,7 +471,7 @@
     <Content Include="Controls\ForceCloseTicketPopup.ascx" />
     <Content Include="Controls\ReOpenPopup.ascx" />
     <Content Include="Controls\RequestMoreInfoPopup.ascx" />
-    <Content Include="Controls\Images\edit.gif" />
+    <Content Include="Controls\Images\edit2.gif" />
     <Content Include="Controls\ChangePriorityPopup.ascx" />
     <Content Include="Controls\TagPicker.ascx" />
     <Content Include="Controls\TakeOverPopup.ascx" />

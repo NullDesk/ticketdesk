@@ -23,7 +23,7 @@ namespace TicketDesk
         TicketDataDataContext ctx = new TicketDataDataContext();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            SortEditor.TicketListControl = TicketListControl;
             AssignedSubMenuCell.Visible = SecurityManager.IsStaffOrAdmin;
             OwnedSubMenuCell.Visible = SecurityManager.IsStaffOrAdmin;
 

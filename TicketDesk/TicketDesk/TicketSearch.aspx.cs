@@ -22,7 +22,8 @@ namespace TicketDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            TicketListControl.DataSourceID = "";
+            TicketListControl.DataSourceID = "SearchTicketsLinqDataSource";
+            SortEditor.TicketListControl = TicketListControl;
             if(!Page.IsPostBack)
             {
                 StaffUserList.Items.AddRange(GetStaffUserList());
@@ -108,7 +109,7 @@ namespace TicketDesk
                         a = string.Format(" && ({0})", string.Join(" && ", andTerms.ToArray()));
                     }
                     SearchTicketsLinqDataSource.Where = s + a;
-                    TicketListControl.DataSourceID = "SearchTicketsLinqDataSource";
+                    
 
                     TicketListControl.ShowList();
                 }

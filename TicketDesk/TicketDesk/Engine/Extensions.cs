@@ -11,6 +11,9 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Web.UI;
+using System.Web.UI.MobileControls;
+using System.Collections.Generic;
 namespace TicketDesk.Engine
 {
     /// <summary>
@@ -76,7 +79,35 @@ namespace TicketDesk.Engine
             }
         }
 
+        public static List<Control> GetControls(this Control control, bool includeChildren)
+        {
+            Control[] ctrlArr = new Control[control.Controls.Count];
+            control.Controls.CopyTo(ctrlArr, 0);
+            List<Control> controls = new List<Control>(ctrlArr);
+            if(includeChildren)
+            {
+                foreach(Control ctrl in ctrlArr)
+                {
+                    controls.AddRange(ctrl.GetControls(includeChildren));
+                }
+            }
+            return controls;
+        }
 
+        public static Control GetControl(this Control control, string controlId, bool searchChildren)
+        {
+            Control retControl = null;
+            List<Control> controls = control.GetControls(searchChildren);
+            foreach(Control ctrl in controls)
+            {
+                if(ctrl.ID == controlId)
+                {
+                    retControl = ctrl;
+                    break;
+                }
+            }
+            return retControl;
+        }
 
     }
 }

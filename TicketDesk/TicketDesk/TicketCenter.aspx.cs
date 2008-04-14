@@ -16,11 +16,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TicketDesk.Engine;
 using TicketDesk.Engine.Linq;
+using AjaxControlToolkit;
+using System.Web.UI.HtmlControls;
 
 namespace TicketDesk
 {
     public partial class TicketCenter : System.Web.UI.Page
     {
+      
         TicketDataDataContext ctx = new TicketDataDataContext();
 
         string viewMode = null;
@@ -29,9 +32,10 @@ namespace TicketDesk
         string status = null;
         string assignedTo = null;
         string ctrlname = null;
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+            SortEditor.TicketListControl = TicketListControl;
             viewMode = Request.QueryString["View"] ?? "unassigned";
             status = Request.QueryString["Status"] ?? "active";
             tagName = Request.QueryString["TagName"];
@@ -136,7 +140,17 @@ namespace TicketDesk
             {
                 TicketListControl.DataBind();
             }
+           
         }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+          
+           
+        }
+
+       
+
         private void BuildStatusList()
         {
             //StatusList.SelectedIndex = -1;
@@ -232,5 +246,8 @@ namespace TicketDesk
             }
             return statusUrlPart;
         }
+
+
+
     }
 }

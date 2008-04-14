@@ -14,6 +14,15 @@ namespace TicketDesk {
     public partial class TicketCenter {
         
         /// <summary>
+        /// TicketCenterUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel TicketCenterUpdatePanel;
+        
+        /// <summary>
         /// TagListCell control.
         /// </summary>
         /// <remarks>
@@ -48,6 +57,15 @@ namespace TicketDesk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater TagsRepeater;
+        
+        /// <summary>
+        /// SortEditor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Controls.ComplexSortEditor SortEditor;
         
         /// <summary>
         /// StatusPanel control.

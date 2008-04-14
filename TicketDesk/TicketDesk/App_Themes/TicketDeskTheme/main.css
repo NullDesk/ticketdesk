@@ -148,15 +148,11 @@ hr
 	font-size:larger;
 	list-style:none;
 }
-.reorderListCallbackStyle 
+.reorderListCallbackStyle
 {
-	border:thin blue inset;	
+	background-color: #3399FF;
 }
-.reorderListCallbackStyle table 
-{
-	background-color:#5377A9;	
-	color:Black;
-}
+
 
 .DragHandle
 {
@@ -348,7 +344,8 @@ a:link, a:visited, a:active
 
 .AdminItemContainer_Settings
 {
-	background-image:url('Setting.jpg');
+	background-image:url('settings.gif');
+	
 	background-position:left;
 	background-repeat:no-repeat;
 	padding-left:55px;
