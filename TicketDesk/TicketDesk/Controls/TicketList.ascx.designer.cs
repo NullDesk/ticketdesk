@@ -23,6 +23,15 @@ namespace TicketDesk.Controls {
         protected global::System.Web.UI.ScriptManagerProxy ScriptManagerProxy1;
         
         /// <summary>
+        /// PrintLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton PrintLink;
+        
+        /// <summary>
         /// PageSizeDropDownList control.
         /// </summary>
         /// <remarks>

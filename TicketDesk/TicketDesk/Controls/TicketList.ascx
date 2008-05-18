@@ -16,7 +16,10 @@
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
 <div style="position: relative; float: right; margin-right: 5px;">
-  
+  <asp:ImageButton ID="PrintLink" Text="Print"  
+        ImageUrl="~\controls\images\print.gif" runat="server" 
+        OnClick="PrintLink_Click"></asp:ImageButton>
+ &nbsp;
     Items/page:<asp:DropDownList TabIndex="1" ID="PageSizeDropDownList" runat="server"
         AutoPostBack="true" OnLoad="PageSizeDropDownList_Load" OnSelectedIndexChanged="PageSizeDropDownList_SelectedIndexChanged">
         <asp:ListItem Text="10" Value="10"></asp:ListItem>
@@ -25,7 +28,7 @@
         <asp:ListItem Text="50" Value="50"></asp:ListItem>
         <asp:ListItem Text="100" Value="100"></asp:ListItem>
     </asp:DropDownList>
-</div>
+</div>                               
 <div style="clear: both;">
     <asp:ListView ID="TicketListView" runat="server" 
         onitemcommand="TicketListView_ItemCommand">
@@ -62,6 +65,7 @@
                 <td>
                     <asp:Label ID="LastUpdateDateLabel" runat="server" Text='<%# ((DateTime)Eval("LastUpdateDate")).ToString("d") %>' />
                 </td>
+                
             </tr>
         </AlternatingItemTemplate>
         <LayoutTemplate>
@@ -120,6 +124,7 @@
                                         CommandArgument="LastUpdateDate" Text="Updated" OnLoad="SortLinkLoading" /><asp:Label
                                             ID="SortDirectionLastUpdateDate" runat="server" CssClass="SortDirectionIndicator" />
                                 </th>
+                                
                             </tr>
                             <tr id="itemPlaceholder" runat="server">
                             </tr>
@@ -135,6 +140,7 @@
                                         </Fields>
                                     </asp:DataPager>
                                 </td>
+                                
                             </tr>
                         </table>
                     </td>

@@ -25,14 +25,26 @@ namespace TicketDesk.Engine
     public class UserSort
     {
         private string _fullExpression;
+        public string[] _sortColumnsExpressions;
+        public string[] _sortColumns;
+        private string _truncatedExpression;
+        private SortDirection _direction;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserSort"/> class.
+        /// </summary>
+        /// <param name="fullExpression">The full expression.</param>
         public UserSort(string fullExpression)
         {
             _fullExpression = fullExpression;
             _truncatedExpression = UserSortExpressions.GetTruncatedSortExpression(fullExpression);
             _direction = UserSortExpressions.GetDirectionFromSortExpression(fullExpression);
         }
-
-        public string[] _sortColumnsExpressions;
+        
+        /// <summary>
+        /// Gets the sort column expressions.
+        /// </summary>
+        /// <returns></returns>
         public string[] GetSortColumnExpressions()
         {
             if(_sortColumnsExpressions == null)
@@ -42,7 +54,10 @@ namespace TicketDesk.Engine
             return _sortColumnsExpressions;
         }
 
-        public string[] _sortColumns;
+        /// <summary>
+        /// Gets the sort columns.
+        /// </summary>
+        /// <returns></returns>
         public string[] GetSortColumns()
         {
             List<string> retList = new List<string>();
@@ -55,7 +70,10 @@ namespace TicketDesk.Engine
             return retList.ToArray();
         }
 
-        private string _truncatedExpression;
+        /// <summary>
+        /// Gets or sets the truncated sort expression.
+        /// </summary>
+        /// <value>The truncated sort expression.</value>
         public string TruncatedSortExpression
         {
             get
@@ -67,7 +85,11 @@ namespace TicketDesk.Engine
                 _truncatedExpression = value;
             }
         }
-        private SortDirection _direction;
+
+        /// <summary>
+        /// Gets or sets the sort direction.
+        /// </summary>
+        /// <value>The direction.</value>
         public SortDirection Direction
         {
             get
@@ -80,8 +102,11 @@ namespace TicketDesk.Engine
             }
         }
 
-        
-
+        /// <summary>
+        /// Gets the sort direction for a particular column.
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <returns></returns>
         public SortDirection? GetSortDirectionForColumn(string columnName)
         {
             SortDirection? dir = null;

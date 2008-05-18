@@ -82,6 +82,34 @@ namespace TicketDesk.Engine
             return userName;
         }
 
+
+        /// <summary>
+        /// Gets a list of all possible ticket submitter users.
+        /// </summary>
+        /// <returns></returns>
+        public static User[] GetTicketSubmitterUsers()
+        {
+            return GetUsersInRoleType("TicketSubmittersRoleName");
+        }
+
+        /// <summary>
+        /// Gets a list of all possible help desk users.
+        /// </summary>
+        /// <returns></returns>
+        public static User[] GetHelpDeskUsers()
+        {
+            return GetUsersInRoleType("HelpDeskStaffRoleName");
+        }
+
+        /// <summary>
+        /// Gets a list of all possible administrative users.
+        /// </summary>
+        /// <returns></returns>
+        public static User[] GetAdministrativeUsers()
+        {
+            return GetUsersInRoleType("AdministrativeRoleNameB");
+        }
+
         /// <summary>
         /// Gets a collection of all users in role type.
         /// </summary>
@@ -95,7 +123,7 @@ namespace TicketDesk.Engine
         /// Type of the role (should match one of the appsetting keys from web.config).
         /// </param>
         /// <returns>Users in the role from either the SQL role provider or AD depending on how security is configured.</returns>
-        public static User[] GetUsersInRoleType(string roleType)
+        private static User[] GetUsersInRoleType(string roleType)
         {
             User[] users = null;
             AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
@@ -154,7 +182,7 @@ namespace TicketDesk.Engine
             string[] sUsers = Roles.GetUsersInRole(ConfigurationManager.AppSettings[roleType]);
             foreach(string s in sUsers)
             {
-                users.Add(new User(s, s));
+                users.Add(new User(s, GetUserDisplayName(s)));
             }
             return users.ToArray();
         }
@@ -392,7 +420,7 @@ namespace TicketDesk.Engine
         {
             get
             {
-                return Roles.IsUserInRole(ConfigurationManager.AppSettings["AdministrativeRoleName"]);
+                return Roles.IsUserInRole(ConfigurationManager.AppSettings["TicketSubmittersRoleName"]);
             }
         }
 
@@ -450,5 +478,7 @@ namespace TicketDesk.Engine
 
             }
         }
+
+        
     }
 }

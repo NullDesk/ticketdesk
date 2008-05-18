@@ -22,6 +22,22 @@ namespace TicketDesk.Engine
     public static class Extensions
     {
 
+        public static string ConvertPascalCaseToFriendlyString(this string stringToConvert)
+        {
+            List<char> cFriendlyName = new List<char>();
+            char[] cName = stringToConvert.ToCharArray();
+            for(int cIdx = 0; cIdx < cName.Length; cIdx++)
+            {
+                char c = cName[cIdx];
+                if(cIdx > 0 && char.IsUpper(c))
+                {
+                    cFriendlyName.Add(' ');
+                }
+                cFriendlyName.Add(c);
+            }
+            return new string(cFriendlyName.ToArray());
+        }
+
         /// <summary>
         /// Gets a formatted version of the user's name from an identity.
         /// </summary>

@@ -199,7 +199,7 @@ INPUT[type="text"], SELECT, textarea, INPUT[type="password"]
 {
 	border: 1px solid Silver;
 	font: 8pt verdana;
-	overflow: auto;
+	
 }
 
 INPUT[type="button"], INPUT[type="submit"]
@@ -285,6 +285,7 @@ INPUT[type="button"], INPUT[type="submit"]
 .TicketListHeaderRow th
 {
 	border-bottom: solid 1px #A0A0A0;
+	white-space:nowrap;
 }
 
 .TicketListPagerRow

@@ -19,7 +19,6 @@ using System.Text;
 using System.Linq;
 using AjaxControlToolkit;
 using TicketDesk.Engine.Linq;
-using TicketDesk.Engine;
 using System.Web.UI.HtmlControls;
 
 namespace TicketDesk.Controls
@@ -236,6 +235,18 @@ namespace TicketDesk.Controls
                 ColumnSortChanged(sender, EventArgs.Empty);
             }
         }
+
+        protected void PrintLink_Click(object sender, ImageClickEventArgs e)
+        {
+            DataPager dp = (DataPager)TicketListView.FindControl("TicketListDataPager");
+            string path = Page.Request.Path;
+            QueryStringNameValueCollection qs = new QueryStringNameValueCollection(Page.Request.QueryString);
+            qs.Add("mode", "print");
+            qs.Add("rowIndex", dp.StartRowIndex.ToString());
+            Page.Response.Redirect(string.Format("{0}?{1}", path, qs.ToString()), true);
+        }
+
+     
 
     }
 }

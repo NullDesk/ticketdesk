@@ -46,6 +46,8 @@ namespace TicketDesk.Engine
             bool enableEmail = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"]);
             if(enableEmail)
             {
+                SmtpClient client = new SmtpClient();
+                    
                 StringBuilder stringBuilder = new StringBuilder();
                 StringWriter stringWriter = new StringWriter(stringBuilder);
                 HtmlTextWriter htmWriter = new HtmlTextWriter(stringWriter);
@@ -74,7 +76,6 @@ namespace TicketDesk.Engine
                     msg.IsBodyHtml = true;
                     //msg.BodyEncoding = Encoding.UTF8;
                     //msg.SubjectEncoding = Encoding.UTF8;
-                    SmtpClient client = new SmtpClient();
                     try
                     {
                         client.Send(msg);

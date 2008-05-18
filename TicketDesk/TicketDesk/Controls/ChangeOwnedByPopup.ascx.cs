@@ -63,7 +63,7 @@ namespace TicketDesk.Controls
         public ListItem[] GetUserList()
         {
             List<ListItem> returnUsers = new List<ListItem>();
-            User[] users = SecurityManager.GetUsersInRoleType("TicketSubmittersRoleName");
+            User[] users = SecurityManager.GetTicketSubmitterUsers();
             foreach(User user in users)
             {
                 if(user.Name.ToUpperInvariant() != TicketToDisplay.Owner.ToUpperInvariant())

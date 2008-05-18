@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30428</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -217,6 +217,13 @@
     <Compile Include="Controls\DisplayTicket.ascx.designer.cs">
       <DependentUpon>DisplayTicket.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListViewSettingsEditor.ascx.cs">
+      <DependentUpon>ListViewSettingsEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewSettingsEditor.ascx.designer.cs">
+      <DependentUpon>ListViewSettingsEditor.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ResolvePopup.ascx.cs">
       <DependentUpon>ResolvePopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -298,6 +305,7 @@
       <DependentUpon>DownloadAttachment.ashx</DependentUpon>
     </Compile>
     <Compile Include="Engine\Extensions.cs" />
+    <Compile Include="Engine\Linq\SortableFields.cs" />
     <Compile Include="Engine\Linq\Ticket.cs" />
     <Compile Include="Engine\Linq\TicketComment.cs" />
     <Compile Include="Engine\Linq\TicketData.designer.cs">
@@ -306,6 +314,12 @@
       <DependentUpon>TicketData.dbml</DependentUpon>
     </Compile>
     <Compile Include="Engine\Linq\TicketDataDataContext.cs" />
+    <Compile Include="Engine\Linq\TicketListQueryExtensions.cs" />
+    <Compile Include="Engine\ListView\ListViewFilterColumn.cs" />
+    <Compile Include="Engine\ListView\ListViewSettings.cs" />
+    <Compile Include="Engine\ListView\ListViewSettingsCollection.cs" />
+    <Compile Include="Engine\ListView\ListViewSortColumn.cs" />
+    <Compile Include="Engine\ListView\ColumnSortDirection.cs" />
     <Compile Include="Engine\NotificationManager.cs" />
     <Compile Include="Engine\ProfileCommon.cs" />
     <Compile Include="Engine\QueryStringNameValueCollection.cs" />
@@ -361,6 +375,13 @@
     </Compile>
     <Compile Include="TicketCenter.Master.designer.cs">
       <DependentUpon>TicketCenter.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TicketCenter2.aspx.cs">
+      <DependentUpon>TicketCenter2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketCenter2.aspx.designer.cs">
+      <DependentUpon>TicketCenter2.aspx</DependentUpon>
     </Compile>
     <Compile Include="TicketDeskMain.Master.cs">
       <DependentUpon>TicketDeskMain.Master</DependentUpon>
@@ -426,15 +447,22 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
     <Content Include="Controls\ComplexSortEditor.ascx" />
+    <Content Include="Controls\Images\down.png" />
     <Content Include="Controls\Images\edit.gif" />
     <Content Include="Controls\Images\delete.gif" />
     <Content Include="Controls\Images\editor_small.gif" />
+    <Content Include="Controls\Images\handleGrip.png" />
+    <Content Include="Controls\Images\nobutton.gif" />
+    <Content Include="Controls\Images\print.gif" />
     <Content Include="Controls\Images\save.gif" />
     <Content Include="App_Themes\TicketDeskTheme\settings.gif" />
     <Content Include="Controls\Images\swap.gif" />
+    <Content Include="Controls\Images\up.png" />
+    <Content Include="Controls\ListViewSettingsEditor.ascx" />
     <Content Include="License.txt" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
+    <Content Include="TicketCenter2.aspx" />
     <Content Include="WebAd.config" />
     <Content Include="Admin\Admin.Master" />
     <None Include="App_Data\Update_1.0_to_1.1.SQL" />
@@ -449,7 +477,6 @@
     <Content Include="Controls\ChangeAffectsCustomerPopup.ascx" />
     <Content Include="Controls\DisplayTicket.ascx" />
     <Content Include="Controls\EmailTicketView.ascx" />
-    <Content Include="Controls\Images\delete2.gif" />
     <Content Include="TicketCenter.Master" />
     <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />
     <Content Include="App_Themes\TicketDeskTheme\GreenGradient.gif" />
@@ -471,7 +498,6 @@
     <Content Include="Controls\ForceCloseTicketPopup.ascx" />
     <Content Include="Controls\ReOpenPopup.ascx" />
     <Content Include="Controls\RequestMoreInfoPopup.ascx" />
-    <Content Include="Controls\Images\edit2.gif" />
     <Content Include="Controls\ChangePriorityPopup.ascx" />
     <Content Include="Controls\TagPicker.ascx" />
     <Content Include="Controls\TakeOverPopup.ascx" />
@@ -506,10 +532,13 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57360</DevelopmentServerPort>
+          <DevelopmentServerPort>57361</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/TicketDesk</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

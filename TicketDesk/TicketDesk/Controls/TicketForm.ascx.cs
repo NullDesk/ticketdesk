@@ -110,7 +110,7 @@ namespace TicketDesk.Controls
 
         public ListItem[] GetOwnerUserList()
         {
-            User[] users = SecurityManager.GetUsersInRoleType("TicketSubmittersRoleName");
+            User[] users = SecurityManager.GetTicketSubmitterUsers();
             var userItems = from user in users
                     where user.Name.ToUpperInvariant() != HttpContext.Current.User.Identity.Name.ToUpperInvariant()
                     select new ListItem(user.DisplayName, user.Name);

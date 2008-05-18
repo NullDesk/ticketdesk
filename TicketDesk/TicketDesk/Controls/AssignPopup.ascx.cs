@@ -72,7 +72,7 @@ namespace TicketDesk.Controls
         public ListItem[] GetUserList()
         {
             List<ListItem> returnUsers = new List<ListItem>();
-            User[] users = SecurityManager.GetUsersInRoleType("HelpDeskStaffRoleName");
+            User[] users = SecurityManager.GetHelpDeskUsers();
             foreach(User user in users)
             {
                 if(user.Name.ToUpperInvariant() != HttpContext.Current.User.Identity.Name.ToUpperInvariant())

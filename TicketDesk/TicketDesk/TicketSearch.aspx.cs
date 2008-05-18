@@ -129,7 +129,7 @@ namespace TicketDesk
         public ListItem[] GetStaffUserList()
         {
             List<ListItem> returnUsers = new List<ListItem>();
-            User[] users = SecurityManager.GetUsersInRoleType("HelpDeskStaffRoleName");
+            User[] users = SecurityManager.GetHelpDeskUsers();
             foreach(User user in users)
             {
                 returnUsers.Add(new ListItem(user.DisplayName, user.Name));
@@ -141,7 +141,7 @@ namespace TicketDesk
         public ListItem[] GetSubmitterUserList()
         {
             List<ListItem> returnUsers = new List<ListItem>();
-            User[] users = SecurityManager.GetUsersInRoleType("TicketSubmittersRoleName");
+            User[] users = SecurityManager.GetHelpDeskUsers();
             foreach(User user in users)
             {
                 returnUsers.Add(new ListItem(user.DisplayName, user.Name));

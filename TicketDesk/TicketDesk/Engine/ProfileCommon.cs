@@ -14,6 +14,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
 using System.Text;
+using TicketDesk.Engine.ListView;
 
 namespace TicketDesk.Engine
 {
@@ -28,10 +29,6 @@ namespace TicketDesk.Engine
     /// </remarks>
     public class ProfileCommon
     {
-
-
-        
-
 
         /// <summary>
         /// Gets or sets the ticket list sort field.
@@ -51,8 +48,6 @@ namespace TicketDesk.Engine
                 HttpContext.Current.Profile.SetPropertyValue("TicketListSortExpressions", value);
             }
         }
-
-      
 
         /// <summary>
         /// Gets or sets the ticket list items per page.
@@ -74,6 +69,22 @@ namespace TicketDesk.Engine
             set
             {
                 HttpContext.Current.Profile.SetPropertyValue("TicketListItemsPerPage", value);
+            }
+        }
+
+        public ListViewSettingsCollection TicketListSettings
+        {
+            get
+            {
+                if(HttpContext.Current.Profile.GetPropertyValue("TicketListSettings") == null)
+                {
+                    TicketListSettings = ListViewSettingsCollection.CreateNewSettings();
+                }
+                return (ListViewSettingsCollection)HttpContext.Current.Profile.GetPropertyValue("TicketListSettings");
+            }
+            set
+            {
+                HttpContext.Current.Profile.SetPropertyValue("TicketListSettings", value);
             }
         }
     }
