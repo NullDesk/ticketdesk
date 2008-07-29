@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" Theme="TicketDeskTheme" MasterPageFile="~/TicketDeskMain.Master"
     AutoEventWireup="true" CodeBehind="TicketCenter2.aspx.cs" Inherits="TicketDesk.TicketCenter2"
-    Title="Untitled Page" %>
+    Title="TicketCenter" %>
 
 <%@ Register Src="Controls/ListViewSettingsEditor.ascx" TagName="ListViewSettingsEditor"
     TagPrefix="ticketDesk" %>

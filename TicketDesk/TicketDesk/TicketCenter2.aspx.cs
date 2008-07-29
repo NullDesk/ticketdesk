@@ -43,10 +43,13 @@ namespace TicketDesk
             if (string.IsNullOrEmpty(listName))
             {
                 int minOrder = userSettings.Settings.Min(us => us.ListViewDisplayOrder);
-                listName = userSettings.Settings.SingleOrDefault(us => us.ListViewDisplayOrder == minOrder).ListViewName;
+                listSetting = userSettings.Settings.SingleOrDefault(us => us.ListViewDisplayOrder == minOrder);
+                listName = listSetting.ListViewName;
             }
+            Page.Title = string.Format("Ticket Center: {0}", listSetting.ListViewDisplayName);
             ListViewSettingsEditorControl.ListName = listName;
             ListViewControl.ListName = listName;
+
         }
 
         private void Bind()
