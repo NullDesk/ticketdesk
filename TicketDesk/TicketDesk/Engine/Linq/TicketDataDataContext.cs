@@ -23,6 +23,8 @@ namespace TicketDesk.Engine.Linq
             instance.LastUpdateBy = HttpContext.Current.User.Identity.GetFormattedUserName();
             instance.LastUpdateDate = DateTime.Now;
             ExecuteDynamicUpdate(instance);
+            string url = HttpContext.Current.Request.Url.AbsoluteUri;
+            TicketDesk.Engine.NotificationService.Notification(instance.TicketId, url);
         }
         
 
@@ -31,6 +33,8 @@ namespace TicketDesk.Engine.Linq
             instance.LastUpdateBy = HttpContext.Current.User.Identity.GetFormattedUserName();
             instance.LastUpdateDate = DateTime.Now;
             ExecuteDynamicInsert(instance);
+            string url = HttpContext.Current.Request.Url.AbsoluteUri;
+            TicketDesk.Engine.NotificationService.Notification(instance.TicketId, url);
         }
         
         partial void UpdateTicketComment(TicketComment instance)

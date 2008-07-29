@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30428</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -47,6 +47,12 @@
     </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.Extensions">
@@ -321,6 +327,8 @@
     <Compile Include="Engine\ListView\ListViewSortColumn.cs" />
     <Compile Include="Engine\ListView\ColumnSortDirection.cs" />
     <Compile Include="Engine\NotificationManager.cs" />
+    <Compile Include="Engine\NotificationService.cs" />
+    <Compile Include="Engine\NotificationUtilities.cs" />
     <Compile Include="Engine\ProfileCommon.cs" />
     <Compile Include="Engine\QueryStringNameValueCollection.cs" />
     <Compile Include="Engine\SecurityManager.cs" />
@@ -349,6 +357,10 @@
       <DependentUpon>NewTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFeedService.cs" />
+    <Compile Include="Services\RSS.svc.cs">
+      <DependentUpon>RSS.svc</DependentUpon>
+    </Compile>
     <Compile Include="Services\TagsAutoComplete.asmx.cs">
       <DependentUpon>TagsAutoComplete.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -440,6 +452,7 @@
     <Content Include="License.txt" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
+    <Content Include="Services\RSS.svc" />
     <Content Include="TicketCenter2.aspx" />
     <Content Include="TicketSearch.aspx" />
     <Content Include="WebAd.config" />
@@ -510,9 +523,6 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/TicketDesk</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

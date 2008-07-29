@@ -57,7 +57,6 @@ namespace TicketDesk
         {
             DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
             ctx.SubmitChanges();
-            NotificationManager.SendTicketChangedNotification(DisplayTicketView.TicketToDisplay, Page);
         }
     }
 }

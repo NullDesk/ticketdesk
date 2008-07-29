@@ -65,12 +65,26 @@ namespace TicketDesk.Engine.Linq
         {
             List<MailAddress> addresses = new List<MailAddress>();
             AddNotificationEmailAddress(Owner);
-            AddNotificationEmailAddress(AssignedTo);
+           
             foreach(string user in additionalUsers)
             {
                 AddNotificationEmailAddress(user);
             }
-            if(notificationAddresses.Count > 0)
+           
+            if (AssignedTo == null)
+            {
+                string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
+                foreach (string admin in admins)
+                {
+                    AddNotificationEmailAddress(admin);
+                }
+            }
+            else 
+            {
+                AddNotificationEmailAddress(AssignedTo);
+            }
+
+             if(notificationAddresses.Count > 0)
             {
                 addresses.AddRange(notificationAddresses.Values.ToList());
             }

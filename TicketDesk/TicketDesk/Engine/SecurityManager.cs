@@ -54,8 +54,6 @@ namespace TicketDesk.Engine
             return userName.ToLower();
         }
 
-
-
         /// <summary>
         /// Gets the display name of the user.
         /// </summary>
@@ -82,7 +80,6 @@ namespace TicketDesk.Engine
             return userName;
         }
 
-
         /// <summary>
         /// Gets a list of all possible ticket submitter users.
         /// </summary>
@@ -107,7 +104,7 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         public static User[] GetAdministrativeUsers()
         {
-            return GetUsersInRoleType("AdministrativeRoleNameB");
+            return GetUsersInRoleType("AdministrativeRoleName");
         }
 
         /// <summary>
@@ -140,7 +137,6 @@ namespace TicketDesk.Engine
             }
             return users;
         }
-
 
         /// <summary>
         /// Gets the user email address either from the SQL Membership provider or from AD depending 
@@ -219,7 +215,7 @@ namespace TicketDesk.Engine
         private static User[] GetCachedAdUsersForGroup(string groupName)
         {
             string key = GetAdUserGroupCacheKey(groupName);
-            if(HttpContext.Current.Cache[key] == null)
+            if(HttpRuntime.Cache[key] == null)
             {
                 using
                 (
@@ -243,7 +239,7 @@ namespace TicketDesk.Engine
                                     select new User(p.SamAccountName.ToLower(), p.DisplayName);
                             CacheItemRemovedCallback onAdUsersForGroupRemove = new CacheItemRemovedCallback(CachedAdUsersForGroupRemovedCallback);
 
-                            HttpContext.Current.Cache.Insert
+                            HttpRuntime.Cache.Insert
                                 (
                                     key,
                                     x.ToArray(),
@@ -257,7 +253,7 @@ namespace TicketDesk.Engine
                     }
                 }
             }
-            return (User[])HttpContext.Current.Cache[key];
+            return (User[])HttpRuntime.Cache[key];
         }
 
         /// <summary>
@@ -300,10 +296,10 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         private static Dictionary<string, Dictionary<string, string>> GetCachedUserProperties()
         {
-            if(HttpContext.Current.Cache["AdUserPropertyCollection"] == null)
+            if(HttpRuntime.Cache["AdUserPropertyCollection"] == null)
             {
                 Dictionary<string, Dictionary<string, string>> userProperties = new Dictionary<string, Dictionary<string, string>>();
-                HttpContext.Current.Cache.Insert
+                HttpRuntime.Cache.Insert
                     (
                         "AdUserPropertyCollection",
                         userProperties,
@@ -315,7 +311,7 @@ namespace TicketDesk.Engine
                     );
 
             }
-            return (Dictionary<string, Dictionary<string, string>>)HttpContext.Current.Cache["AdUserPropertyCollection"];
+            return (Dictionary<string, Dictionary<string, string>>)HttpRuntime.Cache["AdUserPropertyCollection"];
         }
 
 
