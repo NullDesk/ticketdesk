@@ -21,10 +21,17 @@ namespace TicketDesk.Engine.ListView
     public class ListViewSettings
     {
         private string _listViewName;
+        private string _listViewDisplayName;
+
+        private int _listViewDisplayOrder;
+
+       
         private int _itemsPerPage = 20;
         private List<ListViewSortColumn> _sortColumns;
         private List<ListViewFilterColumn> _filterColumns;
+        private List<string> _disabledFilterColumNames;
 
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewSettings"/> class.
@@ -39,9 +46,11 @@ namespace TicketDesk.Engine.ListView
         /// Initializes a new instance of the <see cref="ListViewSetting"/> class with a default sort and filter.
         /// </summary>
         /// <param name="listViewName">Name of the list view.</param>
-        public ListViewSettings(string listViewName, bool includeClosedTickets)
+        public ListViewSettings(string listViewName, string listViewDisplayName, int listViewDisplayOrder, bool includeClosedTickets)
         {
             _listViewName = listViewName;
+            ListViewDisplayName = listViewDisplayName;
+            ListViewDisplayOrder = listViewDisplayOrder;
             SortColumns = new List<ListViewSortColumn>();
             SortColumns.Add(new ListViewSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             FilterColumns = new List<ListViewFilterColumn>();
@@ -49,6 +58,7 @@ namespace TicketDesk.Engine.ListView
             {
                 FilterColumns.Add(new ListViewFilterColumn("CurrentStatus", false, "Closed"));
             }
+            DisabledFilterColumNames = new List<string>();
         }
 
         /// <summary>
@@ -56,13 +66,18 @@ namespace TicketDesk.Engine.ListView
         /// </summary>
         /// <param name="listViewName">Name of the list view.</param>
         /// <param name="itemsPerPage">The items per page.</param>
-        /// <param name="listSort">The user's sort for the list.</param>
-        public ListViewSettings(string listViewName, int itemsPerPage, List<ListViewSortColumn> sortColumns, List<ListViewFilterColumn> filterColumns)
+        /// <param name="sortColumns">The sort columns.</param>
+        /// <param name="filterColumns">The filter columns.</param>
+        /// <param name="disabledFilterColumnNames">The disabled filter column names.</param>
+        public ListViewSettings(string listViewName, string listViewDisplayName, int listViewDisplayOrder, int itemsPerPage, List<ListViewSortColumn> sortColumns, List<ListViewFilterColumn> filterColumns, List<string> disabledFilterColumnNames)
         {
             _listViewName = listViewName;
+            ListViewDisplayName = listViewDisplayName;
+            ListViewDisplayOrder = listViewDisplayOrder;
             ItemsPerPage = itemsPerPage;
             SortColumns = sortColumns;
             FilterColumns = filterColumns;
+            DisabledFilterColumNames = (disabledFilterColumnNames) ?? new List<string>();
         }
 
         /// <summary>
@@ -73,6 +88,27 @@ namespace TicketDesk.Engine.ListView
         {
             get { return _listViewName; }
             set { _listViewName = value; }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the display name of the list view.
+        /// </summary>
+        /// <value>The display name of the list view.</value>
+        public string ListViewDisplayName
+        {
+            get { return _listViewDisplayName; }
+            set { _listViewDisplayName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the list display order.
+        /// </summary>
+        /// <value>The list display order.</value>
+        public int ListViewDisplayOrder
+        {
+            get { return _listViewDisplayOrder; }
+            set { _listViewDisplayOrder = value; }
         }
 
         /// <summary>
@@ -105,7 +141,14 @@ namespace TicketDesk.Engine.ListView
             set { _filterColumns = value; }
         }
 
-
-        
+        /// <summary>
+        /// Gets or sets the disabled filter colum names.
+        /// </summary>
+        /// <value>The disabled filter colum names.</value>
+        public List<string> DisabledFilterColumNames
+        {
+            get { return _disabledFilterColumNames; }
+            set { _disabledFilterColumNames = value; }
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace TicketDesk.Engine
             {
                 userName = userName.Split('\\')[1];
             }
-            return userName;
+            return userName.ToLower();
         }
 
 
@@ -182,7 +182,7 @@ namespace TicketDesk.Engine
             string[] sUsers = Roles.GetUsersInRole(ConfigurationManager.AppSettings[roleType]);
             foreach(string s in sUsers)
             {
-                users.Add(new User(s, GetUserDisplayName(s)));
+                users.Add(new User(s.ToLower(), GetUserDisplayName(s)));
             }
             return users.ToArray();
         }
@@ -240,7 +240,7 @@ namespace TicketDesk.Engine
                                           p.UserPrincipalName.Trim() != string.Empty &&
                                           p.DisplayName.Trim() != string.Empty
                                     orderby p.DisplayName
-                                    select new User(p.SamAccountName, p.DisplayName);
+                                    select new User(p.SamAccountName.ToLower(), p.DisplayName);
                             CacheItemRemovedCallback onAdUsersForGroupRemove = new CacheItemRemovedCallback(CachedAdUsersForGroupRemovedCallback);
 
                             HttpContext.Current.Cache.Insert
@@ -384,6 +384,10 @@ namespace TicketDesk.Engine
                 //add the propertyname/value to the user's entry in the collection even no data 
                 //  was found so that future searches don't attempt to refetch it
                 userProperties[userName].Add(propertyName, propertyValue);
+            }
+            if (propertyValue.Length < 1) //catch cases where AD property is still empty
+            {
+                propertyValue = userName;
             }
             return propertyValue;
         }

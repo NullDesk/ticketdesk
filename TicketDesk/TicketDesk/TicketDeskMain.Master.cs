@@ -39,10 +39,7 @@ namespace TicketDesk
             {
                 TicketCenterLink.Font.Bold = true;
             }
-            else if(Page.Request.Path.ToUpperInvariant().Contains("MYTICKETS.ASPX"))
-            {
-                MyTicketsLink.Font.Bold = true;
-            }
+            
             else if(Page.Request.Path.ToUpperInvariant().Contains("TICKETSEARCH.ASPX"))
             {
                 TicketSearchLink.Font.Bold = true;

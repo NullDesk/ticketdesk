@@ -23,6 +23,15 @@ namespace TicketDesk {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
+        /// ListViewListManagerControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Controls.ListViewListManager ListViewListManagerControl;
+        
+        /// <summary>
         /// ListViewSettingsEditorControl control.
         /// </summary>
         /// <remarks>
@@ -32,12 +41,12 @@ namespace TicketDesk {
         protected global::TicketDesk.Controls.ListViewSettingsEditor ListViewSettingsEditorControl;
         
         /// <summary>
-        /// TicketListView control.
+        /// ListViewControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView TicketListView;
+        protected global::TicketDesk.Controls.ListView ListViewControl;
     }
 }

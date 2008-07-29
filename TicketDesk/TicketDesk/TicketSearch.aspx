@@ -2,8 +2,9 @@
     AutoEventWireup="true" CodeBehind="TicketSearch.aspx.cs" Inherits="TicketDesk.TicketSearch"
     Title="Ticket Search" %>
 
-<%@ Register Src="Controls/TicketList.ascx" TagName="TicketList" TagPrefix="TicketDesk" %>
-<%@ Register Src="Controls/ComplexSortEditor.ascx" TagName="ComplexSortEditor" TagPrefix="TicketDesk" %>
+<%@ Register Src="Controls/ListViewSettingsEditor.ascx" TagName="ListViewSettingsEditor"
+    TagPrefix="ticketDesk" %>
+<%@ Register Src="Controls/ListView.ascx" TagName="ListView" TagPrefix="ticketDesk" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <%  // TicketDesk - Attribution notice
         // Contributor(s):
@@ -18,8 +19,7 @@
         // attribution must remain intact, and a copy of the license must be 
         // provided to the recipient.
     %>
-    <asp:ScriptManager runat="server">
-    </asp:ScriptManager>
+    <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
     <br />
     <asp:UpdatePanel ID="TicketSearchUpdatePanel" runat="server">
         <ContentTemplate>
@@ -36,8 +36,8 @@
                                             <tr>
                                                 <td>
                                                     Search For:<asp:RequiredFieldValidator runat="server" ControlToValidate="SearchTerms"
-                                                        Text="*" ErrorMessage="Search words must be provided." /><br />
-                                                    <asp:TextBox Style="width: 350px;" ID="SearchTerms" runat="server"></asp:TextBox>
+                                                        Text="*" ErrorMessage="Search words must be provided." ValidationGroup="SearchGroup" /><br />
+                                                    <asp:TextBox Style="width: 350px;" ID="SearchTerms" runat="server" ValidationGroup="SearchGroup"></asp:TextBox>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -49,7 +49,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <asp:Button ID="SearchNow" runat="server" Text="Search" OnClick="SearchNow_Click" />
+                                                    <asp:Button ID="SearchNow" runat="server" Text="Search" OnClick="SearchNow_Click" ValidationGroup="SearchGroup" />
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -140,14 +140,10 @@
                     </table>
                 </div>
             </div>
-            <div runat="server" id="TicketSearchResults" visible="false">
-                <TicketDesk:ComplexSortEditor ID="SortEditor" runat="server" />
-                <TicketDesk:TicketList ID="TicketListControl" runat="server" />
+            <div>
+                <ticketDesk:ListView Visible="false" ID="ListViewControl" ListName="search" runat="server"  />
             </div>
+            <div style="clear: both;" />
         </ContentTemplate>
     </asp:UpdatePanel>
-    <asp:LinqDataSource ID="SearchTicketsLinqDataSource" runat="server" ContextTypeName="TicketDesk.Engine.Linq.TicketDataDataContext"
-        Select="new (TicketId, Type, Category, Title, Owner, AssignedTo, CurrentStatus, AffectsCustomer, Priority, CreatedDate, LastUpdateDate)"
-        TableName="Tickets">
-    </asp:LinqDataSource>
 </asp:Content>

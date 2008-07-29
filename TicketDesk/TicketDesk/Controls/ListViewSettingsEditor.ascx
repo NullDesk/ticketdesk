@@ -14,86 +14,11 @@
     // provided to the recipient.
 %>
 <style type="text/css">
-    .ListControlTable
-    {
-        float: right;
-        margin-bottom: 3px;
-    }
-    .ListControlTable td
-    {
-        vertical-align: bottom;
-        height: 30px;
-        padding-right: 8px;
-        padding-left: 1px;
-        padding-top: 1px;
-        padding-bottom: 1px;
-    }
-    .ListSearchPrompt
-    {
-        font-size: 7pt;
-    }
-    SELECT[disabled="disabled"]
-    {
-        background-color: #f5f5f5;
-    }
-    label
-    {
-        font-size: 8pt;
-    }
-    .FieldBlock
-    {
-        border: solid 1px #A0A0A0;
-        background-color: #ffffff;
-    }
-    .FieldBlockHeader
-    {
-        background-image: url(       'GreenGradient.gif' );
-        background-repeat: repeat-x;
-        background-position: bottom;
-        background-color: #CDF2B3;
-        padding: 3px;
-        font-size: 10pt;
-        font-weight: bold;
-    }
-    .FieldBlockSubHeader
-    {
-        background-color: #FFFFDD;
-        padding: 3px;
-        font-size: 10pt;
-    }
-    .FieldBlockBody
-    {
-        padding: 3px;
-        border-top: solid 1px #A0A0A0;
-    }
-    .ReorderList
-    {
-        white-space: nowrap;
-        padding: 3px;
-    }
-    .ReorderList li
-    {
-        font-size: larger;
-        list-style: none;
-        white-space: nowrap;
-    }
-    .ReorderListItemCallbackStyle
-    {
-        border: solid 1px #3399FF;
-    }
-    .ReorderListItemDragHandle
-    {
-        cursor: pointer;
-        margin: 3px;
-        height: 15px;
-        width: 15px;
-        background-image: url('/Controls/Images/handleGrip.png' );
-        background-repeat: no-repeat;
-    }
+
 </style>
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server" />
 <div>
-    <table class="ListControlTable" cellspacing="0" cellpadding="0">
+    <table class="ListControlTable" cellspacing="0" cellpadding="0" style="float: right;">
         <tbody>
             <tr>
                 <td>
@@ -144,7 +69,7 @@
             </tr>
         </tbody>
     </table>
-    <asp:Panel ID="AdvancedSettingsPanel" runat="server" Style="clear: both;">
+    <asp:Panel ID="AdvancedSettingsPanel" runat="server" Style="clear: right;">
         <div class="FieldBlock">
             <div class="FieldBlockHeader" style="text-align:center">
                 Advanced Settings

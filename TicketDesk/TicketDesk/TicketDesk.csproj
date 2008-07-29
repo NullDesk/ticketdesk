@@ -203,19 +203,26 @@
     <Compile Include="Controls\ChangeAffectsCustomerPopup.ascx.designer.cs">
       <DependentUpon>ChangeAffectsCustomerPopup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ComplexSortEditor.ascx.cs">
-      <DependentUpon>ComplexSortEditor.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ComplexSortEditor.ascx.designer.cs">
-      <DependentUpon>ComplexSortEditor.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\DisplayTicket.ascx.cs">
       <DependentUpon>DisplayTicket.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\DisplayTicket.ascx.designer.cs">
       <DependentUpon>DisplayTicket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListView.ascx.cs">
+      <DependentUpon>ListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ListView.ascx.designer.cs">
+      <DependentUpon>ListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewListManager.ascx.cs">
+      <DependentUpon>ListViewListManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewListManager.ascx.designer.cs">
+      <DependentUpon>ListViewListManager.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListViewSettingsEditor.ascx.cs">
       <DependentUpon>ListViewSettingsEditor.ascx</DependentUpon>
@@ -280,13 +287,6 @@
     <Compile Include="Controls\TakeOverPopup.ascx.designer.cs">
       <DependentUpon>TakeOverPopup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TicketList.ascx.cs">
-      <DependentUpon>TicketList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TicketList.ascx.designer.cs">
-      <DependentUpon>TicketList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\EmailTicketView.ascx.cs">
       <DependentUpon>EmailTicketView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -325,8 +325,6 @@
     <Compile Include="Engine\QueryStringNameValueCollection.cs" />
     <Compile Include="Engine\SecurityManager.cs" />
     <Compile Include="Engine\SettingsManager.cs" />
-    <Compile Include="Engine\UserSort.cs" />
-    <Compile Include="Engine\UserSortExpressions.cs" />
     <Compile Include="Engine\TagManager.cs" />
     <Compile Include="Engine\User.cs" />
     <Compile Include="Login.aspx.cs">
@@ -343,13 +341,6 @@
     <Compile Include="MyAccount.aspx.designer.cs">
       <DependentUpon>MyAccount.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MyTickets.aspx.cs">
-      <DependentUpon>MyTickets.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MyTickets.aspx.designer.cs">
-      <DependentUpon>MyTickets.aspx</DependentUpon>
-    </Compile>
     <Compile Include="NewTicket.aspx.cs">
       <DependentUpon>NewTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -361,20 +352,6 @@
     <Compile Include="Services\TagsAutoComplete.asmx.cs">
       <DependentUpon>TagsAutoComplete.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TicketCenter.aspx.cs">
-      <DependentUpon>TicketCenter.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TicketCenter.aspx.designer.cs">
-      <DependentUpon>TicketCenter.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TicketCenter.Master.cs">
-      <DependentUpon>TicketCenter.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TicketCenter.Master.designer.cs">
-      <DependentUpon>TicketCenter.Master</DependentUpon>
     </Compile>
     <Compile Include="TicketCenter2.aspx.cs">
       <DependentUpon>TicketCenter2.aspx</DependentUpon>
@@ -446,7 +423,6 @@
     <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
-    <Content Include="Controls\ComplexSortEditor.ascx" />
     <Content Include="Controls\Images\down.png" />
     <Content Include="Controls\Images\edit.gif" />
     <Content Include="Controls\Images\delete.gif" />
@@ -458,11 +434,14 @@
     <Content Include="App_Themes\TicketDeskTheme\settings.gif" />
     <Content Include="Controls\Images\swap.gif" />
     <Content Include="Controls\Images\up.png" />
+    <Content Include="Controls\ListView.ascx" />
+    <Content Include="Controls\ListViewListManager.ascx" />
     <Content Include="Controls\ListViewSettingsEditor.ascx" />
     <Content Include="License.txt" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
     <Content Include="TicketCenter2.aspx" />
+    <Content Include="TicketSearch.aspx" />
     <Content Include="WebAd.config" />
     <Content Include="Admin\Admin.Master" />
     <None Include="App_Data\Update_1.0_to_1.1.SQL" />
@@ -477,7 +456,6 @@
     <Content Include="Controls\ChangeAffectsCustomerPopup.ascx" />
     <Content Include="Controls\DisplayTicket.ascx" />
     <Content Include="Controls\EmailTicketView.ascx" />
-    <Content Include="TicketCenter.Master" />
     <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />
     <Content Include="App_Themes\TicketDeskTheme\GreenGradient.gif" />
     <Content Include="App_Themes\TicketDeskTheme\LeftMenuBar.gif" />
@@ -501,14 +479,10 @@
     <Content Include="Controls\ChangePriorityPopup.ascx" />
     <Content Include="Controls\TagPicker.ascx" />
     <Content Include="Controls\TakeOverPopup.ascx" />
-    <Content Include="Controls\TicketList.ascx" />
-    <Content Include="MyTickets.aspx" />
     <Content Include="App_Themes\TicketDeskTheme\main.css" />
     <Content Include="Login.aspx" />
     <Content Include="Services\TagsAutoComplete.asmx" />
-    <Content Include="TicketCenter.aspx" />
     <Content Include="TicketDeskMain.Master" />
-    <Content Include="TicketSearch.aspx" />
     <Content Include="ViewTicket.aspx" />
   </ItemGroup>
   <ItemGroup>

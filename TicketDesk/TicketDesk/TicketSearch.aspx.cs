@@ -22,8 +22,7 @@ namespace TicketDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            TicketListControl.DataSourceID = "SearchTicketsLinqDataSource";
-            SortEditor.TicketListControl = TicketListControl;
+            
             if(!Page.IsPostBack)
             {
                 StaffUserList.Items.AddRange(GetStaffUserList());
@@ -57,8 +56,7 @@ namespace TicketDesk
                             terms.Add(string.Format("Details.Contains(\"{0}\")", word));
                         }
                     }
-
-                    switch(StatusList.SelectedValue)
+                    switch (StatusList.SelectedValue)
                     {
                         case "Open":
                             andTerms.Add("CurrentStatus != \"Closed\"");
@@ -81,11 +79,11 @@ namespace TicketDesk
                             break;
                     }
 
-                    if(StaffUserList.SelectedValue != "any")
+                    if (StaffUserList.SelectedValue != "any")
                     {
-                            andTerms.Add(string.Format("AssignedTo == \"{0}\"", StaffUserList.SelectedValue));
+                        andTerms.Add(string.Format("AssignedTo == \"{0}\"", StaffUserList.SelectedValue));
                     }
-                    if(SubmitterUserList.SelectedValue != "any")
+                    if (SubmitterUserList.SelectedValue != "any")
                     {
                         andTerms.Add(string.Format("Owner == \"{0}\"", SubmitterUserList.SelectedValue));
                     }
@@ -101,21 +99,20 @@ namespace TicketDesk
                 }
                 if(terms.Count > 0)
                 {
-                    TicketSearchResults.Visible = true;
+                    ListViewControl.Visible = true;
                     string s = string.Format("({0})", string.Join(" || ", terms.ToArray()));
                     string a = string.Empty;
                     if(andTerms.Count > 0)
                     {
                         a = string.Format(" && ({0})", string.Join(" && ", andTerms.ToArray()));
                     }
-                    SearchTicketsLinqDataSource.Where = s + a;
-                    
+                    ListViewControl.Where = s + a;
 
-                    TicketListControl.ShowList();
+                    //ListViewControl.Bind();
                 }
                 else
                 {
-                    TicketSearchResults.Visible = false;
+                    ListViewControl.Visible = false;
 
                 }
             }
@@ -123,14 +120,22 @@ namespace TicketDesk
 
         protected void SearchNow_Click(object sender, EventArgs e)
         {
-
+            Bind();
         }
+
+        private void Bind()
+        {
+            ListViewControl.Bind();
+        }
+
+        
 
         public ListItem[] GetStaffUserList()
         {
+
             List<ListItem> returnUsers = new List<ListItem>();
             User[] users = SecurityManager.GetHelpDeskUsers();
-            foreach(User user in users)
+            foreach (User user in users)
             {
                 returnUsers.Add(new ListItem(user.DisplayName, user.Name));
             }
@@ -141,13 +146,16 @@ namespace TicketDesk
         public ListItem[] GetSubmitterUserList()
         {
             List<ListItem> returnUsers = new List<ListItem>();
-            User[] users = SecurityManager.GetHelpDeskUsers();
-            foreach(User user in users)
+            User[] users = SecurityManager.GetTicketSubmitterUsers();
+            foreach (User user in users)
             {
                 returnUsers.Add(new ListItem(user.DisplayName, user.Name));
 
             }
             return returnUsers.ToArray();
         }
+  
+
+        
     }
 }

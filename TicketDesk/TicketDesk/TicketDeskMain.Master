@@ -39,18 +39,16 @@
         <div class="MenuContainer">
             <table style="width: 100%">
                 <tr>
-                    <td style="text-align: center; width: 25%;">
-                        <asp:HyperLink ID="TicketCenterLink" NavigateUrl="~/TicketCenter.aspx" runat="server"
+                    <td style="text-align: center; width: 33%;">
+                        <asp:HyperLink ID="TicketCenterLink" NavigateUrl="~/TicketCenter2.aspx" runat="server"
                             Text="Ticket Center" />
                     </td>
-                    <td style="text-align: center; width: 25%;">
-                        <asp:HyperLink ID="MyTicketsLink" NavigateUrl="~/MyTickets.aspx" runat="server" Text="My Tickets" />
-                    </td>
-                    <td style="text-align: center; width: 25%;">
+                    
+                    <td style="text-align: center; width: 33%;">
                         <asp:HyperLink ID="TicketSearchLink" NavigateUrl="~/TicketSearch.aspx" runat="server"
                             Text="Ticket Search" />
                     </td>
-                    <td style="text-align: center; width: 25%;">
+                    <td style="text-align: center; width: 33%;">
                         <asp:HyperLink ID="NewTicketMenuLink" runat="server" NavigateUrl="NewTicket.aspx"
                             Text="Submit new ticket" />
                     </td>

@@ -30,57 +30,21 @@ namespace TicketDesk.Engine
     public class ProfileCommon
     {
 
-        /// <summary>
-        /// Gets or sets the ticket list sort field.
-        /// </summary>
-        /// <remarks>
-        /// The default is the LastUpdateDate if not specified in the user's profile nor web.config
-        /// </remarks>
-        /// <value>The ticket list sort field.</value>
-        public string TicketListSortExpressions
-        {
-            get
-            {
-                return (string)HttpContext.Current.Profile.GetPropertyValue("TicketListSortExpressions");
-            }
-            set
-            {
-                HttpContext.Current.Profile.SetPropertyValue("TicketListSortExpressions", value);
-            }
-        }
 
         /// <summary>
-        /// Gets or sets the ticket list items per page.
+        /// Gets or sets the user's ticket ListView settings.
         /// </summary>
-        /// <remarks>
-        /// The default is 20 if not specified in the user's profile nor web.config
-        /// </remarks>
-        /// <value>The ticket list items per page.</value>
-        public int TicketListItemsPerPage
-        {
-            get
-            {
-                if(HttpContext.Current.Profile.GetPropertyValue("TicketListItemsPerPage") == null)
-                {
-                    return 20;
-                }
-                return (int)HttpContext.Current.Profile.GetPropertyValue("TicketListItemsPerPage");
-            }
-            set
-            {
-                HttpContext.Current.Profile.SetPropertyValue("TicketListItemsPerPage", value);
-            }
-        }
-
+        /// <value>The ticket list view settings.</value>
         public ListViewSettingsCollection TicketListSettings
         {
             get
             {
-                if(HttpContext.Current.Profile.GetPropertyValue("TicketListSettings") == null)
-                {
-                    TicketListSettings = ListViewSettingsCollection.CreateNewSettings();
-                }
-                return (ListViewSettingsCollection)HttpContext.Current.Profile.GetPropertyValue("TicketListSettings");
+                 var lv = (ListViewSettingsCollection)HttpContext.Current.Profile.GetPropertyValue("TicketListSettings");
+                 if (lv.Settings.Count < 1)
+                 {
+                     ListViewSettingsCollection.CreateNewSettings(lv);
+                 }
+                 return lv;
             }
             set
             {

@@ -20,19 +20,13 @@ namespace TicketDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(SecurityManager.IsStaffOrAdmin)
-            {
-                Page.Response.Redirect("TicketCenter.aspx", true);
-            }
-            else
-            {
-                Page.Response.Redirect("MyTickets.aspx", true);
 
-            }
+            Page.Response.Redirect("TicketCenter2.aspx", true);
+
         }
 
 
 
-       
+
     }
 }

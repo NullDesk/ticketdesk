@@ -328,7 +328,7 @@ INPUT[type="button"], INPUT[type="submit"]
 
 .TagsListPanel
 {
-	margin-right: 15px;
+	margin-right: 10px;
 }
 
 
@@ -367,3 +367,82 @@ a:link, a:visited, a:active
 	height:50px;
 	
 }
+
+
+/* Ticket Center 2 */
+    .ListControlTable
+    {
+        
+        margin-bottom: 3px;
+    }
+    .ListControlTable td
+    {
+        vertical-align: bottom;
+        height: 30px;
+        padding-right: 8px;
+        padding-left: 1px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+    .ListSearchPrompt
+    {
+        font-size: 7pt;
+    }
+    SELECT[disabled="disabled"]
+    {
+        background-color: #f5f5f5;
+    }
+    label
+    {
+        font-size: 8pt;
+    }
+    .FieldBlock
+    {
+        border: solid 1px #A0A0A0;
+        background-color: #ffffff;
+    }
+    .FieldBlockHeader
+    {
+        background-image: url(       'GreenGradient.gif' );
+        background-repeat: repeat-x;
+        background-position: bottom;
+        background-color: #CDF2B3;
+        padding: 3px;
+        font-size: 10pt;
+        font-weight: bold;
+    }
+    .FieldBlockSubHeader
+    {
+        background-color: #FFFFDD;
+        padding: 3px;
+        font-size: 10pt;
+    }
+    .FieldBlockBody
+    {
+        padding: 3px;
+        border-top: solid 1px #A0A0A0;
+    }
+    .ReorderList
+    {
+        white-space: nowrap;
+        padding: 3px;
+    }
+    .ReorderList li
+    {
+        font-size: larger;
+        list-style: none;
+        white-space: nowrap;
+    }
+    .ReorderListItemCallbackStyle
+    {
+        border: solid 1px #3399FF;
+    }
+    .ReorderListItemDragHandle
+    {
+        cursor: pointer;
+        margin: 3px;
+        height: 15px;
+        width: 15px;
+        background-image: url('/Controls/Images/handleGrip.png' );
+        background-repeat: no-repeat;
+    }
