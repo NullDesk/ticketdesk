@@ -24,28 +24,50 @@ namespace TicketDesk.Controls
 {
     public partial class ListView : System.Web.UI.UserControl
     {
-        private string _listName;
+
+
+
+        
         private string _where;
         private ListViewSettingsCollection userSettings = ListViewSettingsCollection.GetSettingsForUser();
-        private ListViewSettings listSettings;
+        private ListViewSettings _listSettings;
+
+        private ListViewSettings ListSettings
+        {
+            get 
+            {
+                if (_listSettings == null && !string.IsNullOrEmpty(ListName))
+                {
+                    _listSettings = userSettings.GetSettingsForList(ListName);
+                }
+                return _listSettings; 
+            }
+            set { _listSettings = value; }
+        }
+
 
         public event EventHandler SettingsChanged;
 
         public string Where
         {
             get { return _where; }
-            set 
-            { 
+            set
+            {
                 _where = value;
-               
+
             }
         }
 
         public string ListName
         {
-            get { return _listName; }
-            set { _listName = value; }
+            get 
+            {
+                return ViewState["TicketCenterListName"] as string;
+            }
+            set { ViewState["TicketCenterListName"] = value; }
         }
+
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,15 +75,16 @@ namespace TicketDesk.Controls
             {
                 throw new ApplicationException("List Name was not supplied to ListView user control");
             }
-            listSettings = userSettings.GetSettingsForList(ListName);
-            TicketsLinqDataSource.Where = Where;
             
+
+            TicketsLinqDataSource.Where = Where;
+
         }
 
         public void Bind()
         {
             TicketListView.DataBind();
-           
+
         }
 
         public void OnSettingsChanged()
@@ -78,15 +101,15 @@ namespace TicketDesk.Controls
         {
             if (e.CommandName == "ChangeSort")
             {
-                ListViewSortColumn sortCol = listSettings.SortColumns.SingleOrDefault(sc => sc.ColumnName == e.CommandArgument.ToString());
+                ListViewSortColumn sortCol = ListSettings.SortColumns.SingleOrDefault(sc => sc.ColumnName == e.CommandArgument.ToString());
                 if (sortCol != null)// column already in sort, just flip direction
                 {
                     sortCol.SortDirection = (sortCol.SortDirection == ColumnSortDirection.Ascending) ? ColumnSortDirection.Descending : ColumnSortDirection.Ascending;
                 }
                 else // column not in sort, replace sort with new simple sort for column
                 {
-                    listSettings.SortColumns.Clear();
-                    listSettings.SortColumns.Add(new ListViewSortColumn(e.CommandArgument.ToString(), ColumnSortDirection.Ascending));
+                    ListSettings.SortColumns.Clear();
+                    ListSettings.SortColumns.Add(new ListViewSortColumn(e.CommandArgument.ToString(), ColumnSortDirection.Ascending));
                 }
                 userSettings.Save();
 
@@ -94,15 +117,21 @@ namespace TicketDesk.Controls
                 OnSettingsChanged();
             }
         }
-
-        protected void TicketListDataPager_Load(object sender, EventArgs e)
+        protected void TicketListView_DataBinding(object sender, EventArgs e)
         {
+
+            DataPager pager = TicketListView.FindControl("TicketListDataPager") as DataPager;
+            if (pager != null)
+            {
+                pager.PageSize = ListSettings.ItemsPerPage;
+            }
         }
+        
 
         protected void SortLinkPreRendering(object sender, EventArgs e)
         {
             ImageButton btn = (ImageButton)sender;
-            ListViewSortColumn sortCol = listSettings.SortColumns.SingleOrDefault(sc => sc.ColumnName == btn.CommandArgument);
+            ListViewSortColumn sortCol = ListSettings.SortColumns.SingleOrDefault(sc => sc.ColumnName == btn.CommandArgument);
             if (sortCol != null)
             {
                 string imgUrl = string.Format("~/Controls/Images/{0}.png", (sortCol.SortDirection == ColumnSortDirection.Ascending) ? "up" : "down");
@@ -122,11 +151,11 @@ namespace TicketDesk.Controls
             var q = from t in ctx.Tickets
                     select t;
 
-            var qfs = q.ApplyListViewSettings(listSettings, 0);
+            var qfs = q.ApplyListViewSettings(ListSettings, 0);
 
 
             e.Result = qfs;
-            
+
         }
 
     }

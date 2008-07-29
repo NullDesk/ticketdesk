@@ -46,6 +46,7 @@ namespace TicketDesk
                 listSetting = userSettings.Settings.SingleOrDefault(us => us.ListViewDisplayOrder == minOrder);
                 listName = listSetting.ListViewName;
             }
+            listSetting = userSettings.Settings.SingleOrDefault(us => us.ListViewName == listName);
             Page.Title = string.Format("Ticket Center: {0}", listSetting.ListViewDisplayName);
             ListViewSettingsEditorControl.ListName = listName;
             ListViewControl.ListName = listName;

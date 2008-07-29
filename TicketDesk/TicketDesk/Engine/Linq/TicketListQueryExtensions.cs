@@ -39,7 +39,7 @@ namespace TicketDesk.Engine.Linq
             {
                 newQuery = ticketQuery.ApplySorts(listViewSettings);
             }
-            return newQuery.Take(listViewSettings.ItemsPerPage).Skip(startRowIndex);
+            return newQuery;
         }
 
 

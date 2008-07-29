@@ -13,7 +13,8 @@
     // provided to the recipient.
 %>
 <asp:ListView ID="TicketListView" runat="server" OnItemCommand="TicketListView_ItemCommand"
-    DataSourceID="TicketsLinqDataSource">
+    DataSourceID="TicketsLinqDataSource" 
+    ondatabinding="TicketListView_DataBinding">
     <AlternatingItemTemplate>
         <tr class="TicketListAltRow">
             <td>
@@ -122,13 +123,24 @@
                         </tr>
                         <tr class="TicketListPagerRow">
                             <td colspan="10">
-                                <asp:DataPager ID="TicketListDataPager" runat="server" OnInit="TicketListDataPager_Load">
+                                <asp:DataPager ID="TicketListDataPager" runat="server">
                                     <Fields>
-                                        <asp:NextPreviousPagerField ButtonType="Link" ShowFirstPageButton="True" ShowNextPageButton="False"
-                                            ShowPreviousPageButton="True" />
+                                      <asp:NextPreviousPagerField ShowFirstPageButton="true" ShowPreviousPageButton="true"
+                                            ShowLastPageButton="false" ShowNextPageButton="false" />
                                         <asp:NumericPagerField />
-                                        <asp:NextPreviousPagerField ButtonType="Link" ShowLastPageButton="True" ShowNextPageButton="True"
-                                            ShowPreviousPageButton="False" />
+                                        <asp:NextPreviousPagerField ShowFirstPageButton="false" ShowPreviousPageButton="false"
+                                            ShowLastPageButton="true" ShowNextPageButton="true" />
+                                        <asp:TemplatePagerField>
+                                            <PagerTemplate>
+                                                &nbsp;&nbsp;Page
+                                                    <asp:Label runat="server" ID="CurrentPageLabel" Text="<%# Container.TotalRowCount>0 ? (Container.StartRowIndex / Container.PageSize) + 1 : 0 %>" />
+                                                    of
+                                                    <asp:Label runat="server" ID="TotalPagesLabel" Text="<%# Math.Ceiling ((double)Container.TotalRowCount / Container.PageSize) %>" />
+                                                    (
+                                                    <asp:Label runat="server" ID="TotalItemsLabel" Text="<%# Container.TotalRowCount%>" />
+                                                records )
+                                            </PagerTemplate>
+                                        </asp:TemplatePagerField>
                                     </Fields>
                                 </asp:DataPager>
                             </td>
