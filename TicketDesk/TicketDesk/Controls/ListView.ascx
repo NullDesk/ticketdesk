@@ -13,8 +13,7 @@
     // provided to the recipient.
 %>
 <asp:ListView ID="TicketListView" runat="server" OnItemCommand="TicketListView_ItemCommand"
-    DataSourceID="TicketsLinqDataSource" 
-    ondatabinding="TicketListView_DataBinding">
+    DataSourceID="TicketsLinqDataSource" OnLayoutCreated="TicketListView_DataBinding" >
     <AlternatingItemTemplate>
         <tr class="TicketListAltRow">
             <td>

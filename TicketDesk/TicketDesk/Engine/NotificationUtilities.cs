@@ -121,10 +121,10 @@ namespace TicketDesk.Engine
             #region one
             stringBuilder.Append(@"
                     <DIV class=BlockHeader>
-                        <A id=TicketType href=""{0}"">Problem</A>: <A id=TicketTitle href=""{0}"">Test</A> 
+                        <A id=TicketType href=""{0}"">{16}</A> : <A id=TicketTitle href=""{0}"">{1}</A> 
                     </DIV>
                     <DIV class=BlockBody style=""HEIGHT: 180px"">
-                        <SPAN id=Details>{1}</SPAN> 
+                        <SPAN id=Details>{17}</SPAN> 
                     </DIV>
                 </DIV>
             </TD>
@@ -262,7 +262,9 @@ namespace TicketDesk.Engine
                                     SecurityManager.GetUserDisplayName(ticket.CurrentStatusSetBy), // {12}
                                     ticket.CurrentStatusDate.ToString(), // {13} 
                                     SecurityManager.GetUserDisplayName(ticket.LastUpdateBy), // {14}
-                                    ticket.LastUpdateDate.ToString() // {15}
+                                    ticket.LastUpdateDate.ToString(), // {15}
+                                    ticket.Type, // {16}
+                                    ((ticket.IsHtml) ? ticket.Details.FormatAsHtml() : ticket.Details) // {17}
                                     );
 
             body = string.Format("{0}{1}{2}",
@@ -402,7 +404,7 @@ namespace TicketDesk.Engine
 
             int repeater = 100;
 
-            foreach (TicketComment tc in ticket.TicketComments)
+            foreach (TicketComment tc in ticket.TicketComments.OrderByDescending(t => t.CommentedDate))
             {
                 string comment = "";
                 if (repeater > 100)

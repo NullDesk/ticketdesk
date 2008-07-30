@@ -83,8 +83,11 @@ namespace TicketDesk.Controls
 
         public void Bind()
         {
-            TicketListView.DataBind();
-
+            SetListPageSize();
+            if (Page.IsPostBack)
+            {
+                TicketListView.DataBind();
+            }
         }
 
         public void OnSettingsChanged()
@@ -120,6 +123,11 @@ namespace TicketDesk.Controls
         protected void TicketListView_DataBinding(object sender, EventArgs e)
         {
 
+            SetListPageSize();
+        }
+
+        private void SetListPageSize()
+        {
             DataPager pager = TicketListView.FindControl("TicketListDataPager") as DataPager;
             if (pager != null)
             {

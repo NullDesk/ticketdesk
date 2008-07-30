@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30428</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -326,7 +326,6 @@
     <Compile Include="Engine\ListView\ListViewSettingsCollection.cs" />
     <Compile Include="Engine\ListView\ListViewSortColumn.cs" />
     <Compile Include="Engine\ListView\ColumnSortDirection.cs" />
-    <Compile Include="Engine\NotificationManager.cs" />
     <Compile Include="Engine\NotificationService.cs" />
     <Compile Include="Engine\NotificationUtilities.cs" />
     <Compile Include="Engine\ProfileCommon.cs" />
@@ -523,6 +522,9 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/TicketDesk</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -21,7 +21,7 @@ namespace TicketDesk.Engine
     /// </summary>
     public static class Extensions
     {
-
+        
         public static string ConvertPascalCaseToFriendlyString(this string stringToConvert)
         {
             List<char> cFriendlyName = new List<char>();
