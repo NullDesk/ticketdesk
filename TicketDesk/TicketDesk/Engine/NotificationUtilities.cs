@@ -22,13 +22,12 @@ namespace TicketDesk.Engine
     public static class TicketDeskServiceUtilities
     {
 
-        private static TicketDataDataContext ctx = new TicketDataDataContext();
+       
 
         public static int BeginNotificationCycle(int ticketid, string url)
         {
-            IQueryable<DateTime> dt = from t in ctx.Tickets
-                                      where t.TicketId == ticketid
-                                      select t.LastUpdateDate;
+            TicketDataDataContext ctx = new TicketDataDataContext();
+            Ticket ticket = ctx.Tickets.Single(t => t.TicketId == ticketid);
 
             DateTime currentUpdateTime = new DateTime();
 
@@ -46,21 +45,21 @@ namespace TicketDesk.Engine
                 {
                     //Pause for 2.5 min
                     Thread.Sleep(millisecondsToDelay);
-                    currentUpdateTime = dt.Single();
+                    
+                    ctx.Refresh(RefreshMode.OverwriteCurrentValues, ticket);
+                    currentUpdateTime = ticket.LastUpdateDate;
                 };
             }
             //Once the updates have slowed, send Notification
-            SendNotification(ticketid, url);
+            SendNotification(ticket, url);
             return ticketid;
         }
 
-        private static void SendNotification(int ticketid, string url)
+
+
+        internal static void SendNotification(Ticket ticket, string url)
         {
-
-            Ticket ticket = (from n in ctx.Tickets
-                             where n.TicketId == ticketid
-                             select n).Single();
-
+            
             bool enableEmail = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"]);
 
             if (enableEmail)
@@ -75,11 +74,12 @@ namespace TicketDesk.Engine
                 string addressFrom = ConfigurationManager.AppSettings["FromEmailAddress"];
                 MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
 
-                string subject = string.Format("Ticket {0} changed - {1} {2}", ticket.TicketId.ToString(), comment.CommentedBy, comment.CommentEvent);
+                string subject = string.Format("Ticket {0} changed - {1} {2}", ticket.TicketId.ToString(), SecurityManager.GetUserDisplayName(comment.CommentedBy), comment.CommentEvent);
 
                 foreach (MailAddress toAddr in ticket.GetNotificationEmailAddressesForUsers())
                 {
                     MailMessage msg = new MailMessage(fromAddr, toAddr);
+                   
                     msg.Subject = subject;
                     msg.Body = body;  //body;
                     msg.IsBodyHtml = true;
@@ -264,7 +264,7 @@ namespace TicketDesk.Engine
                                     SecurityManager.GetUserDisplayName(ticket.LastUpdateBy), // {14}
                                     ticket.LastUpdateDate.ToString(), // {15}
                                     ticket.Type, // {16}
-                                    ((ticket.IsHtml) ? ticket.Details.FormatAsHtml() : ticket.Details) // {17}
+                                    ((!ticket.IsHtml) ? ticket.Details.FormatAsHtml() : ticket.Details) // {17}
                                     );
 
             body = string.Format("{0}{1}{2}",
@@ -429,7 +429,7 @@ namespace TicketDesk.Engine
                                                 tc.CommentedDate.ToString(),
                                                 SecurityManager.GetUserDisplayName(tc.CommentedBy),
                                                 tc.CommentEvent,
-                                                tc.Comment
+                                                tc.CommentAsHtml
                                                 );
 
                 commentBuilder.Append(comment);
