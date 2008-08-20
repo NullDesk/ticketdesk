@@ -25,6 +25,7 @@ namespace TicketDesk.Engine
             {
                 CurrentNotifications.Add(ticketid);
                 TicketNotificationDelegate tnd = new TicketNotificationDelegate(TicketDeskServiceUtilities.BeginNotificationCycle);
+
                 //AsyncCallback cb = new AsyncCallback(RemoveCurrentNotification);
                 tnd.BeginInvoke(ticketid, url, RemoveCurrentNotification, tnd);
             }

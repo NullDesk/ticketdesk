@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah, Version=1.0.9414.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -417,6 +418,7 @@
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\Settings.aspx" />
     <Content Include="Admin\UserRoles.aspx" />
+    <Content Include="App_Themes\TicketDeskTheme\Elmah.png" />
     <Content Include="App_Data\StockUsers.txt" />
     <Content Include="App_Data\NewInstallSQL.txt" />
     <Content Include="App_Data\TicketDesk.mdf">
@@ -434,6 +436,7 @@
     <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="bin\Elmah.dll" />
     <Content Include="Controls\Images\down.png" />
     <Content Include="Controls\Images\edit.gif" />
     <Content Include="Controls\Images\delete.gif" />
@@ -448,6 +451,7 @@
     <Content Include="Controls\ListView.ascx" />
     <Content Include="Controls\ListViewListManager.ascx" />
     <Content Include="Controls\ListViewSettingsEditor.ascx" />
+    <Content Include="ELMAH License.txt" />
     <Content Include="License.txt" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
@@ -456,6 +460,7 @@
     <Content Include="TicketSearch.aspx" />
     <Content Include="WebAd.config" />
     <Content Include="Admin\Admin.Master" />
+    <None Include="App_Data\Update_1.1_to_1.2.SQL" />
     <None Include="App_Data\Update_1.0_to_1.1.SQL" />
     <None Include="App_Themes\TicketDeskTheme\TicketDeskLogo.psd" />
     <Content Include="DownloadAttachment.ashx" />

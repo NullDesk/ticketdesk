@@ -368,6 +368,17 @@ a:link, a:visited, a:active
 	
 }
 
+.AdminItemContainer_Elmah
+{
+	background-image:url('Elmah.png');
+	background-position:left;
+	background-repeat:no-repeat;
+	padding-left:55px;
+	padding-top:35px;
+	width:100%;
+	height:50px;
+	
+}
 
 /* Ticket Center 2 */
     .ListControlTable

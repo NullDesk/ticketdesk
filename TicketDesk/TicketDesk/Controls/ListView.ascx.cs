@@ -120,10 +120,12 @@ namespace TicketDesk.Controls
                 OnSettingsChanged();
             }
         }
-        protected void TicketListView_DataBinding(object sender, EventArgs e)
+        protected void TicketListView_LayoutCreated(object sender, EventArgs e)
         {
-
-            SetListPageSize();
+            if (!Page.IsPostBack)//set this only on first load... seems to cause infinite an loop if used on postbacks where the postback may have rebound the list.
+            {
+                SetListPageSize();
+            }
         }
 
         private void SetListPageSize()

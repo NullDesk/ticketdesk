@@ -15,17 +15,16 @@ using System.Web;
 using TicketDesk;
 using TicketDesk.Controls;
 using TicketDesk.Engine.Linq;
+using System.IO;
 
 
 namespace TicketDesk.Engine
 {
     public static class TicketDeskServiceUtilities
     {
-
-       
-
         public static int BeginNotificationCycle(int ticketid, string url)
         {
+
             TicketDataDataContext ctx = new TicketDataDataContext();
             Ticket ticket = ctx.Tickets.Single(t => t.TicketId == ticketid);
 

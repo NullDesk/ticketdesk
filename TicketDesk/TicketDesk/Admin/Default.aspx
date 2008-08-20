@@ -31,6 +31,15 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <div class="AdminItemContainer_Elmah">
+                        <a href="elmah.axd">View Elmah Error Logs</a>
+                    </div>
+                </td>
+                <td>
+                </td>
+            </tr>
         </tbody>
     </table>
 </asp:Content>
