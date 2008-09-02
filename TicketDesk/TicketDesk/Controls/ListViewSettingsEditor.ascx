@@ -69,7 +69,7 @@
             </tr>
         </tbody>
     </table>
-    <asp:Panel ID="AdvancedSettingsPanel" runat="server" Style="clear: right;">
+    <asp:Panel ID="AdvancedSettingsPanel" runat="server" Style="clear: right;overflow: hidden;" Height="0px">
         <div class="FieldBlock">
             <div class="FieldBlockHeader" style="text-align:center">
                 Advanced Settings
