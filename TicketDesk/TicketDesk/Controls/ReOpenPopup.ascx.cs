@@ -74,7 +74,7 @@ namespace TicketDesk.Controls
             ReOpenModalPopupExtender.Hide();
             if(ReOpened != null)
             {
-                ReOpened();
+                ReOpened(comment);
             }
             
         }

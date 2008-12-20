@@ -72,7 +72,7 @@ namespace TicketDesk.Controls
                 
                 if(AttachmentAdded != null)
                 {
-                    AttachmentAdded();
+                    AttachmentAdded(comment);
                 }
                 AttachmentsRepeater.DataBind();
             }
@@ -92,7 +92,7 @@ namespace TicketDesk.Controls
                     TicketToDisplay.TicketComments.Add(comment);
                     if(AttachmentRemoved != null)
                     {
-                        AttachmentRemoved(attachment.FileId);
+                        AttachmentRemoved(attachment.FileId, comment);
                     }
 
                     AttachmentsRepeater.DataBind();

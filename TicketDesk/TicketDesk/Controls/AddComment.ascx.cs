@@ -81,7 +81,7 @@ namespace TicketDesk.Controls
             //NewCommentPanel.Height = Unit.Parse("0px");
             if(CommentChanged != null)
             {
-                CommentChanged();
+                CommentChanged(comment);
             }
         }
 

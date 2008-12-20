@@ -228,3 +228,38 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+/****** Object:  Table [dbo].[TicketEventNotifications]    Script Date: 12/18/2008 02:38:51 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TicketEventNotifications](
+	[TicketId] [int] NOT NULL,
+	[CommentId] [int] NOT NULL,
+	[NotifyUser] [nvarchar](100) NOT NULL,
+	[NotifyUserDisplayName] [nvarchar](100) NOT NULL,
+	[NotifyEmail] [nvarchar](255) NOT NULL,
+	[NotifyUserReason] [nvarchar](50) NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[DeliveryAttempts] [int] NOT NULL,
+	[LastDeliveryAttemptDate] [datetime] NULL,
+	[Status] [nvarchar](20) NOT NULL,
+	[NextDeliveryAttemptDate] [datetime] NULL,
+ CONSTRAINT [PK_TicketEventNotifications] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC,
+	[CommentId] ASC,
+	[NotifyUser] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[TicketEventNotifications]  WITH CHECK ADD  CONSTRAINT [FK_TicketEventNotifications_TicketComments] FOREIGN KEY([TicketId], [CommentId])
+REFERENCES [dbo].[TicketComments] ([TicketId], [CommentId])
+GO
+
+ALTER TABLE [dbo].[TicketEventNotifications] CHECK CONSTRAINT [FK_TicketEventNotifications_TicketComments]
+GO

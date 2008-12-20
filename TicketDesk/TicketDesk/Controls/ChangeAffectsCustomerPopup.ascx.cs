@@ -83,7 +83,7 @@ namespace TicketDesk.Controls
             ChangeAffectsCustomerModalPopupExtender.Hide();
             if(AffectsCustomerChanged != null)
             {
-                AffectsCustomerChanged();
+                AffectsCustomerChanged(comment);
             }
         }
     }

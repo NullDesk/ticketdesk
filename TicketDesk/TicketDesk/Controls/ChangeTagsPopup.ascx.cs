@@ -99,7 +99,7 @@ namespace TicketDesk.Controls
             ChangeTagsModalPopupExtender.Hide();
             if(TagsChanged != null)
             {
-                TagsChanged();
+                TagsChanged(comment);
             }
 
 

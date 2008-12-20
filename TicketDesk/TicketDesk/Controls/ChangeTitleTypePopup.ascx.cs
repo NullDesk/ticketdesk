@@ -111,7 +111,7 @@ namespace TicketDesk.Controls
             ChangeTitleTypeModalPopupExtender.Hide();
             if(TitleOrTypeChanged != null)
             {
-                TitleOrTypeChanged();
+                TitleOrTypeChanged(comment);
             }
             
             

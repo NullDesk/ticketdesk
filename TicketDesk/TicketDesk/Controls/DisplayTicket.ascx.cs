@@ -228,22 +228,22 @@ namespace TicketDesk.Controls
             }
         }
 
-        void TicketPropertyChanged()
+        void TicketPropertyChanged(TicketComment eventComment)
         {
             if(TicketChanged != null)
             {
-                TicketChanged();
+                TicketChanged(eventComment);
             }
             DisplayEditControls();
             DisplayActionControls();
             PopulateDisplay();
         }
 
-        void AttachmentRemoved(int fileId)
+        void AttachmentRemoved(int fileId, TicketComment eventComment)
         {
             if(TicketAttachmentRemoved != null)
             {
-                TicketAttachmentRemoved(fileId);
+                TicketAttachmentRemoved(fileId, eventComment);
             }
             PopulateDisplay();
             

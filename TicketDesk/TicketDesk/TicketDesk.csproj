@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30428</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elmah, Version=1.0.9414.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Elmah, Version=1.0.10617.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -327,6 +327,7 @@
     <Compile Include="Engine\ListView\ListViewSettingsCollection.cs" />
     <Compile Include="Engine\ListView\ListViewSortColumn.cs" />
     <Compile Include="Engine\ListView\ColumnSortDirection.cs" />
+    <Compile Include="Engine\MockHttpContext.cs" />
     <Compile Include="Engine\NotificationService.cs" />
     <Compile Include="Engine\NotificationUtilities.cs" />
     <Compile Include="Engine\ProfileCommon.cs" />
@@ -335,6 +336,9 @@
     <Compile Include="Engine\SettingsManager.cs" />
     <Compile Include="Engine\TagManager.cs" />
     <Compile Include="Engine\User.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -452,6 +456,7 @@
     <Content Include="Controls\ListViewListManager.ascx" />
     <Content Include="Controls\ListViewSettingsEditor.ascx" />
     <Content Include="ELMAH License.txt" />
+    <Content Include="Global.asax" />
     <Content Include="License.txt" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
@@ -523,7 +528,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57361</DevelopmentServerPort>
+          <DevelopmentServerPort>8227</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/TicketDesk</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

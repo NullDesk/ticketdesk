@@ -136,7 +136,7 @@ namespace TicketDesk.Controls
             AssignModalPopupExtender.Hide();
             if(AssignedToChanged != null)
             {
-                AssignedToChanged();
+                AssignedToChanged(comment);
             }
 
         }

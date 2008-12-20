@@ -251,7 +251,7 @@
                                     <ItemTemplate>
                                         <div class="CommentBox">
                                             <div class="CommentHead">
-                                                <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy HH:mm tt}") %>' /><br />
+                                                <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
                                                 <asp:Label ID="CommentBy" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
                                                 <asp:Label ID="CommentEvent" runat="server" Text='<%# Eval("CommentEvent") %>' /></div>
                                             <asp:Label CssClass="CommentText" Visible='<%# !string.IsNullOrEmpty((string)Eval("CommentAsHtml")) %>'

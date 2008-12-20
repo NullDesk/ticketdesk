@@ -107,7 +107,7 @@ namespace TicketDesk.Controls
             ChangePriorityModalPopupExtender.Hide();
             if(PriorityChanged != null)
             {
-                PriorityChanged();
+                PriorityChanged(comment);
             }
             BuildPriorityList();
             

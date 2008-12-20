@@ -70,7 +70,7 @@ namespace TicketDesk.Controls
             ResolveModalPopupExtender.Hide();
             if(Resolved != null)
             {
-                Resolved();
+                Resolved(comment);
             }
             
         }

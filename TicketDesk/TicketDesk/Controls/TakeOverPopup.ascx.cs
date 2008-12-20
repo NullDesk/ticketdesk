@@ -102,7 +102,7 @@ namespace TicketDesk.Controls
             TakeOverModalPopupExtender.Hide();
             if(TakenOver != null)
             {
-                TakenOver();
+                TakenOver(comment);
             }
 
         }

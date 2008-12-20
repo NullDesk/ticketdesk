@@ -86,7 +86,7 @@ namespace TicketDesk.Controls
                 ChangeDetailsModalPopupExtender.Hide();
                 if(DetailsChanged != null)
                 {
-                    DetailsChanged();
+                    DetailsChanged(comment);
                 }
             }
         }

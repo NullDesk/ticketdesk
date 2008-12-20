@@ -69,7 +69,7 @@ namespace TicketDesk.Controls
             GiveUpModalPopupExtender.Hide();
             if(GivenUp!= null)
             {
-                GivenUp();
+                GivenUp(comment);
             }
             
         }

@@ -79,7 +79,7 @@ namespace TicketDesk.Controls
             CancelMoreInfoModalPopupExtender.Hide();
             if(MoreInfoCanceled != null)
             {
-                MoreInfoCanceled();
+                MoreInfoCanceled(comment);
             }
 
         }

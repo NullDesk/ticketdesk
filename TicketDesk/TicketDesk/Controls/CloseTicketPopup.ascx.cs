@@ -80,7 +80,7 @@ namespace TicketDesk.Controls
             CloseTicketModalPopupExtender.Hide();
             if(TicketClosed != null)
             {
-                TicketClosed();
+                TicketClosed(comment);
             }
 
         }

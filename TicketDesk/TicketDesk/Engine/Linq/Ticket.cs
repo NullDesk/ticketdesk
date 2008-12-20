@@ -26,7 +26,7 @@ using System.Net.Mail;
 
 namespace TicketDesk.Engine.Linq
 {
-    [SortableFields("TicketId", "Type", "Category", "Title", "CreatedBy", "CreatedDate", "Owner", 
+    [SortableFields("TicketId", "Type", "Category", "Title", "CreatedBy", "CreatedDate", "Owner",
                     "AssignedTo", "CurrentStatus", "LastUpdateBy", "LastUpdateDate", "Priority",
                     "AffectsCustomer")]
     public partial class Ticket
@@ -37,7 +37,10 @@ namespace TicketDesk.Engine.Linq
         /// <param name="value"></param>
         partial void OnAssignedToChanging(string value)
         {
-            AddNotificationEmailAddress(AssignedTo);
+            if (!string.IsNullOrEmpty(AssignedTo))
+            {
+                additionalUsers.Add(AssignedTo);
+            }
         }
 
         /// <summary>
@@ -46,62 +49,78 @@ namespace TicketDesk.Engine.Linq
         /// <param name="value"></param>
         partial void OnOwnerChanging(string value)
         {
-            AddNotificationEmailAddress(Owner);
+            if (!string.IsNullOrEmpty(Owner))
+            {
+                additionalUsers.Add(Owner);
+            }
         }
 
-        private Dictionary<string, MailAddress> notificationAddresses = new Dictionary<string, MailAddress>();
 
-        /// <summary>
-        /// Gets notification email addresses for users that will be notified about the most recent change to the ticket.
-        /// </summary>
-        /// <remarks>
-        /// Will always add the current owner and assigned to user plus any specified additional users. Users
-        /// will not be added multiple times, and will not be added if they were the user that made the most
-        /// recent change.
-        /// </remarks>
-        /// <param name="additionalUsers">Additional users that should be notified</param>
-        /// <returns></returns>
-        public List<MailAddress> GetNotificationEmailAddressesForUsers(params string[] additionalUsers)
+        private List<string> additionalUsers = new List<string>();
+
+        public List<TicketEventNotification> CreateTicketEventNotificationsForComment(int commentId)
         {
-            List<MailAddress> addresses = new List<MailAddress>();
-            AddNotificationEmailAddress(Owner);
-           
-            foreach(string user in additionalUsers)
+            List<TicketEventNotification> eventNotes = new List<TicketEventNotification>();
+            var ownerNote = CreateTicketEventNotificationForUser(commentId, Owner, "Owner");
+            if (ownerNote != null)
             {
-                AddNotificationEmailAddress(user);
+                eventNotes.Add(ownerNote);
             }
-           
+
+            foreach (string user in additionalUsers)
+            {
+                var addNote = CreateTicketEventNotificationForUser(commentId, user, "Subscriber");
+                if (addNote != null)
+                {
+                    eventNotes.Add(addNote);
+                }
+            }
+
             if (AssignedTo == null)
             {
                 string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
                 foreach (string admin in admins)
                 {
-                    AddNotificationEmailAddress(admin);
+                    var adminNote = CreateTicketEventNotificationForUser(commentId, admin, "Admin");
+                    if (adminNote != null)
+                    {
+                        eventNotes.Add(adminNote);
+                    }
                 }
             }
-            else 
+            else
             {
-                AddNotificationEmailAddress(AssignedTo);
-            }
-
-             if(notificationAddresses.Count > 0)
-            {
-                addresses.AddRange(notificationAddresses.Values.ToList());
-            }
-            return addresses;
-        }
-
-        private void AddNotificationEmailAddress(string user)
-        {
-            if(!string.IsNullOrEmpty(user) && !notificationAddresses.ContainsKey(user) && user != LastUpdateBy)
-            {
-                string email = SecurityManager.GetUserEmailAddress(user);
-                if(!string.IsNullOrEmpty(email))
+                //Wee! 
+                var assNote = CreateTicketEventNotificationForUser(commentId, AssignedTo, "Assigned");
+                if (assNote != null)
                 {
-                    MailAddress addy = new MailAddress(email, SecurityManager.GetUserDisplayName(user));
-                    notificationAddresses.Add(user, addy);
+                    eventNotes.Add(assNote);
                 }
             }
+
+            return eventNotes;
         }
+
+
+
+        private TicketEventNotification CreateTicketEventNotificationForUser(int commentId, string user, string userType)
+        {
+            TicketEventNotification note = null;
+            if (!string.IsNullOrEmpty(user) && user != LastUpdateBy)
+            {
+
+                note = new TicketEventNotification();
+                note.TicketId = TicketId;
+                note.CommentId = commentId;
+                note.NotifyUser = user;
+                note.NotifyUserDisplayName =
+                note.NotifyEmail = SecurityManager.GetUserEmailAddress(user);
+                note.NotifyUserDisplayName = SecurityManager.GetUserDisplayName(user);
+                note.NotifyUserReason = userType;
+            }
+            return note;
+        }
+
+
     }
 }

@@ -17,8 +17,8 @@ using TicketDesk.Engine;
 using TicketDesk.Engine.Linq;
 namespace TicketDesk
 {
-    public delegate void TicketPropertyChangedDelegate();
-    public delegate void TicketAttachmentRemovedDelegate(int fileId);
+    public delegate void TicketPropertyChangedDelegate(TicketComment eventComment);
+    public delegate void TicketAttachmentRemovedDelegate(int fileId, TicketComment eventComment);
     public partial class ViewTicket : System.Web.UI.Page
     {
         private TicketDataDataContext ctx = new TicketDataDataContext();
@@ -46,17 +46,18 @@ namespace TicketDesk
             }
         }
 
-        void TicketAttachmentRemoved(int fileId)
+        void TicketAttachmentRemoved(int fileId, TicketComment eventComment)
         {
             TicketAttachment attachment = DisplayTicketView.TicketToDisplay.TicketAttachments.Single(a => a.FileId == fileId);
             ctx.TicketAttachments.DeleteOnSubmit(attachment);
-            TicketChanged();
+            TicketChanged(eventComment);
         }
 
-        void TicketChanged()
+        void TicketChanged(TicketComment eventComment)
         {
             DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
             ctx.SubmitChanges();
+            NotificationService.QueueTicketEventNotification(eventComment);
         }
     }
 }

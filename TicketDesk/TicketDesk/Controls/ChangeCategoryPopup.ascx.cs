@@ -95,7 +95,7 @@ namespace TicketDesk.Controls
             ChangeCategoryModalPopupExtender.Hide();
             if(CategoryChanged != null)
             {
-                CategoryChanged();
+                CategoryChanged(comment);
             }
             BuildCategoryList();
             

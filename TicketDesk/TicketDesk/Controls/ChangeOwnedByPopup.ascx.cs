@@ -100,7 +100,7 @@ namespace TicketDesk.Controls
             ChangeOwnedByModalPopupExtender.Hide();
             if(OwnerChanged != null)
             {
-                OwnerChanged();
+                OwnerChanged(comment);
             }
         }
 

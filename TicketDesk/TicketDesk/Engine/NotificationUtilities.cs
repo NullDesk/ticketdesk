@@ -20,83 +20,106 @@ using System.IO;
 
 namespace TicketDesk.Engine
 {
-    public static class TicketDeskServiceUtilities
+    public static class NotificationUtilities
     {
         public static int BeginNotificationCycle(int ticketid, string url)
         {
-
-            TicketDataDataContext ctx = new TicketDataDataContext();
-            Ticket ticket = ctx.Tickets.Single(t => t.TicketId == ticketid);
-
-            DateTime currentUpdateTime = new DateTime();
-
-            //Get amount of time to delay
-            string delay = ConfigurationManager.AppSettings["EmailNotificationDelay"];
-            if (delay != null && delay != "none")
+            try
             {
-                Int32 minutesToDelay = Convert.ToInt32(delay);
-                Int32 millisecondsToDelay = minutesToDelay * 60 * 1000 / 2;
+                TicketDataDataContext ctx = new TicketDataDataContext();
+                Ticket ticket = ctx.Tickets.Single(t => t.TicketId == ticketid);
 
-                //Pause for 2.5 min
-                Thread.Sleep(millisecondsToDelay);
+                DateTime currentUpdateTime = new DateTime();
 
-                while (currentUpdateTime > DateTime.Now.AddMinutes(-(minutesToDelay)))
+                //Get amount of time to delay
+                string delay = ConfigurationManager.AppSettings["EmailNotificationDelay"];
+                if (delay != null && delay != "none")
                 {
+                    Int32 minutesToDelay = Convert.ToInt32(delay);
+                    Int32 millisecondsToDelay = minutesToDelay * 60 * 1000 / 2;
+
                     //Pause for 2.5 min
                     Thread.Sleep(millisecondsToDelay);
-                    
-                    ctx.Refresh(RefreshMode.OverwriteCurrentValues, ticket);
-                    currentUpdateTime = ticket.LastUpdateDate;
-                };
+
+                    while (currentUpdateTime > DateTime.Now.AddMinutes(-(minutesToDelay)))
+                    {
+                        //Pause for 2.5 min
+                        Thread.Sleep(millisecondsToDelay);
+
+                        ctx.Refresh(RefreshMode.OverwriteCurrentValues, ticket);
+                        currentUpdateTime = ticket.LastUpdateDate;
+                    };
+                }
+                //Once the updates have slowed, send Notification
+                SendNotification(ticket, url);
+                return ticketid;
             }
-            //Once the updates have slowed, send Notification
-            SendNotification(ticket, url);
-            return ticketid;
+            catch (Exception ex)
+            {
+                Exception newEx = new ApplicationException("Failure in Notificaiton Cycle", ex);
+                HttpContext mockContext = (new TicketDesk.Engine.MockHttpContext(false)).Context;
+                Elmah.ErrorLog.GetDefault(mockContext).Log(new Elmah.Error(newEx));
+                throw ex;
+            }
         }
-
-
 
         internal static void SendNotification(Ticket ticket, string url)
         {
-            
-            bool enableEmail = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"]);
 
-            if (enableEmail)
-            {
-                SmtpClient client = new SmtpClient();
+            //bool enableEmail = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"]);
 
-                string body = GetHTMLBody(ticket, url);
+            //if (enableEmail)
+            //{
+            //    SmtpClient client = new SmtpClient();
 
-                TicketComment comment = ticket.TicketComments.Single(tc => tc.CommentedDate == (ticket.TicketComments.Max(tcm => tcm.CommentedDate)));
+            //    string body = GetHTMLBody(ticket, url);
 
-                string displayFrom = ConfigurationManager.AppSettings["FromEmailDisplayName"];
-                string addressFrom = ConfigurationManager.AppSettings["FromEmailAddress"];
-                MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
+            //    TicketComment comment = ticket.TicketComments.Single(tc => tc.CommentedDate == (ticket.TicketComments.Max(tcm => tcm.CommentedDate)));
 
-                string subject = string.Format("Ticket {0} changed - {1} {2}", ticket.TicketId.ToString(), SecurityManager.GetUserDisplayName(comment.CommentedBy), comment.CommentEvent);
+            //    string displayFrom = ConfigurationManager.AppSettings["FromEmailDisplayName"];
+            //    string addressFrom = ConfigurationManager.AppSettings["FromEmailAddress"];
+            //    string blindCopyTo = ConfigurationManager.AppSettings["BlindCopyToEmailAddress"];
+            //    MailAddress bccAddr = null;
+            //    if (!string.IsNullOrEmpty(blindCopyTo))
+            //    {
+            //        bccAddr = new MailAddress(blindCopyTo);
+            //    }
 
-                foreach (MailAddress toAddr in ticket.GetNotificationEmailAddressesForUsers())
-                {
-                    MailMessage msg = new MailMessage(fromAddr, toAddr);
-                   
-                    msg.Subject = subject;
-                    msg.Body = body;  //body;
-                    msg.IsBodyHtml = true;
-                    //msg.BodyEncoding = Encoding.UTF8;
-                    //msg.SubjectEncoding = Encoding.UTF8;
-                    try
-                    {
-                        client.Send(msg);
-                    }
-                    catch
-                    {
-                        //do nothing, continue
-                    }
-                }
-            }
+            //    MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
+
+            //    string subject = string.Format("Ticket {0} changed - {1} {2}", ticket.TicketId.ToString(), SecurityManager.GetUserDisplayName(comment.CommentedBy), comment.CommentEvent);
+
+            //    foreach (MailAddress toAddr in ticket.GetNotificationEmailAddressesForUsers())
+            //    {
+            //        MailMessage msg = new MailMessage(fromAddr, toAddr);
+            //        if (bccAddr != null)
+            //        {
+            //            msg.Bcc.Add(bccAddr);
+            //        }
+            //        msg.Subject = subject;
+            //        msg.Body = body;  //body;
+            //        msg.IsBodyHtml = true;
+            //        //msg.BodyEncoding = Encoding.UTF8;
+            //        //msg.SubjectEncoding = Encoding.UTF8;
+
+
+            //        try
+            //        {
+            //            client.Send(msg);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Exception newEx = new ApplicationException(string.Format("Email Failure sending to: {0}({1})", toAddr.DisplayName, toAddr.Address), ex);
+            //            HttpContext mockContext = (new TicketDesk.Engine.MockHttpContext(false)).Context;
+            //            Elmah.ErrorLog.GetDefault(mockContext).Log(new Elmah.Error(newEx));
+                       
+            //        }
+
+            //    }
+            //}
         }
 
-        private static string GetHTMLBody(Ticket ticket, string url)
+        public static string GetHTMLBody(Ticket ticket, string url)
         {
 
             string viewTicket = string.Format("ViewTicket.aspx?id={0}", ticket.TicketId.ToString());

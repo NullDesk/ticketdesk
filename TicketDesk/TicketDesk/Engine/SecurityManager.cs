@@ -36,6 +36,9 @@ namespace TicketDesk.Engine
     /// </remarks>
     public class SecurityManager
     {
+
+        private static object lockGetFormattedUserName = new object();
+
         /// <summary>
         /// Gets the user name formatted for use in the TicketDesk database.
         /// </summary>
@@ -46,13 +49,19 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         public static string GetFormattedUserName(string userName)
         {
-            AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
-            if(authenticationSection.Mode == AuthenticationMode.Windows && !string.IsNullOrEmpty(userName) && userName.Contains('\\'))
+            lock (lockGetFormattedUserName)
             {
-                userName = userName.Split('\\')[1];
+                AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
+                if (authenticationSection.Mode == AuthenticationMode.Windows && !string.IsNullOrEmpty(userName) && userName.Contains('\\'))
+                {
+                    userName = userName.Split('\\')[1];
+                }
+                return userName.ToLower();
             }
-            return userName.ToLower();
         }
+
+
+        private static object lockGetUserDisplayName = new object();
 
         /// <summary>
         /// Gets the display name of the user.
@@ -61,24 +70,30 @@ namespace TicketDesk.Engine
         /// <returns>The display name from AD if using windows security, otherwise simply returns the SQL membership user name.</returns>
         public static string GetUserDisplayName(string userName)
         {
-            AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
-            if(authenticationSection.Mode == AuthenticationMode.Windows && !string.IsNullOrEmpty(userName))
+            lock (lockGetUserDisplayName)
             {
-                userName = GetAdUserProperty(userName, "displayName");
-            }
-            else
-            {
-                if(!string.IsNullOrEmpty(userName))
+                AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
+                if (authenticationSection.Mode == AuthenticationMode.Windows && !string.IsNullOrEmpty(userName))
                 {
-                    MembershipUser user = Membership.GetUser(userName);
-                    if(user != null && !string.IsNullOrEmpty(user.Comment))
+                    userName = GetAdUserProperty(userName, "displayName");
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(userName))
                     {
-                        userName = user.Comment;
+                        MembershipUser user = Membership.GetUser(userName);
+                        if (user != null && !string.IsNullOrEmpty(user.Comment))
+                        {
+                            userName = user.Comment;
+                        }
                     }
                 }
+                return userName;
             }
-            return userName;
         }
+
+        private static object lockGetTicketSubmitterUsers = new object();
+
 
         /// <summary>
         /// Gets a list of all possible ticket submitter users.
@@ -86,8 +101,13 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         public static User[] GetTicketSubmitterUsers()
         {
-            return GetUsersInRoleType("TicketSubmittersRoleName");
+            lock (lockGetTicketSubmitterUsers)
+            {
+                return GetUsersInRoleType("TicketSubmittersRoleName");
+            }
         }
+
+        private static object lockGetHelpDeskUsers = new object();
 
         /// <summary>
         /// Gets a list of all possible help desk users.
@@ -95,8 +115,14 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         public static User[] GetHelpDeskUsers()
         {
-            return GetUsersInRoleType("HelpDeskStaffRoleName");
+            lock (lockGetHelpDeskUsers)
+            {
+                return GetUsersInRoleType("HelpDeskStaffRoleName");
+            }
         }
+
+        private static object lockGetAdministrativeUsers = new object();
+
 
         /// <summary>
         /// Gets a list of all possible administrative users.
@@ -104,7 +130,10 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         public static User[] GetAdministrativeUsers()
         {
-            return GetUsersInRoleType("AdministrativeRoleName");
+            lock (lockGetAdministrativeUsers)
+            {
+                return GetUsersInRoleType("AdministrativeRoleName");
+            }
         }
 
         /// <summary>
@@ -124,7 +153,7 @@ namespace TicketDesk.Engine
         {
             User[] users = null;
             AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
-            switch(authenticationSection.Mode)
+            switch (authenticationSection.Mode)
             {
                 case AuthenticationMode.Windows:
                     users = GetUsersInRoleWithActiveDirectory(roleType);
@@ -138,6 +167,9 @@ namespace TicketDesk.Engine
             return users;
         }
 
+        private static object lockGetUserEmailAddress = new object();
+
+
         /// <summary>
         /// Gets the user email address either from the SQL Membership provider or from AD depending 
         /// on how security is configured for the applciation.
@@ -146,25 +178,28 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         public static string GetUserEmailAddress(string userName)
         {
-            string emailAddress = string.Empty;
-            AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
-            switch(authenticationSection.Mode)
+            lock (lockGetUserEmailAddress)
             {
-                case AuthenticationMode.Windows:
-                    emailAddress = GetAdUserProperty(userName, "mail");
-                    break;
-                case AuthenticationMode.Forms:
-                    MembershipUser user = Membership.GetUser(userName);
-                    if(user != null)
-                    {
-                        emailAddress = user.Email;
-                    }
-                    break;
-                default:
-                    break;
-            }
+                string emailAddress = string.Empty;
+                AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
+                switch (authenticationSection.Mode)
+                {
+                    case AuthenticationMode.Windows:
+                        emailAddress = GetAdUserProperty(userName, "mail");
+                        break;
+                    case AuthenticationMode.Forms:
+                        MembershipUser user = Membership.GetUser(userName);
+                        if (user != null)
+                        {
+                            emailAddress = user.Email;
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
-            return emailAddress;
+                return emailAddress;
+            }
         }
 
         /// <summary>
@@ -176,7 +211,7 @@ namespace TicketDesk.Engine
         {
             List<User> users = new List<User>();
             string[] sUsers = Roles.GetUsersInRole(ConfigurationManager.AppSettings[roleType]);
-            foreach(string s in sUsers)
+            foreach (string s in sUsers)
             {
                 users.Add(new User(s.ToLower(), GetUserDisplayName(s)));
             }
@@ -215,7 +250,7 @@ namespace TicketDesk.Engine
         private static User[] GetCachedAdUsersForGroup(string groupName)
         {
             string key = GetAdUserGroupCacheKey(groupName);
-            if(HttpRuntime.Cache[key] == null)
+            if (HttpRuntime.Cache[key] == null)
             {
                 using
                 (
@@ -225,9 +260,9 @@ namespace TicketDesk.Engine
                                             ConfigurationManager.AppSettings["ActiveDirectoryUserPassword"])
                 )
                 {
-                    using(GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx, IdentityType.Name, groupName))
+                    using (GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx, IdentityType.Name, groupName))
                     {
-                        if(grp != null)
+                        if (grp != null)
                         {
                             var x = from p in grp.GetMembers(true)
                                     where p.StructuralObjectClass == "user" &&
@@ -296,7 +331,7 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         private static Dictionary<string, Dictionary<string, string>> GetCachedUserProperties()
         {
-            if(HttpRuntime.Cache["AdUserPropertyCollection"] == null)
+            if (HttpRuntime.Cache["AdUserPropertyCollection"] == null)
             {
                 Dictionary<string, Dictionary<string, string>> userProperties = new Dictionary<string, Dictionary<string, string>>();
                 HttpRuntime.Cache.Insert
@@ -315,6 +350,7 @@ namespace TicketDesk.Engine
         }
 
 
+
         /// <summary>
         /// Gets a property from Active Directory for a user account.
         /// </summary>
@@ -330,21 +366,22 @@ namespace TicketDesk.Engine
         /// <returns></returns>
         private static string GetAdUserProperty(string userName, string propertyName)
         {
+
             Dictionary<string, Dictionary<string, string>> userProperties = GetCachedUserProperties();
             string propertyValue = string.Empty;
-            if(userName.Contains('\\'))
+            if (userName.Contains('\\'))
             {
                 userName = userName.Split('\\')[1];
             }
             //look to see if we already have this user and property value in our collection
-            if(userProperties.ContainsKey(userName) && userProperties[userName].ContainsKey(propertyName))
+            if (userProperties.ContainsKey(userName) && userProperties[userName].ContainsKey(propertyName))
             {
                 propertyValue = userProperties[userName][propertyName];
             }
             else
             {
                 //create the collection for the user if there isn't one already
-                if(!userProperties.ContainsKey(userName))
+                if (!userProperties.ContainsKey(userName))
                 {
                     userProperties.Add(userName, new Dictionary<string, string>());
                 }
@@ -358,21 +395,21 @@ namespace TicketDesk.Engine
                                             ConfigurationManager.AppSettings["ActiveDirectoryUserPassword"])
                 )
                 {
-                    using(UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, userName))
+                    using (UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, userName))
                     {
-                        if(userPrincipal != null)
+                        if (userPrincipal != null)
                         {
                             DirectoryEntry user = (DirectoryEntry)userPrincipal.GetUnderlyingObject();
-                            if(user != null)
+                            if (user != null)
                             {
                                 PropertyValueCollection col = user.Properties[propertyName];
-                                if(col != null && col.Count > 0)
+                                if (col != null && col.Count > 0)
                                 {
                                     propertyValue = col[0].ToString();
-                                    
+
                                 }
                             }
-                           
+
                         }
 
                     }
@@ -386,6 +423,7 @@ namespace TicketDesk.Engine
                 propertyValue = userName;
             }
             return propertyValue;
+
         }
 
         /// <summary>
@@ -449,7 +487,7 @@ namespace TicketDesk.Engine
         {
             get
             {
-                if(ConfigurationManager.AppSettings["AllowSubmitterRoleToEditPriority"] == null)
+                if (ConfigurationManager.AppSettings["AllowSubmitterRoleToEditPriority"] == null)
                 {
                     return true;
                 }
@@ -470,7 +508,7 @@ namespace TicketDesk.Engine
         {
             get
             {
-                if(ConfigurationManager.AppSettings["AllowSubmitterRoleToEditTags"] == null)
+                if (ConfigurationManager.AppSettings["AllowSubmitterRoleToEditTags"] == null)
                 {
                     return true;
                 }
@@ -479,6 +517,6 @@ namespace TicketDesk.Engine
             }
         }
 
-        
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="TicketDesk" Class="TicketDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|TicketDesk.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TicketDeskConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\TicketDesk.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TicketDeskConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.TicketAttachments" Member="TicketAttachments">
     <Type Name="TicketAttachment">
       <Column Name="TicketId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -11,7 +11,7 @@
       <Column Name="UploadedBy" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="UploadedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="FileContents" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" IsDelayLoaded="true" />
-      <Association Name="Ticket_TicketAttachment" Member="Ticket" ThisKey="TicketId" Type="Ticket" IsForeignKey="true" />
+      <Association Name="Ticket_TicketAttachment" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.TicketTags" Member="TicketTags">
@@ -19,7 +19,7 @@
       <Column Name="TicketTagId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TagName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="TicketId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Ticket_TicketTag" Member="Ticket" ThisKey="TicketId" Type="Ticket" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Ticket_TicketTag" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.TicketComments" Member="TicketComments">
@@ -32,7 +32,8 @@
       <Column Name="CommentedBy" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="CommentedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Ticket_TicketComment" Member="Ticket" ThisKey="TicketId" Type="Ticket" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TicketComment_TicketEventNotification" Member="TicketEventNotifications" ThisKey="TicketId,CommentId" OtherKey="TicketId,CommentId" Type="TicketEventNotification" />
+      <Association Name="Ticket_TicketComment" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tickets" Member="Tickets">
@@ -57,15 +58,31 @@
       <Column Name="AffectsCustomer" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="PublishedToKb" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Version" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Association Name="Ticket_TicketAttachment" Member="TicketAttachments" OtherKey="TicketId" Type="TicketAttachment" />
-      <Association Name="Ticket_TicketTag" Member="TicketTags" OtherKey="TicketId" Type="TicketTag" />
-      <Association Name="Ticket_TicketComment" Member="TicketComments" OtherKey="TicketId" Type="TicketComment" />
+      <Association Name="Ticket_TicketAttachment" Member="TicketAttachments" ThisKey="TicketId" OtherKey="TicketId" Type="TicketAttachment" />
+      <Association Name="Ticket_TicketTag" Member="TicketTags" ThisKey="TicketId" OtherKey="TicketId" Type="TicketTag" />
+      <Association Name="Ticket_TicketComment" Member="TicketComments" ThisKey="TicketId" OtherKey="TicketId" Type="TicketComment" />
     </Type>
   </Table>
   <Table Name="dbo.Settings" Member="Settings">
     <Type Name="Setting">
       <Column Name="SettingName" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SettingValue" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TicketEventNotifications" Member="TicketEventNotifications">
+    <Type Name="TicketEventNotification">
+      <Column Name="TicketId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CommentId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NotifyUser" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NotifyUserDisplayName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NotifyEmail" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="NotifyUserReason" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryAttempts" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastDeliveryAttemptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="NextDeliveryAttemptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="TicketComment_TicketEventNotification" Member="TicketComment" ThisKey="TicketId,CommentId" OtherKey="TicketId,CommentId" Type="TicketComment" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
