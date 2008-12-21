@@ -14,6 +14,7 @@ using System;
 using System.Linq;
 using System.Web.UI;
 using TicketDesk.Engine.Linq;
+using TicketDesk.Engine;
 
 namespace TicketDesk
 {
@@ -32,6 +33,7 @@ namespace TicketDesk
                     {
                         context.Tickets.InsertOnSubmit(ticket);
                         context.SubmitChanges();
+                        NotificationService.QueueTicketEventNotification(ticket.TicketComments[0]);
                         Page.Response.Redirect(string.Format("ViewTicket.aspx?id={0}", ticket.TicketId), true);
                     }
                     else

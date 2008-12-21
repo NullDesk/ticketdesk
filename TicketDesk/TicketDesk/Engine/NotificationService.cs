@@ -96,7 +96,7 @@ namespace TicketDesk.Engine
                     note.LastDeliveryAttemptDate = now;
 
                     note.DeliveryAttempts += 1;
-                    if (note.DeliveryAttempts <= maxRetries)
+                    if (note.DeliveryAttempts < maxRetries)
                     {
                         note.Status = "pending";
                         note.NextDeliveryAttemptDate = now.AddMinutes(resendDelay * note.DeliveryAttempts);

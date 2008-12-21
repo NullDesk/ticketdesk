@@ -76,12 +76,12 @@ namespace TicketDesk.Engine.Linq
                 }
             }
 
-            if (AssignedTo == null)
+            if (AssignedTo == null && additionalUsers.Count < 1)//the additional users check prevents notifications to admin when a ticket is assigned for the first time.
             {
                 string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
                 foreach (string admin in admins)
                 {
-                    var adminNote = CreateTicketEventNotificationForUser(commentId, admin, "Admin");
+                    var adminNote = CreateTicketEventNotificationForUser(commentId, admin, "HelpDesk");
                     if (adminNote != null)
                     {
                         eventNotes.Add(adminNote);
@@ -108,15 +108,26 @@ namespace TicketDesk.Engine.Linq
             TicketEventNotification note = null;
             if (!string.IsNullOrEmpty(user) && user != LastUpdateBy)
             {
+                bool emailValid = false;
+                string email = SecurityManager.GetUserEmailAddress(user);
+                var rxv = new RegexStringValidator(@"^[a-zA-Z\.\-_]+@([a-zA-Z\.\-_]+\.)+[a-zA-Z]{2,4}$");
+                try
+                {
+                    rxv.Validate(email);
+                    emailValid = true;
+                }
+                catch { }
 
-                note = new TicketEventNotification();
-                note.TicketId = TicketId;
-                note.CommentId = commentId;
-                note.NotifyUser = user;
-                note.NotifyUserDisplayName =
-                note.NotifyEmail = SecurityManager.GetUserEmailAddress(user);
-                note.NotifyUserDisplayName = SecurityManager.GetUserDisplayName(user);
-                note.NotifyUserReason = userType;
+                if (!string.IsNullOrEmpty(email) && emailValid)
+                {
+                    note = new TicketEventNotification();
+                    note.TicketId = TicketId;
+                    note.CommentId = commentId;
+                    note.NotifyUser = user;
+                    note.NotifyEmail = email;
+                    note.NotifyUserDisplayName = SecurityManager.GetUserDisplayName(user);
+                    note.NotifyUserReason = userType;
+                }
             }
             return note;
         }
