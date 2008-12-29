@@ -32,7 +32,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="scriptProxy" runat="server">
 </asp:ScriptManagerProxy>
 <asp:UpdatePanel ID="ActionsUpdatePanel" UpdateMode="Always" ChildrenAsTriggers="true"
@@ -151,7 +150,7 @@
                                                 <ticketDesk:ChangeAffectsCustomerPopup ID="ChangeAffectsCustomerPopupControl" runat="server" />
                                             </td>
                                         </tr>
-                                       <%-- <tr>
+                                        <%-- <tr>
                                             <td style="vertical-align: top; white-space: nowrap; text-align: right;">
                                                 Published to KB:
                                             </td>
@@ -219,7 +218,7 @@
         <table style="width: 100%;">
             <tbody>
                 <tr>
-                    <td style="vertical-align: top; width: 60%;"  id="AddCommentsContainer"  runat="server">
+                    <td style="vertical-align: top; width: 60%;" id="AddCommentsContainer" runat="server">
                         <div class="Block">
                             <div class="BlockHeader">
                                 Add Comment:
@@ -229,7 +228,7 @@
                             </div>
                         </div>
                     </td>
-                    <td style="vertical-align: top; width: 40%;"  id="AttachmentsContainer"  runat="server">
+                    <td style="vertical-align: top; width: 40%;" id="AttachmentsContainer" runat="server">
                         <div class="Block">
                             <div class="BlockHeader">
                                 Attachments:
@@ -248,19 +247,46 @@
                             </div>
                             <div class="BlockBody" style="">
                                 <asp:Repeater ID="CommentLogRepeater" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="CommentBoxTable">
+                                    </HeaderTemplate>
                                     <ItemTemplate>
-                                        <div class="CommentBox">
-                                            <div class="CommentHead">
-                                                <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
-                                                <asp:Label ID="CommentBy" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
-                                                <asp:Label ID="CommentEvent" runat="server" Text='<%# Eval("CommentEvent") %>' /></div>
-                                            <asp:Label CssClass="CommentText" Visible='<%# !string.IsNullOrEmpty((string)Eval("CommentAsHtml")) %>'
-                                                ID="CommentText" runat="server" Text='<%# Eval("CommentAsHtml") %>' />
-                                        </div>
+                                        <tbody class="CommentBox">
+                                            <tr>
+                                                <td rowspan="2" runat="server" class='<%# GetCommentHeadClass((string)Eval("CommentedBy")) %>'>
+                                                   
+                                                        <asp:Label ID="HeaderDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
+                                                        <br />
+                                                        <asp:Label ID="HeaderUser" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
+                                                    
+                                                </td>
+                                                <td class="CommentTitleArea">
+                                                    <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
+                                                    <asp:Label ID="CommentBy" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
+                                                    <asp:Label ID="CommentEvent" runat="server" Text='<%# Eval("CommentEvent") %>' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="CommentText">
+                                                    <asp:Label Visible='<%# !string.IsNullOrEmpty((string)Eval("CommentAsHtml")) %>'
+                                                        ID="CommentText" runat="server" Text='<%# Eval("CommentAsHtml") %>' />
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </ItemTemplate>
                                     <SeparatorTemplate>
-                                        <hr class="CommentSeperator" />
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <%-- <hr class="CommentSeperator" />--%>
                                     </SeparatorTemplate>
+                                    <FooterTemplate>
+                                        </table>
+                                    </FooterTemplate>
                                 </asp:Repeater>
                             </div>
                         </div>

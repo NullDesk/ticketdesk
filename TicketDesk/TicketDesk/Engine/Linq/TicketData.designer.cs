@@ -1566,6 +1566,8 @@ namespace TicketDesk.Engine.Linq
 		
 		private System.Nullable<System.DateTime> _NextDeliveryAttemptDate;
 		
+		private string _EventGeneratedByUser;
+		
 		private EntityRef<TicketComment> _TicketComment;
 		
     #region Extensibility Method Definitions
@@ -1594,6 +1596,8 @@ namespace TicketDesk.Engine.Linq
     partial void OnStatusChanged();
     partial void OnNextDeliveryAttemptDateChanging(System.Nullable<System.DateTime> value);
     partial void OnNextDeliveryAttemptDateChanged();
+    partial void OnEventGeneratedByUserChanging(string value);
+    partial void OnEventGeneratedByUserChanged();
     #endregion
 		
 		public TicketEventNotification()
@@ -1826,6 +1830,26 @@ namespace TicketDesk.Engine.Linq
 					this._NextDeliveryAttemptDate = value;
 					this.SendPropertyChanged("NextDeliveryAttemptDate");
 					this.OnNextDeliveryAttemptDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_EventGeneratedByUser", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string EventGeneratedByUser
+		{
+			get
+			{
+				return this._EventGeneratedByUser;
+			}
+			set
+			{
+				if ((this._EventGeneratedByUser != value))
+				{
+					this.OnEventGeneratedByUserChanging(value);
+					this.SendPropertyChanging();
+					this._EventGeneratedByUser = value;
+					this.SendPropertyChanged("EventGeneratedByUser");
+					this.OnEventGeneratedByUserChanged();
 				}
 			}
 		}

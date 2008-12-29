@@ -58,10 +58,10 @@ namespace TicketDesk.Engine.Linq
 
         private List<string> additionalUsers = new List<string>();
 
-        public List<TicketEventNotification> CreateTicketEventNotificationsForComment(int commentId)
+        public List<TicketEventNotification> CreateTicketEventNotificationsForComment(int commentId, string commentBy)
         {
             List<TicketEventNotification> eventNotes = new List<TicketEventNotification>();
-            var ownerNote = CreateTicketEventNotificationForUser(commentId, Owner, "Owner");
+            var ownerNote = CreateTicketEventNotificationForUser(commentId, commentBy, Owner, "Owner");
             if (ownerNote != null)
             {
                 eventNotes.Add(ownerNote);
@@ -69,7 +69,7 @@ namespace TicketDesk.Engine.Linq
 
             foreach (string user in additionalUsers)
             {
-                var addNote = CreateTicketEventNotificationForUser(commentId, user, "Subscriber");
+                var addNote = CreateTicketEventNotificationForUser(commentId, commentBy, user, "Subscriber");
                 if (addNote != null)
                 {
                     eventNotes.Add(addNote);
@@ -81,7 +81,7 @@ namespace TicketDesk.Engine.Linq
                 string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
                 foreach (string admin in admins)
                 {
-                    var adminNote = CreateTicketEventNotificationForUser(commentId, admin, "HelpDesk");
+                    var adminNote = CreateTicketEventNotificationForUser(commentId, commentBy, admin, "HelpDesk");
                     if (adminNote != null)
                     {
                         eventNotes.Add(adminNote);
@@ -91,7 +91,7 @@ namespace TicketDesk.Engine.Linq
             else
             {
                 //Wee! 
-                var assNote = CreateTicketEventNotificationForUser(commentId, AssignedTo, "Assigned");
+                var assNote = CreateTicketEventNotificationForUser(commentId, commentBy, AssignedTo, "Assigned");
                 if (assNote != null)
                 {
                     eventNotes.Add(assNote);
@@ -103,10 +103,10 @@ namespace TicketDesk.Engine.Linq
 
 
 
-        private TicketEventNotification CreateTicketEventNotificationForUser(int commentId, string user, string userType)
+        private TicketEventNotification CreateTicketEventNotificationForUser(int commentId, string commentBy, string user, string userType)
         {
             TicketEventNotification note = null;
-            if (!string.IsNullOrEmpty(user) && user != LastUpdateBy)
+            if (!string.IsNullOrEmpty(user))
             {
                 bool emailValid = false;
                 string email = SecurityManager.GetUserEmailAddress(user);
@@ -118,15 +118,21 @@ namespace TicketDesk.Engine.Linq
                 }
                 catch { }
 
+                note = new TicketEventNotification();
+                note.TicketId = TicketId;
+                note.CommentId = commentId;
+                note.NotifyUser = SecurityManager.GetFormattedUserName(user);
+                
+                note.NotifyUserDisplayName = SecurityManager.GetUserDisplayName(user);
+                note.NotifyUserReason = userType;
+                note.EventGeneratedByUser = commentBy;
                 if (!string.IsNullOrEmpty(email) && emailValid)
                 {
-                    note = new TicketEventNotification();
-                    note.TicketId = TicketId;
-                    note.CommentId = commentId;
-                    note.NotifyUser = user;
                     note.NotifyEmail = email;
-                    note.NotifyUserDisplayName = SecurityManager.GetUserDisplayName(user);
-                    note.NotifyUserReason = userType;
+                }
+                else
+                {
+                    note.NotifyEmail = "invalid";
                 }
             }
             return note;

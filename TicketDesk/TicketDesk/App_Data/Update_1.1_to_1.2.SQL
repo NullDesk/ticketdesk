@@ -247,6 +247,7 @@ CREATE TABLE [dbo].[TicketEventNotifications](
 	[LastDeliveryAttemptDate] [datetime] NULL,
 	[Status] [nvarchar](20) NOT NULL,
 	[NextDeliveryAttemptDate] [datetime] NULL,
+	[EventGeneratedByUser]  [nvarchar](100) NOT NULL,
  CONSTRAINT [PK_TicketEventNotifications] PRIMARY KEY CLUSTERED 
 (
 	[TicketId] ASC,

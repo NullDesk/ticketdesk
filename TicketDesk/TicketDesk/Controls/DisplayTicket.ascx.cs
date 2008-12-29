@@ -249,5 +249,15 @@ namespace TicketDesk.Controls
             
         }
 
+        protected string GetCommentHeadClass(string commentBy)
+        {
+            string returnClass = "CommentHead";
+            if (commentBy == Page.User.Identity.GetFormattedUserName())
+            {
+                returnClass = "UserCommentHead";
+            }
+            return returnClass;
+        }
+
     }
 }

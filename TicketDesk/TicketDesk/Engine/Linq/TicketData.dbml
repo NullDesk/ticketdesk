@@ -82,6 +82,7 @@
       <Column Name="LastDeliveryAttemptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Status" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="NextDeliveryAttemptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventGeneratedByUser" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Association Name="TicketComment_TicketEventNotification" Member="TicketComment" ThisKey="TicketId,CommentId" OtherKey="TicketId,CommentId" Type="TicketComment" IsForeignKey="true" />
     </Type>
   </Table>

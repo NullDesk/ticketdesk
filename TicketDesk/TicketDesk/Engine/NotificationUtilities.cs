@@ -15,111 +15,14 @@ using System.Web;
 using TicketDesk;
 using TicketDesk.Controls;
 using TicketDesk.Engine.Linq;
-using System.IO;
 
 
 namespace TicketDesk.Engine
 {
     public static class NotificationUtilities
     {
-        public static int BeginNotificationCycle(int ticketid, string url)
-        {
-            try
-            {
-                TicketDataDataContext ctx = new TicketDataDataContext();
-                Ticket ticket = ctx.Tickets.Single(t => t.TicketId == ticketid);
 
-                DateTime currentUpdateTime = new DateTime();
-
-                //Get amount of time to delay
-                string delay = ConfigurationManager.AppSettings["EmailNotificationDelay"];
-                if (delay != null && delay != "none")
-                {
-                    Int32 minutesToDelay = Convert.ToInt32(delay);
-                    Int32 millisecondsToDelay = minutesToDelay * 60 * 1000 / 2;
-
-                    //Pause for 2.5 min
-                    Thread.Sleep(millisecondsToDelay);
-
-                    while (currentUpdateTime > DateTime.Now.AddMinutes(-(minutesToDelay)))
-                    {
-                        //Pause for 2.5 min
-                        Thread.Sleep(millisecondsToDelay);
-
-                        ctx.Refresh(RefreshMode.OverwriteCurrentValues, ticket);
-                        currentUpdateTime = ticket.LastUpdateDate;
-                    };
-                }
-                //Once the updates have slowed, send Notification
-                SendNotification(ticket, url);
-                return ticketid;
-            }
-            catch (Exception ex)
-            {
-                Exception newEx = new ApplicationException("Failure in Notificaiton Cycle", ex);
-                HttpContext mockContext = (new TicketDesk.Engine.MockHttpContext(false)).Context;
-                Elmah.ErrorLog.GetDefault(mockContext).Log(new Elmah.Error(newEx));
-                throw ex;
-            }
-        }
-
-        internal static void SendNotification(Ticket ticket, string url)
-        {
-
-            //bool enableEmail = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"]);
-
-            //if (enableEmail)
-            //{
-            //    SmtpClient client = new SmtpClient();
-
-            //    string body = GetHTMLBody(ticket, url);
-
-            //    TicketComment comment = ticket.TicketComments.Single(tc => tc.CommentedDate == (ticket.TicketComments.Max(tcm => tcm.CommentedDate)));
-
-            //    string displayFrom = ConfigurationManager.AppSettings["FromEmailDisplayName"];
-            //    string addressFrom = ConfigurationManager.AppSettings["FromEmailAddress"];
-            //    string blindCopyTo = ConfigurationManager.AppSettings["BlindCopyToEmailAddress"];
-            //    MailAddress bccAddr = null;
-            //    if (!string.IsNullOrEmpty(blindCopyTo))
-            //    {
-            //        bccAddr = new MailAddress(blindCopyTo);
-            //    }
-
-            //    MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
-
-            //    string subject = string.Format("Ticket {0} changed - {1} {2}", ticket.TicketId.ToString(), SecurityManager.GetUserDisplayName(comment.CommentedBy), comment.CommentEvent);
-
-            //    foreach (MailAddress toAddr in ticket.GetNotificationEmailAddressesForUsers())
-            //    {
-            //        MailMessage msg = new MailMessage(fromAddr, toAddr);
-            //        if (bccAddr != null)
-            //        {
-            //            msg.Bcc.Add(bccAddr);
-            //        }
-            //        msg.Subject = subject;
-            //        msg.Body = body;  //body;
-            //        msg.IsBodyHtml = true;
-            //        //msg.BodyEncoding = Encoding.UTF8;
-            //        //msg.SubjectEncoding = Encoding.UTF8;
-
-
-            //        try
-            //        {
-            //            client.Send(msg);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Exception newEx = new ApplicationException(string.Format("Email Failure sending to: {0}({1})", toAddr.DisplayName, toAddr.Address), ex);
-            //            HttpContext mockContext = (new TicketDesk.Engine.MockHttpContext(false)).Context;
-            //            Elmah.ErrorLog.GetDefault(mockContext).Log(new Elmah.Error(newEx));
-                       
-            //        }
-
-            //    }
-            //}
-        }
-
-        public static string GetHTMLBody(Ticket ticket, string url)
+        public static string GetHTMLBody(Ticket ticket, string url, string userToNotify, int minCommentId)
         {
 
             string viewTicket = string.Format("ViewTicket.aspx?id={0}", ticket.TicketId.ToString());
@@ -264,7 +167,7 @@ namespace TicketDesk.Engine
 
             stringBuilder.Append(GetHTMLAttachments(ticket));
 
-            stringBuilder.Append(GetHTMLComments(ticket));
+            stringBuilder.Append(GetHTMLComments(ticket, userToNotify, minCommentId));
 
             string body = stringBuilder.ToString();
 
@@ -345,24 +248,70 @@ namespace TicketDesk.Engine
         padding: 3px;
         border-top: solid 1px #A0A0A0;
     }}
-    .CommentBox
-    {{
-    }}
-    .CommentHead
-    {{
-        padding: 3px;
-        color: #416523;
-    }}
-    .CommentSeperator
-    {{
-        color: #CDCDCD;
-        height: 1px;
-    }}
-    .CommentText
-    {{
-        display: block;
-        padding-left: 15px;
-    }}
+   .CommentBoxTable
+{{
+    border-spacing: 0px;
+    border-collapse: collapse;
+    empty-cells: show;
+    margin: 10px;
+}}
+
+.CommentBox
+{{
+}}
+
+.NewCommentArea
+{{
+    border: double 3px #C7D8CA;
+    padding: 5px;
+}}
+.NewCommentArea legend
+{{
+    padding:5px;
+    background-color:#C7D8CA
+}}
+.UserCommentHead
+{{
+    padding: 5px;
+    font-size: 8pt;
+    color: #416523;
+    border: 1px solid #808080;
+    background-color: #DAF5C5;
+    vertical-align: top;
+}}
+
+.CommentHead
+{{
+    padding: 5px;
+    font-size: 8pt;
+    color: #416523;
+    border: 1px solid #808080;
+    background-color: #FFFFDD;
+    vertical-align: top;
+}}
+.CommentTitleArea
+{{
+    padding: 5px;
+    font-size: 9pt;
+    border-top: 1px solid #808080;
+    border-right: 1px solid #808080;
+    border-bottom: solid 1px #C0C0C0;
+    vertical-align: top;
+    background-color: #ECF2ED;
+}}
+
+.CommentSeperator
+{{
+    color: #CDCDCD;
+    height: 1px;
+}}
+.CommentText
+{{
+    min-height: 55px;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    padding: 10px 10px 10px 20px;
+}}
 </STYLE>";
         }
 
@@ -413,7 +362,7 @@ namespace TicketDesk.Engine
             return attachBuilder.ToString();
         }
 
-        private static string GetHTMLComments(Ticket ticket)
+        private static string GetHTMLComments(Ticket ticket, string userToNotify, int minCommentId)
         {
             StringBuilder commentBuilder = new StringBuilder();
             commentBuilder.Append(@"
@@ -422,44 +371,79 @@ namespace TicketDesk.Engine
                 <DIV class=Block>
                     <DIV class=BlockHeader>Activity Log: </DIV>
                     <DIV class=BlockBody>
+                    <table class=CommentBoxTable>
 ");
 
             int repeater = 100;
 
             foreach (TicketComment tc in ticket.TicketComments.OrderByDescending(t => t.CommentedDate))
             {
-                string comment = "";
+                string comment = string.Empty;
                 if (repeater > 100)
                 {
-                    comment += "\n<HR class=CommentSeperator>\n";
+                    comment += "<tbody><tr><td colspan='2'>&nbsp;</td></tr></tbody>";
                 }
 
                 comment += @"
-                        <DIV class=CommentBox>
-                            <DIV class=CommentHead>
-                                <SPAN id=CommentLogRepeater_ct{0}_CommentDate>{1}</SPAN>
-                                <BR>
-                                <SPAN id=CommentLogRepeater_ct{0}_CommentBy>{2}</SPAN>
-                                <SPAN id=CommentLogRepeater_ct{0}_CommentEvent>{3}</SPAN>
-                            </DIV>
-                        <SPAN class=CommentText id=CommentLogRepeater_ct{0}_CommentText>{4}</SPAN> 
-                        </DIV>
-";
+                         <tbody class='CommentBox'>
+                            <tr>
+                                <td rowspan='2' runat='server' class='{0}'>
+                                    {5}
+                                    {1}<br />
+                                    <br />
+                                    {2}
+                                    {6}
+                                </td>
+                                <td class='CommentTitleArea'>
+                                    {1}<br />
+                                    {2} {3}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='CommentText'>
+                                    {4}
+                                </td>
+                            </tr>
+                         </tbody>";
 
-                comment = System.String.Format(comment,
-                                                repeater.ToString(),
-                                                tc.CommentedDate.ToString(),
-                                                SecurityManager.GetUserDisplayName(tc.CommentedBy),
-                                                tc.CommentEvent,
-                                                tc.CommentAsHtml
-                                                );
+                string userbackgroundClass = "CommentHead";
+                string newCommentHead = string.Empty;
+                string newCommentTail = string.Empty;
+                if (tc.CommentedBy == userToNotify)
+                {
+                    userbackgroundClass = "UserCommentHead";
+                }
+                
+                if (tc.CommentId >= minCommentId)
+                {
+                    newCommentHead = "<fieldset class='NewCommentArea'><legend>New</legend> <br/>";
+                    newCommentTail = "</fieldset>";
+                }
+                comment = string.Format(comment,
+                                        userbackgroundClass,
+                                        tc.CommentedDate.ToString(),
+                                        SecurityManager.GetUserDisplayName(tc.CommentedBy),
+                                        tc.CommentEvent,
+                                        tc.CommentAsHtml,
+                                        newCommentHead,
+                                        newCommentTail);
+
+                //comment = System.String.Format(comment,
+                //                                repeater.ToString(),
+                //                                tc.CommentedDate.ToString(),
+                //                                SecurityManager.GetUserDisplayName(tc.CommentedBy),
+                //                                tc.CommentEvent,
+                //                                tc.CommentAsHtml,
+                //                                backgroundClass,
+                //                                userbackgroundClass
+                //                                );
 
                 commentBuilder.Append(comment);
 
                 repeater++;
             }
 
-            commentBuilder.Append(@"
+            commentBuilder.Append(@"</table>
                     </DIV>
                 </DIV>
             </TD>
