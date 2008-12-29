@@ -273,8 +273,12 @@ namespace TicketDesk.Engine
                     url = string.Format("{0}ViewTicket.aspx? id = {1}", rootUrl, ticket.TicketId.ToString());
                 }
 
-
-                string body = NotificationUtilities.GetHTMLBody(ticket, url, note.NotifyUser, consolidations.Min(c => c.CommentId));
+                int minComment = note.CommentId;
+                if(consolidations.Count() > 0)
+                {
+                    minComment = consolidations.Min(c => c.CommentId);
+                }
+                string body = NotificationUtilities.GetHTMLBody(ticket, url, note.NotifyUser, minComment);
 
 
                 string displayFrom = ConfigurationManager.AppSettings["FromEmailDisplayName"];
