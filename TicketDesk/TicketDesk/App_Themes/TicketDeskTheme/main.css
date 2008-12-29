@@ -224,22 +224,19 @@ INPUT[type="file"]
 {
 }
 
+.
 .NewCommentArea
 {
-    border: double 3px #C7D8CA;
-    padding: 5px;
+    font-size:9pt;
+    font-style:italic;
+    color: #CC3300;
+    text-align:center;
 }
-.NewCommentArea legend
-{
-    padding:5px;
-    background-color:#C7D8CA
-}
-
 
 .UserCommentHead
 {
-    padding: 8px;
     font-size: 8pt;
+    padding: 5px;
     color: #416523;
     border: 1px solid #808080;
     background-color: #DAF5C5;
@@ -248,13 +245,14 @@ INPUT[type="file"]
 
 .CommentHead
 {
-    padding: 8px;
     font-size: 8pt;
+    padding: 5px;
     color: #416523;
     border: 1px solid #808080;
     background-color: #FFFFDD;
     vertical-align: top;
 }
+
 .CommentTitleArea
 {
     padding: 5px;

@@ -183,11 +183,11 @@ namespace TicketDesk.Engine
                                     BoolToYesNo(ticket.AffectsCustomer),  // {8}
                                     BoolToYesNo(ticket.PublishedToKb), // {9} 
                                     SecurityManager.GetUserDisplayName(ticket.CreatedBy), // {10}
-                                    ticket.CreatedDate.ToString(), // {11} 
+                                    ticket.CreatedDate.ToString("g"), // {11} 
                                     SecurityManager.GetUserDisplayName(ticket.CurrentStatusSetBy), // {12}
-                                    ticket.CurrentStatusDate.ToString(), // {13} 
+                                    ticket.CurrentStatusDate.ToString("g"), // {13} 
                                     SecurityManager.GetUserDisplayName(ticket.LastUpdateBy), // {14}
-                                    ticket.LastUpdateDate.ToString(), // {15}
+                                    ticket.LastUpdateDate.ToString("g"), // {15}
                                     ticket.Type, // {16}
                                     ((!ticket.IsHtml) ? ticket.Details.FormatAsHtml() : ticket.Details) // {17}
                                     );
@@ -262,18 +262,16 @@ namespace TicketDesk.Engine
 
 .NewCommentArea
 {{
-    border: double 3px #C7D8CA;
-    padding: 5px;
+    font-size:9pt;
+    font-style:italic;
+    color: #CC3300;
+    text-align:center;
 }}
-.NewCommentArea legend
-{{
-    padding:5px;
-    background-color:#C7D8CA
-}}
+
 .UserCommentHead
 {{
-    padding: 5px;
     font-size: 8pt;
+    padding: 5px;
     color: #416523;
     border: 1px solid #808080;
     background-color: #DAF5C5;
@@ -281,14 +279,16 @@ namespace TicketDesk.Engine
 }}
 
 .CommentHead
-{{
-    padding: 5px;
+{{ 
     font-size: 8pt;
+    padding: 5px;
     color: #416523;
     border: 1px solid #808080;
     background-color: #FFFFDD;
     vertical-align: top;
 }}
+
+
 .CommentTitleArea
 {{
     padding: 5px;
@@ -392,7 +392,6 @@ namespace TicketDesk.Engine
                                     {1}<br />
                                     <br />
                                     {2}
-                                    {6}
                                 </td>
                                 <td class='CommentTitleArea'>
                                     {1}<br />
@@ -408,7 +407,7 @@ namespace TicketDesk.Engine
 
                 string userbackgroundClass = "CommentHead";
                 string newCommentHead = string.Empty;
-                string newCommentTail = string.Empty;
+               
                 if (tc.CommentedBy == userToNotify)
                 {
                     userbackgroundClass = "UserCommentHead";
@@ -416,17 +415,17 @@ namespace TicketDesk.Engine
                 
                 if (tc.CommentId >= minCommentId)
                 {
-                    newCommentHead = "<fieldset class='NewCommentArea'><legend>New</legend> <br/>";
-                    newCommentTail = "</fieldset>";
+                    newCommentHead = "<div class='NewCommentArea'>New</div>";
+                    
                 }
                 comment = string.Format(comment,
                                         userbackgroundClass,
-                                        tc.CommentedDate.ToString(),
+                                        tc.CommentedDate.ToString("dddd, MM/dd/yyyy hh:mm tt"),
                                         SecurityManager.GetUserDisplayName(tc.CommentedBy),
                                         tc.CommentEvent,
                                         tc.CommentAsHtml,
-                                        newCommentHead,
-                                        newCommentTail);
+                                        newCommentHead
+                                        );
 
                 //comment = System.String.Format(comment,
                 //                                repeater.ToString(),
