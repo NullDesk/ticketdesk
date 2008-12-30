@@ -31,6 +31,10 @@ namespace TicketDesk.Engine.Linq
                     "AffectsCustomer")]
     public partial class Ticket
     {
+        private List<string> additionalUsersForNotification = new List<string>();
+
+
+
         /// <summary>
         /// Adds old assigned user to the notification list
         /// </summary>
@@ -39,7 +43,7 @@ namespace TicketDesk.Engine.Linq
         {
             if (!string.IsNullOrEmpty(AssignedTo))
             {
-                additionalUsers.Add(AssignedTo);
+                additionalUsersForNotification.Add(AssignedTo);
             }
         }
 
@@ -51,50 +55,51 @@ namespace TicketDesk.Engine.Linq
         {
             if (!string.IsNullOrEmpty(Owner))
             {
-                additionalUsers.Add(Owner);
+                additionalUsersForNotification.Add(Owner);
             }
         }
 
 
-        private List<string> additionalUsers = new List<string>();
+       
 
         public List<TicketEventNotification> CreateTicketEventNotificationsForComment(int commentId, string commentBy)
         {
             List<TicketEventNotification> eventNotes = new List<TicketEventNotification>();
-            var ownerNote = CreateTicketEventNotificationForUser(commentId, commentBy, Owner, "Owner");
-            if (ownerNote != null)
+            
+            Dictionary<string, string> usersToAdd = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(Owner))
             {
-                eventNotes.Add(ownerNote);
+                usersToAdd.Add(Owner, "Owner");
             }
-
-            foreach (string user in additionalUsers)
+            foreach (string user in additionalUsersForNotification)
             {
-                var addNote = CreateTicketEventNotificationForUser(commentId, commentBy, user, "Subscriber");
-                if (addNote != null)
+                if (!usersToAdd.ContainsKey(user))
                 {
-                    eventNotes.Add(addNote);
+                    usersToAdd.Add(user, "Subscriber");
                 }
             }
-
-            if (AssignedTo == null && additionalUsers.Count < 1)//the additional users check prevents notifications to admin when a ticket is assigned for the first time.
+            if (AssignedTo == null && additionalUsersForNotification.Count < 1)//the additional users check prevents notifications to admin when a ticket is assigned for the first time.
             {
                 string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
                 foreach (string admin in admins)
                 {
-                    var adminNote = CreateTicketEventNotificationForUser(commentId, commentBy, admin, "HelpDesk");
-                    if (adminNote != null)
+                    if (!usersToAdd.ContainsKey(admin))
                     {
-                        eventNotes.Add(adminNote);
+                        usersToAdd.Add(admin, "HelpDesk");
                     }
                 }
             }
-            else
+            else if (!usersToAdd.ContainsKey(AssignedTo))
             {
-                //Wee! 
-                var assNote = CreateTicketEventNotificationForUser(commentId, commentBy, AssignedTo, "Assigned");
-                if (assNote != null)
+                usersToAdd.Add(AssignedTo, "Assigned");
+            }
+
+            foreach (var u in usersToAdd)
+            {
+                var note = CreateTicketEventNotificationForUser(commentId, commentBy, u.Key, u.Value);
+                if(note != null)
                 {
-                    eventNotes.Add(assNote);
+                    eventNotes.Add(note);
                 }
             }
 
@@ -122,7 +127,7 @@ namespace TicketDesk.Engine.Linq
                 note.TicketId = TicketId;
                 note.CommentId = commentId;
                 note.NotifyUser = SecurityManager.GetFormattedUserName(user);
-                
+
                 note.NotifyUserDisplayName = SecurityManager.GetUserDisplayName(user);
                 note.NotifyUserReason = userType;
                 note.EventGeneratedByUser = commentBy;

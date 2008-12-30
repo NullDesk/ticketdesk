@@ -43,16 +43,25 @@ namespace TicketDesk.Engine
                         note.CreatedDate = DateTime.Now;
                         note.DeliveryAttempts = 0;
 
-                        note.Status = "queued";
-
-                        DateTime nextDelivery = DateTime.Now;
-                        string delay = ConfigurationManager.AppSettings["EmailNotificationInitialDelayMinutes"];
-                        if (!string.IsNullOrEmpty(delay))
+                        if (note.NotifyEmail == "invalid")//notes with invalid email still added to table, but squash delivery schedule.
                         {
-                            nextDelivery = nextDelivery.AddMinutes(Convert.ToDouble(delay));
+                            note.Status = "invalid";
+                            note.NextDeliveryAttemptDate = null;
+                            note.LastDeliveryAttemptDate = DateTime.Now;
                         }
+                        else
+                        {
+                            note.Status = "queued";
 
-                        note.NextDeliveryAttemptDate = nextDelivery;
+                            DateTime nextDelivery = DateTime.Now;
+                            string delay = ConfigurationManager.AppSettings["EmailNotificationInitialDelayMinutes"];
+                            if (!string.IsNullOrEmpty(delay))
+                            {
+                                nextDelivery = nextDelivery.AddMinutes(Convert.ToDouble(delay));
+                            }
+
+                            note.NextDeliveryAttemptDate = nextDelivery;
+                        }
                     }
 
                     ctx.TicketEventNotifications.InsertAllOnSubmit(newNotes);
@@ -178,62 +187,47 @@ namespace TicketDesk.Engine
 
         private static void PrepareTicketEventNotificationForDelivery(TicketDataDataContext ctx, TicketEventNotification note, List<TicketEventNotification> consolidations)
         {
-
-
-            if (note.NotifyEmail == "invalid")//cannot send email, kill message
+            string resendDelaySetting = ConfigurationManager.AppSettings["EmailResendDelayMinutes"];
+            double resendDelay = 5D;
+            if (!string.IsNullOrEmpty(resendDelaySetting))
             {
-                note.Status = "invalid";
-                note.NextDeliveryAttemptDate = null;
-                foreach (var consolidateNote in consolidations)
+                resendDelay = Convert.ToDouble(resendDelay);
+            }
+
+            string maxRetriesSetting = ConfigurationManager.AppSettings["EmailMaxDeliveryAttempts"];
+            int maxRetries = 5;
+            if (!string.IsNullOrEmpty(maxRetriesSetting))
+            {
+                maxRetries = Convert.ToInt32(maxRetriesSetting);
+            }
+
+            note.DeliveryAttempts += 1;
+            if (note.DeliveryAttempts < maxRetries)
+            {
+                note.Status = "pending";
+                note.NextDeliveryAttemptDate = DateTime.Now.AddMinutes(resendDelay * note.DeliveryAttempts);
+                int backTrackSeconds = -1;
+                foreach (var consolidateNote in consolidations.OrderByDescending(c => c.CommentId))
                 {
-                    note.Status = "invalid";
-                    note.NextDeliveryAttemptDate = null;
+                    //this will reorder the next delivery attempt date for consolidations in descending order keeping the relative order for them all
+                    consolidateNote.NextDeliveryAttemptDate = note.NextDeliveryAttemptDate.Value.AddSeconds(backTrackSeconds);
+                    consolidateNote.DeliveryAttempts += 1;
+                    backTrackSeconds--;
                 }
             }
             else
             {
-
-                string resendDelaySetting = ConfigurationManager.AppSettings["EmailResendDelayMinutes"];
-                double resendDelay = 5D;
-                if (!string.IsNullOrEmpty(resendDelaySetting))
+                note.Status = "final-attempt";
+                note.NextDeliveryAttemptDate = null;
+                foreach (var consolidateNote in consolidations)
                 {
-                    resendDelay = Convert.ToDouble(resendDelay);
-                }
-
-                string maxRetriesSetting = ConfigurationManager.AppSettings["EmailMaxDeliveryAttempts"];
-                int maxRetries = 5;
-                if (!string.IsNullOrEmpty(maxRetriesSetting))
-                {
-                    maxRetries = Convert.ToInt32(maxRetriesSetting);
-                }
-
-                note.DeliveryAttempts += 1;
-                if (note.DeliveryAttempts < maxRetries)
-                {
-                    note.Status = "pending";
-                    note.NextDeliveryAttemptDate = DateTime.Now.AddMinutes(resendDelay * note.DeliveryAttempts);
-                    int backTrackSeconds = -1;
-                    foreach (var consolidateNote in consolidations.OrderByDescending(c => c.CommentId))
-                    {
-                        //this will reorder the next delivery attempt date for consolidations in descending order keeping the relative order for them all
-                        consolidateNote.NextDeliveryAttemptDate = note.NextDeliveryAttemptDate.Value.AddSeconds(backTrackSeconds);
-                        consolidateNote.DeliveryAttempts += 1;
-                        backTrackSeconds--;
-                    }
-                }
-                else
-                {
-                    note.Status = "final-attempt";
-                    note.NextDeliveryAttemptDate = null;
-                    foreach (var consolidateNote in consolidations)
-                    {
-                        consolidateNote.NextDeliveryAttemptDate = null;
-                        consolidateNote.DeliveryAttempts += 1;
-                    }
+                    consolidateNote.NextDeliveryAttemptDate = null;
+                    consolidateNote.DeliveryAttempts += 1;
                 }
             }
+
             ctx.SubmitChanges();//submit changes before email attempt... this way if there is an unhandled failure, the ticket will still have incremented the delivery attempt and next retry values (prevents accidental spam)
-            
+
             /* Unhandled edge case: 
              *      We've set the next delivery date for the note we are sending to a future date in case something seriously goes wrong during sending the email. 
              *      This is important because if the sending routine exits and we hadn't committed a next delivery date and all that, it would potentially cause
@@ -247,7 +241,7 @@ namespace TicketDesk.Engine
              *      A work-around for this case has a significant perforance impact though, and so we are not going to implement that here... besides, if  
              *      there is an unhandled exception in the send routine it will likely be something so severe that future send attemps are all going to fail
              *      for this user's notes indefinitly until the issue is debugged or a major data corruption issue is fixed anyway.
-             */ 
+             */
         }
 
 
@@ -274,7 +268,7 @@ namespace TicketDesk.Engine
                 }
 
                 int minComment = note.CommentId;
-                if(consolidations.Count() > 0)
+                if (consolidations.Count() > 0)
                 {
                     minComment = consolidations.Min(c => c.CommentId);
                 }
@@ -325,7 +319,7 @@ namespace TicketDesk.Engine
             {
                 if (note.Status == "final-attempt")
                 {
-                   
+
                     note.Status = "failed";
                     foreach (var consolidateNote in consolidations)
                     {
@@ -362,9 +356,9 @@ namespace TicketDesk.Engine
                 {
                     consolidateNote.Status = "consolidated";
                     consolidateNote.NextDeliveryAttemptDate = null;
-                    
+
                 }
-                
+
             }
             ctx.SubmitChanges();//submit changes ticket-by-ticket so a failure later doesn't scrap the status update for tickets previously sent
 
