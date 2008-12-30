@@ -51,36 +51,58 @@ namespace TicketDesk.Engine
                         }
                         else
                         {
+
+
                             note.Status = "queued";
+                            var now = DateTime.Now;
+                            note.NextDeliveryAttemptDate = now;
 
-                            DateTime nextDelivery = DateTime.Now;
-                            string delay = ConfigurationManager.AppSettings["EmailNotificationInitialDelayMinutes"];
-                            if (!string.IsNullOrEmpty(delay))
+                            if (note.NotifyUserReason != "HelpDesk")// for non-broadcasts to helpdesk schedule on the delay 
                             {
-                                nextDelivery = nextDelivery.AddMinutes(Convert.ToDouble(delay));
+                                string delay = ConfigurationManager.AppSettings["EmailNotificationInitialDelayMinutes"];
+                                if (!string.IsNullOrEmpty(delay))
+                                {
+                                    note.NextDeliveryAttemptDate = now.AddMinutes(Convert.ToDouble(delay));
+                                }
                             }
-
-                            note.NextDeliveryAttemptDate = nextDelivery;
                         }
                     }
 
                     ctx.TicketEventNotifications.InsertAllOnSubmit(newNotes);
                     ctx.SubmitChanges();
+
+
+                    //Deliver helpdesk broadcasts NOW! New ticket notifications for help desk only 
+                    //  happen for brand-new tickets. These users aren't included on further changes
+                    //  to the ticket either so there is no reason to wait for consolidations.
+                    //
+                    //  Since the creation of notes ensures that tickets with a reason of "HelpDesk" 
+                    //    are only for tickets where the recipient is not the owner/assigned user we
+                    //    don't have to worry about suppressions. or consolidations so we can directly 
+                    //    send without worrying about the pre-processing that happens with timer 
+                    //    triggered processing.
+                    foreach (var note in newNotes)
+                    {
+                        if (note.NotifyUserReason == "HelpDesk" && note.NextDeliveryAttemptDate != null)
+                        {
+                            SendTicketEventNotificationEmail(ctx, note, new List<TicketEventNotification>());
+                        }
+                    }
+                    
                 }
             }
         }
 
-        private static object sendingLock = new object();
+        private static object processLock;
         /// <summary>
         /// Sends the waiting ticket event notifications.
         /// </summary>
-        public static void SendWaitingTicketEventNotifications()
+        public static void ProcessWaitingTicketEventNotifications()
         {
-            lock (sendingLock)
+            processLock = new object();
+            lock (processLock)
             {
                 var now = DateTime.Now;
-
-
 
                 TicketDataDataContext ctx = new TicketDataDataContext();
                 var queuedNotes = from n in ctx.TicketEventNotifications
@@ -177,10 +199,17 @@ namespace TicketDesk.Engine
             }
         }
 
+        private static object sendingLock;
+        
+
         private static void SendTicketEventNotificationEmail(TicketDataDataContext ctx, TicketEventNotification note, List<TicketEventNotification> consolidations)
         {
-            PrepareTicketEventNotificationForDelivery(ctx, note, consolidations);
-            DeliverTicketEventNotificationEmail(ctx, note, consolidations);
+            sendingLock = new object();
+            lock (sendingLock)
+            {
+                PrepareTicketEventNotificationForDelivery(ctx, note, consolidations);
+                DeliverTicketEventNotificationEmail(ctx, note, consolidations);
+            }
         }
 
 

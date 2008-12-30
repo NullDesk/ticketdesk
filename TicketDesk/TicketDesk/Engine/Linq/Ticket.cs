@@ -34,7 +34,7 @@ namespace TicketDesk.Engine.Linq
         private List<string> additionalUsersForNotification = new List<string>();
 
 
-
+        private bool isGiveUp = false;
         /// <summary>
         /// Adds old assigned user to the notification list
         /// </summary>
@@ -44,7 +44,12 @@ namespace TicketDesk.Engine.Linq
             if (!string.IsNullOrEmpty(AssignedTo))
             {
                 additionalUsersForNotification.Add(AssignedTo);
+                if (string.IsNullOrEmpty(value))
+                {
+                    isGiveUp = true;
+                }
             }
+            
         }
 
         /// <summary>
@@ -71,6 +76,10 @@ namespace TicketDesk.Engine.Linq
             {
                 usersToAdd.Add(Owner, "Owner");
             }
+            if (AssignedTo != null && !usersToAdd.ContainsKey(AssignedTo))
+            {
+                usersToAdd.Add(AssignedTo, "Assigned");
+            }
             foreach (string user in additionalUsersForNotification)
             {
                 if (!usersToAdd.ContainsKey(user))
@@ -78,7 +87,9 @@ namespace TicketDesk.Engine.Linq
                     usersToAdd.Add(user, "Subscriber");
                 }
             }
-            if (AssignedTo == null && additionalUsersForNotification.Count < 1)//the additional users check prevents notifications to admin when a ticket is assigned for the first time.
+            //only add help desk for brand new tickets (they should have exactly 1 comment when new)
+            //  or tickets that have been given up on (was assigned but is not anymore).
+            if (AssignedTo == null && (this.TicketComments.Count < 2 || isGiveUp))
             {
                 string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
                 foreach (string admin in admins)
@@ -89,10 +100,8 @@ namespace TicketDesk.Engine.Linq
                     }
                 }
             }
-            else if (!usersToAdd.ContainsKey(AssignedTo))
-            {
-                usersToAdd.Add(AssignedTo, "Assigned");
-            }
+
+            
 
             foreach (var u in usersToAdd)
             {

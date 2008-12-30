@@ -41,7 +41,7 @@ namespace TicketDesk
             {
                 try
                 {
-                    NotificationService.SendWaitingTicketEventNotifications();
+                    NotificationService.ProcessWaitingTicketEventNotifications();
 
 
                 }
