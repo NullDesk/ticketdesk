@@ -78,9 +78,9 @@ namespace TicketDesk.Engine
                     //
                     //  Since the creation of notes ensures that tickets with a reason of "HelpDesk" 
                     //    are only for tickets where the recipient is not the owner/assigned user we
-                    //    don't have to worry about suppressions. or consolidations so we can directly 
+                    //    don't have to worry about suppressions or consolidations; we can directly 
                     //    send without worrying about the pre-processing that happens with timer 
-                    //    triggered processing.
+                    //    triggered mechanism.
                     foreach (var note in newNotes)
                     {
                         if (note.NotifyUserReason == "HelpDesk" && note.NextDeliveryAttemptDate != null)
@@ -315,7 +315,7 @@ namespace TicketDesk.Engine
 
                 MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
 
-                string subject = string.Format("Ticket {0} changed : ({1}) - {2}", ticket.TicketId.ToString(), ticket.CurrentStatus, ticket.Title);
+                string subject = string.Format("Ticket {0} ({1}): {2}", ticket.TicketId.ToString(), ticket.CurrentStatus, ticket.Title);
                 MailAddress toAddr = new MailAddress(note.NotifyEmail, note.NotifyUserDisplayName);
 
                 MailMessage msg = new MailMessage(fromAddr, toAddr);

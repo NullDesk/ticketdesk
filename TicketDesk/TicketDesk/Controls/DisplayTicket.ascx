@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DisplayTicket.ascx.cs"
     Inherits="TicketDesk.Controls.DisplayTicket" %>
+
 <%@ Register Src="ChangePriorityPopup.ascx" TagName="ChangePriorityPopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="AssignPopup.ascx" TagName="AssignPopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="TakeOverPopup.ascx" TagName="TakeOverPopup" TagPrefix="ticketDesk" %>
@@ -34,6 +35,7 @@
 %>
 <asp:ScriptManagerProxy ID="scriptProxy" runat="server">
 </asp:ScriptManagerProxy>
+
 <asp:UpdatePanel ID="ActionsUpdatePanel" UpdateMode="Always" ChildrenAsTriggers="true"
     runat="server">
     <ContentTemplate>

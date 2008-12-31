@@ -381,7 +381,7 @@ namespace TicketDesk.Engine
                 string comment = string.Empty;
                 if (repeater > 100)
                 {
-                    comment += "<tbody><tr><td colspan='2'>&nbsp;</td></tr></tbody>";
+                    comment += "<tbody><tr><td colspan='2' style='height:10px;'></td></tr></tbody>";
                 }
 
                 comment += @"
