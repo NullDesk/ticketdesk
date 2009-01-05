@@ -314,8 +314,12 @@ namespace TicketDesk.Engine
                 }
 
                 MailAddress fromAddr = new MailAddress(addressFrom, displayFrom);
-
-                string subject = string.Format("Ticket {0} ({1}): {2}", ticket.TicketId.ToString(), ticket.CurrentStatus, ticket.Title);
+                string tStat = ticket.CurrentStatus;
+                if (string.IsNullOrEmpty(ticket.AssignedTo))
+                {
+                    tStat = (ticket.TicketComments.Count() < 2)? "New" : "Unassigned";
+                }
+                string subject = string.Format("Ticket {0} ({1}): {2}", ticket.TicketId.ToString(), tStat, ticket.Title);
                 MailAddress toAddr = new MailAddress(note.NotifyEmail, note.NotifyUserDisplayName);
 
                 MailMessage msg = new MailMessage(fromAddr, toAddr);
