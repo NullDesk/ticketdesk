@@ -293,7 +293,7 @@ namespace TicketDesk.Engine
                     {
                         rootUrl += "/";
                     }
-                    url = string.Format("{0}ViewTicket.aspx? id = {1}", rootUrl, ticket.TicketId.ToString());
+                    url = string.Format("{0}ViewTicket.aspx?id={1}", rootUrl, ticket.TicketId.ToString());
                 }
 
                 int minComment = note.CommentId;

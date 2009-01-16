@@ -53,14 +53,14 @@ namespace TicketDesk.Controls
             TicketComment comment = new TicketComment();
             DateTime now = DateTime.Now;
 
-            if(ResolveCommentCheckBox.Checked)
+            if (ResolveCommentCheckBox.Visible && ResolveCommentCheckBox.Checked)
             {
                 TicketToDisplay.CurrentStatus = "Resolved";
                 TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
                 TicketToDisplay.CurrentStatusDate = now;
                 comment.CommentEvent = "resolved the ticket";
             }
-            else if(ProvideInfoCommentCheckBox.Checked)
+            else if (ResolveCommentCheckBox.Visible && ProvideInfoCommentCheckBox.Checked)
             {
                 TicketToDisplay.CurrentStatus = "Active";
                 TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();

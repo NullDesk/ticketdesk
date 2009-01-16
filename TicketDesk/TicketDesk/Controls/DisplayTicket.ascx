@@ -93,7 +93,7 @@
                                                 Status:
                                             </td>
                                             <td style="vertical-align: top; white-space: nowrap;">
-                                                <asp:HyperLink ID="CurrentStatus" runat="server" />
+                                               <asp:Label ID="CurrentStatus" runat="server" />
                                             </td>
                                             <td>
                                             </td>
@@ -114,7 +114,7 @@
                                                 Category:
                                             </td>
                                             <td style="vertical-align: top; white-space: nowrap;">
-                                                <asp:HyperLink ID="Category" runat="server" />
+                                                <asp:Label ID="Category" runat="server" />
                                             </td>
                                             <td>
                                                 <ticketDesk:ChangeCategoryPopup ID="ChangeCategoryPopupControl" runat="server" />
@@ -136,7 +136,7 @@
                                                 Assigned to:
                                             </td>
                                             <td style="vertical-align: top; white-space: nowrap;">
-                                                <asp:HyperLink ID="AssignedTo" runat="server" />
+                                                <asp:Label ID="AssignedTo" runat="server" />
                                             </td>
                                             <td>
                                             </td>
@@ -169,7 +169,8 @@
                                             <td style="vertical-align: top;">
                                                 <asp:Repeater ID="TagRepeater" runat="server">
                                                     <ItemTemplate>
-                                                        <asp:HyperLink ID="TicketTag" runat="server" NavigateUrl='<%#Eval("Url") %>' Text='<%#Eval("TagName") %>' /></ItemTemplate>
+                                                   <%-- NavigateUrl='<%#Eval("Url") %>'--%>
+                                                       <asp:Label ID="TicketTag" runat="server" Text='<%#Eval("TagName") %>' /></ItemTemplate>
                                                     <SeparatorTemplate>
                                                         ,
                                                     </SeparatorTemplate>

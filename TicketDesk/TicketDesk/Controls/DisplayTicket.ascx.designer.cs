@@ -173,7 +173,7 @@ namespace TicketDesk.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CurrentStatus;
+        protected global::System.Web.UI.WebControls.Label CurrentStatus;
         
         /// <summary>
         /// Priority control.
@@ -200,7 +200,7 @@ namespace TicketDesk.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Category;
+        protected global::System.Web.UI.WebControls.Label Category;
         
         /// <summary>
         /// ChangeCategoryPopupControl control.
@@ -236,7 +236,7 @@ namespace TicketDesk.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink AssignedTo;
+        protected global::System.Web.UI.WebControls.Label AssignedTo;
         
         /// <summary>
         /// AffectsCustomer control.

@@ -194,15 +194,15 @@ namespace TicketDesk.Controls
                     Details.Text = TicketToDisplay.Details.FormatAsHtml();
                 }
                 Category.Text = TicketToDisplay.Category;
-                Category.NavigateUrl = string.Format("~/TicketCenter.aspx?View=tagsandcategories&Category={0}", TicketToDisplay.Category);
+                //Category.NavigateUrl = string.Format("~/TicketCenter.aspx?View=tagsandcategories&Category={0}", TicketToDisplay.Category);
                 TicketType.Text = TicketToDisplay.Type;
                 CreatedBy.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.CreatedBy);
                 CreatedDate.Text = TicketToDisplay.CreatedDate.ToString("g");
                 Owner.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.Owner);
                 AssignedTo.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.AssignedTo);
-                AssignedTo.NavigateUrl = string.Format("~/TicketCenter.aspx?View=assigned&User={0}", TicketToDisplay.AssignedTo);
+                //AssignedTo.NavigateUrl = string.Format("~/TicketCenter.aspx?View=assigned&User={0}", TicketToDisplay.AssignedTo);
                 CurrentStatus.Text = TicketToDisplay.CurrentStatus;
-                CurrentStatus.NavigateUrl = string.Format("~/TicketCenter.aspx?View=status&Status={0}", TicketToDisplay.CurrentStatus.Replace(" ", string.Empty).ToLowerInvariant());
+                //CurrentStatus.NavigateUrl = string.Format("~/TicketCenter.aspx?View=status&Status={0}", TicketToDisplay.CurrentStatus.Replace(" ", string.Empty).ToLowerInvariant());
                 CurrentStatusBy.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.CurrentStatusSetBy);
                 CurrentStatusDate.Text = TicketToDisplay.CurrentStatusDate.ToString("g");
                 LastUpdateBy.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.LastUpdateBy);
