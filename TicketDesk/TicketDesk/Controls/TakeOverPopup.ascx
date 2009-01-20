@@ -40,7 +40,6 @@
                             Display="Dynamic" Text="*" />
                         <asp:RadioButtonList ValidationGroup="TakeOverPopup" ID="PriorityList" runat="server"
                             RepeatDirection="Vertical" RepeatLayout="Flow" />
-                           
                     </td>
                 </tr>
                 <tr>
@@ -50,12 +49,10 @@
                 </tr>
             </tbody>
         </table>
-
         <div style="padding: 5px;">
-          
-            Comments (optional):<br />
-            <asp:TextBox ID="CommentsTextBox" ValidationGroup="TakeOverPopup" TextMode="MultiLine"
-                Rows="5" runat="server" Width="100%" />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
+            <br />
             <br />
             <asp:Button ID="TakeOverButton" ValidationGroup="TakeOverPopup" OnClick="TakeOverButton_Click"
                 runat="server" Text="Take Over" />

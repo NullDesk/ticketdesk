@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CloseTicketPopup.ascx.cs" Inherits="TicketDesk.Controls.CloseTicketPopup" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CloseTicketPopup.ascx.cs"
+    Inherits="TicketDesk.Controls.CloseTicketPopup" %>
 <%  // TicketDesk - Attribution notice
     // Contributor(s):
     //
@@ -12,10 +13,8 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
-
 <asp:Button ID="ShowCloseTicketButton" CausesValidation="false" runat="server" Text="Close" />
 <ajaxToolkit:ModalPopupExtender BehaviorID="closeTicketBH" ID="CloseTicketModalPopupExtender"
     runat="server" TargetControlID="ShowCloseTicketButton" PopupControlID="CloseTicketPanel"
@@ -26,13 +25,12 @@
         <asp:Panel ID="CloseTicketPanelHandle" runat="server" Style="cursor: move; border-bottom: solid 1px #A0A0A0;">
             <div class="ModalPopupHandle">
                 Do you want to close the ticket?<br />
-                
             </div>
         </asp:Panel>
-        <div style="padding:5px;">
-           
+        <div style="padding: 5px;">
             <br />
-            Comments (optional): <asp:TextBox ValidationGroup="CloseTicketPopup" ID="CommentsTextBox" TextMode="MultiLine" Rows="5" runat="server" Width="100%" />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
             <br />
             <asp:Button ID="CloseTicketButton" ValidationGroup="CloseTicketPopup" OnClick="CloseTicketButton_Click"
                 runat="server" Text="Close Ticket" />

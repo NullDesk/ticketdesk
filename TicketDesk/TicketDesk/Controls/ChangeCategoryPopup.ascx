@@ -13,7 +13,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
 <asp:ImageButton ImageUrl="~/Controls/Images/edit.gif" CausesValidation="false" ID="ShowChangeCategoryButton"
@@ -35,13 +34,13 @@
                 runat="server" ErrorMessage="You must choose a Category." ControlToValidate="CategoryList"
                 Display="Dynamic" Text="*" /><asp:RadioButtonList ValidationGroup="CategoryChangePopup"
                     ID="CategoryList" runat="server" RepeatDirection="Vertical" RepeatLayout="Flow" />
-            
             <br />
             <br />
-            Comments (optional):<br />
-            <asp:TextBox ID="CommentsTextBox" ValidationGroup="CategoryChangePopup" TextMode="MultiLine" Rows="5" runat="server" Width="100%" />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
             <br />
-             <asp:Button ID="ChangeCategoryButton" ValidationGroup="CategoryChangePopup" OnClick="ChangeCategoryButton_Click"
+            <br />
+            <asp:Button ID="ChangeCategoryButton" ValidationGroup="CategoryChangePopup" OnClick="ChangeCategoryButton_Click"
                 runat="server" Text="Change" />
             <asp:Button ID="CancelChangeCategoryButton" CausesValidation="false" ValidationGroup="CategoryChangePopup"
                 runat="server" Text="Nevermind" />

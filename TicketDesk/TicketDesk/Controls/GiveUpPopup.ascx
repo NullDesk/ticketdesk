@@ -13,7 +13,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
 <asp:Button ID="ShowGiveUpButton" CausesValidation="false" runat="server" Text="Give up!" />
@@ -30,9 +29,8 @@
         </asp:Panel>
         <div style="padding: 5px;">
             <br />
-            Comments (optional):<br />
-            <asp:TextBox ID="CommentsTextBox" ValidationGroup="GiveUpPopup" TextMode="MultiLine"
-                Rows="5" runat="server" Width="100%" />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
             <br />
             <asp:Button ID="GiveUpButton" ValidationGroup="GiveUpPopup" OnClick="GiveUpButton_Click"
                 runat="server" Text="Give up!" />

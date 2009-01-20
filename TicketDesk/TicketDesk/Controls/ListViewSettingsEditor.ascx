@@ -14,8 +14,7 @@
     // provided to the recipient.
 %>
 <style type="text/css">
-
-</style>
+    </style>
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server" />
 <div>
     <table class="ListControlTable" cellspacing="0" cellpadding="0" style="float: right;">
@@ -69,9 +68,10 @@
             </tr>
         </tbody>
     </table>
-    <asp:Panel ID="AdvancedSettingsPanel" runat="server" Style="clear: right;overflow: hidden;" Height="0px">
+    <asp:Panel ID="AdvancedSettingsPanel" runat="server" Style="clear: right; overflow: hidden;"
+        Height="0px">
         <div class="FieldBlock">
-            <div class="FieldBlockHeader" style="text-align:center">
+            <div class="FieldBlockHeader" style="text-align: center">
                 Advanced Settings
             </div>
             <div class="FieldBlockBody">
@@ -81,7 +81,7 @@
                             <tr>
                                 <td>
                                     <div class="FieldBlock">
-                                        <div class="FieldBlockSubHeader" style="text-align:center">
+                                        <div class="FieldBlockSubHeader" style="text-align: center">
                                             Advanced Sorting</div>
                                         <div class="FieldBlockBody">
                                             <div class="ReorderList">
@@ -104,7 +104,8 @@
                                                             CommandArgument='<%# Eval("ColumnName") %>' />
                                                     </ItemTemplate>
                                                     <InsertItemTemplate>
-                                                        <asp:Panel ID="ButtonGroupPanel" runat="server" DefaultButton="AddColumnToSort" style="padding:3px;margin-top:5px;">
+                                                        <asp:Panel ID="ButtonGroupPanel" runat="server" DefaultButton="AddColumnToSort" Style="padding: 3px;
+                                                            margin-top: 5px;">
                                                             <asp:Button ID="AddColumnToSort" runat="server" Text="Add" CommandName="insert" />
                                                             <asp:DropDownList ID="AddSortColumnsList" DataTextField="Key" DataValueField="Value"
                                                                 runat="server" />

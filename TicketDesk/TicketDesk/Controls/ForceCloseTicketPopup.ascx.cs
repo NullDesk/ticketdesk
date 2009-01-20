@@ -53,43 +53,46 @@ namespace TicketDesk.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            
+
+            lblCommentRequired.Visible = false;
         }
 
         protected void ForceCloseTicketButton_Click(object sender, EventArgs e)
         {
-            DateTime now = DateTime.Now;
-
-            TicketToDisplay.CurrentStatus = "Closed";
-            TicketToDisplay.CurrentStatusDate = now;
-            TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
-
-
-            TicketComment comment = new TicketComment();
-            comment.CommentEvent = string.Format("has closed the ticket by force");
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            if (!string.IsNullOrEmpty(CommentsTextBox.Value))
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                DateTime now = DateTime.Now;
+
+                TicketToDisplay.CurrentStatus = "Closed";
+                TicketToDisplay.CurrentStatusDate = now;
+                TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
+
+
+                TicketComment comment = new TicketComment();
+                comment.CommentEvent = string.Format("has closed the ticket by force");
+                if (CommentsTextBox.Value != string.Empty)
+                {
+                    comment.Comment = CommentsTextBox.Value;
+                }
+
+
+
+
+                comment.IsHtml = true;
+
+                TicketToDisplay.TicketComments.Add(comment);
+
+                ForceCloseTicketModalPopupExtender.Hide();
+                if (TicketForceClosed != null)
+                {
+                    TicketForceClosed(comment);
+                }
             }
-            
-
-
-           
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            else
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                ForceCloseTicketModalPopupExtender.Show();
+                lblCommentRequired.Visible = true;
             }
-
-            TicketToDisplay.TicketComments.Add(comment);
-
-            ForceCloseTicketModalPopupExtender.Hide();
-            if(TicketForceClosed != null)
-            {
-                TicketForceClosed(comment);
-            }
-
         }
     }
 }

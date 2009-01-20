@@ -13,7 +13,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <style>
     body
     {
@@ -202,7 +201,7 @@
                         Attachments:
                     </div>
                     <div class="BlockBody" style="">
-                        <asp:Repeater ID="AttachmentsRepeater" runat="server" >
+                        <asp:Repeater ID="AttachmentsRepeater" runat="server">
                             <ItemTemplate>
                                 <asp:Label ID="AttachmentLink" runat="server" Text='<%# Eval("FileName") %>' />
                                 -

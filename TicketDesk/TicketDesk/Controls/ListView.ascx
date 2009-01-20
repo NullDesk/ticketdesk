@@ -13,7 +13,7 @@
     // provided to the recipient.
 %>
 <asp:ListView ID="TicketListView" runat="server" OnItemCommand="TicketListView_ItemCommand"
-    DataSourceID="TicketsLinqDataSource" OnLayoutCreated="TicketListView_LayoutCreated"  >
+    DataSourceID="TicketsLinqDataSource" OnLayoutCreated="TicketListView_LayoutCreated">
     <AlternatingItemTemplate>
         <tr class="TicketListAltRow">
             <td>
@@ -124,7 +124,7 @@
                             <td colspan="10">
                                 <asp:DataPager ID="TicketListDataPager" runat="server">
                                     <Fields>
-                                      <asp:NextPreviousPagerField ShowFirstPageButton="true" ShowPreviousPageButton="true"
+                                        <asp:NextPreviousPagerField ShowFirstPageButton="true" ShowPreviousPageButton="true"
                                             ShowLastPageButton="false" ShowNextPageButton="false" />
                                         <asp:NumericPagerField />
                                         <asp:NextPreviousPagerField ShowFirstPageButton="false" ShowPreviousPageButton="false"
@@ -132,11 +132,11 @@
                                         <asp:TemplatePagerField>
                                             <PagerTemplate>
                                                 &nbsp;&nbsp;Page
-                                                    <asp:Label runat="server" ID="CurrentPageLabel" Text="<%# Container.TotalRowCount>0 ? (Container.StartRowIndex / Container.PageSize) + 1 : 0 %>" />
-                                                    of
-                                                    <asp:Label runat="server" ID="TotalPagesLabel" Text="<%# Math.Ceiling ((double)Container.TotalRowCount / Container.PageSize) %>" />
-                                                    (
-                                                    <asp:Label runat="server" ID="TotalItemsLabel" Text="<%# Container.TotalRowCount%>" />
+                                                <asp:Label runat="server" ID="CurrentPageLabel" Text="<%# Container.TotalRowCount>0 ? (Container.StartRowIndex / Container.PageSize) + 1 : 0 %>" />
+                                                of
+                                                <asp:Label runat="server" ID="TotalPagesLabel" Text="<%# Math.Ceiling ((double)Container.TotalRowCount / Container.PageSize) %>" />
+                                                (
+                                                <asp:Label runat="server" ID="TotalItemsLabel" Text="<%# Container.TotalRowCount%>" />
                                                 records )
                                             </PagerTemplate>
                                         </asp:TemplatePagerField>
@@ -196,6 +196,5 @@
         </tr>
     </ItemTemplate>
 </asp:ListView>
-<asp:LinqDataSource ID="TicketsLinqDataSource" runat="server" 
-    onselecting="TicketsLinqDataSource_Selecting">
+<asp:LinqDataSource ID="TicketsLinqDataSource" runat="server" OnSelecting="TicketsLinqDataSource_Selecting">
 </asp:LinqDataSource>

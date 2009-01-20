@@ -42,35 +42,45 @@ namespace TicketDesk.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblCommentRequired.Visible = false;
         }
 
         protected void MoreInfoButton_Click(object sender, EventArgs e)
         {
-            DateTime now = DateTime.Now;
 
-            TicketToDisplay.CurrentStatus = "More Info";
-            TicketToDisplay.CurrentStatusDate = now;
-            TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
-
-
-            TicketComment comment = new TicketComment();
-            
-            comment.CommentEvent = string.Format("has requested more information");
-           
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            if (!string.IsNullOrEmpty(CommentsTextBox.Value))
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
-            }
-            
-            TicketToDisplay.TicketComments.Add(comment);
+                DateTime now = DateTime.Now;
 
-            MoreInfoModalPopupExtender.Hide();
-            if(MoreInfoRequested!= null)
-            {
-                MoreInfoRequested(comment);
+                TicketToDisplay.CurrentStatus = "More Info";
+                TicketToDisplay.CurrentStatusDate = now;
+                TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
+
+
+                TicketComment comment = new TicketComment();
+
+                comment.CommentEvent = string.Format("has requested more information");
+
+                comment.IsHtml = true;
+                
+                comment.Comment = CommentsTextBox.Value;
+                
+
+
+                TicketToDisplay.TicketComments.Add(comment);
+
+                MoreInfoModalPopupExtender.Hide();
+                if (MoreInfoRequested != null)
+                {
+                    MoreInfoRequested(comment);
+                }
             }
-            
+            else
+            {
+                MoreInfoModalPopupExtender.Show();
+                lblCommentRequired.Visible = true;
+            }
+
         }
     }
 }

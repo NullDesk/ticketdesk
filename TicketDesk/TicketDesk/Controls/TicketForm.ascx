@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TicketForm.ascx.cs"
     Inherits="TicketDesk.Controls.TicketForm" %>
 <%@ Register Src="TagPicker.ascx" TagName="TagPicker" TagPrefix="uc1" %>
-<%@ Register Src="EditDetails.ascx" TagName="EditDetails" TagPrefix="uc2" %>
 <%  // TicketDesk - Attribution notice
     // Contributor(s):
     //
@@ -58,7 +57,6 @@
                             <td>
                                 <asp:DropDownList ID="TypeDropDownList" AppendDataBoundItems="true" runat="server">
                                     <asp:ListItem Text="-- select --" Value="-" Selected="True" />
-                                   
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -81,7 +79,9 @@
         </tr>
         <tr>
             <td>
-                <uc2:EditDetails ID="EditDetailsControl" runat="server" />
+                Details:<asp:Label ID="lblDetailsRequired" runat="server" ForeColor="Red" Text="Details are required."
+                    Visible="false" />
+                <fck:FCKeditor ID="DetailsTextBox" runat="server" ToolbarSet="Basic" />
             </td>
         </tr>
         <tr>

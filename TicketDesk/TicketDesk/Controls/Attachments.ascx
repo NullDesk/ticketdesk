@@ -18,13 +18,12 @@
     <ItemTemplate>
         <asp:HyperLink ID="AttachmentLink" runat="server" Text='<%# Eval("FileName") %>'
             NavigateUrl='<%# GetAttachmentLinkUrl((int)Eval("FileId")) %>' />
-         -
-            <asp:Label ID="AttachmentUploader" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("UploadedBy")) %>' />
-          :
-            <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
+        -
+        <asp:Label ID="AttachmentUploader" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("UploadedBy")) %>' />
+        :
+        <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
         <asp:ImageButton ID="AttachmentRemoveButton" ImageUrl="~/Controls/Images/delete.gif"
             runat="server" CommandArgument='<%# Eval("FileId") %>' CommandName="delete" CausesValidation="false" />
-        
     </ItemTemplate>
     <SeparatorTemplate>
         <hr />
@@ -43,8 +42,8 @@
     </Triggers>
     <ContentTemplate>
         <hr />
-        <div style="width:100%;text-align:right;">
-        <asp:FileUpload style="width:300px;" runat="server" ID="FileUploader" />&nbsp;<asp:Button ID="UploadFile"
-            runat="server" Text="Upload" OnClick="UploadFile_Click" /></div>
+        <div style="width: 100%; text-align: right;">
+            <asp:FileUpload Style="width: 300px;" runat="server" ID="FileUploader" />&nbsp;<asp:Button
+                ID="UploadFile" runat="server" Text="Upload" OnClick="UploadFile_Click" /></div>
     </ContentTemplate>
 </asp:UpdatePanel>

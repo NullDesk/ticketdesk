@@ -56,9 +56,9 @@ namespace TicketDesk.Controls
 
             TicketComment comment = new TicketComment();
             comment.CommentEvent = string.Format("has cancelled the request for more information");
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            if(CommentsTextBox.Value != string.Empty)
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                comment.Comment = CommentsTextBox.Value;
             }
             else
             {
@@ -68,11 +68,8 @@ namespace TicketDesk.Controls
 
 
             
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
-            {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
-            }
+            comment.IsHtml = true;
+            
 
             TicketToDisplay.TicketComments.Add(comment);
 

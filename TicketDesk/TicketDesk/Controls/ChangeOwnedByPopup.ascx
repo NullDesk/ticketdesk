@@ -13,12 +13,12 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
-    <asp:ImageButton ImageUrl="~/Controls/Images/edit.gif" CausesValidation="false" ID="ShowChangeOwnedByButton"
-    runat="server" Text="..." onclick="ShowChangeOwnedByButton_Click"/>
-<asp:Button ID="HiddenShowChangeOwnedByButton" CausesValidation="false" runat="server" Text="ChangeOwnedBy" style="display:none" />
+<asp:ImageButton ImageUrl="~/Controls/Images/edit.gif" CausesValidation="false" ID="ShowChangeOwnedByButton"
+    runat="server" Text="..." OnClick="ShowChangeOwnedByButton_Click" />
+<asp:Button ID="HiddenShowChangeOwnedByButton" CausesValidation="false" runat="server"
+    Text="ChangeOwnedBy" Style="display: none" />
 <ajaxToolkit:ModalPopupExtender BehaviorID="changeOwnedByBH" ID="ChangeOwnedByModalPopupExtender"
     runat="server" TargetControlID="HiddenShowChangeOwnedByButton" PopupControlID="ChangeOwnedByPanel"
     BackgroundCssClass="ModalBackground" CancelControlID="CancelChangeOwnedByButton"
@@ -30,20 +30,22 @@
                 Change owner of the ticket:
             </div>
         </asp:Panel>
-        <div style="padding:5px;">
-           
-           <br />
-            <asp:DropDownList Width="200px" ValidationGroup="ChangeOwnedByPopup" ID="ChangeOwnedByDropDownList" runat="server" AppendDataBoundItems="true">
-                
+        <div style="padding: 5px;">
+            <br />
+            <asp:DropDownList Width="200px" ValidationGroup="ChangeOwnedByPopup" ID="ChangeOwnedByDropDownList"
+                runat="server" AppendDataBoundItems="true">
             </asp:DropDownList>
-            <asp:CompareValidator ValidationGroup="ChangeOwnedByPopup" ID="CompareValidator3" runat="server" ControlToValidate="ChangeOwnedByDropDownList"
-                Display="Dynamic" ErrorMessage="Please select a valid user for this ticket."
-                Operator="NotEqual" ValueToCompare="-">*</asp:CompareValidator>
-            <ajaxToolkit:ListSearchExtender ID="ListSearchExtender1" runat="server" PromptCssClass="ListSearch" TargetControlID="ChangeOwnedByDropDownList">
+            <asp:CompareValidator ValidationGroup="ChangeOwnedByPopup" ID="CompareValidator3"
+                runat="server" ControlToValidate="ChangeOwnedByDropDownList" Display="Dynamic"
+                ErrorMessage="Please select a valid user for this ticket." Operator="NotEqual"
+                ValueToCompare="-">*</asp:CompareValidator>
+            <ajaxToolkit:ListSearchExtender ID="ListSearchExtender1" runat="server" PromptCssClass="ListSearch"
+                TargetControlID="ChangeOwnedByDropDownList">
             </ajaxToolkit:ListSearchExtender>
-            <br /><br />
-            Comments (optional):<br />
-            <asp:TextBox ID="CommentsTextBox" ValidationGroup="ChangeOwnedByPopup" TextMode="MultiLine" Rows="5" runat="server" Width="100%" /> 
+            <br />
+            <br />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
             <br />
             <asp:Button ID="ChangeOwnedByButton" ValidationGroup="ChangeOwnedByPopup" OnClick="ChangeOwnedByButton_Click"
                 runat="server" Text="Change Owner" />

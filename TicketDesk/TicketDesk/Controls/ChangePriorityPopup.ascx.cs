@@ -93,10 +93,10 @@ namespace TicketDesk.Controls
                 comment.CommentEvent = string.Format("set the priority to {0}", TicketToDisplay.Priority);
             }
            
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            comment.IsHtml = true;
+            if(CommentsTextBox.Value != string.Empty)
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                comment.Comment = CommentsTextBox.Value;
             }
             else
             {

@@ -13,7 +13,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
 <asp:Button ID="ShowForceCloseTicketButton" CausesValidation="false" runat="server"
@@ -31,12 +30,9 @@
         </asp:Panel>
         <div style="padding: 5px;">
             <br />
-            Comments (required):
-            <asp:RequiredFieldValidator ID="CommentsRequiredValidator" runat="server" Display="Dynamic"
-                ControlToValidate="CommentsTextBox" ValidationGroup="ForceCloseTicketPopup" Text="*"
-                ErrorMessage="Comments are required" /><br />
-            <asp:TextBox ValidationGroup="ForceCloseTicketPopup" ID="CommentsTextBox" TextMode="MultiLine"
-                Rows="5" runat="server" Width="100%" />
+            Comments (required):<asp:Label ID="lblCommentRequired" runat="server" ForeColor="Red"
+                Text="A comment is required" Visible="false" />
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
             <br />
             <asp:Button ID="ForceCloseTicketButton" ValidationGroup="ForceCloseTicketPopup" OnClick="ForceCloseTicketButton_Click"
                 runat="server" Text="Close By Force" />

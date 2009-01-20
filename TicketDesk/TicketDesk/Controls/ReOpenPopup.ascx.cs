@@ -40,43 +40,52 @@ namespace TicketDesk.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblCommentRequired.Visible = false;
         }
 
         protected void ReOpenButton_Click(object sender, EventArgs e)
         {
-            DateTime now = DateTime.Now;
-            string oldStatus = TicketToDisplay.CurrentStatus;
-            if(TicketToDisplay.Owner != Page.User.Identity.GetFormattedUserName() && (!SecurityManager.IsStaffOrAdmin))
+            if (!string.IsNullOrEmpty(CommentsTextBox.Value))
             {
-                TicketToDisplay.Owner = Page.User.Identity.GetFormattedUserName();
+                DateTime now = DateTime.Now;
+                string oldStatus = TicketToDisplay.CurrentStatus;
+                if (TicketToDisplay.Owner != Page.User.Identity.GetFormattedUserName() && (!SecurityManager.IsStaffOrAdmin))
+                {
+                    TicketToDisplay.Owner = Page.User.Identity.GetFormattedUserName();
+                }
+
+                TicketToDisplay.CurrentStatus = "Active";
+                TicketToDisplay.CurrentStatusDate = now;
+                TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
+
+                if (oldStatus == "Closed")
+                {
+                    TicketToDisplay.AssignedTo = null;
+                }
+                TicketComment comment = new TicketComment();
+
+                comment.CommentEvent = string.Format("has re-opened the ticket");
+
+                comment.IsHtml = true;
+                if (CommentsTextBox.Value != string.Empty)
+                {
+                    comment.Comment = CommentsTextBox.Value;
+                }
+
+                TicketToDisplay.TicketComments.Add(comment);
+
+                ReOpenModalPopupExtender.Hide();
+                if (ReOpened != null)
+                {
+                    ReOpened(comment);
+                }
+            }
+            else
+            {
+                ReOpenModalPopupExtender.Show();
+                lblCommentRequired.Visible = true;
             }
 
-            TicketToDisplay.CurrentStatus = "Active";
-            TicketToDisplay.CurrentStatusDate = now;
-            TicketToDisplay.CurrentStatusSetBy = Page.User.Identity.GetFormattedUserName();
-
-            if(oldStatus == "Closed")
-            {
-                TicketToDisplay.AssignedTo = null;
-            }
-            TicketComment comment = new TicketComment();
-            
-            comment.CommentEvent = string.Format("has re-opened the ticket");
-           
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
-            {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
-            }
-            
-            TicketToDisplay.TicketComments.Add(comment);
-
-            ReOpenModalPopupExtender.Hide();
-            if(ReOpened != null)
-            {
-                ReOpened(comment);
-            }
-            
         }
     }
 }

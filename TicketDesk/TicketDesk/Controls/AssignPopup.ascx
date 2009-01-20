@@ -13,7 +13,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
 <asp:Button ID="ShowAssignButton" CausesValidation="false" runat="server" Text="Assign"
@@ -32,25 +31,26 @@
             </div>
         </asp:Panel>
         <div style="padding: 5px;">
-        <br />
+            <br />
             <table>
                 <tbody>
                     <tr id="SetPriorityPanel" runat="server">
-                        <td >
+                        <td>
                             Set Priority:
                         </td>
-                        <td >
+                        <td>
                             <asp:RequiredFieldValidator ValidationGroup="AssignPopup" ID="RequiredFieldValidator1"
                                 runat="server" ErrorMessage="You must choose a priority." ControlToValidate="PriorityList"
                                 Display="Dynamic" Text="*" />
                             <asp:RadioButtonList ValidationGroup="AssignPopup" ID="PriorityList" runat="server"
                                 RepeatDirection="Vertical" RepeatLayout="Flow" />
-                                
-                            
-                            
                         </td>
                     </tr>
-                    <tr><td>&nbsp;</td></tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
                     <tr>
                         <td style="padding-top: 10px;">
                             Assign to:
@@ -70,9 +70,8 @@
                 </tbody>
             </table>
             <br />
-            Comments (optional):<br />
-            <asp:TextBox ID="CommentsTextBox" ValidationGroup="AssignPopup" TextMode="MultiLine"
-                Rows="5" runat="server" Width="100%" />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
             <br />
             <asp:Button ID="AssignButton" ValidationGroup="AssignPopup" OnClick="AssignButton_Click"
                 runat="server" Text="Assign" />

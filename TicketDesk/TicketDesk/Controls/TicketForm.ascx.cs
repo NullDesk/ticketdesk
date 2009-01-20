@@ -24,6 +24,7 @@ namespace TicketDesk.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblDetailsRequired.Visible = false;
             if(!Page.IsPostBack)
             {
                 
@@ -52,57 +53,63 @@ namespace TicketDesk.Controls
             Ticket ticket = null;
             if(Page.IsValid)
             {
-                DateTime now = DateTime.Now;
-                string user = Page.User.Identity.GetFormattedUserName();
-                ticket = new Ticket();
-                ticket.Type = TypeDropDownList.SelectedValue;
-                ticket.Category = CategoryDropDownList.SelectedValue;
-                ticket.Title = TitleTextBox.Text;
-                ticket.IsHtml = false;
-                ticket.Details = Server.HtmlEncode(EditDetailsControl.Details);
-                if(!string.IsNullOrEmpty(PriorityDropDownList.SelectedValue))
+                if (!string.IsNullOrEmpty(DetailsTextBox.Value))
                 {
-                    ticket.Priority = PriorityDropDownList.SelectedValue;
-                }
-                string[] tags = TagManager.GetTagsFromString(TagPickerControl.TagList);
-                ticket.TagList = string.Join(",", tags);
-                ticket.AffectsCustomer = AffectsCustomerCheckBox.Checked;
-                ticket.PublishedToKb = false;
-                ticket.CreatedBy = user;
-                ticket.CreatedDate = now;
-                if(CreateOnBehalfTextBox.Checked)
-                {
-                    ticket.Owner = OwnerDropDownList.SelectedValue;
+                    DateTime now = DateTime.Now;
+                    string user = Page.User.Identity.GetFormattedUserName();
+                    ticket = new Ticket();
+                    ticket.Type = TypeDropDownList.SelectedValue;
+                    ticket.Category = CategoryDropDownList.SelectedValue;
+                    ticket.Title = TitleTextBox.Text;
+                    ticket.IsHtml = true;
+                    ticket.Details = DetailsTextBox.Value;
+                    if (!string.IsNullOrEmpty(PriorityDropDownList.SelectedValue))
+                    {
+                        ticket.Priority = PriorityDropDownList.SelectedValue;
+                    }
+                    string[] tags = TagManager.GetTagsFromString(TagPickerControl.TagList);
+                    ticket.TagList = string.Join(",", tags);
+                    ticket.AffectsCustomer = AffectsCustomerCheckBox.Checked;
+                    ticket.PublishedToKb = false;
+                    ticket.CreatedBy = user;
+                    ticket.CreatedDate = now;
+                    if (CreateOnBehalfTextBox.Checked)
+                    {
+                        ticket.Owner = OwnerDropDownList.SelectedValue;
+                    }
+                    else
+                    {
+                        ticket.Owner = user;
+                    }
+                    ticket.CurrentStatus = "Active";
+                    ticket.CurrentStatusSetBy = user;
+                    ticket.CurrentStatusDate = now;
+
+
+                    TicketComment openingComment = new TicketComment();
+                    if (CreateOnBehalfTextBox.Checked)
+                    {
+                        openingComment.CommentEvent = string.Format("created the ticket on behalf of {0}", SecurityManager.GetUserDisplayName(ticket.Owner));
+                    }
+                    else
+                    {
+                        openingComment.CommentEvent = string.Format("created the ticket");
+                    }
+                    openingComment.CommentedBy = user;
+                    openingComment.CommentedDate = now;
+                    ticket.TicketComments.Add(openingComment);
+
+                    foreach (string tag in tags)
+                    {
+                        TicketTag tTag = new TicketTag();
+                        tTag.TagName = tag;
+                        ticket.TicketTags.Add(tTag);
+                    }
                 }
                 else
                 {
-                    ticket.Owner = user;
+                    lblDetailsRequired.Visible = true;
                 }
-                ticket.CurrentStatus = "Active";
-                ticket.CurrentStatusSetBy = user;
-                ticket.CurrentStatusDate = now;
-
-
-                TicketComment openingComment = new TicketComment();
-                if(CreateOnBehalfTextBox.Checked)
-                {
-                    openingComment.CommentEvent = string.Format("created the ticket on behalf of {0}", SecurityManager.GetUserDisplayName(ticket.Owner));
-                }
-                else
-                {
-                    openingComment.CommentEvent = string.Format("created the ticket");
-                }
-                openingComment.CommentedBy = user;
-                openingComment.CommentedDate = now;
-                ticket.TicketComments.Add(openingComment);
-
-                foreach(string tag in tags)
-                {
-                    TicketTag tTag = new TicketTag();
-                    tTag.TagName = tag;
-                    ticket.TicketTags.Add(tTag);
-                }
-
                 
             }
             return ticket;

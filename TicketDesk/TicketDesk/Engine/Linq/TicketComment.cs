@@ -19,7 +19,14 @@ namespace TicketDesk.Engine.Linq
         {
             get
             {
-                return Comment.FormatAsHtml();
+                string cmt = Comment;
+                if (!this.IsHtml)
+                {
+                    cmt = Comment.FormatAsHtml();
+                }
+                return cmt;
+                
+                 
             }
         }
     }

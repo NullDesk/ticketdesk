@@ -50,8 +50,7 @@ namespace TicketDesk.Controls
             ChangeOwnedByPopupControl.Visible = EnableEditControls;
             
             AddCommentsContainer.Visible = EnableEditControls;
-            AttachmentsContainer.ColSpan = EnableEditControls ? 1 : 2;
-
+            
             if(EnableEditControls)
             {
                 HookupEditControlEvents();
@@ -60,16 +59,19 @@ namespace TicketDesk.Controls
 
         private void DisplayActionControls()
         {
+             bool isAssignedToMe = (!string.IsNullOrEmpty(TicketToDisplay.AssignedTo) && TicketToDisplay.AssignedTo == Page.User.Identity.GetFormattedUserName());
+             AddCommentButton.Visible = EnableActionControls && TicketToDisplay.CurrentStatus != "Resolved" && TicketToDisplay.CurrentStatus != "Closed";
+            AddCommentButton.Text = (TicketToDisplay.CurrentStatus == "More Info") ? "Supply Info" : "Add Comment";
             AssignPopupControl.Visible = EnableActionControls;
             ChangePriorityPopupControl.Visible = EnableActionControls;
             CancelMoreInfoPopupControl.Visible = EnableActionControls;
             RequestMoreInfoPopupControl.Visible = EnableActionControls;
             TakeOverPopupControl.Visible = EnableActionControls;
-            GiveUpPopupControl.Visible = EnableActionControls;
+            GiveUpPopupControl.Visible = EnableActionControls && isAssignedToMe && TicketToDisplay.CurrentStatus != "Resolved" && TicketToDisplay.CurrentStatus != "Closed";
             CloseTicketPopupControl.Visible = EnableActionControls;
             ReOpenPopupControl.Visible = EnableActionControls;
             ForceCloseTicketPopupControl.Visible = EnableActionControls;
-            ResolvePopupControl.Visible = EnableActionControls;
+            ResolveButton.Visible = EnableActionControls && TicketToDisplay.CurrentStatus != "More Info" && TicketToDisplay.CurrentStatus != "Closed" && TicketToDisplay.CurrentStatus != "Resolved" && isAssignedToMe;
             if(EnableActionControls)
             {
                 HookupActionControlEvents();
@@ -92,7 +94,7 @@ namespace TicketDesk.Controls
 
             AddCommentControl.TicketToDisplay = TicketToDisplay;
             AddCommentControl.CommentChanged += new TicketPropertyChangedDelegate(TicketPropertyChanged);
-
+            AddCommentControl.CancelComment += new EventHandler(AddCommentControl_CancelComment);
 
             ChangeTitleTypePopupControl.TicketToDisplay = TicketToDisplay;
             ChangeTitleTypePopupControl.TitleOrTypeChanged += new TicketPropertyChangedDelegate(TicketPropertyChanged);
@@ -104,6 +106,8 @@ namespace TicketDesk.Controls
             AttachmentsControl.AttachmentAdded += new TicketPropertyChangedDelegate(TicketPropertyChanged);
             AttachmentsControl.AttachmentRemoved += new TicketAttachmentRemovedDelegate(AttachmentRemoved);
         }
+
+       
 
         
 
@@ -136,8 +140,8 @@ namespace TicketDesk.Controls
             GiveUpPopupControl.TicketToDisplay = TicketToDisplay;
             GiveUpPopupControl.GivenUp += new TicketPropertyChangedDelegate(TicketPropertyChanged);
 
-            ResolvePopupControl.TicketToDisplay = TicketToDisplay;
-            ResolvePopupControl.Resolved += new TicketPropertyChangedDelegate(TicketPropertyChanged);
+            //ResolvePopupControl.TicketToDisplay = TicketToDisplay;
+            //ResolvePopupControl.Resolved += new TicketPropertyChangedDelegate(TicketPropertyChanged);
 
         }
 
@@ -228,12 +232,17 @@ namespace TicketDesk.Controls
             }
         }
 
+       
+
         void TicketPropertyChanged(TicketComment eventComment)
         {
             if(TicketChanged != null)
             {
                 TicketChanged(eventComment);
             }
+            AddCommentPanel_CollapsiblePanelExtender.ClientState = "true";
+            AddCommentPanel_CollapsiblePanelExtender.Collapsed = true;
+           
             DisplayEditControls();
             DisplayActionControls();
             PopulateDisplay();
@@ -257,6 +266,47 @@ namespace TicketDesk.Controls
                 returnClass = "UserCommentHead";
             }
             return returnClass;
+        }
+
+        void AddCommentControl_CancelComment(object sender, EventArgs e)
+        {
+            AddCommentPanel_CollapsiblePanelExtender.ClientState = "true";
+            AddCommentPanel_CollapsiblePanelExtender.Collapsed = true;
+            AddCommentControl.CheckResolve(false);
+        }
+
+        protected void ResolveButton_Click(object sender, EventArgs e)
+        {
+            if (AddCommentPanel_CollapsiblePanelExtender.Collapsed)
+            {
+                AddCommentPanel_CollapsiblePanelExtender.ClientState = "false";
+                AddCommentPanel_CollapsiblePanelExtender.Collapsed = false;
+                AddCommentControl.CheckResolve(true);
+            }
+            else
+            {
+                AddCommentPanel_CollapsiblePanelExtender.ClientState = "true";
+                AddCommentPanel_CollapsiblePanelExtender.Collapsed = true;
+                AddCommentControl.CheckResolve(false);
+            }
+        }
+
+        protected void AddCommentButton_Click(object sender, EventArgs e)
+        {
+            if (AddCommentPanel_CollapsiblePanelExtender.Collapsed)
+            {
+               
+
+                AddCommentPanel_CollapsiblePanelExtender.ClientState = "false";
+                AddCommentPanel_CollapsiblePanelExtender.Collapsed = false;
+                AddCommentControl.CheckResolve(false);
+            }
+            else
+            {
+                AddCommentPanel_CollapsiblePanelExtender.ClientState = "true";
+                AddCommentPanel_CollapsiblePanelExtender.Collapsed = true;
+                AddCommentControl.CheckResolve(false);
+            }
         }
 
     }

@@ -16,7 +16,7 @@ using TicketDesk.Engine.Linq;
 
 namespace TicketDesk.Controls
 {
-    
+
     public partial class ChangeAffectsCustomerPopup : System.Web.UI.UserControl
     {
 
@@ -41,9 +41,10 @@ namespace TicketDesk.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.IsPostBack && Visible)
+            lblCommentRequired.Visible = false;
+            if (!Page.IsPostBack && Visible)
             {
-                if(TicketToDisplay.AffectsCustomer)
+                if (TicketToDisplay.AffectsCustomer)
                 {
                     AffectsCustomerList.Items.FindByValue("yes").Selected = true;
                 }
@@ -61,30 +62,38 @@ namespace TicketDesk.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ChangeAffectsCustomerButton_Click(object sender, EventArgs e)
         {
-            TicketToDisplay.AffectsCustomer = (AffectsCustomerList.SelectedValue == "yes");
+            if (!string.IsNullOrEmpty(CommentsTextBox.Value))
+            {
+                TicketToDisplay.AffectsCustomer = (AffectsCustomerList.SelectedValue == "yes");
 
-            TicketComment comment = new TicketComment();
-            DateTime now = DateTime.Now;
-            string dText = "does not";
-            if(TicketToDisplay.AffectsCustomer)
-            {
-                dText = "does";
-            }
-            comment.CommentEvent = string.Format("indicates that the ticket {0} affect customers", dText);
-           
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
-            {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
-            }
-            
-            TicketToDisplay.TicketComments.Add(comment);
+                TicketComment comment = new TicketComment();
+                DateTime now = DateTime.Now;
+                string dText = "does not";
+                if (TicketToDisplay.AffectsCustomer)
+                {
+                    dText = "does";
+                }
+                comment.CommentEvent = string.Format("indicates that the ticket {0} affect customers", dText);
 
-            ChangeAffectsCustomerModalPopupExtender.Hide();
-            if(AffectsCustomerChanged != null)
-            {
-                AffectsCustomerChanged(comment);
+                comment.IsHtml = true;
+
+                comment.Comment = CommentsTextBox.Value;
+
+
+                TicketToDisplay.TicketComments.Add(comment);
+
+                ChangeAffectsCustomerModalPopupExtender.Hide();
+                if (AffectsCustomerChanged != null)
+                {
+                    AffectsCustomerChanged(comment);
+                }
             }
+            else
+            {
+                ChangeAffectsCustomerModalPopupExtender.Show();
+                lblCommentRequired.Visible = true;
+            }
+
         }
     }
 }

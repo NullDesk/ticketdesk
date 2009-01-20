@@ -15,24 +15,32 @@
 %>
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server" />
 <style>
-.SubMenuContainer td
-{
-	text-align:center;
-}
-.SelectedSubMenuItem
-{
-	font-weight:bold;
-}
-
+    .SubMenuContainer td
+    {
+        text-align: center;
+    }
+    .SelectedSubMenuItem
+    {
+        font-weight: bold;
+    }
 </style>
 <div>
-<asp:Repeater ID="ListViewRepeater" runat="server">
-    <HeaderTemplate><table class="SubMenuContainer" cellpadding="3" cellspacing="0" border="0" style="width:100%;"><tbody><tr><td></HeaderTemplate>
-    <ItemTemplate>
-        <asp:HyperLink runat="server" CssClass='<%# (IsCurrentList((string)Eval("ListViewName")))? "SelectedSubMenuItem" : "SubMenuItem" %>' NavigateUrl='<%# string.Format("~/TicketCenter2.aspx?list={0}", (string)Eval("ListViewName")) %>' Text='<%# Eval("ListViewDisplayName") %>' /></div>
-    
-    </ItemTemplate>
-    <SeparatorTemplate></td><td></SeparatorTemplate>
-    <FooterTemplate></td></tr></tbody></table></FooterTemplate>
-</asp:Repeater>
+    <asp:Repeater ID="ListViewRepeater" runat="server">
+        <HeaderTemplate>
+            <table class="SubMenuContainer" cellpadding="3" cellspacing="0" border="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td>
+        </HeaderTemplate>
+        <ItemTemplate>
+            <asp:HyperLink runat="server" CssClass='<%# (IsCurrentList((string)Eval("ListViewName")))? "SelectedSubMenuItem" : "SubMenuItem" %>'
+                NavigateUrl='<%# string.Format("~/TicketCenter2.aspx?list={0}", (string)Eval("ListViewName")) %>'
+                Text='<%# Eval("ListViewDisplayName") %>' /></div>
+        </ItemTemplate>
+        <SeparatorTemplate>
+            </td><td>
+        </SeparatorTemplate>
+        <FooterTemplate>
+            </td></tr></tbody></table></FooterTemplate>
+    </asp:Repeater>
 </div>

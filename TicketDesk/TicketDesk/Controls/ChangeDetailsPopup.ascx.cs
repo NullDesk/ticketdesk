@@ -40,15 +40,16 @@ namespace TicketDesk.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblDetailsRequired.Visible = false;
             if(!Page.IsPostBack && Visible)
             {
                 if(TicketToDisplay.IsHtml)
                 {
-                    EditDetailsControl.Details = TicketToDisplay.Details;
+                    DetailsTextBox.Value = TicketToDisplay.Details;
                 }
                 else
                 {
-                    EditDetailsControl.Details = Server.HtmlDecode(TicketToDisplay.Details);
+                    DetailsTextBox.Value = Server.HtmlDecode(TicketToDisplay.Details);
                 }
             }
         }
@@ -62,31 +63,39 @@ namespace TicketDesk.Controls
         {
             if(Page.IsValid)
             {
-                TicketToDisplay.Details = Server.HtmlEncode(EditDetailsControl.Details);
-                TicketToDisplay.IsHtml = false;
-
-                TicketComment comment = new TicketComment();
-                DateTime now = DateTime.Now;
-
-
-                comment.CommentEvent = "edited the details for the ticket";
-
-               
-                comment.IsHtml = false;
-                if(CommentsTextBox.Text.Trim() != string.Empty)
+                if (!string.IsNullOrEmpty(DetailsTextBox.Value))
                 {
-                    comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                    TicketToDisplay.Details = DetailsTextBox.Value;
+                    TicketToDisplay.IsHtml = true;
+
+                    TicketComment comment = new TicketComment();
+                    DateTime now = DateTime.Now;
+
+
+                    comment.CommentEvent = "edited the details for the ticket";
+
+
+                    comment.IsHtml = true;
+                    if (CommentsTextBox.Value != string.Empty)
+                    {
+                        comment.Comment = CommentsTextBox.Value;
+                    }
+                    else
+                    {
+                        comment.CommentEvent = comment.CommentEvent + " without comment";
+                    }
+                    TicketToDisplay.TicketComments.Add(comment);
+
+                    ChangeDetailsModalPopupExtender.Hide();
+                    if (DetailsChanged != null)
+                    {
+                        DetailsChanged(comment);
+                    }
                 }
                 else
                 {
-                    comment.CommentEvent = comment.CommentEvent + " without comment";
-                }
-                TicketToDisplay.TicketComments.Add(comment);
-
-                ChangeDetailsModalPopupExtender.Hide();
-                if(DetailsChanged != null)
-                {
-                    DetailsChanged(comment);
+                    ChangeDetailsModalPopupExtender.Show();
+                    lblDetailsRequired.Visible = true;
                 }
             }
         }

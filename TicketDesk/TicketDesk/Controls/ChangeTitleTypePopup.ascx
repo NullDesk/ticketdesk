@@ -13,7 +13,6 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-
 <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
 </asp:ScriptManagerProxy>
 <asp:ImageButton ImageUrl="~/Controls/Images/edit.gif" CausesValidation="false" ID="ShowChangeTitleTypeButton"
@@ -29,21 +28,22 @@
                 Edit the Type and/or Title for the ticket:
             </div>
         </asp:Panel>
-        <div style="padding: 5px;">
+        <div style="padding: 5px; font-weight: normal;">
             <br />
-            Type:<asp:DropDownList ValidationGroup="TitleTypeChangePopup" ID="TypeDropDownList" runat="server" style="width:200px;">
-                
-            </asp:DropDownList>
-            <br /><br />
+            Type:<asp:DropDownList ValidationGroup="TitleTypeChangePopup" ID="TypeDropDownList"
+                runat="server" Style="width: 200px;" />
+            <br />
+            <br />
             Title:<br />
-            <asp:TextBox ID="TitleTextBox" runat="server" ValidationGroup="TitleTypeChangePopup" Width="100%" />
+            <asp:TextBox ID="TitleTextBox" runat="server" ValidationGroup="TitleTypeChangePopup"
+                Width="100%" />
             <asp:RequiredFieldValidator ID="TitleRequiredValidator" runat="server" ControlToValidate="TitleTextBox"
-             Text="*" ErrorMessage="Title is required" Display="Dynamic" ValidationGroup="TitleTypeChangePopup" />
-            
+                Text="*" ErrorMessage="Title is required" Display="Dynamic" ValidationGroup="TitleTypeChangePopup" />
             <br />
-            Comments (optional):<br />
-            <asp:TextBox ID="CommentsTextBox" ValidationGroup="TitleTypeChangePopup" TextMode="MultiLine"
-                Rows="5" runat="server" Width="100%" />
+            <br />
+            Comments (optional):
+            <fck:FCKeditor ID="CommentsTextBox" runat="server" ToolbarSet="Basic" />
+            <br />
             <br />
             <asp:Button ID="ChangeTitleTypeButton" ValidationGroup="TitleTypeChangePopup" OnClick="ChangeTitleTypeButton_Click"
                 runat="server" Text="Change Title/Type" />

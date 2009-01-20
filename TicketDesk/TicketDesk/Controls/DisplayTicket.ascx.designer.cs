@@ -32,13 +32,40 @@ namespace TicketDesk.Controls {
         protected global::System.Web.UI.UpdatePanel ActionsUpdatePanel;
         
         /// <summary>
-        /// ResolvePopupControl control.
+        /// AddCommentButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TicketDesk.Controls.ResolvePopup ResolvePopupControl;
+        protected global::System.Web.UI.WebControls.Button AddCommentButton;
+        
+        /// <summary>
+        /// ResolveButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ResolveButton;
+        
+        /// <summary>
+        /// RequestMoreInfoPopupControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Controls.RequestMoreInfoPopup RequestMoreInfoPopupControl;
+        
+        /// <summary>
+        /// CancelMoreInfoPopupControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Controls.CancelMoreInfoPopup CancelMoreInfoPopupControl;
         
         /// <summary>
         /// CloseTicketPopupControl control.
@@ -75,24 +102,6 @@ namespace TicketDesk.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::TicketDesk.Controls.AssignPopup AssignPopupControl;
-        
-        /// <summary>
-        /// RequestMoreInfoPopupControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::TicketDesk.Controls.RequestMoreInfoPopup RequestMoreInfoPopupControl;
-        
-        /// <summary>
-        /// CancelMoreInfoPopupControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::TicketDesk.Controls.CancelMoreInfoPopup CancelMoreInfoPopupControl;
         
         /// <summary>
         /// GiveUpPopupControl control.
@@ -329,6 +338,24 @@ namespace TicketDesk.Controls {
         protected global::System.Web.UI.WebControls.Label LastUpdateDate;
         
         /// <summary>
+        /// AttachmentsContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AttachmentsContainer;
+        
+        /// <summary>
+        /// AttachmentsControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Controls.Attachments AttachmentsControl;
+        
+        /// <summary>
         /// AddCommentsContainer control.
         /// </summary>
         /// <remarks>
@@ -336,6 +363,15 @@ namespace TicketDesk.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell AddCommentsContainer;
+        
+        /// <summary>
+        /// AddCommentPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AddCommentPanel;
         
         /// <summary>
         /// AddCommentControl control.
@@ -347,22 +383,13 @@ namespace TicketDesk.Controls {
         protected global::TicketDesk.Controls.AddComment AddCommentControl;
         
         /// <summary>
-        /// AttachmentsContainer control.
+        /// AddCommentPanel_CollapsiblePanelExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell AttachmentsContainer;
-        
-        /// <summary>
-        /// AttachmentsControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::TicketDesk.Controls.Attachments AttachmentsControl;
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender AddCommentPanel_CollapsiblePanelExtender;
         
         /// <summary>
         /// CommentLogRepeater control.

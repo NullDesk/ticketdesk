@@ -86,10 +86,10 @@ namespace TicketDesk.Controls
             comment.CommentEvent = string.Format("changed the ticket owner from {0} to {1}", SecurityManager.GetUserDisplayName(oldOwner), SecurityManager.GetUserDisplayName(TicketToDisplay.Owner));
             
            
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            comment.IsHtml = true;
+            if(CommentsTextBox.Value != string.Empty)
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                comment.Comment = CommentsTextBox.Value;
             }
             else
             {

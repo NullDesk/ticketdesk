@@ -55,10 +55,10 @@ namespace TicketDesk.Controls
            
             comment.CommentEvent = "has given up on the ticket";
            
-            comment.IsHtml = false;
-            if(CommentsTextBox.Text.Trim() != string.Empty)
+            comment.IsHtml = true;
+            if(CommentsTextBox.Value != string.Empty)
             {
-                comment.Comment = Server.HtmlEncode(CommentsTextBox.Text).Trim();
+                comment.Comment = CommentsTextBox.Value;
             }
             else
             {

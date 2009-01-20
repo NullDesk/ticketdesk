@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DisplayTicket.ascx.cs"
     Inherits="TicketDesk.Controls.DisplayTicket" %>
-
 <%@ Register Src="ChangePriorityPopup.ascx" TagName="ChangePriorityPopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="AssignPopup.ascx" TagName="AssignPopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="TakeOverPopup.ascx" TagName="TakeOverPopup" TagPrefix="ticketDesk" %>
@@ -15,7 +14,6 @@
 <%@ Register Src="ChangeTagsPopup.ascx" TagName="ChangeTagsPopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="ChangeDetailsPopup.ascx" TagName="ChangeDetailsPopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="AddComment.ascx" TagName="AddComment" TagPrefix="ticketDesk" %>
-<%@ Register Src="ResolvePopup.ascx" TagName="ResolvePopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="ChangeTitleTypePopup.ascx" TagName="ChangeTitleTypePopup" TagPrefix="ticketDesk" %>
 <%@ Register Src="ChangeAffectsCustomerPopup.ascx" TagName="ChangeAffectsCustomerPopup"
     TagPrefix="ticketDesk" %>
@@ -35,7 +33,6 @@
 %>
 <asp:ScriptManagerProxy ID="scriptProxy" runat="server">
 </asp:ScriptManagerProxy>
-
 <asp:UpdatePanel ID="ActionsUpdatePanel" UpdateMode="Always" ChildrenAsTriggers="true"
     runat="server">
     <ContentTemplate>
@@ -45,13 +42,16 @@
                     <td>
                         <div class="">
                             <div>
-                                <ticketDesk:ResolvePopup ID="ResolvePopupControl" runat="server" />
+                                <%--<ticketDesk:ResolvePopup ID="ResolvePopupControl" runat="server" />
+                                --%>
+                                <asp:Button ID="AddCommentButton" runat="server" Text="AddComment" OnClick="AddCommentButton_Click" />
+                                <asp:Button ID="ResolveButton" runat="server" Text="Resolve" OnClick="ResolveButton_Click" />
+                                <ticketDesk:RequestMoreInfoPopup ID="RequestMoreInfoPopupControl" runat="server" />
+                                <ticketDesk:CancelMoreInfoPopup ID="CancelMoreInfoPopupControl" runat="server" />
                                 <ticketDesk:CloseTicketPopup ID="CloseTicketPopupControl" runat="server" />
                                 <ticketDesk:ReOpenPopup ID="ReOpenPopupControl" runat="server" />
                                 <ticketDesk:TakeOverPopup ID="TakeOverPopupControl" runat="server" />
                                 <ticketDesk:AssignPopup ID="AssignPopupControl" runat="server" />
-                                <ticketDesk:RequestMoreInfoPopup ID="RequestMoreInfoPopupControl" runat="server" />
-                                <ticketDesk:CancelMoreInfoPopup ID="CancelMoreInfoPopupControl" runat="server" />
                                 <ticketDesk:GiveUpPopup ID="GiveUpPopupControl" runat="server" />
                                 <ticketDesk:ForceCloseTicketPopup ID="ForceCloseTicketPopupControl" runat="server" />
                             </div>
@@ -63,7 +63,7 @@
         <table style="width: 100%;">
             <tbody>
                 <tr>
-                    <td style="vertical-align: top; width: 75%;">
+                    <td style="vertical-align: top; width: 70%;">
                         <div class="Block">
                             <div class="BlockHeader">
                                 <ticketDesk:ChangeTitleTypePopup ID="ChangeTitleTypePopupControl" runat="server" />
@@ -74,12 +74,12 @@
                                 <ticketDesk:ChangeDetailsPopup ID="ChangeDetailsPopup" runat="server" />
                                 Details:
                             </div>
-                            <div class="BlockBody" style="height: 180px; overflow: scroll;">
+                            <div class="BlockBody" style="height: 260px; overflow: scroll;">
                                 <asp:Label ID="Details" runat="server" />
                             </div>
                         </div>
                     </td>
-                    <td style="vertical-align: top; width: 25%;">
+                    <td style="vertical-align: top; width: 30%;">
                         <div class="Block">
                             <div class="BlockHeader">
                                 Ticket ID:
@@ -93,7 +93,7 @@
                                                 Status:
                                             </td>
                                             <td style="vertical-align: top; white-space: nowrap;">
-                                               <asp:Label ID="CurrentStatus" runat="server" />
+                                                <asp:Label ID="CurrentStatus" runat="server" />
                                             </td>
                                             <td>
                                             </td>
@@ -152,16 +152,6 @@
                                                 <ticketDesk:ChangeAffectsCustomerPopup ID="ChangeAffectsCustomerPopupControl" runat="server" />
                                             </td>
                                         </tr>
-                                        <%-- <tr>
-                                            <td style="vertical-align: top; white-space: nowrap; text-align: right;">
-                                                Published to KB:
-                                            </td>
-                                            <td style="vertical-align: top; white-space: nowrap;">
-                                                <asp:Label ID="PublishedToKb" runat="server" />
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>--%>
                                         <tr>
                                             <td style="vertical-align: top; white-space: nowrap; text-align: right;">
                                                 Tags:
@@ -169,8 +159,8 @@
                                             <td style="vertical-align: top;">
                                                 <asp:Repeater ID="TagRepeater" runat="server">
                                                     <ItemTemplate>
-                                                   <%-- NavigateUrl='<%#Eval("Url") %>'--%>
-                                                       <asp:Label ID="TicketTag" runat="server" Text='<%#Eval("TagName") %>' /></ItemTemplate>
+                                                        <%-- NavigateUrl='<%#Eval("Url") %>'--%>
+                                                        <asp:Label ID="TicketTag" runat="server" Text='<%#Eval("TagName") %>' /></ItemTemplate>
                                                     <SeparatorTemplate>
                                                         ,
                                                     </SeparatorTemplate>
@@ -214,25 +204,7 @@
                                 </table>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table style="width: 100%;">
-            <tbody>
-                <tr>
-                    <td style="vertical-align: top; width: 60%;" id="AddCommentsContainer" runat="server">
-                        <div class="Block">
-                            <div class="BlockHeader">
-                                Add Comment:
-                            </div>
-                            <div class="BlockBody">
-                                <ticketDesk:AddComment ID="AddCommentControl" runat="server" />
-                            </div>
-                        </div>
-                    </td>
-                    <td style="vertical-align: top; width: 40%;" id="AttachmentsContainer" runat="server">
-                        <div class="Block">
+                        <div class="Block" id="AttachmentsContainer" runat="server">
                             <div class="BlockHeader">
                                 Attachments:
                             </div>
@@ -242,8 +214,30 @@
                         </div>
                     </td>
                 </tr>
+            </tbody>
+        </table>
+        <table style="width: 100%;">
+            <tbody>
                 <tr>
-                    <td colspan="2">
+                    <td style="vertical-align: top; width: 100%;" id="AddCommentsContainer" runat="server">
+                        <asp:Panel ID="AddCommentPanel" runat="server">
+                            <div class="Block">
+                                <div class="BlockHeader">
+                                    Add Comment:
+                                </div>
+                                <div class="BlockBody">
+                                    <ticketDesk:AddComment ID="AddCommentControl" runat="server" />
+                                </div>
+                            </div>
+                            <div style="height: 5px;">
+                            </div>
+                        </asp:Panel>
+                        <ajaxToolkit:CollapsiblePanelExtender ID="AddCommentPanel_CollapsiblePanelExtender"
+                            runat="server" Enabled="True" TargetControlID="AddCommentPanel" Collapsed="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <div class="Block">
                             <div class="BlockHeader">
                                 Activity Log:
@@ -257,11 +251,9 @@
                                         <tbody class="CommentBox">
                                             <tr>
                                                 <td rowspan="2" runat="server" class='<%# GetCommentHeadClass((string)Eval("CommentedBy")) %>'>
-                                                   
-                                                        <asp:Label ID="HeaderDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
-                                                        <br />
-                                                        <asp:Label ID="HeaderUser" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
-                                                    
+                                                    <asp:Label ID="HeaderDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
+                                                    <br />
+                                                    <asp:Label ID="HeaderUser" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
                                                 </td>
                                                 <td class="CommentTitleArea">
                                                     <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
