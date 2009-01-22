@@ -66,7 +66,7 @@ namespace TicketDesk.Controls
                 TicketAttachment attachment = new TicketAttachment();
                 attachment.FileName = FileUploader.FileName;
                 attachment.FileSize = FileUploader.PostedFile.ContentLength;
-                attachment.FileType = FileUploader.PostedFile.ContentType;
+                attachment.FileType = (string.IsNullOrEmpty(FileUploader.PostedFile.ContentType)? "application/octet-stream" : FileUploader.PostedFile.ContentType);
                 attachment.FileContents = FileUploader.FileBytes;
                 TicketToDisplay.TicketAttachments.Add(attachment);
                 

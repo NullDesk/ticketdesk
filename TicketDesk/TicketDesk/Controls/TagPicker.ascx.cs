@@ -32,7 +32,7 @@ namespace TicketDesk.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            TagsPanel.Visible = (SecurityManager.IsStaffOrAdmin || SecurityManager.SubmitterCanEditTags);
+            TagsPanel.Visible = (SecurityManager.IsStaff || SecurityManager.SubmitterCanEditTags);
         }
     }
 }

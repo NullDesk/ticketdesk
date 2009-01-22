@@ -221,81 +221,98 @@ namespace TicketDesk.Engine
 
         #region Enum shared methods
 
+
+        private static object lockGetStringEnumFromDb = new object();
         private static string[] GetStringEnumFromDb(string settingName)
         {
-            string[] values = null;
-            string p = (from settings in ctx.Settings
-                        where settings.SettingName == settingName
-                        select settings.SettingValue).SingleOrDefault();
-            if(!string.IsNullOrEmpty(p))
+            lock (lockGetStringEnumFromDb)
             {
-                values = p.Split(',');
+                string[] values = null;
+                string p = (from settings in ctx.Settings
+                            where settings.SettingName == settingName
+                            select settings.SettingValue).SingleOrDefault();
+                if (!string.IsNullOrEmpty(p))
+                {
+                    values = p.Split(',');
+                }
+                return values;
             }
-            return values;
         }
-
+        private static object lockSaveStringEnumToDb1 = new object();
         private static void SaveStringEnumToDb(string settingName, string[] items)
         {
-            SaveStringEnumToDb(settingName, items, true);
+            lock (lockSaveStringEnumToDb1)
+            {
+                SaveStringEnumToDb(settingName, items, true);
+            }
         }
 
+        private static object lockSaveStringEnumToDb2 = new object();
         private static void SaveStringEnumToDb(string settingName, string[] items, bool commitChanges)
         {
-            Setting setting = ctx.Settings.SingleOrDefault(s => s.SettingName == settingName);
-            if(setting == null)
+            lock (lockSaveStringEnumToDb1)
             {
-                setting = new Setting();
-                setting.SettingName = settingName;
-                ctx.Settings.InsertOnSubmit(setting);
-            }
-            setting.SettingValue = string.Join(",", items);
-
-            if(commitChanges)
-            {
-                ctx.SubmitChanges();
-            }
-        }
-
-        internal static string[] RenameStringEmunSetting(string settingName, string oldSetting, string newSetting, string[] origionalSettings, bool commitChanges, out SettingChangeResult results)
-        {
-            string[] newSettings = null;
-            results = SettingChangeResult.Failure;
-            if(oldSetting != newSetting)
-            {
-                int newLen = origionalSettings.Length;
-                bool deleteOldSetting = false;
-                //if new setting is same as an existing setting in list, we have to remove the old setting rather than rename it
-                if(origionalSettings.Contains(newSetting))
+                Setting setting = ctx.Settings.SingleOrDefault(s => s.SettingName == settingName);
+                if (setting == null)
                 {
-                    deleteOldSetting = true;
-                    newLen--;
+                    setting = new Setting();
+                    setting.SettingName = settingName;
+                    ctx.Settings.InsertOnSubmit(setting);
                 }
+                setting.SettingValue = string.Join(",", items);
 
-                List<string> newSettingssList = new List<string>(newLen);
-                for(int i = 0; i < origionalSettings.Length; i++)
-                {
-                    if(origionalSettings[i] == oldSetting)
-                    {
-                        if(!deleteOldSetting)
-                        {
-                            newSettingssList.Add(newSetting);
-                        }
-                    }
-                    else
-                    {
-                        newSettingssList.Add(origionalSettings[i]);
-                    }
-                }
-                newSettings = newSettingssList.ToArray();
-                SaveStringEnumToDb(settingName, newSettings, false);
-
-                results = (deleteOldSetting) ? SettingChangeResult.Merge : SettingChangeResult.Success;
-                if(commitChanges)
+                if (commitChanges)
                 {
                     ctx.SubmitChanges();
                 }
             }
-            return newSettings;
+        }
+
+        private static object lockRenameStringEmunSetting = new object();
+        internal static string[] RenameStringEmunSetting(string settingName, string oldSetting, string newSetting, string[] origionalSettings, bool commitChanges, out SettingChangeResult results)
+        {
+
+            lock (lockRenameStringEmunSetting)
+            {
+                string[] newSettings = null;
+                results = SettingChangeResult.Failure;
+                if (oldSetting != newSetting)
+                {
+                    int newLen = origionalSettings.Length;
+                    bool deleteOldSetting = false;
+                    //if new setting is same as an existing setting in list, we have to remove the old setting rather than rename it
+                    if (origionalSettings.Contains(newSetting))
+                    {
+                        deleteOldSetting = true;
+                        newLen--;
+                    }
+
+                    List<string> newSettingssList = new List<string>(newLen);
+                    for (int i = 0; i < origionalSettings.Length; i++)
+                    {
+                        if (origionalSettings[i] == oldSetting)
+                        {
+                            if (!deleteOldSetting)
+                            {
+                                newSettingssList.Add(newSetting);
+                            }
+                        }
+                        else
+                        {
+                            newSettingssList.Add(origionalSettings[i]);
+                        }
+                    }
+                    newSettings = newSettingssList.ToArray();
+                    SaveStringEnumToDb(settingName, newSettings, false);
+
+                    results = (deleteOldSetting) ? SettingChangeResult.Merge : SettingChangeResult.Success;
+                    if (commitChanges)
+                    {
+                        ctx.SubmitChanges();
+                    }
+                }
+                return newSettings;
+            }
         }
 
         #endregion

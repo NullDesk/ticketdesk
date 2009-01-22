@@ -16,6 +16,7 @@
 <asp:Repeater ID="AttachmentsRepeater" runat="server" DataSourceID="TicketAttachmentsDataSource"
     OnItemCommand="AttachmentsRepeater_ItemCommand">
     <ItemTemplate>
+    <div style="padding:3px;">
         <asp:HyperLink ID="AttachmentLink" runat="server" Text='<%# Eval("FileName") %>'
             NavigateUrl='<%# GetAttachmentLinkUrl((int)Eval("FileId")) %>' />
         -
@@ -24,11 +25,13 @@
         <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
         <asp:ImageButton ID="AttachmentRemoveButton" ImageUrl="~/Controls/Images/delete.gif"
             runat="server" CommandArgument='<%# Eval("FileId") %>' CommandName="delete" CausesValidation="false" />
+            </div>
     </ItemTemplate>
     <SeparatorTemplate>
-        <hr />
+        <hr style="margin:3px;" />
     </SeparatorTemplate>
 </asp:Repeater>
+
 <asp:LinqDataSource runat="server" ID="TicketAttachmentsDataSource" ContextTypeName="TicketDesk.Engine.Linq.TicketDataDataContext"
     Select="new (FileId, FileName, FileSize, FileType, UploadedBy, UploadedDate)"
     TableName="TicketAttachments" Where="TicketId == @TicketId">
@@ -41,7 +44,7 @@
         <asp:PostBackTrigger ControlID="UploadFile" />
     </Triggers>
     <ContentTemplate>
-        <hr />
+        <hr style="margin:3px;" />
         <div style="width: 100%; text-align: right;">
             <asp:FileUpload Style="width: 300px;" runat="server" ID="FileUploader" />&nbsp;<asp:Button
                 ID="UploadFile" runat="server" Text="Upload" OnClick="UploadFile_Click" /></div>

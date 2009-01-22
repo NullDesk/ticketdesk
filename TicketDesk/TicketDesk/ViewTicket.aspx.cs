@@ -36,7 +36,7 @@ namespace TicketDesk
             if(id != -1)
             {
                 DisplayTicketView.TicketToDisplay = ctx.Tickets.Single(t => t.TicketId == id);
-                DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
+                //DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
                 DisplayTicketView.TicketChanged += new TicketPropertyChangedDelegate(TicketChanged);
                 DisplayTicketView.TicketAttachmentRemoved += new TicketAttachmentRemovedDelegate(TicketAttachmentRemoved);
             }
@@ -55,7 +55,7 @@ namespace TicketDesk
 
         void TicketChanged(TicketComment eventComment)
         {
-            DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
+            //DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
             ctx.SubmitChanges();
             NotificationService.QueueTicketEventNotification(eventComment);
         }

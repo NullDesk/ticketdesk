@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" Theme="TicketDeskTheme" MasterPageFile="~/TicketDeskMain.Master"
     AutoEventWireup="true" CodeBehind="ViewTicket.aspx.cs" Inherits="TicketDesk.ViewTicket" %>
 
-<%@ Register Src="Controls/DisplayTicket.ascx" TagName="DisplayTicket" TagPrefix="ticketDesk" %>
+<%@ Register Src="TicketViewer/DisplayTicket.ascx" TagName="DisplayTicket" TagPrefix="ticketDesk" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 <%  // TicketDesk - Attribution notice
     // Contributor(s):

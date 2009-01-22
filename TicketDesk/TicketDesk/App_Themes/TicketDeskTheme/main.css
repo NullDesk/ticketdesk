@@ -212,6 +212,42 @@ INPUT[type="file"]
     font: 8pt verdana;
 }
 
+.ActivityButtonContainer
+{
+    border: solid 1px #A0A0A0;
+    background-color: #E9E9E9;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.ActivityEditorButtonContainer
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ActivityButtonContainer INPUT[type="button"], .ActivityButtonContainer INPUT[type="submit"], .ActivityEditorButtonContainer INPUT[type="button"], .ActivityEditorButtonContainer INPUT[type="submit"]
+{
+    width: 120px;
+    margin: 3px;
+    background-color: #FFFFDD;
+}
+
+.ActivityButtonContainer INPUT[type="button"]:hover, .ActivityButtonContainer INPUT[type="submit"]:hover, .ActivityEditorButtonContainer INPUT[type="button"]:hover, .ActivityEditorButtonContainer INPUT[type="submit"]:hover
+{
+    background-color: #FFA500;
+}
+
+.ActivityDescriptionContainer label, .ActivityDescriptionContainer span
+{
+    margin-left: 25px;
+    color: #555555;
+}
+
 .CommentBoxTable
 {
     border-spacing: 0px;
@@ -224,13 +260,12 @@ INPUT[type="file"]
 {
 }
 
-.
-.NewCommentArea
+. .NewCommentArea
 {
-    font-size:9pt;
-    font-style:italic;
+    font-size: 9pt;
+    font-style: italic;
     color: #CC3300;
-    text-align:center;
+    text-align: center;
 }
 
 .UserCommentHead
@@ -493,3 +528,100 @@ label
     background-repeat: no-repeat;
 }
 
+.MultiFieldEditContainer
+{
+    color: #555555;
+}
+
+.MiltiFieldEditFieldName
+{
+}
+
+.MultiFieldEditFactsContainer
+{
+    margin-left: 15px;
+}
+.MultiFieldEditOldValue
+{
+}
+.MultiFieldEditOldValue label
+{
+    width: 50px;
+    float: left;
+    text-align: right;
+}
+.MultiFieldEditNewValue
+{
+}
+
+.MultiFieldEditNewValue label
+{
+    width: 50px;
+    float: left;
+    text-align: right;
+}
+.MultiFieldEditNewValue hr
+{
+    height: 1px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.UpdateProgress
+{
+    position: absolute;
+    background-color: #fff;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    filter: alpha(opacity=70);
+    mozopacity: 0.7;
+    opacity: 0.7;
+    padding: 0px;
+    margin: 0px;
+    z-index: 100200;
+}
+
+.DiminishedText
+{
+    color: #555555;
+    font-size: 7.5pt;
+    margin: 3px;
+}
+
+.WarningContainer
+{
+    background-color: #FFA500;
+    border-top: solid 1px #A0A0A0;
+    padding: 3px;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.ActivityFieldContainer
+{
+    margin: 10px;
+}
+
+.ActivityFieldContainer label
+{
+    width: 75px;
+    float: left;
+    text-align: right;
+}
+
+.ActivityFieldControl
+{
+    
+}
+
+.Form
+{
+    background-color: #E9E9E9;
+    border: solid 1px #A0A0A0;
+    margin: 3px;
+}
+.FieldLabel
+{
+    font-size:8.5pt;
+    font-weight:bold;
+   
+}

@@ -116,7 +116,7 @@ FCKConfig.ToolbarSets["Default"] = [
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
-	['Source', '-', 'Bold', 'Italic', '-', 'Outdent', 'Indent', '-', 'OrderedList', 'UnorderedList', '-', 'Rule', 'SpecialChar', '-', 'Link', 'Unlink', '-', 'SpellCheck']
+	['Source', '-', 'Bold', 'Italic', '-', 'Outdent', 'Indent', '-', 'OrderedList', 'UnorderedList', '-', 'Rule', 'SpecialChar', '-', 'Link', 'Unlink', '-', 'SpellCheck', '-', 'FitWindow']
 ] ;
 
 FCKConfig.EnterMode = 'p' ;			// p | div | br

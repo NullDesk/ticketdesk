@@ -312,6 +312,47 @@ namespace TicketDesk.Engine
     border-bottom: 1px solid #808080;
     padding: 10px 10px 10px 20px;
 }}
+
+
+.MultiFieldEditContainer
+{{
+    color: #555555;
+}}
+
+
+.MultiFieldEditFactsContainer
+{{
+    margin-left: 15px;
+}}
+.MultiFieldEditOldValue
+{{
+}}
+.MultiFieldEditOldValue label
+{{
+    width: 50px;
+    float: left;
+    text-align: right;
+}}
+.MultiFieldEditNewValue
+{{
+}}
+
+.MultiFieldEditNewValue label
+{{
+    width: 50px;
+    float: left;
+    text-align: right;
+}}
+.MultiFieldEditNewValue hr
+{{
+    height: 1px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}}
+
+
+
+
 </STYLE>";
         }
 

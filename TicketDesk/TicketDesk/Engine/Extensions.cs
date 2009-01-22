@@ -21,15 +21,15 @@ namespace TicketDesk.Engine
     /// </summary>
     public static class Extensions
     {
-        
+
         public static string ConvertPascalCaseToFriendlyString(this string stringToConvert)
         {
             List<char> cFriendlyName = new List<char>();
             char[] cName = stringToConvert.ToCharArray();
-            for(int cIdx = 0; cIdx < cName.Length; cIdx++)
+            for (int cIdx = 0; cIdx < cName.Length; cIdx++)
             {
                 char c = cName[cIdx];
-                if(cIdx > 0 && char.IsUpper(c))
+                if (cIdx > 0 && char.IsUpper(c))
                 {
                     cFriendlyName.Add(' ');
                 }
@@ -85,7 +85,7 @@ namespace TicketDesk.Engine
             //TODO: This is probably a bad idea overall. 
             //      It may be better to simply output these fields using the <pre> HTML tag and simply
             //          use CSS to override the font (so it doesn't come out all mono-space-ugly.
-            if(!string.IsNullOrEmpty(text))
+            if (!string.IsNullOrEmpty(text))
             {
                 return text.Replace("\n", "<br />").Replace("  ", "&nbsp; ");
             }
@@ -100,9 +100,9 @@ namespace TicketDesk.Engine
             Control[] ctrlArr = new Control[control.Controls.Count];
             control.Controls.CopyTo(ctrlArr, 0);
             List<Control> controls = new List<Control>(ctrlArr);
-            if(includeChildren)
+            if (includeChildren)
             {
-                foreach(Control ctrl in ctrlArr)
+                foreach (Control ctrl in ctrlArr)
                 {
                     controls.AddRange(ctrl.GetControls(includeChildren));
                 }
@@ -114,15 +114,74 @@ namespace TicketDesk.Engine
         {
             Control retControl = null;
             List<Control> controls = control.GetControls(searchChildren);
-            foreach(Control ctrl in controls)
+            foreach (Control ctrl in controls)
             {
-                if(ctrl.ID == controlId)
+                if (ctrl.ID == controlId)
                 {
                     retControl = ctrl;
                     break;
                 }
             }
             return retControl;
+        }
+
+
+        public static bool CheckSecurityForTicketActivity(this TicketDesk.Engine.Linq.Ticket TicketToDisplay, string activity, string formattedUserName)
+        {
+            bool isAllowed = false;
+
+            bool isOpen = (TicketToDisplay.CurrentStatus != "Resolved" && TicketToDisplay.CurrentStatus != "Closed");
+            bool isAssignedToMe = (!string.IsNullOrEmpty(TicketToDisplay.AssignedTo) && TicketToDisplay.AssignedTo.ToUpperInvariant() == formattedUserName.ToUpperInvariant());
+            bool isOwnedByMe = (TicketToDisplay.Owner.ToUpperInvariant() == formattedUserName.ToUpperInvariant());
+            bool isMoreInfo = (TicketToDisplay.CurrentStatus == "More Info");
+            bool isResolved = (TicketToDisplay.CurrentStatus == "Resolved");
+
+            switch (activity)
+            {
+                case "NoChanges":
+                    isAllowed = true;
+                    break;
+                case "Invalid":
+                    isAllowed = true;
+                    break;
+                case "EditTicket":
+                    isAllowed = isOpen && (SecurityManager.IsStaff || isOwnedByMe);
+                    break;
+                case "AddComment":
+                    isAllowed = isOpen && !isMoreInfo;
+                    break;
+                case "SupplyInfo":
+                    isAllowed = isMoreInfo;
+                    break;
+                case "Resolve":
+                    isAllowed = isOpen && !isMoreInfo && isAssignedToMe;
+                    break;
+                case "RequestMoreInfo":
+                    isAllowed = isOpen && !isMoreInfo && isAssignedToMe;
+                    break;
+                case "CancelMoreInfo":
+                    isAllowed = isMoreInfo && isAssignedToMe;
+                    break;
+                case "CloseTicket":
+                    isAllowed = isResolved && isOwnedByMe;
+                    break;
+                case "ReopenTicket":
+                    isAllowed = !isOpen;
+                    break;
+                case "TakeOver":
+                    isAllowed = (isOpen || isResolved) && !isAssignedToMe && SecurityManager.IsStaff;
+                    break;
+                case "Assign":
+                    isAllowed = (isOpen || isResolved) && SecurityManager.IsStaff;
+                    break;
+                case "GiveUp":
+                    isAllowed = (isOpen || isResolved) && isAssignedToMe;
+                    break;
+                case "ForceClose":
+                    isAllowed = (isOpen || isResolved) && (isAssignedToMe || isOwnedByMe);
+                    break;
+            }
+            return isAllowed;
         }
 
     }

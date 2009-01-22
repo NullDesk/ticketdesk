@@ -131,20 +131,6 @@
     <Compile Include="Admin\UserRoles.aspx.designer.cs">
       <DependentUpon>UserRoles.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AddComment.ascx.cs">
-      <DependentUpon>AddComment.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\AddComment.ascx.designer.cs">
-      <DependentUpon>AddComment.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\AssignPopup.ascx.cs">
-      <DependentUpon>AssignPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\AssignPopup.ascx.designer.cs">
-      <DependentUpon>AssignPopup.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Attachments.ascx.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -152,75 +138,12 @@
     <Compile Include="Controls\Attachments.ascx.designer.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChangeDetailsPopup.ascx.cs">
-      <DependentUpon>ChangeDetailsPopup.ascx</DependentUpon>
+    <Compile Include="Controls\EmailTicketView.ascx.cs">
+      <DependentUpon>EmailTicketView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ChangeDetailsPopup.ascx.designer.cs">
-      <DependentUpon>ChangeDetailsPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChangePriorityPopup.ascx.cs">
-      <DependentUpon>ChangePriorityPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChangePriorityPopup.ascx.designer.cs">
-      <DependentUpon>ChangePriorityPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CancelMoreInfoPopup.ascx.cs">
-      <DependentUpon>CancelMoreInfoPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\CancelMoreInfoPopup.ascx.designer.cs">
-      <DependentUpon>CancelMoreInfoPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CloseTicketPopup.ascx.cs">
-      <DependentUpon>CloseTicketPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\CloseTicketPopup.ascx.designer.cs">
-      <DependentUpon>CloseTicketPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChangeOwnedByPopup.ascx.cs">
-      <DependentUpon>ChangeOwnedByPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChangeOwnedByPopup.ascx.designer.cs">
-      <DependentUpon>ChangeOwnedByPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChangeCategoryPopup.ascx.cs">
-      <DependentUpon>ChangeCategoryPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChangeCategoryPopup.ascx.designer.cs">
-      <DependentUpon>ChangeCategoryPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChangeTagsPopup.ascx.cs">
-      <DependentUpon>ChangeTagsPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChangeTagsPopup.ascx.designer.cs">
-      <DependentUpon>ChangeTagsPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChangeTitleTypePopup.ascx.cs">
-      <DependentUpon>ChangeTitleTypePopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChangeTitleTypePopup.ascx.designer.cs">
-      <DependentUpon>ChangeTitleTypePopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChangeAffectsCustomerPopup.ascx.cs">
-      <DependentUpon>ChangeAffectsCustomerPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ChangeAffectsCustomerPopup.ascx.designer.cs">
-      <DependentUpon>ChangeAffectsCustomerPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DisplayTicket.ascx.cs">
-      <DependentUpon>DisplayTicket.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\DisplayTicket.ascx.designer.cs">
-      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+    <Compile Include="Controls\EmailTicketView.ascx.designer.cs">
+      <DependentUpon>EmailTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListView.ascx.cs">
       <DependentUpon>ListView.ascx</DependentUpon>
@@ -243,54 +166,12 @@
     <Compile Include="Controls\ListViewSettingsEditor.ascx.designer.cs">
       <DependentUpon>ListViewSettingsEditor.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\GiveUpPopup.ascx.cs">
-      <DependentUpon>GiveUpPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\GiveUpPopup.ascx.designer.cs">
-      <DependentUpon>GiveUpPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ForceCloseTicketPopup.ascx.cs">
-      <DependentUpon>ForceCloseTicketPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ForceCloseTicketPopup.ascx.designer.cs">
-      <DependentUpon>ForceCloseTicketPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ReOpenPopup.ascx.cs">
-      <DependentUpon>ReOpenPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ReOpenPopup.ascx.designer.cs">
-      <DependentUpon>ReOpenPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RequestMoreInfoPopup.ascx.cs">
-      <DependentUpon>RequestMoreInfoPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\RequestMoreInfoPopup.ascx.designer.cs">
-      <DependentUpon>RequestMoreInfoPopup.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TagPicker.ascx.cs">
       <DependentUpon>TagPicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\TagPicker.ascx.designer.cs">
       <DependentUpon>TagPicker.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TakeOverPopup.ascx.cs">
-      <DependentUpon>TakeOverPopup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TakeOverPopup.ascx.designer.cs">
-      <DependentUpon>TakeOverPopup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\EmailTicketView.ascx.cs">
-      <DependentUpon>EmailTicketView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\EmailTicketView.ascx.designer.cs">
-      <DependentUpon>EmailTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -360,13 +241,6 @@
       <DependentUpon>TagsAutoComplete.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-    </Compile>
     <Compile Include="TicketCenter2.aspx.cs">
       <DependentUpon>TicketCenter2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -394,6 +268,27 @@
     </Compile>
     <Compile Include="TicketSearch.aspx.designer.cs">
       <DependentUpon>TicketSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketViewer\DisplayTicket.ascx.cs">
+      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketViewer\DisplayTicket.ascx.designer.cs">
+      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketViewer\TicketActivityEditor.ascx.cs">
+      <DependentUpon>TicketActivityEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketViewer\TicketActivityEditor.ascx.designer.cs">
+      <DependentUpon>TicketActivityEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketViewer\TicketEditor.ascx.cs">
+      <DependentUpon>TicketEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketViewer\TicketEditor.ascx.designer.cs">
+      <DependentUpon>TicketEditor.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewTicket.aspx.cs">
       <DependentUpon>ViewTicket.aspx</DependentUpon>
@@ -434,6 +329,8 @@
       <DependentUpon>TicketDesk.mdf</DependentUpon>
     </Content>
     <Content Include="App_Themes\TicketDeskTheme\body_bg.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\indicator_waitanim.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\indicator_waitanim_sm.gif" />
     <Content Include="App_Themes\TicketDeskTheme\Setting.jpg" />
     <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -453,9 +350,12 @@
     <Content Include="bin\nl\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\pt\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\ru\AjaxControlToolkit.resources.dll" />
+    <Content Include="bin\TicketDesk.Engine.Ajax.Extenders.dll" />
+    <Content Include="bin\TicketDesk.Engine.Ajax.Extenders.pdb" />
     <Content Include="bin\tr-TR\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\zh-CHS\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\zh-CHT\AjaxControlToolkit.resources.dll" />
+    <Content Include="Controls\EmailTicketView.ascx" />
     <Content Include="Controls\Images\down.png" />
     <Content Include="Controls\Images\edit.gif" />
     <Content Include="Controls\Images\delete.gif" />
@@ -896,9 +796,11 @@
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
     <Content Include="Services\RSS.svc" />
-    <Content Include="test.aspx" />
     <Content Include="TicketCenter2.aspx" />
     <Content Include="TicketSearch.aspx" />
+    <Content Include="TicketViewer\DisplayTicket.ascx" />
+    <Content Include="TicketViewer\TicketActivityEditor.ascx" />
+    <Content Include="TicketViewer\TicketEditor.ascx" />
     <Content Include="WebAd.config" />
     <Content Include="Admin\Admin.Master" />
     <None Include="App_Data\Update_1.1_to_1.2.SQL" />
@@ -953,36 +855,24 @@
     <None Include="fckeditor\editor\filemanager\connectors\py\zope.py" />
     <Content Include="WebSql.config" />
     <Content Include="Controls\Attachments.ascx" />
-    <Content Include="Controls\ChangeTitleTypePopup.ascx" />
-    <Content Include="Controls\ChangeAffectsCustomerPopup.ascx" />
-    <Content Include="Controls\DisplayTicket.ascx" />
-    <Content Include="Controls\EmailTicketView.ascx" />
     <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />
     <Content Include="App_Themes\TicketDeskTheme\GreenGradient.gif" />
     <Content Include="App_Themes\TicketDeskTheme\LeftMenuBar.gif" />
     <Content Include="App_Themes\TicketDeskTheme\MenuGradient.gif" />
     <Content Include="App_Themes\TicketDeskTheme\RightMenuBar.gif" />
     <Content Include="App_Themes\TicketDeskTheme\TicketDeskLogo.jpg" />
-    <Content Include="Controls\AddComment.ascx" />
-    <Content Include="Controls\AssignPopup.ascx" />
-    <Content Include="Controls\CancelMoreInfoPopup.ascx" />
-    <Content Include="Controls\ChangeDetailsPopup.ascx" />
-    <Content Include="Controls\CloseTicketPopup.ascx" />
-    <Content Include="Controls\ChangeOwnedByPopup.ascx" />
-    <Content Include="Controls\ChangeCategoryPopup.ascx" />
-    <Content Include="Controls\ChangeTagsPopup.ascx" />
-    <Content Include="Controls\GiveUpPopup.ascx" />
-    <Content Include="Controls\ForceCloseTicketPopup.ascx" />
-    <Content Include="Controls\ReOpenPopup.ascx" />
-    <Content Include="Controls\RequestMoreInfoPopup.ascx" />
-    <Content Include="Controls\ChangePriorityPopup.ascx" />
     <Content Include="Controls\TagPicker.ascx" />
-    <Content Include="Controls\TakeOverPopup.ascx" />
     <Content Include="App_Themes\TicketDeskTheme\main.css" />
     <Content Include="Login.aspx" />
     <Content Include="Services\TagsAutoComplete.asmx" />
     <Content Include="TicketDeskMain.Master" />
     <Content Include="ViewTicket.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Engine.Ajax.Extenders\TicketDesk.Engine.Ajax.Extenders.csproj">
+      <Project>{41563B8C-7269-4C1F-807D-FA7E07E83897}</Project>
+      <Name>TicketDesk.Engine.Ajax.Extenders</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
