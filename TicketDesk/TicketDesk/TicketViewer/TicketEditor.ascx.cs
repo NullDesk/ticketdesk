@@ -251,7 +251,10 @@ namespace TicketDesk.TicketViewer
                     string fromtoString = GetFieldEventValuesHtml(v.Value.Key, v.Value.Value);
                     sb.Append(v.Key.Substring(0, 1).ToUpper() + v.Key.Substring(1));
                     sb.Append("</div>");
-                    sb.Append(fromtoString);
+                    if (v.Key != "changed ticket's details")
+                    {
+                        sb.Append(fromtoString);
+                    }
                     sb.Append("</div>");
                 }
                 if (!string.IsNullOrEmpty(eventComment.Comment))

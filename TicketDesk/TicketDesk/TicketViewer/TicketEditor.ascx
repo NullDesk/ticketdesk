@@ -146,13 +146,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="Block" id="AttachmentsContainer" runat="server">
-                    <div class="BlockHeader">
-                        Attachments:
-                    </div>
-                    <div class="BlockBody">
-                    </div>
-                </div>
+              
             </td>
         </tr>
        
