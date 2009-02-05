@@ -24,8 +24,7 @@ namespace TicketDesk.TicketViewer
     {
         public event TicketPropertyChangedDelegate TicketChanged;
 
-        public event TicketAttachmentRemovedDelegate TicketAttachmentRemoved;
-
+       
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -40,9 +39,7 @@ namespace TicketDesk.TicketViewer
                 TicketActivityEditorControl.TicketActivityFailed += new EventHandler(TicketActivityEditorControl_TicketActivityFailed);
 
                 TicketAttachmentsControl.TicketToDisplay = TicketToDisplay;
-                TicketAttachmentsControl.AttachmentAdded += new TicketPropertyChangedDelegate(TicketAttachmentsControl_AttachmentAdded);
-                TicketAttachmentsControl.AttachmentRemoved += new TicketAttachmentRemovedDelegate(TicketAttachmentsControl_AttachmentRemoved);
-
+               
                 Page.Title = string.Format("({2}) {0}: {1}", TicketToDisplay.Type, TicketToDisplay.Title, TicketToDisplay.TicketId.ToString());
 
                 if (!Page.IsPostBack)
@@ -52,19 +49,10 @@ namespace TicketDesk.TicketViewer
             }
         }
 
-        void TicketAttachmentsControl_AttachmentRemoved(int fileId, TicketComment eventComment)
+        protected void Page_PreRender(object sender, EventArgs e)
         {
-            if (TicketAttachmentRemoved != null)
-            {
-                TicketAttachmentRemoved(fileId, eventComment);
-            }
-            PopulateDisplay();
-        }
+            TicketAttachmentsControl.Visible = (TicketActivityEditorControl.Activity != "AddAttachments");
 
-        void TicketAttachmentsControl_AttachmentAdded(TicketComment eventComment)
-        {
-            TicketPropertyChanged(eventComment);
-            PopulateDisplay();
         }
 
 
@@ -127,6 +115,9 @@ namespace TicketDesk.TicketViewer
 
                 AffectsCustomer.Text = (TicketToDisplay.AffectsCustomer) ? "Yes" : "No";
 
+                TicketAttachmentsControl.Refresh();
+
+                
                 var Tags = from t in TicketToDisplay.TicketTags
                            select new
                            {
@@ -166,46 +157,9 @@ namespace TicketDesk.TicketViewer
             Button btn = (Button)sender;
             OpenActivityPanel();
             TicketActivityEditorControl.Activity = btn.CommandArgument;
-            switch (btn.CommandArgument)
+            if (btn.CommandArgument == "EditTicket")
             {
-                case "EditTicket":
-                    OpenTicketEditor();
-
-                    break;
-                case "AddComment":
-
-                    break;
-
-                case "SupplyInfo":
-
-                    break;
-                case "Resolve":
-
-                    break;
-                case "RequestMoreInfo":
-
-                    break;
-                case "CancelMoreInfo":
-
-                    break;
-                case "CloseTicket":
-
-                    break;
-                case "ReopenTicket":
-
-                    break;
-                case "TakeOver":
-
-                    break;
-                case "Assign":
-
-                    break;
-                case "GiveUp":
-
-                    break;
-                case "ForceClose":
-
-                    break;
+                OpenTicketEditor();
             }
 
 
@@ -220,7 +174,7 @@ namespace TicketDesk.TicketViewer
 
         void TicketActivityEditorControl_TicketActivityCompleted(TicketComment eventComment)
         {
-            
+
             if (TicketActivityEditorControl.Activity == "EditTicket")
             {
                 if (!TicketEditorControl.Save(eventComment))
@@ -236,8 +190,7 @@ namespace TicketDesk.TicketViewer
             TicketPropertyChanged(eventComment);
             CloseActivityPanel();
             PopulateDisplay();
-
-
+            
         }
 
         void TicketActivityEditorControl_TicketActivityCanceled(object sender, EventArgs e)
@@ -299,6 +252,7 @@ namespace TicketDesk.TicketViewer
         private void DisplayActivityButtons()
         {
             EditTicketButton.Visible = TicketToDisplay.CheckSecurityForTicketActivity("EditTicket", Page.User.Identity.GetFormattedUserName());
+            AddAttachementsButton.Visible = TicketToDisplay.CheckSecurityForTicketActivity("AddAttachments", Page.User.Identity.GetFormattedUserName());
             AddCommentButton.Visible = TicketToDisplay.CheckSecurityForTicketActivity("AddComment", Page.User.Identity.GetFormattedUserName());
             SupplyMoreInfoButton.Visible = TicketToDisplay.CheckSecurityForTicketActivity("SupplyInfo", Page.User.Identity.GetFormattedUserName());
             ResolveButton.Visible = TicketToDisplay.CheckSecurityForTicketActivity("Resolve", Page.User.Identity.GetFormattedUserName());

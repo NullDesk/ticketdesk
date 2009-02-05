@@ -331,6 +331,7 @@
     <Content Include="App_Themes\TicketDeskTheme\body_bg.gif" />
     <Content Include="App_Themes\TicketDeskTheme\indicator_waitanim.gif" />
     <Content Include="App_Themes\TicketDeskTheme\indicator_waitanim_sm.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\file.gif" />
     <Content Include="App_Themes\TicketDeskTheme\Setting.jpg" />
     <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -793,6 +794,7 @@
     <Content Include="fckeditor\license.txt" />
     <Content Include="Global.asax" />
     <Content Include="License.txt" />
+    <EmbeddedResource Include="MultiFile.js" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
     <Content Include="Services\RSS.svc" />

@@ -264,3 +264,7 @@ GO
 
 ALTER TABLE [dbo].[TicketEventNotifications] CHECK CONSTRAINT [FK_TicketEventNotifications_TicketComments]
 GO
+
+
+ALTER TABLE dbo.TicketAttachments ADD FileDescription NVARCHAR(500) NULL;
+GO

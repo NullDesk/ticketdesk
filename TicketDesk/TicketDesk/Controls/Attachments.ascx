@@ -13,40 +13,35 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-<asp:Repeater ID="AttachmentsRepeater" runat="server" DataSourceID="TicketAttachmentsDataSource"
-    OnItemCommand="AttachmentsRepeater_ItemCommand">
-    <ItemTemplate>
-    <div style="padding:3px;">
-        <asp:HyperLink ID="AttachmentLink" runat="server" Text='<%# Eval("FileName") %>'
-            NavigateUrl='<%# GetAttachmentLinkUrl((int)Eval("FileId")) %>' />
-        -
-        <asp:Label ID="AttachmentUploader" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("UploadedBy")) %>' />
-        :
-        <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
-        <asp:ImageButton ID="AttachmentRemoveButton" ImageUrl="~/Controls/Images/delete.gif"
-            runat="server" CommandArgument='<%# Eval("FileId") %>' CommandName="delete" CausesValidation="false" />
-            </div>
-    </ItemTemplate>
-    <SeparatorTemplate>
-        <hr style="margin:3px;" />
-    </SeparatorTemplate>
-</asp:Repeater>
-
+<div id="Div1" runat="server" class="Block" style="min-height: 100px;">
+    <div class="BlockHeader">
+        Attachments:
+    </div>
+    <div class="BlockBody">
+        <asp:Repeater ID="AttachmentsRepeater" runat="server" DataSourceID="TicketAttachmentsDataSource">
+            <ItemTemplate>
+                <div class="MultiUploadFileList">
+                    <div class="FileAttachmentItemContainer">
+                        <asp:HyperLink ID="AttachmentLink" style="font-size:larger;"  runat="server" Text='<%# Eval("FileName") %>'
+                            NavigateUrl='<%# GetAttachmentLinkUrl((int)Eval("FileId")) %>' />
+                        <span class="DiminishedText">Uploaded by:
+                            <asp:Label ID="AttachmentUploader" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("UploadedBy")) %>' />
+                            on
+                            <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
+                        </span>
+                        <div class="DiminishedText" style="margin-left: 15px;">
+                            <asp:Label ID="AttachmentDescription" runat="server" Text='<%# Eval("FileDescription")%>' />
+                        </div>
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</div>
 <asp:LinqDataSource runat="server" ID="TicketAttachmentsDataSource" ContextTypeName="TicketDesk.Engine.Linq.TicketDataDataContext"
-    Select="new (FileId, FileName, FileSize, FileType, UploadedBy, UploadedDate)"
-    TableName="TicketAttachments" Where="TicketId == @TicketId">
+    Select="new (FileId, FileName, FileSize, FileType, FileDescription, UploadedBy, UploadedDate)"
+    TableName="TicketAttachments" Where="TicketId == @TicketId" OrderBy="UploadedDate DESC">
     <WhereParameters>
         <asp:QueryStringParameter Name="TicketId" QueryStringField="id" Type="Int32" />
     </WhereParameters>
 </asp:LinqDataSource>
-<asp:UpdatePanel ID="AttachmentsUpdatePanel" runat="server">
-    <Triggers>
-        <asp:PostBackTrigger ControlID="UploadFile" />
-    </Triggers>
-    <ContentTemplate>
-        <hr style="margin:3px;" />
-        <div style="width: 100%; text-align: right;">
-            <asp:FileUpload Style="width: 300px;" runat="server" ID="FileUploader" />&nbsp;<asp:Button
-                ID="UploadFile" runat="server" Text="Upload" OnClick="UploadFile_Click" /></div>
-    </ContentTemplate>
-</asp:UpdatePanel>

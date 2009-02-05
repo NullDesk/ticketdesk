@@ -144,6 +144,9 @@ namespace TicketDesk.Engine
                 case "Invalid":
                     isAllowed = true;
                     break;
+                case "AddAttachments":
+                    isAllowed = isOpen;
+                    break;
                 case "EditTicket":
                     isAllowed = isOpen && (SecurityManager.IsStaff || isOwnedByMe);
                     break;

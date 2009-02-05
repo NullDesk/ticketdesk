@@ -149,6 +149,15 @@ namespace TicketDesk.TicketViewer {
         protected global::System.Web.UI.WebControls.Panel AddCommentPanel;
         
         /// <summary>
+        /// ResolvedCheckBoxContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ResolvedCheckBoxContainer;
+        
+        /// <summary>
         /// ResolveCheckBox control.
         /// </summary>
         /// <remarks>
@@ -174,6 +183,33 @@ namespace TicketDesk.TicketViewer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox SupplyInfoActivateTicketCheckBox;
+        
+        /// <summary>
+        /// AttachmentsPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AttachmentsPanel;
+        
+        /// <summary>
+        /// AttachmentsRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater AttachmentsRepeater;
+        
+        /// <summary>
+        /// TicketAttachmentsDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinqDataSource TicketAttachmentsDataSource;
         
         /// <summary>
         /// ReopenStaffPanel control.

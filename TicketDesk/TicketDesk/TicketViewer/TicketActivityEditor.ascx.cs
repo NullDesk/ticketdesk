@@ -18,6 +18,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TicketDesk.Engine.Linq;
 using TicketDesk.Engine;
+using System.Text;
+using System.IO;
 
 namespace TicketDesk.TicketViewer
 {
@@ -75,11 +77,12 @@ namespace TicketDesk.TicketViewer
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Page.Form.Enctype = "multipart/form-data";
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
+
             if (!activityFailed)
             {
                 SetupForActivity();
@@ -93,6 +96,7 @@ namespace TicketDesk.TicketViewer
             CommitButton.Visible = true;
             AssignPanel.Visible = false;
             NoChangesPanel.Visible = false;
+            AttachmentsPanel.Visible = false;
 
             RequiredCommentLabel.Visible = false;
             SupplyMoreInfoPanel.Visible = false;
@@ -112,7 +116,7 @@ namespace TicketDesk.TicketViewer
                     CommentPanel.Visible = false;
                     CommitButton.Visible = false;
                     CancelButton.Text = "Continue";
-                    ActivityFailed();
+                    
                     break;
                 case "Invalid":
                     ActivityNotAllowedPanel.Visible = true;
@@ -127,6 +131,22 @@ namespace TicketDesk.TicketViewer
                     CommentFieldLabel.Text = "Notes & Comments:";
                     ActivityDescription.Text = "Make changes to a ticket's details, title, or other fields.";
                     break;
+                case "AddAttachments":
+                    AttachmentsPanel.Visible = true;
+                    CommitButton.Text = "Update";
+                    ActivityLabel.Text = "Manage Attachments";
+                    ActivityDescription.Text = "Upload new attachments, change file descriptions or remove attachments.";
+
+                    ScriptManager.GetCurrent(Page).RegisterPostBackControl(CommitButton);
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append(@"<script type='text/javascript'>");
+                    sb.Append(@"var multi_selector = new MultiSelector(document.getElementById('files_list'), 3);");
+                    sb.Append(@"multi_selector.addElement(document.getElementById('my_file_element'));");
+                    sb.Append(@"</script>");
+
+                    ScriptManager.RegisterStartupScript(Page, this.GetType(), "AttachmentsJSScript", sb.ToString(), false);
+                    AttachmentsRepeater.DataBind();
+                    break;
                 case "AddComment":
                     ActivityLabel.Text = "Add a Comment";
                     CommitButton.Text = "Add Comment";
@@ -134,6 +154,7 @@ namespace TicketDesk.TicketViewer
                     ActivityDescription.Text = "Add a comment to the ticket.";
                     AddCommentPanel.Visible = true;
                     ResolveCheckBox.Checked = false;
+                    ResolvedCheckBoxContainer.Visible = (TicketToDisplay.AssignedTo == Page.User.Identity.GetFormattedUserName());
                     break;
                 case "SupplyInfo":
                     ActivityLabel.Text = "Provide Additional Information";
@@ -188,13 +209,14 @@ namespace TicketDesk.TicketViewer
                 case "Assign":
                     if (string.IsNullOrEmpty(TicketToDisplay.AssignedTo))
                     {
-                        ActivityLabel.Text = "Reassign Ticket";
-                        CommitButton.Text = "Reassign";
+                        ActivityLabel.Text = "Assign Ticket";
+                        CommitButton.Text = "Assign";
                     }
                     else
                     {
-                        ActivityLabel.Text = "Assign Ticket";
-                        CommitButton.Text = "Assign";
+                        ActivityLabel.Text = "Reassign Ticket";
+                        CommitButton.Text = "Reassign";
+
                     }
                     CommentFieldLabel.Text = "Comments:";
                     ActivityDescription.Text = "Assign the ticket to another member of the TicketDesk staff.";
@@ -248,7 +270,7 @@ namespace TicketDesk.TicketViewer
 
         private TicketComment PerformActivity()
         {
-
+            List<string> eventDetailItems = null;
             string eventText = null;
             if (CheckIsActivityAllowed())
             {
@@ -262,7 +284,7 @@ namespace TicketDesk.TicketViewer
                     case "AddComment":
                         if (EnforceRequiredComment())
                         {
-                            if (ResolveCheckBox.Checked)
+                            if (ResolvedCheckBoxContainer.Visible && ResolveCheckBox.Checked)
                             {
                                 eventText = ResolveTicket(eventText);
                             }
@@ -270,7 +292,88 @@ namespace TicketDesk.TicketViewer
                             {
                                 eventText = "added comment";
                             }
+
                         }
+                        break;
+
+                    case "AddAttachments":
+
+                        eventDetailItems = new List<string>();
+
+                        HttpFileCollection uploadedFiles = Request.Files;
+                        var newFiles = 0;
+                        var updatedFiles = 0;
+                        var removedFiles = 0;
+                        for (int i = 0; i < uploadedFiles.Count; i++)
+                        {
+
+                            HttpPostedFile userPostedFile = uploadedFiles[i];
+                            if (userPostedFile.ContentLength > 0)
+                            {
+                                newFiles++;
+                                TicketAttachment attachment = new TicketAttachment();
+                                string fName = Path.GetFileName(userPostedFile.FileName);//FileUploader.FileName;
+
+                                
+
+                                attachment.FileName = fName;
+                                var description = Page.Request.Form[fName];
+                                if (!string.IsNullOrEmpty(description))
+                                {
+                                    if (description.Length > 500)
+                                    {
+                                        attachment.FileDescription = description.Substring(0, 500);
+                                    }
+                                    else
+                                    {
+                                        attachment.FileDescription = description;
+                                    }
+                                }
+                                attachment.FileSize = userPostedFile.ContentLength;//FileUploader.PostedFile.ContentLength;
+                                string mtype = userPostedFile.ContentType;
+                                attachment.FileType = (string.IsNullOrEmpty(mtype) ? "application/octet-stream" : mtype);
+                                byte[] fileContent = new byte[userPostedFile.ContentLength];
+                                userPostedFile.InputStream.Read(fileContent, 0, userPostedFile.ContentLength);//FileUploader.FileBytes;
+                                attachment.FileContents = fileContent;
+                                TicketToDisplay.TicketAttachments.Add(attachment);
+                                eventDetailItems.Add(string.Format("New attachment: {0}", attachment.FileName));
+                            }
+
+                            foreach (RepeaterItem item in AttachmentsRepeater.Items)
+                            {
+                                if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                                {
+                                    var AttachmentUpdateId = (HiddenField)item.FindControl("AttachmentUpdateId");
+                                    var AttachmentDescription = (TextBox)item.FindControl("AttachmentDescription");
+                                    var DeleteAttachmentCheckBox = (CheckBox)item.FindControl("DeleteAttachmentCheckBox");
+
+                                    var modAttachment = TicketToDisplay.TicketAttachments.SingleOrDefault(ta => ta.FileId == Convert.ToInt32(AttachmentUpdateId.Value));
+
+                                    if (DeleteAttachmentCheckBox.Checked)
+                                    {
+                                        eventDetailItems.Add(string.Format("Removed attachment: {0}", modAttachment.FileName));
+                                        removedFiles++;
+                                        DeleteTicketAttachment(modAttachment.FileId);
+                                        //TicketToDisplay.TicketAttachments.Remove(modAttachment);
+                                        eventText = "removed attachment";
+                                    }
+                                    else if (modAttachment.FileDescription != AttachmentDescription.Text)
+                                    {
+                                        eventDetailItems.Add(string.Format("Updated attachment: {0}", modAttachment.FileName));
+                                        updatedFiles++;
+                                        modAttachment.FileDescription = AttachmentDescription.Text;
+                                        eventText = "updated attachment description";
+                                    }
+                                }
+                            }
+
+                            if ((newFiles + removedFiles + updatedFiles) > 0)
+                            {
+
+                                eventText = "modified ticket attachments";
+                            }
+                        }
+
                         break;
                     case "SupplyInfo":
                         if (EnforceRequiredComment())
@@ -326,8 +429,6 @@ namespace TicketDesk.TicketViewer
                                 TicketToDisplay.Owner = Page.User.Identity.GetFormattedUserName();
                                 eventText = eventText + " as the owner";
                             }
-
-
                             if (SecurityManager.IsStaff && ReopenAssignToMe.Checked)
                             {
                                 TicketToDisplay.AssignedTo = Page.User.Identity.GetFormattedUserName();
@@ -409,12 +510,41 @@ namespace TicketDesk.TicketViewer
                 comment = new TicketComment();
                 comment.IsHtml = true;
                 comment.CommentEvent = eventText;
+
+                StringBuilder sb = new StringBuilder();
+                if (eventDetailItems != null)
+                {
+                    foreach (var v in eventDetailItems)
+                    {
+
+                        sb.Append("<div class='MultiFieldEditContainer'>");
+                        sb.Append("<div class='MultiFieldEditFactsContainer'>");
+                        sb.Append(v);
+                        sb.Append("</div>");
+                        sb.Append("</div>");
+                    }
+                }
                 if (!string.IsNullOrEmpty(CommentText.Value))
                 {
-                    comment.Comment = CommentText.Value;
+                    sb.Append("<hr />");
+
                 }
+
+                if (!string.IsNullOrEmpty(CommentText.Value))
+                {
+                    sb.Append(CommentText.Value);
+                }
+                comment.Comment = sb.ToString();
             }
             return comment;
+        }
+
+        private void DeleteTicketAttachment(int fileId)
+        {
+            TicketDataDataContext ctx = new TicketDataDataContext();
+            var file = ctx.TicketAttachments.SingleOrDefault(ta => ta.FileId == fileId);
+            ctx.TicketAttachments.DeleteOnSubmit(file);
+            ctx.SubmitChanges();
         }
 
         private string ResolveTicket(string eventText)

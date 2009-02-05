@@ -17,6 +17,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TicketDesk.Engine;
 using TicketDesk.Engine.Linq;
+using System.IO;
 
 namespace TicketDesk.Controls
 {
@@ -24,12 +25,13 @@ namespace TicketDesk.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Form.Enctype = "multipart/form-data";
             lblDetailsRequired.Visible = false;
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
-                
+
                 bool EnableFullMode = (SecurityManager.IsStaffOrAdmin);
-                
+
                 TypeDropDownList.DataSource = SettingsManager.TicketTypesList;
                 TypeDropDownList.DataBind();
 
@@ -40,8 +42,8 @@ namespace TicketDesk.Controls
                 CategoryDropDownList.DataBind();
 
                 PriorityDropDownList.Enabled = (SecurityManager.SubmitterCanEditPriority || EnableFullMode);
-                
-                
+
+
                 OwnerUpdatePanel.Visible = EnableFullMode;
 
                 OwnerDropDownList.Items.AddRange(GetOwnerUserList());
@@ -51,7 +53,7 @@ namespace TicketDesk.Controls
         public Ticket GetNewTicket()
         {
             Ticket ticket = null;
-            if(Page.IsValid)
+            if (Page.IsValid)
             {
                 if (!string.IsNullOrEmpty(DetailsTextBox.Value))
                 {
@@ -97,6 +99,42 @@ namespace TicketDesk.Controls
                     }
                     openingComment.CommentedBy = user;
                     openingComment.CommentedDate = now;
+
+
+                    HttpFileCollection uploadedFiles = Request.Files;
+
+                    for (int i = 0; i < uploadedFiles.Count; i++)
+                    {
+                        
+                        HttpPostedFile userPostedFile = uploadedFiles[i];
+                        if (userPostedFile.ContentLength > 0)
+                        {
+                            TicketAttachment attachment = new TicketAttachment();
+                            string fName = Path.GetFileName(userPostedFile.FileName);//FileUploader.FileName;
+
+                            attachment.FileName = fName;
+                            var description = Page.Request.Form[fName];
+                            if (!string.IsNullOrEmpty(description))
+                            {
+                                if (description.Length > 500)
+                                {
+                                    attachment.FileDescription = description.Substring(0, 500);
+                                }
+                                else
+                                {
+                                    attachment.FileDescription = description;
+                                }
+                            }
+                            attachment.FileSize = userPostedFile.ContentLength;//FileUploader.PostedFile.ContentLength;
+                            string mtype = userPostedFile.ContentType;
+                            attachment.FileType = (string.IsNullOrEmpty(mtype) ? "application/octet-stream" : mtype);
+                            byte[] fileContent = new byte[userPostedFile.ContentLength];
+                            userPostedFile.InputStream.Read(fileContent, 0, userPostedFile.ContentLength);//FileUploader.FileBytes;
+                            attachment.FileContents = fileContent;
+                            ticket.TicketAttachments.Add(attachment);
+                        }
+                    }
+
                     ticket.TicketComments.Add(openingComment);
 
                     foreach (string tag in tags)
@@ -110,7 +148,7 @@ namespace TicketDesk.Controls
                 {
                     lblDetailsRequired.Visible = true;
                 }
-                
+
             }
             return ticket;
         }
@@ -119,8 +157,8 @@ namespace TicketDesk.Controls
         {
             User[] users = SecurityManager.GetTicketSubmitterUsers();
             var userItems = from user in users
-                    where user.Name.ToUpperInvariant() != HttpContext.Current.User.Identity.Name.ToUpperInvariant()
-                    select new ListItem(user.DisplayName, user.Name);
+                            where user.Name.ToUpperInvariant() != HttpContext.Current.User.Identity.Name.ToUpperInvariant()
+                            select new ListItem(user.DisplayName, user.Name);
 
             return userItems.ToArray();
         }

@@ -30,9 +30,6 @@ namespace TicketDesk.Engine.Linq
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertTicketAttachment(TicketAttachment instance);
-    partial void UpdateTicketAttachment(TicketAttachment instance);
-    partial void DeleteTicketAttachment(TicketAttachment instance);
     partial void InsertTicketTag(TicketTag instance);
     partial void UpdateTicketTag(TicketTag instance);
     partial void DeleteTicketTag(TicketTag instance);
@@ -48,6 +45,9 @@ namespace TicketDesk.Engine.Linq
     partial void InsertTicketEventNotification(TicketEventNotification instance);
     partial void UpdateTicketEventNotification(TicketEventNotification instance);
     partial void DeleteTicketEventNotification(TicketEventNotification instance);
+    partial void InsertTicketAttachment(TicketAttachment instance);
+    partial void UpdateTicketAttachment(TicketAttachment instance);
+    partial void DeleteTicketAttachment(TicketAttachment instance);
     #endregion
 		
 		public TicketDataDataContext() : 
@@ -78,14 +78,6 @@ namespace TicketDesk.Engine.Linq
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<TicketAttachment> TicketAttachments
-		{
-			get
-			{
-				return this.GetTable<TicketAttachment>();
-			}
 		}
 		
 		public System.Data.Linq.Table<TicketTag> TicketTags
@@ -127,275 +119,12 @@ namespace TicketDesk.Engine.Linq
 				return this.GetTable<TicketEventNotification>();
 			}
 		}
-	}
-	
-	[Table(Name="dbo.TicketAttachments")]
-	public partial class TicketAttachment : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _TicketId;
-		
-		private int _FileId;
-		
-		private string _FileName;
-		
-		private int _FileSize;
-		
-		private string _FileType;
-		
-		private string _UploadedBy;
-		
-		private System.DateTime _UploadedDate;
-		
-		private System.Data.Linq.Link<System.Data.Linq.Binary> _FileContents;
-		
-		private EntityRef<Ticket> _Ticket;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTicketIdChanging(int value);
-    partial void OnTicketIdChanged();
-    partial void OnFileIdChanging(int value);
-    partial void OnFileIdChanged();
-    partial void OnFileNameChanging(string value);
-    partial void OnFileNameChanged();
-    partial void OnFileSizeChanging(int value);
-    partial void OnFileSizeChanged();
-    partial void OnFileTypeChanging(string value);
-    partial void OnFileTypeChanged();
-    partial void OnUploadedByChanging(string value);
-    partial void OnUploadedByChanged();
-    partial void OnUploadedDateChanging(System.DateTime value);
-    partial void OnUploadedDateChanged();
-    partial void OnFileContentsChanging(System.Data.Linq.Binary value);
-    partial void OnFileContentsChanged();
-    #endregion
-		
-		public TicketAttachment()
-		{
-			this._Ticket = default(EntityRef<Ticket>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_TicketId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int TicketId
+		public System.Data.Linq.Table<TicketAttachment> TicketAttachments
 		{
 			get
 			{
-				return this._TicketId;
-			}
-			set
-			{
-				if ((this._TicketId != value))
-				{
-					if (this._Ticket.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTicketIdChanging(value);
-					this.SendPropertyChanging();
-					this._TicketId = value;
-					this.SendPropertyChanged("TicketId");
-					this.OnTicketIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_FileId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int FileId
-		{
-			get
-			{
-				return this._FileId;
-			}
-			set
-			{
-				if ((this._FileId != value))
-				{
-					this.OnFileIdChanging(value);
-					this.SendPropertyChanging();
-					this._FileId = value;
-					this.SendPropertyChanged("FileId");
-					this.OnFileIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_FileName", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string FileName
-		{
-			get
-			{
-				return this._FileName;
-			}
-			set
-			{
-				if ((this._FileName != value))
-				{
-					this.OnFileNameChanging(value);
-					this.SendPropertyChanging();
-					this._FileName = value;
-					this.SendPropertyChanged("FileName");
-					this.OnFileNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_FileSize", DbType="Int NOT NULL")]
-		public int FileSize
-		{
-			get
-			{
-				return this._FileSize;
-			}
-			set
-			{
-				if ((this._FileSize != value))
-				{
-					this.OnFileSizeChanging(value);
-					this.SendPropertyChanging();
-					this._FileSize = value;
-					this.SendPropertyChanged("FileSize");
-					this.OnFileSizeChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_FileType", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string FileType
-		{
-			get
-			{
-				return this._FileType;
-			}
-			set
-			{
-				if ((this._FileType != value))
-				{
-					this.OnFileTypeChanging(value);
-					this.SendPropertyChanging();
-					this._FileType = value;
-					this.SendPropertyChanged("FileType");
-					this.OnFileTypeChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_UploadedBy", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string UploadedBy
-		{
-			get
-			{
-				return this._UploadedBy;
-			}
-			set
-			{
-				if ((this._UploadedBy != value))
-				{
-					this.OnUploadedByChanging(value);
-					this.SendPropertyChanging();
-					this._UploadedBy = value;
-					this.SendPropertyChanged("UploadedBy");
-					this.OnUploadedByChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_UploadedDate", DbType="DateTime NOT NULL")]
-		public System.DateTime UploadedDate
-		{
-			get
-			{
-				return this._UploadedDate;
-			}
-			set
-			{
-				if ((this._UploadedDate != value))
-				{
-					this.OnUploadedDateChanging(value);
-					this.SendPropertyChanging();
-					this._UploadedDate = value;
-					this.SendPropertyChanged("UploadedDate");
-					this.OnUploadedDateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_FileContents", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary FileContents
-		{
-			get
-			{
-				return this._FileContents.Value;
-			}
-			set
-			{
-				if ((this._FileContents.Value != value))
-				{
-					this.OnFileContentsChanging(value);
-					this.SendPropertyChanging();
-					this._FileContents.Value = value;
-					this.SendPropertyChanged("FileContents");
-					this.OnFileContentsChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Ticket_TicketAttachment", Storage="_Ticket", ThisKey="TicketId", OtherKey="TicketId", IsForeignKey=true)]
-		public Ticket Ticket
-		{
-			get
-			{
-				return this._Ticket.Entity;
-			}
-			set
-			{
-				Ticket previousValue = this._Ticket.Entity;
-				if (((previousValue != value) 
-							|| (this._Ticket.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Ticket.Entity = null;
-						previousValue.TicketAttachments.Remove(this);
-					}
-					this._Ticket.Entity = value;
-					if ((value != null))
-					{
-						value.TicketAttachments.Add(this);
-						this._TicketId = value.TicketId;
-					}
-					else
-					{
-						this._TicketId = default(int);
-					}
-					this.SendPropertyChanged("Ticket");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<TicketAttachment>();
 			}
 		}
 	}
@@ -896,11 +625,11 @@ namespace TicketDesk.Engine.Linq
 		
 		private System.Data.Linq.Binary _Version;
 		
-		private EntitySet<TicketAttachment> _TicketAttachments;
-		
 		private EntitySet<TicketTag> _TicketTags;
 		
 		private EntitySet<TicketComment> _TicketComments;
+		
+		private EntitySet<TicketAttachment> _TicketAttachments;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -950,9 +679,9 @@ namespace TicketDesk.Engine.Linq
 		
 		public Ticket()
 		{
-			this._TicketAttachments = new EntitySet<TicketAttachment>(new Action<TicketAttachment>(this.attach_TicketAttachments), new Action<TicketAttachment>(this.detach_TicketAttachments));
 			this._TicketTags = new EntitySet<TicketTag>(new Action<TicketTag>(this.attach_TicketTags), new Action<TicketTag>(this.detach_TicketTags));
 			this._TicketComments = new EntitySet<TicketComment>(new Action<TicketComment>(this.attach_TicketComments), new Action<TicketComment>(this.detach_TicketComments));
+			this._TicketAttachments = new EntitySet<TicketAttachment>(new Action<TicketAttachment>(this.attach_TicketAttachments), new Action<TicketAttachment>(this.detach_TicketAttachments));
 			OnCreated();
 		}
 		
@@ -1356,19 +1085,6 @@ namespace TicketDesk.Engine.Linq
 			}
 		}
 		
-		[Association(Name="Ticket_TicketAttachment", Storage="_TicketAttachments", ThisKey="TicketId", OtherKey="TicketId")]
-		public EntitySet<TicketAttachment> TicketAttachments
-		{
-			get
-			{
-				return this._TicketAttachments;
-			}
-			set
-			{
-				this._TicketAttachments.Assign(value);
-			}
-		}
-		
 		[Association(Name="Ticket_TicketTag", Storage="_TicketTags", ThisKey="TicketId", OtherKey="TicketId")]
 		public EntitySet<TicketTag> TicketTags
 		{
@@ -1395,6 +1111,19 @@ namespace TicketDesk.Engine.Linq
 			}
 		}
 		
+		[Association(Name="Ticket_TicketAttachment", Storage="_TicketAttachments", ThisKey="TicketId", OtherKey="TicketId")]
+		public EntitySet<TicketAttachment> TicketAttachments
+		{
+			get
+			{
+				return this._TicketAttachments;
+			}
+			set
+			{
+				this._TicketAttachments.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1413,18 +1142,6 @@ namespace TicketDesk.Engine.Linq
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_TicketAttachments(TicketAttachment entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ticket = this;
-		}
-		
-		private void detach_TicketAttachments(TicketAttachment entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ticket = null;
 		}
 		
 		private void attach_TicketTags(TicketTag entity)
@@ -1446,6 +1163,18 @@ namespace TicketDesk.Engine.Linq
 		}
 		
 		private void detach_TicketComments(TicketComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ticket = null;
+		}
+		
+		private void attach_TicketAttachments(TicketAttachment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ticket = this;
+		}
+		
+		private void detach_TicketAttachments(TicketAttachment entity)
 		{
 			this.SendPropertyChanging();
 			entity.Ticket = null;
@@ -1886,6 +1615,301 @@ namespace TicketDesk.Engine.Linq
 						this._CommentId = default(int);
 					}
 					this.SendPropertyChanged("TicketComment");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.TicketAttachments")]
+	public partial class TicketAttachment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TicketId;
+		
+		private int _FileId;
+		
+		private string _FileName;
+		
+		private int _FileSize;
+		
+		private string _FileType;
+		
+		private string _UploadedBy;
+		
+		private System.DateTime _UploadedDate;
+		
+		private System.Data.Linq.Binary _FileContents;
+		
+		private string _FileDescription;
+		
+		private EntityRef<Ticket> _Ticket;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTicketIdChanging(int value);
+    partial void OnTicketIdChanged();
+    partial void OnFileIdChanging(int value);
+    partial void OnFileIdChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileSizeChanging(int value);
+    partial void OnFileSizeChanged();
+    partial void OnFileTypeChanging(string value);
+    partial void OnFileTypeChanged();
+    partial void OnUploadedByChanging(string value);
+    partial void OnUploadedByChanged();
+    partial void OnUploadedDateChanging(System.DateTime value);
+    partial void OnUploadedDateChanged();
+    partial void OnFileContentsChanging(System.Data.Linq.Binary value);
+    partial void OnFileContentsChanged();
+    partial void OnFileDescriptionChanging(string value);
+    partial void OnFileDescriptionChanged();
+    #endregion
+		
+		public TicketAttachment()
+		{
+			this._Ticket = default(EntityRef<Ticket>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_TicketId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int TicketId
+		{
+			get
+			{
+				return this._TicketId;
+			}
+			set
+			{
+				if ((this._TicketId != value))
+				{
+					if (this._Ticket.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTicketIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketId = value;
+					this.SendPropertyChanged("TicketId");
+					this.OnTicketIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileName", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileSize", DbType="Int NOT NULL")]
+		public int FileSize
+		{
+			get
+			{
+				return this._FileSize;
+			}
+			set
+			{
+				if ((this._FileSize != value))
+				{
+					this.OnFileSizeChanging(value);
+					this.SendPropertyChanging();
+					this._FileSize = value;
+					this.SendPropertyChanged("FileSize");
+					this.OnFileSizeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileType", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string FileType
+		{
+			get
+			{
+				return this._FileType;
+			}
+			set
+			{
+				if ((this._FileType != value))
+				{
+					this.OnFileTypeChanging(value);
+					this.SendPropertyChanging();
+					this._FileType = value;
+					this.SendPropertyChanged("FileType");
+					this.OnFileTypeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UploadedBy", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string UploadedBy
+		{
+			get
+			{
+				return this._UploadedBy;
+			}
+			set
+			{
+				if ((this._UploadedBy != value))
+				{
+					this.OnUploadedByChanging(value);
+					this.SendPropertyChanging();
+					this._UploadedBy = value;
+					this.SendPropertyChanged("UploadedBy");
+					this.OnUploadedByChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UploadedDate", DbType="DateTime NOT NULL")]
+		public System.DateTime UploadedDate
+		{
+			get
+			{
+				return this._UploadedDate;
+			}
+			set
+			{
+				if ((this._UploadedDate != value))
+				{
+					this.OnUploadedDateChanging(value);
+					this.SendPropertyChanging();
+					this._UploadedDate = value;
+					this.SendPropertyChanged("UploadedDate");
+					this.OnUploadedDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileContents", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary FileContents
+		{
+			get
+			{
+				return this._FileContents;
+			}
+			set
+			{
+				if ((this._FileContents != value))
+				{
+					this.OnFileContentsChanging(value);
+					this.SendPropertyChanging();
+					this._FileContents = value;
+					this.SendPropertyChanged("FileContents");
+					this.OnFileContentsChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileDescription", DbType="NVarChar(500)")]
+		public string FileDescription
+		{
+			get
+			{
+				return this._FileDescription;
+			}
+			set
+			{
+				if ((this._FileDescription != value))
+				{
+					this.OnFileDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._FileDescription = value;
+					this.SendPropertyChanged("FileDescription");
+					this.OnFileDescriptionChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Ticket_TicketAttachment", Storage="_Ticket", ThisKey="TicketId", OtherKey="TicketId", IsForeignKey=true)]
+		public Ticket Ticket
+		{
+			get
+			{
+				return this._Ticket.Entity;
+			}
+			set
+			{
+				Ticket previousValue = this._Ticket.Entity;
+				if (((previousValue != value) 
+							|| (this._Ticket.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ticket.Entity = null;
+						previousValue.TicketAttachments.Remove(this);
+					}
+					this._Ticket.Entity = value;
+					if ((value != null))
+					{
+						value.TicketAttachments.Add(this);
+						this._TicketId = value.TicketId;
+					}
+					else
+					{
+						this._TicketId = default(int);
+					}
+					this.SendPropertyChanged("Ticket");
 				}
 			}
 		}

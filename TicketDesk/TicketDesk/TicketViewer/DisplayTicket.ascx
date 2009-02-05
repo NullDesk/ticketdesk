@@ -2,7 +2,7 @@
     Inherits="TicketDesk.TicketViewer.DisplayTicket" %>
 <%@ Register Src="TicketEditor.ascx" TagName="TicketEditor" TagPrefix="ticketDesk" %>
 <%@ Register Src="TicketActivityEditor.ascx" TagName="TicketActivityEditor" TagPrefix="ticketDesk" %>
-<%@ Register src="~/Controls/Attachments.ascx" tagname="Attachments" tagprefix="ticketDesk" %>
+<%@ Register Src="~/Controls/Attachments.ascx" TagName="Attachments" TagPrefix="ticketDesk" %>
 <%  // TicketDesk - Attribution notice
     // Contributor(s):
     //
@@ -160,18 +160,11 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div id="Div1" runat="server" class="Block">
-                                    <div class="BlockHeader">
-                                        Attachments:
-                                    </div>
-                                    <div class="BlockBody">
-                                        <ticketDesk:Attachments ID="TicketAttachmentsControl" runat="server" />
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
+                                <ticketDesk:Attachments ID="TicketAttachmentsControl" runat="server" />
                             </td>
                         </tr>
                     </tbody>
@@ -184,7 +177,7 @@
                     <div class="BlockHeader ">
                         Select Activity
                     </div>
-                    <div class="ActivityEditorButtonContainer" style="padding:10px;">
+                    <div class="ActivityEditorButtonContainer" style="padding: 10px;">
                         <asp:Button ID="AddCommentButton" CommandArgument="AddComment" runat="server" Text="Add Comment"
                             OnClick="ActivityButton_Click" />
                         <asp:Button ID="SupplyMoreInfoButton" CommandArgument="SupplyInfo" runat="server"
@@ -192,9 +185,9 @@
                         <asp:Button ID="ResolveButton" CommandArgument="Resolve" runat="server" Text="Resolve"
                             OnClick="ActivityButton_Click" />
                         <asp:Button ID="RequestMoreInfoButton" CommandArgument="RequestMoreInfo" runat="server"
-                            Text="Request More Info" OnClick="ActivityButton_Click" />
+                            Text="Request Info" OnClick="ActivityButton_Click"  />
                         <asp:Button ID="CancelMoreInfoButton" CommandArgument="CancelMoreInfo" runat="server"
-                            Text="Cancel More Info" OnClick="ActivityButton_Click" />
+                            Text="Cancel Info" OnClick="ActivityButton_Click"  />
                         <asp:Button ID="CloseTicketButton" CommandArgument="CloseTicket" runat="server" Text="Close"
                             OnClick="ActivityButton_Click" />
                         <asp:Button ID="ReopenTicketButton" CommandArgument="ReopenTicket" runat="server"
@@ -207,20 +200,23 @@
                             OnClick="ActivityButton_Click" />
                         <asp:Button ID="ForceCloseButton" CommandArgument="ForceClose" runat="server" Text="Force Close"
                             OnClick="ActivityButton_Click" />
+                        <asp:Button ID="AddAttachementsButton" CommandArgument="AddAttachments" runat="server"
+                            Text="Attachments" OnClick="ActivityButton_Click" />
                         <asp:Button ID="EditTicketButton" CommandArgument="EditTicket" runat="server" Text="Edit Ticket"
                             OnClick="ActivityButton_Click" />
                     </div>
                 </asp:Panel>
-        <ajaxToolkit:CollapsiblePanelExtender ID="ActivityButtonPanel_CollapsiblePanelExtender"
-            runat="server" Enabled="True" TargetControlID="ActivityButtonPanel" Collapsed="false" />
-        <asp:Panel ID="ActivityPanel" runat="server">
-            <ticketDesk:TicketActivityEditor ID="TicketActivityEditorControl" runat="server" />
-            <div style="height: 5px;">
+                <ajaxToolkit:CollapsiblePanelExtender ID="ActivityButtonPanel_CollapsiblePanelExtender"
+                    runat="server" Enabled="True" TargetControlID="ActivityButtonPanel" Collapsed="false" />
+                <asp:Panel ID="ActivityPanel" runat="server">
+                    <ticketDesk:TicketActivityEditor ID="TicketActivityEditorControl" runat="server" />
+                    <div style="height: 5px;">
+                    </div>
+                </asp:Panel>
+                <ajaxToolkit:CollapsiblePanelExtender ID="ActivityPanel_CollapsiblePanelExtender"
+                    runat="server" Enabled="True" TargetControlID="ActivityPanel" Collapsed="true" />
             </div>
         </asp:Panel>
-        <ajaxToolkit:CollapsiblePanelExtender ID="ActivityPanel_CollapsiblePanelExtender"
-            runat="server" Enabled="True" TargetControlID="ActivityPanel" Collapsed="true" />
-        </div> </asp:Panel>
         <div style="margin-top: 5px;">
             <table style="width: 100%;" cellpadding="0" cellspacing="0">
                 <tr>

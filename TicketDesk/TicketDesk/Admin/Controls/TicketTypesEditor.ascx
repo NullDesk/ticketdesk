@@ -21,7 +21,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <div class="reorderList" style="width: 100%;">
+                        <div class="reorderList">
                             <ajaxToolkit:ReorderList DragHandleAlignment="Left" CallbackCssStyle="reorderListCallbackStyle"
                                 ID="TicketTypesOrderList" runat="server" AllowReorder="true" LayoutType="Table"
                                 OnItemReorder="TicketTypesOrderList_ItemReorder" ItemInsertLocation="End" ShowInsertItem="true"

@@ -38,20 +38,14 @@ namespace TicketDesk
                 DisplayTicketView.TicketToDisplay = ctx.Tickets.Single(t => t.TicketId == id);
                 //DisplayTicketView.EnableEditControls = (DisplayTicketView.TicketToDisplay.CurrentStatus != "Closed");
                 DisplayTicketView.TicketChanged += new TicketPropertyChangedDelegate(TicketChanged);
-                DisplayTicketView.TicketAttachmentRemoved += new TicketAttachmentRemovedDelegate(TicketAttachmentRemoved);
-            }
+                 }
             else
             {
                 Page.Response.Redirect("~/Default.aspx");
             }
         }
 
-        void TicketAttachmentRemoved(int fileId, TicketComment eventComment)
-        {
-            TicketAttachment attachment = DisplayTicketView.TicketToDisplay.TicketAttachments.Single(a => a.FileId == fileId);
-            ctx.TicketAttachments.DeleteOnSubmit(attachment);
-            TicketChanged(eventComment);
-        }
+        
 
         void TicketChanged(TicketComment eventComment)
         {

@@ -16,8 +16,9 @@
 </asp:ScriptManagerProxy>
 <asp:UpdatePanel ID="TagsPanel" runat="server">
     <ContentTemplate>
-        Tags: (separate tags with a comma)<br />
+        
         <asp:TextBox Width="100%" autocomplete="off" ID="TagsTextBox" runat="server" />
+        <ajaxToolkit:TextBoxWatermarkExtender ID="TagsWaterMark" runat="server" TargetControlID="TagsTextBox" WatermarkText="seperate tags with a comma" WatermarkCssClass="watermarked" />
         <ajaxToolkit:AutoCompleteExtender runat="server" BehaviorID="AutoCompleteTags" ID="autoComplete1"
             TargetControlID="TagsTextBox" ServicePath="~/Services/TagsAutoComplete.asmx"
             ServiceMethod="GetTagCompletionList" MinimumPrefixLength="2" CompletionInterval="1000"

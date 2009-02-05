@@ -208,7 +208,7 @@ INPUT[type="button"], INPUT[type="submit"]
 
 INPUT[type="file"]
 {
-    border: 1px solid #000000;
+    border: 1px solid Silver;
     font: 8pt verdana;
 }
 
@@ -232,7 +232,7 @@ INPUT[type="file"]
 
 .ActivityButtonContainer INPUT[type="button"], .ActivityButtonContainer INPUT[type="submit"], .ActivityEditorButtonContainer INPUT[type="button"], .ActivityEditorButtonContainer INPUT[type="submit"]
 {
-    width: 120px;
+    width: 100px;
     margin: 3px;
     background-color: #FFFFDD;
 }
@@ -601,16 +601,15 @@ label
     margin: 10px;
 }
 
-.ActivityFieldContainer label
+.ActivityFieldContainer > label
 {
-    width: 75px;
+    width: 100px;
     float: left;
     text-align: right;
 }
 
 .ActivityFieldControl
 {
-    
 }
 
 .Form
@@ -621,7 +620,31 @@ label
 }
 .FieldLabel
 {
-    font-size:8.5pt;
-    font-weight:bold;
-   
+    font-size: 8.5pt;
+    font-weight: bold;
 }
+.MultiUploadFileList
+{
+}
+
+.FileAttachmentItemContainer
+{
+    padding: 5px;
+    margin-left: 25px;
+    margin-bottom: 3px;
+    margin-top:3px;
+    border: solid 1px #A0A0A0;
+    background-color: #FFFFDD;
+}
+
+.MultiUploadFileList a
+{
+}
+
+.watermarked
+{
+    border: 1px solid #BEBEBE;
+    background-color: #F0F8FF;
+    color: gray;
+}
+
