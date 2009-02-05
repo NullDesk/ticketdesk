@@ -26,7 +26,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		EditablePreCompile|Any CPU = EditablePreCompile|Any CPU
-		FullPreCompile|Any CPU = FullPreCompile|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -34,23 +33,17 @@ Global
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.EditablePreCompile|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.EditablePreCompile|Any CPU.Build.0 = Release|Any CPU
-		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.FullPreCompile|Any CPU.ActiveCfg = Release|Any CPU
-		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.FullPreCompile|Any CPU.Build.0 = Release|Any CPU
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.EditablePreCompile|Any CPU.ActiveCfg = EditablePreCompile|Any CPU
 		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.EditablePreCompile|Any CPU.Build.0 = EditablePreCompile|Any CPU
-		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.FullPreCompile|Any CPU.ActiveCfg = FullPreCompile|Any CPU
-		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.FullPreCompile|Any CPU.Build.0 = FullPreCompile|Any CPU
-		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Release|Any CPU.ActiveCfg = FullPreCompile|Any CPU
-		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Release|Any CPU.Build.0 = FullPreCompile|Any CPU
+		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Release|Any CPU.ActiveCfg = EditablePreCompile|Any CPU
+		{90585EB6-3A33-4070-8BD7-19F0F0D0C269}.Release|Any CPU.Build.0 = EditablePreCompile|Any CPU
 		{41563B8C-7269-4C1F-807D-FA7E07E83897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41563B8C-7269-4C1F-807D-FA7E07E83897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41563B8C-7269-4C1F-807D-FA7E07E83897}.EditablePreCompile|Any CPU.ActiveCfg = Release|Any CPU
 		{41563B8C-7269-4C1F-807D-FA7E07E83897}.EditablePreCompile|Any CPU.Build.0 = Release|Any CPU
-		{41563B8C-7269-4C1F-807D-FA7E07E83897}.FullPreCompile|Any CPU.ActiveCfg = Release|Any CPU
-		{41563B8C-7269-4C1F-807D-FA7E07E83897}.FullPreCompile|Any CPU.Build.0 = Release|Any CPU
 		{41563B8C-7269-4C1F-807D-FA7E07E83897}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41563B8C-7269-4C1F-807D-FA7E07E83897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

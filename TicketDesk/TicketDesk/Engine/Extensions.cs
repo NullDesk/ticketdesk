@@ -138,6 +138,9 @@ namespace TicketDesk.Engine
 
             switch (activity)
             {
+                case null:
+                    isAllowed = true;
+                    break;
                 case "NoChanges":
                     isAllowed = true;
                     break;
