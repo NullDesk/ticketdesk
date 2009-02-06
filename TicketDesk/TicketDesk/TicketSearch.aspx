@@ -35,14 +35,13 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    Search For:<asp:RequiredFieldValidator runat="server" ControlToValidate="SearchTerms"
-                                                        Text="*" ErrorMessage="Search words must be provided." ValidationGroup="SearchGroup" /><br />
-                                                    <asp:TextBox Style="width: 350px;" ID="SearchTerms" runat="server" ValidationGroup="SearchGroup"></asp:TextBox>
+                                                    Search For:
+                                                    <asp:TextBox Style="width: 350px;" ID="SearchTerms" runat="server" ValidationGroup="SearchGroup" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <asp:CheckBox ID="SearchTitleCheckBox" runat="server" Checked="true" Text="Search Title" />
+                                                    <asp:CheckBox ID="SearchTitleCheckBox" runat="server" Checked="false" Text="Search Title" />
                                                     <asp:CheckBox ID="SearchDetailsCheckBox" runat="server" Checked="false" Text="Search Details" />
                                                     <asp:CheckBox ID="SearchTagsCheckBox" runat="server" Checked="false" Text="Search Tags" />
                                                 </td>
@@ -101,10 +100,17 @@
                                                     &nbsp;
                                                 </td>
                                                 <td>
-                                                    &nbsp;
+                                                    &nbsp; Owned By:
                                                 </td>
                                                 <td>
                                                     &nbsp;
+                                                    <asp:DropDownList ID="SubmitterUserList" runat="server" 
+                                                        AppendDataBoundItems="true" Style="width: 150px;">
+                                                        <asp:ListItem Text="Anyone" Value="any" />
+                                                    </asp:DropDownList>
+                                                    <ajaxToolkit:ListSearchExtender ID="SubmitterListSearchExtender" runat="server" 
+                                                        PromptCssClass="ListSearch" TargetControlID="SubmitterUserList">
+                                                    </ajaxToolkit:ListSearchExtender>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -120,17 +126,12 @@
                                                     &nbsp;
                                                 </td>
                                                 <td>
-                                                    Owned By:
-                                                </td>
+                                                    Priority:</td>
                                                 <td>
-                                                    <asp:DropDownList ID="SubmitterUserList" Style="width: 150px;" AppendDataBoundItems="true"
-                                                        runat="server">
-                                                        <asp:ListItem Text="Anyone" Value="any" />
+                                                    <asp:DropDownList ID="PriorityList" runat="server" AppendDataBoundItems="true" >
+                                                     <asp:ListItem Text="Any Priority" Value="any" />
                                                     </asp:DropDownList>
-                                                    <ajaxToolkit:ListSearchExtender ID="SubmitterListSearchExtender" runat="server" PromptCssClass="ListSearch"
-                                                        TargetControlID="SubmitterUserList">
-                                                    </ajaxToolkit:ListSearchExtender>
-                                                </td>
+                                                    </td>
                                             </tr>
                                         </tbody>
                                     </table>

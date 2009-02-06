@@ -17,6 +17,9 @@
     // provided to the recipient.
 %>
 <asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server" />
+<div style="padding:5px;">
+<asp:HyperLink ID="BackLink" runat="server" Text="Back" />
+</div>
 <asp:UpdatePanel ID="TicketUpdatePanel" runat="server">
     <ContentTemplate>
         <asp:Panel ID="PageContainer" runat="server">
@@ -54,7 +57,7 @@
                                                         Status:
                                                     </td>
                                                     <td style="vertical-align: top; white-space: nowrap;">
-                                                        <asp:Label ID="CurrentStatus" runat="server"></asp:Label>
+                                                        <asp:HyperLink ID="CurrentStatus" runat="server" />
                                                     </td>
                                                     <td>
                                                     </td>
@@ -64,7 +67,7 @@
                                                         Priority:
                                                     </td>
                                                     <td style="vertical-align: top; white-space: nowrap;">
-                                                        <asp:Label ID="Priority" runat="server"></asp:Label>
+                                                        <asp:HyperLink ID="Priority" runat="server" />
                                                     </td>
                                                     <td>
                                                     </td>
@@ -74,7 +77,7 @@
                                                         Category:
                                                     </td>
                                                     <td style="vertical-align: top; white-space: nowrap;">
-                                                        <asp:Label ID="Category" runat="server"></asp:Label>
+                                                        <asp:HyperLink ID="Category" runat="server" />
                                                     </td>
                                                     <td>
                                                     </td>
@@ -84,7 +87,7 @@
                                                         Owned by:
                                                     </td>
                                                     <td style="vertical-align: top; white-space: nowrap;">
-                                                        <asp:Label ID="Owner" runat="server"></asp:Label>
+                                                        <asp:HyperLink ID="Owner" runat="server" />
                                                     </td>
                                                     <td>
                                                     </td>
@@ -94,7 +97,7 @@
                                                         Assigned to:
                                                     </td>
                                                     <td style="vertical-align: top; white-space: nowrap;">
-                                                        <asp:Label ID="AssignedTo" runat="server"></asp:Label>
+                                                        <asp:HyperLink ID="AssignedTo" runat="server" />
                                                     </td>
                                                     <td>
                                                     </td>
@@ -117,7 +120,8 @@
                                                         <asp:Repeater ID="TagRepeater" runat="server">
                                                             <ItemTemplate>
                                                                 <%-- NavigateUrl='<%#Eval("Url") %>'--%>
-                                                                <asp:Label ID="TicketTag" runat="server" Text='<%#Eval("TagName") %>'></asp:Label></ItemTemplate>
+                                                                <asp:HyperLink ID="TicketTag" runat="server" Text='<%#Eval("TagName") %>' NavigateUrl='<%#Eval("Url") %>' />
+                                                            </ItemTemplate>
                                                             <SeparatorTemplate>
                                                                 ,
                                                             </SeparatorTemplate>
@@ -185,9 +189,9 @@
                         <asp:Button ID="ResolveButton" CommandArgument="Resolve" runat="server" Text="Resolve"
                             OnClick="ActivityButton_Click" />
                         <asp:Button ID="RequestMoreInfoButton" CommandArgument="RequestMoreInfo" runat="server"
-                            Text="Request Info" OnClick="ActivityButton_Click"  />
+                            Text="Request Info" OnClick="ActivityButton_Click" />
                         <asp:Button ID="CancelMoreInfoButton" CommandArgument="CancelMoreInfo" runat="server"
-                            Text="Cancel Info" OnClick="ActivityButton_Click"  />
+                            Text="Cancel Info" OnClick="ActivityButton_Click" />
                         <asp:Button ID="CloseTicketButton" CommandArgument="CloseTicket" runat="server" Text="Close"
                             OnClick="ActivityButton_Click" />
                         <asp:Button ID="ReopenTicketButton" CommandArgument="ReopenTicket" runat="server"

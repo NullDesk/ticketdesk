@@ -23,6 +23,15 @@ namespace TicketDesk.TicketViewer {
         protected global::System.Web.UI.ScriptManagerProxy AjaxScriptManagerProxy;
         
         /// <summary>
+        /// BackLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink BackLink;
+        
+        /// <summary>
         /// TicketUpdatePanel control.
         /// </summary>
         /// <remarks>
@@ -119,7 +128,7 @@ namespace TicketDesk.TicketViewer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentStatus;
+        protected global::System.Web.UI.WebControls.HyperLink CurrentStatus;
         
         /// <summary>
         /// Priority control.
@@ -128,7 +137,7 @@ namespace TicketDesk.TicketViewer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Priority;
+        protected global::System.Web.UI.WebControls.HyperLink Priority;
         
         /// <summary>
         /// Category control.
@@ -137,7 +146,7 @@ namespace TicketDesk.TicketViewer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Category;
+        protected global::System.Web.UI.WebControls.HyperLink Category;
         
         /// <summary>
         /// Owner control.
@@ -146,7 +155,7 @@ namespace TicketDesk.TicketViewer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Owner;
+        protected global::System.Web.UI.WebControls.HyperLink Owner;
         
         /// <summary>
         /// AssignedTo control.
@@ -155,7 +164,7 @@ namespace TicketDesk.TicketViewer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AssignedTo;
+        protected global::System.Web.UI.WebControls.HyperLink AssignedTo;
         
         /// <summary>
         /// AffectsCustomer control.

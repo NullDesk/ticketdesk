@@ -203,7 +203,7 @@ namespace TicketDesk.TicketViewer
             }
 
             string[] tags = TagManager.GetTagsFromString(TagPickerEdit.TagList);
-            string newTagList = TicketToDisplay.TagList = string.Join(",", tags);
+            string newTagList = string.Join(",", tags);
             if (newTagList != TicketToDisplay.TagList)
             {
                 fieldEventTextList.Add("changed ticket's tags", GetFieldEventValues(TicketToDisplay.TagList, newTagList));

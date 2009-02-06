@@ -17,6 +17,7 @@ using TicketDesk.Engine;
 using TicketDesk.Engine.Linq;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
+using TicketDesk.Engine.ListView;
 
 namespace TicketDesk.TicketViewer
 {
@@ -24,7 +25,7 @@ namespace TicketDesk.TicketViewer
     {
         public event TicketPropertyChangedDelegate TicketChanged;
 
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -39,11 +40,41 @@ namespace TicketDesk.TicketViewer
                 TicketActivityEditorControl.TicketActivityFailed += new EventHandler(TicketActivityEditorControl_TicketActivityFailed);
 
                 TicketAttachmentsControl.TicketToDisplay = TicketToDisplay;
-               
+
                 Page.Title = string.Format("({2}) {0}: {1}", TicketToDisplay.Type, TicketToDisplay.Title, TicketToDisplay.TicketId.ToString());
 
                 if (!Page.IsPostBack)
                 {
+                    string list = null;
+
+                    if (Page.Request.UrlReferrer != null && Page.Request.UrlReferrer.PathAndQuery.Contains("TicketCenter"))
+                    {
+                        if (!string.IsNullOrEmpty(Page.Request.UrlReferrer.Query) && Page.Request.UrlReferrer.Query.Contains("list="))
+                        {
+
+
+                            list = Page.Request.UrlReferrer.Query.Substring(Page.Request.UrlReferrer.Query.LastIndexOf('=') + 1);
+                        }
+                        else
+                        {
+                            list = "unassigned";
+                        }
+                        var userSettings = ListViewSettingsCollection.GetSettingsForUser();
+                        var listSettings = userSettings.GetSettingsForList(list);
+                        if (listSettings != null)
+                        {
+                            BackLink.Text = string.Format("Back to: {0}", listSettings.ListViewDisplayName);
+                            BackLink.NavigateUrl = string.Format("~/TicketCenter2.aspx?list={0}", list);
+                        }
+
+                    }
+                    else
+                    {
+                        BackLink.Visible = false;
+                    }
+
+
+
                     PopulateDisplay();
                 }
             }
@@ -90,6 +121,7 @@ namespace TicketDesk.TicketViewer
                 }
 
                 Category.Text = TicketToDisplay.Category;
+                Category.NavigateUrl = string.Format("~/TicketSearch.aspx?cat={0}", Page.Server.UrlEncode(TicketToDisplay.Category));
 
                 TicketType.Text = TicketToDisplay.Type;
 
@@ -98,10 +130,17 @@ namespace TicketDesk.TicketViewer
                 CreatedDate.Text = TicketToDisplay.CreatedDate.ToString("g");
 
                 Owner.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.Owner);
-
+                if (!string.IsNullOrEmpty(TicketToDisplay.Owner))
+                {
+                    Owner.NavigateUrl = string.Format("~/TicketSearch.aspx?owner={0}",  Page.Server.UrlEncode(TicketToDisplay.Owner));
+                }
                 AssignedTo.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.AssignedTo);
-
+                if (!string.IsNullOrEmpty(TicketToDisplay.AssignedTo))
+                {
+                    AssignedTo.NavigateUrl = string.Format("~/TicketSearch.aspx?assign={0}",  Page.Server.UrlEncode(TicketToDisplay.AssignedTo));
+                }
                 CurrentStatus.Text = TicketToDisplay.CurrentStatus;
+                CurrentStatus.NavigateUrl = string.Format("~/TicketSearch.aspx?status={0}",  Page.Server.UrlEncode(TicketToDisplay.CurrentStatus));
 
                 CurrentStatusBy.Text = SecurityManager.GetUserDisplayName(TicketToDisplay.CurrentStatusSetBy);
 
@@ -112,16 +151,19 @@ namespace TicketDesk.TicketViewer
                 LastUpdateDate.Text = TicketToDisplay.LastUpdateDate.ToString("g");
 
                 Priority.Text = TicketToDisplay.Priority;
-
+                if (!string.IsNullOrEmpty(TicketToDisplay.Priority))
+                {
+                    Priority.NavigateUrl = string.Format("~/TicketSearch.aspx?priority={0}",  Page.Server.UrlEncode(TicketToDisplay.Priority)); ;
+                }
                 AffectsCustomer.Text = (TicketToDisplay.AffectsCustomer) ? "Yes" : "No";
 
                 TicketAttachmentsControl.Refresh();
 
-                
+
                 var Tags = from t in TicketToDisplay.TicketTags
                            select new
                            {
-                               Url = string.Format("~/TicketCenter.aspx?View=tagsandcategories&TagName={0}", t.TagName),
+                               Url = string.Format("~/TicketSearch.aspx?tag={0}",  Page.Server.UrlEncode(t.TagName)),
                                TagName = t.TagName
                            };
                 TagRepeater.DataSource = Tags;
@@ -190,7 +232,7 @@ namespace TicketDesk.TicketViewer
             TicketPropertyChanged(eventComment);
             CloseActivityPanel();
             PopulateDisplay();
-            
+
         }
 
         void TicketActivityEditorControl_TicketActivityCanceled(object sender, EventArgs e)
