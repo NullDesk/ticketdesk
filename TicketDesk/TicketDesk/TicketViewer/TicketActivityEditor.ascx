@@ -31,7 +31,7 @@
             <asp:Label ID="CommentFieldLabel" runat="server" Text="Comments:" CssClass="FieldLabel" />
             <asp:Label ID="RequiredCommentLabel" runat="server" Text="Required" CssClass="WarningText" />
         </div>
-        <fck:FCKeditor ID="CommentText" runat="server" ToolbarSet="Basic" />
+        <fck:FCKeditor ID="CommentText" runat="server" ToolbarSet="Basic" BasePath="~/fckeditor/" />
     </div>
 </asp:Panel>
 <div>

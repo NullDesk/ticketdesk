@@ -99,7 +99,7 @@
                 Details:
                 <asp:Label ID="lblDetailsRequired" runat="server" ForeColor="Red" Text="Details are required."
                     Visible="false" />
-                <fck:FCKeditor ID="DetailsTextBox" runat="server" ToolbarSet="Basic" />
+                <fck:FCKeditor ID="DetailsTextBox" runat="server" ToolbarSet="Basic" BasePath="~/fckeditor/" />
             </td>
         </tr>
         <tr>

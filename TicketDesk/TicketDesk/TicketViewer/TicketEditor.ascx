@@ -27,7 +27,7 @@
                         Details:
                     </div>
                     <div class="BlockBody">
-                        <fck:FCKeditor ID="DetailsEdit" runat="server" ToolbarSet="Basic" Height="300px" />
+                        <fck:FCKeditor ID="DetailsEdit" runat="server" ToolbarSet="Basic" Height="300px" BasePath="~/fckeditor/" />
                     </div>
                 </div>
             </td>
