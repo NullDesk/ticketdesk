@@ -13,79 +13,27 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-<style>
-    body
-    {
-        font-family: Verdana, Helvetica, Arial, Sans-Serif;
-        font-size: 9pt;
-    }
-    td
-    {
-        font-size: 9pt;
-    }
-    .Block
-    {
-        border: solid 1px #A0A0A0;
-        margin: 3px;
-    }
-    .BlockHeader
-    {
-        background-color: #CDF2B3;
-        padding: 3px;
-        font-size: 10pt;
-    }
-    .BlockSubHeader
-    {
-        border-top: solid 1px #A0A0A0;
-        background-color: #FFFFDD;
-        padding: 3px;
-        font-size: 10pt;
-    }
-    .BlockBody
-    {
-        padding: 3px;
-        border-top: solid 1px #A0A0A0;
-    }
-    .CommentBox
-    {
-    }
-    .CommentHead
-    {
-        padding: 3px;
-        color: #416523;
-    }
-    .CommentSeperator
-    {
-        color: #CDCDCD;
-        height: 1px;
-    }
-    .CommentText
-    {
-        display: block;
-        padding-left: 15px;
-    }
-</style>
 <table style="width: 100%;">
     <tbody>
         <tr>
             <td style="vertical-align: top; width: 75%;">
-                <div class="Block">
-                    <div class="BlockHeader">
+                <div style="border: solid 1px #A0A0A0; margin: 3px;">
+                    <div style="background-color: #CDF2B3; padding: 3px; font-size: 10pt;">
                         <asp:HyperLink ID="TicketType" runat="server" />:
                         <asp:HyperLink ID="TicketTitle" runat="server" />
                     </div>
-                    <div class="BlockBody" style="height: 180px;">
+                    <div style="height: 180px; padding: 3px; border-top: solid 1px #A0A0A0;">
                         <asp:Label ID="Details" runat="server" />
                     </div>
                 </div>
             </td>
             <td style="vertical-align: top; width: 25%;">
-                <div class="Block">
-                    <div class="BlockHeader">
+                <div style="border: solid 1px #A0A0A0; margin: 3px;">
+                    <div style="background-color: #CDF2B3; padding: 3px; font-size: 10pt;">
                         Ticket ID:
                         <asp:HyperLink ID="TicketId" runat="server" />
                     </div>
-                    <div class="BlockBody" style="height: 203px; white-space: nowrap;">
+                    <div style="height: 203px; white-space: nowrap; padding: 3px; border-top: solid 1px #A0A0A0;">
                         <table>
                             <tbody>
                                 <tr>
@@ -196,25 +144,30 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div class="Block">
-                    <div class="BlockHeader">
+                <div style="border: solid 1px #A0A0A0; margin: 3px;">
+                    <div style="background-color: #CDF2B3; padding: 3px; font-size: 10pt;">
                         Attachments:
                     </div>
-                    <div class="BlockBody" style="">
+                    <div style="padding: 3px; border-top: solid 1px #A0A0A0;">
                         <asp:Repeater ID="AttachmentsRepeater" runat="server">
                             <ItemTemplate>
-                                <asp:Label ID="AttachmentLink" runat="server" Text='<%# Eval("FileName") %>' />
-                                -
-                                <asp:Label ID="AttachmentUploader" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("UploadedBy")) %>' />
-                                :
-                                <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
+                                <div>
+                                    <asp:Label ID="AttachmentLink" runat="server" Text='<%# Eval("FileName") %>' />
+                                    -
+                                    <asp:Label ID="AttachmentUploader" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("UploadedBy")) %>' />
+                                    :
+                                    <asp:Label ID="AttachmentUploadDate" runat="server" Text='<%# ((DateTime)Eval("UploadedDate")).ToString("d")%>' />
+                                </div>
+                                <div style="margin-left: 15px; font-size: smaller;">
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("FileDescription")%>' />
+                                </div>
                             </ItemTemplate>
                             <SeparatorTemplate>
                                 <hr />
                             </SeparatorTemplate>
                         </asp:Repeater>
                         <asp:LinqDataSource runat="server" ID="TicketAttachmentsDataSource" ContextTypeName="TicketDesk.Engine.Linq.TicketDataDataContext"
-                            Select="new (FileId, FileName, FileSize, FileType, UploadedBy, UploadedDate)"
+                            Select="new (FileId, FileName, FileDescription, FileSize, FileType, UploadedBy, UploadedDate)"
                             TableName="TicketAttachments" Where="TicketId == @TicketId">
                             <WhereParameters>
                                 <asp:Parameter Name="TicketId" Type="Int32" />
@@ -226,25 +179,52 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div class="Block">
-                    <div class="BlockHeader">
+                <div style="border: solid 1px #A0A0A0; margin: 3px;">
+                    <div style="background-color: #CDF2B3; padding: 3px; font-size: 10pt;">
                         Activity Log:
                     </div>
-                    <div class="BlockBody" style="">
+                    <div style="padding: 3px; border-top: solid 1px #A0A0A0;">
                         <asp:Repeater ID="CommentLogRepeater" runat="server">
+                            <HeaderTemplate>
+                                <table style="border-spacing: 0px; border-collapse: collapse; empty-cells: show;
+                                    margin: 10px;">
+                            </HeaderTemplate>
                             <ItemTemplate>
-                                <div class="CommentBox">
-                                    <div class="CommentHead">
-                                        <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy HH:mm tt}") %>' /><br />
-                                        <asp:Label ID="CommentBy" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
-                                        <asp:Label ID="CommentEvent" runat="server" Text='<%# Eval("CommentEvent") %>' /></div>
-                                    <asp:Label CssClass="CommentText" Visible='<%# !string.IsNullOrEmpty((string)Eval("CommentAsHtml")) %>'
-                                        ID="CommentText" runat="server" Text='<%# Eval("CommentAsHtml") %>' />
-                                </div>
+                                <tbody>
+                                    <tr>
+                                        <td id="Td1" rowspan="2" runat="server" style="font-size: 8pt;padding: 5px;color: #416523;border: 1px solid #808080;background-color: #FFFFDD;vertical-align: top;">
+                                            <asp:Label ID="HeaderDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
+                                            <br />
+                                            <asp:Label ID="HeaderUser" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
+                                        </td>
+                                        <td style="padding: 5px; border-top: 1px solid #808080; border-right: 1px solid #808080;
+                                            border-bottom: solid 1px #C0C0C0; vertical-align: top; background-color: #ECF2ED;">
+                                            <asp:Label ID="CommentDate" runat="server" Text='<%# Eval("CommentedDate", "{0:dddd, MM/dd/yyyy hh:mm tt}") %>' /><br />
+                                            <asp:Label ID="CommentBy" runat="server" Text='<%# TicketDesk.Engine.SecurityManager.GetUserDisplayName((string)Eval("CommentedBy")) %>' />
+                                            <asp:Label ID="CommentEvent" runat="server" Text='<%# Eval("CommentEvent") %>' />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-height: 55px; border-right: 1px solid #808080; border-bottom: 1px solid #808080;
+                                            padding: 10px 10px 10px 20px;">
+                                            <asp:Label Visible='<%# !string.IsNullOrEmpty((string)Eval("CommentAsHtml")) %>'
+                                                ID="CommentText" runat="server" Text='<%# Eval("CommentAsHtml") %>' />
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </ItemTemplate>
                             <SeparatorTemplate>
-                                <hr class="CommentSeperator" />
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </SeparatorTemplate>
+                            <FooterTemplate>
+                                </table>
+                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>

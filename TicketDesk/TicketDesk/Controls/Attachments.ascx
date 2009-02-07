@@ -13,7 +13,7 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-<div id="Div1" runat="server" class="Block" style="min-height: 100px;">
+<div id="Div1" runat="server" class="Block" >
     <div class="BlockHeader">
         Attachments:
     </div>

@@ -42,6 +42,8 @@ namespace TicketDesk.Controls
             return string.Format("~/DownloadAttachment.ashx?fileId={0}", fileId.ToString());
         }
 
+       
+
         public void Populate(string linkUrl)
         {
             if(TicketToDisplay != null)
@@ -94,8 +96,8 @@ namespace TicketDesk.Controls
                 CommentLogRepeater.DataSource = TicketToDisplay.TicketComments.OrderByDescending(tc => tc.CommentedDate);
                 CommentLogRepeater.DataBind();
             }
-
-
+            
+            
         }
     }
 }

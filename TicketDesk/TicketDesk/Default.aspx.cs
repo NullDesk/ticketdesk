@@ -21,7 +21,6 @@ namespace TicketDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string blindCopyTo = ConfigurationManager.AppSettings["BlindCopyToEmailAddress"];
                 
             Page.Response.Redirect("TicketCenter2.aspx", true);
 

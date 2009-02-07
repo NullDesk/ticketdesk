@@ -37,6 +37,9 @@ namespace TicketDesk
 
         protected void Page_Load()
         {
+           
+           
+
             userSettings = ListViewSettingsCollection.GetSettingsForUser();
 
             string listName = Page.Request.QueryString["list"];
