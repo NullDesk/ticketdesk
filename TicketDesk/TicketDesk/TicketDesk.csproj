@@ -892,7 +892,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8227</DevelopmentServerPort>
-          <DevelopmentServerVPath>/TicketDesskVDTest</DevelopmentServerVPath>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/TicketDesk</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>

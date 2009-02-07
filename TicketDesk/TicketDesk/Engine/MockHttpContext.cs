@@ -1,3 +1,6 @@
+// NOTE: This code is based on the following article:
+// http://righteousindignation.gotdns.org/blog/archive/2004/04/13/149.aspx
+
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -12,8 +15,7 @@ namespace TicketDesk.Engine
 {
 	public sealed class MockHttpContext
 	{
-		// NOTE: This code is based on the following article:
-		// http://righteousindignation.gotdns.org/blog/archive/2004/04/13/149.aspx
+		
 		private const string ContextKeyAspSession = "AspSession";
 		private const string ThreadDataKeyAppPath = ".appPath";
 		private const string ThreadDataKeyAppPathValue = "c:\\inetpub\\wwwroot\\webapp\\";
