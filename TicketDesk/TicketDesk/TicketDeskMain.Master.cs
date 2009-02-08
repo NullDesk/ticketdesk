@@ -53,7 +53,7 @@ namespace TicketDesk
             bool isEnabled = false;
             string enabledString = ConfigurationManager.AppSettings["EnableRSS"];
 
-            if (string.IsNullOrEmpty(enabledString))
+            if (!string.IsNullOrEmpty(enabledString))
             {
                 isEnabled = Convert.ToBoolean(enabledString);
             }
