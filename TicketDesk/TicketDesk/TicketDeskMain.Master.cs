@@ -64,7 +64,7 @@ namespace TicketDesk
 
                 //make default feeds
                 var rlink = new HtmlLink();
-                rlink.Href = Page.ResolveClientUrl("~/Services/Rss.svc/createfeed/");
+                rlink.Href = "~/Services/Rss.svc/createfeed/";
                 rlink.Attributes.Add("rel", "alternate");
                 rlink.Attributes.Add("type", "application/rss+xml");
                 rlink.Attributes.Add("title", "All Tickets - RSS 2.0");
@@ -74,7 +74,7 @@ namespace TicketDesk
                 {
                     var q = string.Format("?assigned={0}", Page.User.Identity.GetFormattedUserName());
                     var rlink2 = new HtmlLink();
-                    rlink2.Href = Page.ResolveClientUrl("~/Services/Rss.svc/createfeed/" + q);
+                    rlink2.Href = "~/Services/Rss.svc/createfeed/" + q;
                     rlink2.Attributes.Add("rel", "alternate");
                     rlink2.Attributes.Add("type", "application/rss+xml");
                     rlink2.Attributes.Add("title", "Tickets Assigned to Me - RSS 2.0");
@@ -85,7 +85,7 @@ namespace TicketDesk
                 {
                     var q = string.Format("?owner={0}", Page.User.Identity.GetFormattedUserName());
                     var rlink2 = new HtmlLink();
-                    rlink2.Href = Page.ResolveClientUrl("~/Services/Rss.svc/createfeed/" + q);
+                    rlink2.Href = "~/Services/Rss.svc/createfeed/" + q;
                     rlink2.Attributes.Add("rel", "alternate");
                     rlink2.Attributes.Add("type", "application/rss+xml");
                     rlink2.Attributes.Add("title", "Tickets Owned by Me - RSS 2.0");
