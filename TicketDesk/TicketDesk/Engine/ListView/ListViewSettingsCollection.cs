@@ -33,7 +33,11 @@ namespace TicketDesk.Engine.ListView
         {
             ProfileCommon pc = new ProfileCommon();
             return pc.TicketListSettings;
+            
+            
         }
+
+       
 
         /// <summary>
         /// Creates a new [empty] settings instance.
@@ -119,9 +123,26 @@ namespace TicketDesk.Engine.ListView
 
         #region instance members
 
+       
         public ListViewSettingsCollection()
         {
-            //CreateNewSettings(this);
+            
+        }
+
+        /// <summary>
+        /// Verifies that the settings contain the correct default lists, regenerates the lists if not.
+        /// </summary>
+        public void VerifyDefaultLists()
+        {
+            int numStaffLists = Settings.Count(s => s.ListViewName == "unassigned" || s.ListViewName == "assignedtome");
+            int numSubmitterLists = Settings.Count(s => s.ListViewName == "mytickets" || s.ListViewName == "opentickets" || s.ListViewName == "historytickets");
+
+            if ((((SecurityManager.IsStaff) && (numStaffLists < 2)) || ((!SecurityManager.IsStaff) && (numStaffLists > 0)) || (numSubmitterLists < 3)))
+            {
+                Settings.Clear();
+                ListViewSettingsCollection.CreateNewSettings(this);
+                Save();
+            }
         }
 
         private List<ListViewSettings> _settings;

@@ -40,10 +40,7 @@ namespace TicketDesk.Engine
             get
             {
                  var lv = (ListViewSettingsCollection)HttpContext.Current.Profile.GetPropertyValue("TicketListSettings");
-                 if (lv.Settings.Count < 1)
-                 {
-                     ListViewSettingsCollection.CreateNewSettings(lv);
-                 }
+                 lv.VerifyDefaultLists();
                  return lv;
             }
             set
