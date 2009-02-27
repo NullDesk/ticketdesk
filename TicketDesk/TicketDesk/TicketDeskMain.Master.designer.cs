@@ -32,6 +32,15 @@ namespace TicketDesk {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// AjaxScriptManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager AjaxScriptManager;
+        
+        /// <summary>
         /// WelcomeBox control.
         /// </summary>
         /// <remarks>
@@ -129,5 +138,14 @@ namespace TicketDesk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContentPlaceHolder;
+        
+        /// <summary>
+        /// KeepAliveScript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::TicketDesk.Engine.Controls.KeepAlive KeepAliveScript;
     }
 }

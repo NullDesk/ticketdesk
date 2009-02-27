@@ -19,7 +19,7 @@
         // attribution must remain intact, and a copy of the license must be 
         // provided to the recipient.
     %>
-    <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
+    <asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server" />
     <br />
     <asp:UpdatePanel ID="TicketSearchUpdatePanel" runat="server">
         <ContentTemplate>

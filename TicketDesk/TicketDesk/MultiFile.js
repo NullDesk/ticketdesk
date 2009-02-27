@@ -182,7 +182,7 @@ function MultiSelector(list_target, max) {
 
 
         var new_row_description_label = document.createElement('label');
-        new_row_description_label.innerHTML = "&nbsp;&nbsp;Descrption (optional): ";
+        new_row_description_label.innerHTML = "&nbsp;&nbsp;Description (optional): ";
         new_row.appendChild(new_row_description_label);
 
 

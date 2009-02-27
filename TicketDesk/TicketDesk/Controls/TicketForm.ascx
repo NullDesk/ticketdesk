@@ -14,11 +14,11 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-<asp:ScriptManager runat="server" ID="AjaxScriptManager">
+<asp:ScriptManagerProxy runat="server" ID="AjaxScriptManagerProxy">
     <Scripts>
         <asp:ScriptReference Name="TicketDesk.MultiFile.js" Assembly="TicketDesk" ScriptMode="Release" />
     </Scripts>
-</asp:ScriptManager>
+</asp:ScriptManagerProxy>
 <table cellpadding="2" cellspacing="0">
     <tbody>
         <tr>

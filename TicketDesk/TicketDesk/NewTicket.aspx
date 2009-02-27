@@ -16,6 +16,7 @@
         // attribution must remain intact, and a copy of the license must be 
         // provided to the recipient.
     %>
+    <asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server" />
     <div class="Block"  style="margin: 30px;">
         <div class="BlockHeader" style="font-size: larger; font-weight: bold; text-align: center;">
             Create a new ticket

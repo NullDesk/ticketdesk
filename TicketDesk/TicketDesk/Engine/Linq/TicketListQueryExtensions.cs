@@ -29,9 +29,14 @@ namespace TicketDesk.Engine.Linq
         /// <returns></returns>
         public static IQueryable<Ticket> ApplyListViewSettings(this IQueryable<Ticket> ticketQuery, ListViewSettings listViewSettings, int startRowIndex)
         {
-            IQueryable<Ticket> newQuery = null;
-            newQuery = ticketQuery.ApplyFilters(listViewSettings);
-            if(newQuery != null)
+            IQueryable<Ticket> newQuery = ticketQuery;
+
+            //TODO: Need to modify list search to store the where clause in list settings instead of managing the query directly
+            if (listViewSettings.ListViewName != "search")
+            {
+                newQuery = newQuery.ApplyFilters(listViewSettings);
+            }
+            if (newQuery != null)
             {
                 newQuery = newQuery.ApplySorts(listViewSettings);
             }
@@ -39,7 +44,9 @@ namespace TicketDesk.Engine.Linq
             {
                 newQuery = ticketQuery.ApplySorts(listViewSettings);
             }
+
             return newQuery;
+
         }
 
 
@@ -54,7 +61,7 @@ namespace TicketDesk.Engine.Linq
             IQueryable<Ticket> newQuery = ticketQuery;
 
             //sorts have to be applied in reverse order as the last applied is the first in the SQL query generated
-            for(int x = listViewSettings.SortColumns.Count() - 1; x >= 0; x--)
+            for (int x = listViewSettings.SortColumns.Count() - 1; x >= 0; x--)
             {
                 ListViewSortColumn column = listViewSettings.SortColumns[x];
                 bool isDescending = (column.SortDirection == ColumnSortDirection.Descending);
@@ -74,7 +81,7 @@ namespace TicketDesk.Engine.Linq
         private static IQueryable<Ticket> ApplySort(this IQueryable<Ticket> ticketQuery, string fieldName, bool sortDescending)
         {
             IQueryable<Ticket> newQuery = null;
-            switch(fieldName)
+            switch (fieldName)
             {
                 case "LastUpdateDate":
                     newQuery = (sortDescending) ? ticketQuery.OrderByDescending(t => t.LastUpdateDate) : ticketQuery.OrderBy(t => t.LastUpdateDate);
@@ -115,12 +122,12 @@ namespace TicketDesk.Engine.Linq
                 case "AffectsCustomer":
                     newQuery = (sortDescending) ? ticketQuery.OrderByDescending(t => t.AffectsCustomer) : ticketQuery.OrderBy(t => t.AffectsCustomer);
                     break;
-                
+
                 default:
                     break;
             }
 
-            if(newQuery == null)
+            if (newQuery == null)
             {
                 throw new ApplicationException(string.Format("A sort was specified, but the field ({0}) is not supported by the TicketListQueryExtensions.ApplySort() method.", fieldName));
             }
@@ -137,7 +144,7 @@ namespace TicketDesk.Engine.Linq
         private static IQueryable<Ticket> ApplyFilters(this IQueryable<Ticket> ticketQuery, ListViewSettings listViewSettings)
         {
             IQueryable<Ticket> newQuery = ticketQuery;
-            foreach(ListViewFilterColumn column in listViewSettings.FilterColumns)
+            foreach (ListViewFilterColumn column in listViewSettings.FilterColumns)
             {
                 newQuery = newQuery.ApplyFilter(column.ColumnName, column.ColumnValue, column.EqualityComparison);
             }
@@ -155,7 +162,7 @@ namespace TicketDesk.Engine.Linq
         private static IQueryable<Ticket> ApplyFilter(this IQueryable<Ticket> ticketQuery, string fieldName, string fieldValue, bool? equalityComparison)
         {
             IQueryable<Ticket> newQuery = null;
-            switch(fieldName)
+            switch (fieldName)
             {
                 case "CurrentStatus":
                     newQuery = ticketQuery.Where(t => t.CurrentStatus == fieldValue == equalityComparison);
@@ -164,7 +171,7 @@ namespace TicketDesk.Engine.Linq
                     newQuery = ticketQuery.Where(t => t.Owner == fieldValue == equalityComparison);
                     break;
                 case "AssignedTo":
-                    if(!equalityComparison.HasValue)//special case for nullable value here
+                    if (!equalityComparison.HasValue)//special case for nullable value here
                     {
                         //TODO: retest this in .NET 3.5 SP1 RTM, or next major version of .NET to see if the behavior is improved any
                         // For some reason, if you try and test the column against a null string variable, it 
@@ -180,7 +187,7 @@ namespace TicketDesk.Engine.Linq
                     break;
             }
 
-            if(newQuery == null)
+            if (newQuery == null)
             {
                 throw new ApplicationException(string.Format("A filter was specified, but the field ({0}) is not supported by TicketListQueryExtensions.ApplyFilter() method.", fieldName));
             }

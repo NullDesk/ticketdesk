@@ -12,7 +12,7 @@
     // attribution must remain intact, and a copy of the license must be 
     // provided to the recipient.
 %>
-<asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">
+<asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server">
 </asp:ScriptManagerProxy>
 <asp:UpdatePanel ID="TagsPanel" runat="server">
     <ContentTemplate>

@@ -184,6 +184,7 @@
       <DependentUpon>DownloadAttachment.ashx</DependentUpon>
     </Compile>
     <Compile Include="Engine\Extensions.cs" />
+    <Compile Include="Engine\KeepAlive.cs" />
     <Compile Include="Engine\Linq\SortableFields.cs" />
     <Compile Include="Engine\Linq\Ticket.cs" />
     <Compile Include="Engine\Linq\TicketComment.cs" />
@@ -210,6 +211,9 @@
     <Compile Include="Engine\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="KeepAlive.ashx.cs">
+      <DependentUpon>KeepAlive.ashx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -793,6 +797,7 @@
     <Content Include="fckeditor\fcktemplates.xml" />
     <Content Include="fckeditor\license.txt" />
     <Content Include="Global.asax" />
+    <EmbeddedResource Include="KeepAlive.js" />
     <Content Include="License.txt" />
     <EmbeddedResource Include="MultiFile.js" />
     <Content Include="MyAccount.aspx" />
@@ -855,6 +860,7 @@
     <None Include="fckeditor\editor\filemanager\connectors\py\upload.py" />
     <None Include="fckeditor\editor\filemanager\connectors\py\wsgi.py" />
     <None Include="fckeditor\editor\filemanager\connectors\py\zope.py" />
+    <Content Include="KeepAlive.ashx" />
     <Content Include="WebSql.config" />
     <Content Include="Controls\Attachments.ascx" />
     <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />

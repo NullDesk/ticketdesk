@@ -24,7 +24,7 @@ namespace TicketDesk
         private TicketDataDataContext ctx = new TicketDataDataContext();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
             int id = -1;
             try
             {
@@ -53,5 +53,7 @@ namespace TicketDesk
             ctx.SubmitChanges();
             NotificationService.QueueTicketEventNotification(eventComment);
         }
+
+        
     }
 }

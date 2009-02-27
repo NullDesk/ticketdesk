@@ -16,8 +16,7 @@
         // attribution must remain intact, and a copy of the license must be 
         // provided to the recipient.
     %>
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
+    <asp:ScriptManagerProxy id="AjaxScriptManagerProxy" runat="server" />
     <asp:UpdatePanel ID="UpdatePanelMyAccount" runat="server">
         <ContentTemplate>
             <ajaxToolkit:Accordion ID="UserAccountAccordion" runat="server" SelectedIndex="0"

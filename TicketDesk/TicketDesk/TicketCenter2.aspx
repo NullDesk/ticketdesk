@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" Theme="TicketDeskTheme" MasterPageFile="~/TicketDeskMain.Master"
     AutoEventWireup="true" CodeBehind="TicketCenter2.aspx.cs" Inherits="TicketDesk.TicketCenter2"
-    Title="TicketCenter" %>
+    Title="TicketCenter"  %>
 
 <%@ Register Src="Controls/ListViewSettingsEditor.ascx" TagName="ListViewSettingsEditor"
     TagPrefix="ticketDesk" %>
@@ -23,7 +23,7 @@
     %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
+    <asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server" />
     <ticketDesk:ListViewListManager ID="ListViewListManagerControl" runat="server" />
     <ticketDesk:ListViewSettingsEditor ID="ListViewSettingsEditorControl" OnSettingsChanged="ListViewSettingsEditorControl_SettingsChanged"
         EnableFilters="false" runat="server" />

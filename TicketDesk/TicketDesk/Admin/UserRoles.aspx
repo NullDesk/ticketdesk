@@ -16,8 +16,7 @@
         // attribution must remain intact, and a copy of the license must be 
         // provided to the recipient.
     %>
-    <asp:ScriptManager runat="server">
-    </asp:ScriptManager>
+    <asp:ScriptManagerProxy id="AjaxScriptManagerProxy" runat="server" />
     <div class="Block">
         <div class="BlockHeader">
             Manage User Roles

@@ -15,7 +15,7 @@
 %>
 <style type="text/css">
     </style>
-<asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server" />
+<asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server" />
 <div>
     <table class="ListControlTable" cellspacing="0" cellpadding="0" style="float: right;">
         <tbody>

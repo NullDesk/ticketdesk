@@ -1,5 +1,4 @@
-﻿
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TicketDeskMain.master.cs"
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TicketDeskMain.master.cs"
     Inherits="TicketDesk.TicketDeskMain" %>
 
 <%  // TicketDesk - Attribution notice
@@ -22,6 +21,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="AjaxScriptManager" runat="server" />
     <div>
         <div class="HeadContainer">
             <div id="WelcomeBox" runat="server" style="float: right; margin-top: 5px; margin-right: 10px;
@@ -29,8 +29,10 @@
                 Welcome:
                 <asp:Label ID="UserDisplayNameLabel" runat="server" />
                 <span id="FormsStatusDisplayPanel" runat="server">|
-                    <asp:LoginStatus ID="LoginStatusControl" runat="server" /> |
-                    <asp:HyperLink ID="EditMyAccountLink" runat="server" NavigateUrl="~/MyAccount.aspx" Text="My Account" />
+                    <asp:LoginStatus ID="LoginStatusControl" runat="server" />
+                    |
+                    <asp:HyperLink ID="EditMyAccountLink" runat="server" NavigateUrl="~/MyAccount.aspx"
+                        Text="My Account" />
                 </span><span id="UserRolesDisplayPanel" runat="server">|
                     <asp:HyperLink ID="AdminLink" runat="server" NavigateUrl="~/Admin/Default.aspx" Text="Administration" />
                 </span>
@@ -43,7 +45,6 @@
                         <asp:HyperLink ID="TicketCenterLink" NavigateUrl="~/TicketCenter2.aspx" runat="server"
                             Text="Ticket Center" />
                     </td>
-                    
                     <td style="text-align: center; width: 33%;">
                         <asp:HyperLink ID="TicketSearchLink" NavigateUrl="~/TicketSearch.aspx" runat="server"
                             Text="Ticket Search" />
@@ -62,6 +63,7 @@
             <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />
         </div>
     </div>
+    <ticketDesk:KeepAlive ID="KeepAliveScript" runat="server" />
     </form>
 </body>
 </html>

@@ -23,8 +23,7 @@
         // provided to the recipient. 
     %>
     &nbsp;<br />
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
+    <asp:ScriptManagerProxy ID="AjaxScriptManagerProxy" runat="server" />
     <ajaxToolkit:Accordion ID="SettingsAccordion" runat="server" SelectedIndex="0" CssClass="Block"
         HeaderCssClass="BlockHeader" HeaderSelectedCssClass="BlockHeader" ContentCssClass="BlockBody"
         FadeTransitions="false" FramesPerSecond="40" TransitionDuration="250" AutoSize="None"

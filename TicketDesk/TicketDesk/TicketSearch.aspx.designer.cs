@@ -14,13 +14,13 @@ namespace TicketDesk {
     public partial class TicketSearch {
         
         /// <summary>
-        /// ToolkitScriptManager1 control.
+        /// AjaxScriptManagerProxy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
+        protected global::System.Web.UI.ScriptManagerProxy AjaxScriptManagerProxy;
         
         /// <summary>
         /// TicketSearchUpdatePanel control.

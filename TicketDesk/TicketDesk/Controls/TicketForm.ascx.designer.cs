@@ -14,13 +14,13 @@ namespace TicketDesk.Controls {
     public partial class TicketForm {
         
         /// <summary>
-        /// AjaxScriptManager control.
+        /// AjaxScriptManagerProxy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager AjaxScriptManager;
+        protected global::System.Web.UI.ScriptManagerProxy AjaxScriptManagerProxy;
         
         /// <summary>
         /// RequiredFieldValidator1 control.

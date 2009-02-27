@@ -34,3 +34,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: System.Web.UI.WebResource("TicketDesk.MultiFile.js", "application/x-javascript")]
+[assembly: System.Web.UI.WebResource("TicketDesk.KeepAlive.js", "application/x-javascript")]

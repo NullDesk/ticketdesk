@@ -16,6 +16,7 @@ using System.Web.Configuration;
 using System.Web.UI;
 using TicketDesk.Engine;
 using System.Web.UI.HtmlControls;
+using System.Web;
 
 namespace TicketDesk
 {
@@ -23,6 +24,24 @@ namespace TicketDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            bool keepAliveEnabled = true;
+            string keepAliveEnabledString = ConfigurationManager.AppSettings["KeepAliveScriptEnabled"];
+
+            if (!string.IsNullOrEmpty(keepAliveEnabledString))
+            {
+                keepAliveEnabled = Convert.ToBoolean(keepAliveEnabledString);
+            }
+            KeepAliveScript.Enabled = keepAliveEnabled;
+
+            string keepAliveIntervalString = ConfigurationManager.AppSettings["KeepAliveScriptInterval"];
+            if (!string.IsNullOrEmpty(keepAliveIntervalString))
+            {
+                KeepAliveScript.Interval = Convert.ToInt32(keepAliveIntervalString);
+            }
+
+
             if (Page.User.Identity.IsAuthenticated)
             {
                 AuthenticationSection authenticationSection = (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
