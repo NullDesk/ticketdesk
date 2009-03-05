@@ -91,7 +91,7 @@ namespace TicketDesk.Engine.Linq
             //  or tickets that have been given up on (was assigned but is not anymore).
             if (AssignedTo == null && (this.TicketComments.Count < 2 || isGiveUp))
             {
-                string[] admins = SecurityManager.GetAdministrativeUsers().Select(a => a.Name).ToArray();
+                string[] admins = SecurityManager.GetHelpDeskUsers().Select(a => a.Name).ToArray();
                 foreach (string admin in admins)
                 {
                     if (!usersToAdd.ContainsKey(admin))
