@@ -124,7 +124,10 @@ namespace TicketDesk.Engine.Linq
             {
                 bool emailValid = false;
                 string email = SecurityManager.GetUserEmailAddress(user);
-                var rxv = new RegexStringValidator(@"^[a-zA-Z\.\-_]+@([a-zA-Z\.\-_]+\.)+[a-zA-Z]{2,4}$");
+
+                // replaced pattern with variation based on the stock MS regex validator control's built-in pattern for email addresses
+                //var rxv = new RegexStringValidator(@"^[a-zA-Z\.\-_]+@([a-zA-Z\.\-_]+\.)+[a-zA-Z]{2,4}$");
+                var rxv = new RegexStringValidator(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$");
                 try
                 {
                     rxv.Validate(email);

@@ -106,10 +106,12 @@ namespace TicketDesk.Engine.ListView
             List<ListViewFilterColumn> historyticketsFilterColumns = new List<ListViewFilterColumn>();
             historyticketsSortColumns.Add(new ListViewSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             historyticketsFilterColumns.Add(new ListViewFilterColumn("CurrentStatus", true, "closed"));
-            historyticketsFilterColumns.Add(new ListViewFilterColumn("AssignedTo", true, user));
+            historyticketsFilterColumns.Add(new ListViewFilterColumn("Owner", true, user));
+
             if (SecurityManager.IsStaff)
             {
-                historyticketsFilterColumns.Add(new ListViewFilterColumn("Owner", true, user));
+                historyticketsFilterColumns.Add(new ListViewFilterColumn("AssignedTo", true, user));
+
             }
             ListViewSettings historytickets = new ListViewSettings("historytickets", "Ticket History", disOrder + 2, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn);
             settingsCollection.Settings.Add(historytickets);
