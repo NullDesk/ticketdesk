@@ -1,0 +1,1 @@
+﻿ALTER TABLE TicketAttachments ALTER COLUMN FileType nvarchar(250) NOT NULL

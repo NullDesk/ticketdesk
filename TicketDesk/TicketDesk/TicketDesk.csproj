@@ -812,6 +812,7 @@
     <Content Include="Admin\Admin.Master" />
     <None Include="App_Data\Update_1.1_to_1.2.SQL" />
     <None Include="App_Data\Update_1.0_to_1.1.SQL" />
+    <None Include="App_Data\Update_1.2_to_1.3.SQL" />
     <None Include="App_Themes\TicketDeskTheme\TicketDeskLogo.psd" />
     <Content Include="DownloadAttachment.ashx" />
     <None Include="Engine\Linq\TicketData.dbml.layout">
