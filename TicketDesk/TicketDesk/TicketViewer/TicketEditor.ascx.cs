@@ -68,7 +68,7 @@ namespace TicketDesk.TicketViewer
             TicketTitleEdit.Text = TicketToDisplay.Title;
 
 
-            DetailsEdit.Value = TicketToDisplay.Details;
+            //DetailsEdit.Value = TicketToDisplay.Details;
 
 
             CategoryEdit.SelectedIndex = -1;
@@ -167,6 +167,8 @@ namespace TicketDesk.TicketViewer
 
         public bool Save(TicketComment eventComment)
         {
+            var details = Request.Form["details"];
+
             Dictionary<string, KeyValuePair<string, string>> fieldEventTextList = new Dictionary<string, KeyValuePair<string, string>>();//key is simple event test, value is full event text;
 
             if (TicketTitleEdit.Text != TicketToDisplay.Title)
@@ -174,11 +176,11 @@ namespace TicketDesk.TicketViewer
                 fieldEventTextList.Add("changed ticket's title", GetFieldEventValues(TicketToDisplay.Title, TicketTitleEdit.Text));
                 TicketToDisplay.Title = TicketTitleEdit.Text;
             }
-            if (DetailsEdit.Value != TicketToDisplay.Details)
+            if (details != TicketToDisplay.Details)
             {
                 fieldEventTextList.Add("changed ticket's details", GetFieldEventValues(string.Empty,string.Empty));
-                TicketToDisplay.IsHtml = true;
-                TicketToDisplay.Details = DetailsEdit.Value;
+                TicketToDisplay.IsHtml = false;
+                TicketToDisplay.Details = details;
             }
             if (CategoryEdit.Enabled && CategoryEdit.SelectedValue != TicketToDisplay.Category)
             {
@@ -259,7 +261,7 @@ namespace TicketDesk.TicketViewer
                 }
                 if (!string.IsNullOrEmpty(eventComment.Comment))
                 {
-                    sb.Append("<hr />");
+                    sb.Append("\n\n------------\n\n");
                     sb.Append(eventComment.Comment);
                 }
                 eventComment.Comment = sb.ToString();

@@ -17,8 +17,11 @@
 <asp:ScriptManagerProxy runat="server" ID="AjaxScriptManagerProxy">
     <Scripts>
         <asp:ScriptReference Name="TicketDesk.MultiFile.js" Assembly="TicketDesk" ScriptMode="Release" />
-    </Scripts>
+     </Scripts>
 </asp:ScriptManagerProxy>
+
+
+
 <table cellpadding="2" cellspacing="0">
     <tbody>
         <tr>
@@ -38,26 +41,25 @@
                 <table cellpadding="0" cellspacing="0">
                     <tbody>
                         <tr>
-                            <td style="padding-bottom:2px;">
+                            <td style="padding-bottom: 2px;">
                                 Type:
-                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="TypeDropDownList"
+                                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="TypeDropDownList"
                                     Display="Dynamic" ErrorMessage="Please choose a valid ticket type." Operator="NotEqual"
                                     ValueToCompare="-">*</asp:CompareValidator>
                             </td>
-                            <td style="padding-bottom:2px;">
+                            <td style="padding-bottom: 2px;">
                                 Category:
-                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="CategoryDropDownList"
+                                <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="CategoryDropDownList"
                                     Display="Dynamic" ErrorMessage="Please choose a valid category." Operator="NotEqual"
                                     ValueToCompare="-">*</asp:CompareValidator>
                             </td>
-                            <td style="padding-bottom:2px;">
+                            <td style="padding-bottom: 2px;">
                                 Priority:
                             </td>
-                            <td style="padding-bottom:2px;">
+                            <td style="padding-bottom: 2px;">
                                 Customers:
                             </td>
                         </tr>
-                        
                         <tr>
                             <td>
                                 <asp:DropDownList ID="TypeDropDownList" AppendDataBoundItems="true" runat="server">
@@ -99,7 +101,8 @@
                 Details:
                 <asp:Label ID="lblDetailsRequired" runat="server" ForeColor="Red" Text="Details are required."
                     Visible="false" />
-                <fck:FCKeditor ID="DetailsTextBox" runat="server" ToolbarSet="Basic" BasePath="~/fckeditor/" />
+                    <textarea id="details" class="markItUpEditor" name="details"></textarea>
+                     
             </td>
         </tr>
         <tr>
@@ -108,13 +111,13 @@
         </tr>
         <tr>
             <td>
-                Attachments:  <input id="my_file_element" type="file" name="file_1" />
+                Attachments:
+                <input id="my_file_element" type="file" name="file_1" />
             </td>
         </tr>
         <tr>
             <td>
                 <div>
-                   
                     <!-- This is where the output will appear -->
                     <div id="files_list" class="MultiUploadFileList">
                     </div>

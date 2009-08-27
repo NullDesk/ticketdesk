@@ -1660,7 +1660,7 @@ namespace TicketDesk.Engine.Linq
 		
 		private System.DateTime _UploadedDate;
 		
-		private System.Data.Linq.Binary _FileContents;
+		private System.Data.Linq.Link<System.Data.Linq.Binary> _FileContents;
 		
 		private string _FileDescription;
 		
@@ -1845,15 +1845,15 @@ namespace TicketDesk.Engine.Linq
 		{
 			get
 			{
-				return this._FileContents;
+				return this._FileContents.Value;
 			}
 			set
 			{
-				if ((this._FileContents != value))
+				if ((this._FileContents.Value != value))
 				{
 					this.OnFileContentsChanging(value);
 					this.SendPropertyChanging();
-					this._FileContents = value;
+					this._FileContents.Value = value;
 					this.SendPropertyChanged("FileContents");
 					this.OnFileContentsChanged();
 				}

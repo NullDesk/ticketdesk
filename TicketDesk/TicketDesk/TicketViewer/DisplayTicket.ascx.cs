@@ -117,7 +117,8 @@ namespace TicketDesk.TicketViewer
                 }
                 else
                 {
-                    Details.Text = TicketToDisplay.Details.FormatAsHtml();
+                    var md = new Markdown();
+                    Details.Text =  md.Transform(TicketToDisplay.Details,true);
                 }
 
                 Category.Text = TicketToDisplay.Category;
@@ -257,6 +258,11 @@ namespace TicketDesk.TicketViewer
 
             EditTicket_CollapsiblePanelExtender.ClientState = "false";
             EditTicket_CollapsiblePanelExtender.Collapsed = false;
+
+            string prevPath = Page.ResolveUrl(@"~/Services/MarkdownPreview.ashx");
+            var script = "mySettings.previewParserPath = \""+ prevPath + "\";" + "$(\"#details\").markItUp(mySettings);";
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "editorMarkitup", script, true);
             ViewTicket_CollapsiblePanelExtender.ClientState = "true";
             ViewTicket_CollapsiblePanelExtender.Collapsed = true;
         }

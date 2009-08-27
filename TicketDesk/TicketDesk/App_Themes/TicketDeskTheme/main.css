@@ -648,3 +648,15 @@ label
     color: gray;
 }
 
+code
+{
+    font-family: Courier New,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono;
+   
+}
+pre
+{
+    padding:10px;
+    background-color: #FFFFCC;
+
+}
+

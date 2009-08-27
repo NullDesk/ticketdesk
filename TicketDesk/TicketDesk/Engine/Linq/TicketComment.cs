@@ -22,7 +22,8 @@ namespace TicketDesk.Engine.Linq
                 string cmt = Comment;
                 if (!this.IsHtml)
                 {
-                    cmt = Comment.FormatAsHtml();
+                    var md = new Markdown();
+                    cmt = md.Transform(Comment, true);
                 }
                 return cmt;
                 

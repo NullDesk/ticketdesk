@@ -27,7 +27,7 @@
                 <ticketDesk:TicketEditor ID="TicketEditorControl" runat="server" />
             </asp:Panel>
             <ajaxToolkit:CollapsiblePanelExtender ID="EditTicket_CollapsiblePanelExtender" runat="server"
-                Enabled="True" TargetControlID="TicketEditPanel" Collapsed="true" />
+                Enabled="True" TargetControlID="TicketEditPanel" Collapsed="true"  />
             <asp:Panel ID="TicketViewPanel" runat="server">
                 <table style="width: 100%;" cellpadding="0" cellspacing="0">
                     <tbody>

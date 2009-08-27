@@ -261,7 +261,7 @@ namespace TicketDesk.TicketViewer
                 if (Activity != "NoChanges")
                 {
                     Activity = null;
-                    CommentText.Value = string.Empty;
+                    //CommentText.Value = string.Empty;
                 }
 
             }
@@ -508,7 +508,7 @@ namespace TicketDesk.TicketViewer
             if (eventText != null)
             {
                 comment = new TicketComment();
-                comment.IsHtml = true;
+                comment.IsHtml = false;
                 comment.CommentEvent = eventText;
 
                 StringBuilder sb = new StringBuilder();
@@ -524,15 +524,21 @@ namespace TicketDesk.TicketViewer
                         sb.Append("</div>");
                     }
                 }
-                if (!string.IsNullOrEmpty(CommentText.Value))
+
+                var commentText = Request.Form["comments"];
+                if (!string.IsNullOrEmpty(commentText))
                 {
-                    sb.Append("<hr />");
+                    commentText = commentText.Trim();
+                }
+                if (sb.Length > 1 && !string.IsNullOrEmpty(commentText))
+                {
+                    sb.Append("\n\n------------\n\n");
 
                 }
 
-                if (!string.IsNullOrEmpty(CommentText.Value))
+                if (!string.IsNullOrEmpty(commentText))
                 {
-                    sb.Append(CommentText.Value);
+                    sb.Append(commentText);
                 }
                 comment.Comment = sb.ToString();
             }
@@ -558,12 +564,16 @@ namespace TicketDesk.TicketViewer
 
         private string GetOptionalCommentEventText(string text)
         {
-            return text + ((string.IsNullOrEmpty(CommentText.Value)) ? " without comment" : string.Empty);
+            var commentText = Request.Form["comments"];
+
+            return text + ((string.IsNullOrEmpty(commentText)) ? " without comment" : string.Empty);
         }
 
         private bool EnforceRequiredComment()
         {
-            if (string.IsNullOrEmpty(CommentText.Value))
+            var commentText = Request.Form["comments"];
+
+            if (string.IsNullOrEmpty(commentText))
             {
                 RequiredCommentLabel.Visible = true;
                 ActivityFailed();
@@ -576,7 +586,7 @@ namespace TicketDesk.TicketViewer
         {
             ActivityCanceled();
             Activity = null;
-            CommentText.Value = string.Empty;
+            //CommentText.Value = string.Empty;
         }
 
         private void BuildPriorityList()

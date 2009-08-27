@@ -52,10 +52,12 @@ namespace TicketDesk.Controls
 
         public Ticket GetNewTicket()
         {
+            string details = Page.Request.Form["details"];
+
             Ticket ticket = null;
             if (Page.IsValid)
             {
-                if (!string.IsNullOrEmpty(DetailsTextBox.Value))
+                if (!string.IsNullOrEmpty(details))
                 {
                     DateTime now = DateTime.Now;
                     string user = Page.User.Identity.GetFormattedUserName();
@@ -63,8 +65,8 @@ namespace TicketDesk.Controls
                     ticket.Type = TypeDropDownList.SelectedValue;
                     ticket.Category = CategoryDropDownList.SelectedValue;
                     ticket.Title = TitleTextBox.Text;
-                    ticket.IsHtml = true;
-                    ticket.Details = DetailsTextBox.Value;
+                    ticket.IsHtml = false;
+                    ticket.Details = details;
                     if (!string.IsNullOrEmpty(PriorityDropDownList.SelectedValue))
                     {
                         ticket.Priority = PriorityDropDownList.SelectedValue;

@@ -82,7 +82,7 @@
       <Column Name="FileType" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="UploadedBy" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="UploadedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="FileContents" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="FileContents" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" IsDelayLoaded="true" />
       <Column Name="FileDescription" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Association Name="Ticket_TicketAttachment" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
     </Type>
