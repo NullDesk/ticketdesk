@@ -184,7 +184,7 @@ namespace TicketDesk.Engine
             stringBuilder.Append(GetHTMLComments(ticket, userToNotify, minCommentId));
 
             string body = stringBuilder.ToString();
-
+            var md = new Markdown();
             body = String.Format(body, //base string
                                     url, // {0}
                                     ticket.Title, // {1} 
@@ -203,7 +203,7 @@ namespace TicketDesk.Engine
                                     SecurityManager.GetUserDisplayName(ticket.LastUpdateBy), // {14}
                                     ticket.LastUpdateDate.ToString("g"), // {15}
                                     ticket.Type, // {16}
-                                    ((!ticket.IsHtml) ? ticket.Details.FormatAsHtml() : ticket.Details) // {17}
+                                    ((!ticket.IsHtml) ? md.Transform(ticket.Details, true) : ticket.Details) // {17}
                                     );
 
             body = string.Format("{0}{1}{2}",

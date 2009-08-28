@@ -15,6 +15,7 @@ using System.Linq;
 using TicketDesk.Engine;
 using TicketDesk.Engine.Linq;
 
+
 namespace TicketDesk.Controls
 {
     public partial class EmailTicketView : System.Web.UI.UserControl
@@ -62,7 +63,8 @@ namespace TicketDesk.Controls
                 }
                 else
                 {
-                    Details.Text = TicketToDisplay.Details.FormatAsHtml();
+                    var md = new Markdown();
+                    Details.Text = md.Transform(TicketToDisplay.Details, true);
                 }
                 Category.Text = TicketToDisplay.Category;
                 //Category.NavigateUrl = string.Format("~/TicketCenter.aspx?View=tagsandcategories&Category={0}", TicketToDisplay.Category);
