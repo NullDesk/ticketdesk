@@ -384,7 +384,6 @@
     <EmbeddedResource Include="KeepAlive.js" />
     <Content Include="License.txt" />
     <EmbeddedResource Include="MultiFile.js" />
-    <Content Include="markdown.htm" />
     <Content Include="MyAccount.aspx" />
     <Content Include="ReadMe.txt" />
     <Content Include="Scripts\jquery-1.3.2-vsdoc.js" />
