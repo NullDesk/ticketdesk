@@ -34,12 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\AjaxControlToolkit-Framework3.5\AjaxToolkitCompiled\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Elmah, Version=1.0.10617.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.22451, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL" />
+    <Reference Include="Elmah, Version=1.1.11228.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -344,26 +342,13 @@
     <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
-    <Content Include="bin\ar\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\cs\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\de\AjaxControlToolkit.resources.dll" />
     <Content Include="bin\Elmah.dll" />
-    <Content Include="bin\es\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\FredCK.FCKeditorV2.dll" />
-    <Content Include="bin\fr\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\he\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\hi\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\it\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\ja\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\ko\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\nl\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\pt\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\ru\AjaxControlToolkit.resources.dll" />
+    <Content Include="bin\Elmah.pdb" />
+    <Content Include="bin\Elmah.xml" />
+    <Content Include="bin\System.Data.SQLite.DLL" />
     <Content Include="bin\TicketDesk.Engine.Ajax.Extenders.dll" />
     <Content Include="bin\TicketDesk.Engine.Ajax.Extenders.pdb" />
-    <Content Include="bin\tr-TR\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\zh-CHS\AjaxControlToolkit.resources.dll" />
-    <Content Include="bin\zh-CHT\AjaxControlToolkit.resources.dll" />
+    <Content Include="bin\VistaDB.NET20.dll" />
     <Content Include="Controls\EmailTicketView.ascx" />
     <Content Include="Controls\Images\down.png" />
     <Content Include="Controls\Images\edit.gif" />
