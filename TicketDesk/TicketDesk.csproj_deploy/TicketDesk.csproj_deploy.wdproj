@@ -24,6 +24,7 @@
     <UseMerge>true</UseMerge>
     <SingleAssemblyName>TicketDeskDeploy</SingleAssemblyName>
     <OutputPath>.\EditablePreCompile</OutputPath>
+    <UseFixedNames>false</UseFixedNames>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <EnableUpdateable>true</EnableUpdateable>
