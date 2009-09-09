@@ -1,5 +1,5 @@
 ﻿
-TicketDesk 1.2 - Final Release
+TicketDesk 1.2.3 - Final Release
 
 For installation and configuration information please visit:
 
