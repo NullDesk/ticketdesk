@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="TicketDesk.Services.FeedService" CodeBehind="RSS.svc.cs" %>
