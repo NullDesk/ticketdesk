@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TicketDesk</RootNamespace>
+    <AssemblyName>TicketDesk</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.1.11228.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="NewTicket.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Controls\TicketForm.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\TicketPrioritiesEditor.ascx.cs">
+      <DependentUpon>TicketPrioritiesEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\TicketPrioritiesEditor.ascx.designer.cs">
+      <DependentUpon>TicketPrioritiesEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\TicketCategoriesEditor.ascx.cs">
+      <DependentUpon>TicketCategoriesEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\TicketCategoriesEditor.ascx.designer.cs">
+      <DependentUpon>TicketCategoriesEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\TicketTypesEditor.ascx.cs">
+      <DependentUpon>TicketTypesEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\TicketTypesEditor.ascx.designer.cs">
+      <DependentUpon>TicketTypesEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserRoles.aspx.cs">
+      <DependentUpon>UserRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserRoles.aspx.designer.cs">
+      <DependentUpon>UserRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Attachments.ascx.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Attachments.ascx.designer.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmailTicketView.ascx.cs">
+      <DependentUpon>EmailTicketView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\EmailTicketView.ascx.designer.cs">
+      <DependentUpon>EmailTicketView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListView.ascx.cs">
+      <DependentUpon>ListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ListView.ascx.designer.cs">
+      <DependentUpon>ListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewListManager.ascx.cs">
+      <DependentUpon>ListViewListManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewListManager.ascx.designer.cs">
+      <DependentUpon>ListViewListManager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewSettingsEditor.ascx.cs">
+      <DependentUpon>ListViewSettingsEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewSettingsEditor.ascx.designer.cs">
+      <DependentUpon>ListViewSettingsEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TagPicker.ascx.cs">
+      <DependentUpon>TagPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TagPicker.ascx.designer.cs">
+      <DependentUpon>TagPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadAttachment.ashx.cs">
+      <DependentUpon>DownloadAttachment.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Extensions.cs" />
+    <Compile Include="Engine\KeepAlive.cs" />
+    <Compile Include="Engine\Linq\SortableFields.cs" />
+    <Compile Include="Engine\Linq\Ticket.cs" />
+    <Compile Include="Engine\Linq\TicketComment.cs" />
+    <Compile Include="Engine\Linq\TicketData.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketData.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Linq\TicketDataDataContext.cs" />
+    <Compile Include="Engine\Linq\TicketListQueryExtensions.cs" />
+    <Compile Include="Engine\ListView\ListViewFilterColumn.cs" />
+    <Compile Include="Engine\ListView\ListViewSettings.cs" />
+    <Compile Include="Engine\ListView\ListViewSettingsCollection.cs" />
+    <Compile Include="Engine\ListView\ListViewSortColumn.cs" />
+    <Compile Include="Engine\ListView\ColumnSortDirection.cs" />
+    <Compile Include="Engine\Markdown.cs" />
+    <Compile Include="Engine\MockHttpContext.cs" />
+    <Compile Include="Engine\NotificationService.cs" />
+    <Compile Include="Engine\NotificationUtilities.cs" />
+    <Compile Include="Engine\ProfileCommon.cs" />
+    <Compile Include="Engine\QueryStringNameValueCollection.cs" />
+    <Compile Include="Engine\SecurityManager.cs" />
+    <Compile Include="Engine\SettingsManager.cs" />
+    <Compile Include="Engine\TagManager.cs" />
+    <Compile Include="Engine\User.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="KeepAlive.ashx.cs">
+      <DependentUpon>KeepAlive.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyAccount.aspx.cs">
+      <DependentUpon>MyAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyAccount.aspx.designer.cs">
+      <DependentUpon>MyAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewTicket.aspx.cs">
+      <DependentUpon>NewTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewTicket.aspx.designer.cs">
+      <DependentUpon>NewTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFeedService.cs" />
+    <Compile Include="Services\MarkdownPreview.ashx.cs">
+      <DependentUpon>MarkdownPreview.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\RSS.svc.cs">
+      <DependentUpon>RSS.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\TagsAutoComplete.asmx.cs">
+      <DependentUpon>TagsAutoComplete.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TicketCenter2.aspx.cs">
+      <DependentUpon>TicketCenter2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketCenter2.aspx.designer.cs">
+      <DependentUpon>TicketCenter2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketDeskMain.Master.cs">
+      <DependentUpon>TicketDeskMain.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketDeskMain.Master.designer.cs">
+      <DependentUpon>TicketDeskMain.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TicketForm.ascx.cs">
+      <DependentUpon>TicketForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TicketForm.ascx.designer.cs">
+      <DependentUpon>TicketForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketSearch.aspx.cs">
+      <DependentUpon>TicketSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketSearch.aspx.designer.cs">
+      <DependentUpon>TicketSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketViewer\DisplayTicket.ascx.cs">
+      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketViewer\DisplayTicket.ascx.designer.cs">
+      <DependentUpon>DisplayTicket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketViewer\TicketActivityEditor.ascx.cs">
+      <DependentUpon>TicketActivityEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketViewer\TicketActivityEditor.ascx.designer.cs">
+      <DependentUpon>TicketActivityEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TicketViewer\TicketEditor.ascx.cs">
+      <DependentUpon>TicketEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TicketViewer\TicketEditor.ascx.designer.cs">
+      <DependentUpon>TicketEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTicket.aspx.cs">
+      <DependentUpon>ViewTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewTicket.aspx.designer.cs">
+      <DependentUpon>ViewTicket.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Linq\TicketData.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>TicketData.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Controls\TicketPrioritiesEditor.ascx" />
+    <Content Include="Admin\Controls\TicketCategoriesEditor.ascx" />
+    <Content Include="Admin\Controls\TicketTypesEditor.ascx" />
+    <Content Include="Admin\Default.aspx" />
+    <Content Include="Admin\Settings.aspx" />
+    <Content Include="Admin\UserRoles.aspx" />
+    <Content Include="App_Themes\TicketDeskTheme\Elmah.png" />
+    <Content Include="App_Data\StockUsers.txt" />
+    <Content Include="App_Data\NewInstallSQL.txt" />
+    <Content Include="App_Data\TicketDesk.mdf">
+    </Content>
+    <Content Include="App_Data\TicketDeskSecurity.MDF">
+    </Content>
+    <Content Include="App_Data\TicketDeskSecurity_log.ldf">
+      <DependentUpon>TicketDeskSecurity.MDF</DependentUpon>
+    </Content>
+    <Content Include="App_Data\TicketDesk_log.ldf">
+      <DependentUpon>TicketDesk.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Themes\TicketDeskTheme\body_bg.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\indicator_waitanim.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\indicator_waitanim_sm.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\file.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\Setting.jpg" />
+    <Content Include="App_Themes\TicketDeskTheme\users.jpg" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="bin\Elmah.dll" />
+    <Content Include="bin\Elmah.pdb" />
+    <Content Include="bin\Elmah.xml" />
+    <Content Include="bin\System.Data.SQLite.DLL" />
+    <Content Include="bin\TicketDesk.Engine.Ajax.Extenders.dll" />
+    <Content Include="bin\TicketDesk.Engine.Ajax.Extenders.pdb" />
+    <Content Include="bin\VistaDB.NET20.dll" />
+    <Content Include="Controls\EmailTicketView.ascx" />
+    <Content Include="Controls\Images\down.png" />
+    <Content Include="Controls\Images\edit.gif" />
+    <Content Include="Controls\Images\delete.gif" />
+    <Content Include="Controls\Images\editor_small.gif" />
+    <Content Include="Controls\Images\handleGrip.png" />
+    <Content Include="Controls\Images\nobutton.gif" />
+    <Content Include="Controls\Images\print.gif" />
+    <Content Include="Controls\Images\save.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\settings.gif" />
+    <Content Include="Controls\Images\swap.gif" />
+    <Content Include="Controls\Images\up.png" />
+    <Content Include="Controls\ListView.ascx" />
+    <Content Include="Controls\ListViewListManager.ascx" />
+    <Content Include="Controls\ListViewSettingsEditor.ascx" />
+    <Content Include="ELMAH License.txt" />
+    <Content Include="Global.asax" />
+    <EmbeddedResource Include="KeepAlive.js" />
+    <Content Include="License.txt" />
+    <EmbeddedResource Include="MultiFile.js" />
+    <Content Include="MyAccount.aspx" />
+    <Content Include="ReadMe.txt" />
+    <Content Include="Scripts\jquery-1.3.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.3.2.js" />
+    <Content Include="Scripts\jquery-1.3.2.min-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.3.2.min.js" />
+    <Content Include="Scripts\markitup\images\body.png" />
+    <Content Include="Scripts\markitup\images\jaysalvat.png" />
+    <Content Include="Scripts\markitup\images\markitup.png" />
+    <Content Include="Scripts\markitup\images\style.css" />
+    <Content Include="Scripts\markitup\markitup\jquery.markitup.js" />
+    <Content Include="Scripts\markitup\markitup\jquery.markitup.min.js" />
+    <Content Include="Scripts\markitup\markitup\readme.txt" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\bold.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\clean.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\image.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\italic.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\link.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\picture.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\preview.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\images\stroke.png" />
+    <Content Include="Scripts\markitup\markitup\sets\default\set.js" />
+    <Content Include="Scripts\markitup\markitup\sets\default\style.css" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\bold.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\code.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\h1.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\h2.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\h3.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\h4.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\h5.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\h6.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\italic.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\killPreview.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\link.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\list-bullet.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\list-numeric.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\picture.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\preview.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\images\quotes.png" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\readme.txt" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\set.js" />
+    <Content Include="Scripts\markitup\markitup\sets\markdown\style.css" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-container.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-bbcode.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-dotclear.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-html.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-json.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-markdown.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-textile.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-wiki.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor-xml.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\bg-editor.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\handle.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\menu.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\images\submenu.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markdown\style.css" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-container.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-bbcode.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-dotclear.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-html.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-json.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-markdown.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-textile.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-wiki.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor-xml.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\bg-editor.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\handle.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\menu.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\images\submenu.png" />
+    <Content Include="Scripts\markitup\markitup\skins\markitup\style.css" />
+    <Content Include="Scripts\markitup\markitup\skins\simple\images\handle.png" />
+    <Content Include="Scripts\markitup\markitup\skins\simple\images\menu.png" />
+    <Content Include="Scripts\markitup\markitup\skins\simple\images\submenu.png" />
+    <Content Include="Scripts\markitup\markitup\skins\simple\style.css" />
+    <Content Include="Scripts\markitup\markitup\templates\preview.css" />
+    <Content Include="Scripts\markitup\markitup\templates\preview.html" />
+    <Content Include="Services\RSS.svc" />
+    <Content Include="TicketCenter2.aspx" />
+    <Content Include="TicketSearch.aspx" />
+    <Content Include="TicketViewer\DisplayTicket.ascx" />
+    <Content Include="TicketViewer\TicketActivityEditor.ascx" />
+    <Content Include="TicketViewer\TicketEditor.ascx" />
+    <Content Include="WebAd.config" />
+    <Content Include="Admin\Admin.Master" />
+    <None Include="App_Data\Update_1.1_to_1.2.SQL" />
+    <None Include="App_Data\Update_1.0_to_1.1.SQL" />
+    <None Include="App_Data\Update_1.2_to_1.3.SQL" />
+    <None Include="App_Themes\TicketDeskTheme\TicketDeskLogo.psd" />
+    <Content Include="DownloadAttachment.ashx" />
+    <None Include="Engine\Linq\TicketData.dbml.layout">
+      <DependentUpon>TicketData.dbml</DependentUpon>
+    </None>
+    <Content Include="Services\MarkdownPreview.ashx" />
+    <Content Include="KeepAlive.ashx" />
+    <Content Include="WebSql.config" />
+    <Content Include="Controls\Attachments.ascx" />
+    <Content Include="App_Themes\TicketDeskTheme\CenterMenuBar.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\GreenGradient.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\LeftMenuBar.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\MenuGradient.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\RightMenuBar.gif" />
+    <Content Include="App_Themes\TicketDeskTheme\TicketDeskLogo.jpg" />
+    <Content Include="Controls\TagPicker.ascx" />
+    <Content Include="App_Themes\TicketDeskTheme\main.css" />
+    <Content Include="Login.aspx" />
+    <Content Include="Services\TagsAutoComplete.asmx" />
+    <Content Include="TicketDeskMain.Master" />
+    <Content Include="ViewTicket.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Engine.Ajax.Extenders\TicketDesk.Engine.Ajax.Extenders.csproj">
+      <Project>{41563B8C-7269-4C1F-807D-FA7E07E83897}</Project>
+      <Name>TicketDesk.Engine.Ajax.Extenders</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8227</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/TicketDesk</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
