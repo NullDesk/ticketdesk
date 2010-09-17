@@ -12,13 +12,13 @@ Global
 		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = TicketDesk.Domain\\TicketDesk.Domain.csproj
-		SccProjectName1 = TicketDesk.Domain
-		SccLocalPath1 = TicketDesk.Domain
-		SccProjectUniqueName2 = TicketDesk.Web.Client\\TicketDesk.Web.Client.csproj
-		SccProjectName2 = TicketDesk.Web.Client
-		SccLocalPath2 = TicketDesk.Web.Client
+		SccProjectUniqueName0 = TicketDesk.Domain\\TicketDesk.Domain.csproj
+		SccProjectName0 = TicketDesk.Domain
+		SccLocalPath0 = TicketDesk.Domain
+		SccProjectUniqueName1 = TicketDesk.Web.Client\\TicketDesk.Web.Client.csproj
+		SccProjectName1 = TicketDesk.Web.Client
+		SccLocalPath1 = TicketDesk.Web.Client
+		SccLocalPath2 = .
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
