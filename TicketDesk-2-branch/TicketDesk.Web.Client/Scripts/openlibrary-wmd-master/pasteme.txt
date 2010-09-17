@@ -1,0 +1,136 @@
+This is some regular text.
+
+Here is some text with stuff that requires special handling: ( ) [ ] { } /\ ~
+
+What if I put in some internal markup?  ~T ~K2K
+
+    This is code and preformatted text. /* comment*/ <b>Not bold</b>
+
+Here is an `inline code block` created with backticks.
+
+This text uses a line  
+break
+
+Some text in *italics* and some _more text in italics._
+
+Some **bold** text and __some more.__
+
+Both ***bold and italic*** and ___again___.
+
+Here is a standard hyperlink <a href="http://stackoverflow.com/">Stack Overflow</a>
+
+Inline link to [Google](http://www.google.com/)  
+Reference-style link to [Google][1]  
+Here's a more readable reference link to [Google][google]  
+
+Here's an inline [link](http://www.google.com/ "Google") with a tooltip in quotes.  
+A reference [link][parens] in parentheses.  
+A reference [link][quotes] in quotes.  
+
+Automatically converted link: http://www.stackoverflow.com  
+A link that is forced: <http://www.stackoverflow.com>  
+
+Level 1 Header can use any number of equal signs
+=
+
+Level 2 Header can use any number of dashes
+-
+
+# You can also use #
+## Hash marks to create header levels
+### The closing hash marks are optional ###
+
+Horizontal rules use 3 or more hyphens, asterisks or underscores
+
+---  
+text
+***
+text
+___
+text  
+
+breaking up the line markers also works
+* * *
+A bulleted list:
+
+- Use a dash
++ Or a plus sign
+* Or an asterisk
+
+A numbered list:
+
+1. Numbered lists are easy
+2. The numbers are automatically tracked
+7. So this will be number 3
+
+Double-spaced list:
+
+- You can make a spaced-out list wrapped in `<p>` tags
+
+- By putting a space in between the lines
+
+Nested Lists:
+
+1. Lists in a list item:
+    - Indent four spaces
+        * Per list level
+
+2. You can do multiple paragraphs if you skip a line.
+
+    And indent four spaces.
+
+   Three works, too but that can be confusing.
+
+3. To put blockquotes in a list item
+
+    > Skip a line and indent the starting '>' four spaces.
+
+4. To put preformatted code in a list item
+
+        Skip a line and indent <b>eight</b> spaces.
+
+Simple Blockquotes
+
+>Just add > to the start of the line.
+>And you'll get a blockquote.
+
+Blockquote paragraphs
+
+> Putting a >
+>
+> on blank lines is optional
+
+> it all looks the same to the markdown editor.
+
+Blockquote nesting
+
+>You can nest
+>>blockquotes to any
+>>>level you want
+
+Lists in blockquotes
+
+> - A list in a blockquote
+> - Have to have a > and a space before the bullet marker
+>    * And you can do nested lists.
+
+Code and quotes
+
+>    Just indent the text four spaces after the >
+
+Images
+
+Inline image: ![Alt text goes here](http://w3.org/Icons/valid-xhtml10)  
+Reference image with tooltip: ![valid XHTML][checkmark]   
+You can't do this ![checkmark]  
+but you can do this ![checkmark][] where the ref name will be the alt text.  
+
+Regular image links also work, including scaling: 
+<img src="http://w3.org/Icons/valid-xhtml10" width="100" height="25">  
+
+
+[1]: http://www.google.com
+[Google]: http://www.google.com
+[parens]: http://www.google.com (Click to go to Google)
+[quotes]: http://www.google.com "Click for Google"
+[checkmark]: http://w3.org/Icons/valid-xhtml10 "Image tooltip"

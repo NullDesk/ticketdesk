@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TicketDesk.Domain</RootNamespace>
+    <AssemblyName>TicketDesk.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\DataAnnotations\AutoMetaData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\SettingMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketAttachmentMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketCommentMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketEventNotificationMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketMetaCustom.cs" />
+    <Compile Include="Models\DataAnnotations\TicketTagMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dto\ColumnSortDirection.cs" />
+    <Compile Include="Models\Dto\IProfile.cs" />
+    <Compile Include="Models\Dto\TicketCenterListSettings.cs" />
+    <Compile Include="Models\Dto\TicketListFilterColumn.cs" />
+    <Compile Include="Models\Dto\TicketListSortColumn.cs" />
+    <Compile Include="Models\Dto\UserDisplayPreferences.cs" />
+    <Compile Include="Models\Dto\UserInfo.cs" />
+    <Compile Include="Models\TicketCommentPartial.cs" />
+    <Compile Include="Models\TicketDeskEntities1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketDeskEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TicketPartial.cs" />
+    <Compile Include="MvcPaging\IPageOfList.cs" />
+    <Compile Include="MvcPaging\PageLinqExtensions.cs" />
+    <Compile Include="MvcPaging\PageOfList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdSecurityRepository.cs" />
+    <Compile Include="Repositories\ApplicationSettingsRepository.cs" />
+    <Compile Include="Repositories\Base\ISecurityRepository.cs" />
+    <Compile Include="Repositories\Base\ITicketRepository.cs" />
+    <Compile Include="Repositories\Base\IApplicationSettingsRepository.cs" />
+    <Compile Include="Repositories\SqlSecurityRepository.cs" />
+    <Compile Include="Repositories\Base\SecurityRepositoryBase.cs" />
+    <Compile Include="Repositories\TicketRepository.cs" />
+    <Compile Include="Services\ApplicationSettingsService.cs" />
+    <Compile Include="Services\Base\ApplicationSettingsServiceBase.cs" />
+    <Compile Include="Services\Enums\EditorModes.cs" />
+    <Compile Include="Services\Base\ISecurityService.cs" />
+    <Compile Include="Services\Base\ITicketService.cs" />
+    <Compile Include="Models\Dto\RuleException.cs" />
+    <Compile Include="Services\Enums\TicketActivity.cs" />
+    <Compile Include="Services\Enums\TicketCommentFlag.cs" />
+    <Compile Include="Services\Base\IUserSettingsService.cs" />
+    <Compile Include="Services\Base\IApplicationSettingsService.cs" />
+    <Compile Include="Services\Base\INotificationService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SecurityService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\TicketService.cs" />
+    <Compile Include="Services\UserSettingsService.cs" />
+    <Compile Include="Utilities\Markdown.cs" />
+    <Compile Include="Utilities\StringExtensions.cs" />
+    <Compile Include="Utilities\TagUtility.cs" />
+    <Compile Include="Utilities\TicketTextUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ThingsToConsider.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Models\TicketDeskEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TicketDeskEntities1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\DataAnnotations\AutoMetaData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AutoMetaData.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

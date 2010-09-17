@@ -1,0 +1,122 @@
+﻿
+Repository Pattern:
+	Do we really need repositories between the services and the EF
+	model? 
+
+DataAnnotations for Friendly Names in List Output
+	DataAnnotations allows you to flag fields with friendly names at 
+	the UI. See about replacing the code for the list settings and 
+	such that uses string manipulation and replace with one that 
+	leverages the names from DataAnnotations.
+	
+
+Paging:
+
+	1) need to really think about if sending IQueryable across 
+		the boundaries is a good idea or not. On the one hand
+		RIA services can handle a proxy for this, but in a 
+		traditional web service this will be horrible.
+
+	2) if we ARE going to send queryable across boundaries,
+		do we need to handle paging in the domain at all or should
+		we limit the services in the domain to just pre-filtering
+		and let the client handle the paging itself?
+
+	3) if we ARE NOT going to send queryable across boundaries,
+		what structure do we send to the client? It will need the
+		data for the page we asked for of course, but also summary
+		fields for total rows and such too.
+
+Security:
+
+	1) Current User Name property - this seems weak-sauce; sort of 
+	    a global variable type usage. Other than this, 
+		and the GetUserDisplayName() method of the security service
+		the TicketService could probably be decoupled from security
+		entirely. See about having the caller supply these values.
+		
+	2) The Security Service really isn't handling authentication 
+	    and identity stuff. This is being left up to the hosting
+		web app (and for good reason). Still, should consider using
+		the "Client Application Services" feature to bring in the
+		full membership, profile, roles systems... or see about 
+		refactoring this completely. This may also overlap with 
+		potential considerations for OpenID and such.
+
+	3) The profile service sucks. Plain and simple. Replace this
+	    with a hand-rolled (non-provider) based system. Handle
+		List settings and such directly in the DB and via EF. 
+
+MEF:
+
+	1) Singleton Policy - Are the domain services thread safe-enough
+		to operate with the default PartCreationPolicy?
+
+		My concerns are:
+			1) thread safety on multiple user request threads
+			2) EF ObjectContext being held open so long for 
+				each repository. On this score, we could either
+				re-create ctx each time, use a cache object to
+				keep ctx only for a specified time frame, or
+				centralize access to the object contexts between
+				multiple repositories and share a single instance
+				(cached and expired if that works too).
+
+	2) See about a MEF based extension framework for the security 
+		provider.
+
+
+Validation: 
+
+	The rules based Validation in TicketSerivce with methods like 
+		ValidateTicketDetailFields() are probably obsolete now that 
+		we're using model validation via data annotations. We probably
+		do still need to check with data annotations in the service 
+		before we commit the records just in case someone is actually
+		trying a hack or what not. 
+
+
+UI:
+
+	By Rapid clicking activity buttons, it is possible to queue multiple 
+	requests for the same action (like double assigning). Need to have 
+	the domain model reject activity changes like that when they don't 
+	result in a difference (like when assigning to the currently 
+	assigned user, or setting the priority to the same as the current
+	priority). Should also see about blocking requests on the client
+	so only one concurrent ajax request can be in progress at a time.
+
+
+Editors
+
+	Now that WMD and Markdown are both supported, we need to wrap the
+	editor junk up into runtime swappable components of some sort. 
+	Ideally, we'd use MEF to support a plug-in style editor component
+	and have the runtime choose the correct plug-in based on a merge
+	of user and system preferences.
+	
+ AD Security Repository
+
+	The repository is setup with two static caches; one for user 
+	properties, and the other for group member lists. Both caches are
+	cleared in 5 minutes. The problem is that the caches, though static
+	are both built from code in instance methods. There are dependencies
+	on MEF exports for the AD account info in the instance ctor. 
+
+	What needs to happen is this:
+
+	1) use static member imports for the AD account stuff 
+	2) populate caches using static methods instead of instance methods
+	3) add callbacks that re-initialize the caches when they expire 
+	automatically (this will happen outside a user-scope if everything is
+	done via static methods and such). 
+	4) add application initialization code to go ahead and pre-fetch those
+	large member lists from AD so the users don't get a perf hit on first
+	access.
+
+
+Authorization:
+
+	The authorization filter needs to detect if the request is an ajax request
+	and do something different so the login doesn't show up in a partial view
+	response.

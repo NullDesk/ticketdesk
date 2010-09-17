@@ -1,0 +1,63 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <link  href="<%= Links.Content.Site_css %>" rel="stylesheet" type="text/css" />
+    <script src="<%= Links.Scripts.jquery_1_4_1_min_js %>" type="text/javascript"></script>
+    <script src="<%= Links.Scripts.MicrosoftAjax_js %>" type="text/javascript"></script>
+    <script src="<%= Links.Scripts.MicrosoftMvcAjax_js %>" type="text/javascript"></script>
+    <script src="<%= Links.Scripts.MicrosoftMvcValidation_js %>" type="text/javascript"></script>
+    <script src="<%= Links.Scripts.corner.jquery_corner_js %>" type="text/javascript"></script>
+    <%--<script type="text/javascript">
+        $("document").ready(function () { CornerMain(); });
+
+
+        function CornerMain() {
+            //  $("#main").corner("round 10px").parent().css('padding', '5px').corner("round 12px");
+
+        }
+          
+    </script>--%>
+    <asp:ContentPlaceHolder ID="CustomHeadContent" runat="server" />
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1>
+                    TicketDesk 2.0 MVC
+                </h1>
+            </div>
+            <div id="logindisplay">
+                <%  Html.RenderPartial(MVC.Shared.Views.LogOnUserControl); %>
+            </div>
+            <div id="menucontainer">
+                <ul id="menu">
+                    <li>
+                        <%= Html.ActionLink("Home", MVC.Home.Index())%></li>
+                    <li>
+                        <%= Html.ActionLink("Ticket Center", MVC.TicketCenter.List()) %></li>
+                    <li>
+                        <%= Html.ActionLink("New Ticket", MVC.NewTicket.Create()) %></li>
+                    <li>
+                        <%: Html.ActionLink("About", MVC.Home.About())%></li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            <div id="footer">
+                <p>
+                    <a href="http://validator.w3.org/check?uri=referer">
+                        <img src="http://www.w3.org/Icons/valid-xhtml10-blue" alt="Valid XHTML 1.0 Strict"
+                            height="31" width="88" /></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

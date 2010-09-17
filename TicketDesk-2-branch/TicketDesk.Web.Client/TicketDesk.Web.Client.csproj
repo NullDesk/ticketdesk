@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD96F42D-912F-4CE8-8B0D-191D410BF379}</ProjectGuid>
+    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TicketDesk.Web.Client</RootNamespace>
+    <AssemblyName>TicketDesk.Web.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeApp_Data>true</ExcludeApp_Data>
+    <PublishDatabases>false</PublishDatabases>
+    <PackageAsSingleFile>true</PackageAsSingleFile>
+    <DeployIisAppPath>WeberTicketDeskMVC</DeployIisAppPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ApplicationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarkdownController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\NewTicketController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TagListController.cs" />
+    <Compile Include="Controllers\TicketCenterController.cs" />
+    <Compile Include="Controllers\TicketEditorController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UploaderController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ActionFilters\ValidateOnlyIncomingValuesAttribute.cs" />
+    <Compile Include="Helpers\Attributes\FlashCompatibleAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\Extensions\IntExtensions.cs" />
+    <Compile Include="Helpers\Extensions\RuleExceptionExtensions.cs" />
+    <Compile Include="Helpers\Extensions\TicketExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\ModelBinders\AttachmentsModelBinder.cs" />
+    <Compile Include="Helpers\ModelBinders\ModifiedTicketModelBinder.cs" />
+    <Compile Include="Helpers\ModelBinders\TicketWithAttachmentsModelBinder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\SelectListUtility.cs" />
+    <Compile Include="Helpers\MvcPaging\PagerBuilder.cs" />
+    <Compile Include="Helpers\MvcPaging\PagerHelper.cs" />
+    <Compile Include="Helpers\MvcPaging\PagerItem.cs" />
+    <Compile Include="Helpers\MvcPaging\PagerOptions.cs" />
+    <Compile Include="Helpers\SortableColumnHeader.cs" />
+    <Compile Include="Helpers\T4MVC\AccountController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\ApplicationController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\AttachmentController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\MarkdownController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\NewTicketController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\TagListController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\TicketCenterController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\TicketEditorController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\UploaderController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\UploadifyHelper.cs" />
+    <Compile Include="Helpers\UploadifyOptions.cs" />
+    <Compile Include="Mef\FilteredCatalog.cs" />
+    <Compile Include="Mef\MefControllerFactory.cs" />
+    <Compile Include="Mef\MefHttpApplication.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ApplicationSettingsServiceBaseExtensions.cs" />
+    <Compile Include="Models\FilterBarViewModel.cs" />
+    <Compile Include="Models\ProfileCommon.cs" />
+    <Compile Include="Models\TicketCenterListViewModel.cs" />
+    <Compile Include="Models\TicketCreateViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mef\MefManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\TicketDesk.mdf" />
+    <Content Include="App_Data\TicketDeskSecurity.MDF" />
+    <Content Include="App_Data\TicketDeskSecurity_log.ldf">
+      <DependentUpon>TicketDeskSecurity.MDF</DependentUpon>
+    </Content>
+    <Content Include="App_Data\TicketDesk_log.ldf">
+      <DependentUpon>TicketDesk.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Upgrade 1.2 to 2.0.sql" />
+    <Content Include="Content\activeFlag.png" />
+    <Content Include="Content\arrow_down.png" />
+    <Content Include="Content\arrow_top.png" />
+    <Content Include="Content\attachedFlag.png" />
+    <Content Include="Content\cancel.png" />
+    <Content Include="Content\closedFlag.png" />
+    <Content Include="Content\collapseUp.png" />
+    <Content Include="Content\collapseUpActive.png" />
+    <Content Include="Content\expandDown.png" />
+    <Content Include="Content\expandDownActive.png" />
+    <Content Include="Content\more+infoFlag.png" />
+    <Content Include="Content\pendingFlag.png" />
+    <Content Include="Content\resolvedFlag.png" />
+    <Content Include="Content\tcEdit.png" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\corner\jquery.corner.js" />
+    <Content Include="Scripts\jquery-autocomplete\changelog.txt" />
+    <Content Include="Scripts\jquery-autocomplete\demo\bg.gif" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Amsterdam Van-Gogh Museum.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Amsterdam.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Antwerpen Rubenshaus.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Antwerpen.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Appenzell.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Arnhem Historisches Museum.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bled.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bled_Die Burg von Bled.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bogojina_Die Pfarrkirche.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\BolognaBasilicadiSanPetronio.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\BolognaFontanadelNettuno.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\BolognaPiazzaMaggiore.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bolsward Martinikerk.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bolsward Stadhuis.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bolsward.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\BordeauxND.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\BordeauxPlaceB.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\BotanischerGartenZuerich.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Bouillon.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Gent Hotel de Ville2.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Gent.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\GenuabeiNacht.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\GenuaStrand.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Giessbachfaelle Brienz.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Giethoorn.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Gnesen.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Gornij Grad_KATHEDRALE.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Gossensass.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Grad_Burg Grad2.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\GrandDixence.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\GrenoblePanorama.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Groningen.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\GrottenvonReclere.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Guebwiller.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Kamnik_Die Franziskaner Bibliothek.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Karlsbad Muehlbrunnkolonnade.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Kazimierz.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\KirchbergAltesRathaus1.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\KlagenfurtDom.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\KleineMeerjungfreu.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\LazienkiparkWarschau.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Lednice.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Leeuwarden Fries Museum.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Leeuwarden.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\LeHavreHafen.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Lelystad.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\LeMans.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Lemmer.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Leper Halles aux draps.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Leuven Museum fuer Kirchenkunst.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Leuven.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Luxemburg.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\LuzernAltstadt.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\LuzernPicassoMuseum.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Lyon.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Maastricht Onze Lieve Vrou...jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Maastricht St Servaasbasiliek.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Maastricht Walmuur.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Maastricht.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\MagiatalMaggia.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Mailand3.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Metlika_Bela Krajina Museum.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\MilanoCastelloSforzesco.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\MilanoDom.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\MilazzoBurg.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Novo Mesto_Das Museum.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\ObervellachBurgFalkenstein.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\OdenseeAndersen.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Olimje_Kirche und Apotheke in Olimje.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Olomouc.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\OlympischesMuseumLausanne.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\OrleansMaisonJeannedArc.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\OrleansParcFloraldelaSource.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\OstiaAntica.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Ostrow Tumski.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\PoertschachSchlossLeonstain.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Portoroz.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Posen.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Postojna.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Prag Altstaedter Ring.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Prag Waldsteinpalais.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\RouenNotreDame.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\Salzbergwerk Bex.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\SalzbergwerkWieliczka.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\SalzburgFestungHohensalzburg.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\SalzburgResidenz.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\WienMuseumsQuartier.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\WienMusikverein.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\WienRiesenrad.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\images\WienRingstrasse.jpg" />
+    <Content Include="Scripts\jquery-autocomplete\demo\index.html" />
+    <Content Include="Scripts\jquery-autocomplete\demo\indicator.gif" />
+    <Content Include="Scripts\jquery-autocomplete\demo\json.html" />
+    <Content Include="Scripts\jquery-autocomplete\demo\localdata.js" />
+    <Content Include="Scripts\jquery-autocomplete\demo\main.css" />
+    <Content Include="Scripts\jquery-autocomplete\indicator.gif" />
+    <Content Include="Scripts\jquery-autocomplete\jquery.autocomplete.css" />
+    <Content Include="Scripts\jquery-autocomplete\jquery.autocomplete.js" />
+    <Content Include="Scripts\jquery-autocomplete\jquery.autocomplete.min.js" />
+    <Content Include="Scripts\jquery-autocomplete\jquery.autocomplete.pack.js" />
+    <Content Include="Scripts\jquery-autocomplete\lib\jquery.ajaxQueue.js" />
+    <Content Include="Scripts\jquery-autocomplete\lib\jquery.bgiframe.min.js" />
+    <Content Include="Scripts\jquery-autocomplete\lib\jquery.js" />
+    <Content Include="Scripts\jquery-autocomplete\lib\thickbox-compressed.js" />
+    <Content Include="Scripts\jquery-autocomplete\lib\thickbox.css" />
+    <Content Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\jquery.qtip-1.0.0-beta3.1.min.js" />
+    <Content Include="Scripts\jquery.hoverIntent.minified.js" />
+    <Content Include="Scripts\markitup-editor\images\body.png" />
+    <Content Include="Scripts\markitup-editor\images\jaysalvat.png" />
+    <Content Include="Scripts\markitup-editor\images\markitup.png" />
+    <Content Include="Scripts\markitup-editor\images\style.css" />
+    <Content Include="Scripts\markitup-editor\markitup\jquery.markitup.js" />
+    <Content Include="Scripts\markitup-editor\markitup\jquery.markitup.min.js" />
+    <Content Include="Scripts\markitup-editor\markitup\readme.txt" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\bold.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\clean.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\image.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\italic.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\link.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\picture.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\preview.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\images\stroke.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\set.js" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\default\style.css" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\bold.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\code.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\h1.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\h2.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\h3.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\h4.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\h5.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\h6.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\italic.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\killPreview.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\link.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\list-bullet.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\list-numeric.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\picture.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\preview.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\images\quotes.png" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\readme.txt" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\set.js" />
+    <Content Include="Scripts\markitup-editor\markitup\sets\markdown\style.css" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\CommentStyle.css" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-container.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-bbcode.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-dotclear.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-html.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-json.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-markdown.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-textile.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-wiki.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-xml.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\handle.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\menu.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\submenu.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\style.css" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-container.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-bbcode.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-dotclear.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-html.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-json.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-markdown.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-textile.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-wiki.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor-xml.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\bg-editor.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\handle.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\menu.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\images\submenu.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markitup\style.css" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\simple\images\handle.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\simple\images\menu.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\simple\images\submenu.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\simple\style.css" />
+    <Content Include="Scripts\markitup-editor\markitup\templates\preview.css" />
+    <Content Include="Scripts\markitup-editor\markitup\templates\preview.html" />
+    <Content Include="Scripts\openlibrary-wmd-master\images\wmd-buttons2.png" />
+    <Content Include="Scripts\openlibrary-wmd-master\wmdCustom.css" />
+    <Content Include="Scripts\openlibrary-wmd-master\images\wmd-buttons.png" />
+    <Content Include="Scripts\openlibrary-wmd-master\jquery-wmd-plugin.js" />
+    <Content Include="Scripts\openlibrary-wmd-master\jquery.wmd.js" />
+    <Content Include="Scripts\openlibrary-wmd-master\License.txt" />
+    <Content Include="Scripts\openlibrary-wmd-master\pasteme.txt" />
+    <Content Include="Scripts\openlibrary-wmd-master\showdown.js" />
+    <Content Include="Scripts\openlibrary-wmd-master\Uservoice bugs.txt" />
+    <Content Include="Scripts\openlibrary-wmd-master\wmd-test.html" />
+    <Content Include="Scripts\openlibrary-wmd-master\wmd.css" />
+    <Content Include="Scripts\openlibrary-wmd-master\wmd.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-apollo.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-css.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-hs.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-lisp.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-lua.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-ml.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-proto.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-sql.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-vb.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\lang-wiki.js" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\prettify.css" />
+    <Content Include="Scripts\prettify-small-3-Dec-2009\prettify.js" />
+    <Content Include="Scripts\uploadify\cancel.png" />
+    <Content Include="Scripts\uploadify\expressInstall.swf" />
+    <Content Include="Scripts\uploadify\jquery-1.3.2.min.js" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.init.js" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.v2.1.0.js" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.v2.1.0.min.js" />
+    <Content Include="Scripts\uploadify\swfobject.js" />
+    <Content Include="Scripts\uploadify\uploadify.allglyphs.swf" />
+    <Content Include="Scripts\uploadify\uploadify.css" />
+    <Content Include="Scripts\uploadify\uploadify.swf" />
+    <Content Include="Scripts\uploadify\uploadifySelect.png" />
+    <Content Include="Scripts\wmd-1.0-136\images\wmd-buttons.png" />
+    <Content Include="Scripts\wmd-1.0-136\Img\wmd-buttons2.png" />
+    <Content Include="Scripts\wmd-1.0-136\Img\wmd-buttons.png" />
+    <Content Include="Scripts\wmd-1.0-136\mit license.txt" />
+    <Content Include="Scripts\wmd-1.0-136\pasteme.txt" />
+    <Content Include="Scripts\wmd-1.0-136\readme.txt" />
+    <Content Include="Scripts\wmd-1.0-136\showdown.js" />
+    <Content Include="Scripts\wmd-1.0-136\tdwmd.css" />
+    <Content Include="Scripts\wmd-1.0-136\Uservoice bugs.txt" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\apiExample.html" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\minimalExample.html" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\optionsExample.html" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\readme.txt" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\bg-fill.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\bg.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\blockquote.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\bold.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\code.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\h1.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\hr.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\img.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\italic.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\link.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\ol.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\redo.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\separator.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\ul.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\undo.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\wmd-on.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\wmd.png" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\showdown.js" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\wmd-base.js" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\wmd-plus.js" />
+    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\wmd.js" />
+    <Content Include="Scripts\wmd-1.0-136\wmd-test.html" />
+    <Content Include="Scripts\wmd-1.0-136\wmd.css" />
+    <Content Include="Scripts\wmd-1.0-136\wmd.js" />
+    <Content Include="Views\Account\ChangePreferences.aspx" />
+    <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
+    <Content Include="Views\Account\MyAccount.aspx" />
+    <Content Include="Views\Account\Shared\MyAccountMiniNav.ascx" />
+    <Content Include="Views\NewTicket\Create.aspx" />
+    <Content Include="Views\TicketCenter\Controls\FilterBar.ascx" />
+    <Content Include="Views\TicketCenter\Controls\ListViewMenu.ascx" />
+    <Content Include="Views\TicketCenter\Controls\TicketList.ascx" />
+    <Content Include="Views\TicketCenter\Controls\TicketListItem.ascx" />
+    <Content Include="Views\TicketCenter\TicketCenter.aspx" />
+    <Content Include="Views\TicketEditor\Controls\ActivityButtons.ascx" />
+    <Content Include="Views\TicketEditor\Controls\ActivityHistory.ascx" />
+    <Content Include="Views\TicketEditor\Controls\AddComment.ascx" />
+    <Content Include="Views\TicketEditor\Controls\Assign.ascx" />
+    <Content Include="Views\TicketEditor\Controls\Attachments.ascx" />
+    <Content Include="Views\TicketEditor\Controls\CancelMoreInfo.ascx" />
+    <Content Include="Views\TicketEditor\Controls\Close.ascx" />
+    <Content Include="Views\TicketEditor\Controls\Details.ascx" />
+    <Content Include="Views\TicketEditor\Controls\EditTicketInfo.ascx" />
+    <Content Include="Views\TicketEditor\Controls\ForceClose.ascx" />
+    <Content Include="Views\TicketEditor\Controls\GiveUp.ascx" />
+    <Content Include="Views\TicketEditor\Controls\ModifyAttachments.ascx" />
+    <Content Include="Views\TicketEditor\Controls\ReOpen.ascx" />
+    <Content Include="Views\TicketEditor\Controls\RequestMoreInfo.ascx" />
+    <Content Include="Views\TicketEditor\Controls\Resolve.ascx" />
+    <Content Include="Views\TicketEditor\Controls\SupplyMoreInfo.ascx" />
+    <Content Include="Views\TicketEditor\Controls\TakeOver.ascx" />
+    <Content Include="Views\TicketEditor\Controls\TicketStats.ascx" />
+    <Content Include="Views\TicketEditor\Display.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\Account\ChangePassword.aspx" />
+    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
+    <Content Include="Views\Account\LogOn.aspx" />
+    <Content Include="Views\Account\Register.aspx" />
+    <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Domain\TicketDesk.Domain.csproj">
+      <Project>{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}</Project>
+      <Name>TicketDesk.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Shared\MyAccount.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\expandcollapseArrorSmall..psd" />
+    <None Include="Content\statusFlag.psd" />
+    <Content Include="SqlWeb.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SqlWeb.Debug.config">
+      <DependentUpon>SqlWeb.config</DependentUpon>
+    </Content>
+    <Content Include="SqlWeb.Release.config">
+      <DependentUpon>SqlWeb.config</DependentUpon>
+    </Content>
+    <Content Include="ADWeb.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ADWeb.Debug.config">
+      <DependentUpon>ADWeb.config</DependentUpon>
+    </Content>
+    <Content Include="ADWeb.Release.config">
+      <DependentUpon>ADWeb.config</DependentUpon>
+    </Content>
+    <None Include="Helpers\T4MVC\T4MVC.settings.t4" />
+    <None Include="Helpers\T4MVC\T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-autocomplete\demo\emails.php" />
+    <None Include="Scripts\jquery-autocomplete\demo\emails.phps" />
+    <None Include="Scripts\jquery-autocomplete\demo\images.php" />
+    <None Include="Scripts\jquery-autocomplete\demo\search.php" />
+    <None Include="Scripts\jquery-autocomplete\demo\search.phps" />
+    <None Include="Scripts\jquery-autocomplete\todo" />
+    <None Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\INSTALL" />
+    <None Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\LICENSE" />
+    <None Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\REQUIREMENTS" />
+    <None Include="Scripts\openlibrary-wmd-master\images\wmd-buttons.psd" />
+    <None Include="Scripts\openlibrary-wmd-master\jsmin.py" />
+    <None Include="Scripts\openlibrary-wmd-master\Makefile" />
+    <None Include="Scripts\openlibrary-wmd-master\Readme.md" />
+    <None Include="Scripts\uploadify\check.php" />
+    <None Include="Scripts\uploadify\Uploadify v2.1.0 Manual.pdf" />
+    <None Include="Scripts\uploadify\uploadify.fla" />
+    <None Include="Scripts\uploadify\uploadify.php" />
+    <None Include="Scripts\wmd-1.0-136\images\wmd-buttons.psd" />
+    <None Include="Scripts\wmd-1.0-136\markdown 1.0.1\License.text" />
+    <None Include="Scripts\wmd-1.0-136\markdown 1.0.1\Markdown Readme.text" />
+    <None Include="Scripts\wmd-1.0-136\markdown 1.0.1\Markdown.pl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2534</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

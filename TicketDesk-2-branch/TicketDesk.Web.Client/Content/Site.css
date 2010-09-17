@@ -1,0 +1,749 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+body
+{
+    background-color: #F2F2F2;
+    font-size: 8.5pt;
+    
+    font-family: Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+    color: #555;
+}
+
+a:link
+{
+    color: #14498D;
+    text-decoration: underline;
+}
+a:visited
+{
+    color: #505abc;
+}
+a:hover
+{
+    color: #1d60ff;
+    text-decoration: none;
+}
+a:active
+{
+    color: #12eb87;
+}
+
+p, ul
+{
+    line-height: 1.4em;
+}
+
+img
+{
+    border: 0;
+}
+
+code
+{
+    font-family: Courier New,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono;
+}
+pre
+{
+    padding: 10px;
+    background-color: #FFFFCC;
+}
+
+/* HEADINGS   
+----------------------------------------------------------*/
+h1
+{
+    font-size: 2em;
+   
+}
+h2
+{
+   font-size: 1.5em;
+}
+h3
+{
+    font-size: 1.2em;
+}
+h4
+{
+    font-size: 1.1em;
+}
+h5
+{
+    font-size: 1em;
+}
+h6
+{
+    font-size: 0.9em;
+}
+
+/* this rule styles <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
+{
+    margin-top: 0;
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+/* you can specify a greater or lesser percentage for the 
+page width. Or, you can specify an exact pixel width. */
+.page
+{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header
+{
+    position: relative;
+    margin-bottom: 0px;
+    color: #000;
+    padding: 0px 20px 0px 20px;
+}
+
+#header h1
+{
+    font-weight: bold;
+    padding: 5px 0;
+    margin: 0;
+    color: #1C3D60;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px !important;
+}
+
+#main
+{
+    border-top: solid 8px #134A8A;
+    margin: 3px 0px 30px 0px;
+    _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
+}
+
+#footer
+{
+    color: #999;
+    padding: 10px 0;
+    text-align: center;
+    line-height: normal;
+    margin: 0;
+    font-size: .9em;
+}
+
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu
+{
+    border-bottom: 1px #EBEBEB solid;
+    position: relative;
+    margin: 0;
+    text-align: right;
+    padding: 0;
+}
+
+ul#menu li
+{
+    display: inline;
+    list-style: none;
+    margin-right:2px;
+}
+
+ul#menu li#greeting
+{
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+ul#menu li a
+{
+    padding: 7px 14px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #134A8A;
+    color: #fff;
+}
+
+ul#menu li a:hover
+{
+    background-color: #999999;
+    text-decoration: none;
+}
+
+ul#menu li a:active
+{
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#menu li.selected a
+{
+    background-color: #fff;
+    color: #000;
+}
+
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid #CCC;
+}
+
+fieldset p
+{
+    margin: 2px 12px 10px 10px;
+}
+
+legend
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+input[type="text"]
+{
+    width: 200px;
+    border: 1px solid #CCC;
+}
+
+input[type="password"]
+{
+    width: 200px;
+    border: 1px solid #CCC;
+}
+
+/* TABLE
+----------------------------------------------------------
+
+table
+{
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table td
+{
+    padding: 5px;
+    border: solid 1px #e8eef4;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+}
+
+*/
+/* MISC  
+----------------------------------------------------------*/
+.clear
+{
+    clear: both;
+}
+
+.error
+{
+    color: Red;
+}
+
+#menucontainer
+{
+    margin-top: 40px;
+}
+
+div#title
+{
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+#logindisplay
+{
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    margin: 10px;
+    color: #1C3D60;
+}
+
+#logindisplay a:link
+{
+    color: #1C3D60;
+    text-decoration: underline;
+}
+
+#logindisplay a:visited
+{
+    color: #1C3D60;
+    text-decoration: underline;
+}
+
+#logindisplay a:hover
+{
+    color: #1C3D60;
+    text-decoration: none;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label, .editor-label, .display-field, .editor-field
+{
+    margin: 0.5em 0;
+}
+
+.text-box
+{
+    width: 30em;
+}
+
+.text-box.multi-line
+{
+    height: 6.5em;
+}
+
+.tri-state
+{
+    width: 6em;
+}
+
+/* TD Specific Styles
+----------------------------------------------------------*/
+
+
+.contentContainer
+{
+    width: 95%;
+    margin: auto;
+}
+.displayContainerOuter
+{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: #B3CBDF;
+}
+.displayContainerInner
+{
+    background-color: #fff;
+    border: solid 2px #B3CBDF;
+}
+
+
+.activityHeadWrapper
+{
+    background-color: #DFF8DC; 
+    border-bottom: solid 2px #134A8A
+}
+
+.activityHead
+{
+    font-weight: bold; 
+    color: #0B294F; 
+    padding: 8px;
+}
+
+.activityBody
+{
+    background-color: #fff; 
+    padding: 3px 3px 8px 3px;
+}
+
+.activityButton, input.activityButton
+{
+    display:block;
+    font-family: Verdana, Helvetica, Sans-Serif;
+    
+    margin-bottom:3px;
+    padding: 3px;
+    border: 1px ridge #000000;
+    color: #333;
+    background-color: #EBEBEB;
+    text-decoration: none;
+    text-align:center;
+}
+
+a:link.activityButton, a:visited.activityButton, a:active.activityButton
+{
+    color: #333;
+    text-decoration: none;
+}
+
+.activityButton:hover
+{
+    background-color: #999999;
+}
+
+.expanderButton
+{
+    cursor: pointer;
+    text-align: center;
+    background-image: url('expandDown.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+    background-color: #EBEBEB;
+}
+.expanderButton:hover
+{
+   
+    background-color: #999999;
+     background-image: url('expandDownActive.png');
+}
+
+.collapserButton
+{
+    cursor: pointer;
+    text-align: center;
+    background-image: url('collapseUp.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+    background-color: #EBEBEB;
+}
+
+.collapserButton:hover
+{
+    
+    background-color: #999999;
+    background-image: url('collapseUpActive.png');
+}
+
+
+/* SimpleTip's Default class*/
+.tooltip
+{
+    position: absolute;
+    padding: 5px 8px;
+    z-index: 2;
+    color: #303030;
+    background-color: #f5f5b5;
+    border: 1px solid #DECA7E;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+}
+
+/* TD Grid */
+.ticketListGridOddRow
+{
+    background-color: #EEF3F7;
+}
+
+.ticketListGridEvenRow
+{
+    /*background-color: #DFF8DC;*/
+}
+
+.ticketFilterBar
+{
+    padding: 5px;
+    border-bottom: solid 1px #B3CBDF;
+    background-color:#E1EBF2;
+}
+
+table.ticketListGrid
+{
+   
+    font-size:8.5pt;
+    border: solid 1px #B3CBDF;
+    border-collapse: collapse;
+}
+
+table.ticketListGrid td
+{
+    padding: 3px;
+    border: solid 1px #B3CBDF;
+    white-space: nowrap;
+}
+
+table.ticketListGrid th
+{
+    font-size:9pt;
+     white-space: nowrap;
+    height: 22px;
+    vertical-align: bottom;
+    padding: 4px;
+    text-align:center;
+    background-color: #FFFFDD;
+    border: solid 1px #B3CBDF;
+    font-weight:normal;
+}
+
+table.ticketListGrid th a
+{
+   
+    text-decoration:none;
+}
+
+
+ul#submenu
+{
+    padding: 0;
+    position: relative;
+    margin: 0;
+}
+
+ul#submenu li
+{
+    display: inline;
+    list-style: none;
+    margin-right:4px;
+}
+
+
+
+ul#submenu li a
+{
+    padding: 5px 8px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2em;
+    background-color: #E8EEF4;
+    color: #14498D;
+    border-top: solid 2px #B7CEED;
+    border-left: solid 2px #B7CEED;
+    border-right: solid 2px #B7CEED;
+}
+
+ul#submenu li a:hover
+{
+    background-color: #fff;
+    text-decoration: none;
+}
+
+ul#submenu li a:active
+{
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#submenu li.selected a
+{
+    background-color: #DFF8DC;
+    color: #14498D;
+    border-top: solid 2px #B3CBDF;
+    border-left: solid 2px #B3CBDF;
+    border-right: solid 2px #B3CBDF;
+
+}
+
+/* MvcPaging Classes */
+.pageNumbers
+{
+    display: inline;
+    margin: 0px;
+}
+.pageNumbers li
+{
+    display: inline;
+    padding: 3px;
+}
+.selectedPageNumber
+{
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* TD Form Layout*/
+
+.formatTable
+{
+    
+}
+
+.formatTable tbody tr th
+{
+    text-align: right;
+    padding: 7px 3px 3px 3px;
+    color: #134A8A;
+    vertical-align:top;
+    white-space:nowrap;
+    font-weight:normal;
+}
+
+.formatTable tbody tr td
+{
+    padding: 3px;
+    vertical-align:top;
+}
+
+.formatTable tbody tr td.textField
+{
+    padding: 7px 3px 3px 3px;
+}
+
+/* File Attachment Containers */
+.PendingFileAttachmentItemContainer
+{
+    
+    background-color: #FFC862;
+    border: solid 1px #666666;
+    list-style: none;
+    max-width: 700px;
+}
+
+.FileAttachmentItemContainer
+{
+    
+    border: solid 1px #666666;
+    background-color: #CCFFCC;
+    list-style: none;
+    max-width: 700px;
+}
+
+.FileAttachmentItemContainer label, .PendingFileAttachmentItemContainer label
+{
+    display: inline;
+}
+
+
+/* TicketEditor */
+.historyTable
+{
+    border-collapse:collapse;
+    margin:10px;
+    width:98%;
+}
+
+.historyTable th, .historyTable td
+{
+    padding:3px;
+    border: solid 1px #B3CBDF;
+    vertical-align:top;
+   
+}
+
+.historyTable th
+{
+    font-weight:normal;
+  
+    color: #134A8A;
+    
+    
+    white-space:nowrap;
+}
+
+td.historyTableSeperator
+{
+    border:none;
+    height:10px;
+    padding:0px;
+}
+
+th.myComment
+{
+    background-color: #DFF8DC;
+}
+
+th.staffComment
+{
+    background-color: #FFFFDD;
+    
+}
+
+th.userComment
+{
+    background-color: #E1EBF2;
+}
+
+td.commentBody
+{
+    padding-left:25px;
+}
+
+
+
+.commentContainer
+{
+     min-height: 145px;
+}
+
+.activityFieldsContainer
+{
+    padding: 3px 3px 5px 3px;
+}
+
+.activityFieldsContainer label
+{
+    padding-top:5px;
+}
+
+.activityFieldsContainer input
+{
+    padding: 0;
+}
+
+.fieldSubText
+{
+    font-size:8pt;
+    color:#999;
+    margin-left:25px;
+}
+.activeFlag
+{
+    background-color:#134A8A;
+}
+
+.moreinfoFlag
+{
+    background-color: #842212;
+}
+
+.resolvedFlag
+{
+    background-color: #ED9017;
+}
+
+.closedFlag
+{
+    background-color: #8A8989;
+}
