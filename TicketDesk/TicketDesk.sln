@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk", "TicketDesk\TicketDesk.csproj", "{C2F4A0B6-4ADA-499D-A2CB-9D2BC25514AE}"
 EndProject
 Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "TicketDesk.csproj_deploy", "TicketDesk.csproj_deploy\TicketDesk.csproj_deploy.wdproj", "{90585EB6-3A33-4070-8BD7-19F0F0D0C269}"
@@ -11,7 +11,7 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs03.codeplex.com/
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = TicketDesk\\TicketDesk.csproj
 		SccProjectName1 = TicketDesk
