@@ -5,7 +5,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using MvcPaging;
+using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Repositories;
 using TicketDesk.Domain.Utilities;
@@ -67,7 +67,7 @@ namespace TicketDesk.Domain.Services
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="listSettings">The list settings.</param>
         /// <returns></returns>
-        public IPageOfList<Ticket> ListTickets(int pageIndex, TicketCenterListSettings listSettings)
+        public IPagination<Ticket> ListTickets(int pageIndex, TicketCenterListSettings listSettings)
         {
             //TODO: Handle this in controllers
             if (!CheckSecurityForTicketActivity(null, TicketActivity.GetTicketInfo))

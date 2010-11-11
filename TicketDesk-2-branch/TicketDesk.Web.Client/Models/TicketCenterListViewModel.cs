@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using MvcPaging;
+using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Services;
 
@@ -16,7 +16,7 @@ namespace TicketDesk.Web.Client.Models
         /// <param name="listName">Name of the list.</param>
         /// <param name="ticketsList">The tickets list.</param>
         /// <param name="serviceModel">The service model.</param>
-        public TicketCenterListViewModel(string listName, IPageOfList<Ticket> ticketsList, SettingsService settings, ISecurityService security)
+        public TicketCenterListViewModel(string listName, IPagination<Ticket> ticketsList, SettingsService settings, ISecurityService security)
         {
             Tickets = ticketsList;
             CurrentListSettings = settings.UserSettings.GetDisplayPreferences().GetPreferencesForList(listName);
@@ -35,7 +35,7 @@ namespace TicketDesk.Web.Client.Models
         /// Gets or (private) sets the list of tickets for the view.
         /// </summary>
         /// <value>The tickets.</value>
-        public IPageOfList<Ticket> Tickets { get; private set; }
+        public IPagination<Ticket> Tickets { get; private set; }
 
         public TicketCenterListSettings CurrentListSettings { get; private set; }
 

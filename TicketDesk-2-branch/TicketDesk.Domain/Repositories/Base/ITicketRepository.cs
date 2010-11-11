@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MvcPaging;
+using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Repositories
@@ -22,7 +22,7 @@ namespace TicketDesk.Domain.Repositories
         /// <param name="sortColumns">The sort columns.</param>
         /// <param name="filterColumns">The filter columns.</param>
         /// <returns></returns>
-        IPageOfList<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns);
+        IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns);
 
         /// <summary>
         /// Creates a new ticket.

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MvcPaging;
+using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Repositories;
 
@@ -26,7 +26,7 @@ namespace TicketDesk.Domain.Services
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="listSettings">The list settings.</param>
         /// <returns></returns>
-        IPageOfList<Ticket> ListTickets(int pageIndex, TicketCenterListSettings listSettings);
+        IPagination<Ticket> ListTickets(int pageIndex, TicketCenterListSettings listSettings);
 
 
         /// <summary>

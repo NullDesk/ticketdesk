@@ -4,11 +4,13 @@ using System.Web.Mvc;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Services;
 using TicketDesk.Web.Client.Models;
+using TicketDesk.Web.Client.Helpers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
 
     [HandleError]
+    [NoCache]
     [Export("TicketCenter", typeof(IController))]
     public partial class TicketCenterController : ApplicationController
     {
@@ -52,16 +54,15 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return RedirectToAction(MVC.TicketCenter.List(1, listName));
             }
-            var model = new TicketCenterListViewModel(listName, Tickets.ListTickets(p - 1, lp), Settings, Security);//Tickets.GetTicketCenterListViewModel(listName, Tickets.ListTickets(p - 1, lp));
+            var model = new TicketCenterListViewModel(listName, Tickets.ListTickets(p, lp), Settings, Security);
 
-            if (p > model.Tickets.TotalPageCount && p > 1)//total pages is 0 when no rows returned, so we only do this when requested page is not page 1.
+            if (p > model.Tickets.TotalPages && p > 1)//total pages is 0 when no rows returned, so we only do this when requested page is not page 1.
             {
-                return RedirectToAction(MVC.TicketCenter.List(model.Tickets.TotalPageCount, listName));
+                return RedirectToAction(MVC.TicketCenter.List(model.Tickets.TotalPages, listName));
             }
 
-            if ((TempData["IsRedirectFromAjax"] != null && (bool)TempData["IsRedirectFromAjax"] == true) || this.Request.IsAjaxRequest())
+            if (IsItReallyRedirectFromAjax())
             {
-
                 return PartialView(MVC.TicketCenter.Views.Controls.TicketList, model);
             }
 
@@ -93,7 +94,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             Settings.UserSettings.SaveDisplayPreferences(dp);
 
-            TempData["IsRedirectFromAjax"] = Request.IsAjaxRequest();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
+            TempData["IsRedirectFromAjax"] = IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
 
             return RedirectToAction(MVC.TicketCenter.List(null, listName));
         }
@@ -117,7 +118,7 @@ namespace TicketDesk.Web.Client.Controllers
             }
             Settings.UserSettings.SaveDisplayPreferences(dp);
 
-            TempData["IsRedirectFromAjax"] = Request.IsAjaxRequest();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
+            TempData["IsRedirectFromAjax"] = IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
             return RedirectToAction(MVC.TicketCenter.List(null, listName));
         }
 

@@ -30,6 +30,7 @@ public static class MVC {
     public static TicketDesk.Web.Client.Controllers.TagListController TagList = new TicketDesk.Web.Client.Controllers.T4MVC_TagListController();
     public static TicketDesk.Web.Client.Controllers.TicketCenterController TicketCenter = new TicketDesk.Web.Client.Controllers.T4MVC_TicketCenterController();
     public static TicketDesk.Web.Client.Controllers.TicketEditorController TicketEditor = new TicketDesk.Web.Client.Controllers.T4MVC_TicketEditorController();
+    public static TicketDesk.Web.Client.Controllers.TicketManagerController TicketManager = new TicketDesk.Web.Client.Controllers.T4MVC_TicketManagerController();
     public static TicketDesk.Web.Client.Controllers.UploaderController Uploader = new TicketDesk.Web.Client.Controllers.T4MVC_UploaderController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
@@ -459,6 +460,8 @@ namespace Links {
             public static readonly string REQUIREMENTS = Url("REQUIREMENTS");
         }
     
+        public static readonly string jquery_clickable_0_1_9_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.clickable-0.1.9.min.js") ? Url("jquery.clickable-0.1.9.min.js") : Url("jquery.clickable-0.1.9.js");
+                      
         public static readonly string jquery_hoverIntent_minified_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.hoverIntent.minified.min.js") ? Url("jquery.hoverIntent.minified.min.js") : Url("jquery.hoverIntent.minified.js");
                       
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");

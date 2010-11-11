@@ -4,13 +4,18 @@
 	 Ticket Center
 </asp:Content>
 <asp:Content ID="headContent" ContentPlaceHolderID="CustomHeadContent" runat="server">
+    <script src="<%= Links.Scripts.jquery_clickable_0_1_9_js %>" type="text/javascript"></script>
 
     <script type="text/javascript">
 
-        $("document").ready(function () { Corners(); });
-        function Corners() {
+        $("document").ready(function () { corners(); clicks() });
+        function corners() {
             $(".displayContainerInner").corner("bevel 6px").parent().css('padding', '4px').corner("round keep  12px");
+           
+        }
 
+        function clicks() {
+            $(".clickable").clickable();
         }
     </script>
 

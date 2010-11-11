@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
-using MvcPaging;
+using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Repositories
@@ -36,7 +36,7 @@ namespace TicketDesk.Domain.Repositories
         /// <param name="sortColumns">The sort columns.</param>
         /// <param name="filterColumns">The filter columns.</param>
         /// <returns></returns>
-        public IPageOfList<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns)
+        public IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns)
         {
             var q = ctx.Tickets;
 
@@ -74,7 +74,7 @@ namespace TicketDesk.Domain.Repositories
 
             string kString = string.Join(",", skeys);
 
-            return wq.OrderBy(kString).ToPageOfList(pageIndex, pageSize);
+            return wq.OrderBy(kString).AsPagination(pageIndex, pageSize);
         }
 
         /// <summary>

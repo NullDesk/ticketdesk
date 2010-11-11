@@ -352,6 +352,24 @@ div#title
     width: 6em;
 }
 
+.jsGuide, .jsGuide:link, .jsGuide:visited
+{
+    text-decoration: none;
+    color: #14498D;
+}
+
+.jsClickable
+{
+    cursor: pointer;
+   
+}
+.jsClickableHover, .jsClickable:hover
+{
+    background-color: #FFD280;
+}
+
+
+
 /* TD Specific Styles
 ----------------------------------------------------------*/
 

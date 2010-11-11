@@ -1,4 +1,4 @@
-﻿namespace MvcPaging
+﻿namespace TicketDesk.Web.Client.Helpers
 {
     public class PagerOptions
     {

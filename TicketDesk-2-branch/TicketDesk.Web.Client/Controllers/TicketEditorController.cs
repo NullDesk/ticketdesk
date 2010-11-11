@@ -11,6 +11,8 @@ using System.ComponentModel.Composition;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [HandleError]
+    [NoCache]
     [Export("TicketEditor", typeof(IController))]
     public partial class TicketEditorController : ApplicationController
     {
@@ -39,6 +41,7 @@ namespace TicketDesk.Web.Client.Controllers
 
 
         [Authorize]
+
         public virtual ActionResult Display(int id, string activity)
         {
             var model = Tickets.GetTicket(id);
@@ -77,11 +80,11 @@ namespace TicketDesk.Web.Client.Controllers
             //TODO: See about a filter for the security check
             if (!Tickets.CheckSecurityForTicketActivity(model, activityEn))
             {
-               // TODO: if this failed, it is probably because something changed to make the requested activity no longer available (ticket state changed),
-               //         need to show the error panel                        
+                // TODO: if this failed, it is probably because something changed to make the requested activity no longer available (ticket state changed),
+                //         need to show the error panel                        
                 if (IsItReallyRedirectFromAjax())
                 {
-                    TempData["IsRedirectFromAjax"] = Request.IsAjaxRequest();
+                    TempData["IsRedirectFromAjax"] =IsItReallyRedirectFromAjax();
                     return RedirectToAction(MVC.TicketEditor.Display(id, string.Empty));
                 }
             }
@@ -94,12 +97,12 @@ namespace TicketDesk.Web.Client.Controllers
             }
 
             return View(model);
-            
+
         }
 
         private void SetupActivityViewData(string activity, Ticket ticket)
         {
-            
+
             ViewData.Add("activity", activity);
             //TODO: Need a more elaborate way to map activity name to display name text
             var activityDisplayName = (activity == "ActivityButtons") ? "Choose Activity" : activity.ConvertPascalCaseToFriendlyString();
@@ -135,7 +138,7 @@ namespace TicketDesk.Web.Client.Controllers
             }
             else
             {
-                return RedirectToAction(MVC.TicketEditor.Display(id,string.Empty));
+                return RedirectToAction(MVC.TicketEditor.Display(id, string.Empty));
             }
         }
 
@@ -273,7 +276,7 @@ namespace TicketDesk.Web.Client.Controllers
             return PerformActivity(ticket, "EditTicketInfo", comment);
         }
 
-       
+
 
 
 
@@ -312,10 +315,7 @@ namespace TicketDesk.Web.Client.Controllers
             }
             if (ModelState.IsValid)
             {
-                if (IsItReallyRedirectFromAjax())
-                {
-                    TempData["IsRedirectFromAjax"] = Request.IsAjaxRequest();
-                }
+                TempData["IsRedirectFromAjax"] = IsItReallyRedirectFromAjax();
                 return RedirectToAction(MVC.TicketEditor.Display(model.TicketId, string.Empty));
             }
             else

@@ -7,18 +7,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvcContrib", "MvcContrib", "{4B68AE5A-390E-41FE-A39F-91610D9CC7EA}"
+	ProjectSection(SolutionItems) = preProject
+		Library\MvcContrib.dll = Library\MvcContrib.dll
+		Library\MvcContrib.XML = Library\MvcContrib.XML
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4MVCAutoRunner2010AddIn", "T4MVCAutoRunner2010AddIn", "{B6F19A7A-5C4B-4D7B-BCDE-E400C9A717B1}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\T4MVCAutoRunner2010AddIn.vsi = Tools\T4MVCAutoRunner2010AddIn.vsi
+		Tools\T4MVCAutoRunnerReadMe .txt = Tools\T4MVCAutoRunnerReadMe .txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
-		SccProjectUniqueName0 = TicketDesk.Domain\\TicketDesk.Domain.csproj
-		SccProjectName0 = TicketDesk.Domain
-		SccLocalPath0 = TicketDesk.Domain
-		SccProjectUniqueName1 = TicketDesk.Web.Client\\TicketDesk.Web.Client.csproj
-		SccProjectName1 = TicketDesk.Web.Client
-		SccLocalPath1 = TicketDesk.Web.Client
-		SccLocalPath2 = .
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TicketDesk.Domain\\TicketDesk.Domain.csproj
+		SccProjectName1 = TicketDesk.Domain
+		SccLocalPath1 = TicketDesk.Domain
+		SccProjectUniqueName2 = TicketDesk.Web.Client\\TicketDesk.Web.Client.csproj
+		SccProjectName2 = TicketDesk.Web.Client
+		SccLocalPath2 = TicketDesk.Web.Client
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +66,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B68AE5A-390E-41FE-A39F-91610D9CC7EA} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
+		{B6F19A7A-5C4B-4D7B-BCDE-E400C9A717B1} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

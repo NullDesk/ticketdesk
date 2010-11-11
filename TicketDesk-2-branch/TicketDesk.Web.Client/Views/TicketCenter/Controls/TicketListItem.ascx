@@ -6,10 +6,8 @@
     bool isOdd = (bool)ViewData["odd"];
     string rowClass = isOdd ? "ticketListGridOddRow" : "ticketListGridEvenRow";
 %>
-<tr class="<%= rowClass %>">
-    <td>
-        <a class="viewQtip" href='<%= Url.Action("Display", "TicketEditor", new { ID = Model.TicketId })%>'><img src='<%= Url.Content("~/Content/tcEdit.png")%>' title="" alt="view" /></a>
-    </td>
+<tr class="<%= rowClass %> clickable">
+    
     <td>
         <%: Model.TicketId%>
     </td>
@@ -17,7 +15,7 @@
         <%: Model.Type%>
     </td>
     <td style="white-space: normal; width: 100%;">
-        <%: Model.Title%>
+         <a  href='<%= Url.Action("Display", "TicketEditor", new { ID = Model.TicketId })%>'><%: Model.Title%></a>
     </td>
     <td>
         <%: Model.GetOwnerDisplayName(controller)%>

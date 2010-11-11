@@ -42,6 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcContrib">
+      <HintPath>..\Library\MvcContrib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -94,10 +97,14 @@
     <Compile Include="Controllers\TicketEditorController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\TicketManagerController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ActionFilters\NoCacheAttribute.cs" />
     <Compile Include="Helpers\ActionFilters\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Helpers\Attributes\FlashCompatibleAuthorizeAttribute.cs" />
     <Compile Include="Helpers\Extensions\IntExtensions.cs" />
@@ -110,11 +117,11 @@
     <Compile Include="Helpers\ModelBinders\TicketWithAttachmentsModelBinder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Paging\PagerBuilder.cs" />
+    <Compile Include="Helpers\Paging\PagerHelper.cs" />
+    <Compile Include="Helpers\Paging\PagerItem.cs" />
+    <Compile Include="Helpers\Paging\PagerOptions.cs" />
     <Compile Include="Helpers\SelectListUtility.cs" />
-    <Compile Include="Helpers\MvcPaging\PagerBuilder.cs" />
-    <Compile Include="Helpers\MvcPaging\PagerHelper.cs" />
-    <Compile Include="Helpers\MvcPaging\PagerItem.cs" />
-    <Compile Include="Helpers\MvcPaging\PagerOptions.cs" />
     <Compile Include="Helpers\SortableColumnHeader.cs" />
     <Compile Include="Helpers\T4MVC\AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -149,6 +156,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\T4MVC\TicketEditorController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\TicketManagerController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\T4MVC\UploaderController.generated.cs">
@@ -302,6 +312,7 @@
     <Content Include="Scripts\jquery-autocomplete\lib\thickbox-compressed.js" />
     <Content Include="Scripts\jquery-autocomplete\lib\thickbox.css" />
     <Content Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\jquery.qtip-1.0.0-beta3.1.min.js" />
+    <Content Include="Scripts\jquery.clickable-0.1.9.js" />
     <Content Include="Scripts\jquery.hoverIntent.minified.js" />
     <Content Include="Scripts\markitup-editor\images\body.png" />
     <Content Include="Scripts\markitup-editor\images\jaysalvat.png" />
@@ -475,6 +486,7 @@
     <Content Include="Views\TicketEditor\Controls\TakeOver.ascx" />
     <Content Include="Views\TicketEditor\Controls\TicketStats.ascx" />
     <Content Include="Views\TicketEditor\Display.aspx" />
+    <Content Include="Views\TicketManager\Index.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -568,7 +580,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

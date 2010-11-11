@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Web.Client.Models.TicketCenterListViewModel>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
-<%@ Import Namespace="MvcPaging" %>
 <%@ Import Namespace="TicketDesk.Domain.Models" %>
-
 <script type="text/javascript" src="<%= Links.Scripts.jquery_qtip_1_0_0_beta3_1020438.jquery_qtip_1_0_0_beta3_1_min_js %>"></script>
 
 <script type="text/javascript" src="<%= Links.Scripts.jquery_hoverIntent_minified_js %>"></script>
@@ -25,44 +23,6 @@
 <% } %>
 
 <script type="text/javascript">
-    Sys.Application.add_load(setupTips);
-
-    function setupTips() {
-        $('.viewQtip').each(function () {
-            $(this).qtip(
-            {
-                content: "View", //$(this).attr('qtitle'),
-                position:
-                {
-                    corner:
-                    {
-                        target: 'topRight',
-                        tooltip: 'leftBottom'
-                    }
-                },
-                style:
-                {
-                    padding: 8,
-                    tip:
-                    { // Now an object instead of a string
-                        corner: 'leftBottom', // We declare our corner within the object using the corner sub-option
-                        color: '#CEDBE8'
-
-                    },
-                    border:
-                    {
-                        width: 3,
-                        radius: 8,
-                        color: '#CEDBE8'
-                    }
-                },
-                show:
-                {
-                    delay: 400
-                }
-            });
-        });
-    }
 
     function beginChangeList(args) {
         $('#ticketList').fadeOut('fast');
@@ -71,7 +31,7 @@
     function completeChangeList() {
         // Animate
         $('#ticketList').fadeIn('fast');
-        setupTips();
+        clicks();
         setupFilterForm();
     }   
 </script>
@@ -89,7 +49,7 @@
     </div>
     <div>
         <table class="ticketListGrid" cellpadding="0" cellspacing="0" style="width: 100%;">
-            <% if (Model.Tickets.Count < 1)
+            <% if (Model.Tickets.Count() < 1)
                {
             %>
             <tbody>
@@ -106,8 +66,7 @@
             %>
             <thead>
                 <tr>
-                    <th>
-                    </th>
+                    
                     <th>
                         <%= Ajax.SortableColumnHeader(Html, Model.CurrentListSettings, "SortList", Model.CurrentListSettings.ListName, "TicketId", "ID", ajaxOptions)%>
                     </th>
@@ -142,12 +101,12 @@
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="11" style="text-align: right;">
-                        <%= Ajax.Pager(Model.Tickets as PageOfList<Ticket>, new PagerOptions { IndexParameterName = "page", ShowNumbers = true, PreviousText = "PREV", NextText = "NEXT" }, new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeList", OnSuccess = "completeChangeList", OnFailure="completeChangeList" })%>
+                    <th colspan="10" style="text-align: right;">
+                        <%= Ajax.Pager(Model.Tickets, new PagerOptions { IndexParameterName = "page", ShowNumbers = true, PreviousText = "PREV", NextText = "NEXT" }, new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeList", OnSuccess = "completeChangeList", OnFailure="completeChangeList" })%>
                         (page
-                        <%= Model.Tickets.PageIndex + 1%>
+                        <%= Model.Tickets.PageNumber%>
                         of
-                        <%= Model.Tickets.TotalPageCount%>)
+                        <%= Model.Tickets.TotalPages%>)
                     </th>
                 </tr>
             </tfoot>

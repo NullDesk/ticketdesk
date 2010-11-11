@@ -7,7 +7,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Web.Routing;
 
-namespace MvcPaging
+namespace TicketDesk.Web.Client.Helpers
 {
 
     internal class PagerBuilder

@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Authorize]
         [HttpPost]
         [ValidateInput(false)]
-        [ValidateOnlyIncomingValuesAttribute]
+        [ValidateOnlyIncomingValues]
         public virtual ActionResult Create
             (
                 [ModelBinder(typeof(TicketWithAttachmentsModelBinder))]

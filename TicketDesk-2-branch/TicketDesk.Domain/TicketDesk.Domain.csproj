@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MvcContrib">
+      <HintPath>..\Library\MvcContrib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -92,9 +95,6 @@
       <DependentUpon>TicketDeskEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TicketPartial.cs" />
-    <Compile Include="MvcPaging\IPageOfList.cs" />
-    <Compile Include="MvcPaging\PageLinqExtensions.cs" />
-    <Compile Include="MvcPaging\PageOfList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdSecurityRepository.cs" />
     <Compile Include="Repositories\ApplicationSettingsRepository.cs" />
