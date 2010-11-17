@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
-<% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketEditorController; %>
+<% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController; %>
 <div style="border-bottom: solid 2px #134A8A; margin-top: 0px;">
     <div style="color: #0B294F; background-color: #E1EBF2;">
         <table style="width: 100%;  font-size: 9pt;" cellpadding="0" cellspacing="0">

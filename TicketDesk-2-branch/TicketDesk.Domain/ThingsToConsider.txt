@@ -1,32 +1,62 @@
-﻿
-Repository Pattern:
-	Do we really need repositories between the services and the EF
-	model? 
+﻿Controller coupling with views:
 
-DataAnnotations for Friendly Names in List Output
+	Several features in views are using extension methods that require 
+	access to a controller. The general reason is because the controller
+	has access to instances of the back-end services like the sercurity
+	service. This coupling is ugly. In addition, it prevents the use of
+	several partials from other views that are tied to other controllers
+	than the one the partial was originaly built for (for example, the 
+	email templates can't render the ticketeditor partials as-is because
+	those partials expect to have access to a TicketEditorController, not
+	the EmailTemplateController). 
+	
+	In keeping with good MVC patterns, we need to de-couple the views and
+	controllers. For the most part, the stuff the views are invoking 
+	themselves should be supplied via a viewmodel, rather than the 
+	view having to invoke functionality to fetch the data itself. 
+	Otherwise, there should be a standard library of helpers that the views 
+	can invoke that are not tied to controller instances (perhapse they 
+	instantiate the necessary service instances themselves or whatever). 
+
+MvcContrib usage in Domain:
+
+	The goal was to avoid web specific functionality in the domain project 
+	keeping it free to back-end for Silverlight, WebForms, or web-service
+	front-ends too.
+	 
+	The paging stuff now uses paging classes from MvcContrib. The reference
+	to MvcContrib in this particular isolated case is probably fine, even if the
+	domain class lib were to be used in a windows client or silverlight 
+	environment, but this does come dangerously close to coupling the back-end
+	with a specific front-end expecatation, and makes it very easy for future 
+	development to leverage functionality from MvcContrib that IS coupled to 
+	an MVC environment. 
+
+	Need to eliminate the use of MvcContrib if possible and let the front-end
+	handle wrapping queries in pagable implentations if/when it needs it that
+	way. 
+	
+MEF Extensible Services Implemenation:
+
+	Security and the EmailHandler are setup as selectable MEF exports. The 
+	back-end can have multiple classes that can satisfy the imports, but the
+	system will leverage only the one type that is specified in the front-end.
+	This makes the system partially pluggable via MEF.
+
+	The idea here would be to move the built-in modules into seperate class-libs
+	as well and document how the extensibility can be used by other developers. 
+	This may also mean the domain project's interfaces (some or all) would need 
+	to be moved into a new class library as well so that custom modules would be
+	able to inherit the interfaces, without having to reference the entire domain
+	class lib directly.
+
+DataAnnotations for Friendly Names in List Output:
+
 	DataAnnotations allows you to flag fields with friendly names at 
 	the UI. See about replacing the code for the list settings and 
 	such that uses string manipulation and replace with one that 
 	leverages the names from DataAnnotations.
 	
-
-Paging:
-
-	1) need to really think about if sending IQueryable across 
-		the boundaries is a good idea or not. On the one hand
-		RIA services can handle a proxy for this, but in a 
-		traditional web service this will be horrible.
-
-	2) if we ARE going to send queryable across boundaries,
-		do we need to handle paging in the domain at all or should
-		we limit the services in the domain to just pre-filtering
-		and let the client handle the paging itself?
-
-	3) if we ARE NOT going to send queryable across boundaries,
-		what structure do we send to the client? It will need the
-		data for the page we asked for of course, but also summary
-		fields for total rows and such too.
-
 Security:
 
 	1) Current User Name property - this seems weak-sauce; sort of 
@@ -47,25 +77,6 @@ Security:
 	    with a hand-rolled (non-provider) based system. Handle
 		List settings and such directly in the DB and via EF. 
 
-MEF:
-
-	1) Singleton Policy - Are the domain services thread safe-enough
-		to operate with the default PartCreationPolicy?
-
-		My concerns are:
-			1) thread safety on multiple user request threads
-			2) EF ObjectContext being held open so long for 
-				each repository. On this score, we could either
-				re-create ctx each time, use a cache object to
-				keep ctx only for a specified time frame, or
-				centralize access to the object contexts between
-				multiple repositories and share a single instance
-				(cached and expired if that works too).
-
-	2) See about a MEF based extension framework for the security 
-		provider.
-
-
 Validation: 
 
 	The rules based Validation in TicketSerivce with methods like 
@@ -74,7 +85,6 @@ Validation:
 		do still need to check with data annotations in the service 
 		before we commit the records just in case someone is actually
 		trying a hack or what not. 
-
 
 UI:
 
@@ -95,25 +105,27 @@ Editors
 	and have the runtime choose the correct plug-in based on a merge
 	of user and system preferences.
 	
- AD Security Repository
+ AD Repository
 
-	The repository is setup with two static caches; one for user 
-	properties, and the other for group member lists. Both caches are
-	cleared in 5 minutes. The problem is that the caches, though static
-	are both built from code in instance methods. There are dependencies
-	on MEF exports for the AD account info in the instance ctor. 
+	The AD repository still needs major re-factoring for performance.
+	Initial beta testing shows that this system, though comparable to 
+	1.x, is still too slow and has problems when AD is unavailable. 
 
-	What needs to happen is this:
+	The ideal solution would be to cache the AD values and information 
+	in SQL; an automated timer driven mechanism would periodically 
+	rebuild/refresh the SQL cache. The actual repository that is 
+	feeding the user requests would use only the cache stored in SQL. 
+	This could increase staleness for the AD data, but realistically 
+	that data isn't that essential and changes very infrequently 
+	(if ever). 
+	
+	This kind of local-store would also prevent the application from 
+	blowing-up when and if AD becomes unavailable for a while.
 
-	1) use static member imports for the AD account stuff 
-	2) populate caches using static methods instead of instance methods
-	3) add callbacks that re-initialize the caches when they expire 
-	automatically (this will happen outside a user-scope if everything is
-	done via static methods and such). 
-	4) add application initialization code to go ahead and pre-fetch those
-	large member lists from AD so the users don't get a perf hit on first
-	access.
-
+	The tricky part would be ensuring that the SQL cache mechanism knows 
+	about EVERY user that it needs to refresh on, without necessarily having
+	to table-scan every table that could contain user name looking for all 
+	possible distinct values before it can do a lookup in AD. 
 
 Authorization:
 
