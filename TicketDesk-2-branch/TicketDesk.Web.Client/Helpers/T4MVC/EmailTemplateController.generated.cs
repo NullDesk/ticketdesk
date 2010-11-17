@@ -54,7 +54,8 @@ namespace TicketDesk.Web.Client.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string HtmlEmailTemplate = "~/Views/EmailTemplate/HtmlEmailTemplate.ascx";
+            public readonly string TicketNotificationHtmlEmailTemplate = "~/Views/EmailTemplate/TicketNotificationHtmlEmailTemplate.ascx";
+            public readonly string TicketNotificationTextEmailTemplate = "~/Views/EmailTemplate/TicketNotificationTextEmailTemplate.ascx";
         }
     }
 

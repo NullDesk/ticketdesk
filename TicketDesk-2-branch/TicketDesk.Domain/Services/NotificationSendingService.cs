@@ -23,6 +23,7 @@ namespace TicketDesk.Domain.Services
             [Import("BlindCopyToEmailAddress")] Func<string> getBlindCopyToEmailAddressMethod,
             [Import("EmailServiceName")]Func<string> getEmailServiceNameMethod,
             [Import("TicketNotificationHtmlEmailContent")]  Func<TicketEventNotification, string, int, string> getTicketNotificationHtmlEmailContentMethod,
+            [Import("TicketNotificationTextEmailContent")]  Func<TicketEventNotification, string, int, string> getTicketNotificationTextEmailContentMethod,
             [ImportMany(typeof(IEmailHandlerService))]IEmailHandlerService[] emailHandlers,
             INotificationRepository notificationRepository
         )
@@ -36,6 +37,7 @@ namespace TicketDesk.Domain.Services
             GetFromEmailAddress = getFromEmailAddressMethod;
             GetBlindCopyToEmailAddress = getBlindCopyToEmailAddressMethod;
             GetTicketNotificationHtmlEmailContent = getTicketNotificationHtmlEmailContentMethod;
+            GetTicketNotificationTextEmailContent = getTicketNotificationTextEmailContentMethod;
             GetEmailServiceName = getEmailServiceNameMethod;
             EmailHandlers = emailHandlers;
         }
@@ -49,6 +51,7 @@ namespace TicketDesk.Domain.Services
         public Func<string> GetBlindCopyToEmailAddress { get; private set; }
 
         public Func<TicketEventNotification, string, int, string> GetTicketNotificationHtmlEmailContent { get; private set; }
+        public Func<TicketEventNotification, string, int, string> GetTicketNotificationTextEmailContent { get; private set; }
 
         Func<string> GetEmailServiceName { get; set; }
 
@@ -350,9 +353,9 @@ namespace TicketDesk.Domain.Services
             return GetTicketNotificationHtmlEmailContent(note, url, minComment);
         }
 
-        private string GetTextBody(TicketEventNotification note, string url, string p, int minComment)
+        private string GetTextBody(TicketEventNotification note, string url, string notifyUser, int minComment)
         {
-            return "text body";
+            return GetTicketNotificationTextEmailContent(note, url, minComment);
         }
 
 

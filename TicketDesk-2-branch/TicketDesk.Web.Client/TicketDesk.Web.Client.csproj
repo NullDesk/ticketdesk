@@ -113,6 +113,7 @@
     <Compile Include="Helpers\Extensions\TicketExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Helpers\ModelBinders\AttachmentsModelBinder.cs" />
     <Compile Include="Helpers\ModelBinders\ModifiedTicketModelBinder.cs" />
     <Compile Include="Helpers\ModelBinders\TicketWithAttachmentsModelBinder.cs">
@@ -466,7 +467,8 @@
     <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
     <Content Include="Views\Account\MyAccount.aspx" />
     <Content Include="Views\Account\Shared\MyAccountMiniNav.ascx" />
-    <Content Include="Views\EmailTemplate\HtmlEmailTemplate.ascx" />
+    <Content Include="Views\EmailTemplate\TicketNotificationTextEmailTemplate.ascx" />
+    <Content Include="Views\EmailTemplate\TicketNotificationHtmlEmailTemplate.ascx" />
     <Content Include="Views\NewTicket\Create.aspx" />
     <Content Include="Views\TicketCenter\Controls\FilterBar.ascx" />
     <Content Include="Views\TicketCenter\Controls\ListViewMenu.ascx" />

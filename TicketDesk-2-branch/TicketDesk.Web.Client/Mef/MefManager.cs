@@ -88,7 +88,14 @@ namespace TicketDesk.Web.Client
         protected string TicketNotificationHtmlEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, string urlForTicket, int firstUnsentCommentId)
         {
             var controller = new EmailTemplateController();
-            return controller.GenerateTicketNotificationHtmlEmail(notification);
+            return controller.GenerateTicketNotificationHtmlEmailBody(notification, urlForTicket, firstUnsentCommentId);
+        }
+
+        [Export("TicketNotificationTextEmailContent")]
+        protected string TicketNotificationTexxtEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, string urlForTicket, int firstUnsentCommentId)
+        {
+            var controller = new EmailTemplateController();
+            return controller.GenerateTicketNotificationTextEmailBody(notification, urlForTicket, firstUnsentCommentId);
         }
 
     }
