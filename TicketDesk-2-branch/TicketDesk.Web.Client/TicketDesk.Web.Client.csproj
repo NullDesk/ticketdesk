@@ -85,6 +85,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\EmailTemplateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarkdownController.cs">
       <SubType>Code</SubType>
@@ -132,6 +133,9 @@
     <Compile Include="Helpers\T4MVC\AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\T4MVC\EmailTemplateController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\T4MVC\HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -169,6 +173,7 @@
     <Compile Include="Mef\FilteredCatalog.cs" />
     <Compile Include="Mef\MefControllerFactory.cs" />
     <Compile Include="Mef\MefHttpApplication.cs" />
+    <Compile Include="Mef\TestHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ApplicationSettingsServiceBaseExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
@@ -461,6 +466,7 @@
     <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
     <Content Include="Views\Account\MyAccount.aspx" />
     <Content Include="Views\Account\Shared\MyAccountMiniNav.ascx" />
+    <Content Include="Views\EmailTemplate\HtmlEmailTemplate.ascx" />
     <Content Include="Views\NewTicket\Create.aspx" />
     <Content Include="Views\TicketCenter\Controls\FilterBar.ascx" />
     <Content Include="Views\TicketCenter\Controls\ListViewMenu.ascx" />

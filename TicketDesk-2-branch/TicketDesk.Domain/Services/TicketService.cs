@@ -25,7 +25,7 @@ namespace TicketDesk.Domain.Services
         /// </summary>
         /// <param name="ticketRepository">The ticket repository.</param>
         [ImportingConstructor]
-        public TicketService(ISecurityService securityService, ITicketRepository ticketRepository, INotificationService notificationService)
+        public TicketService(ISecurityService securityService, ITicketRepository ticketRepository, INotificationQueuingService notificationService)
         {
             Security = securityService;
             Repository = ticketRepository;
@@ -35,7 +35,7 @@ namespace TicketDesk.Domain.Services
 
         #region ITicketService Members
 
-        public INotificationService Notification { get; private set; }
+        public INotificationQueuingService Notification { get; private set; }
 
         public ISecurityService Security { get; private set; }
 

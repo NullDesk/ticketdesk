@@ -24,6 +24,7 @@ using T4MVC;
 public static class MVC {
     public static TicketDesk.Web.Client.Controllers.AccountController Account = new TicketDesk.Web.Client.Controllers.T4MVC_AccountController();
     public static TicketDesk.Web.Client.Controllers.AttachmentController Attachment = new TicketDesk.Web.Client.Controllers.T4MVC_AttachmentController();
+    public static TicketDesk.Web.Client.Controllers.EmailTemplateController EmailTemplate = new TicketDesk.Web.Client.Controllers.T4MVC_EmailTemplateController();
     public static TicketDesk.Web.Client.Controllers.HomeController Home = new TicketDesk.Web.Client.Controllers.T4MVC_HomeController();
     public static TicketDesk.Web.Client.Controllers.MarkdownController Markdown = new TicketDesk.Web.Client.Controllers.T4MVC_MarkdownController();
     public static TicketDesk.Web.Client.Controllers.NewTicketController NewTicket = new TicketDesk.Web.Client.Controllers.T4MVC_NewTicketController();

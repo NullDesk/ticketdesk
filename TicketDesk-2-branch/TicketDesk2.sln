@@ -11,7 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{3F60AD4A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvcContrib", "MvcContrib", "{4B68AE5A-390E-41FE-A39F-91610D9CC7EA}"
 	ProjectSection(SolutionItems) = preProject
+		Library\Moq.dll = Library\Moq.dll
 		Library\MvcContrib.dll = Library\MvcContrib.dll
+		Library\MvcContrib.TestHelper.dll = Library\MvcContrib.TestHelper.dll
+		Library\MvcContrib.TestHelper.pdb = Library\MvcContrib.TestHelper.pdb
 		Library\MvcContrib.XML = Library\MvcContrib.XML
 	EndProjectSection
 EndProject
