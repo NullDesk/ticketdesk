@@ -21,9 +21,27 @@ body
     color: #555;
 }
 
-a, a * {    color: #14498D;    padding:2px;
-    -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;        -moz-transition: color 0.35s linear;    -o-transition: color 0.35s linear;    -webkit-transition: color 0.35s linear;    transition: color 0.35s linear;}
-a:hover, a:hover * {    background-color: #999999;    color: #FFFFFF;    text-decoration: none;    text-shadow: 1px 1px 1px #335;}
+a, a * {
+    color: #14498D;
+    padding:2px;
+    -moz-transition: background-color 0.35s linear;
+    -o-transition: background-color 0.35s linear;
+    -webkit-transition: background-color 0.35s linear;
+    transition: background-color 0.35s linear;
+    
+    -moz-transition: color 0.35s linear;
+    -o-transition: color 0.35s linear;
+    -webkit-transition: color 0.35s linear;
+    transition: color 0.35s linear;
+}
+
+a:hover, a:hover * {
+    background-color: #999999;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #335;
+}
+
 
 p, ul
 {
@@ -158,7 +176,12 @@ ul#menu li a
 {
     background-color: #134A8A;
     color: #fff;
-    -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;        
+    -moz-transition: background-color 0.35s linear;
+    -o-transition: background-color 0.35s linear;
+    -webkit-transition: background-color 0.35s linear;
+    transition: background-color 0.35s linear;
+    
+    
     padding: 7px 14px;
     font-weight: bold;
     text-decoration: none;
@@ -327,9 +350,15 @@ div#title
 
 .jsClickable
 {
-     -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;
+     -moz-transition: background-color 0.35s linear;
+    -o-transition: background-color 0.35s linear;
+    -webkit-transition: background-color 0.35s linear;
+    transition: background-color 0.35s linear;
     
-    -moz-transition: color 0.35s linear;    -o-transition: color 0.35s linear;    -webkit-transition: color 0.35s linear;    transition: color 0.35s linear;
+    -moz-transition: color 0.35s linear;
+    -o-transition: color 0.35s linear;
+    -webkit-transition: color 0.35s linear;
+    transition: color 0.35s linear;
     cursor: pointer;
 }
 .jsClickableHover, .jsClickable:hover
@@ -481,7 +510,7 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 
 table.ticketListGrid
 {
-    font-size: 8.5pt;
+    font-size:10pt;
     border: solid 1px #B3CBDF;
     border-collapse: collapse;
 }
@@ -530,7 +559,12 @@ ul#submenu li
 
 ul#submenu li a
 {
-     -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;      
+     -moz-transition: background-color 0.35s linear;
+    -o-transition: background-color 0.35s linear;
+    -webkit-transition: background-color 0.35s linear;
+    transition: background-color 0.35s linear;
+    
+  
     padding: 5px 8px;
     font-weight: bold;
     text-decoration: none;

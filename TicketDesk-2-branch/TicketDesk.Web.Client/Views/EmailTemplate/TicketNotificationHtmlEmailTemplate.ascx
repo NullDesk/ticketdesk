@@ -36,7 +36,6 @@
             color: #12eb87;
         }
         
-        
         .activityHeadWrapper
         {
             background-color: #DFF8DC;
@@ -50,7 +49,6 @@
         }
         .activityBody
         {
-            
             padding: 3px 3px 8px 3px;
         }
         .activityFieldsContainer
@@ -83,8 +81,6 @@
             padding: 4px 3px 3px 3px;
         }
         
-        
-        
         div.ticketDetailsHeaderOuter
         {
             border-bottom: solid 2px #134A8A;
@@ -107,42 +103,51 @@
             font-weight: bold;
             padding: 5px;
         }
+        
         td.ticketDetailsHeaderPriority
         {
             padding: 5px;
         }
+        
         td.ticketDetailsHeaderPriority div
         {
             float: right;
         }
+        
         tr.ticketDetailsHeaderTitle
         {
             height: 45px;
         }
+        
         tr.ticketDetailsHeaderTitle td
         {
             padding: 3px 8px 8px 20px;
         }
+        
         .ticketDetailsHeaderInfo
         {
-            font-size:8pt;
+            font-size: 8pt;
             background-color: #EEF3F7;
         }
+        
         .ticketDetailsHeaderInfoTable
         {
             width: 100%;
             color: #444;
             font-size: 9pt;
         }
+        
         .ticketDetailsHeaderInfoLabel
         {
             white-space: nowrap;
             text-align: right;
         }
+        
         .ticketDetailsHeaderInfoText
         {
             white-space: nowrap;
         }
+        
         td.ticketDetailsHeaderTagsArea
         {
             width: 100%;
@@ -152,11 +157,13 @@
             text-align: right;
             width: 100%;
         }
+        
         div.ticketDetailsOuter
         {
             background-color: #fff;
             padding-bottom: 0px;
         }
+        
         div.ticketDetailsInner
         {
         }
@@ -183,6 +190,7 @@
             width: 20px;
             border-right: solid 1px #B3CBDF;
         }
+        
         .activeFlag
         {
             background-color: #134A8A;
@@ -204,66 +212,65 @@
         }
         
         .historyTable
-{
-    border-collapse: collapse;
-    margin: 5px;
-    width: 98%;
-}
-
-.historyTable th, .historyTable td
-{
-    padding: 3px;
-    border: solid 1px #B3CBDF;
-    vertical-align: top;
-}
-
-.historyTable th
-{
-    font-weight: normal;
-    font-size:9pt;
-    color: #134A8A;
-    white-space: nowrap;
-}
-
-td.historyTableSeperator
-{
-    border: none;
-    height: 5px;
-    padding: 0px;
-}
-
-th.myComment
-{
-    background-color: #DFF8DC;
-}
-
-th.staffComment
-{
-    background-color: #FFFFDD;
-}
-
-th.userComment
-{
-    background-color: #E1EBF2;
-}
-
-td.commentBody
-{
-    padding-left: 25px;
-}
-
-
-
-.commentContainer
-{
-    min-height: 145px;
-}
-.fieldSubText
-{
-    font-size: 9pt;
-    color: #999;
-    margin-left: 25px;
-}
+        {
+            border-collapse: collapse;
+            margin: 5px;
+            width: 98%;
+        }
+        
+        .historyTable th, .historyTable td
+        {
+            padding: 3px;
+            border: solid 1px #B3CBDF;
+            vertical-align: top;
+        }
+        
+        .historyTable th
+        {
+            font-weight: normal;
+            font-size: 9pt;
+            color: #134A8A;
+            white-space: nowrap;
+        }
+        
+        td.historyTableSeperator
+        {
+            border: none;
+            height: 5px;
+            padding: 0px;
+        }
+        
+        th.myComment
+        {
+            background-color: #DFF8DC;
+        }
+        
+        th.staffComment
+        {
+            background-color: #FFFFDD;
+        }
+        
+        th.userComment
+        {
+            background-color: #E1EBF2;
+        }
+        
+        td.commentBody
+        {
+            padding-left: 25px;
+        }
+        
+        .commentContainer
+        {
+            min-height: 145px;
+        }
+        
+        .fieldSubText
+        {
+            font-size: 9pt;
+            color: #999;
+            margin-left: 25px;
+        }
     </style>
 </head>
 <body>
@@ -281,16 +288,15 @@ td.commentBody
         if (Model.TicketComment.Ticket.TicketAttachments.Count > 0)
         { 
     %>
-    <div style="margin-top:5px;">
-        <div class="emailDetailsWrapper" >
+    <div style="margin-top: 5px;">
+        <div class="emailDetailsWrapper">
             <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model.TicketComment.Ticket, ViewData); %>
         </div>
     </div>
     <%
         }
     %>
-
-     <div style="margin-top:5px;">
+    <div style="margin-top: 5px;">
         <div class="emailDetailsWrapper">
             <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model.TicketComment.Ticket, ViewData); %>
         </div>
