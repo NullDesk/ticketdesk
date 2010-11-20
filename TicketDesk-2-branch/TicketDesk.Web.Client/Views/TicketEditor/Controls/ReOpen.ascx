@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="activityBody">
-    <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketEditorController; %>
+    <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController; %>
     <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.ReOpen, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "activityArea", OnBegin = "beginChangeActivity", OnSuccess = "completeModifyTicketActivityAndDetails", OnFailure = "failModifyTicketActivity" }, new { @Class = "editForm" }))
        {
     %>

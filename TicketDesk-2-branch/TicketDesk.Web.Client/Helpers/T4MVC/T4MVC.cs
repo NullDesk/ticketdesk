@@ -261,6 +261,16 @@ public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResul
     public RouteValueDictionary RouteValueDictionary { get; set; }
 }
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+public class T4MVC_ViewResult : System.Web.Mvc.ViewResult, IT4MVCActionResult {
+    public T4MVC_ViewResult(string area, string controller, string action): base()  {
+        this.InitMVCT4Result(area, controller, action);
+    }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public class T4MVC_ContentResult : System.Web.Mvc.ContentResult, IT4MVCActionResult {
     public T4MVC_ContentResult(string area, string controller, string action): base()  {
         this.InitMVCT4Result(area, controller, action);
@@ -864,6 +874,7 @@ namespace Links {
         public static readonly string arrow_down_png = Url("arrow_down.png");
         public static readonly string arrow_top_png = Url("arrow_top.png");
         public static readonly string attachedFlag_png = Url("attachedFlag.png");
+        public static readonly string calibri_ttf = Url("calibri.ttf");
         public static readonly string cancel_png = Url("cancel.png");
         public static readonly string closedFlag_png = Url("closedFlag.png");
         public static readonly string collapseUp_png = Url("collapseUp.png");
@@ -871,12 +882,14 @@ namespace Links {
         public static readonly string expandcollapseArrorSmall__psd = Url("expandcollapseArrorSmall..psd");
         public static readonly string expandDown_png = Url("expandDown.png");
         public static readonly string expandDownActive_png = Url("expandDownActive.png");
-        public static readonly string more_infoFlag_png = Url("more+infoFlag.png");
+        public static readonly string moreinfoFlag_png = Url("moreinfoFlag.png");
+        public static readonly string newEmailAlert_png = Url("newEmailAlert.png");
         public static readonly string pendingFlag_png = Url("pendingFlag.png");
         public static readonly string resolvedFlag_png = Url("resolvedFlag.png");
         public static readonly string Site_css = Url("Site.css");
         public static readonly string statusFlag_psd = Url("statusFlag.psd");
         public static readonly string tcEdit_png = Url("tcEdit.png");
+        public static readonly string unassignedFlag_png = Url("unassignedFlag.png");
     }
 
 }

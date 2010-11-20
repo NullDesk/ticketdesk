@@ -1,4 +1,5 @@
 ﻿using TicketDesk.Domain.Models;
+using System;
 
 namespace TicketDesk.Domain.Services
 {
@@ -101,6 +102,7 @@ namespace TicketDesk.Domain.Services
         string GetUserDisplayName();
 
         string CurrentUserName { get; }
+        Func<string> GetCurrentUserName { get; set; }
 
         /// <summary>
         /// Gets the display name of the specified user.

@@ -5,9 +5,10 @@
 
     if (Model.TicketAttachments.Where(ta => !ta.IsPending).Count() > 0 && activity != "ModifyAttachments")
     {
+
 %>
 <div class="activityHeadWrapper">
-    <div class="activityHead" >
+    <div class="activityHead">
         Attachments:
     </div>
 </div>
@@ -15,11 +16,21 @@
     <%foreach (var a in Model.TicketAttachments.Where(ta => !ta.IsPending))
       {
     %>
-    <div class="activityFieldsContainer" >
-        
-        <%= Html.ActionLink(Html.Encode(a.FileName), MVC.Attachment.Download(a.FileId)) %>
-        
-      
+    <div class="activityFieldsContainer">
+        <%
+            if (ViewData["formatForEmail"] == null)
+            {
+        %>
+        <%= Html.ActionLink(Html.Encode(a.FileName), MVC.Attachment.Download(a.FileId))%>
+        <%
+            }
+            else
+            { 
+        %>
+        <%: a.FileName%>
+        <%
+            }
+        %>
         (<%: a.FileSize.ToFileSizeString()%>)
         <%  if (!string.IsNullOrEmpty(a.FileDescription))
             {
@@ -45,5 +56,5 @@
 </div>
 <%
         
-    }
+}
 %>

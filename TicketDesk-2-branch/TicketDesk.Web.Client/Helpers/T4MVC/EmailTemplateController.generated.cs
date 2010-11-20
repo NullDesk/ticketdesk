@@ -22,9 +22,6 @@ using T4MVC;
 namespace TicketDesk.Web.Client.Controllers {
     public partial class EmailTemplateController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public EmailTemplateController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected EmailTemplateController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -46,6 +43,7 @@ namespace TicketDesk.Web.Client.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
+            public readonly string DisplayHtml = "DisplayHtml";
         }
 
 
@@ -62,6 +60,11 @@ namespace TicketDesk.Web.Client.Controllers {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class T4MVC_EmailTemplateController: TicketDesk.Web.Client.Controllers.EmailTemplateController {
         public T4MVC_EmailTemplateController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ViewResult DisplayHtml() {
+            var callInfo = new T4MVC_ViewResult(Area, Name, ActionNames.DisplayHtml);
+            return callInfo;
+        }
 
     }
 }

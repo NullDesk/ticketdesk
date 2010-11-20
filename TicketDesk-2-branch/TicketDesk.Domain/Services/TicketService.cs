@@ -689,6 +689,7 @@ namespace TicketDesk.Domain.Services
                     tTag.TagName = tag;
                     ticket.TicketTags.Add(tTag);
                 }
+                ticket.TagList = string.Join(",", tagsArr);//in case the tags array trimmed spaces and such
             }
 
             rnv.Add(ValidateTicketDetailFields(ticket));//check the field rules 

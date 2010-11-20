@@ -32,12 +32,12 @@ namespace TicketDesk.Web.Client
         [Export("EmailMaxDeliveryAttempts")]
         public int EmailMaxDeliveryAttempts() { return Convert.ToInt32(ConfigurationManager.AppSettings["EmailMaxDeliveryAttempts"] ?? "5"); }
 
-        [Export("WebUrlPatternForEmailLinks")]
-        public string WebUrlRoutePatternForEmailLinks()
-        {
-            return ConfigurationManager.AppSettings["WebUrlPatternForEmailLinks"];
-            //TODO: should this come from configuration? It is unlikely to change based on other config settings; only if the routes are updated in global.asax
-        }
+        //[Export("SiteRootUrlForEmail")]
+        //public string SiteRootUrlForEmailLinks()
+        //{
+        //    return ConfigurationManager.AppSettings["SiteRootUrlForEmail"];
+        //    //TODO: should this come from configuration? It is unlikely to change based on other config settings; only if the routes are updated in global.asax
+        //}
 
         [Export("FromEmailDisplayName")]
         public string FromEmailDisplayName() { return ConfigurationManager.AppSettings["FromEmailDisplayName"]; }
@@ -61,7 +61,15 @@ namespace TicketDesk.Web.Client
         public string ActiveDirectoryUserPassword() { return ConfigurationManager.AppSettings["ActiveDirectoryUserPassword"]; }
 
         [Export("CurrentUserNameMethod")]
-        public string GetMembershipUserFromContext() { return HttpContext.Current.User.Identity.Name; }
+        public string GetMembershipUserFromContext() 
+        {
+            string user = null;
+            if (HttpContext.Current != null && HttpContext.Current.User != null & HttpContext.Current.User.Identity != null)
+            {
+                user = HttpContext.Current.User.Identity.Name;
+            }
+            return user;
+        }
 
         [Export(typeof(MembershipProvider))]
         public MembershipProvider MembersProvider
@@ -85,17 +93,17 @@ namespace TicketDesk.Web.Client
         public string AdminRoleName { get { return ConfigurationManager.AppSettings["AdministrativeRoleName"]; } }
 
         [Export("TicketNotificationHtmlEmailContent")]
-        protected string TicketNotificationHtmlEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, string urlForTicket, int firstUnsentCommentId)
+        protected string TicketNotificationHtmlEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, int firstUnsentCommentId)
         {
             var controller = new EmailTemplateController();
-            return controller.GenerateTicketNotificationHtmlEmailBody(notification, urlForTicket, firstUnsentCommentId);
+            return controller.GenerateTicketNotificationHtmlEmailBody(notification,firstUnsentCommentId);
         }
 
         [Export("TicketNotificationTextEmailContent")]
-        protected string TicketNotificationTexxtEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, string urlForTicket, int firstUnsentCommentId)
+        protected string TicketNotificationTexxtEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, int firstUnsentCommentId)
         {
             var controller = new EmailTemplateController();
-            return controller.GenerateTicketNotificationTextEmailBody(notification, urlForTicket, firstUnsentCommentId);
+            return controller.GenerateTicketNotificationTextEmailBody(notification, firstUnsentCommentId);
         }
 
     }

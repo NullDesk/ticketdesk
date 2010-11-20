@@ -17,13 +17,12 @@ namespace TicketDesk.Domain.Services
             [Import("EmailMaxConsolidationWaitMinutes")] Func<double> getEmailMaxConsolidationWaitMinutesMethod,
             [Import("EmailResendDelayMinutes")]  Func<double> getEmailResendDelayMinutesMethod,
             [Import("EmailMaxDeliveryAttempts")]  Func<int> getEmailMaxDeliveryAttemptsMethod,
-            [Import("WebUrlPatternForEmailLinks")] Func<string> getWebUrlPatternForEmailLinksMethod,
             [Import("FromEmailDisplayName")] Func<string> getFromEmailDisplayNameMethod,
             [Import("FromEmailAddress")] Func<string> getFromEmailAddressMethod,
             [Import("BlindCopyToEmailAddress")] Func<string> getBlindCopyToEmailAddressMethod,
             [Import("EmailServiceName")]Func<string> getEmailServiceNameMethod,
-            [Import("TicketNotificationHtmlEmailContent")]  Func<TicketEventNotification, string, int, string> getTicketNotificationHtmlEmailContentMethod,
-            [Import("TicketNotificationTextEmailContent")]  Func<TicketEventNotification, string, int, string> getTicketNotificationTextEmailContentMethod,
+            [Import("TicketNotificationHtmlEmailContent")]  Func<TicketEventNotification,  int, string> getTicketNotificationHtmlEmailContentMethod,
+            [Import("TicketNotificationTextEmailContent")]  Func<TicketEventNotification, int, string> getTicketNotificationTextEmailContentMethod,
             [ImportMany(typeof(IEmailHandlerService))]IEmailHandlerService[] emailHandlers,
             INotificationRepository notificationRepository
         )
@@ -32,7 +31,7 @@ namespace TicketDesk.Domain.Services
             GetEmailMaxConsolidationWaitMinutes = getEmailMaxConsolidationWaitMinutesMethod;
             GetEmailResendDelayMinutes = getEmailResendDelayMinutesMethod;
             GetEmailMaxDeliveryAttempts = getEmailMaxDeliveryAttemptsMethod;
-            GetWebUrlPatternForEmailLinks = getWebUrlPatternForEmailLinksMethod;
+           
             GetFromEmailDisplayName = getFromEmailDisplayNameMethod;
             GetFromEmailAddress = getFromEmailAddressMethod;
             GetBlindCopyToEmailAddress = getBlindCopyToEmailAddressMethod;
@@ -45,13 +44,13 @@ namespace TicketDesk.Domain.Services
         public Func<double> GetEmailMaxConsolidationWaitMinutes { get; private set; }
         public Func<double> GetEmailResendDelayMinutes { get; private set; }
         public Func<int> GetEmailMaxDeliveryAttempts { get; private set; }
-        public Func<string> GetWebUrlPatternForEmailLinks { get; private set; }
+       
         public Func<string> GetFromEmailDisplayName { get; private set; }
         public Func<string> GetFromEmailAddress { get; private set; }
         public Func<string> GetBlindCopyToEmailAddress { get; private set; }
 
-        public Func<TicketEventNotification, string, int, string> GetTicketNotificationHtmlEmailContent { get; private set; }
-        public Func<TicketEventNotification, string, int, string> GetTicketNotificationTextEmailContent { get; private set; }
+        public Func<TicketEventNotification, int, string> GetTicketNotificationHtmlEmailContent { get; private set; }
+        public Func<TicketEventNotification, int, string> GetTicketNotificationTextEmailContent { get; private set; }
 
         Func<string> GetEmailServiceName { get; set; }
 
@@ -266,18 +265,15 @@ namespace TicketDesk.Domain.Services
                 TicketComment comment = note.TicketComment;
                 Ticket ticket = comment.Ticket;
 
-                string url = null;
-                string urlPattern = GetWebUrlPatternForEmailLinks();
-
-                string.Format(urlPattern, ticket.TicketId.ToString());
+               
 
                 int minComment = note.CommentId;
                 if (consolidations.Count() > 0)
                 {
                     minComment = consolidations.Min(c => c.CommentId);
                 }
-                string htmlBody = GetHtmlBody(note, url, note.NotifyUser, minComment);
-                string textBody = GetTextBody(note, url, note.NotifyUser, minComment);
+                string htmlBody = GetHtmlBody(note, note.NotifyUser, minComment);
+                string textBody = GetTextBody(note, note.NotifyUser, minComment);
 
                 string displayFrom = GetFromEmailDisplayName();
                 string addressFrom = GetFromEmailAddress();
@@ -346,16 +342,14 @@ namespace TicketDesk.Domain.Services
             }
         }
 
-        
-
-        private string GetHtmlBody(TicketEventNotification note, string url, string notifyUser, int minComment)
+        private string GetHtmlBody(TicketEventNotification note, string notifyUser, int minComment)
         {
-            return GetTicketNotificationHtmlEmailContent(note, url, minComment);
+            return GetTicketNotificationHtmlEmailContent(note, minComment);
         }
 
-        private string GetTextBody(TicketEventNotification note, string url, string notifyUser, int minComment)
+        private string GetTextBody(TicketEventNotification note, string notifyUser, int minComment)
         {
-            return GetTicketNotificationTextEmailContent(note, url, minComment);
+            return GetTicketNotificationTextEmailContent(note, minComment);
         }
 
 

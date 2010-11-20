@@ -6,6 +6,7 @@ using TicketDesk.Domain.Repositories;
 namespace TicketDesk.Domain.Services
 {
     [Export(typeof(ISecurityService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SecurityService : ISecurityService
     {
 
@@ -36,7 +37,7 @@ namespace TicketDesk.Domain.Services
             TdAdminRoleName = adminRoleName;
         }
 
-        private Func<string> GetCurrentUserName { get; set; }
+        public Func<string> GetCurrentUserName { get; set; }
         private Func<string> GetSecurityMode { get; set; }
 
 

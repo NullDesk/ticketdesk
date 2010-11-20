@@ -113,7 +113,7 @@
     <Compile Include="Helpers\Extensions\TicketExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\ModelBinders\AttachmentsModelBinder.cs" />
     <Compile Include="Helpers\ModelBinders\ModifiedTicketModelBinder.cs" />
     <Compile Include="Helpers\ModelBinders\TicketWithAttachmentsModelBinder.cs">
@@ -204,10 +204,12 @@
     <Content Include="Content\collapseUpActive.png" />
     <Content Include="Content\expandDown.png" />
     <Content Include="Content\expandDownActive.png" />
-    <Content Include="Content\more+infoFlag.png" />
+    <Content Include="Content\moreinfoFlag.png" />
+    <Content Include="Content\newEmailAlert.png" />
     <Content Include="Content\pendingFlag.png" />
     <Content Include="Content\resolvedFlag.png" />
     <Content Include="Content\tcEdit.png" />
+    <Content Include="Content\unassignedFlag.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\corner\jquery.corner.js" />
     <Content Include="Scripts\jquery-autocomplete\changelog.txt" />
@@ -538,6 +540,7 @@
     <Content Include="Views\Account\Shared\MyAccount.master" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\calibri.ttf" />
     <None Include="Content\expandcollapseArrorSmall..psd" />
     <None Include="Content\statusFlag.psd" />
     <Content Include="SqlWeb.config">

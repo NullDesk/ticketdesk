@@ -1,15 +1,16 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
-    <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketEditorController; %>
+<% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController; %>
 
 <div class="activityHeadWrapper">
     <div class="activityHead">
         Ticket Stats:
     </div>
 </div>
-<div class="activityBody">
+
+<div class="activityBody ticketDetailsHeaderInfo">
     <table class="formatTable" style="width: 100%;">
-         <tr>
+        <tr>
             <th>
                 <label for="LastUpdateBy">
                     Status:
@@ -56,7 +57,7 @@
                     Status Date:
                 </label>
             </th>
-            <td style="width: 100%"  class="textField">
+            <td style="width: 100%" class="textField">
                 <%: Model.CurrentStatusDate.ToShortDateString()%>
                 <%: Model.CurrentStatusDate.ToShortTimeString()%>
             </td>
@@ -67,7 +68,7 @@
                     Created by:
                 </label>
             </th>
-            <td style="width: 100%"  class="textField">
+            <td style="width: 100%" class="textField">
                 <%: Model.GetCreatedByDisplayName(controller)%>
             </td>
         </tr>
@@ -77,7 +78,7 @@
                     Created Date:
                 </label>
             </th>
-            <td style="width: 100%"  class="textField">
+            <td style="width: 100%" class="textField">
                 <%: Model.CreatedDate.ToShortDateString()%>
                 <%: Model.CreatedDate.ToShortTimeString()%>
             </td>

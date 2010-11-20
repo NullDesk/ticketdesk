@@ -11,6 +11,7 @@
  output extension=".cs"#><#
 
 
+
 CodeGenerationTools code = new CodeGenerationTools(this);
 MetadataLoader loader = new MetadataLoader(this);
  

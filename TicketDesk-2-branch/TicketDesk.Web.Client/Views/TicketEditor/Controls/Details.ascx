@@ -1,53 +1,69 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
-<% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController; %>
-<div style="border-bottom: solid 2px #134A8A; margin-top: 0px;">
-    <div style="color: #0B294F; background-color: #E1EBF2;">
-        <table style="width: 100%;  font-size: 9pt;" cellpadding="0" cellspacing="0">
-            <tr >
-                <td rowspan="3" style="min-height:90px;width: 20px; border-right: solid 1px #B3CBDF" class="<%=  Html.Encode(Model.CurrentStatus.Replace(" ", "").ToLower())%>Flag">
-                    <img alt="<%: Model.CurrentStatus %>" src="<%= Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(Model.CurrentStatus.ToLower()))) %>" />
+<% 
+    
+    
+    var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
+    var currentFlagStatus = Model.CurrentStatus.Replace(" ", "").ToLower();
+    if (string.IsNullOrEmpty(Model.AssignedTo))
+    {
+        currentFlagStatus = "unassigned";
+    }
+    var root = ViewData["siteRootUrl"] as string;
+    var flagUrl = root + Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(currentFlagStatus))); 
+    
+    var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}",Model.TicketId.ToString()));
+   
+    
+    
+%>
+<div class="ticketDetailsHeaderOuter">
+    <div class="ticketDetailsHeaderInner">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td rowspan="3" class="statusFlag <%=  currentFlagStatus%>Flag">
+                    <img alt="<%: currentFlagStatus %>" src="<%= flagUrl %>" />
                 </td>
-                <td style=";white-space: nowrap; vertical-align: top; font-weight: bold; padding: 5px;">
+                <td class="ticketDetailsHeaderId" style="">
+                <a href="<%= ticketUrl %>">
                     Ticket: #<%: Model.TicketId %>
                     -
                     <%: Model.Category%>
                     <%: Model.Type%>
-                </td>
-                <td style="padding: 5px;">
-                    <div style="float: right;">
+                </a></td>
+                <td class="ticketDetailsHeaderPriority">
+                    <div>
                         Priority:
                         <%: Model.Priority%>
                     </div>
                 </td>
             </tr>
-            <tr style="height:45px;">
-                <td colspan="2" style="padding-left: 20px; padding-bottom: 8px; padding-right: 8px;
-                    padding-top: 3px; font-size: 9pt;">
+            <tr class="ticketDetailsHeaderTitle">
+                <td colspan="2">
                     <%: Model.Title%>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="background-color: #EEF3F7; border-top: solid 1px #B3CBDF">
-                    <table style="width: 100%; color: #444; font-size:8pt;" >
+                <td colspan="2" class="ticketDetailsHeaderInfo">
+                    <table class="ticketDetailsHeaderInfoTable" style="border-top: solid 1px #B3CBDF;">
                         <tr>
-                            <td style="white-space: nowrap; text-align: right;">
+                            <td class="ticketDetailsHeaderInfoLabel">
                                 Assigned To:
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td class="ticketDetailsHeaderInfoText">
                                 <%: Model.GetAssignedToDisplayName(controller)%><br />
                             </td>
-                            <td rowspan="2" style="width: 100%;">
-                                <div style="text-align: right; width: 100%; font-size: 8pt;">
+                            <td rowspan="2" class="ticketDetailsHeaderTagsArea">
+                                <div>
                                     Tags:
                                     <%: Model.TagList%></div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="white-space: nowrap; text-align: right;">
+                            <td class="ticketDetailsHeaderInfoLabel">
                                 Owned By:
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td class="ticketDetailsHeaderInfoText">
                                 <%: Model.GetOwnerDisplayName(controller)%>
                             </td>
                         </tr>
@@ -56,24 +72,30 @@
             </tr>
         </table>
     </div>
-    
 </div>
-<div style="background-color: #fff; padding-bottom: 0px;">
-    <div>
-        <table style="width: 100%;" class="formatTable" cellpadding="0" cellspacing="0">
+<div class="ticketDetailsOuter" style="">
+    <div class="ticketDetailsInner">
+        <table class="formatTable" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td colspan="2" style="padding: 0px; border-bottom: solid 1px #D6D6D6;">
-                        <div id="detailsText" style="height: 180px; overflow: auto; padding: 3px;">
+                    <td class="ticketDetailsArea" colspan="2">
+                        <div id="detailsText">
                             <%= Model.HtmlDetails%>
                         </div>
                     </td>
                 </tr>
+                <%
+                    if (ViewData["formatForEmail"] == null)
+                    { 
+                %>
                 <tr id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;"
                     onclick="expandDetails();">
                     <td colspan="2" style="height: 20px; padding: 0px; border-bottom: solid 1px #D6D6D6;">
                     </td>
                 </tr>
+                <%
+                    } 
+                %>
             </tbody>
         </table>
     </div>

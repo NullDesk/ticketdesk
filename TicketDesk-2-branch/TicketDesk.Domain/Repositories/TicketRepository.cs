@@ -226,10 +226,17 @@ namespace TicketDesk.Domain.Repositories
         /// <returns></returns>
         public bool ClearTags(Ticket ticket, bool commit)
         {
+            var tagsToKill = new List<TicketTag>();
             foreach (var tag in ticket.TicketTags)
+            {
+                tagsToKill.Add(tag);
+                
+            }
+            foreach (var tag in tagsToKill)
             {
                 ctx.TicketTags.DeleteObject(tag);
             }
+
             if (commit)
             {
                 ctx.SaveChanges();

@@ -3,35 +3,27 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
+@media screen {
+@font-face {
+  font-family: 'Calibri';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Calibri'), url('calibri.ttf') format('truetype');
+}
+}
 body
 {
     background-color: #F2F2F2;
-    font-size: 8.5pt;
-    
-    font-family: Verdana, Helvetica, Sans-Serif;
+    font-size: 11pt;
+    font-family:   Calibri, Arial, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #555;
 }
 
-a:link
-{
-    color: #14498D;
-    text-decoration: underline;
-}
-a:visited
-{
-    color: #505abc;
-}
-a:hover
-{
-    color: #1d60ff;
-    text-decoration: none;
-}
-a:active
-{
-    color: #12eb87;
-}
+a, a * {    color: #14498D;    padding:2px;
+    -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;        -moz-transition: color 0.35s linear;    -o-transition: color 0.35s linear;    -webkit-transition: color 0.35s linear;    transition: color 0.35s linear;}
+a:hover, a:hover * {    background-color: #999999;    color: #FFFFFF;    text-decoration: none;    text-shadow: 1px 1px 1px #335;}
 
 p, ul
 {
@@ -58,11 +50,10 @@ pre
 h1
 {
     font-size: 2em;
-   
 }
 h2
 {
-   font-size: 1.5em;
+    font-size: 1.5em;
 }
 h3
 {
@@ -151,7 +142,7 @@ ul#menu li
 {
     display: inline;
     list-style: none;
-    margin-right:2px;
+    margin-right: 2px;
 }
 
 ul#menu li#greeting
@@ -165,11 +156,13 @@ ul#menu li#greeting
 
 ul#menu li a
 {
+    background-color: #134A8A;
+    color: #fff;
+    -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;        
     padding: 7px 14px;
     font-weight: bold;
     text-decoration: none;
-    background-color: #134A8A;
-    color: #fff;
+    
 }
 
 ul#menu li a:hover
@@ -178,17 +171,7 @@ ul#menu li a:hover
     text-decoration: none;
 }
 
-ul#menu li a:active
-{
-    background-color: #a6e2a6;
-    text-decoration: none;
-}
 
-ul#menu li.selected a
-{
-    background-color: #fff;
-    color: #000;
-}
 
 
 /* FORM LAYOUT ELEMENTS   
@@ -282,23 +265,7 @@ div#title
     color: #1C3D60;
 }
 
-#logindisplay a:link
-{
-    color: #1C3D60;
-    text-decoration: underline;
-}
 
-#logindisplay a:visited
-{
-    color: #1C3D60;
-    text-decoration: underline;
-}
-
-#logindisplay a:hover
-{
-    color: #1C3D60;
-    text-decoration: none;
-}
 
 
 /* Styles for validation helpers
@@ -355,20 +322,27 @@ div#title
 .jsGuide, .jsGuide:link, .jsGuide:visited
 {
     text-decoration: none;
-    color: #14498D;
+    
 }
 
 .jsClickable
 {
+     -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;
+    
+    -moz-transition: color 0.35s linear;    -o-transition: color 0.35s linear;    -webkit-transition: color 0.35s linear;    transition: color 0.35s linear;
     cursor: pointer;
-   
 }
 .jsClickableHover, .jsClickable:hover
 {
-    background-color: #FFD280;
+    color: #FFFFFF;
+    background-color: #999999;
+    text-shadow: 1px 1px 1px #335;
 }
 
-
+.jsClickableHover a, .jsClickable:hover a
+{
+    color: #FFFFFF;
+}
 
 /* TD Specific Styles
 ----------------------------------------------------------*/
@@ -397,35 +371,34 @@ div#title
 
 .activityHeadWrapper
 {
-    background-color: #DFF8DC; 
-    border-bottom: solid 2px #134A8A
+    background-color: #DFF8DC;
+    border-bottom: solid 2px #134A8A;
 }
 
 .activityHead
 {
-    font-weight: bold; 
-    color: #0B294F; 
+    font-weight: bold;
+    color: #0B294F;
     padding: 8px;
 }
 
 .activityBody
 {
-    background-color: #fff; 
+    background-color: #fff;
     padding: 3px 3px 8px 3px;
 }
 
 .activityButton, input.activityButton
 {
-    display:block;
-    font-family: Verdana, Helvetica, Sans-Serif;
-    
-    margin-bottom:3px;
+    display: block;
+    font-family: Calibri,Tahoma, Verdana, Helvetica, Sans-Serif;
+    margin-bottom: 3px;
     padding: 3px;
     border: 1px ridge #000000;
     color: #333;
     background-color: #EBEBEB;
     text-decoration: none;
-    text-align:center;
+    text-align: center;
 }
 
 a:link.activityButton, a:visited.activityButton, a:active.activityButton
@@ -451,9 +424,8 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 }
 .expanderButton:hover
 {
-   
     background-color: #999999;
-     background-image: url('expandDownActive.png');
+    background-image: url('expandDownActive.png');
 }
 
 .collapserButton
@@ -469,7 +441,6 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 
 .collapserButton:hover
 {
-    
     background-color: #999999;
     background-image: url('collapseUpActive.png');
 }
@@ -505,13 +476,12 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 {
     padding: 5px;
     border-bottom: solid 1px #B3CBDF;
-    background-color:#E1EBF2;
+    background-color: #E1EBF2;
 }
 
 table.ticketListGrid
 {
-   
-    font-size:8.5pt;
+    font-size: 8.5pt;
     border: solid 1px #B3CBDF;
     border-collapse: collapse;
 }
@@ -525,21 +495,20 @@ table.ticketListGrid td
 
 table.ticketListGrid th
 {
-    font-size:9pt;
-     white-space: nowrap;
+    font-size: 9pt;
+    white-space: nowrap;
     height: 22px;
     vertical-align: bottom;
     padding: 4px;
-    text-align:center;
+    text-align: center;
     background-color: #FFFFDD;
     border: solid 1px #B3CBDF;
-    font-weight:normal;
+    font-weight: normal;
 }
 
 table.ticketListGrid th a
 {
-   
-    text-decoration:none;
+    text-decoration: none;
 }
 
 
@@ -554,13 +523,14 @@ ul#submenu li
 {
     display: inline;
     list-style: none;
-    margin-right:4px;
+    margin-right: 4px;
 }
 
 
 
 ul#submenu li a
 {
+     -moz-transition: background-color 0.35s linear;    -o-transition: background-color 0.35s linear;    -webkit-transition: background-color 0.35s linear;    transition: background-color 0.35s linear;      
     padding: 5px 8px;
     font-weight: bold;
     text-decoration: none;
@@ -591,7 +561,6 @@ ul#submenu li.selected a
     border-top: solid 2px #B3CBDF;
     border-left: solid 2px #B3CBDF;
     border-right: solid 2px #B3CBDF;
-
 }
 
 /* MvcPaging Classes */
@@ -615,34 +584,32 @@ ul#submenu li.selected a
 
 .formatTable
 {
-    
 }
 
 .formatTable tbody tr th
 {
     text-align: right;
-    padding: 7px 3px 3px 3px;
+    padding: 4px 3px 3px 3px;
     color: #134A8A;
-    vertical-align:top;
-    white-space:nowrap;
-    font-weight:normal;
+    vertical-align: top;
+    white-space: nowrap;
+    font-weight: normal;
 }
 
 .formatTable tbody tr td
 {
     padding: 3px;
-    vertical-align:top;
+    vertical-align: top;
 }
 
 .formatTable tbody tr td.textField
 {
-    padding: 7px 3px 3px 3px;
+    padding: 4px 3px 3px 3px;
 }
 
 /* File Attachment Containers */
 .PendingFileAttachmentItemContainer
 {
-    
     background-color: #FFC862;
     border: solid 1px #666666;
     list-style: none;
@@ -651,7 +618,6 @@ ul#submenu li.selected a
 
 .FileAttachmentItemContainer
 {
-    
     border: solid 1px #666666;
     background-color: #CCFFCC;
     list-style: none;
@@ -667,34 +633,31 @@ ul#submenu li.selected a
 /* TicketEditor */
 .historyTable
 {
-    border-collapse:collapse;
-    margin:10px;
-    width:98%;
+    border-collapse: collapse;
+    margin: 10px;
+    width: 98%;
 }
 
 .historyTable th, .historyTable td
 {
-    padding:3px;
+    padding: 3px;
     border: solid 1px #B3CBDF;
-    vertical-align:top;
-   
+    vertical-align: top;
 }
 
 .historyTable th
 {
-    font-weight:normal;
-  
+    font-weight: normal;
     color: #134A8A;
-    
-    
-    white-space:nowrap;
+    white-space: nowrap;
+    font-size:9pt;
 }
 
 td.historyTableSeperator
 {
-    border:none;
-    height:10px;
-    padding:0px;
+    border: none;
+    height: 10px;
+    padding: 0px;
 }
 
 th.myComment
@@ -705,7 +668,6 @@ th.myComment
 th.staffComment
 {
     background-color: #FFFFDD;
-    
 }
 
 th.userComment
@@ -715,14 +677,14 @@ th.userComment
 
 td.commentBody
 {
-    padding-left:25px;
+    padding-left: 25px;
 }
 
 
 
 .commentContainer
 {
-     min-height: 145px;
+    min-height: 145px;
 }
 
 .activityFieldsContainer
@@ -732,7 +694,7 @@ td.commentBody
 
 .activityFieldsContainer label
 {
-    padding-top:5px;
+    padding-top: 5px;
 }
 
 .activityFieldsContainer input
@@ -742,13 +704,120 @@ td.commentBody
 
 .fieldSubText
 {
-    font-size:8pt;
-    color:#999;
-    margin-left:25px;
+    font-size: 9pt;
+    color: #999;
+    margin-left: 25px;
+}
+
+
+div.ticketDetailsHeaderOuter
+{
+    border-bottom: solid 2px #134A8A;
+    margin-top: 0px;
+}
+div.ticketDetailsHeaderInner
+{
+    color: #0B294F;
+    background-color: #E1EBF2;
+}
+div.ticketDetailsHeaderInner table
+{
+    width: 100%;
+}
+
+td.ticketDetailsHeaderId
+{
+    white-space: nowrap;
+    vertical-align: top;
+    font-weight: bold;
+    padding: 5px;
+}
+td.ticketDetailsHeaderPriority
+{
+    padding: 5px;
+}
+td.ticketDetailsHeaderPriority div
+{
+    float: right;
+}
+tr.ticketDetailsHeaderTitle
+{
+    height: 45px;
+}
+tr.ticketDetailsHeaderTitle td
+{
+    padding: 3px 8px 8px 20px;
+}
+.ticketDetailsHeaderInfo
+{
+    background-color: #EEF3F7;
+    border-top: solid 1px #B3CBDF;
+}
+.ticketDetailsHeaderInfoTable
+{
+    width: 100%;
+    color: #444;
+    font-size: 8pt;
+}
+.ticketDetailsHeaderInfoLabel
+{
+    white-space: nowrap;
+    text-align: right;
+}
+.ticketDetailsHeaderInfoText
+{
+    white-space: nowrap;
+}
+td.ticketDetailsHeaderTagsArea
+{
+    width: 100%;
+}
+td.ticketDetailsHeaderTagsArea div
+{
+    text-align: right;
+    width: 100%;
+    font-size: 8pt;
+}
+div.ticketDetailsOuter
+{
+    background-color: #fff;
+    padding-bottom: 0px;
+}
+div.ticketDetailsInner
+{
+}
+
+div.ticketDetailsInner table
+{
+    width: 100%;
+}
+
+td.ticketDetailsArea
+{
+}
+
+td.ticketDetailsArea div
+{
+    height: 180px;
+    overflow: auto;
+    padding: 3px;
+}
+
+
+
+.statusFlag
+{
+    min-height: 90px;
+    width: 20px;
+    border-right: solid 1px #B3CBDF;
+}
+.unassignedFlag
+{
+     background-color: #fff600;
 }
 .activeFlag
 {
-    background-color:#134A8A;
+    background-color: #134A8A;
 }
 
 .moreinfoFlag
