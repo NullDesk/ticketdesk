@@ -41,6 +41,9 @@
     <DeployIisAppPath>WeberTicketDeskMVC</DeployIisAppPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvcContrib">
       <HintPath>..\Library\MvcContrib.dll</HintPath>
@@ -567,6 +570,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <Content Include="packages.config" />
     <None Include="Scripts\jquery-autocomplete\demo\emails.php" />
     <None Include="Scripts\jquery-autocomplete\demo\emails.phps" />
     <None Include="Scripts\jquery-autocomplete\demo\images.php" />

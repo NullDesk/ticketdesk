@@ -31,7 +31,7 @@ namespace TicketDesk.Web.Client
         {
             routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.IgnoreRoute("Admin/elmah.axd/{*pathInfo}");
             routes.MapRoute("Attachments", "Attachment/{action}/{fileId}", new { Controller = "Attachment" });
 
             routes.MapRoute(
