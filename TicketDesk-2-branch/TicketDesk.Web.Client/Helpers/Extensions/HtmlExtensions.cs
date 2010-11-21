@@ -21,10 +21,21 @@ namespace TicketDesk.Web.Client.Helpers
             return MvcHtmlString.Create(value);
         }
 
-        public static MvcHtmlString DisplayPaddedNameFor<TModel, TProperty>(
-          this HtmlHelper<TModel> htmlHelper,
-          Expression<Func<TModel, TProperty>> expression,
-          int numberOfCharacters
+        public static MvcHtmlString DisplayPaddedName
+        (
+            this HtmlHelper htmlHelper,
+            string value,
+            int numberOfCharacters
+        )
+        {
+            return MvcHtmlString.Create(value.PadLeft(numberOfCharacters));
+        }
+
+        public static MvcHtmlString DisplayPaddedNameFor<TModel, TProperty>
+        (
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            int numberOfCharacters
         )
         {
             var metaData = ModelMetadata.FromLambdaExpression<TModel, TProperty>(expression, htmlHelper.ViewData);
