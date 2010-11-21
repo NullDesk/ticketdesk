@@ -21,7 +21,7 @@
     <div class="ticketDetailsHeaderInner">
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <td rowspan="3" class="statusFlag <%=  currentFlagStatus%>Flag">
+                <td rowspan="3" class="<%=  currentFlagStatus%>Flag statusFlag">
                     <img alt="<%: currentFlagStatus %>" src="<%= flagUrl %>" />
                 </td>
                 <td class="ticketDetailsHeaderId" style="">

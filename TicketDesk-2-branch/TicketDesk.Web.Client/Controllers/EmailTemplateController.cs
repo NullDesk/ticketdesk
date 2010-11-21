@@ -80,7 +80,9 @@ namespace TicketDesk.Web.Client.Controllers
 
         public string GenerateTicketNotificationHtmlEmailBody(TicketEventNotification notification, int firstUnsentCommentId)
         {
-            var templateToRender = "~/Views/EmailTemplate/TicketNotificationHtmlEmailTemplate.ascx";
+            var forOutlook = (ConfigurationManager.AppSettings["EnableOutlookFriendlyHtmlEmail"] != null && Convert.ToBoolean(ConfigurationManager.AppSettings["EnableOutlookFriendlyHtmlEmail"]));
+            var templateToRender = (forOutlook)? "~/Views/EmailTemplate/TicketNotificationOutlookHtmlEmailTemplate.ascx": "~/Views/EmailTemplate/TicketNotificationHtmlEmailTemplate.ascx";
+            
             return GenerateTicketNotificationEmailBody(notification, firstUnsentCommentId, templateToRender);
         }
 

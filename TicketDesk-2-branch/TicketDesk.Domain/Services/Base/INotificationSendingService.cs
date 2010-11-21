@@ -7,5 +7,6 @@ namespace TicketDesk.Domain.Services
 {
     public interface INotificationSendingService
     {
+        void ProcessWaitingTicketEventNotifications();
     }
 }

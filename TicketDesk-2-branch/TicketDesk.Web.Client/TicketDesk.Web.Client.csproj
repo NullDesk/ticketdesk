@@ -469,6 +469,7 @@
     <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
     <Content Include="Views\Account\MyAccount.aspx" />
     <Content Include="Views\Account\Shared\MyAccountMiniNav.ascx" />
+    <Content Include="Views\EmailTemplate\TicketNotificationOutlookHtmlEmailTemplate.ascx" />
     <Content Include="Views\EmailTemplate\TicketNotificationTextEmailTemplate.ascx" />
     <Content Include="Views\EmailTemplate\TicketNotificationHtmlEmailTemplate.ascx" />
     <Content Include="Views\NewTicket\Create.aspx" />
