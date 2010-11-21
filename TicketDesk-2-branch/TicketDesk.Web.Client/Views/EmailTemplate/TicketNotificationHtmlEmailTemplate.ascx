@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.TicketEventNotification>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -276,21 +276,21 @@
 <body>
     <div>
         <div class="emailDetailsWrapper" style="float: right; width: 225px;">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model.TicketComment.Ticket, ViewData); %>
+            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
         </div>
         <div class="emailDetailsWrapper" style="margin-right: 235px;">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model.TicketComment.Ticket, ViewData); %>
+            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData); %>
         </div>
     </div>
     <div style="clear: both;">
     </div>
     <%
-        if (Model.TicketComment.Ticket.TicketAttachments.Count > 0)
+        if (Model.TicketAttachments.Count > 0)
         { 
     %>
     <div style="margin-top: 5px;">
         <div class="emailDetailsWrapper">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model.TicketComment.Ticket, ViewData); %>
+            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData); %>
         </div>
     </div>
     <%
@@ -298,7 +298,7 @@
     %>
     <div style="margin-top: 5px;">
         <div class="emailDetailsWrapper">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model.TicketComment.Ticket, ViewData); %>
+            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model, ViewData); %>
         </div>
     </div>
 </body>

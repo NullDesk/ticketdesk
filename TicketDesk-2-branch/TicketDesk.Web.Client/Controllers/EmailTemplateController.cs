@@ -48,9 +48,25 @@ namespace TicketDesk.Web.Client.Controllers
             ViewData.Add("siteRootUrl", ConfigurationManager.AppSettings["SiteRootUrlForEmail"]);
             ViewData.Add("firstUnsentCommentId", 697);
             ViewData.Add("formatForEmail", true);
-         
-            
-            return View(MVC.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate, note );
+
+
+            return View(MVC.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate, ticket);
+        }
+
+        public virtual ViewResult DisplayText()
+        {
+            this.Security.GetCurrentUserName = delegate() { return "toastman"; };
+
+            var ticketService = new TicketService(Security, new TicketDesk.Domain.Repositories.TicketRepository(), null);
+            var ticket = ticketService.GetTicket(82);
+            //var note = ticket.TicketComments.SingleOrDefault(tc => tc.CommentId == 698).TicketEventNotifications.SingleOrDefault(tn => tn.NotifyUser == "toastman");
+            ViewData.Add("siteRootUrl", ConfigurationManager.AppSettings["SiteRootUrlForEmail"]);
+            ViewData.Add("firstUnsentCommentId", 697);
+            ViewData.Add("formatForEmail", true);
+
+            Response.ContentType = "text/plain";
+            return View(MVC.EmailTemplate.Views.TicketNotificationTextEmailTemplate, ticket);
+           
         }
 
         #endregion
@@ -73,8 +89,8 @@ namespace TicketDesk.Web.Client.Controllers
         {
             this.Security.GetCurrentUserName = delegate() { return notification.NotifyUser; };
             var ticket = notification.TicketComment.Ticket;
-           
-            var vd = new ViewDataDictionary(notification);
+
+            var vd = new ViewDataDictionary(ticket);
             vd.Add("siteRootUrl", ConfigurationManager.AppSettings["SiteRootUrlForEmail"]);
             vd.Add("firstUnsentCommentId", firstUnsentCommentId);
             vd.Add("formatForEmail", true);
@@ -95,7 +111,7 @@ namespace TicketDesk.Web.Client.Controllers
 
                 HtmlHelper h = new HtmlHelper(vc, new ViewPage());
 
-                h.RenderPartial(templateToRender, notification, vd);
+                h.RenderPartial(templateToRender, ticket, vd);
                 
                 return sw.GetStringBuilder().ToString();
             }

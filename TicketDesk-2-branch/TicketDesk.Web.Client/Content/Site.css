@@ -791,7 +791,7 @@ tr.ticketDetailsHeaderTitle td
 {
     width: 100%;
     color: #444;
-    font-size: 8pt;
+    font-size: 9pt;
 }
 .ticketDetailsHeaderInfoLabel
 {
@@ -810,7 +810,7 @@ td.ticketDetailsHeaderTagsArea div
 {
     text-align: right;
     width: 100%;
-    font-size: 8pt;
+    font-size: 9pt;
 }
 div.ticketDetailsOuter
 {
