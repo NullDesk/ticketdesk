@@ -14,8 +14,9 @@
         .emailDetailsWrapper
         {
             border: solid 2px #D6D6D6;
-            border-collapse: collapse;
+            
         }
+        
         
         a:link
         {
@@ -40,6 +41,7 @@
         {
             background-color: #DFF8DC;
             border-bottom: solid 2px #134A8A;
+            margin-bottom: 10px;
         }
         
         .activityHead
@@ -53,30 +55,32 @@
         }
         .activityFieldsContainer
         {
+            margin: 5px;
             font-size: 10pt;
         }
         
         .formatTable
         {
+            font-size: 8pt;
         }
         
-        .formatTable tbody tr th
+        .formatTable th
         {
             text-align: right;
-             padding: 1px 3px 1px 3px;
+            padding: 1px 3px 1px 3px;
             color: #134A8A;
             vertical-align: top;
             white-space: nowrap;
             font-weight: normal;
         }
         
-        .formatTable tbody tr td
+        .formatTable td
         {
             padding: 2px;
             vertical-align: top;
         }
         
-        .formatTable tbody tr td.textField
+        .formatTable td.textField
         {
             padding: 1px 3px 1px 3px;
         }
@@ -91,9 +95,12 @@
             color: #0B294F;
             background-color: #E1EBF2;
         }
-        div.ticketDetailsHeaderInner table
+        
+        
+        .ticketDetailsHeaderTable
         {
             width: 100%;
+            background-color: #E1EBF2;
         }
         
         td.ticketDetailsHeaderId
@@ -101,12 +108,12 @@
             white-space: nowrap;
             vertical-align: top;
             font-weight: bold;
-            padding: 5px;
+            padding: 0px 5px 0px 5px;
         }
         
         td.ticketDetailsHeaderPriority
         {
-            padding: 5px;
+            padding: 0px 5px 0px 5px;
         }
         
         td.ticketDetailsHeaderPriority div
@@ -127,7 +134,6 @@
         .ticketDetailsHeaderInfo
         {
             font-size: 8pt;
-            
         }
         
         .ticketDetailsHeaderInfoTable
@@ -135,15 +141,16 @@
             width: 100%;
             color: #444;
             font-size: 9pt;
+            background-color: #EEF3F7;
         }
         
-        .ticketDetailsHeaderInfoLabel
+        td.ticketDetailsHeaderInfoLabel
         {
             white-space: nowrap;
             text-align: right;
         }
         
-        .ticketDetailsHeaderInfoText
+        td.ticketDetailsHeaderInfoText
         {
             white-space: nowrap;
         }
@@ -175,6 +182,9 @@
         
         td.ticketDetailsArea
         {
+            padding: 5px;
+            font-size: 11pt;
+            color: #444;
         }
         
         td.ticketDetailsArea div
@@ -214,8 +224,7 @@
         .historyTable
         {
             border-collapse: collapse;
-            margin: 5px;
-            width: 98%;
+            margin: 10px;
         }
         
         .historyTable th, .historyTable td
@@ -269,37 +278,49 @@
         {
             font-size: 9pt;
             color: #999;
-            margin-left: 25px;
+            margin-left: 15px;
+        }
+        .commentHeaderTable td
+        {
+            border-style: none;
         }
     </style>
 </head>
 <body>
-    <div>
-        <div class="emailDetailsWrapper">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData); %>
-        </div>
-    </div>
-    <div>
-        <div class="emailDetailsWrapper" style="margin-top: 10px;">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
-        </div>
-    </div>
-    <%
-        if (Model.TicketAttachments.Count > 0)
-        { 
-    %>
-    <div style="margin-top: 10px;">
-        <div class="emailDetailsWrapper">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData); %>
-        </div>
-    </div>
-    <%
-        }
-    %>
-    <div style="margin-top: 10px;">
-        <div class="emailDetailsWrapper">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model, ViewData); %>
-        </div>
-    </div>
+    <table cellspacing="10" cellpadding="0">
+        <tr>
+            <td class="emailDetailsWrapper">
+                <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData); %>
+            </td>
+            <td class="emailDetailsWrapper" style="vertical-align: top; width: 200px;">
+                <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
+            </td>
+        </tr>
+        <%
+            if (Model.TicketAttachments.Count > 0)
+            { 
+        %>
+        <tr>
+            <td colspan="2" class="emailDetailsWrapper">
+                <div>
+                    <div>
+                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData); %>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <%
+            }
+        %>
+        <tr>
+            <td colspan="2" class="emailDetailsWrapper">
+                <div>
+                    <div>
+                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model, ViewData); %>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

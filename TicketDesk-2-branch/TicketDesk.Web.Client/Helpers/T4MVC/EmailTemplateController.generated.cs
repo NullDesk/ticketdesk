@@ -44,6 +44,7 @@ namespace TicketDesk.Web.Client.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string DisplayHtml = "DisplayHtml";
+            public readonly string DisplayOutlookHtml = "DisplayOutlookHtml";
             public readonly string DisplayText = "DisplayText";
         }
 
@@ -65,6 +66,11 @@ namespace TicketDesk.Web.Client.Controllers {
 
         public override System.Web.Mvc.ViewResult DisplayHtml() {
             var callInfo = new T4MVC_ViewResult(Area, Name, ActionNames.DisplayHtml);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ViewResult DisplayOutlookHtml() {
+            var callInfo = new T4MVC_ViewResult(Area, Name, ActionNames.DisplayOutlookHtml);
             return callInfo;
         }
 

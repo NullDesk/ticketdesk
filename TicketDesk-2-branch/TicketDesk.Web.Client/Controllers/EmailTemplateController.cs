@@ -12,7 +12,7 @@ using System.Web.Mvc.Html;
 using System.Web.Routing;
 using TicketDesk.Domain.Models;
 using System.Configuration;
-
+using System.Net.Mail;
 namespace TicketDesk.Web.Client.Controllers
 {
     [HandleError]
@@ -51,6 +51,27 @@ namespace TicketDesk.Web.Client.Controllers
 
 
             return View(MVC.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate, ticket);
+        }
+
+        public virtual ViewResult DisplayOutlookHtml()
+        {
+            this.Security.GetCurrentUserName = delegate() { return "toastman"; };
+
+            var ticketService = new TicketService(Security, new TicketDesk.Domain.Repositories.TicketRepository(), null);
+            //var note = ticketService.GetTicket(82).TicketComments.SingleOrDefault(tc => tc.CommentId == 698).TicketEventNotifications.SingleOrDefault(tn => tn.NotifyUser == "toastman");;
+            //var body = GenerateTicketNotificationEmailBody(note, 697, "~/Views/EmailTemplate/TicketNotificationOutlookHtmlEmailTemplate.ascx");
+            //var mgs = new MailMessage("xxx@xxx.com", "yyy@yyy.com","test", body);
+            //mgs.IsBodyHtml = true;
+            //var client = new SmtpClient();
+            //client.Send(mgs);
+            
+            var ticket = ticketService.GetTicket(82);
+            ViewData.Add("siteRootUrl", ConfigurationManager.AppSettings["SiteRootUrlForEmail"]);
+            ViewData.Add("firstUnsentCommentId", 697);
+            ViewData.Add("formatForEmail", true);
+
+
+            return View(MVC.EmailTemplate.Views.TicketNotificationOutlookHtmlEmailTemplate, ticket);
         }
 
         public virtual ViewResult DisplayText()

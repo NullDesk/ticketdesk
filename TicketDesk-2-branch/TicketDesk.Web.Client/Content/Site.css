@@ -868,3 +868,7 @@ td.ticketDetailsArea div
 {
     background-color: #8A8989;
 }
+.commentHeaderTable td
+{
+    border-style:none;
+}

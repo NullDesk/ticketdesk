@@ -19,7 +19,7 @@
 %>
 <div class="ticketDetailsHeaderOuter">
     <div class="ticketDetailsHeaderInner">
-        <table cellpadding="0" cellspacing="0">
+        <table class="ticketDetailsHeaderTable" cellpadding="0" cellspacing="0">
             <tr>
                 <td rowspan="3" class="<%=  currentFlagStatus%>Flag statusFlag">
                     <img alt="<%: currentFlagStatus %>" src="<%= flagUrl %>" />

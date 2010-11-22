@@ -269,7 +269,11 @@
         {
             font-size: 9pt;
             color: #999;
-            margin-left: 25px;
+            margin-left: 15px;
+        }
+        .commentHeaderTable td
+        {
+            border-style:none;
         }
     </style>
 </head>

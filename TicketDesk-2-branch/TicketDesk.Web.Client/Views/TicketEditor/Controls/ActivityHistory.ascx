@@ -8,7 +8,12 @@
 <div class="activityBody">
     <table class="historyTable" cellpadding="0" cellspacing="0">
         <tbody>
-            <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController; %>
+            <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
+               var root = ViewData["siteRootUrl"] as string;
+               var newEmailAlertUrl = root + Url.Content("~/Content/newEmailAlert.png"); 
+    
+                 
+            %>
             <%
                 
                 foreach (var c in Model.TicketComments.OrderByDescending(tc => tc.CommentedDate))
@@ -42,19 +47,32 @@
                     <%: c.GetCommentByDisplayName(controller) %>
                 </th>
                 <td style="background-color: #EEF3F7; color: #134A8A;">
-                    <%
-                        if (newFlag)
-                        { %><div style="float: left; margin-right: 5px;">
-                            <img alt="New Comment" src="<%= Url.Content("~/Content/newEmailAlert.png") %>" /></div>
-                    <%
-                        } 
-                    %>
-                    <%: c.GetCommentByDisplayName(controller)%>
-                    <%: c.CommentEvent %>
-                    <div class="fieldSubText" style="color: #666;">
-                        <%: c.CommentedDate.ToLongDateString()%>
-                        <%: c.CommentedDate.ToShortTimeString() %>
-                    </div>
+                    <table cellpadding="0" cellspacing="0" class="commentHeaderTable">
+                        <tr>
+                            <%
+                                if (newFlag)
+                                { 
+                            %>
+                            <td rowspan="2" style="padding-right: 2px;">
+                                <img alt="New Comment" src="<%= newEmailAlertUrl %>" />
+                            </td>
+                            <%
+                                } 
+                            %>
+                            <td>
+                                <%: c.GetCommentByDisplayName(controller)%>
+                                <%: c.CommentEvent %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fieldSubText" style="color: #666;">
+                                    <%: c.CommentedDate.ToLongDateString()%>
+                                    <%: c.CommentedDate.ToShortTimeString() %>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <%      
