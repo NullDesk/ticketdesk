@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Repositories;
+using System.Reflection;
 
 namespace TicketDesk.Domain.Services
 {
@@ -21,15 +22,19 @@ namespace TicketDesk.Domain.Services
         [ImportingConstructor]
         public SecurityService
             (
-                [ImportMany(typeof(ISecurityRepository))]ISecurityRepository[] repositories,
-                [Import("RuntimeSecurityMode")]Func<string> getSecurityModeMethod,
-                [Import("CurrentUserNameMethod")]Func<string> getCurrentUserNameMethod,
-                [Import("StaffRoleName")]string staffRoleName,
-                [Import("SubmitterRoleName")]string submitterRoleName,
-                [Import("AdminRoleName")]string adminRoleName
+                [ImportMany(typeof(ISecurityRepository))] ISecurityRepository[] repositories,
+                [ImportMany("RefreshSecurityCache")] Action[] refreshSecurityCacheMethods,
+                [Import("RefreshSecurityCacheMinutes")] int refreshSecurityCacheMinutes,
+                [Import("RuntimeSecurityMode")] Func<string> getSecurityModeMethod,
+                [Import("CurrentUserNameMethod")] Func<string> getCurrentUserNameMethod,
+                [Import("StaffRoleName")] string staffRoleName,
+                [Import("SubmitterRoleName")] string submitterRoleName,
+                [Import("AdminRoleName")] string adminRoleName
             )
         {
             Repositories = repositories;
+            RefreshSecurityCacheMethods = refreshSecurityCacheMethods;
+            RefreshSecurityCacheMinutes = refreshSecurityCacheMinutes;
             GetCurrentUserName = getCurrentUserNameMethod;
             GetSecurityMode = getSecurityModeMethod;
             TdStaffRoleName = staffRoleName;
@@ -39,8 +44,35 @@ namespace TicketDesk.Domain.Services
 
         public Func<string> GetCurrentUserName { get; set; }
         private Func<string> GetSecurityMode { get; set; }
+        private int RefreshSecurityCacheMinutes{get;set;}
 
-
+        private Action[] RefreshSecurityCacheMethods { get;  set; }
+        private Action RefreshSecurityCacheMethod
+        {
+            get
+            {
+                Action meth = null;
+                var sec = GetSecurityMode();
+                foreach (var r in RefreshSecurityCacheMethods)
+                {
+                    
+                    foreach (Attribute attribute in r.Method.GetCustomAttributes(false))
+                    {
+                        ExportMetadataAttribute emAttribute = attribute as ExportMetadataAttribute;
+                        if (emAttribute != null && emAttribute.Name == "SecurityMode" && emAttribute.Value.Equals(sec))
+                        {
+                            meth = r;
+                            break;
+                        }
+                    }
+                    if (meth != null)
+                    {
+                        break;
+                    }
+                }
+                return meth;
+            }
+        }
 
 
         public ISecurityRepository[] Repositories { get; private set; }
@@ -76,6 +108,38 @@ namespace TicketDesk.Domain.Services
         private string TdAdminRoleName { get; set; }
 
         #region ISecurityService Members
+
+
+        /// <summary>
+        /// Initializes the security cache refresh timer. The caller should maintain a reference to the timer object to prevent it from disposing.
+        /// </summary>
+        /// <returns>The timer instance responsible for refreshing the cache, null if no timer is created/needed.</returns>
+        public System.Timers.Timer InitializeSecurityCacheRefreshTimer()
+        {
+            System.Timers.Timer CacheRefreshTimer = null;
+            if (RefreshSecurityCacheMethod != null)
+            {
+                System.Threading.Tasks.Task.Factory.StartNew(() => RefreshSecurityCacheMethod());//go ahead and spin out a run of the cache system right now.
+               
+                CacheRefreshTimer = new System.Timers.Timer();
+                int CacheRefreshInterval = RefreshSecurityCacheMinutes * 60 * 1000;
+                CacheRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(CacheRefreshTimer_Elapsed);
+                CacheRefreshTimer.Interval = CacheRefreshInterval;
+                CacheRefreshTimer.AutoReset = true;
+               
+                CacheRefreshTimer.Start();
+            }
+            return CacheRefreshTimer;
+        }
+
+        private void CacheRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (RefreshSecurityCacheMethod != null)
+            {
+                RefreshSecurityCacheMethod();
+            }
+        }
+
 
         /// <summary>
         /// Gets the submitter users.

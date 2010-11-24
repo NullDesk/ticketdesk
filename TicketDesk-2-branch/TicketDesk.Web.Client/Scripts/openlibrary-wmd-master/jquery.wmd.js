@@ -729,15 +729,26 @@ Chunks.prototype.addBlankLines = function(nLinesBefore, nLinesAfter, findExtraNe
     
     var regexText;
     var replacementText;
-    
+
+    //SMR - Attempting to fix bullet list bug in Chrome
+
+    var match; //SMR
+    match = /(^\n*)/.exec(this.selection);//SMR
     this.selection = this.selection.replace(/(^\n*)/, "");
-    this.startTag = this.startTag + re.$1;
+    //this.startTag = this.startTag + re.$1; //SMR
+    this.startTag = this.startTag + (match ? match[1] : "");//SMR
+ 	match = /(\n*$)/.exec(this.selection);//SMR
     this.selection = this.selection.replace(/(\n*$)/, "");
-    this.endTag = this.endTag + re.$1;
+    //this.endTag = this.endTag + re.$1;//SMR
+    this.endTag = this.endTag + (match ? match[1] : "");//SMR
+ 	match = /(^\n*)/.exec(this.startTag);//SMR
     this.startTag = this.startTag.replace(/(^\n*)/, "");
-    this.before = this.before + re.$1;
+    //this.before = this.before + re.$1;//SMR
+    this.before = this.before + RegExp.$1;//SMR
+ 	match = /(\n*$)/.exec(this.endTag);//SMR
     this.endTag = this.endTag.replace(/(\n*$)/, "");
-    this.after = this.after + re.$1;
+    //this.after = this.after + re.$1;//SMR
+    this.after = this.after + (match ? match[1] : "");
     
     if (this.before) {
     
@@ -1318,6 +1329,7 @@ function get_browser() {
     b.isIE_7plus     = b.isIE && !b.isIE_5or6;
     b.isOpera         = /opera/.test(nav.userAgent.toLowerCase());
     b.isKonqueror     = /konqueror/.test(nav.userAgent.toLowerCase());
+    b.isChrome        = /chrome/.test(nav.userAgent.toLowerCase());
     return b;
 }
 

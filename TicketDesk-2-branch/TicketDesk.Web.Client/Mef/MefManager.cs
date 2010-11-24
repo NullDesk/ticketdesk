@@ -32,6 +32,7 @@ namespace TicketDesk.Web.Client
         [Export("EmailMaxDeliveryAttempts")]
         public int EmailMaxDeliveryAttempts() { return Convert.ToInt32(ConfigurationManager.AppSettings["EmailMaxDeliveryAttempts"] ?? "5"); }
 
+       
         //[Export("SiteRootUrlForEmail")]
         //public string SiteRootUrlForEmailLinks()
         //{
@@ -59,6 +60,24 @@ namespace TicketDesk.Web.Client
 
         [Export("ActiveDirectoryUserPassword")]
         public string ActiveDirectoryUserPassword() { return ConfigurationManager.AppSettings["ActiveDirectoryUserPassword"]; }
+
+        [Export("AdUserPropertiesSqlCacheRefreshMinutes")]
+        public double AdUserPropertiesSqlCacheRefreshMinutes
+        {
+            get
+            {
+                return Convert.ToDouble(ConfigurationManager.AppSettings["AdUserPropertiesSqlCacheRefreshMinutes"] ?? "120");
+            }
+        }
+        [Export("RefreshSecurityCacheMinutes")]
+        public int RefreshSecurityCacheMinutes
+        {
+            get
+            {
+                return Convert.ToInt32(ConfigurationManager.AppSettings["RefreshSecurityCacheMinutes"] ?? "60");
+
+            }
+        }
 
         [Export("CurrentUserNameMethod")]
         public string GetMembershipUserFromContext() 

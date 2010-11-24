@@ -57,6 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DataAnnotations\AdCachedRoleMemberMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAnnotations\AdCachedUserPropertyMeta.cs">
+      <DependentUpon>AutoMetaData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataAnnotations\AutoMetaData.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,7 +102,9 @@
     </Compile>
     <Compile Include="Models\TicketPartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdDataRepository.cs" />
     <Compile Include="Repositories\AdSecurityRepository.cs" />
+    <Compile Include="Repositories\AdSqlCacheRepository.cs" />
     <Compile Include="Repositories\ApplicationSettingsRepository.cs" />
     <Compile Include="Repositories\Base\INotificationRepository.cs" />
     <Compile Include="Repositories\Base\ISecurityRepository.cs" />
@@ -107,6 +115,7 @@
     <Compile Include="Repositories\Base\SecurityRepositoryBase.cs" />
     <Compile Include="Repositories\TicketDataDataContext.cs" />
     <Compile Include="Repositories\TicketRepository.cs" />
+    <Compile Include="Services\AdSecurityCacheService.cs" />
     <Compile Include="Services\ApplicationSettingsService.cs" />
     <Compile Include="Services\Base\ApplicationSettingsServiceBase.cs" />
     <Compile Include="Services\Base\IEmailHandlerService.cs" />

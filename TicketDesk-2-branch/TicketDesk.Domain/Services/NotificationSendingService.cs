@@ -289,7 +289,7 @@ namespace TicketDesk.Domain.Services
                 status = EmailHandler.SendEmail(addressFrom, displayFrom, note.NotifyEmail, note.NotifyUserDisplayName, blindCopyTo, subject, htmlBody, textBody);
 
             }
-            catch (Exception ex)
+            catch
             {
                 //var exception = new ApplicationException("Failure in Email Delivery", ex);
                 //TODO: we need to log/record this here and NOT rethrow it 

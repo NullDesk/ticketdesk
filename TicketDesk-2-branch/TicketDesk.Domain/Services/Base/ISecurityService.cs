@@ -7,6 +7,12 @@ namespace TicketDesk.Domain.Services
     {
 
         /// <summary>
+        /// Initializes the security cache refresh timer. The caller should maintain a reference to the timer object to prevent it from disposing.
+        /// </summary>
+        /// <returns></returns>
+        System.Timers.Timer InitializeSecurityCacheRefreshTimer();
+
+        /// <summary>
         /// Gets the submitter users.
         /// </summary>
         /// <returns></returns>

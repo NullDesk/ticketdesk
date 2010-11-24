@@ -25,6 +25,7 @@ namespace TicketDesk.Web.Client
     {
         private System.Timers.Timer DerelictAttachmentsTimer;
         private System.Timers.Timer EmaiNotificationsTimer;
+        private System.Timers.Timer RefreshSecurityCacheTimer;
 
         public static CompositionContainer RootContainer;
         public static void RegisterRoutes(RouteCollection routes)
@@ -69,17 +70,24 @@ namespace TicketDesk.Web.Client
             );
 
         }
+        private static System.Timers.Timer SecurityRefreshTimer { get; set; }
 
+       
         protected override void Application_Start()
         {
             base.Application_Start();
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
+            
+            var SecurityService = MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>();
+
+            //timer is initialized by the service, but we have to hold a reference to it here or it will be garbage collected
+            //  in SQL Security Environments, this will just return null; there is no timer
+            SecurityRefreshTimer = SecurityService.InitializeSecurityCacheRefreshTimer();
+
             DerelictAttachmentsTimer = new System.Timers.Timer();
-
             int derelictInterval = 300000;
-
             DerelictAttachmentsTimer.Elapsed += new System.Timers.ElapsedEventHandler(DerelictAttachmentsTimer_Elapsed);
             DerelictAttachmentsTimer.Interval = derelictInterval;
             DerelictAttachmentsTimer.AutoReset = true;

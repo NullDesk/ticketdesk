@@ -168,6 +168,38 @@ namespace TicketDesk.Domain.Models
             }
         }
         private ObjectSet<TicketTag> _TicketTags;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AdCachedRoleMember> AdCachedRoleMembers
+        {
+            get
+            {
+                if ((_AdCachedRoleMembers == null))
+                {
+                    _AdCachedRoleMembers = base.CreateObjectSet<AdCachedRoleMember>("AdCachedRoleMembers");
+                }
+                return _AdCachedRoleMembers;
+            }
+        }
+        private ObjectSet<AdCachedRoleMember> _AdCachedRoleMembers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AdCachedUserProperty> AdCachedUserProperties
+        {
+            get
+            {
+                if ((_AdCachedUserProperties == null))
+                {
+                    _AdCachedUserProperties = base.CreateObjectSet<AdCachedUserProperty>("AdCachedUserProperties");
+                }
+                return _AdCachedUserProperties;
+            }
+        }
+        private ObjectSet<AdCachedUserProperty> _AdCachedUserProperties;
 
         #endregion
         #region AddTo Methods
@@ -219,6 +251,22 @@ namespace TicketDesk.Domain.Models
         {
             base.AddObject("TicketTags", ticketTag);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AdCachedRoleMembers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAdCachedRoleMembers(AdCachedRoleMember adCachedRoleMember)
+        {
+            base.AddObject("AdCachedRoleMembers", adCachedRoleMember);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AdCachedUserProperties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAdCachedUserProperties(AdCachedUserProperty adCachedUserProperty)
+        {
+            base.AddObject("AdCachedUserProperties", adCachedUserProperty);
+        }
 
         #endregion
     }
@@ -227,6 +275,274 @@ namespace TicketDesk.Domain.Models
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TicketDeskModel", Name="AdCachedRoleMember")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AdCachedRoleMember : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AdCachedRoleMember object.
+        /// </summary>
+        /// <param name="groupName">Initial value of the GroupName property.</param>
+        /// <param name="memberName">Initial value of the MemberName property.</param>
+        /// <param name="memberDisplayName">Initial value of the MemberDisplayName property.</param>
+        public static AdCachedRoleMember CreateAdCachedRoleMember(global::System.String groupName, global::System.String memberName, global::System.String memberDisplayName)
+        {
+            AdCachedRoleMember adCachedRoleMember = new AdCachedRoleMember();
+            adCachedRoleMember.GroupName = groupName;
+            adCachedRoleMember.MemberName = memberName;
+            adCachedRoleMember.MemberDisplayName = memberDisplayName;
+            return adCachedRoleMember;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String GroupName
+        {
+            get
+            {
+                return _GroupName;
+            }
+            set
+            {
+                if (_GroupName != value)
+                {
+                    OnGroupNameChanging(value);
+                    ReportPropertyChanging("GroupName");
+                    _GroupName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("GroupName");
+                    OnGroupNameChanged();
+                }
+            }
+        }
+        private global::System.String _GroupName;
+        partial void OnGroupNameChanging(global::System.String value);
+        partial void OnGroupNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MemberName
+        {
+            get
+            {
+                return _MemberName;
+            }
+            set
+            {
+                if (_MemberName != value)
+                {
+                    OnMemberNameChanging(value);
+                    ReportPropertyChanging("MemberName");
+                    _MemberName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("MemberName");
+                    OnMemberNameChanged();
+                }
+            }
+        }
+        private global::System.String _MemberName;
+        partial void OnMemberNameChanging(global::System.String value);
+        partial void OnMemberNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MemberDisplayName
+        {
+            get
+            {
+                return _MemberDisplayName;
+            }
+            set
+            {
+                OnMemberDisplayNameChanging(value);
+                ReportPropertyChanging("MemberDisplayName");
+                _MemberDisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MemberDisplayName");
+                OnMemberDisplayNameChanged();
+            }
+        }
+        private global::System.String _MemberDisplayName;
+        partial void OnMemberDisplayNameChanging(global::System.String value);
+        partial void OnMemberDisplayNameChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TicketDeskModel", Name="AdCachedUserProperty")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AdCachedUserProperty : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AdCachedUserProperty object.
+        /// </summary>
+        /// <param name="userName">Initial value of the UserName property.</param>
+        /// <param name="propertyName">Initial value of the PropertyName property.</param>
+        /// <param name="isActiveInAd">Initial value of the IsActiveInAd property.</param>
+        public static AdCachedUserProperty CreateAdCachedUserProperty(global::System.String userName, global::System.String propertyName, global::System.Boolean isActiveInAd)
+        {
+            AdCachedUserProperty adCachedUserProperty = new AdCachedUserProperty();
+            adCachedUserProperty.UserName = userName;
+            adCachedUserProperty.PropertyName = propertyName;
+            adCachedUserProperty.IsActiveInAd = isActiveInAd;
+            return adCachedUserProperty;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                if (_UserName != value)
+                {
+                    OnUserNameChanging(value);
+                    ReportPropertyChanging("UserName");
+                    _UserName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("UserName");
+                    OnUserNameChanged();
+                }
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PropertyName
+        {
+            get
+            {
+                return _PropertyName;
+            }
+            set
+            {
+                if (_PropertyName != value)
+                {
+                    OnPropertyNameChanging(value);
+                    ReportPropertyChanging("PropertyName");
+                    _PropertyName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("PropertyName");
+                    OnPropertyNameChanged();
+                }
+            }
+        }
+        private global::System.String _PropertyName;
+        partial void OnPropertyNameChanging(global::System.String value);
+        partial void OnPropertyNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PropertyValue
+        {
+            get
+            {
+                return _PropertyValue;
+            }
+            set
+            {
+                OnPropertyValueChanging(value);
+                ReportPropertyChanging("PropertyValue");
+                _PropertyValue = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PropertyValue");
+                OnPropertyValueChanged();
+            }
+        }
+        private global::System.String _PropertyValue;
+        partial void OnPropertyValueChanging(global::System.String value);
+        partial void OnPropertyValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastRefreshed
+        {
+            get
+            {
+                return _LastRefreshed;
+            }
+            set
+            {
+                OnLastRefreshedChanging(value);
+                ReportPropertyChanging("LastRefreshed");
+                _LastRefreshed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastRefreshed");
+                OnLastRefreshedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastRefreshed;
+        partial void OnLastRefreshedChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastRefreshedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActiveInAd
+        {
+            get
+            {
+                return _IsActiveInAd;
+            }
+            set
+            {
+                OnIsActiveInAdChanging(value);
+                ReportPropertyChanging("IsActiveInAd");
+                _IsActiveInAd = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActiveInAd");
+                OnIsActiveInAdChanged();
+            }
+        }
+        private global::System.Boolean _IsActiveInAd;
+        partial void OnIsActiveInAdChanging(global::System.Boolean value);
+        partial void OnIsActiveInAdChanged();
+
+        #endregion
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.

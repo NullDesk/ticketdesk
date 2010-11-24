@@ -44,6 +44,9 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ComponentModel.Composition.Diagnostics">
+      <HintPath>..\Library\Microsoft.ComponentModel.Composition.Diagnostics.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvcContrib">
       <HintPath>..\Library\MvcContrib.dll</HintPath>

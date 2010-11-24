@@ -4,8 +4,10 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TicketDeskModelStoreContainer">
+          <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.Store.AdCachedRoleMembers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.Store.AdCachedUserProperties" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Settings" EntityType="TicketDeskModel.Store.Settings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TicketAttachments" EntityType="TicketDeskModel.Store.TicketAttachments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TicketComments" EntityType="TicketDeskModel.Store.TicketComments" store:Type="Tables" Schema="dbo" />
@@ -29,6 +31,26 @@
             <End Role="TicketTags" EntitySet="TicketTags" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AdCachedRoleMembers">
+          <Key>
+            <PropertyRef Name="GroupName" />
+            <PropertyRef Name="MemberName" />
+          </Key>
+          <Property Name="GroupName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="MemberName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="MemberDisplayName" Type="nvarchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="AdCachedUserProperties">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="PropertyName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="PropertyName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PropertyValue" Type="nvarchar" MaxLength="250" />
+          <Property Name="LastRefreshed" Type="datetime" />
+          <Property Name="IsActiveInAd" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Settings">
           <Key>
             <PropertyRef Name="SettingName" />
@@ -198,6 +220,8 @@
             <End Role="Tickets" EntitySet="Tickets" />
             <End Role="TicketTags" EntitySet="TicketTags" />
           </AssociationSet>
+          <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.AdCachedRoleMember" />
+          <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.AdCachedUserProperty" />
         </EntityContainer>
         <EntityType Name="Setting">
           <Key>
@@ -349,6 +373,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AdCachedRoleMember">
+          <Key>
+            <PropertyRef Name="GroupName" />
+            <PropertyRef Name="MemberName" />
+          </Key>
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MemberName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MemberDisplayName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AdCachedUserProperty">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="PropertyName" />
+          </Key>
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PropertyName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PropertyValue" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastRefreshed" />
+          <Property Type="Boolean" Name="IsActiveInAd" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -422,6 +466,26 @@
             <ScalarProperty Name="TagName" ColumnName="TagName" />
             <ScalarProperty Name="TicketId" ColumnName="TicketId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AdCachedRoleMembers">
+            <EntityTypeMapping TypeName="TicketDeskModel.AdCachedRoleMember">
+              <MappingFragment StoreEntitySet="AdCachedRoleMembers">
+                <ScalarProperty Name="MemberDisplayName" ColumnName="MemberDisplayName" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdCachedUserProperties">
+            <EntityTypeMapping TypeName="TicketDeskModel.AdCachedUserProperty">
+              <MappingFragment StoreEntitySet="AdCachedUserProperties">
+                <ScalarProperty Name="IsActiveInAd" ColumnName="IsActiveInAd" />
+                <ScalarProperty Name="LastRefreshed" ColumnName="LastRefreshed" />
+                <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -466,6 +530,8 @@
           <ConnectorPoint PointX="2" PointY="6.6917122395833317" />
           <ConnectorPoint PointX="2" PointY="7.125" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="TicketDeskModel.AdCachedRoleMember" Width="2.25" PointX="8.75" PointY="0.75" Height="1.59568359375" />
+        <EntityTypeShape EntityType="TicketDeskModel.AdCachedUserProperty" Width="2" PointX="8.75" PointY="3.125" Height="1.9802864583333317" />
       </Diagram>
     </Diagrams>
   </Designer>
