@@ -44,9 +44,9 @@ namespace TicketDesk.Domain.Services
 
         public Func<string> GetCurrentUserName { get; set; }
         private Func<string> GetSecurityMode { get; set; }
-        private int RefreshSecurityCacheMinutes{get;set;}
+        private int RefreshSecurityCacheMinutes { get; set; }
 
-        private Action[] RefreshSecurityCacheMethods { get;  set; }
+        private Action[] RefreshSecurityCacheMethods { get; set; }
         private Action RefreshSecurityCacheMethod
         {
             get
@@ -55,7 +55,7 @@ namespace TicketDesk.Domain.Services
                 var sec = GetSecurityMode();
                 foreach (var r in RefreshSecurityCacheMethods)
                 {
-                    
+
                     foreach (Attribute attribute in r.Method.GetCustomAttributes(false))
                     {
                         ExportMetadataAttribute emAttribute = attribute as ExportMetadataAttribute;
@@ -109,24 +109,24 @@ namespace TicketDesk.Domain.Services
 
         #region ISecurityService Members
 
-
+        private System.Timers.Timer CacheRefreshTimer = null;
         /// <summary>
         /// Initializes the security cache refresh timer. The caller should maintain a reference to the timer object to prevent it from disposing.
         /// </summary>
         /// <returns>The timer instance responsible for refreshing the cache, null if no timer is created/needed.</returns>
         public System.Timers.Timer InitializeSecurityCacheRefreshTimer()
         {
-            System.Timers.Timer CacheRefreshTimer = null;
+
             if (RefreshSecurityCacheMethod != null)
             {
                 System.Threading.Tasks.Task.Factory.StartNew(() => RefreshSecurityCacheMethod());//go ahead and spin out a run of the cache system right now.
-               
+
                 CacheRefreshTimer = new System.Timers.Timer();
                 int CacheRefreshInterval = RefreshSecurityCacheMinutes * 60 * 1000;
                 CacheRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(CacheRefreshTimer_Elapsed);
                 CacheRefreshTimer.Interval = CacheRefreshInterval;
-                CacheRefreshTimer.AutoReset = true;
-               
+                CacheRefreshTimer.AutoReset = false;//we'll manually restart the timer
+
                 CacheRefreshTimer.Start();
             }
             return CacheRefreshTimer;
@@ -134,9 +134,19 @@ namespace TicketDesk.Domain.Services
 
         private void CacheRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+
             if (RefreshSecurityCacheMethod != null)
             {
-                RefreshSecurityCacheMethod();
+                CacheRefreshTimer.Stop();
+                try
+                {
+                    RefreshSecurityCacheMethod();
+                }
+                catch (Exception ex) { throw ex; }
+                finally
+                {
+                    CacheRefreshTimer.Start();
+                }
             }
         }
 

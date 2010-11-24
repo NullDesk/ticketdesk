@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TicketDeskModelStoreContainer">
           <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.Store.AdCachedRoleMembers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.Store.AdCachedUserProperties" store:Type="Tables" Schema="dbo" />

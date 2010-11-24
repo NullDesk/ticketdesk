@@ -41,11 +41,13 @@ namespace TicketDesk.Domain.Repositories
 
         private static bool isBuildUserPropertiesCacheFirstRun = true;
 
+      
         internal void RefreshSqlCacheFromAd()
         {
+            
             BuildRoleMembersCache();
             EnsureStandardPropertiesForAllKnownUsers();
-            BuildUserPropertiesCache(false);
+           
             if (isBuildUserPropertiesCacheFirstRun)
             {
                 //we only do this once per app instantiation, just in case an AD user is re-created 
@@ -53,6 +55,10 @@ namespace TicketDesk.Domain.Repositories
                 isBuildUserPropertiesCacheFirstRun = false;
 
                 BuildUserPropertiesCache(true);
+            }
+            else
+            {
+                BuildUserPropertiesCache(false);
             }
         }
 
@@ -99,12 +105,12 @@ namespace TicketDesk.Domain.Repositories
             var refreshTime = DateTime.Now.AddMinutes((AdUserPropertiesSqlCacheRefreshMinutes * -1d));
             using (TicketDeskEntities ctx = new TicketDeskEntities())
             {
-                var propertiesForRefresh = ctx.AdCachedUserProperties.Where(up => !up.LastRefreshed.HasValue || up.LastRefreshed <= refreshTime);
+                var propertiesForRefresh = ctx.AdCachedUserProperties.Where(up => !up.LastRefreshed.HasValue || up.LastRefreshed.Value <= refreshTime);
                 if(!includeInactiveAd)
                 { 
                     propertiesForRefresh = propertiesForRefresh.Where(up => up.IsActiveInAd);
                 }
-                foreach(var property in propertiesForRefresh)
+                foreach(var property in propertiesForRefresh.ToList())
                 {
                     bool userFound;
                     var value = AdRepository.GetUserPropertyFromAd(property.UserName, property.PropertyName, out userFound);
@@ -114,9 +120,9 @@ namespace TicketDesk.Domain.Repositories
                         property.PropertyValue = value;
                     }
                     property.LastRefreshed = DateTime.Now;
-                   
+                    ctx.SaveChanges();
                 }
-                ctx.SaveChanges();
+                
             }
         }
 
@@ -137,7 +143,7 @@ namespace TicketDesk.Domain.Repositories
 
                 foreach (var knownUser in allKnownUsers)
                 {
-                    if (existingProps.Count(ep => ep.UserName == knownUser) < 1)
+                    if (existingProps.Count(ep => string.Equals(ep.UserName, knownUser, StringComparison.InvariantCultureIgnoreCase)) < 1)
                     {
                         var newUserProp = new AdCachedUserProperty()
                                             {
@@ -147,11 +153,6 @@ namespace TicketDesk.Domain.Repositories
                                             };
                         ctx.AdCachedUserProperties.AddObject(newUserProp);
                     }
-
-
-                    ctx.SaveChanges();
-
-
                 }
 
                 //loop 2 to add all email properties for any users not already in the SQL cache
@@ -159,7 +160,7 @@ namespace TicketDesk.Domain.Repositories
 
                 foreach (var knownUser in allKnownUsers)
                 {
-                    if (existingProps.Count(ep => ep.UserName == knownUser) < 1)
+                    if (existingProps.Count(ep => string.Equals(ep.UserName, knownUser, StringComparison.InvariantCultureIgnoreCase)) < 1)
                     {
                         var newUserProp = new AdCachedUserProperty()
                                             {
@@ -171,8 +172,9 @@ namespace TicketDesk.Domain.Repositories
                     }
 
 
-                    ctx.SaveChanges();
+                   
                 }
+                ctx.SaveChanges();
             }
         }
 
@@ -184,14 +186,14 @@ namespace TicketDesk.Domain.Repositories
             {
                 //distincting each one of these just reduces the amount of data coming back from SQL
                 //  it doesn't actually give us a truly distinct master list though.
-                allUsers.AddRange(ctx.AdCachedRoleMembers.Select(r => r.MemberName).Distinct());
-                allUsers.AddRange(ctx.Tickets.Select(t => t.CreatedBy).Distinct());
-                allUsers.AddRange(ctx.Tickets.Select(t => t.Owner).Distinct());
-                allUsers.AddRange(ctx.Tickets.Select(t => t.AssignedTo).Distinct());
-                allUsers.AddRange(ctx.Tickets.Select(t => t.CurrentStatusSetBy).Distinct());
-                allUsers.AddRange(ctx.Tickets.Select(t => t.LastUpdateBy).Distinct());
-                allUsers.AddRange(ctx.TicketComments.Select(tc => tc.CommentedBy).Distinct());
-                allUsers.AddRange(ctx.TicketAttachments.Select(ta => ta.UploadedBy).Distinct());
+                allUsers.AddRange(ctx.AdCachedRoleMembers.Select(r => r.MemberName.ToLower()).Distinct());
+                allUsers.AddRange(ctx.Tickets.Select(t => t.CreatedBy.ToLower()).Distinct());
+                allUsers.AddRange(ctx.Tickets.Select(t => t.Owner.ToLower()).Distinct());
+                allUsers.AddRange(ctx.Tickets.Select(t => t.AssignedTo.ToLower()).Distinct());
+                allUsers.AddRange(ctx.Tickets.Select(t => t.CurrentStatusSetBy.ToLower()).Distinct());
+                allUsers.AddRange(ctx.Tickets.Select(t => t.LastUpdateBy.ToLower()).Distinct());
+                allUsers.AddRange(ctx.TicketComments.Select(tc => tc.CommentedBy.ToLower()).Distinct());
+                allUsers.AddRange(ctx.TicketAttachments.Select(ta => ta.UploadedBy.ToLower()).Distinct());
 
 
             }
@@ -201,18 +203,7 @@ namespace TicketDesk.Domain.Repositories
                 allUsers.Remove(badUser);
             }
             return allUsers.Distinct();//this gets the truly distinct list
-            //scan the system for all known user names
-            /*
-               
-
-               
-
-
-                TicketAttachments:
-		
-                    UploadedBy
- 
-             */
+          
 
 
         }
@@ -233,6 +224,7 @@ namespace TicketDesk.Domain.Repositories
         /// <returns>The property stored in the SQL cache; null if no value cached</returns>
         internal string GetUserProperty(string userName, string propertyName)
         {
+            userName = userName.ToLowerInvariant();
             string propertyValue = null;
 
             using (TicketDeskEntities ctx = new TicketDeskEntities())
@@ -269,12 +261,13 @@ namespace TicketDesk.Domain.Repositories
         /// <returns></returns>
         internal UserInfo[] GetGroupMembers(string groupName)
         {
+            groupName = groupName.ToLowerInvariant();
             UserInfo[] usersInGroup = null;
             using (TicketDeskEntities ctx = new TicketDeskEntities())
             {
                 var users = from m in ctx.AdCachedRoleMembers
                             where m.GroupName == groupName
-                            select new UserInfo(m.MemberName, m.MemberDisplayName);
+                            select new UserInfo() { Name = m.MemberName, DisplayName = m.MemberDisplayName };
                 if (users.Count() > 0)
                 {
                     usersInGroup = users.ToArray();

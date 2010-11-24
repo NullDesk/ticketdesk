@@ -51,7 +51,7 @@ namespace TicketDesk.Domain.Repositories
                                         GetActiveDirectoryUserPassword())
             )
             {
-                using (UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, userName))
+                using (UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, userName.ToLowerInvariant()))
                 {
                     if (userPrincipal != null)
                     {
@@ -88,7 +88,7 @@ namespace TicketDesk.Domain.Repositories
             )
             {
 
-                using (GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, groupName))
+                using (GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, groupName.ToLowerInvariant()))
                 {
                     if (grp != null)
                     {
@@ -99,7 +99,7 @@ namespace TicketDesk.Domain.Repositories
                                       p.UserPrincipalName.Trim() != string.Empty &&
                                       p.DisplayName.Trim() != string.Empty
                                 orderby p.DisplayName
-                                select new UserInfo(p.SamAccountName.ToLower(), p.DisplayName);
+                                select new UserInfo() { Name = p.SamAccountName.ToLowerInvariant(), DisplayName = p.DisplayName };
 
                         usersInGroup = x.ToArray();
                     }

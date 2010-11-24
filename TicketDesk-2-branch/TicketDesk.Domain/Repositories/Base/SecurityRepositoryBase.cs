@@ -36,7 +36,7 @@ namespace TicketDesk.Domain.Repositories
             string[] sUsers = RoleSource.GetUsersInRole(roleName);
             foreach (string s in sUsers)
             {
-                users.Add(new UserInfo(s.ToLower(), GetUserDisplayName(s)));
+                users.Add(new UserInfo() { Name = s.ToLower(), DisplayName = GetUserDisplayName(s) });
             }
             return users.ToArray();
         }

@@ -67,7 +67,7 @@ namespace TicketDesk.Domain.Repositories
 
         public override UserInfo[] GetUsersInRole(string roleName)
         {
-            string groupName = roleName.Substring(roleName.LastIndexOf('\\') + 1);//just get the group name without any domain portion
+            string groupName = roleName;//just get the group name without any domain portion
             return AdService.GetRoleMembers(groupName);
         }
 

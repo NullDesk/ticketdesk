@@ -91,7 +91,7 @@ namespace TicketDesk.Web.Client.Models
 
 
                 List<UserInfo> lusers = new List<UserInfo>(SubmitterUsers.OrderBy(u => u.DisplayName));
-                lusers.Insert(0, new UserInfo("anyone", "-- anyone --"));
+                lusers.Insert(0, new UserInfo() { Name = "anyone", DisplayName = "-- anyone --" });
 
                 return new SelectList(lusers, "Name", "DisplayName", selectedUserName);
             }
@@ -111,8 +111,8 @@ namespace TicketDesk.Web.Client.Models
 
 
                 List<UserInfo> lusers = new List<UserInfo>(StaffUsers.OrderBy(u => u.DisplayName));
-                lusers.Insert(0, new UserInfo("anyone", "-- anyone --"));
-                lusers.Insert(1, new UserInfo("unassigned", "-- unassigned --"));
+                lusers.Insert(0, new UserInfo() { Name = "anyone", DisplayName = "-- anyone --" });
+                lusers.Insert(1, new UserInfo(){Name = "unassigned", DisplayName = "-- unassigned --"});
 
                 return new SelectList(lusers, "Name", "DisplayName", selectedUserName);
             }
