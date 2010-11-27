@@ -5,13 +5,21 @@ using System.Linq;
 using System.Reflection;
 using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
+using System.Data.Objects;
 
 namespace TicketDesk.Domain.Repositories
 {
+    public class TicketEventArgs : EventArgs { public Ticket Ticket { get; set; } }
+
     [Export(typeof(ITicketRepository))]
     [PartCreationPolicy(System.ComponentModel.Composition.CreationPolicy.NonShared)]
     public class TicketRepository : ITicketRepository
     {
+        
+
+        public event EventHandler<TicketEventArgs> Saving;
+
+
         private TicketDeskEntities ctx = new TicketDeskEntities();
 
 
@@ -39,42 +47,73 @@ namespace TicketDesk.Domain.Repositories
         public IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns)
         {
             var q = ctx.Tickets;
-
-            string[] fkeys = new string[filterColumns.Count];
-            for (var i = 0; i < filterColumns.Count; i++)
+            string wString = null;
+            string kString = null;
+            if (filterColumns != null && filterColumns.Count > 0)
             {
-                var filterColumn = filterColumns[i];
-
-                string colVal = (filterColumn.ColumnValue == null) ? "null" : string.Format("\"{0}\"", filterColumn.ColumnValue);
-                string optr = null;
-
-                if (colVal == "null")
+                string[] fkeys = new string[filterColumns.Count];
+                for (var i = 0; i < filterColumns.Count; i++)
                 {
-                    optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "IS NOT" : "IS";
+                    var filterColumn = filterColumns[i];
+
+                    string colVal = (filterColumn.ColumnValue == null) ? "null" : string.Format("\"{0}\"", filterColumn.ColumnValue);
+                    string optr = null;
+
+                    if (colVal == "null")
+                    {
+                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "IS NOT" : "IS";
+                    }
+                    else
+                    {
+                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "!=" : "=";
+                    }
+
+
+                    fkeys[i] = string.Format("it.{0} {1} {2}", filterColumn.ColumnName, optr, colVal);
+
                 }
-                else
-                {
-                    optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "!=" : "=";
-                }
-
-
-                fkeys[i] = string.Format("it.{0} {1} {2}", filterColumn.ColumnName, optr, colVal);
-
-            }
-            string wString = string.Join(" and ", fkeys);
-            var wq = q.Where(wString);
-
-            string[] skeys = new string[sortColumns.Count];
-            for (var i = 0; i < sortColumns.Count; i++)
-            {
-                var sortColumn = sortColumns[i];
-                string appd = (sortColumn.SortDirection == ColumnSortDirection.Ascending) ? string.Empty : "DESC";
-                skeys[i] = string.Format("it.{0} {1}", sortColumn.ColumnName, appd);
+                wString = string.Join(" and ", fkeys);
             }
 
-            string kString = string.Join(",", skeys);
+            if (sortColumns != null && sortColumns.Count > 0)
+            {
 
-            return wq.OrderBy(kString).AsPagination(pageIndex, pageSize);
+                string[] skeys = new string[sortColumns.Count];
+                for (var i = 0; i < sortColumns.Count; i++)
+                {
+                    var sortColumn = sortColumns[i];
+                    string appd = (sortColumn.SortDirection == ColumnSortDirection.Ascending) ? string.Empty : "DESC";
+                    skeys[i] = string.Format("it.{0} {1}", sortColumn.ColumnName, appd);
+                }
+
+                kString = string.Join(",", skeys);
+
+            }
+
+            //few hoops to get ObjectSet to be an ObjectQuery
+            ObjectQuery<Ticket> tq = new ObjectQuery<Ticket>(q.CommandText, q.Context);
+
+            if (!string.IsNullOrEmpty(wString))
+            {
+                tq = tq.Where(wString);
+            }
+            if (string.IsNullOrEmpty(kString))
+            {
+                kString = "it.TicketId";
+            }
+
+            return tq.OrderBy(kString).AsPagination(pageIndex, pageSize);
+        }
+
+        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList)
+        {
+            var orderedTickets = from i in orderedTicketList
+                                 join t in ctx.Tickets
+                                 on i.Value equals t.TicketId
+                                 orderby i.Key
+                                 select t;
+            return orderedTickets;
+
         }
 
         /// <summary>
@@ -91,6 +130,8 @@ namespace TicketDesk.Domain.Repositories
             if (commit)
             {
                 ctx.SaveChanges();
+                SavingTicketChanges(newTicket);
+
             }
             return true;
         }
@@ -106,6 +147,7 @@ namespace TicketDesk.Domain.Repositories
         public bool UpdateTicket(Ticket ticket)
         {
             ctx.SaveChanges();
+            SavingTicketChanges(ticket);
             return true;
         }
 
@@ -122,6 +164,7 @@ namespace TicketDesk.Domain.Repositories
             {
 
                 ctx.SaveChanges();
+                SavingTicketChanges(attachment.Ticket);
             }
             return true;
         }
@@ -138,6 +181,7 @@ namespace TicketDesk.Domain.Repositories
             if (commit)
             {
                 ctx.SaveChanges();
+                SavingTicketChanges(attachment.Ticket);
             }
             return true;
         }
@@ -230,7 +274,7 @@ namespace TicketDesk.Domain.Repositories
             foreach (var tag in ticket.TicketTags)
             {
                 tagsToKill.Add(tag);
-                
+
             }
             foreach (var tag in tagsToKill)
             {
@@ -240,6 +284,7 @@ namespace TicketDesk.Domain.Repositories
             if (commit)
             {
                 ctx.SaveChanges();
+                SavingTicketChanges(ticket);
             }
             return true;
         }
@@ -286,6 +331,14 @@ namespace TicketDesk.Domain.Repositories
             }
 
             return differences;
+        }
+
+        private void SavingTicketChanges(Ticket ticket)
+        {
+            if (Saving != null)
+            {
+                Saving(this, new TicketEventArgs() { Ticket = ticket });
+            }
         }
     }
 }

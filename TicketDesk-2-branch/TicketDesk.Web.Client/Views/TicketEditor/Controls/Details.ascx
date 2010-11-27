@@ -13,8 +13,8 @@
     var flagUrl = root + Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(currentFlagStatus))); 
     
     var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}",Model.TicketId.ToString()));
-   
-    
+
+    var detailsHeight = (ViewData["formatForSearch"] == null) ? 180: 70;
     
 %>
 <div class="ticketDetailsHeaderOuter">
@@ -79,13 +79,13 @@
             <tbody>
                 <tr>
                     <td class="ticketDetailsArea" colspan="2">
-                        <div id="detailsText">
+                        <div id="detailsText" style="height: <%= detailsHeight%>px;" >
                             <%= Model.HtmlDetails%>
                         </div>
                     </td>
                 </tr>
                 <%
-                    if (ViewData["formatForEmail"] == null)
+                    if (ViewData["formatForEmail"] == null && ViewData["formatForSearch"] == null)
                     { 
                 %>
                 <tr id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;"

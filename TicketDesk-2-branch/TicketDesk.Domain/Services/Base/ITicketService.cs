@@ -30,6 +30,21 @@ namespace TicketDesk.Domain.Services
 
 
         /// <summary>
+        /// Lists a paged list of tickets.
+        /// </summary>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        IPagination<Ticket> ListTickets(int pageIndex, int pageSize);
+
+        /// <summary>
+        /// Gets a list of tickets from an ordered list of ticket IDs.
+        /// </summary>
+        /// <param name="orderedTicketList">The ordered ticket list.</param>
+        /// <returns>Tickets in the same order as the supplied ticket IDs</returns>
+        IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList);
+
+        /// <summary>
         /// Creates the new ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>

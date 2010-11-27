@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<TicketDesk.Web.Client.Models.TicketCenterListViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<TicketDesk.Domain.Models.Ticket>>" %>
 
 <%@ Import Namespace="MvcContrib.UI.Pager" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
@@ -6,7 +6,6 @@
     Display
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="CustomHeadContent" runat="server">
-   
     <script src="<%= Links.Scripts.jquery_clickable_0_1_9_js %>" type="text/javascript"></script>
     <% 
         if (false)
@@ -22,124 +21,61 @@
         $("document").ready(
         function () {
             $(".displayContainerInner").corner("bevel left 6px").parent().css('padding', '3px').corner("round left keep 12px").corner("round right keep 4px");
-            $(".clickable").clickable();
+            $(".searchDisplayContainerInner").corner("bevel top 6px").parent().css('padding', '3px').corner("round top keep 12px");
+
+
+
+
         });
-       
-            
-            
-        
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <ul>
-        <% 
-            foreach (var list in Model.ListsForMenu)
-            {
-                var className = ((Model.CurrentListSettings.ListName == list.ListName)) ? "selected" : string.Empty;
+    <div class="contentContainer">
+        <div class="searchDisplayContainerOuter">
+            <div class="searchDisplayContainerInner">
+                <div class="activityHeadWrapper">
+                    <div class="activityHead">
+                        Search Results:
+                    </div>
+                </div>
+                <div class="activityBody fieldSubText" style="padding: 3px 3px 3px 25px;">
+                    <%: Html.Label("Searched For:") %>
+                    "<%: ViewData["searchPhrase"] %>"
+               </div>
+               <div class="activityBody">
+        <% if (Model != null && Model.Count() > 0)
+           {
         %>
-        <li class="<%= className %>">
-            <%= Html.ActionLink(list.ListDisplayName, MVC.TicketManager.Index(null, list.ListName))%>
-        </li>
-        <%
-            }
-        %>
-    </ul>
-    <% if (Model.Tickets.Count() < 1)
-       {
-    %>
-    No Tickets
-    <% }
-       else
-       {
-    %>
-    <div id="ticketList" style="max-width: 700px; margin: auto;">
         <%       
            
            
-            foreach (var item in Model.Tickets)
+            foreach (var item in Model)
             {
-                var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketManagerController;
-
+           
         %>
-        <div>
-            <div class="clickable displayContainerOuter">
-                <div class="displayContainerInner">
-                    <div>
-                        <div style="margin-top: 0px;">
-                            <div style="color: #0B294F; background-color: #E1EBF2;">
-                                <table style="width: 100%; font-size: 9pt;" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td rowspan="3" style="min-height: 80px; width: 20px; border-right: solid 1px #B3CBDF"
-                                            class="<%=  Html.Encode(item.CurrentStatus.Replace(" ", "").ToLower())%>Flag">
-                                            <img alt="<%: item.CurrentStatus %>" src="<%= Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(item.CurrentStatus.ToLower()))) %>" />
-                                        </td>
-                                        <td style="white-space: nowrap; vertical-align: top; font-weight: bold; padding: 3px;">
-                                            <a href='<%= Url.Action("Display", "TicketEditor", new { ID = item.TicketId })%>'>Ticket:
-                                                #<%: item.TicketId%>
-                                                -
-                                                <%: item.Category%>
-                                                <%: item.Type%>
-                                            </a>
-                                        </td>
-                                        <td style="padding: 3px;">
-                                            <div style="float: right;">
-                                                Priority:
-                                                <%: item.Priority%>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr style="height: 25px;">
-                                        <td colspan="2" style="padding-left: 20px; padding-bottom: 2px; padding-right: 8px;
-                                            padding-top: 2px; font-size: 9pt;">
-                                            <%: item.Title%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="background-color: #EEF3F7; border-top: solid 1px #B3CBDF">
-                                            <table style="width: 100%; color: #444; font-size: 8pt;">
-                                                <tr>
-                                                    <td style="white-space: nowrap; text-align: right;">
-                                                        Assigned To:
-                                                    </td>
-                                                    <td style="white-space: nowrap;">
-                                                        <%: item.GetAssignedToDisplayName(controller)%><br />
-                                                    </td>
-                                                    <td rowspan="2" style="width: 100%;">
-                                                        <div style="text-align: right; width: 100%; font-size: 8pt;">
-                                                            Tags:
-                                                            <%: item.TagList%></div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="white-space: nowrap; text-align: right;">
-                                                        Owned By:
-                                                    </td>
-                                                    <td style="white-space: nowrap;">
-                                                        <%: item.GetOwnerDisplayName(controller)%>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="displayContainerOuter" style="width:75%;">
+            <div class="displayContainerInner">
+                <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, item, ViewData); %>
             </div>
         </div>
-        <%     }%>
-        <%= Html.Pager(Model.Tickets) %>
-        <%--
-    <br />
-    <br />
-    <% var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticketList" };//, OnBegin = "beginChangeList", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };%>
-
-    <%= Ajax.Pager(Model.Tickets, new PagerOptions { IndexParameterName = "page", ShowNumbers = true, PreviousText = "PREV", NextText = "NEXT" }, ajaxOptions)%>
-    (page
-    <%= Model.Tickets.PageNumber%>
-    of
-    <%= Model.Tickets.TotalPages%>)--%>
-        <% } %>
-    </div>
+        <%   
+            }
+        %>
+        <br /><br /><br />
+        <%
+           }
+           else
+           {
+        %>
+        
+            <div style="width:90%;text-align:center; padding:25px;">
+                There are no tickets to display.
+            </div>
+        <%
+            }
+        %>
+    </div> </div>
+            </div>
+        </div>
 </asp:Content>

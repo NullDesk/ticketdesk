@@ -125,5 +125,17 @@ namespace TicketDesk.Web.Client
             return controller.GenerateTicketNotificationTextEmailBody(notification, firstUnsentCommentId);
         }
 
+        [Export("LuceneDirectory")]
+        public string LuceneDirectory
+        {
+            get 
+            {
+                var rawDir = ConfigurationManager.AppSettings["LuceneDirectory"] ?? "~/TdSearchIndex";
+                return (string.Equals(rawDir, "ram", StringComparison.InvariantCultureIgnoreCase)) ? rawDir : System.Web.Hosting.HostingEnvironment.MapPath(rawDir);
+                
+                
+            }
+        }
+
     }
 }

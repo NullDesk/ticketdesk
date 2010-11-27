@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using TicketDesk.Domain.Models.DataAnnotations;
 using TicketDesk.Domain.Utilities;
+using System.Linq;
 
 namespace TicketDesk.Domain.Models
 {
@@ -57,5 +58,7 @@ namespace TicketDesk.Domain.Models
                 return (this.IsHtml) ? this.Details : md.Transform(this.Details, false);
             }
         }
+
+       
     }
 }

@@ -81,8 +81,9 @@ void WriteRequiredAttribute(EdmProperty edmProperty) {
 
 //Set StringLength if MaxLength value is present
 void WriteStringLengthAttribute(EdmProperty edmProperty) { 
+	CodeGenerationTools code = new CodeGenerationTools(this);
 	Facet maxLengthfacet;
-	if (edmProperty.TypeUsage.Facets.TryGetValue("MaxLength", true, out maxLengthfacet)) {
+	if (edmProperty.TypeUsage.Facets.TryGetValue("MaxLength", true, out maxLengthfacet) && code.Escape(edmProperty.TypeUsage) != "byte[]") {
 		double lengthAttribute;
 		if (double.TryParse(maxLengthfacet.Value.ToString(), out lengthAttribute)) {
 		string stringLengthAttribute = string.Format("[StringLength({0})]", lengthAttribute);

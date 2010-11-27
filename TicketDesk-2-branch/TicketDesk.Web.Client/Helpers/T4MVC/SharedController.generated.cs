@@ -29,6 +29,7 @@ namespace T4MVC {
         public class ViewNames {
             public readonly string Error = "~/Views/Shared/Error.aspx";
             public readonly string LogOnUserControl = "~/Views/Shared/LogOnUserControl.ascx";
+            public readonly string QuickSeach = "~/Views/Shared/QuickSeach.ascx";
         }
     }
 

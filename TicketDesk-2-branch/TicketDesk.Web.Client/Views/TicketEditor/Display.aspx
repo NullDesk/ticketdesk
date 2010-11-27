@@ -69,7 +69,7 @@
     %>
     <script src="../../Scripts/MicrosoftAjax.debug.js" type="text/javascript"></script>
     <script src="../../Scripts/MicrosoftMvcAjax.debug.js" type="text/javascript"></script>
-    <script src="../../Scripts/jquery-1.3.2.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <script src="../../Scripts/markitup/markitup/jquery.markitup.js" type="text/javascript"></script>
     <script src="../../Scripts/markitup/markitup/sets/markdown/set.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery-autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
@@ -79,6 +79,8 @@
         }
     %>
     <script type="text/javascript">
+
+        
 
         function weaponize() {
             $("#details").wmd({
@@ -357,7 +359,19 @@
     <% 
         var activity = ViewData["activity"] as string;        
     %>
+    <% 
+        if (TempData.ContainsKey("TicketCenterList") && TempData.ContainsKey("TicketCenterPage") && TempData.ContainsKey("TicketCenterListDisplayName"))
+        {             
+            
+    %>
+    <div style="padding:2px;">
+    <%= Html.ActionLink("Back to: " + TempData["TicketCenterListDisplayName"], MVC.TicketCenter.Actions.List(Convert.ToInt32(TempData["TicketCenterPage"]), (string)TempData["TicketCenterList"]), new { Style = "margin:2px;" })%>
+    </div>
+    <%
+        }
+    %>
     <div class="contentContainer">
+    
         <table style="width: 100%;" cellpadding="0" cellspacing="0">
             <tr>
                 <td style="vertical-align: top; width: 100%;">

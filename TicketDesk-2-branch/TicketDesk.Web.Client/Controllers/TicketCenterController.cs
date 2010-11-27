@@ -48,7 +48,13 @@ namespace TicketDesk.Web.Client.Controllers
                 }
             }
 
+            
+
+
             var lp = dp.GetPreferencesForList(listName);
+            TempData["TicketCenterList"] = listName;
+            TempData["TicketCenterPage"] = p;
+            TempData["TicketCenterListDisplayName"] = lp.ListDisplayName;
 
             if (p < 1) //prevent negative pageIndex, redirect to page 1(index 0);
             {
@@ -95,7 +101,7 @@ namespace TicketDesk.Web.Client.Controllers
             Settings.UserSettings.SaveDisplayPreferences(dp);
 
             TempData["IsRedirectFromAjax"] = IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
-
+            
             return RedirectToAction(MVC.TicketCenter.List(null, listName));
         }
 

@@ -42,7 +42,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             this.Security.GetCurrentUserName = delegate() { return "toastman"; };
             
-            var ticketService = new TicketService(Security,new TicketDesk.Domain.Repositories.TicketRepository(), null);
+            var ticketService = new TicketService(Security,new TicketDesk.Domain.Repositories.TicketRepository(), null, null);
             var ticket = ticketService.GetTicket(82);
             var note = ticket.TicketComments.SingleOrDefault(tc => tc.CommentId == 698).TicketEventNotifications.SingleOrDefault(tn => tn.NotifyUser == "toastman");
             ViewData.Add("siteRootUrl", ConfigurationManager.AppSettings["SiteRootUrlForEmail"]);
@@ -57,7 +57,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             this.Security.GetCurrentUserName = delegate() { return "toastman"; };
 
-            var ticketService = new TicketService(Security, new TicketDesk.Domain.Repositories.TicketRepository(), null);
+            var ticketService = new TicketService(Security, new TicketDesk.Domain.Repositories.TicketRepository(), null, null);
             //var note = ticketService.GetTicket(82).TicketComments.SingleOrDefault(tc => tc.CommentId == 698).TicketEventNotifications.SingleOrDefault(tn => tn.NotifyUser == "toastman");;
             //var body = GenerateTicketNotificationEmailBody(note, 697, "~/Views/EmailTemplate/TicketNotificationOutlookHtmlEmailTemplate.ascx");
             //var mgs = new MailMessage("xxx@xxx.com", "yyy@yyy.com","test", body);
@@ -78,7 +78,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             this.Security.GetCurrentUserName = delegate() { return "toastman"; };
 
-            var ticketService = new TicketService(Security, new TicketDesk.Domain.Repositories.TicketRepository(), null);
+            var ticketService = new TicketService(Security, new TicketDesk.Domain.Repositories.TicketRepository(), null, null);
             var ticket = ticketService.GetTicket(82);
             //var note = ticket.TicketComments.SingleOrDefault(tc => tc.CommentId == 698).TicketEventNotifications.SingleOrDefault(tn => tn.NotifyUser == "toastman");
             ViewData.Add("siteRootUrl", ConfigurationManager.AppSettings["SiteRootUrlForEmail"]);

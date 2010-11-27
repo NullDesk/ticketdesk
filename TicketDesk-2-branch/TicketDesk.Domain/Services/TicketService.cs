@@ -25,18 +25,30 @@ namespace TicketDesk.Domain.Services
         /// </summary>
         /// <param name="ticketRepository">The ticket repository.</param>
         [ImportingConstructor]
-        public TicketService(ISecurityService securityService, ITicketRepository ticketRepository, INotificationQueuingService notificationService)
+        public TicketService
+        (
+            ISecurityService securityService,
+            ITicketRepository ticketRepository,
+            INotificationQueuingService notificationService,
+            TicketSearchService search
+        )
         {
             Security = securityService;
             Repository = ticketRepository;
             Notification = notificationService;
+            Search = search;
+            Repository.Saving += new EventHandler<TicketEventArgs>(TicketSaving);
+        }
 
+        private void TicketSaving(object sender, TicketEventArgs e)
+        {
+            Search.UpdateIndex(new[] { e.Ticket });
         }
 
         #region ITicketService Members
 
         public INotificationQueuingService Notification { get; private set; }
-
+        public TicketSearchService Search { get; private set; }
         public ISecurityService Security { get; private set; }
 
         /// <summary>
@@ -75,6 +87,32 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException("noAuth", "User is not authorized to retrieve ticket information");
             }
             return Repository.ListTickets(pageIndex, listSettings.ItemsPerPage, listSettings.SortColumns, listSettings.FilterColumns);
+        }
+
+
+        /// <summary>
+        /// Lists a paged list of tickets.
+        /// </summary>
+        /// <remarks>used by search</remarks>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        public IPagination<Ticket> ListTickets(int pageIndex, int pageSize)
+        {
+            return Repository.ListTickets(pageIndex, pageSize, null, null);
+        }
+
+        /// <summary>
+        /// Gets a list of tickets from an ordered list of ticket IDs.
+        /// </summary>
+        /// <remarks>used by search</remarks>        
+        /// <param name="orderedTicketList">The ordered ticket list.</param>
+        /// <returns>
+        /// Tickets in the same order as the supplied ticket IDs
+        /// </returns>
+        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList)
+        {
+            return Repository.ListTickets(orderedTicketList);
         }
 
         /// <summary>
@@ -1001,5 +1039,7 @@ namespace TicketDesk.Domain.Services
             }
             return returnList.ToArray();
         }
+
+
     }
 }

@@ -30,6 +30,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MefDiagnostics", "MefDiagno
 		Library\Microsoft.ComponentModel.Composition.Diagnostics.pdb = Library\Microsoft.ComponentModel.Composition.Diagnostics.pdb
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lucene.Net", "Lucene.Net", "{3F9BC626-B901-48A3-A738-EDF43C3BC9D8}"
+	ProjectSection(SolutionItems) = preProject
+		Library\Lucene.Net.dll = Library\Lucene.Net.dll
+		Library\Lucene.Net.pdb = Library\Lucene.Net.pdb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
@@ -80,6 +86,7 @@ Global
 		{4B68AE5A-390E-41FE-A39F-91610D9CC7EA} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 		{B6F19A7A-5C4B-4D7B-BCDE-E400C9A717B1} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 		{A4065970-51EB-4218-AAB0-EBCF9149A8C5} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
+		{3F9BC626-B901-48A3-A738-EDF43C3BC9D8} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

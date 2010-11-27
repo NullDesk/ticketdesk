@@ -179,8 +179,7 @@
         
         td.ticketDetailsArea div
         {
-            height: 180px;
-            overflow: auto;
+            
             padding: 3px;
         }
         

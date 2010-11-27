@@ -50,7 +50,7 @@ MEF Extensible Services Implemenation:
 	able to inherit the interfaces, without having to reference the entire domain
 	class lib directly.
 
-DataAnnotations for Friendly Names in List Output:
+DataAnnotations for Friendly Column Names in List Output:
 
 	DataAnnotations allows you to flag fields with friendly names at 
 	the UI. See about replacing the code for the list settings and 
@@ -104,28 +104,6 @@ Editors
 	Ideally, we'd use MEF to support a plug-in style editor component
 	and have the runtime choose the correct plug-in based on a merge
 	of user and system preferences.
-	
- AD Repository
-
-	The AD repository still needs major re-factoring for performance.
-	Initial beta testing shows that this system, though comparable to 
-	1.x, is still too slow and has problems when AD is unavailable. 
-
-	The ideal solution would be to cache the AD values and information 
-	in SQL; an automated timer driven mechanism would periodically 
-	rebuild/refresh the SQL cache. The actual repository that is 
-	feeding the user requests would use only the cache stored in SQL. 
-	This could increase staleness for the AD data, but realistically 
-	that data isn't that essential and changes very infrequently 
-	(if ever). 
-	
-	This kind of local-store would also prevent the application from 
-	blowing-up when and if AD becomes unavailable for a while.
-
-	The tricky part would be ensuring that the SQL cache mechanism knows 
-	about EVERY user that it needs to refresh on, without necessarily having
-	to table-scan every table that could contain user name looking for all 
-	possible distinct values before it can do a lookup in AD. 
 
 Authorization:
 

@@ -102,7 +102,6 @@ namespace TicketDesk.Domain.Models.DataAnnotations
     		
     	[DisplayName("Version")]
     	[Required]
-    	[StringLength(8)]
         public byte[] Version { get; set; }
     }
 }

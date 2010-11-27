@@ -269,7 +269,7 @@ table th
 
 #menucontainer
 {
-    margin-top: 40px;
+    margin-top: 15px;
 }
 
 div#title
@@ -281,7 +281,7 @@ div#title
 
 #logindisplay
 {
-    font-size: 1.1em;
+    font-size: 10pt;
     display: block;
     text-align: right;
     margin: 10px;
@@ -368,7 +368,7 @@ div#title
     text-shadow: 1px 1px 1px #335;
 }
 
-.jsClickableHover a, .jsClickable:hover a
+.ticketListGrid .jsClickableHover a, .ticketListGrid .jsClickable:hover a
 {
     color: #FFFFFF;
 }
@@ -398,9 +398,10 @@ div#title
 }
 
 
+
 .activityHeadWrapper
 {
-    background-color: #DFF8DC;
+    background-color: #ECFBEA;
     border-bottom: solid 2px #134A8A;
 }
 
@@ -416,6 +417,23 @@ div#title
     background-color: #fff;
     padding: 3px 3px 8px 3px;
 }
+.searchArea
+{
+    margin:0px 0px 5px 0px;
+    font-size: 9pt;
+}
+
+
+.searchButton
+{
+    font-family: Calibri,Tahoma, Verdana, Helvetica, Sans-Serif;
+    padding: 1px 2px 1px 2px;
+    border: 1px ridge #999999;
+    color: #333;
+    background-color: #EBEBEB;
+    text-decoration: none;
+    text-align: center;
+}
 
 .activityButton, input.activityButton
 {
@@ -423,7 +441,7 @@ div#title
     font-family: Calibri,Tahoma, Verdana, Helvetica, Sans-Serif;
     margin-bottom: 3px;
     padding: 3px;
-    border: 1px ridge #000000;
+    border: 1px ridge #999999;
     color: #333;
     background-color: #EBEBEB;
     text-decoration: none;
@@ -436,7 +454,7 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
     text-decoration: none;
 }
 
-.activityButton:hover
+.activityButton:hover, .searchButton:hover
 {
     background-color: #999999;
 }
@@ -493,12 +511,12 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 /* TD Grid */
 .ticketListGridOddRow
 {
-    background-color: #EEF3F7;
+    background-color: #FBFCFD;
 }
 
 .ticketListGridEvenRow
 {
-    /*background-color: #DFF8DC;*/
+    /*background-color: #ECFBEA;*/
 }
 
 .ticketFilterBar
@@ -590,7 +608,7 @@ ul#submenu li a:active
 
 ul#submenu li.selected a
 {
-    background-color: #DFF8DC;
+    background-color: #ECFBEA;
     color: #14498D;
     border-top: solid 2px #B3CBDF;
     border-left: solid 2px #B3CBDF;
@@ -696,7 +714,7 @@ td.historyTableSeperator
 
 th.myComment
 {
-    background-color: #DFF8DC;
+    background-color: #ECFBEA;
 }
 
 th.staffComment
@@ -752,7 +770,7 @@ div.ticketDetailsHeaderOuter
 div.ticketDetailsHeaderInner
 {
     color: #0B294F;
-    background-color: #E1EBF2;
+    background-color: #F0F5F9;
 }
 div.ticketDetailsHeaderInner table
 {
@@ -784,7 +802,7 @@ tr.ticketDetailsHeaderTitle td
 }
 .ticketDetailsHeaderInfo
 {
-    background-color: #EEF3F7;
+    background-color: #FBFCFD;
     border-top: solid 1px #B3CBDF;
 }
 .ticketDetailsHeaderInfoTable
@@ -832,7 +850,7 @@ td.ticketDetailsArea
 
 td.ticketDetailsArea div
 {
-    height: 180px;
+    
     overflow: auto;
     padding: 3px;
 }
@@ -871,4 +889,20 @@ td.ticketDetailsArea div
 .commentHeaderTable td
 {
     border-style:none;
+}
+
+.searchDisplayContainerOuter
+{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: #B3CBDF;
+}
+.searchDisplayContainerInner
+{
+    width: 100%;
+    background-color: #fff;
+    border: solid 2px #B3CBDF;
 }

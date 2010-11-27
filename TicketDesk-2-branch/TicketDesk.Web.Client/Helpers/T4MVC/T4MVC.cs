@@ -31,7 +31,7 @@ public static class MVC {
     public static TicketDesk.Web.Client.Controllers.TagListController TagList = new TicketDesk.Web.Client.Controllers.T4MVC_TagListController();
     public static TicketDesk.Web.Client.Controllers.TicketCenterController TicketCenter = new TicketDesk.Web.Client.Controllers.T4MVC_TicketCenterController();
     public static TicketDesk.Web.Client.Controllers.TicketEditorController TicketEditor = new TicketDesk.Web.Client.Controllers.T4MVC_TicketEditorController();
-    public static TicketDesk.Web.Client.Controllers.TicketManagerController TicketManager = new TicketDesk.Web.Client.Controllers.T4MVC_TicketManagerController();
+    public static TicketDesk.Web.Client.Controllers.TicketSearchController TicketSearch = new TicketDesk.Web.Client.Controllers.T4MVC_TicketSearchController();
     public static TicketDesk.Web.Client.Controllers.UploaderController Uploader = new TicketDesk.Web.Client.Controllers.T4MVC_UploaderController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

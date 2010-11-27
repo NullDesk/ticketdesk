@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using MvcContrib.Pagination;
 using TicketDesk.Domain.Models;
+using System;
 
 namespace TicketDesk.Domain.Repositories
 {
     public interface ITicketRepository
     {
+        /// <summary>
+        /// Occurs when changes are saved.
+        /// </summary>
+        event EventHandler<TicketEventArgs> Saving;
 
         /// <summary>
         /// Gets a specific ticket.
@@ -23,6 +28,13 @@ namespace TicketDesk.Domain.Repositories
         /// <param name="filterColumns">The filter columns.</param>
         /// <returns></returns>
         IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns);
+
+        /// <summary>
+        /// Gets a list of tickets from an ordered list of ticket IDs.
+        /// </summary>
+        /// <param name="orderedTicketList">The ordered ticket list.</param>
+        /// <returns>Tickets in the same order as the supplied ticket IDs</returns>
+        IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList);
 
         /// <summary>
         /// Creates a new ticket.

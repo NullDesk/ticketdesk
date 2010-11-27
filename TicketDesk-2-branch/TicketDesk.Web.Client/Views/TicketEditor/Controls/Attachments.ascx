@@ -49,7 +49,7 @@
     else
     {
 %>
-<div style="background-color: #DFF8DC; padding: 8px;">
+<div style="background-color: #ECFBEA; padding: 8px;">
     <div style="color: #0B294F; text-align: center;">
         No attachments
     </div>

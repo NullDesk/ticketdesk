@@ -79,12 +79,15 @@ namespace TicketDesk.Web.Client
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
-            
-            var SecurityService = MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>();
+            var searchService = MefHttpApplication.ApplicationContainer.GetExportedValue<TicketSearchService>();
+            var ticketService = MefHttpApplication.ApplicationContainer.GetExportedValue<ITicketService>();
+            searchService.InitializeSearch(ticketService);
+
+            var securityService = MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>();
 
             //timer is initialized by the service, but we have to hold a reference to it here or it will be garbage collected
             //  in SQL Security Environments, this will just return null; there is no timer
-            SecurityRefreshTimer = SecurityService.InitializeSecurityCacheRefreshTimer();
+            SecurityRefreshTimer = securityService.InitializeSecurityCacheRefreshTimer();
 
             DerelictAttachmentsTimer = new System.Timers.Timer();
             int derelictInterval = 300000;
