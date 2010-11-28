@@ -26,13 +26,17 @@ namespace TicketDesk.Web.Client.Controllers
         [Authorize]
         public virtual ActionResult Index(string find)
         {
-            if (!string.IsNullOrEmpty(find))
+            try
             {
-                string searchParsed;
-                ViewData.Model = Search.SearchIndex(Tickets, find, out searchParsed);
-                ViewData.Add("searchPhrase", searchParsed);
-                ViewData.Add("formatForSearch", true);
+                if (!string.IsNullOrEmpty(find))
+                {
+                    string searchParsed;
+                    ViewData.Model = Search.SearchIndex(Tickets, find, out searchParsed);
+                    ViewData.Add("searchPhrase", searchParsed);
+                    ViewData.Add("formatForSearch", true);
+                }
             }
+            catch { ViewData.Add("searchPhrase", "Your search terms were not understood, or there was an error executing the search"); }
             return View();
         }
 

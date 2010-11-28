@@ -86,7 +86,7 @@ namespace TicketDesk.Domain.Services
             {
                 throw new RuleException("noAuth", "User is not authorized to retrieve ticket information");
             }
-            return Repository.ListTickets(pageIndex, listSettings.ItemsPerPage, listSettings.SortColumns, listSettings.FilterColumns);
+            return Repository.ListTickets(pageIndex, listSettings.ItemsPerPage, listSettings.SortColumns, listSettings.FilterColumns, false);
         }
 
 
@@ -97,9 +97,9 @@ namespace TicketDesk.Domain.Services
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns></returns>
-        public IPagination<Ticket> ListTickets(int pageIndex, int pageSize)
+        public IPagination<Ticket> ListTickets(int pageIndex, int pageSize, bool includeComments)
         {
-            return Repository.ListTickets(pageIndex, pageSize, null, null);
+            return Repository.ListTickets(pageIndex, pageSize, null, null, includeComments);
         }
 
         /// <summary>
@@ -110,9 +110,9 @@ namespace TicketDesk.Domain.Services
         /// <returns>
         /// Tickets in the same order as the supplied ticket IDs
         /// </returns>
-        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList)
+        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList, bool  includeComments)
         {
-            return Repository.ListTickets(orderedTicketList);
+            return Repository.ListTickets(orderedTicketList, includeComments);
         }
 
         /// <summary>

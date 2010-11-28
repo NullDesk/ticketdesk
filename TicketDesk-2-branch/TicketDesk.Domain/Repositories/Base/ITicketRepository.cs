@@ -27,14 +27,14 @@ namespace TicketDesk.Domain.Repositories
         /// <param name="sortColumns">The sort columns.</param>
         /// <param name="filterColumns">The filter columns.</param>
         /// <returns></returns>
-        IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns);
+        IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns, bool includeComments);
 
         /// <summary>
         /// Gets a list of tickets from an ordered list of ticket IDs.
         /// </summary>
         /// <param name="orderedTicketList">The ordered ticket list.</param>
         /// <returns>Tickets in the same order as the supplied ticket IDs</returns>
-        IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList);
+        IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList, bool includeComments);
 
         /// <summary>
         /// Creates a new ticket.

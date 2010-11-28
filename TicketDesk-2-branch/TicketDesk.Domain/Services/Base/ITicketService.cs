@@ -35,14 +35,14 @@ namespace TicketDesk.Domain.Services
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns></returns>
-        IPagination<Ticket> ListTickets(int pageIndex, int pageSize);
+        IPagination<Ticket> ListTickets(int pageIndex, int pageSize, bool includeComments);
 
         /// <summary>
         /// Gets a list of tickets from an ordered list of ticket IDs.
         /// </summary>
         /// <param name="orderedTicketList">The ordered ticket list.</param>
         /// <returns>Tickets in the same order as the supplied ticket IDs</returns>
-        IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList);
+        IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList, bool includeComments);
 
         /// <summary>
         /// Creates the new ticket.

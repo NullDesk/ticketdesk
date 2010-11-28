@@ -29,7 +29,7 @@ namespace TicketDesk.Domain.Services
         private string IndexLocation { get; set; }
         private Directory _tdSearchDirectory;
         private bool isRamDirectory = false;
-        
+
         private Directory TdSearchDirectory
         {
             get
@@ -47,10 +47,10 @@ namespace TicketDesk.Domain.Services
                         _tdSearchDirectory = FSDirectory.Open(dirInfo);
                     }
                 }
-                
+
                 return _tdSearchDirectory;
             }
-            
+
         }
 
         private object resetDirectoryLock = new object();
@@ -86,7 +86,7 @@ namespace TicketDesk.Domain.Services
             {
                 if (_tdIndexSearcher == null)
                 {
-                    _tdIndexSearcher = new IndexSearcher(TdSearchDirectory,true);
+                    _tdIndexSearcher = new IndexSearcher(TdSearchDirectory, true);
                 }
                 return _tdIndexSearcher;
             }
@@ -115,7 +115,7 @@ namespace TicketDesk.Domain.Services
             System.Threading.Tasks.Task.Factory.StartNew(() => UpdateTicket(tickets));
         }
 
-        private object updateLock= new object();
+        private object updateLock = new object();
         public void UpdateTicket(IEnumerable<Ticket> tickets)
         {
             lock (updateLock)
@@ -131,42 +131,64 @@ namespace TicketDesk.Domain.Services
                 writer.Close();
                 ResetTdSearchDirectory();
                 ResetTdIndexSearcher();
+
             }
         }
+
+
+        private bool CreateDirectoryOnBuild
+        {
+            get
+            {
+                return !
+                (
+                    !isRamDirectory &&
+                    System.IO.Directory.Exists(IndexLocation) &&
+                    System.IO.Directory.GetFiles(IndexLocation).Count() > 0
+                );
+
+
+            }
+        }
+
         private object buildLock = new object();
         private void BuildIndex(ITicketService ticketService)
         {
-           lock (buildLock)
-           {
-               IndexWriter writer = new IndexWriter(TdSearchDirectory, TdIndexAnalyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
+            lock (buildLock)
+            {
 
-               //create the index writer with the directory and analyzer defined.
 
-               IPagination<Ticket> tickets = null;
-               var p = 1;
-               do
-               {
-                   tickets = ticketService.ListTickets(p, 10);
+                IndexWriter writer = new IndexWriter(TdSearchDirectory, TdIndexAnalyzer, CreateDirectoryOnBuild, IndexWriter.MaxFieldLength.UNLIMITED);
 
-                   foreach (var ticket in tickets)
-                   {
-                       //create a document, add in a single field
-                       var doc = CreateIndexDocuementForTicket(ticket);
 
-                       //write the document to the index
-                       writer.AddDocument(doc);
+                //create the index writer with the directory and analyzer defined.
 
-                   }
-                   p++;
-                   tickets = (tickets.HasNextPage) ? ticketService.ListTickets(p, 10) : null;
-               } while (tickets != null);
+                IPagination<Ticket> tickets = null;
+                var p = 1;
+                do
+                {
+                    tickets = ticketService.ListTickets(p, 10, true);
 
-               //optimize and close the writer
-               writer.Optimize();
-               writer.Close();
-               ResetTdSearchDirectory();
-               ResetTdIndexSearcher();
-           }
+                    foreach (var ticket in tickets)
+                    {
+                        //create a document, add in a single field
+                        var doc = CreateIndexDocuementForTicket(ticket);
+
+                        //write the document to the index
+                        writer.AddDocument(doc);
+
+                    }
+                    p++;
+                    tickets = (tickets.HasNextPage) ? ticketService.ListTickets(p, 10, true) : null;
+                    writer.Flush();
+                } while (tickets != null);
+
+                //optimize and close the writer
+                writer.Optimize();
+                writer.Close();
+                ResetTdSearchDirectory();
+                ResetTdIndexSearcher();
+            }
         }
 
 
@@ -174,7 +196,7 @@ namespace TicketDesk.Domain.Services
         {
             string[] fields = new[] { "title", "details", "tags", "comments" };
             MultiFieldQueryParser parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_29, fields, TdIndexAnalyzer);
-            
+
             Query query = parser.Parse(searchText);
 
             queryTerm = query.ToString();
@@ -202,14 +224,14 @@ namespace TicketDesk.Domain.Services
 
                 }
             }
-            return ticketService.ListTickets(ticketIDs);
+            return ticketService.ListTickets(ticketIDs, false);
 
         }
 
         private Document CreateIndexDocuementForTicket(Ticket ticket)
         {
             var doc = new Document();
-
+            
             var commentTexts = (from c in ticket.TicketComments
                                 select c.Comment);
             StringBuilder sb = new StringBuilder();
@@ -231,7 +253,7 @@ namespace TicketDesk.Domain.Services
             Lucene.Net.Documents.Field titleField = new Lucene.Net.Documents.Field
                                                     (
                                                         "title",
-                                                        ticket.Details,
+                                                        ticket.Title,
                                                         Lucene.Net.Documents.Field.Store.YES,
                                                         Lucene.Net.Documents.Field.Index.ANALYZED,
                                                         Lucene.Net.Documents.Field.TermVector.YES

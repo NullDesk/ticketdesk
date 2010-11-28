@@ -44,9 +44,10 @@ namespace TicketDesk.Domain.Repositories
         /// <param name="sortColumns">The sort columns.</param>
         /// <param name="filterColumns">The filter columns.</param>
         /// <returns></returns>
-        public IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns)
+        public IPagination<Ticket> ListTickets(int pageIndex, int pageSize, List<TicketListSortColumn> sortColumns, List<TicketListFilterColumn> filterColumns, bool includeComments)
         {
-            var q = ctx.Tickets;
+            ObjectQuery<Ticket> tq = (includeComments) ? ctx.Tickets.Include("TicketComments") : ctx.Tickets;
+          
             string wString = null;
             string kString = null;
             if (filterColumns != null && filterColumns.Count > 0)
@@ -90,9 +91,8 @@ namespace TicketDesk.Domain.Repositories
 
             }
 
-            //few hoops to get ObjectSet to be an ObjectQuery
-            ObjectQuery<Ticket> tq = new ObjectQuery<Ticket>(q.CommandText, q.Context);
-
+            
+            
             if (!string.IsNullOrEmpty(wString))
             {
                 tq = tq.Where(wString);
@@ -105,13 +105,15 @@ namespace TicketDesk.Domain.Repositories
             return tq.OrderBy(kString).AsPagination(pageIndex, pageSize);
         }
 
-        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList)
+        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList, bool includeComments)
         {
+            ObjectQuery<Ticket> tickets = (includeComments)? ctx.Tickets.Include("TicketComments") : ctx.Tickets;
             var orderedTickets = from i in orderedTicketList
-                                 join t in ctx.Tickets
+                                 join t in tickets
                                  on i.Value equals t.TicketId
                                  orderby i.Key
                                  select t;
+            
             return orderedTickets;
 
         }

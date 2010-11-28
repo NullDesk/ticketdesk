@@ -29,7 +29,7 @@
         <div id="header">
             <div id="title">
                 <h1>
-                    TicketDesk 2.0 MVC
+                    TicketDesk 2.0 (beta)
                 </h1>
             </div>
             <div id="logindisplay"> <%  Html.RenderPartial(MVC.Shared.Views.QuickSeach); %>
