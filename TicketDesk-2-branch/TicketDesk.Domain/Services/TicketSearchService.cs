@@ -136,56 +136,43 @@ namespace TicketDesk.Domain.Services
         }
 
 
-        private bool CreateDirectoryOnBuild
-        {
-            get
-            {
-                return !
-                (
-                    !isRamDirectory &&
-                    System.IO.Directory.Exists(IndexLocation) &&
-                    System.IO.Directory.GetFiles(IndexLocation).Count() > 0
-                );
-
-
-            }
-        }
+ 
 
         private object buildLock = new object();
         private void BuildIndex(ITicketService ticketService)
         {
             lock (buildLock)
             {
-
-
-                IndexWriter writer = new IndexWriter(TdSearchDirectory, TdIndexAnalyzer, CreateDirectoryOnBuild, IndexWriter.MaxFieldLength.UNLIMITED);
-
-
-                //create the index writer with the directory and analyzer defined.
-
+                //index writer will open existing index and merge changes with it
+                IndexWriter writer = new IndexWriter(TdSearchDirectory, TdIndexAnalyzer, IndexWriter.MaxFieldLength.UNLIMITED);
+                writer.SetMergeFactor(25);
+                writer.DeleteAll();
+                //process tickets in batches of 25
                 IPagination<Ticket> tickets = null;
                 var p = 1;
                 do
                 {
-                    tickets = ticketService.ListTickets(p, 10, true);
+                    tickets = ticketService.ListTickets(p, 25, true);
 
                     foreach (var ticket in tickets)
                     {
-                        //create a document, add in a single field
-                        var doc = CreateIndexDocuementForTicket(ticket);
-
-                        //write the document to the index
+                        var doc = CreateIndexDocuementForTicket(ticket);//make the doc
+                        
+                        //writer.DeleteDocuments(new Term("ticketid", ticket.TicketId.ToString()));//delete any existing references in the index
+                        //write the document to (or back to) the index
                         writer.AddDocument(doc);
-
                     }
                     p++;
-                    tickets = (tickets.HasNextPage) ? ticketService.ListTickets(p, 10, true) : null;
-                    writer.Flush();
+                    tickets = (tickets.HasNextPage) ? ticketService.ListTickets(p, 25, true) : null;
+                   
                 } while (tickets != null);
-
+               
                 //optimize and close the writer
+                writer.Commit();
                 writer.Optimize();
                 writer.Close();
+
+                //close the shared instacnes of the directory and searcher so new searches grab new instances.
                 ResetTdSearchDirectory();
                 ResetTdIndexSearcher();
             }
@@ -253,7 +240,7 @@ namespace TicketDesk.Domain.Services
             Lucene.Net.Documents.Field titleField = new Lucene.Net.Documents.Field
                                                     (
                                                         "title",
-                                                        ticket.Title,
+                                                        ticket.Title ?? string.Empty,
                                                         Lucene.Net.Documents.Field.Store.YES,
                                                         Lucene.Net.Documents.Field.Index.ANALYZED,
                                                         Lucene.Net.Documents.Field.TermVector.YES
@@ -263,7 +250,7 @@ namespace TicketDesk.Domain.Services
             Lucene.Net.Documents.Field detailsField = new Lucene.Net.Documents.Field
                                                     (
                                                         "dtails",
-                                                        ticket.Details,
+                                                        ticket.Details ?? string.Empty,
                                                         Lucene.Net.Documents.Field.Store.NO,
                                                         Lucene.Net.Documents.Field.Index.ANALYZED,
                                                         Lucene.Net.Documents.Field.TermVector.YES
@@ -275,7 +262,7 @@ namespace TicketDesk.Domain.Services
             Lucene.Net.Documents.Field tagsField = new Lucene.Net.Documents.Field
                                                     (
                                                         "tags",
-                                                        ticket.TagList,
+                                                        ticket.TagList ?? string.Empty,
                                                         Lucene.Net.Documents.Field.Store.NO,
                                                         Lucene.Net.Documents.Field.Index.ANALYZED,
                                                         Lucene.Net.Documents.Field.TermVector.NO
@@ -285,7 +272,7 @@ namespace TicketDesk.Domain.Services
             Lucene.Net.Documents.Field commentsField = new Lucene.Net.Documents.Field
                                                     (
                                                         "comments",
-                                                        commentText,
+                                                        commentText ?? string.Empty,
                                                         Lucene.Net.Documents.Field.Store.NO,
                                                         Lucene.Net.Documents.Field.Index.ANALYZED,
                                                         Lucene.Net.Documents.Field.TermVector.YES
@@ -300,7 +287,7 @@ namespace TicketDesk.Domain.Services
             doc.Add(commentsField);
             if (ticket.CurrentStatus != "Closed")
             {
-                doc.SetBoost(2F);
+                doc.SetBoost(10F);
             }
             return doc;
         }

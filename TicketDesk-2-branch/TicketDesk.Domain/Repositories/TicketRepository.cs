@@ -99,7 +99,7 @@ namespace TicketDesk.Domain.Repositories
             }
             if (string.IsNullOrEmpty(kString))
             {
-                kString = "it.TicketId";
+                kString = "it.TicketId DESC";
             }
 
             return tq.OrderBy(kString).AsPagination(pageIndex, pageSize);
