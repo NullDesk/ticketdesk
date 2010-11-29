@@ -13,9 +13,9 @@ to use a different color start by replacing all instances of
 }
 body
 {
-    background-color: #F2F2F2;
+    background-color: #F7F7F7;
     font-size: 11pt;
-    font-family:   Calibri, Arial, Helvetica, Sans-Serif;
+    font-family: Calibri, Arial, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #555;
@@ -610,9 +610,9 @@ ul#submenu li.selected a
 {
     background-color: #ECFBEA;
     color: #14498D;
-    border-top: solid 2px #B3CBDF;
-    border-left: solid 2px #B3CBDF;
-    border-right: solid 2px #B3CBDF;
+    border-top: solid 2px #14498D;
+    border-left: solid 2px #14498D;
+    border-right: solid 2px #14498D;
 }
 
 /* MvcPaging Classes */

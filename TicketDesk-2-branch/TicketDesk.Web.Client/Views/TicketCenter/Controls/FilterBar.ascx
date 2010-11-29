@@ -40,7 +40,10 @@
     Sys.Application.add_load(setupFilterForm);
 
 
+    function beginChangeFilter(args) {
 
+        $('#ticketList').fadeOut('fast');
+    }
 
     function setupFilterForm() {
         $("#filterSubmitButton").hide();
@@ -52,7 +55,8 @@
 <%
     
      
-    var ajaxOptions = (AjaxOptions)ViewData["ajaxOptions"];
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticketList",  OnBegin = "beginChangeFilter", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };    
+
     using (Ajax.BeginForm("FilterList", "TicketCenter", new { ListName = Model.CurrentListSettings.ListName }, ajaxOptions, new { id = "filterForm" }))
     {
 %>

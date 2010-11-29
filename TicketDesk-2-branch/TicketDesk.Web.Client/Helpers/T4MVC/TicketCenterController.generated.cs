@@ -102,10 +102,11 @@ namespace TicketDesk.Web.Client.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult SortList(string listName, string columnName) {
+        public override System.Web.Mvc.ActionResult SortList(string listName, string columnName, bool isMultiSort) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SortList);
             callInfo.RouteValueDictionary.Add("listName", listName);
             callInfo.RouteValueDictionary.Add("columnName", columnName);
+            callInfo.RouteValueDictionary.Add("isMultiSort", isMultiSort);
             return callInfo;
         }
 

@@ -24,7 +24,21 @@
 
 <script type="text/javascript">
 
-    function beginChangeList(args) {
+
+    var shiftstatus = false;
+    function setShiftStatus(e) {
+        //work around the fact that in firefox, there is no clean way to get at the event object from the beginChangeList function
+        if (e) {
+            shiftstatus = e.shiftKey;
+        }
+    }
+
+    function beginChangeSort(args) {
+        if (shiftstatus) {
+            args.get_request()._url = args.get_request()._url + "&isMultiSort=true";
+        }
+      
+        
         $('#ticketList').fadeOut('fast');
     }
 
@@ -37,15 +51,14 @@
 </script>
 
 <%   
-    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeList", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };    
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeSort", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };    
 %>
 <div id="ticketList">
     <div class="ticketFilterBar">
         <%
-            var vdd = new ViewDataDictionary();
-            vdd.Add("ajaxOptions", ajaxOptions);
+           
 
-            Html.RenderPartial(MVC.TicketCenter.Views.Controls.FilterBar, Model, vdd); %>
+            Html.RenderPartial(MVC.TicketCenter.Views.Controls.FilterBar, Model); %>
     </div>
     <div>
         <table class="ticketListGrid" cellpadding="0" cellspacing="0" style="width: 100%;">
@@ -67,7 +80,7 @@
             <thead>
                 <tr>
                     
-                    <th>
+                    <th >
                         <%= Ajax.SortableColumnHeader(Html, Model.CurrentListSettings, "SortList", Model.CurrentListSettings.ListName, "TicketId", "ID", ajaxOptions)%>
                     </th>
                     <th>

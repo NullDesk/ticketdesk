@@ -17,6 +17,8 @@
         function clicks() {
             $(".clickable").clickable();
         }
+
+
     </script>
 
 </asp:Content>

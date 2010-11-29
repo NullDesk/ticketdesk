@@ -48,7 +48,7 @@ namespace TicketDesk.Web.Client.Controllers
                 }
             }
 
-            
+
 
 
             var lp = dp.GetPreferencesForList(listName);
@@ -101,26 +101,45 @@ namespace TicketDesk.Web.Client.Controllers
             Settings.UserSettings.SaveDisplayPreferences(dp);
 
             TempData["IsRedirectFromAjax"] = IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
-            
+
             return RedirectToAction(MVC.TicketCenter.List(null, listName));
         }
 
         [Authorize]
-        public virtual ActionResult SortList(string listName, string columnName)
+        public virtual ActionResult SortList(string listName, string columnName, bool isMultiSort = false)
         {
             var dp = Settings.UserSettings.GetDisplayPreferences();
 
             var lp = dp.GetPreferencesForList(listName);
 
             TicketListSortColumn sortCol = lp.SortColumns.SingleOrDefault(sc => sc.ColumnName == columnName);
-            if (sortCol != null)// column already in sort, just flip direction
+
+            if (isMultiSort)
             {
-                sortCol.SortDirection = (sortCol.SortDirection == ColumnSortDirection.Ascending) ? ColumnSortDirection.Descending : ColumnSortDirection.Ascending;
+                if (sortCol != null)// column already in sort, remove from sort
+                {
+                    if (lp.SortColumns.Count > 1)//only remove if there are more than one sort
+                    {
+                        lp.SortColumns.Remove(sortCol);
+                    }
+                    //TODO: should we revert to flipping direction if this is the only column in the sort? same behavior as if the user weren't holding shift?
+                }
+                else// column not in sort, add to sort
+                {
+                    lp.SortColumns.Add(new TicketListSortColumn(columnName, ColumnSortDirection.Ascending));
+                }
             }
-            else // column not in sort, replace sort with new simple sort for column
+            else
             {
-                lp.SortColumns.Clear();
-                lp.SortColumns.Add(new TicketListSortColumn(columnName, ColumnSortDirection.Ascending));
+                if (sortCol != null)// column already in sort, just flip direction
+                {
+                    sortCol.SortDirection = (sortCol.SortDirection == ColumnSortDirection.Ascending) ? ColumnSortDirection.Descending : ColumnSortDirection.Ascending;
+                }
+                else // column not in sort, replace sort with new simple sort for column
+                {
+                    lp.SortColumns.Clear();
+                    lp.SortColumns.Add(new TicketListSortColumn(columnName, ColumnSortDirection.Ascending));
+                }
             }
             Settings.UserSettings.SaveDisplayPreferences(dp);
 

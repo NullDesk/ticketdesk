@@ -1,4 +1,14 @@
-﻿Controller coupling with views:
+﻿Search:
+
+	Investigate the advanced query syntax for lucene, and why it isn't
+	working with the query object I'm using currently.
+
+	See about updating the existing index more dynamically instead of 
+	completely re-building it. Update existing tickets that don't have
+	new changes; build and save open tickets first then do a second 
+	pass to handle the history tickets.
+
+Controller coupling with views:
 
 	Several features in views are using extension methods that require 
 	access to a controller. The general reason is because the controller
