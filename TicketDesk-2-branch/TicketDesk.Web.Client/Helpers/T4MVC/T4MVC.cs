@@ -882,6 +882,7 @@ namespace Links {
         public static readonly string expandcollapseArrorSmall__psd = Url("expandcollapseArrorSmall..psd");
         public static readonly string expandDown_png = Url("expandDown.png");
         public static readonly string expandDownActive_png = Url("expandDownActive.png");
+        public static readonly string mail_jpg = Url("mail.jpg");
         public static readonly string moreinfoFlag_png = Url("moreinfoFlag.png");
         public static readonly string newEmailAlert_png = Url("newEmailAlert.png");
         public static readonly string pendingFlag_png = Url("pendingFlag.png");

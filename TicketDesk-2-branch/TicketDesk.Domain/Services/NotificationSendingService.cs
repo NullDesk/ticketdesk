@@ -15,7 +15,7 @@ namespace TicketDesk.Domain.Services
         public NotificationSendingService
         (
             [Import("EmailMaxConsolidationWaitMinutes")] Func<double> getEmailMaxConsolidationWaitMinutesMethod,
-            [Import("EmailResendDelayMinutes")]  Func<double> getEmailResendDelayMinutesMethod,
+            [Import("EmailResendDelayMinutes")]  Func<int> getEmailResendDelayMinutesMethod,
             [Import("EmailMaxDeliveryAttempts")]  Func<int> getEmailMaxDeliveryAttemptsMethod,
             [Import("FromEmailDisplayName")] Func<string> getFromEmailDisplayNameMethod,
             [Import("FromEmailAddress")] Func<string> getFromEmailAddressMethod,
@@ -42,7 +42,7 @@ namespace TicketDesk.Domain.Services
         }
 
         public Func<double> GetEmailMaxConsolidationWaitMinutes { get; private set; }
-        public Func<double> GetEmailResendDelayMinutes { get; private set; }
+        public Func<int> GetEmailResendDelayMinutes { get; private set; }
         public Func<int> GetEmailMaxDeliveryAttempts { get; private set; }
        
         public Func<string> GetFromEmailDisplayName { get; private set; }
@@ -289,9 +289,9 @@ namespace TicketDesk.Domain.Services
                 status = EmailHandler.SendEmail(addressFrom, displayFrom, note.NotifyEmail, note.NotifyUserDisplayName, blindCopyTo, subject, htmlBody, textBody);
 
             }
-            catch
+            catch(Exception ex)
             {
-                //var exception = new ApplicationException("Failure in Email Delivery", ex);
+                var exception = new ApplicationException("Failure in Email Delivery", ex);
                 //TODO: we need to log/record this here and NOT rethrow it 
             }
 

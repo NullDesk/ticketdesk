@@ -156,14 +156,14 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 
         public string GenerateTicketNotificationTextEmailBody(TicketEventNotification notification, int firstUnsentCommentId)
         {
-            var templateName = "~/Views/EmailTemplate/TicketNotificationTextEmailTemplate.ascx";
+            var templateName = MVC.Admin.EmailTemplate.Views.TicketNotificationTextEmailTemplate;
             return GenerateTicketNotificationEmailBody(notification, firstUnsentCommentId, templateName);
         }
 
         public string GenerateTicketNotificationHtmlEmailBody(TicketEventNotification notification, int firstUnsentCommentId)
         {
             var forOutlook = (AppSettings.EnableOutlookFriendlyHtmlEmail);
-            var templateToRender = (forOutlook) ? "~/Views/EmailTemplate/TicketNotificationOutlookHtmlEmailTemplate.ascx" : "~/Views/EmailTemplate/TicketNotificationHtmlEmailTemplate.ascx";
+            var templateToRender = (forOutlook) ? MVC.Admin.EmailTemplate.Views.TicketNotificationOutlookHtmlEmailTemplate: MVC.Admin.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate;
 
             return GenerateTicketNotificationEmailBody(notification, firstUnsentCommentId, templateToRender);
         }

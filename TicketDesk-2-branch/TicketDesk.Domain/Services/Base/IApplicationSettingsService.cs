@@ -85,7 +85,7 @@ namespace TicketDesk.Domain.Services
         string EmailServiceName();
         double EmailNotificationInitialDelayMinutes();
         double EmailMaxConsolidationWaitMinutes();
-        double EmailResendDelayMinutes();
+        int EmailResendDelayMinutes();
         int EmailMaxDeliveryAttempts();
         string FromEmailDisplayName();
         string FromEmailAddress();

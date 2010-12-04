@@ -227,6 +227,7 @@
     <Content Include="Content\elmah.png" />
     <Content Include="Content\expandDown.png" />
     <Content Include="Content\expandDownActive.png" />
+    <Content Include="Content\mail.jpg" />
     <Content Include="Content\moreinfoFlag.png" />
     <Content Include="Content\newEmailAlert.png" />
     <Content Include="Content\pendingFlag.png" />

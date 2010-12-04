@@ -166,7 +166,7 @@ namespace TicketDesk.Domain.Services
         {
             get
             {
-                return (int)(GetSettingValue("EmailDeliveryTimerIntervalMinutes")??5);
+                return (int)(GetSettingValue("EmailDeliveryTimerIntervalMinutes") ?? 5);
             }
         }
 
@@ -203,7 +203,7 @@ namespace TicketDesk.Domain.Services
         {
             get
             {
-                return (int)(GetSettingValue("AdUserPropertiesSqlCacheRefreshMinutes") ?? 120d);
+                return (int)(GetSettingValue("AdUserPropertiesSqlCacheRefreshMinutes") ?? 120);
             }
         }
         
@@ -225,13 +225,13 @@ namespace TicketDesk.Domain.Services
         public double EmailNotificationInitialDelayMinutes() { return (double)(GetSettingValue("EmailNotificationInitialDelayMinutes") ?? 2d); }
 
         [Export("EmailMaxConsolidationWaitMinutes")]
-        public double EmailMaxConsolidationWaitMinutes() { return (double)(GetSettingValue("EmailMaxConsolidationWaitMinutes") ?? "12"); }
+        public double EmailMaxConsolidationWaitMinutes() { return (double)(GetSettingValue("EmailMaxConsolidationWaitMinutes") ?? 12d); }
 
         [Export("EmailResendDelayMinutes")]
-        public double EmailResendDelayMinutes() { return (double)(GetSettingValue("EmailResendDelayMinutes") ?? "5"); }
+        public int EmailResendDelayMinutes() { return (int)(GetSettingValue("EmailResendDelayMinutes") ?? 5); }
 
         [Export("EmailMaxDeliveryAttempts")]
-        public int EmailMaxDeliveryAttempts() { return (int)(GetSettingValue("EmailMaxDeliveryAttempts") ?? "5"); }
+        public int EmailMaxDeliveryAttempts() { return (int)(GetSettingValue("EmailMaxDeliveryAttempts") ?? 5); }
 
         [Export("FromEmailDisplayName")]
         public string FromEmailDisplayName() { return (string)(GetSettingValue("FromEmailDisplayName") ?? "TicketDesk"); }
