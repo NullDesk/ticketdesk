@@ -56,7 +56,7 @@ namespace TicketDesk.Web.Client.Helpers
             {
                 ret = string.Empty;
             }
-            if (value.Length > numberOfCharacters)
+            if (value != null && value.Length > numberOfCharacters)
             {
                 ret = string.Concat(value.Take(numberOfCharacters - 6)) + "[...]";
             }

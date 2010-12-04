@@ -22,33 +22,7 @@ namespace TicketDesk.Domain.Repositories
 
         #region ISettingRepository Members
 
-        /// <summary>
-        /// Gets a collection of all configured priorities.
-        /// </summary>
-        /// <returns></returns>
-        public string[] GetPriorities()
-        {
-            return GetStringEnumFromDb("PriorityList");
-        }
-
-        /// <summary>
-        /// Gets a collection of all configured categories.
-        /// </summary>
-        /// <returns></returns>
-        public string[] GetCategories()
-        {
-            return GetStringEnumFromDb("CategoryList");
-        }
-
-        /// <summary>
-        /// Gets the ticket types.
-        /// </summary>
-        /// <returns></returns>
-        public string[] GetTicketTypes()
-        {
-            return GetStringEnumFromDb("TicketTypesList");
-        }
-
+       
         /// <summary>
         /// Gets the default editor mode.
         /// </summary>
@@ -80,21 +54,33 @@ namespace TicketDesk.Domain.Repositories
             return x.Value.ToArray();
         }
 
+        /// <summary>
+        /// Gets all settings.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Setting> GetAllSettings()
+        {
+            return ctx.Settings;
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        /// <remarks>
+        /// In the EF implementation we don't need the settings passed as a parameter, but we pass it anyway as other repositories may not work the same way
+        /// </remarks>
+        /// <param name="settingsToSave">The settings to save.</param>
+        /// <returns></returns>
+        public bool SaveSettings(IEnumerable<Setting> settingsToSave)
+        {
+            ctx.SaveChanges();
+            ctx = new TicketDeskEntities();//reset the entities
+            return true;
+        }
+
         #endregion
 
-        private string[] GetStringEnumFromDb(string settingName)
-        {
 
-            string[] values = null;
-            string p = (from settings in ctx.Settings
-                        where settings.SettingName == settingName
-                        select settings.SettingValue).FirstOrDefault();
-            if (!string.IsNullOrEmpty(p))
-            {
-                values = p.Split(',');
-            }
-            return values;
-        }
 
         /// <summary>
         /// Gets the role editor modes from db.

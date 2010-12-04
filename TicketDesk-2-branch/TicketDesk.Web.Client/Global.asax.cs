@@ -17,7 +17,7 @@ using TicketDesk.Domain.Services;
 namespace TicketDesk.Web.Client
 {
 
-   
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -25,14 +25,16 @@ namespace TicketDesk.Web.Client
     {
         private System.Timers.Timer DerelictAttachmentsTimer;
         private System.Timers.Timer EmaiNotificationsTimer;
-        private System.Timers.Timer RefreshSecurityCacheTimer;
+
 
         public static CompositionContainer RootContainer;
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("Admin/elmah.axd/{*pathInfo}");
+
+            //routes.Add(new System.Web.Routing.Route("elmah.axd/{*pathInfo}", new System.Web.Routing.StopRoutingHandler()));
+
             routes.MapRoute("Attachments", "Attachment/{action}/{fileId}", new { Controller = "Attachment" });
 
             routes.MapRoute(
@@ -44,6 +46,8 @@ namespace TicketDesk.Web.Client
                 "TicketCreate",
                 "NewTicket",
                 new { controller = "NewTicket", action = "Create" });
+
+
 
             routes.MapRoute(
                 "TicketViewer",
@@ -69,10 +73,11 @@ namespace TicketDesk.Web.Client
                 new { controller = "StaticContent", action = "PageNotFound" }
             );
 
+
         }
         private static System.Timers.Timer SecurityRefreshTimer { get; set; }
 
-       
+        private IApplicationSettingsService AppSettings;
         protected override void Application_Start()
         {
             base.Application_Start();
@@ -81,6 +86,7 @@ namespace TicketDesk.Web.Client
 
             var searchService = MefHttpApplication.ApplicationContainer.GetExportedValue<TicketSearchService>();
             var ticketService = MefHttpApplication.ApplicationContainer.GetExportedValue<ITicketService>();
+            AppSettings = MefHttpApplication.ApplicationContainer.GetExportedValue<IApplicationSettingsService>();
             searchService.InitializeSearch(ticketService);
 
             var securityService = MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>();
@@ -105,12 +111,8 @@ namespace TicketDesk.Web.Client
 
                     EmaiNotificationsTimer = new System.Timers.Timer();
 
-                    string deliveryMinutes = ConfigurationManager.AppSettings["EmailDeliveryTimerIntervalMinutes"];
-                    int emailInterval = 300000;//5 minutes
-                    if (!string.IsNullOrEmpty(deliveryMinutes))
-                    {
-                        emailInterval = Convert.ToInt32(deliveryMinutes) * 60000;
-                    }
+                    int emailInterval = AppSettings.EmailDeliveryTimerIntervalMinutes * 60000;
+
 
                     EmaiNotificationsTimer.Elapsed += new System.Timers.ElapsedEventHandler(EmaiNotificationsTimer_Elapsed);
                     EmaiNotificationsTimer.Interval = emailInterval;
@@ -136,7 +138,7 @@ namespace TicketDesk.Web.Client
             lock (isRunningLock)
             {
                 //clean up pending attachments that are now derelict
-                int hoursOld = Convert.ToInt32(ConfigurationManager.AppSettings["CleanupPendingAttachmentsAfterHours"]);
+                int hoursOld = AppSettings.CleanupPendingAttachmentsAfterHours;
 
                 var tsvc = MefHttpApplication.ApplicationContainer.GetExportedValue<ITicketService>();
                 tsvc.CleanUpDerelictAttachments(hoursOld);

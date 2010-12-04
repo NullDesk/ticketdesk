@@ -20,7 +20,7 @@ namespace TicketDesk.Domain.Repositories
             [Import("StaffRoleName")]string staffRoleName,
             [Import("SubmitterRoleName")]string submitterRoleName,
             [Import("AdminRoleName")]string adminRoleName,
-            [Import("AdUserPropertiesSqlCacheRefreshMinutes")] double adUserPropertiesSqlCacheRefreshMinutes
+            [Import("AdUserPropertiesSqlCacheRefreshMinutes")] int adUserPropertiesSqlCacheRefreshMinutes
         )
         {
             AdRepository = adRepository;
@@ -33,7 +33,7 @@ namespace TicketDesk.Domain.Repositories
         private string TdStaffRoleName { get; set; }
         private string TdSubmittersRoleName { get; set; }
         private string TdAdminRoleName { get; set; }
-        private double AdUserPropertiesSqlCacheRefreshMinutes { get; set; }
+        private int AdUserPropertiesSqlCacheRefreshMinutes { get; set; }
 
         internal AdDataRepository AdRepository { get; private set; }
 
@@ -102,7 +102,7 @@ namespace TicketDesk.Domain.Repositories
 
         private void BuildUserPropertiesCache(bool includeInactiveAd)
         {
-            var refreshTime = DateTime.Now.AddMinutes((AdUserPropertiesSqlCacheRefreshMinutes * -1d));
+            var refreshTime = DateTime.Now.AddMinutes((AdUserPropertiesSqlCacheRefreshMinutes * -1));
             using (TicketDeskEntities ctx = new TicketDeskEntities())
             {
                 var propertiesForRefresh = ctx.AdCachedUserProperties.Where(up => !up.LastRefreshed.HasValue || up.LastRefreshed.Value <= refreshTime);

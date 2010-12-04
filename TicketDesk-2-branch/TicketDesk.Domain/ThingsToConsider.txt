@@ -1,4 +1,19 @@
-﻿Search:
+﻿Application Settings:
+	The exports and such in the application settings service are a bit
+	of a mess. Some are properties, others are methods (and for good
+	reason). Need to standardize these all as methods.
+
+	Also need to re-evaluate which of these need to be MEF exports now
+	that they belong nativly to the domain. Most of them are probably
+	best left as exports, but some of them may be better if the 
+	importing class directly accesses them rather than relying on MEF.
+	Which way is best depends mostly on if the importing mechanism can
+	get at the application settings without needing to instantiate the
+	security or full settings service.
+
+
+
+Search:
 
 	Investigate the advanced query syntax for lucene, and why it isn't
 	working with the query object I'm using currently.
@@ -7,6 +22,9 @@
 	completely re-building it. Update existing tickets that don't have
 	new changes; build and save open tickets first then do a second 
 	pass to handle the history tickets.
+
+	Add a search limit to application settings. Currently it is 
+	hard-coded.
 
 Controller coupling with views:
 
@@ -65,7 +83,27 @@ DataAnnotations for Friendly Column Names in List Output:
 	DataAnnotations allows you to flag fields with friendly names at 
 	the UI. See about replacing the code for the list settings and 
 	such that uses string manipulation and replace with one that 
-	leverages the names from DataAnnotations.
+	leverages the names from DataAnnotations. This will be affected
+	by the plans for full MVVM support in the front end though.
+
+MVVM:
+
+	The application REALLY needs to go MVVM for the front end. The main reason for
+	this is to clean up the need for views to reference controllers and the need
+	for non-model ViewData items. This will be essential for clean usage of 
+	the Razor view engine as well.
+	
+	This would allow us also move the data annotations from the back-end
+	to the front-end; putting the annotations and that part of the validation
+	on the viewmodels instead of the EF entities. Not that validation isn't
+	good in EF entities too, but EF doesn't play well with dataannotations
+	and so data annotations seems like a duplication of the EF data defintion 
+	attributes. 
+	
+	When doing this, don't forget to see about moving some of the 
+	custom validation mechanisms out of the Ticket Service as well. These aren't
+	based on dataannotations, but their function may fit better in the front end
+	anyway. 
 	
 Security:
 
@@ -96,6 +134,9 @@ Validation:
 		before we commit the records just in case someone is actually
 		trying a hack or what not. 
 
+		This is impacted heavily by the architectual decisions related
+		to MVVM. 
+
 UI:
 
 	By Rapid clicking activity buttons, it is possible to queue multiple 
@@ -114,6 +155,23 @@ Editors
 	Ideally, we'd use MEF to support a plug-in style editor component
 	and have the runtime choose the correct plug-in based on a merge
 	of user and system preferences.
+
+	Role Editor Modes:
+
+		Partial support is in place for application wide allowed text editor
+		modes on a per-role basis. By partial support, I mean that there is
+		a repository method that is implemented that can read the settings 
+		from the settings table (the settings themselves are NOT part of
+		the current default values). 
+
+		This system needs to be fleshed out. The general idea is that the
+		admin can choose which roles are allowed which choices of editor
+		and what the default editor for each role should be. Users can then
+		select (in their user preferences) which of the available editors 
+		they will prefer.
+
+		This also requires that the front-end support the various editors.
+
 
 Authorization:
 

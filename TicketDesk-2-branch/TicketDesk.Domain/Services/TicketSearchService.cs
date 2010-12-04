@@ -187,7 +187,7 @@ namespace TicketDesk.Domain.Services
             Query query = parser.Parse(searchText);
 
             queryTerm = query.ToString();
-            TopScoreDocCollector collector = TopScoreDocCollector.create(100, true);
+            TopScoreDocCollector collector = TopScoreDocCollector.create(20, true);
 
             TdIndexSearcher.Search(query, collector);
 

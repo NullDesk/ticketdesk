@@ -76,22 +76,6 @@ namespace TicketDesk.Domain.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Setting> Settings
-        {
-            get
-            {
-                if ((_Settings == null))
-                {
-                    _Settings = base.CreateObjectSet<Setting>("Settings");
-                }
-                return _Settings;
-            }
-        }
-        private ObjectSet<Setting> _Settings;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<TicketAttachment> TicketAttachments
         {
             get
@@ -200,17 +184,25 @@ namespace TicketDesk.Domain.Models
             }
         }
         private ObjectSet<AdCachedUserProperty> _AdCachedUserProperties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Setting> Settings
+        {
+            get
+            {
+                if ((_Settings == null))
+                {
+                    _Settings = base.CreateObjectSet<Setting>("Settings");
+                }
+                return _Settings;
+            }
+        }
+        private ObjectSet<Setting> _Settings;
 
         #endregion
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Settings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSettings(Setting setting)
-        {
-            base.AddObject("Settings", setting);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the TicketAttachments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -266,6 +258,14 @@ namespace TicketDesk.Domain.Models
         public void AddToAdCachedUserProperties(AdCachedUserProperty adCachedUserProperty)
         {
             base.AddObject("AdCachedUserProperties", adCachedUserProperty);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Settings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSettings(Setting setting)
+        {
+            base.AddObject("Settings", setting);
         }
 
         #endregion
@@ -558,12 +558,12 @@ namespace TicketDesk.Domain.Models
         /// Create a new Setting object.
         /// </summary>
         /// <param name="settingName">Initial value of the SettingName property.</param>
-        /// <param name="settingValue">Initial value of the SettingValue property.</param>
-        public static Setting CreateSetting(global::System.String settingName, global::System.String settingValue)
+        /// <param name="settingType">Initial value of the SettingType property.</param>
+        public static Setting CreateSetting(global::System.String settingName, global::System.String settingType)
         {
             Setting setting = new Setting();
             setting.SettingName = settingName;
-            setting.SettingValue = settingValue;
+            setting.SettingType = settingType;
             return setting;
         }
 
@@ -600,7 +600,7 @@ namespace TicketDesk.Domain.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String SettingValue
         {
@@ -612,7 +612,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnSettingValueChanging(value);
                 ReportPropertyChanging("SettingValue");
-                _SettingValue = StructuralObject.SetValidValue(value, false);
+                _SettingValue = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("SettingValue");
                 OnSettingValueChanged();
             }
@@ -620,6 +620,78 @@ namespace TicketDesk.Domain.Models
         private global::System.String _SettingValue;
         partial void OnSettingValueChanging(global::System.String value);
         partial void OnSettingValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DefaultValue
+        {
+            get
+            {
+                return _DefaultValue;
+            }
+            set
+            {
+                OnDefaultValueChanging(value);
+                ReportPropertyChanging("DefaultValue");
+                _DefaultValue = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DefaultValue");
+                OnDefaultValueChanged();
+            }
+        }
+        private global::System.String _DefaultValue;
+        partial void OnDefaultValueChanging(global::System.String value);
+        partial void OnDefaultValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SettingType
+        {
+            get
+            {
+                return _SettingType;
+            }
+            set
+            {
+                OnSettingTypeChanging(value);
+                ReportPropertyChanging("SettingType");
+                _SettingType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SettingType");
+                OnSettingTypeChanged();
+            }
+        }
+        private global::System.String _SettingType;
+        partial void OnSettingTypeChanging(global::System.String value);
+        partial void OnSettingTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SettingDescription
+        {
+            get
+            {
+                return _SettingDescription;
+            }
+            set
+            {
+                OnSettingDescriptionChanging(value);
+                ReportPropertyChanging("SettingDescription");
+                _SettingDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SettingDescription");
+                OnSettingDescriptionChanged();
+            }
+        }
+        private global::System.String _SettingDescription;
+        partial void OnSettingDescriptionChanging(global::System.String value);
+        partial void OnSettingDescriptionChanged();
 
         #endregion
     

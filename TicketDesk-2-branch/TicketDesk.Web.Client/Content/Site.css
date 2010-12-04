@@ -130,8 +130,8 @@ page width. Or, you can specify an exact pixel width. */
 
 #main
 {
-    border-top: solid 8px #134A8A;
-    margin: 3px 0px 30px 0px;
+    border-top: solid 6px #134A8A;
+    margin: 5px 0px 30px 0px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
 }
 
@@ -149,8 +149,7 @@ page width. Or, you can specify an exact pixel width. */
 ----------------------------------------------------------*/
 ul#menu
 {
-    border-bottom: 1px #EBEBEB solid;
-    position: relative;
+   
     margin: 0;
     text-align: right;
     padding: 0;
@@ -274,9 +273,13 @@ table th
 
 div#title
 {
+    width:240px;
+    vertical-align:bottom;
     display: block;
     float: left;
-    text-align: left;
+    
+    
+    padding:0px;
 }
 
 #logindisplay
@@ -906,3 +909,21 @@ td.ticketDetailsArea div
     background-color: #fff;
     border: solid 2px #B3CBDF;
 }
+
+.adminItemContainer
+{
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 55px;
+    padding-top: 35px;
+    width: 100%;
+    height: 50px;
+}
+.adminItemContainer.elmahLogs
+{background-image: url('elmah.png');}
+.adminItemContainer.applicationSettings
+{background-image: url('settings.gif');}
+.adminItemContainer.userSettings
+{background-image: url('users.jpg');}
+.adminItemContainer.emailSettings
+{background-image: url('mail.gif');}

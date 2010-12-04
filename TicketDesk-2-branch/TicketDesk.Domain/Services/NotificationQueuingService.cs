@@ -14,11 +14,9 @@ namespace TicketDesk.Domain.Services
         public NotificationQueuingService
         (
             ISecurityService security,
-            [Import("EmailNotificationsEnabled")] Func<bool> getNotificationsEnabledMethod,
             [Import("EmailNotificationsInitialDelayMinutes")] Func<double> getNotificationsInitialDelayMethod
         )
         {
-            GetNotificationsEnabled = getNotificationsEnabledMethod;
             GetNotificationsInitialDelay = getNotificationsInitialDelayMethod;
             Security = security;
         }
@@ -35,17 +33,17 @@ namespace TicketDesk.Domain.Services
         /// <param name="subscribers">The subscribers.</param>
         public void AddTicketEventNotifications(TicketComment comment, bool isNewOrGiveUpTicket, string[] subscribers)
         {
-            if (GetNotificationsEnabled())
-            {
-                Dictionary<string, string> userReasons = GetNotificationUsersForComment(isNewOrGiveUpTicket, subscribers);
-                var newNotes = CreateNotesForUsers(userReasons, comment);
-                ScheduleNoteDeliveries(newNotes);
 
-                foreach (var note in newNotes)
-                {
-                    comment.TicketEventNotifications.Add(note);
-                }
+
+            Dictionary<string, string> userReasons = GetNotificationUsersForComment(isNewOrGiveUpTicket, subscribers);
+            var newNotes = CreateNotesForUsers(userReasons, comment);
+            ScheduleNoteDeliveries(newNotes);
+
+            foreach (var note in newNotes)
+            {
+                comment.TicketEventNotifications.Add(note);
             }
+
         }
 
         private void ScheduleNoteDeliveries(List<TicketEventNotification> newNotes)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TicketDesk.Domain.Repositories;
+using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Services
 {
@@ -50,6 +51,44 @@ namespace TicketDesk.Domain.Services
         /// <returns></returns>
         string[] AvailableTicketTypes { get; }
 
-       
+        /// <summary>
+        /// Gets all settings.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Setting> CurrentSettings { get; }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        /// <param name="settingsToSave">The settings to save.</param>
+        /// <returns></returns>
+        bool SaveSettings(IEnumerable<Setting> settingsToSave);
+
+        /// <summary>
+        /// Gets the setting value from the application settings store.
+        /// </summary>
+        /// <remarks>This method will attempt to convert the setting value to the appropriate .NET type, or throw an exception if the value cannot convert.</remarks>
+        /// <param name="settingName">Name of the setting to retrieve.</param>
+        /// <returns>The setting value converted to the appropriate underlying .NET type.</returns>
+        object GetSettingValue(string settingName);
+
+        int CleanupPendingAttachmentsAfterHours { get; }
+        bool EnableOutlookFriendlyHtmlEmail { get; }
+        int EmailDeliveryTimerIntervalMinutes { get; }
+        string SiteRootUrlForEmail { get; }
+        string LuceneDirectory { get; }
+
+        int RefreshSecurityCacheMinutes { get; }
+        int AdUserPropertiesSqlCacheRefreshMinutes { get; }
+
+        bool EmailNotificationsEnabled();
+        string EmailServiceName();
+        double EmailNotificationInitialDelayMinutes();
+        double EmailMaxConsolidationWaitMinutes();
+        double EmailResendDelayMinutes();
+        int EmailMaxDeliveryAttempts();
+        string FromEmailDisplayName();
+        string FromEmailAddress();
+        string BlindCopyToEmailAddress();
     }
 }

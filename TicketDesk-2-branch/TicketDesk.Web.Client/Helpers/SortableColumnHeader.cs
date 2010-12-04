@@ -25,7 +25,7 @@ namespace TicketDesk.Web.Client.Helpers
                 imgContent = string.Format("<img src='{0}' alt='{1}' />", imgSrc, cColumn.SortDirection.ToString());
 
                 var idx = sortColumns.IndexOf(cColumn) + 1;
-                indexContent = string.Format("<sup>[{0}]</sup>",idx.ToString()); //linkContent + idx.ToString();
+                indexContent = string.Format("<sup>[{0}]</sup>",idx.ToString());
             }
 
             StringBuilder sb = new StringBuilder();

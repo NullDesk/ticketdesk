@@ -42,4 +42,5 @@
         style="display: inline;" /><span class="neverMindLink">
             <%= Ajax.ActionLink("Nevermind", MVC.TicketEditor.Display(Model.TicketId, string.Empty), new AjaxOptions { UpdateTargetId = "activityArea", OnBegin = "beginChangeActivity", OnSuccess = "completeActivity" })%></span>
     <%} %>
+    
 </div>

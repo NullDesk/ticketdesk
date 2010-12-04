@@ -17,7 +17,7 @@
     <asp:ContentPlaceHolder ID="MyAccountCustomHead" runat="server">
     </asp:ContentPlaceHolder>
 </asp:Content>
-<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainContent">
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="contentContainer">
         <div style="width: 200px; float: right; vertical-align:top;">
             <div class="displayContainerOuter" >

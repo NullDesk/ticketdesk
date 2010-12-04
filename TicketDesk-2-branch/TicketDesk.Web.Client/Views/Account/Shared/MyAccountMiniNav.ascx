@@ -14,7 +14,7 @@
     </li>
     <li>
         <% 
-            var fontStyle2 = (viewName == "ASP.views_account_changedisplayname_aspx") ? "bold" : "normal";
+            var fontStyle2 = (viewName == "ASP.views_account_changepreferences_aspx") ? "bold" : "normal";
             var style2 = new { style = string.Format(baseStyleString, fontStyle2) };
         %>
         <%= Html.ActionLink("Change Preferences",MVC.Account.ChangePreferences(), style2)%>

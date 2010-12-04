@@ -86,14 +86,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\ApplicationController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Admin\Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\AttachmentController.cs" />
-    <Compile Include="Controllers\EmailTemplateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmailTemplateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarkdownController.cs">
       <SubType>Code</SubType>
@@ -136,13 +139,22 @@
     <Compile Include="Helpers\T4MVC\AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\T4MVC\Admin.ApplicationSettingsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\Admin.EmailTemplateController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\Admin.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\T4MVC\Admin.SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\T4MVC\ApplicationController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\T4MVC\AttachmentController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\T4MVC\EmailTemplateController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\T4MVC\HomeController.generated.cs">
@@ -202,6 +214,8 @@
       <DependentUpon>TicketDesk.mdf</DependentUpon>
     </Content>
     <Content Include="App_Data\Upgrade 1.2 to 2.0.sql" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\Index.aspx" />
+    <Content Include="Areas\Admin\Views\Shared\AdminMiniNav.ascx" />
     <Content Include="Content\activeFlag.png" />
     <Content Include="Content\arrow_down.png" />
     <Content Include="Content\arrow_top.png" />
@@ -210,14 +224,19 @@
     <Content Include="Content\closedFlag.png" />
     <Content Include="Content\collapseUp.png" />
     <Content Include="Content\collapseUpActive.png" />
+    <Content Include="Content\elmah.png" />
     <Content Include="Content\expandDown.png" />
     <Content Include="Content\expandDownActive.png" />
     <Content Include="Content\moreinfoFlag.png" />
     <Content Include="Content\newEmailAlert.png" />
     <Content Include="Content\pendingFlag.png" />
     <Content Include="Content\resolvedFlag.png" />
+    <Content Include="Content\settings.gif" />
     <Content Include="Content\tcEdit.png" />
+    <Content Include="Content\TicketDesk2Logo.png" />
     <Content Include="Content\unassignedFlag.png" />
+    <Content Include="Content\users.jpg" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\corner\jquery.corner.js" />
     <Content Include="Scripts\jquery-autocomplete\changelog.txt" />
@@ -477,9 +496,12 @@
     <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
     <Content Include="Views\Account\MyAccount.aspx" />
     <Content Include="Views\Account\Shared\MyAccountMiniNav.ascx" />
-    <Content Include="Views\EmailTemplate\TicketNotificationOutlookHtmlEmailTemplate.ascx" />
-    <Content Include="Views\EmailTemplate\TicketNotificationTextEmailTemplate.ascx" />
-    <Content Include="Views\EmailTemplate\TicketNotificationHtmlEmailTemplate.ascx" />
+    <Content Include="Areas\Admin\Views\Home\Index.aspx" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\Edit.aspx" />
+    <Content Include="Areas\Admin\Views\ApplicationSettings\List.aspx" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\TicketNotificationOutlookHtmlEmailTemplate.ascx" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\TicketNotificationTextEmailTemplate.ascx" />
+    <Content Include="Areas\Admin\Views\EmailTemplate\TicketNotificationHtmlEmailTemplate.ascx" />
     <Content Include="Views\NewTicket\Create.aspx" />
     <Content Include="Views\Shared\QuickSeach.ascx" />
     <Content Include="Views\TicketCenter\Controls\FilterBar.ascx" />
@@ -550,6 +572,8 @@
     <Content Include="Views\Account\Shared\MyAccount.master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Shared\Admin.Master" />
     <None Include="Content\calibri.ttf" />
     <None Include="Content\expandcollapseArrorSmall..psd" />
     <None Include="Content\statusFlag.psd" />
@@ -571,6 +595,7 @@
     <Content Include="ADWeb.Release.config">
       <DependentUpon>ADWeb.config</DependentUpon>
     </Content>
+    <None Include="Content\TicketDesk2Logo.psd" />
     <None Include="Helpers\T4MVC\T4MVC.settings.t4" />
     <None Include="Helpers\T4MVC\T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -603,6 +628,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\ApplicationSettings\Controls\" />
     <Folder Include="bin\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

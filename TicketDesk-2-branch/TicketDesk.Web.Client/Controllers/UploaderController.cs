@@ -15,10 +15,12 @@ namespace TicketDesk.Web.Client.Controllers
     public partial class UploaderController : Controller
     {
         private ITicketService Tickets { get; set; }
+        private SettingsService Settings { get; set; }
 
         [ImportingConstructor]
-        public UploaderController(ITicketService ticketService)
+        public UploaderController(ITicketService ticketService, SettingsService settingsService)
         {
+            Settings = settingsService;
             Tickets = ticketService;
         }
 
@@ -42,7 +44,10 @@ namespace TicketDesk.Web.Client.Controllers
                         attachment.FileType = (string.IsNullOrEmpty(mtype) ? "application/octet-stream" : mtype);
                         byte[] fileContent = new byte[userPostedFile.ContentLength];
                         userPostedFile.InputStream.Read(fileContent, 0, userPostedFile.ContentLength);
-                        if (System.Configuration.ConfigurationManager.AppSettings["IsDemo"] == "true")
+
+                        var isDemo = (bool)Settings.ApplicationSettings.GetSettingValue("IsDemo");
+
+                        if (isDemo)
                         {
                             attachment.FileContents = System.Text.Encoding.UTF8.GetBytes("The demo does not store upload content...");
                         }

@@ -76,9 +76,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AutoMetaData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAnnotations\CustomValidators\SettingValueAttribute.cs" />
     <Compile Include="Models\DataAnnotations\SettingMeta.cs">
       <DependentUpon>AutoMetaData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAnnotations\SettingMetaCustom.cs" />
     <Compile Include="Models\DataAnnotations\TicketAttachmentMeta.cs">
       <DependentUpon>AutoMetaData.tt</DependentUpon>
     </Compile>
@@ -102,6 +104,7 @@
     <Compile Include="Models\Dto\TicketListSortColumn.cs" />
     <Compile Include="Models\Dto\UserDisplayPreferences.cs" />
     <Compile Include="Models\Dto\UserInfo.cs" />
+    <Compile Include="Models\SettingPartial.cs" />
     <Compile Include="Models\TicketCommentPartial.cs" />
     <Compile Include="Models\TicketDeskEntities1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -125,7 +128,6 @@
     <Compile Include="Repositories\TicketRepository.cs" />
     <Compile Include="Services\AdSecurityCacheService.cs" />
     <Compile Include="Services\ApplicationSettingsService.cs" />
-    <Compile Include="Services\Base\ApplicationSettingsServiceBase.cs" />
     <Compile Include="Services\Base\IEmailHandlerService.cs" />
     <Compile Include="Services\Base\INotificationSendingService.cs" />
     <Compile Include="Services\DefaultSmtpEmailHandlerService.cs" />

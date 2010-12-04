@@ -142,7 +142,7 @@ namespace TicketDesk.Domain.Repositories
         /// Updates the ticket.
         /// </summary>
         /// <remarks>
-        /// In the LINQ to SQL implementation we don't need the ticket entity passed as a parameter, but we pass it anyway as other repositories may not work the same way
+        /// In the EF implementation we don't need the ticket entity passed as a parameter, but we pass it anyway as other repositories may not work the same way
         /// </remarks>
         /// <param name="ticket">The ticket to update.</param>
         /// <returns></returns>
@@ -166,7 +166,10 @@ namespace TicketDesk.Domain.Repositories
             {
 
                 ctx.SaveChanges();
-                SavingTicketChanges(attachment.Ticket);
+                if (attachment.Ticket != null)//new tickets page can add and remove attachments before the ticket physically exists in the DB
+                {
+                    SavingTicketChanges(attachment.Ticket);
+                }
             }
             return true;
         }
@@ -183,7 +186,10 @@ namespace TicketDesk.Domain.Repositories
             if (commit)
             {
                 ctx.SaveChanges();
-                SavingTicketChanges(attachment.Ticket);
+                if (attachment.Ticket != null)//new tickets page can add and remove attachments before the ticket physically exists in the DB
+                {
+                    SavingTicketChanges(attachment.Ticket);
+                }
             }
             return true;
         }
@@ -244,7 +250,7 @@ namespace TicketDesk.Domain.Repositories
             {
                 if (!ose.OriginalValues[p].Equals(ose.CurrentValues[p]))
                 {
-                    changes.Add(p, ose.CurrentValues[p]);
+                    changes.Add(p, ose.OriginalValues[p]);
                 }
             }
 
@@ -329,7 +335,9 @@ namespace TicketDesk.Domain.Repositories
                     }
                 }
                 else
+                {
                     differences.AddRange(GetChangedProperties(aValue, bValue));
+                }
             }
 
             return differences;

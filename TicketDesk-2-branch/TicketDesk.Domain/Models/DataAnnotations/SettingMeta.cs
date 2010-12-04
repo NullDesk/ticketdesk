@@ -22,7 +22,17 @@ namespace TicketDesk.Domain.Models.DataAnnotations
         public string SettingName { get; set; }
     		
     	[DisplayName("Setting Value")]
-    	[Required]
         public string SettingValue { get; set; }
+    		
+    	[DisplayName("Default Value")]
+        public string DefaultValue { get; set; }
+    		
+    	[DisplayName("Setting Type")]
+    	[Required]
+    	[StringLength(50)]
+        public string SettingType { get; set; }
+    		
+    	[DisplayName("Setting Description")]
+        public string SettingDescription { get; set; }
     }
 }

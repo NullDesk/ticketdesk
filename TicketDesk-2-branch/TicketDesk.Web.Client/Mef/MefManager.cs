@@ -5,49 +5,15 @@ using System.Configuration;
 using System.Web;
 using System.Web.Security;
 using TicketDesk.Web.Client.Controllers;
+using TicketDesk.Domain.Services;
+using TicketDesk.Web.Client.Areas.Admin.Controllers;
 
 namespace TicketDesk.Web.Client
 {
     public class MefManager
     {
-        //TODO: Almost all of this needs to be relocated to DB configuration in the model. 
-        //      For now, just using as MEF exports to satisfy the model; sort of a hackish 
-        //      way to allow circular assembly references.
+        private IApplicationSettingsService AppSettings;
 
-        [Export("EmailNotificationsEnabled")]
-        public bool EmailNotificationsEnabled() { return Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"] ?? "false"); }
-
-        [Export("EmailServiceName")]
-        public string EmailServiceName() { return ConfigurationManager.AppSettings["EmailServiceName"]; }
-
-        [Export("EmailNotificationsInitialDelayMinutes")]
-        public double EmailNotificationInitialDelayMinutes() { return Convert.ToDouble(ConfigurationManager.AppSettings["EmailNotificationInitialDelayMinutes"] ?? "2"); }
-
-        [Export("EmailMaxConsolidationWaitMinutes")]
-        public double EmailMaxConsolidationWaitMinutes() { return Convert.ToDouble(ConfigurationManager.AppSettings["EmailMaxConsolidationWaitMinutes"] ?? "12"); }
-
-        [Export("EmailResendDelayMinutes")]
-        public double EmailResendDelayMinutes() { return Convert.ToDouble(ConfigurationManager.AppSettings["EmailResendDelayMinutes"] ?? "5"); }
-
-        [Export("EmailMaxDeliveryAttempts")]
-        public int EmailMaxDeliveryAttempts() { return Convert.ToInt32(ConfigurationManager.AppSettings["EmailMaxDeliveryAttempts"] ?? "5"); }
-
-       
-        //[Export("SiteRootUrlForEmail")]
-        //public string SiteRootUrlForEmailLinks()
-        //{
-        //    return ConfigurationManager.AppSettings["SiteRootUrlForEmail"];
-        //    //TODO: should this come from configuration? It is unlikely to change based on other config settings; only if the routes are updated in global.asax
-        //}
-
-        [Export("FromEmailDisplayName")]
-        public string FromEmailDisplayName() { return ConfigurationManager.AppSettings["FromEmailDisplayName"]; }
-       
-        [Export("FromEmailAddress")]
-        public string FromEmailAddress() { return ConfigurationManager.AppSettings["FromEmailAddress"]; }
-        
-        [Export("BlindCopyToEmailAddress")]
-        public string BlindCopyToEmailAddress() { return ConfigurationManager.AppSettings["BlindCopyToEmailAddress"]; }
 
         [Export("RuntimeSecurityMode")]
         public string RuntimeSecurityMode() { return ConfigurationManager.AppSettings["SecurityMode"]; }
@@ -61,26 +27,8 @@ namespace TicketDesk.Web.Client
         [Export("ActiveDirectoryUserPassword")]
         public string ActiveDirectoryUserPassword() { return ConfigurationManager.AppSettings["ActiveDirectoryUserPassword"]; }
 
-        [Export("AdUserPropertiesSqlCacheRefreshMinutes")]
-        public double AdUserPropertiesSqlCacheRefreshMinutes
-        {
-            get
-            {
-                return Convert.ToDouble(ConfigurationManager.AppSettings["AdUserPropertiesSqlCacheRefreshMinutes"] ?? "120");
-            }
-        }
-        [Export("RefreshSecurityCacheMinutes")]
-        public int RefreshSecurityCacheMinutes
-        {
-            get
-            {
-                return Convert.ToInt32(ConfigurationManager.AppSettings["RefreshSecurityCacheMinutes"] ?? "60");
-
-            }
-        }
-
         [Export("CurrentUserNameMethod")]
-        public string GetMembershipUserFromContext() 
+        public string GetMembershipUserFromContext()
         {
             string user = null;
             if (HttpContext.Current != null && HttpContext.Current.User != null & HttpContext.Current.User.Identity != null)
@@ -91,13 +39,7 @@ namespace TicketDesk.Web.Client
         }
 
         [Export(typeof(MembershipProvider))]
-        public MembershipProvider MembersProvider
-        {
-            get
-            {
-                return (Membership.Providers.Count > 0) ? Membership.Provider : null;
-            }
-        }
+        public MembershipProvider MembersProvider { get { return (Membership.Providers.Count > 0) ? Membership.Provider : null; } }
 
         [Export(typeof(RoleProvider))]
         public RoleProvider RolesProvider { get { return Roles.Provider; } }
@@ -115,7 +57,7 @@ namespace TicketDesk.Web.Client
         protected string TicketNotificationHtmlEmailContent(TicketDesk.Domain.Models.TicketEventNotification notification, int firstUnsentCommentId)
         {
             var controller = new EmailTemplateController();
-            return controller.GenerateTicketNotificationHtmlEmailBody(notification,firstUnsentCommentId);
+            return controller.GenerateTicketNotificationHtmlEmailBody(notification, firstUnsentCommentId);
         }
 
         [Export("TicketNotificationTextEmailContent")]
@@ -128,12 +70,11 @@ namespace TicketDesk.Web.Client
         [Export("LuceneDirectory")]
         public string LuceneDirectory
         {
-            get 
+            get
             {
-                var rawDir = ConfigurationManager.AppSettings["LuceneDirectory"] ?? "~/TdSearchIndex";
+                var appSettings = MefHttpApplication.ApplicationContainer.GetExportedValue<IApplicationSettingsService>();
+                var rawDir = appSettings.LuceneDirectory;
                 return (string.Equals(rawDir, "ram", StringComparison.InvariantCultureIgnoreCase)) ? rawDir : System.Web.Hosting.HostingEnvironment.MapPath(rawDir);
-                
-                
             }
         }
 

@@ -22,9 +22,10 @@ using T4MVC;
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC {
+    static readonly AdminClass s_Admin = new AdminClass();
+    public static AdminClass Admin { get { return s_Admin; } }
     public static TicketDesk.Web.Client.Controllers.AccountController Account = new TicketDesk.Web.Client.Controllers.T4MVC_AccountController();
     public static TicketDesk.Web.Client.Controllers.AttachmentController Attachment = new TicketDesk.Web.Client.Controllers.T4MVC_AttachmentController();
-    public static TicketDesk.Web.Client.Controllers.EmailTemplateController EmailTemplate = new TicketDesk.Web.Client.Controllers.T4MVC_EmailTemplateController();
     public static TicketDesk.Web.Client.Controllers.HomeController Home = new TicketDesk.Web.Client.Controllers.T4MVC_HomeController();
     public static TicketDesk.Web.Client.Controllers.MarkdownController Markdown = new TicketDesk.Web.Client.Controllers.T4MVC_MarkdownController();
     public static TicketDesk.Web.Client.Controllers.NewTicketController NewTicket = new TicketDesk.Web.Client.Controllers.T4MVC_NewTicketController();
@@ -37,6 +38,14 @@ public static class MVC {
 }
 
 namespace T4MVC {
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class AdminClass {
+        public readonly string Name = "Admin";
+        public TicketDesk.Web.Client.Areas.Admin.Controllers.ApplicationSettingsController ApplicationSettings = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_ApplicationSettingsController();
+        public TicketDesk.Web.Client.Areas.Admin.Controllers.EmailTemplateController EmailTemplate = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_EmailTemplateController();
+        public TicketDesk.Web.Client.Areas.Admin.Controllers.HomeController Home = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_HomeController();
+        public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
+    }
 }
 
 namespace System.Web.Mvc {
@@ -219,7 +228,7 @@ namespace System.Web.Mvc {
             result.Controller = controller;
             result.Action = action;
             result.RouteValueDictionary = new RouteValueDictionary();
-             
+            result.RouteValueDictionary.Add("Area", area ?? ""); 
             result.RouteValueDictionary.Add("Controller", controller);
             result.RouteValueDictionary.Add("Action", action);
         }
@@ -255,16 +264,6 @@ public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResul
     }
      
     public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
-    
-    public string Controller { get; set; }
-    public string Action { get; set; }
-    public RouteValueDictionary RouteValueDictionary { get; set; }
-}
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public class T4MVC_ViewResult : System.Web.Mvc.ViewResult, IT4MVCActionResult {
-    public T4MVC_ViewResult(string area, string controller, string action): base()  {
-        this.InitMVCT4Result(area, controller, action);
-    }
     
     public string Controller { get; set; }
     public string Action { get; set; }
@@ -879,6 +878,7 @@ namespace Links {
         public static readonly string closedFlag_png = Url("closedFlag.png");
         public static readonly string collapseUp_png = Url("collapseUp.png");
         public static readonly string collapseUpActive_png = Url("collapseUpActive.png");
+        public static readonly string elmah_png = Url("elmah.png");
         public static readonly string expandcollapseArrorSmall__psd = Url("expandcollapseArrorSmall..psd");
         public static readonly string expandDown_png = Url("expandDown.png");
         public static readonly string expandDownActive_png = Url("expandDownActive.png");
@@ -886,10 +886,14 @@ namespace Links {
         public static readonly string newEmailAlert_png = Url("newEmailAlert.png");
         public static readonly string pendingFlag_png = Url("pendingFlag.png");
         public static readonly string resolvedFlag_png = Url("resolvedFlag.png");
+        public static readonly string settings_gif = Url("settings.gif");
         public static readonly string Site_css = Url("Site.css");
         public static readonly string statusFlag_psd = Url("statusFlag.psd");
         public static readonly string tcEdit_png = Url("tcEdit.png");
+        public static readonly string TicketDesk2Logo_png = Url("TicketDesk2Logo.png");
+        public static readonly string TicketDesk2Logo_psd = Url("TicketDesk2Logo.psd");
         public static readonly string unassignedFlag_png = Url("unassignedFlag.png");
+        public static readonly string users_jpg = Url("users.jpg");
     }
 
 }
