@@ -1,0 +1,39 @@
+﻿
+
+Code Tasks:
+	Admin User Management
+	Admin AD cache Management
+	Alternate File-System Attachment store
+	Document All Public Code in the Domain library
+	Attach MS-Pl license to all relevant files
+	Decide what to do with home/about pages in the intial release
+
+Pre-deployment tasks
+	Complete Documentation
+		Overview Docs
+			General
+			Usage Guide
+			Design Philosophy
+			Features Docs
+		What's new Docs
+		Installation Docs
+			New Installs
+			TD 2.x beta upgrades
+			TD 1.x upgrades
+			Configuration
+		Developer Docs
+			Architecture & Design
+			VS2010 Project Overview
+			Tips & Guidance
+
+	Check license terms and include license info from 3rd party source and scripts where necessary
+	Move lucene indexes to app_data
+	*done* Combine SQL and SQL Security DBs for default databases
+	*done* Create SQL 2005 / SQL 2005 Express compatible DBs and EF version flags
+	Ensure upgrade SQL scripts from stock TD 1.2x are fully capable
+		See about doing an EF model-to-db SQL generation/update 
+	Ensure all TD 1.x settings are implemented in TD 2.x
+	Cleanup scripts
+		minify all scripts
+		prune out unused scripts
+	*done* Cleanup database and restore minimal set of sample tickets, users, etc.

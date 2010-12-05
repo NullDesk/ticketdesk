@@ -205,11 +205,11 @@
     <Compile Include="Mef\MefManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\NewDatabaseScripts\3_SecurityDefaultUsers.sql" />
+    <Content Include="App_Data\NewDatabaseScripts\2_SecurityObjects.sql" />
+    <Content Include="App_Data\NewDatabaseScripts\1_TicketDeskObjects.sql" />
+    <Content Include="App_Data\NewDatabaseScripts\ReadMe.txt" />
     <Content Include="App_Data\TicketDesk.mdf" />
-    <Content Include="App_Data\TicketDeskSecurity.MDF" />
-    <Content Include="App_Data\TicketDeskSecurity_log.ldf">
-      <DependentUpon>TicketDeskSecurity.MDF</DependentUpon>
-    </Content>
     <Content Include="App_Data\TicketDesk_log.ldf">
       <DependentUpon>TicketDesk.mdf</DependentUpon>
     </Content>
@@ -239,6 +239,7 @@
     <Content Include="Content\users.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ReleaseChecklist.txt" />
     <Content Include="Scripts\corner\jquery.corner.js" />
     <Content Include="Scripts\jquery-autocomplete\changelog.txt" />
     <Content Include="Scripts\jquery-autocomplete\demo\bg.gif" />

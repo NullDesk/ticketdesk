@@ -34,6 +34,7 @@ namespace TicketDesk.Domain.Repositories
         public Ticket GetTicket(int ticketId)
         {
             return ctx.Tickets.SingleOrDefault(t => t.TicketId == ticketId);
+            
         }
 
         /// <summary>
