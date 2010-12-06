@@ -209,11 +209,16 @@
     <Content Include="App_Data\NewDatabaseScripts\2_SecurityObjects.sql" />
     <Content Include="App_Data\NewDatabaseScripts\1_TicketDeskObjects.sql" />
     <Content Include="App_Data\NewDatabaseScripts\ReadMe.txt" />
+    <Content Include="App_Data\Readme.txt" />
+    <Content Include="App_Data\SQLExpress2005FileDatabase\TicketDesk.mdf" />
+    <Content Include="App_Data\SQLExpress2005FileDatabase\TicketDesk_log.ldf">
+      <DependentUpon>TicketDesk.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\TicketDesk.mdf" />
     <Content Include="App_Data\TicketDesk_log.ldf">
       <DependentUpon>TicketDesk.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\Upgrade 1.2 to 2.0.sql" />
+    <Content Include="App_Data\UpgradeScripts\Upgrade 1.2 to 2.0.sql" />
     <Content Include="Areas\Admin\Views\EmailTemplate\Index.aspx" />
     <Content Include="Areas\Admin\Views\Shared\AdminMiniNav.ascx" />
     <Content Include="Content\activeFlag.png" />
