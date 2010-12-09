@@ -241,7 +241,6 @@
     <Content Include="Content\closedFlag.png" />
     <Content Include="Content\collapseUp.png" />
     <Content Include="Content\collapseUpActive.png" />
-    <Content Include="Content\email.png" />
     <Content Include="Content\expandDown.png" />
     <Content Include="Content\expandDownActive.png" />
     <Content Include="Content\logs.png" />
