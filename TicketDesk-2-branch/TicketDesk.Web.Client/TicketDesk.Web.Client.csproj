@@ -87,10 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\SecurityManagementController.cs" />
+    <Compile Include="Areas\Admin\Models\SecurityManagementUserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\ApplicationController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,6 +118,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ActionFilters\SqlSecurityOnlyAttribute.cs" />
+    <Compile Include="Helpers\Attributes\AuthorizeAdminOnly.cs" />
     <Compile Include="Helpers\ActionFilters\NoCacheAttribute.cs" />
     <Compile Include="Helpers\ActionFilters\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Helpers\Attributes\FlashCompatibleAuthorizeAttribute.cs" />
@@ -139,13 +143,16 @@
     <Compile Include="Helpers\T4MVC\AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\T4MVC\Admin.AdminHomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\T4MVC\Admin.ApplicationSettingsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\T4MVC\Admin.EmailTemplateController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\T4MVC\Admin.HomeController.generated.cs">
+    <Compile Include="Helpers\T4MVC\Admin.SecurityManagementController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\T4MVC\Admin.SharedController.generated.cs">
@@ -220,6 +227,11 @@
     </Content>
     <Content Include="App_Data\UpgradeScripts\Upgrade 1.2 to 2.0.sql" />
     <Content Include="Areas\Admin\Views\EmailTemplate\Index.aspx" />
+    <Content Include="Areas\Admin\Views\SecurityManagement\CreateUser.aspx" />
+    <Content Include="Areas\Admin\Views\SecurityManagement\DeleteUser.aspx" />
+    <Content Include="Areas\Admin\Views\SecurityManagement\EditUser.aspx" />
+    <Content Include="Areas\Admin\Views\SecurityManagement\Index.aspx" />
+    <Content Include="Areas\Admin\Views\SecurityManagement\UsersList.aspx" />
     <Content Include="Areas\Admin\Views\Shared\AdminMiniNav.ascx" />
     <Content Include="Content\activeFlag.png" />
     <Content Include="Content\arrow_down.png" />
@@ -229,19 +241,21 @@
     <Content Include="Content\closedFlag.png" />
     <Content Include="Content\collapseUp.png" />
     <Content Include="Content\collapseUpActive.png" />
-    <Content Include="Content\elmah.png" />
+    <Content Include="Content\email.png" />
     <Content Include="Content\expandDown.png" />
     <Content Include="Content\expandDownActive.png" />
-    <Content Include="Content\mail.jpg" />
+    <Content Include="Content\logs.png" />
     <Content Include="Content\moreinfoFlag.png" />
     <Content Include="Content\newEmailAlert.png" />
     <Content Include="Content\pendingFlag.png" />
     <Content Include="Content\resolvedFlag.png" />
-    <Content Include="Content\settings.gif" />
+    <Content Include="Content\roles.png" />
+    <Content Include="Content\security.png" />
+    <Content Include="Content\settings.png" />
     <Content Include="Content\tcEdit.png" />
     <Content Include="Content\TicketDesk2Logo.png" />
     <Content Include="Content\unassignedFlag.png" />
-    <Content Include="Content\users.jpg" />
+    <Content Include="Content\users.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ReleaseChecklist.txt" />
@@ -503,7 +517,7 @@
     <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
     <Content Include="Views\Account\MyAccount.aspx" />
     <Content Include="Views\Account\Shared\MyAccountMiniNav.ascx" />
-    <Content Include="Areas\Admin\Views\Home\Index.aspx" />
+    <Content Include="Areas\Admin\Views\AdminHome\Index.aspx" />
     <Content Include="Areas\Admin\Views\ApplicationSettings\Edit.aspx" />
     <Content Include="Areas\Admin\Views\ApplicationSettings\List.aspx" />
     <Content Include="Areas\Admin\Views\EmailTemplate\TicketNotificationOutlookHtmlEmailTemplate.ascx" />
@@ -635,7 +649,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\ApplicationSettings\Controls\" />
     <Folder Include="bin\" />
   </ItemGroup>

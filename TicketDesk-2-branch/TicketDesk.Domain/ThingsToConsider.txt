@@ -125,6 +125,9 @@ Security:
 	    with a hand-rolled (non-provider) based system. Handle
 		List settings and such directly in the DB and via EF. 
 
+	4) Move membership update operations into the service in the 
+	   same way we moved the adding/removing of roles. 
+
 Validation: 
 
 	The rules based Validation in TicketSerivce with methods like 

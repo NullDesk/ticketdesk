@@ -179,7 +179,6 @@
         
         td.ticketDetailsArea div
         {
-            
             padding: 3px;
         }
         
@@ -272,7 +271,27 @@
         }
         .commentHeaderTable td
         {
-            border-style:none;
+            border-style: none;
+        }
+        pre
+        {
+            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+            margin-bottom: 10px;
+            min-height: 35px;
+            overflow: auto;
+            max-width: 550px;
+            padding: 5px;
+            background-color: #eee;
+            
+            padding-bottom: 20px!ie7;
+            max-height: 600px;
+        }
+        code
+        {
+            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+            background-color: #eee;
+            padding: 1px 5px 1px 5px;
+            font-size: 9pt;
         }
     </style>
 </head>

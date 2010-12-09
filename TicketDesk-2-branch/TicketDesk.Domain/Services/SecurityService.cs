@@ -306,14 +306,44 @@ namespace TicketDesk.Domain.Services
 
         #endregion
 
-        #region ISecurityService Members
-
+      
 
         public string GetUserEmailAddress(string userName)
         {
             return Repository.GetUserEmailAddress(userName);
         }
 
-        #endregion
+        
+
+
+        public void AddUserToTdAdmin(string userName)
+        {
+            Repository.AddUserToRole(userName, TdAdminRoleName);
+        }
+
+        public void AddUserToTdSubmitter(string userName)
+        {
+            Repository.AddUserToRole(userName, TdSubmittersRoleName);
+        }
+
+        public void AddUserToTdStaff(string userName)
+        {
+            Repository.AddUserToRole(userName, TdStaffRoleName);
+        }
+
+        public void RemoveUserFromTdAdmin(string userName)
+        {
+            Repository.RemoveUserFromRole(userName, TdAdminRoleName);
+        }
+
+        public void RemoveUserFromTdSubmitter(string userName)
+        {
+            Repository.RemoveUserFromRole(userName, TdSubmittersRoleName);
+        }
+
+        public void RemoveUserFromTdStaff(string userName)
+        {
+            Repository.RemoveUserFromRole(userName, TdStaffRoleName);
+        }
     }
 }

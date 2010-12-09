@@ -14,6 +14,7 @@ using TicketDesk.Domain.Models;
 using System.Configuration;
 using System.Net.Mail;
 using TicketDesk.Web.Client.Controllers;
+using TicketDesk.Web.Client.Helpers;
 namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 {
     [HandleError]
@@ -37,7 +38,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
         private TicketDesk.Domain.Services.NotificationSendingService noteService { get; set; }
 
 
-        [Authorize]
+       [AuthorizeAdminOnly]
         public virtual ActionResult Index()
         {
             if (!Security.IsTdAdmin())
@@ -47,7 +48,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 
             return View();
         }
-        [Authorize]
+        [AuthorizeAdminOnly]
         [HttpPost]
         public virtual ActionResult Index(int? id, string mode)
         {
@@ -75,13 +76,13 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
                     a = MVC.Admin.EmailTemplate.Actions.DisplayText(id.Value);
                     break;
                 default:
-                    a = MVC.Admin.Home.Index();
+                    a = MVC.Admin.AdminHome.Index();
                     break;
             }
             return RedirectToAction(a);
         }
 
-        [Authorize]
+        [AuthorizeAdminOnly]
         public virtual ContentResult ProcessWaitingNotesNow()
         {
             var c = new ContentResult();
@@ -99,7 +100,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             return c;
         }
 
-        [Authorize]
+        [AuthorizeAdminOnly]
         public virtual ActionResult DisplayHtml(int id)
         {
             if (!Security.IsTdAdmin())
@@ -110,6 +111,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             return GetEmailPreview(id, MVC.Admin.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate);
         }
 
+        [AuthorizeAdminOnly]
         public virtual ActionResult DisplayOutlookHtml(int id)
         {
             if (!Security.IsTdAdmin())
@@ -120,6 +122,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             return GetEmailPreview(id, MVC.Admin.EmailTemplate.Views.TicketNotificationOutlookHtmlEmailTemplate);
         }
 
+        [AuthorizeAdminOnly]
         public virtual ActionResult DisplayText(int id)
         {
             if (!Security.IsTdAdmin())
@@ -153,7 +156,8 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 
         #endregion
 
-
+        #region Email Automation Actions
+        
         public string GenerateTicketNotificationTextEmailBody(TicketEventNotification notification, int firstUnsentCommentId)
         {
             var templateName = MVC.Admin.EmailTemplate.Views.TicketNotificationTextEmailTemplate;
@@ -199,6 +203,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
+        #endregion
 
         public class FakeView : IView
         {

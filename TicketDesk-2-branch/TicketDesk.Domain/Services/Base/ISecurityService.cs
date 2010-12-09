@@ -1,5 +1,6 @@
 ﻿using TicketDesk.Domain.Models;
 using System;
+using TicketDesk.Domain.Repositories;
 
 namespace TicketDesk.Domain.Services
 {
@@ -12,6 +13,8 @@ namespace TicketDesk.Domain.Services
         /// <returns></returns>
         System.Timers.Timer InitializeSecurityCacheRefreshTimer();
 
+
+        ISecurityRepository Repository { get; }
         /// <summary>
         /// Gets the submitter users.
         /// </summary>
@@ -82,6 +85,14 @@ namespace TicketDesk.Domain.Services
         /// 	<c>true</c> if user is in admin role; otherwise, <c>false</c>.
         /// </returns>
         bool IsTdAdmin(string userName);
+
+
+        void AddUserToTdAdmin(string userName);
+        void AddUserToTdSubmitter(string userName);
+        void AddUserToTdStaff(string userName);
+        void RemoveUserFromTdAdmin(string userName);
+        void RemoveUserFromTdSubmitter(string userName);
+        void RemoveUserFromTdStaff(string userName);
 
 
         /// <summary>

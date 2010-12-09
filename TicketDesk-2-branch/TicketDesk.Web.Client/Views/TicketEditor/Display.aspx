@@ -78,7 +78,21 @@
     %>
     <script type="text/javascript">
 
-        
+
+       
+
+        function makePretty() {
+            $("pre code").parent().each
+                (
+                    function () {
+                        if (!$(this).hasClass("prettyprint")) {
+                            $(this).addClass("prettyprint");
+                        }
+                    }
+                );
+            prettyPrint();
+
+        }
 
         function weaponize() {
             $("#details").wmd({
@@ -131,6 +145,7 @@
         function AddStyles() {
             $("head").append("<style>#comment{display:none;}</style>"); //style hides the comment boxes by default, but only when javascript is enabled on client
             $("#activitySizer").css("overflow", "hidden").css("height", "250px");
+            makePretty();
         }
 
         function Corners() {
@@ -255,6 +270,7 @@
                 detailsMinHeight += 260;
                 $("#detailsText").animate({ height: detailsMinHeight }, 300);
             }
+            
         }
 
         function completeRefreshAttachments() {
@@ -263,10 +279,12 @@
 
         function completeRefreshHistory() {
             $('#activityHistoryArea').animate({ opacity: 1 }, 300);
+            makePretty();
         }
 
         function completeRefreshDetails() {
             $('#detailsWrapper').animate({ opacity: 1 }, 300, function () { CheckScrollDetails(); });
+            makePretty();
         }
 
         function restoreDetailsHeight() {
@@ -287,6 +305,7 @@
             if (commentBox.length < 1) {
                 $("#activityColumn").animate({ width: 250 }, 300, function () { $("#ModifyAttachmentsLink").show(); CheckActivityHeight(); restoreDetailsHeight(); });
             }
+            
         }
 
 

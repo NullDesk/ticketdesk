@@ -920,10 +920,16 @@ td.ticketDetailsArea div
     height: 50px;
 }
 .adminItemContainer.elmahLogs
-{background-image: url('elmah.png');}
+{background-image: url('logs.png');}
 .adminItemContainer.applicationSettings
-{background-image: url('settings.gif');}
+{background-image: url('settings.png');}
+
+.adminItemContainer.securitySettings
+{background-image: url('security.png');}
+
 .adminItemContainer.userSettings
-{background-image: url('users.jpg');}
+{background-image: url('users.png');}
+.adminItemContainer.roleSettings
+{background-image: url('roles.png');}
 .adminItemContainer.emailSettings
-{background-image: url('mail.jpg');}
+{background-image: url('email.png');}

@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace TicketDesk.Web.Client.Helpers
 {
-    public class NoCache : ActionFilterAttribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public class NoCacheAttribute : ActionFilterAttribute
     {
+        
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             filterContext.HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));

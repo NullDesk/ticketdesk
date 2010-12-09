@@ -12,7 +12,8 @@ namespace TicketDesk.Web.Client.Helpers
     /// <remarks>
     /// from: http://blog.stevensanderson.com/2010/02/19/partial-validation-in-aspnet-mvc-2/
     /// </remarks>
-    public class ValidateOnlyIncomingValues : ActionFilterAttribute
+    [AttributeUsage(AttributeTargets.Method)]
+    public class ValidateOnlyIncomingValuesAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

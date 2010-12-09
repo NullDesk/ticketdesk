@@ -75,5 +75,15 @@ namespace TicketDesk.Domain.Repositories
         {
             return AdService.GetAdUserProperty(userName, "mail");
         }
+
+        public override void AddUserToRole(string userName, string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RemoveUserFromRole(string userName, string roleName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

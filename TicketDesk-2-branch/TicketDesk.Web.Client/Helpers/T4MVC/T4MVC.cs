@@ -41,9 +41,10 @@ namespace T4MVC {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class AdminClass {
         public readonly string Name = "Admin";
+        public TicketDesk.Web.Client.Areas.Admin.Controllers.AdminHomeController AdminHome = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_AdminHomeController();
         public TicketDesk.Web.Client.Areas.Admin.Controllers.ApplicationSettingsController ApplicationSettings = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_ApplicationSettingsController();
         public TicketDesk.Web.Client.Areas.Admin.Controllers.EmailTemplateController EmailTemplate = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_EmailTemplateController();
-        public TicketDesk.Web.Client.Areas.Admin.Controllers.HomeController Home = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_HomeController();
+        public TicketDesk.Web.Client.Areas.Admin.Controllers.SecurityManagementController SecurityManagement = new TicketDesk.Web.Client.Areas.Admin.Controllers.T4MVC_SecurityManagementController();
         public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
     }
 }
@@ -878,23 +879,25 @@ namespace Links {
         public static readonly string closedFlag_png = Url("closedFlag.png");
         public static readonly string collapseUp_png = Url("collapseUp.png");
         public static readonly string collapseUpActive_png = Url("collapseUpActive.png");
-        public static readonly string elmah_png = Url("elmah.png");
+        public static readonly string email_png = Url("email.png");
         public static readonly string expandcollapseArrorSmall__psd = Url("expandcollapseArrorSmall..psd");
         public static readonly string expandDown_png = Url("expandDown.png");
         public static readonly string expandDownActive_png = Url("expandDownActive.png");
-        public static readonly string mail_jpg = Url("mail.jpg");
+        public static readonly string logs_png = Url("logs.png");
         public static readonly string moreinfoFlag_png = Url("moreinfoFlag.png");
         public static readonly string newEmailAlert_png = Url("newEmailAlert.png");
         public static readonly string pendingFlag_png = Url("pendingFlag.png");
         public static readonly string resolvedFlag_png = Url("resolvedFlag.png");
-        public static readonly string settings_gif = Url("settings.gif");
+        public static readonly string roles_png = Url("roles.png");
+        public static readonly string security_png = Url("security.png");
+        public static readonly string settings_png = Url("settings.png");
         public static readonly string Site_css = Url("Site.css");
         public static readonly string statusFlag_psd = Url("statusFlag.psd");
         public static readonly string tcEdit_png = Url("tcEdit.png");
         public static readonly string TicketDesk2Logo_png = Url("TicketDesk2Logo.png");
         public static readonly string TicketDesk2Logo_psd = Url("TicketDesk2Logo.psd");
         public static readonly string unassignedFlag_png = Url("unassignedFlag.png");
-        public static readonly string users_jpg = Url("users.jpg");
+        public static readonly string users_png = Url("users.png");
     }
 
 }

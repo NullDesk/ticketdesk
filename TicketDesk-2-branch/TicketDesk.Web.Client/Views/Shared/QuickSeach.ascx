@@ -4,7 +4,7 @@
 
     if (Request.IsAuthenticated && controller != null && controller.Security.IsInValidTdUserRole())
     {
-        using (Html.BeginForm(MVC.TicketSearch.Index(), FormMethod.Post, new { Class = "searchArea" }))
+        using (Html.BeginForm(MVC.TicketSearch.Index(), FormMethod.Post, new { @class = "searchArea" }))
         {
 %>
 Search:

@@ -101,7 +101,7 @@ namespace TicketDesk.Web.Client.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.DisplayName, model.Password, model.Email, Security);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {

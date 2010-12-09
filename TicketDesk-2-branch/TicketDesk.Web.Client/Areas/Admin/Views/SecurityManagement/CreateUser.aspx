@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<TicketDesk.Web.Client.Models.RegisterModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Areas/Admin/Views/Shared/Admin.Master"
+    Inherits="System.Web.Mvc.ViewPage<TicketDesk.Web.Client.Areas.Admin.Models.SecurityManagementUserViewModel>" %>
 
-<asp:Content ID="registerTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Register
+<asp:Content ID="TitleContent" ContentPlaceHolderID="AdminTitleContent" runat="server">
+    Create User
 </asp:Content>
-<asp:Content ID="HeadContent" ContentPlaceHolderID="CustomHeadContent" runat="server">
+<asp:Content ID="HeadContent" ContentPlaceHolderID="AdminCustomHead" runat="server">
     <script type="text/javascript">
 
         $(document).ready(function () { Corners(); });
@@ -14,7 +15,7 @@
 
     </script>
 </asp:Content>
-<asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="AdminContent" runat="server">
     <div class="contentContainer">
         <div style="max-width: 600px; margin: auto;">
             <div class="displayContainerOuter">
@@ -22,13 +23,13 @@
                     <div>
                         <div class="activityHeadWrapper">
                             <div class="activityHead">
-                                Register User:
+                                Edit User:
                             </div>
                         </div>
                         <div class="activityBody" style="margin: auto; padding: 25px;">
                             <% using (Html.BeginForm())
-                               { %>
-                            <%: Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.") %>
+                               {%>
+                            <%: Html.ValidationSummary(true) %>
                             <div class="editor-label">
                                 <%: Html.LabelFor(model => model.UserName) %>
                             </div>
@@ -64,10 +65,42 @@
                                 <%: Html.PasswordFor(model => model.ConfirmPassword)%>
                                 <%: Html.ValidationMessageFor(model => model.ConfirmPassword)%>
                             </div>
+                            <div>
+                                <div class="editor-field" style="display: inline;">
+                                    <%: Html.CheckBoxFor(model => model.IsAdmin) %>
+                                </div>
+                                <div class="editor-label" style="display: inline;">
+                                    <%: Html.LabelFor(model => model.IsAdmin) %>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="editor-field" style="display: inline;">
+                                    <%: Html.CheckBoxFor(model => model.IsStaff)%>
+                                </div>
+                                <div class="editor-label" style="display: inline;">
+                                    <%: Html.LabelFor(model => model.IsStaff) %>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="editor-field" style="display: inline;">
+                                    <%: Html.CheckBoxFor(model => model.IsSubmitter)%>
+                                </div>
+                                <div class="editor-label" style="display: inline;">
+                                    <%: Html.LabelFor(model => model.IsSubmitter) %>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="editor-field" style="display: inline;">
+                                    <%: Html.CheckBoxFor(model => model.IsApproved)%>
+                                </div>
+                                <div class="editor-label" style="display: inline;">
+                                    <%: Html.LabelFor(model => model.IsApproved)%>
+                                </div>
+                            </div>
                             <p>
-                                <input type="submit" value="Register" class="activityButton" class="activityButton"
+                                <input type="submit" value="Create" class="activityButton" class="activityButton"
                                     style="display: inline;" /><span class="neverMindLink">
-                                        <%: Html.ActionLink("Nevermind", MVC.Home.Index())%>
+                                        <%: Html.ActionLink("Nevermind", MVC.Admin.SecurityManagement.ActionNames.UsersList)%>
                                     </span>
                             </p>
                             <% } %>

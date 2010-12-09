@@ -10,11 +10,11 @@
         currentFlagStatus = "unassigned";
     }
     var root = ViewData["siteRootUrl"] as string;
-    var flagUrl = root + Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(currentFlagStatus))); 
-    
-    var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}",Model.TicketId.ToString()));
+    var flagUrl = root + Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(currentFlagStatus)));
 
-    var detailsHeight = (ViewData["formatForSearch"] == null) ? 180: 70;
+    var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}", Model.TicketId.ToString()));
+
+    var detailsHeight = (ViewData["formatForSearch"] == null) ? 180 : 70;
     
 %>
 <div class="ticketDetailsHeaderOuter">
@@ -25,12 +25,12 @@
                     <img alt="<%: currentFlagStatus %>" src="<%= flagUrl %>" />
                 </td>
                 <td class="ticketDetailsHeaderId" style="">
-                <a href="<%= ticketUrl %>">
-                    Ticket: #<%: Model.TicketId %>
-                    -
-                    <%: Model.Category%>
-                    <%: Model.Type%>
-                </a></td>
+                    <a href="<%= ticketUrl %>">Ticket: #<%: Model.TicketId %>
+                        -
+                        <%: Model.Category%>
+                        <%: Model.Type%>
+                    </a>
+                </td>
                 <td class="ticketDetailsHeaderPriority">
                     <div>
                         Priority:
@@ -79,7 +79,8 @@
             <tbody>
                 <tr>
                     <td class="ticketDetailsArea" colspan="2">
-                        <div id="detailsText" style="height: <%= detailsHeight%>px;" >
+                        <div id="detailsText" <%if(ViewData["formatForEmail"] == null){ %> style="height: <%= detailsHeight%>px;"
+                            <% } %>>
                             <%= Model.HtmlDetails%>
                         </div>
                     </td>

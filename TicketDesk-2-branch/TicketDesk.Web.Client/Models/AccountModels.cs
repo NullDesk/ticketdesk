@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TicketDesk.Domain.Services;
+using System.Text.RegularExpressions;
 
 namespace TicketDesk.Web.Client.Models
 {
@@ -56,6 +57,12 @@ namespace TicketDesk.Web.Client.Models
         public string UserName { get; set; }
 
         [Required]
+        [DisplayName("Display name")]
+        [DataType(DataType.Text)]
+        public string DisplayName { get; set; }
+
+        [Required]
+        [ValidateEmailAttribute]
         [DataType(DataType.EmailAddress)]
         [DisplayName("Email address")]
         public string Email { get; set; }
@@ -95,7 +102,7 @@ namespace TicketDesk.Web.Client.Models
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string password, string email);
+        MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
         bool ChangeUserPreferences(string userName, string displayName, bool openEditorWithPreview, SettingsService settingsService);
     }
@@ -130,14 +137,21 @@ namespace TicketDesk.Web.Client.Models
             return _provider.ValidateUser(userName, password);
         }
 
-        public MembershipCreateStatus CreateUser(string userName, string password, string email)
+        public MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security)
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
             if (String.IsNullOrEmpty(email)) throw new ArgumentException("Value cannot be null or empty.", "email");
 
             MembershipCreateStatus status;
-            _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+            var u = _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+            if (status == MembershipCreateStatus.Success)
+            {
+                u.Comment = displayName;
+                _provider.UpdateUser(u);
+
+                security.AddUserToTdSubmitter(u.UserName);
+            }
             return status;
         }
 
@@ -310,7 +324,30 @@ namespace TicketDesk.Web.Client.Models
         }
     }
 
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public sealed class ValidateEmailAttribute : ValidationAttribute
+    {
+       private const string _defaultErrorMessage = "'{0}' must be a valid email address";
+        //private readonly int _minCharacters = Membership.Provider.MinRequiredPasswordLength;
 
+       public ValidateEmailAttribute()
+            : base(_defaultErrorMessage)
+        {
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            return String.Format(CultureInfo.CurrentUICulture, ErrorMessageString,
+                name);
+        }
+
+        public override bool IsValid(object value)
+        {
+            string valueAsString = value as string;
+            var re = new Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
+            return (valueAsString != null && re.IsMatch(valueAsString));
+        }
+    }
 
 
     #endregion

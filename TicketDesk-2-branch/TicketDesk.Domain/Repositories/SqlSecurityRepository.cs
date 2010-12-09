@@ -66,5 +66,16 @@ namespace TicketDesk.Domain.Repositories
             }
             return e;
         }
+
+        public override void AddUserToRole(string userName, string roleName)
+        {
+            RoleSource.AddUsersToRoles(new[] { userName }, new[] { roleName });
+        }
+
+        public override void RemoveUserFromRole(string userName, string roleName)
+        {
+            RoleSource.RemoveUsersFromRoles(new[] { userName }, new[] { roleName });
+
+        }
     }
 }

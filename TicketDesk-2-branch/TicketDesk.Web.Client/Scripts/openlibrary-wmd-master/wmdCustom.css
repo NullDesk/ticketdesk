@@ -1,26 +1,25 @@
 
-/*from SO*/
+
 pre
 {
     font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
     margin-bottom: 10px;
+    min-height:35px;
     overflow: auto;
-    width: auto;
+    max-width: 550px;
     padding: 5px;
     background-color: #eee;
     width: 425px!ie7;
     padding-bottom: 20px!ie7;
     max-height: 600px;
 }
-pre
-{
-    max-height: none\9;
-}
+
 code
 {
     font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
     background-color: #eee;
      padding: 1px 5px 1px 5px;
+     font-size:9pt;
 }
 
 .wmd-container-small

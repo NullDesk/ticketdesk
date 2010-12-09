@@ -1,4 +1,5 @@
 ﻿using TicketDesk.Domain.Models;
+using System.Web.Security;
 
 namespace TicketDesk.Domain.Repositories
 {
@@ -11,7 +12,7 @@ namespace TicketDesk.Domain.Repositories
         /// <param name="roleType">Name of the role type.</param>
         /// <returns></returns>
         UserInfo[] GetUsersInRole(string roleName);
-
+        RoleProvider RoleSource { get; }
         /// <summary>
         /// Determines whether the the specified user name is in the role type .
         /// </summary>
@@ -37,6 +38,9 @@ namespace TicketDesk.Domain.Repositories
         string FormatUserName(string unformattedName);
 
         string GetUserEmailAddress(string userName);
+
+        void AddUserToRole(string userName, string roleName);
+        void RemoveUserFromRole(string userName, string roleName);
 
     }
 }

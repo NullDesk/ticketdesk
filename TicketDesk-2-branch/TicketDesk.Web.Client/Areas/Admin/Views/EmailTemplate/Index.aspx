@@ -44,7 +44,7 @@
                                 <input id="submitButton" type="submit" value="Render Ticket Email" class="activityButton"
                                     style="display: inline;" />
                                 <span class="neverMindLink">
-                                    <%: Html.ActionLink("Nevermind", MVC.Admin.Home.Index())%>
+                                    <%: Html.ActionLink("Nevermind", MVC.Admin.AdminHome.Index())%>
                                 </span><%: Html.ValidationMessage("id") %>
                             </p>
                             <%

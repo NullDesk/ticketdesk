@@ -12,6 +12,7 @@ using TicketDesk.Web.Client.Controllers;
 namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 {
     [Export("ApplicationSettings", typeof(IController))]
+    [AuthorizeAdminOnly]
     public partial class ApplicationSettingsController : ApplicationController
     {
         private SettingsService Settings { get; set; }
@@ -24,9 +25,6 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
         }
 
 
-        //
-        // GET: /ApplicationSettings/
-
         public virtual ActionResult List()
         {
             
@@ -34,43 +32,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             return View(model);
         }
 
-        //
-        // GET: /ApplicationSettings/Details/5
-
-        //public virtual ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //
-        // GET: /ApplicationSettings/Create
-
-        //public virtual ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //
-        // POST: /ApplicationSettings/Create
-
-        //[HttpPost]
-        //public virtual ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //
-        // GET: /ApplicationSettings/Edit/5
-
+       
         public virtual ActionResult Edit(string settingName)
         {
             var setting = Settings.ApplicationSettings.CurrentSettings.SingleOrDefault(s => s.SettingName == settingName);
@@ -104,30 +66,6 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             }
         }
 
-        //
-        // GET: /ApplicationSettings/Delete/5
 
-        public virtual ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /ApplicationSettings/Delete/5
-
-        [HttpPost]
-        public virtual ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

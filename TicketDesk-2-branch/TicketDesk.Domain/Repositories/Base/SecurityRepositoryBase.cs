@@ -75,12 +75,19 @@ namespace TicketDesk.Domain.Repositories
 
         public abstract string GetUserEmailAddress(string userName);
 
+        public abstract void AddUserToRole(string userName, string roleName);
+
+        public abstract void RemoveUserFromRole(string userName, string roleName);
 
         #endregion
 
         #endregion
 
 
+
+
+
+      
 
     }
 }

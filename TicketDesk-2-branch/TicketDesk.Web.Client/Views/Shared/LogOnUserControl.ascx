@@ -24,7 +24,7 @@ Welcome <b>
         {
 %>
 [
-<%= Html.ActionLink("Administration", MVC.Admin.Home.Index()) %>
+<%= Html.ActionLink("Administration", MVC.Admin.AdminHome.Index()) %>
 ]
 <%
 }
