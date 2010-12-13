@@ -9,14 +9,14 @@
 </div>
 
 <div class="activityBody ticketDetailsHeaderInfo">
-    <table class="formatTable" style="width: 100%;">
+    <table class="formatTable">
         <tr>
             <th>
                 <label for="LastUpdateBy">
                     Status:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.CurrentStatus%>
             </td>
         </tr>
@@ -26,7 +26,7 @@
                     Updated By:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.GetLastUpdateByDisplayName(controller)%>
             </td>
         </tr>
@@ -36,7 +36,7 @@
                     Updated Date:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.LastUpdateDate.ToShortDateString()%>
                 <%: Model.LastUpdateDate.ToShortTimeString()%>
             </td>
@@ -47,7 +47,7 @@
                     Status By:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.GetCurrentStatusByDisplayName(controller)%>
             </td>
         </tr>
@@ -57,7 +57,7 @@
                     Status Date:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.CurrentStatusDate.ToShortDateString()%>
                 <%: Model.CurrentStatusDate.ToShortTimeString()%>
             </td>
@@ -68,7 +68,7 @@
                     Created by:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.GetCreatedByDisplayName(controller)%>
             </td>
         </tr>
@@ -78,7 +78,7 @@
                     Created Date:
                 </label>
             </th>
-            <td style="width: 100%" class="textField">
+            <td style="" class="textField">
                 <%: Model.CreatedDate.ToShortDateString()%>
                 <%: Model.CreatedDate.ToShortTimeString()%>
             </td>

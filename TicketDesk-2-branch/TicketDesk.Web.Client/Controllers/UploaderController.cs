@@ -8,6 +8,7 @@ using TicketDesk.Domain.Services;
 using TicketDesk.Domain.Models;
 using System.IO;
 using System.ComponentModel.Composition;
+using System.Configuration;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -23,11 +24,11 @@ namespace TicketDesk.Web.Client.Controllers
             Settings = settingsService;
             Tickets = ticketService;
         }
-
+       
         [FlashCompatibleAuthorizeAttribute]
         public virtual ActionResult AddAttachment(int? id)
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated ||  string.Equals(ConfigurationManager.AppSettings["SecurityMode"], "AD"))//only in SQL mode
             {
                 if (Request.Files.Count > 0)
                 {

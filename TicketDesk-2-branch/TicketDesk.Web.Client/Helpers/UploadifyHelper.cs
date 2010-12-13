@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace TicketDesk.Web.Client.Helpers
 {
@@ -37,8 +38,16 @@ namespace TicketDesk.Web.Client.Helpers
             //Dump the script to initialze Uploadify
             sb.AppendLine("<script type=\"text/javascript\">");
             sb.AppendLine("function goUploadify() {");
+            string token = null;
+            if (string.Equals(ConfigurationManager.AppSettings["SecurityMode"], "SQL"))//only in SQL mode
+            {
+                token = options.AuthenticationToken;
+            }
+                
+             
+
             sb.AppendFormat("initUploadify($('#{0}'),'{1}','{2}','{3}','{4}','{5}',{6},{7}, '{8}');", name, options.UploadUrl,
-                            scriptPath, options.FileExtensions, options.FileDescription, options.AuthenticationToken,
+                            scriptPath, options.FileExtensions, options.FileDescription, token,
                             options.ErrorFunction ?? "null", options.CompleteFunction ?? "null", options.ButtonText);
             sb.AppendLine();
             sb.AppendLine("}");

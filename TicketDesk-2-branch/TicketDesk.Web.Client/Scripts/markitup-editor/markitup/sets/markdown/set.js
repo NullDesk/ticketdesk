@@ -12,8 +12,8 @@
 // -------------------------------------------------------------------
 mySettings = {
     previewParserPath: '',
-    onEnter: {keepDefault:false, replaceWith:'\n\n'},
-    onShiftEnter: { keepDefault: false, replaceWith:'  \n' },
+    onEnter: {keepDefault:false, replaceWith:'  \n'},
+//    onShiftEnter: { keepDefault: false, replaceWith:'  \n' },
     markupSet: [
         { name: 'Bold', key: 'B', openWith: '**', closeWith: '**' },
         { name: 'Italic', key: 'I', openWith: '_', closeWith: '_' },

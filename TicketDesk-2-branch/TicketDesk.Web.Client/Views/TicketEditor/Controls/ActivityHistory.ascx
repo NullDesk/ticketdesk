@@ -6,93 +6,81 @@
     </div>
 </div>
 <div class="activityBody">
-    <table class="historyTable" cellpadding="0" cellspacing="0">
-        <tbody>
-            <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
-               var root = ViewData["siteRootUrl"] as string;
-               var newEmailAlertUrl = root + Url.Content("~/Content/newEmailAlert.png"); 
+    <div class="historyArea">
+        <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
+           var root = ViewData["siteRootUrl"] as string;
+           var newEmailAlertUrl = root + Url.Content("~/Content/newEmailAlert.png"); 
     
                  
-            %>
-            <%
+        %>
+        <%
                 
-                foreach (var c in Model.TicketComments.OrderByDescending(tc => tc.CommentedDate))
-                {
+            foreach (var c in Model.TicketComments.OrderByDescending(tc => tc.CommentedDate))
+            {
                     
-            %>
-            <% 
-                var newFlag = false;
-                try
+        %>
+        <% 
+            var newFlag = false;
+            try
+            {
+                if (ViewData["firstUnsentCommentId"] != null)//only used in email templates
                 {
-                    if (ViewData["firstUnsentCommentId"] != null)//only used in email templates
-                    {
-                        var firstUnsentCommentId = Convert.ToInt32(ViewData["firstUnsentCommentId"]);
-                        newFlag = c.CommentId >= firstUnsentCommentId;
-                    }
+                    var firstUnsentCommentId = Convert.ToInt32(ViewData["firstUnsentCommentId"]);
+                    newFlag = c.CommentId >= firstUnsentCommentId;
                 }
-                catch { }//just eat any exception here.
+            }
+            catch { }//just eat any exception here.
 
-                var theHeader = "userComment";
-                if (c.CommentedBy == controller.Security.CurrentUserName)
-                {
-                    theHeader = "myComment";
-                }
-                else if (controller.Security.IsTdStaff(c.CommentedBy))
-                {
-                    theHeader = "staffComment";
-                }
-            %>
-            <tr>
-                <th class="<%= theHeader%>" rowspan="<%= (string.IsNullOrEmpty(c.Comment)) ? 1 : 2 %>">
-                    <%: c.GetCommentByDisplayName(controller) %>
-                </th>
-                <td style="background-color: #EEF3F7; color: #134A8A;">
-                    <table cellpadding="0" cellspacing="0" class="commentHeaderTable">
-                        <tr>
-                            <%
-                                if (newFlag)
-                                { 
-                            %>
-                            <td rowspan="2" style="padding-right: 2px;">
-                                <img alt="New Comment" src="<%= newEmailAlertUrl %>" />
-                            </td>
-                            <%
-                                } 
-                            %>
-                            <td>
-                                <%: c.GetCommentByDisplayName(controller)%>
-                                <%: c.CommentEvent %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="fieldSubText" style="color: #666;">
-                                    <%: c.CommentedDate.ToLongDateString()%>
-                                    <%: c.CommentedDate.ToShortTimeString() %>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+            var theHeader = "userComment";
+            if (c.CommentedBy == controller.Security.CurrentUserName)
+            {
+                theHeader = "myComment";
+            }
+            else if (controller.Security.IsTdStaff(c.CommentedBy))
+            {
+                theHeader = "staffComment";
+            }
+        %>
+        <div class="activityHistoryItemWrapper">
+            <%--<div class="<%= theHeader%>" style="width: 150px; float: left;">
+                <%: c.GetCommentByDisplayName(controller) %>
+            </div>--%>
+            <div>
+                <div class="commentHeader <%= theHeader%>">
+                    <div class="commentEvent">
+                        <%
+                            if (newFlag)
+                            { 
+                        %>
+                        <img alt="New Comment" align="left" style="float: left; margin-right: 5px;" src="<%= newEmailAlertUrl %>" />
+                        <%
+                            } 
+                        %>
+                        <span class="commentDisplayName">
+                            <%: c.GetCommentByDisplayName(controller)%></span>
+                        <%: c.CommentEvent %>
+                    </div>
+                    <div class="commentDate">
+                        <%: c.CommentedDate.ToLongDateString()%>
+                        <%: c.CommentedDate.ToShortTimeString() %>
+                    </div>
+                </div>
             <%      
                 if (!string.IsNullOrEmpty(c.Comment))
                 {
             %>
-            <tr>
-                <td class="commentBody">
-                    <%= c.HtmlComment%>
-                </td>
-            </tr>
+            <div class="commentBody">
+                <%= c.HtmlComment%>
+            </div>
             <%
                 }
             %>
-            <tr>
-                <td class="historyTableSeperator" colspan="2" />
-            </tr>
-            <%
-                } 
-            %>
-        </tbody>
-    </table>
+        </div>
+    </div>
+    <div style="height: 10px;">
+    </div>
+    <%
+        } 
+    %>
+</div>
 </div>

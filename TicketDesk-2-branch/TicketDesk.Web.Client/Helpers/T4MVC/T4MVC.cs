@@ -503,7 +503,6 @@ namespace Links {
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string jquery_markitup_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.markitup.min.js") ? Url("jquery.markitup.min.js") : Url("jquery.markitup.js");
                               
-                public static readonly string jquery_markitup_min_js = Url("jquery.markitup.min.js");
                 public static readonly string readme_txt = Url("readme.txt");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class sets {
@@ -871,12 +870,14 @@ namespace Links {
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string activeFlag_png = Url("activeFlag.png");
+        public static readonly string activeFlagEmail_png = Url("activeFlagEmail.png");
         public static readonly string arrow_down_png = Url("arrow_down.png");
         public static readonly string arrow_top_png = Url("arrow_top.png");
         public static readonly string attachedFlag_png = Url("attachedFlag.png");
         public static readonly string calibri_ttf = Url("calibri.ttf");
         public static readonly string cancel_png = Url("cancel.png");
         public static readonly string closedFlag_png = Url("closedFlag.png");
+        public static readonly string closedFlagEmail_png = Url("closedFlagEmail.png");
         public static readonly string collapseUp_png = Url("collapseUp.png");
         public static readonly string collapseUpActive_png = Url("collapseUpActive.png");
         public static readonly string email_png = Url("email.png");
@@ -885,9 +886,11 @@ namespace Links {
         public static readonly string expandDownActive_png = Url("expandDownActive.png");
         public static readonly string logs_png = Url("logs.png");
         public static readonly string moreinfoFlag_png = Url("moreinfoFlag.png");
+        public static readonly string moreinfoFlagEmail_png = Url("moreinfoFlagEmail.png");
         public static readonly string newEmailAlert_png = Url("newEmailAlert.png");
         public static readonly string pendingFlag_png = Url("pendingFlag.png");
         public static readonly string resolvedFlag_png = Url("resolvedFlag.png");
+        public static readonly string resolvedFlagEmail_png = Url("resolvedFlagEmail.png");
         public static readonly string roles_png = Url("roles.png");
         public static readonly string security_png = Url("security.png");
         public static readonly string settings_png = Url("settings.png");
@@ -897,6 +900,7 @@ namespace Links {
         public static readonly string TicketDesk2Logo_png = Url("TicketDesk2Logo.png");
         public static readonly string TicketDesk2Logo_psd = Url("TicketDesk2Logo.psd");
         public static readonly string unassignedFlag_png = Url("unassignedFlag.png");
+        public static readonly string unassignedFlagEmail_png = Url("unassignedFlagEmail.png");
         public static readonly string users_png = Url("users.png");
     }
 

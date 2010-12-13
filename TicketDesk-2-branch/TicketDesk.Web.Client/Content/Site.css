@@ -53,15 +53,32 @@ img
     border: 0;
 }
 
-code
+
+.historyArea pre
 {
-    font-family: Courier New,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono;
+     max-width:800px;
 }
-pre
-{
-    padding: 10px;
-    background-color: #FFFFCC;
-}
+  pre
+        {
+            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+            margin-bottom: 10px;
+            min-height: 35px;
+            overflow: auto;
+            max-width: 600px;
+            padding: 5px;
+            background-color: #eee;
+            
+            
+            
+        }
+        code
+        {
+            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+            background-color: #eee;
+            padding: 1px 5px 1px 5px;
+            font-size: 9pt;
+            
+        }
 
 /* HEADINGS   
 ----------------------------------------------------------*/
@@ -404,7 +421,7 @@ div#title
 
 .activityHeadWrapper
 {
-    background-color: #ECFBEA;
+    background-color: #B3CBDF;
     border-bottom: solid 2px #134A8A;
 }
 
@@ -440,7 +457,7 @@ div#title
 
 .activityButton, input.activityButton
 {
-    display: block;
+    
     font-family: Calibri,Tahoma, Verdana, Helvetica, Sans-Serif;
     margin-bottom: 3px;
     padding: 3px;
@@ -686,55 +703,54 @@ ul#submenu li.selected a
 
 
 /* TicketEditor */
-.historyTable
+.historyArea
 {
     border-collapse: collapse;
     margin: 10px;
     width: 98%;
 }
 
-.historyTable th, .historyTable td
+.activityHistoryItemWrapper
 {
-    padding: 3px;
     border: solid 1px #B3CBDF;
-    vertical-align: top;
 }
 
-.historyTable th
+.commentHeader
 {
-    font-weight: normal;
     color: #134A8A;
-    white-space: nowrap;
-    font-size:9pt;
+    padding: 2px 2px 2px 5px;
 }
-
-td.historyTableSeperator
-{
-    border: none;
-    height: 10px;
-    padding: 0px;
-}
-
-th.myComment
+.myComment
 {
     background-color: #ECFBEA;
 }
 
-th.staffComment
+.staffComment
 {
     background-color: #FFFFDD;
 }
 
-th.userComment
+.userComment
 {
     background-color: #E1EBF2;
 }
 
-td.commentBody
+.commentDisplayName
+{
+    font-weight:bold;
+}
+.commentDate
+{
+    color: #666;
+    font-size: 9pt;
+    
+    margin-left: 25px;
+}
+.commentBody
 {
     padding-left: 25px;
+    border-top: solid 1px #B3CBDF;
 }
-
 
 
 .commentContainer
@@ -767,107 +783,109 @@ td.commentBody
 
 div.ticketDetailsHeaderOuter
 {
-    border-bottom: solid 2px #134A8A;
+    
     margin-top: 0px;
 }
 div.ticketDetailsHeaderInner
 {
-    color: #0B294F;
-    background-color: #F0F5F9;
-}
-div.ticketDetailsHeaderInner table
-{
-    width: 100%;
+   color: #0B294F;
+   border-bottom: solid 2px #134A8A;
 }
 
-td.ticketDetailsHeaderId
+.ticketDetailsHeader
+{
+    min-height:100px;
+    margin-left: 20px; 
+    background-color: #F0F5F9;
+}
+
+.ticketDetailsHeaderId
 {
     white-space: nowrap;
     vertical-align: top;
     font-weight: bold;
-    padding: 5px;
+    padding: 3px;
 }
-td.ticketDetailsHeaderPriority
+.ticketDetailsHeaderPriority
 {
-    padding: 5px;
+   padding: 3px;
+   float: right; 
+   margin-right: 15px;
 }
-td.ticketDetailsHeaderPriority div
+
+.ticketDetailsHeaderTitle
 {
-    float: right;
-}
-tr.ticketDetailsHeaderTitle
-{
-    height: 45px;
-}
-tr.ticketDetailsHeaderTitle td
-{
-    padding: 3px 8px 8px 20px;
+    font-size: 10pt;
+      padding: 3px 3px 3px 20px;
+      color: #444;
 }
 .ticketDetailsHeaderInfo
 {
     background-color: #FBFCFD;
     border-top: solid 1px #B3CBDF;
-}
-.ticketDetailsHeaderInfoTable
-{
-    width: 100%;
-    color: #444;
+    
     font-size: 9pt;
+    padding:3px;
 }
+
 .ticketDetailsHeaderInfoLabel
 {
-    white-space: nowrap;
-    text-align: right;
+    display:inline-block;
+    color:#444; 
+    width:75px; 
+    text-align:right;
 }
 .ticketDetailsHeaderInfoText
 {
-    white-space: nowrap;
+    display:inline-block;
 }
-td.ticketDetailsHeaderTagsArea
+
+.ticketDetailsHeaderAssignedTo
 {
-    width: 100%;
+    font-weight:bold;
 }
-td.ticketDetailsHeaderTagsArea div
+
+.ticketDetailsHeaderTagsArea
 {
-    text-align: right;
-    width: 100%;
-    font-size: 9pt;
+    color:#444; 
+    float:right;
+    margin-right: 15px;
 }
+
 div.ticketDetailsOuter
 {
+    
     background-color: #fff;
     padding-bottom: 0px;
 }
 div.ticketDetailsInner
 {
+   
 }
 
-div.ticketDetailsInner table
+.detailsArea
 {
-    width: 100%;
-}
-
-td.ticketDetailsArea
-{
-}
-
-td.ticketDetailsArea div
-{
-    
     overflow: auto;
-    padding: 3px;
+    
+}
+
+#detailsText
+{
+    padding: 8px;
 }
 
 
 
 .statusFlag
 {
+    float: left;
     min-height: 90px;
     width: 20px;
     border-right: solid 1px #B3CBDF;
 }
 .unassignedFlag
 {
+    
      background-color: #fff600;
 }
 .activeFlag
@@ -889,10 +907,7 @@ td.ticketDetailsArea div
 {
     background-color: #8A8989;
 }
-.commentHeaderTable td
-{
-    border-style:none;
-}
+
 
 .searchDisplayContainerOuter
 {

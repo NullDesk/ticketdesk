@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
-<% var Editor = "wmd"; %>
+<% var Editor = "markitup"; %>
 
 <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketEditorController; %>
 <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.ModifyAttachments, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "activityArea", OnBegin = "beginChangeActivity", OnSuccess = "completeModifyTicketActivityAttachmentsAndDetails", OnFailure = "failModifyTicketActivity" }, new { defaultbutton = "modifyAttachmentsButton", @Class = "editForm" }))

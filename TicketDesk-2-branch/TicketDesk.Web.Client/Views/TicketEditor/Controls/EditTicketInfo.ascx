@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
-<% var Editor = "wmd"; %>
+<% var Editor = "markitup"; %>
 <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketEditorController; %>
 <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.EditTicketInfo, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "activityArea", OnBegin = "beginChangeActivity", OnSuccess = "completeEditTicketDetails", OnFailure = "failModifyTicketActivity" }, new { defaultbutton = "editDetailsButton", @Class = "editForm" }))
    {
@@ -20,7 +20,7 @@
                     <%: Html.ValidationMessageFor(m => m.Title,"*") %><%=  Html.LabelFor(m => m.Title) %>
                 </th>
                 <td colspan="2">
-                    <%: Html.TextBoxFor(m => m.Title, new { style = "min-width:300px;width:450px;" })%>
+                    <%: Html.TextBoxFor(m => m.Title, new { style = "min-width:300px;width:400px;" })%>
                 </td>
             </tr>
             <tr>

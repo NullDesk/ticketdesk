@@ -30,11 +30,12 @@ namespace TicketDesk.Web.Client
         public static CompositionContainer RootContainer;
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            //routes.Add(new System.Web.Routing.Route("elmah.axd/{*pathInfo}", new System.Web.Routing.StopRoutingHandler()));
-
+            routes.IgnoreRoute("{*favicon}", new { favicon= @"(.*)?favicon.ico" });
+            //routes.IgnoreRoute("{*css}", new { css = @"(.*)?.css"});
+            routes.IgnoreRoute("{*script}", new { script = @"Scripts/(.*)"});
+            routes.IgnoreRoute("{*content}", new { content= @"Content/(.*)" });
+            
             routes.MapRoute("Attachments", "Attachment/{action}/{fileId}", new { Controller = "Attachment" });
 
             routes.MapRoute(
@@ -46,8 +47,6 @@ namespace TicketDesk.Web.Client
                 "TicketCreate",
                 "NewTicket",
                 new { controller = "NewTicket", action = "Create" });
-
-
 
             routes.MapRoute(
                 "TicketViewer",
@@ -72,9 +71,8 @@ namespace TicketDesk.Web.Client
                 "{*url}",
                 new { controller = "StaticContent", action = "PageNotFound" }
             );
-
-
         }
+
         private static System.Timers.Timer SecurityRefreshTimer { get; set; }
 
         private IApplicationSettingsService AppSettings;
@@ -108,11 +106,9 @@ namespace TicketDesk.Web.Client
 
                 if (emailEnabled)
                 {
-
                     EmaiNotificationsTimer = new System.Timers.Timer();
 
                     int emailInterval = AppSettings.EmailDeliveryTimerIntervalMinutes * 60000;
-
 
                     EmaiNotificationsTimer.Elapsed += new System.Timers.ElapsedEventHandler(EmaiNotificationsTimer_Elapsed);
                     EmaiNotificationsTimer.Interval = emailInterval;

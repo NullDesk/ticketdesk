@@ -13,6 +13,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [HandleError]
     [NoCache]
+    [ValidateInput(false)]
     [Export("TicketEditor", typeof(IController))]
     public partial class TicketEditorController : ApplicationController
     {
@@ -41,7 +42,6 @@ namespace TicketDesk.Web.Client.Controllers
 
 
         [Authorize]
-
         public virtual ActionResult Display(int id, string activity)
         {
             var model = Tickets.GetTicket(id);

@@ -10,6 +10,7 @@ using TicketDesk.Web.Client.Helpers;
 using System.ComponentModel.Composition;
 namespace TicketDesk.Web.Client.Controllers
 {
+    [ValidateInput(false)]
     [Export("NewTicket", typeof(IController))]
     public partial class NewTicketController : ApplicationController
     {

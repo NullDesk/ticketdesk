@@ -7,10 +7,10 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function() { Corners(); });
+        $(document).ready(function() { corners(); });
 
-        function Corners() {
-            $(".displayContainerInner").corner("bevel 6px").parent().css('padding', '4px').corner("round keep  12px");
+        function corners() {
+            $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
         }
 
     </script>

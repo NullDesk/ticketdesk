@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Security.Principal;
+using System.Configuration;
 
 namespace TicketDesk.Web.Client.Helpers
 {
@@ -32,22 +33,26 @@ namespace TicketDesk.Web.Client.Helpers
         /// <returns></returns>
         protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
         {
-            string token = httpContext.Request.Params[TOKEN_KEY];
-
-            if (token != null)
+            if (string.Equals(ConfigurationManager.AppSettings["SecurityMode"], "SQL"))//only in SQL mode
             {
-                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(token);
+                string token = httpContext.Request.Params[TOKEN_KEY];
 
-                if (ticket != null)
+                if (token != null)
                 {
-                    FormsIdentity identity = new FormsIdentity(ticket);
-                    string[] roles = System.Web.Security.Roles.GetRolesForUser(identity.Name);
-                    GenericPrincipal principal = new GenericPrincipal(identity, roles);
-                    httpContext.User = principal;
-                }
-            }
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(token);
 
-            return base.AuthorizeCore(httpContext);
+                    if (ticket != null)
+                    {
+                        FormsIdentity identity = new FormsIdentity(ticket);
+                        string[] roles = System.Web.Security.Roles.GetRolesForUser(identity.Name);
+                        GenericPrincipal principal = new GenericPrincipal(identity, roles);
+                        httpContext.User = principal;
+                    }
+                }
+
+                return base.AuthorizeCore(httpContext);
+            }
+            return true;//this means that in AD environments, ALL uploads will be allowed without authorization
         }
     }
 }

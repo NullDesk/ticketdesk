@@ -7,11 +7,12 @@ function initUploadify(control, uploadUrl, baseUrl, fileExtensions, fileDescript
     options.script = uploadUrl;
     options.uploader = baseUrl + 'uploadify.swf';
     options.cancelImg = baseUrl + 'cancel.png';
-    //TODO: Make this an option?
     options.auto = true;
     options.multi = true;
     options.buttonText = "Select Files";
-    options.scriptData = { token: authenticationToken };
+    if (authenticationToken != null) {
+        options.scriptData = { token: authenticationToken };
+    }
     options.fileExt = fileExtensions;
     options.fileDesc = fileDescription;
     options.buttonText = buttonText;

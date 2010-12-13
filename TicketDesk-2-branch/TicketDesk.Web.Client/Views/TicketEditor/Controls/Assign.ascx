@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
-<% var Editor = "wmd"; %>
+<% var Editor = "markitup"; %>
 <div class="activityHeadWrapper">
     <div class="activityHead">
         <%: ViewData["activityDisplayName"].ToString() %>:

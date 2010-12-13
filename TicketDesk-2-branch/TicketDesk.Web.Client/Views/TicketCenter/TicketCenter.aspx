@@ -10,8 +10,7 @@
 
         $("document").ready(function () { corners(); clicks() });
         function corners() {
-            $(".displayContainerInner").corner("bevel 6px").parent().css('padding', '4px').corner("round keep  12px");
-           
+            $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
         }
 
         function clicks() {

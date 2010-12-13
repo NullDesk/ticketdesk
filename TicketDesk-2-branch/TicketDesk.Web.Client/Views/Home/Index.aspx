@@ -6,8 +6,8 @@
 <asp:Content ID="headContent" ContentPlaceHolderID="CustomHeadContent" runat="server">
     <script type="text/javascript">
 
-        $("document").ready(function () { Corners(); });
-        function Corners() {
+        $("document").ready(function () { corners(); });
+        function corners() {
             $(".displayContainerInner").corner("bevel tl 30px").corner("bevel tr 6px").corner("bevel bottom 6px").parent().css('padding', '6px').corner("round keep tl 20px").corner("round keep tr 12px").corner("round keep bottom 12px");
         }
     </script>

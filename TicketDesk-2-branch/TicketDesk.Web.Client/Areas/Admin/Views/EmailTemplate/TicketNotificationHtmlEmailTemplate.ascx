@@ -83,79 +83,71 @@
         
         div.ticketDetailsHeaderOuter
         {
-            border-bottom: solid 2px #134A8A;
             margin-top: 0px;
         }
         div.ticketDetailsHeaderInner
         {
             color: #0B294F;
-            background-color: #E1EBF2;
-        }
-        div.ticketDetailsHeaderInner table
-        {
-            width: 100%;
+            border-bottom: solid 2px #134A8A;
         }
         
-        td.ticketDetailsHeaderId
+        .ticketDetailsHeader
+        {
+            min-height: 100px;
+            margin-left: 20px;
+            background-color: #F0F5F9;
+        }
+        
+        .ticketDetailsHeaderId
         {
             white-space: nowrap;
             vertical-align: top;
             font-weight: bold;
-            padding: 5px;
+            padding: 3px;
         }
-        
-        td.ticketDetailsHeaderPriority
+        .ticketDetailsHeaderPriority
         {
-            padding: 5px;
-        }
-        
-        td.ticketDetailsHeaderPriority div
-        {
+            padding: 3px;
             float: right;
+            margin-right: 15px;
         }
         
-        tr.ticketDetailsHeaderTitle
+        .ticketDetailsHeaderTitle
         {
-            height: 45px;
+            font-size: 10pt;
+            padding: 3px 3px 3px 20px;
+            color: #444;
         }
-        
-        tr.ticketDetailsHeaderTitle td
-        {
-            padding: 3px 8px 8px 20px;
-        }
-        
         .ticketDetailsHeaderInfo
         {
-            font-size: 8pt;
-            background-color: #EEF3F7;
-        }
-        
-        .ticketDetailsHeaderInfoTable
-        {
-            width: 100%;
-            color: #444;
+            background-color: #FBFCFD;
+            border-top: solid 1px #B3CBDF;
             font-size: 9pt;
+            padding: 3px;
         }
         
         .ticketDetailsHeaderInfoLabel
         {
-            white-space: nowrap;
+            display: inline-block;
+            color: #444;
+            width: 75px;
             text-align: right;
         }
-        
         .ticketDetailsHeaderInfoText
         {
-            white-space: nowrap;
+            display: inline-block;
         }
         
-        td.ticketDetailsHeaderTagsArea
+        .ticketDetailsHeaderAssignedTo
         {
-            width: 100%;
+            font-weight: bold;
         }
-        td.ticketDetailsHeaderTagsArea div
+        
+        .ticketDetailsHeaderTagsArea
         {
-            text-align: right;
-            width: 100%;
+            color: #444;
+            float: right;
+            margin-right: 15px;
         }
         
         div.ticketDetailsOuter
@@ -163,32 +155,33 @@
             background-color: #fff;
             padding-bottom: 0px;
         }
-        
         div.ticketDetailsInner
         {
         }
         
-        div.ticketDetailsInner table
+        .detailsArea
         {
-            width: 100%;
+            overflow: auto;
         }
         
-        td.ticketDetailsArea
+        #detailsText
         {
+            padding: 8px;
         }
         
-        td.ticketDetailsArea div
-        {
-            padding: 3px;
-        }
+        
         
         .statusFlag
         {
+            float: left;
             min-height: 90px;
             width: 20px;
             border-right: solid 1px #B3CBDF;
         }
-        
+        .unassignedFlag
+        {
+            background-color: #fff600;
+        }
         .activeFlag
         {
             background-color: #134A8A;
@@ -209,70 +202,60 @@
             background-color: #8A8989;
         }
         
-        .historyTable
+        .historyArea
         {
             border-collapse: collapse;
-            margin: 5px;
+            margin: 10px;
             width: 98%;
         }
         
-        .historyTable th, .historyTable td
+        .activityHistoryItemWrapper
         {
-            padding: 3px;
             border: solid 1px #B3CBDF;
-            vertical-align: top;
         }
         
-        .historyTable th
+        .commentHeader
         {
-            font-weight: normal;
-            font-size: 9pt;
             color: #134A8A;
-            white-space: nowrap;
         }
-        
-        td.historyTableSeperator
+        .myComment
         {
-            border: none;
-            height: 5px;
-            padding: 0px;
+            background-color: #ECFBEA;
         }
         
-        th.myComment
-        {
-            background-color: #DFF8DC;
-        }
-        
-        th.staffComment
+        .staffComment
         {
             background-color: #FFFFDD;
         }
         
-        th.userComment
+        .userComment
         {
             background-color: #E1EBF2;
         }
         
-        td.commentBody
+        .commentDisplayName
+        {
+            font-weight: bold;
+        }
+        .commentDate
+        {
+            color: #666;
+            font-size: 9pt;
+            margin-left: 25px;
+        }
+        .commentBody
         {
             padding-left: 25px;
+            border-top: solid 1px #B3CBDF;
         }
+        
         
         .commentContainer
         {
             min-height: 145px;
         }
         
-        .fieldSubText
-        {
-            font-size: 9pt;
-            color: #999;
-            margin-left: 15px;
-        }
-        .commentHeaderTable td
-        {
-            border-style: none;
-        }
+        
         pre
         {
             font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
@@ -282,7 +265,6 @@
             max-width: 550px;
             padding: 5px;
             background-color: #eee;
-            
             padding-bottom: 20px!ie7;
             max-height: 600px;
         }

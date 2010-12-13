@@ -1,5 +1,23 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
+<% 
+    
+    
+    var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
+    var currentFlagStatus = Model.CurrentStatus.Replace(" ", "").ToLower();
+    if (string.IsNullOrEmpty(Model.AssignedTo))
+    {
+        currentFlagStatus = "unassigned";
+    }
+    var root = ViewData["siteRootUrl"] as string;
+
+    var flagUrl = root + Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(currentFlagStatus)));
+
+    var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}", Model.TicketId.ToString()));
+
+    var detailsHeight = (ViewData["formatForSearch"] == null) ? 150 : 70;
+    
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,193 +29,10 @@
             font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
             color: #555;
         }
-        .emailDetailsWrapper
+        .unassignedFlag
         {
-            border: solid 2px #D6D6D6;
+            background-color: #fff600;
         }
-        
-        
-        a:link
-        {
-            color: #14498D;
-            text-decoration: underline;
-        }
-        a:visited
-        {
-            color: #505abc;
-        }
-        a:hover
-        {
-            color: #1d60ff;
-            text-decoration: none;
-        }
-        a:active
-        {
-            color: #12eb87;
-        }
-        
-        .activityHeadWrapper
-        {
-            background-color: #DFF8DC;
-            border-bottom: solid 2px #134A8A;
-            margin-bottom: 10px;
-        }
-        
-        .activityHead
-        {
-            color: #0B294F;
-            padding: 3px;
-        }
-        .activityBody
-        {
-            padding: 3px 3px 8px 3px;
-        }
-        .activityFieldsContainer
-        {
-            margin: 5px;
-            font-size: 10pt;
-        }
-        
-        .formatTable
-        {
-            font-size: 8pt;
-        }
-        
-        .formatTable th
-        {
-            text-align: right;
-            padding: 1px 3px 1px 3px;
-            color: #134A8A;
-            vertical-align: top;
-            white-space: nowrap;
-            font-weight: normal;
-        }
-        
-        .formatTable td
-        {
-            padding: 2px;
-            vertical-align: top;
-        }
-        
-        .formatTable td.textField
-        {
-            padding: 1px 3px 1px 3px;
-        }
-        
-        div.ticketDetailsHeaderOuter
-        {
-            border-bottom: solid 2px #134A8A;
-            margin-top: 0px;
-        }
-        div.ticketDetailsHeaderInner
-        {
-            color: #0B294F;
-            background-color: #E1EBF2;
-        }
-        
-        
-        .ticketDetailsHeaderTable
-        {
-            width: 100%;
-            background-color: #E1EBF2;
-        }
-        
-        td.ticketDetailsHeaderId
-        {
-            white-space: nowrap;
-            vertical-align: top;
-            font-weight: bold;
-            padding: 0px 5px 0px 5px;
-        }
-        
-        td.ticketDetailsHeaderPriority
-        {
-            padding: 0px 5px 0px 5px;
-        }
-        
-        td.ticketDetailsHeaderPriority div
-        {
-            float: right;
-        }
-        
-        tr.ticketDetailsHeaderTitle
-        {
-            height: 45px;
-        }
-        
-        tr.ticketDetailsHeaderTitle td
-        {
-            padding: 3px 8px 8px 20px;
-        }
-        
-        .ticketDetailsHeaderInfo
-        {
-            font-size: 8pt;
-        }
-        
-        .ticketDetailsHeaderInfoTable
-        {
-            width: 100%;
-            color: #444;
-            font-size: 9pt;
-            background-color: #EEF3F7;
-        }
-        
-        td.ticketDetailsHeaderInfoLabel
-        {
-            white-space: nowrap;
-            text-align: right;
-        }
-        
-        td.ticketDetailsHeaderInfoText
-        {
-            white-space: nowrap;
-        }
-        
-        td.ticketDetailsHeaderTagsArea
-        {
-            width: 100%;
-        }
-        td.ticketDetailsHeaderTagsArea div
-        {
-            text-align: right;
-            width: 100%;
-        }
-        
-        div.ticketDetailsOuter
-        {
-            background-color: #fff;
-            padding-bottom: 0px;
-        }
-        
-        div.ticketDetailsInner
-        {
-        }
-        
-        div.ticketDetailsInner table
-        {
-            width: 100%;
-        }
-        
-        td.ticketDetailsArea
-        {
-            padding: 5px;
-            font-size: 11pt;
-            color: #444;
-        }
-        
-        td.ticketDetailsArea div
-        {
-            padding: 3px;
-        }
-        
-        .statusFlag
-        {
-            min-height: 90px;
-            width: 20px;
-            border-right: solid 1px #B3CBDF;
-        }
-        
         .activeFlag
         {
             background-color: #134A8A;
@@ -218,81 +53,22 @@
             background-color: #8A8989;
         }
         
-        .historyTable
-        {
-            border-collapse: collapse;
-            margin: 10px;
-        }
-        
-        .historyTable th, .historyTable td
-        {
-            padding: 3px;
-            border: solid 1px #B3CBDF;
-            vertical-align: top;
-        }
-        
-        .historyTable th
-        {
-            font-weight: normal;
-            font-size: 9pt;
-            color: #134A8A;
-            white-space: nowrap;
-        }
-        
-        td.historyTableSeperator
-        {
-            border: none;
-            height: 5px;
-            padding: 0px;
-        }
-        
-        th.myComment
-        {
-            background-color: #DFF8DC;
-        }
-        
-        th.staffComment
-        {
-            background-color: #FFFFDD;
-        }
-        
-        th.userComment
-        {
-            background-color: #E1EBF2;
-        }
-        
-        td.commentBody
-        {
-            padding-left: 25px;
-        }
-        
-        .commentContainer
-        {
-            min-height: 145px;
-        }
-        
-        .fieldSubText
+        .statsTable
         {
             font-size: 9pt;
-            color: #999;
-            margin-left: 15px;
         }
-        .commentHeaderTable td
-        {
-            border-style: none;
-        }
+        
         pre
         {
             font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
             margin-bottom: 10px;
             min-height: 35px;
             overflow: auto;
-            max-width: 550px;
+            max-width: 450px;
             padding: 5px;
             background-color: #eee;
-            padding-bottom: 20px!ie7;
-            max-height: 600px;
         }
+        
         code
         {
             font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
@@ -300,41 +76,311 @@
             padding: 1px 5px 1px 5px;
             font-size: 9pt;
         }
+        
+        
+        .myComment
+        {
+            color: #134A8A;
+            padding: 2px 2px 2px 5px;
+            background-color: #ECFBEA;
+        }
+        
+        .staffComment
+        {
+            color: #134A8A;
+            padding: 2px 2px 2px 5px;
+            background-color: #FFFFDD;
+        }
+        
+        .userComment
+        {
+            color: #134A8A;
+            padding: 2px 2px 2px 5px;
+            background-color: #E1EBF2;
+        }
     </style>
 </head>
 <body>
-    <table cellspacing="10" cellpadding="0">
+    <table cellpadding="2" cellspacing="0" width="100%">
         <tr>
-            <td class="emailDetailsWrapper">
-                <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData); %>
+            <td style="padding: 5px;">
+                <table cellpadding="2" cellspacing="0" width="100%" style="background-color: #CCDCEA;
+                    border: solid 1px #CCDCEA;">
+                    <tr>
+                        <td rowspan="3" class="<%=  currentFlagStatus%>Flag" width="20px" style="border-right: solid 1px #CCDCEA;">
+                            <img alt="<%: currentFlagStatus %>" src="<%= flagUrl %>" />
+                        </td>
+                        <td style="padding: 3px;">
+                            <a href="<%= ticketUrl %>">Ticket: #<%: Model.TicketId %>
+                                -
+                                <%: Model.Category%>
+                                <%: Model.Type%></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:11pt;padding: 3px 3px 3px 20px;">
+                            <%: Model.Title%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #FBFCFD">
+                            <table cellpadding="2" cellspacing="0" width="100%" style="font-size: 9pt;">
+                                <tr>
+                                    <td style="white-space: nowrap;" align="right">
+                                        Assigned To:
+                                    </td>
+                                    <td style="white-space: nowrap;">
+                                        <%: Model.GetAssignedToDisplayName(controller)%>
+                                    </td>
+                                    <td rowspan="2" width="100%" align="right" valign="top">
+                                     <%
+                                         if (!string.IsNullOrEmpty(Model.TagList))
+                                         { 
+                %>
+                                        Tags:
+                                        <%: Model.TagList%>
+                                    </td>
+                                    <%
+                                         } 
+                                        %>
+                                </tr>
+                                <tr>
+                                    <td style="white-space: nowrap;" align="right">
+                                        Owned By:
+                                    </td>
+                                    <td style="white-space: nowrap;">
+                                        <%: Model.GetOwnerDisplayName(controller)%>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #FFFFFF; border-top: solid 2px #134A8A; padding: 5px;"
+                            colspan="2">
+                            <%= Model.HtmlDetails%>
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td class="emailDetailsWrapper" style="vertical-align: top; width: 200px;">
-                <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
+            <td style="padding: 5px;" valign="top">
+                <table cellpadding="2" cellspacing="0" class="statsTable" style="border: solid 1px #CCDCEA;
+                    background-color: #FBFCFD;"  width="100%">
+                    <tr>
+                        <th colspan="2" style="background-color: #CCDCEA; border-bottom: solid 1px #134A8A;
+                            font-weight: bold; color: #0B294F; padding: 8px; font-size:10pt;">
+                           
+                            Ticket Stats:
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="LastUpdateBy">
+                                Status:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" class="textField">
+                            <%: Model.CurrentStatus%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="LastUpdateBy">
+                                Updated By:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" style="" class="textField">
+                            <%: Model.GetLastUpdateByDisplayName(controller)%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="LastUpdateDate">
+                                Updated Date:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" class="textField">
+                            <%: Model.LastUpdateDate.ToShortDateString()%>
+                            <%: Model.LastUpdateDate.ToShortTimeString()%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="CurrentStatusSetBy">
+                                Status By:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" class="textField">
+                            <%: Model.GetCurrentStatusByDisplayName(controller)%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="CurrentStatusDate">
+                                Status Date:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" class="textField">
+                            <%: Model.CurrentStatusDate.ToShortDateString()%>
+                            <%: Model.CurrentStatusDate.ToShortTimeString()%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="CreatedBy">
+                                Created by:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" class="textField">
+                            <%: Model.GetCreatedByDisplayName(controller)%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="white-space: nowrap;">
+                            <label for="CreatedDate">
+                                Created Date:
+                            </label>
+                        </th>
+                        <td style="white-space: nowrap;" class="textField">
+                            <%: Model.CreatedDate.ToShortDateString()%>
+                            <%: Model.CreatedDate.ToShortTimeString()%>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <%
-            if (Model.TicketAttachments.Count > 0)
-            { 
+    
+            if (Model.TicketAttachments.Where(ta => !ta.IsPending).Count() > 0)
+            {
         %>
         <tr>
-            <td colspan="2" class="emailDetailsWrapper">
-                <div>
-                    <div>
-                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData); %>
-                    </div>
+            <td style="padding: 5px;">
+            <table cellpadding="2" cellspacing="0" class="statsTable" style="border: solid 1px #CCDCEA;
+                    border-collapse: collapse; background-color: #FBFCFD; padding: 5px;" width="100%">
+                    <tr>
+                        <th colspan="2" style="background-color: #CCDCEA; border-bottom: solid 1px #134A8A;
+                            font-weight: bold; color: #0B294F; padding: 8px;font-size:10pt;">
+                            Attachments:
+                        </th>
+                    </tr>
+                </table>
+                <%foreach (var a in Model.TicketAttachments.Where(ta => !ta.IsPending))
+                  {
+                %>
+                <div style="border: solid 1px #CCDCEA; padding: 5px;">
+                    <%: a.FileName%>
+                    (<%: a.FileSize.ToFileSizeString()%>)
+                    <%  if (!string.IsNullOrEmpty(a.FileDescription))
+                        {
+                    %>
+                    -
+                    <%: a.FileDescription%>
+                    <% 
+                        }
+                    %>
                 </div>
+                <%
+                    } 
+                %>
             </td>
         </tr>
         <%
             }
         %>
         <tr>
-            <td colspan="2" class="emailDetailsWrapper">
-                <div>
-                    <div>
-                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model, ViewData); %>
-                    </div>
-                </div>
+            <td style="padding: 5px;">
+
+                <table cellpadding="2" cellspacing="0" class="statsTable" style="border: solid 1px #CCDCEA;
+                    border-collapse: collapse; background-color: #FBFCFD; padding: 5px;" width="100%">
+                    <tr>
+                        <th colspan="2" style="background-color: #CCDCEA; border-bottom: solid 1px #134A8A;
+                            font-weight: bold; color: #0B294F; padding: 8px;font-size:10pt;">
+                            Activity & History:
+                        </th>
+                    </tr>
+                </table>
+               
+                <% 
+                    var newEmailAlertUrl = root + Url.Content("~/Content/newEmailAlert.png"); 
+    
+                 
+                %>
+                <%
+                
+                    foreach (var c in Model.TicketComments.OrderByDescending(tc => tc.CommentedDate))
+                    {
+                    
+                %>
+                <table cellpadding="2" cellspacing="0" class="statsTable" style="border: solid 1px #CCDCEA;
+                    border-collapse: collapse; background-color: #FBFCFD; padding: 5px;" width="100%">
+                    <% 
+                        var newFlag = false;
+                        try
+                        {
+                            if (ViewData["firstUnsentCommentId"] != null)//only used in email templates
+                            {
+                                var firstUnsentCommentId = Convert.ToInt32(ViewData["firstUnsentCommentId"]);
+                                newFlag = c.CommentId >= firstUnsentCommentId;
+                            }
+                        }
+                        catch { }//just eat any exception here.
+
+                        var theHeader = "userComment";
+                        if (c.CommentedBy == controller.Security.CurrentUserName)
+                        {
+                            theHeader = "myComment";
+                        }
+                        else if (controller.Security.IsTdStaff(c.CommentedBy))
+                        {
+                            theHeader = "staffComment";
+                        }
+                    %>
+                    <tr>
+                        <td rowspan="2" width="35px" class="<%= theHeader%>">
+                            <%
+                                if (newFlag)
+                                { 
+                            %>
+                            <img alt="New Comment" align="left" style="float: left; margin-right: 5px;" src="<%= newEmailAlertUrl %>" />
+                            <%
+                                } 
+                            %>
+                        </td>
+                        <td class="<%= theHeader%>" width="100%">
+                            <span class="commentDisplayName">
+                                <%: c.GetCommentByDisplayName(controller)%></span>
+                            <%: c.CommentEvent %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="<%= theHeader%>" width="100%">
+                            <div class="commentDate">
+                                <%: c.CommentedDate.ToLongDateString()%>
+                                <%: c.CommentedDate.ToShortTimeString() %>
+                            </div>
+                        </td>
+                    </tr>
+                    <%      
+                        if (!string.IsNullOrEmpty(c.Comment))
+                        {
+                    %>
+                    <tr>
+                        <td>
+                        </td>
+                        <td style="padding: 5px;" width="100%">
+                            <div class="commentBody">
+                                <%= c.HtmlComment%>
+                            </div>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </table>
+                <%
+                    } 
+                %>
             </td>
         </tr>
     </table>

@@ -13,16 +13,17 @@
     <script type="text/javascript" src="<%= Links.Scripts.jquery_qtip_1_0_0_beta3_1020438.jquery_qtip_1_0_0_beta3_1_min_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.jquery_hoverIntent_minified_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_min_js %>"></script>
-
-    <% var Editor = "wmd"; %>
+     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
+    <script type="text/javascript" src="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_js %>"></script>
+    <% var Editor = "markitup"; %>
     <% if (Editor == "wmd")
        { %>
 
 
     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.openlibrary_wmd_master.wmdCustom_css %>" />
-    <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
+    
     <script type="text/javascript" src="<%= Links.Scripts.openlibrary_wmd_master.showdown_js %>"></script>
-    <script type="text/javascript" src="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_js %>"></script>
+   
     <script type="text/javascript" src="<%= Links.Scripts.openlibrary_wmd_master.jquery_wmd_js %>"></script>
     <% }
        else if (Editor == "markitup")
@@ -31,7 +32,7 @@
       
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.markitup_editor.markitup.skins.markdown.style_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.markitup_editor.markitup.sets.markdown.style_css %>" />
-    <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.jquery_markitup_min_js %>"></script>
+    <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.jquery_markitup_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.sets.markdown.set_js %>"></script>
     <%} %>
     <% if (false)
@@ -50,7 +51,7 @@
     <% } %>
     <script type="text/javascript">
     
-    var editor = "wmd";
+    var editor = "markitup";
 
     if(editor == "wmd")
     {
@@ -68,6 +69,7 @@
         mySettings.previewParserPath = '<%= Url.Content("~/MarkdownPreview")%>';
         
         mySettings.previewOpen = <%= Model.Settings.UserSettings.OpenEditorWithPreview.ToString().ToLower() %>;
+       
         $(document).ready(function() { $("#Ticket_Details").markItUp(mySettings);}); 
      }
      
@@ -91,10 +93,10 @@
             }
         )
         
-        $(document).ready(function() { Corners(); goUploadify(); $("#attachmentsArea").show(); })
+        $(document).ready(function() { corners(); goUploadify(); $("#attachmentsArea").show(); })
         
-        function Corners() {
-            $(".displayContainerInner").corner("bevel 6px").parent().css('padding', '4px').corner("round keep  12px");
+        function corners() {
+            $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
         }
     </script>
     <script type="text/javascript">
@@ -137,7 +139,7 @@
         ) %>
 </asp:Content>
 <asp:Content ID="main" ContentPlaceHolderID="MainContent" runat="server">
-    <% var Editor = "wmd"; %>
+    <% var Editor = "markitup"; %>
     <div class="contentContainer">
     <% Html.EnableClientValidation(); %>
         <% using (Html.BeginForm(MVC.NewTicket.Create(), FormMethod.Post, new { id = "createTicketForm", enctype = "multipart/form-data" }))

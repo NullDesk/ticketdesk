@@ -44,9 +44,6 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ComponentModel.Composition.Diagnostics">
-      <HintPath>..\Library\Microsoft.ComponentModel.Composition.Diagnostics.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvcContrib">
       <HintPath>..\Library\MvcContrib.dll</HintPath>
@@ -241,6 +238,7 @@
     <Content Include="Content\closedFlag.png" />
     <Content Include="Content\collapseUp.png" />
     <Content Include="Content\collapseUpActive.png" />
+    <Content Include="Content\email.png" />
     <Content Include="Content\expandDown.png" />
     <Content Include="Content\expandDownActive.png" />
     <Content Include="Content\logs.png" />
@@ -374,7 +372,6 @@
     <Content Include="Scripts\markitup-editor\images\markitup.png" />
     <Content Include="Scripts\markitup-editor\images\style.css" />
     <Content Include="Scripts\markitup-editor\markitup\jquery.markitup.js" />
-    <Content Include="Scripts\markitup-editor\markitup\jquery.markitup.min.js" />
     <Content Include="Scripts\markitup-editor\markitup\readme.txt" />
     <Content Include="Scripts\markitup-editor\markitup\sets\default\images\bold.png" />
     <Content Include="Scripts\markitup-editor\markitup\sets\default\images\clean.png" />
@@ -668,8 +665,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>2534</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/TicketDesk.Web.Client</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

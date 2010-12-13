@@ -6,25 +6,25 @@
     <%: Model.TicketId %>
 </asp:Content>
 <asp:Content ID="head" ContentPlaceHolderID="CustomHeadContent" runat="server">
-    <% var Editor = "wmd"; %>
+    <% var Editor = "markitup"; %>
     <% if (Editor == "wmd")
        { %>
     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.openlibrary_wmd_master.wmdCustom_css %>" />
-    <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_css %>" />
     <script type="text/javascript" src="<%= Links.Scripts.jquery_hoverIntent_minified_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_min_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.openlibrary_wmd_master.showdown_js %>"></script>
-    <script type="text/javascript" src="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.openlibrary_wmd_master.jquery_wmd_js %>"></script>
     <% }
        else if (Editor == "markitup")
        {%>
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.markitup_editor.markitup.skins.markdown.style_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.markitup_editor.markitup.sets.markdown.style_css %>" />
-    <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.jquery_markitup_min_js %>"></script>
+    <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.jquery_markitup_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.sets.markdown.set_js %>"></script>
     <%} %>
+    <script type="text/javascript" src="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_js %>"></script>
+    <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.uploadify.uploadify_css %>" />
     <script type="text/javascript" src="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_min_js %>"></script>
@@ -71,15 +71,11 @@
     <script src="../../Scripts/markitup/markitup/jquery.markitup.js" type="text/javascript"></script>
     <script src="../../Scripts/markitup/markitup/sets/markdown/set.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery-autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>
-    <script src="../../Scripts/openlibrary-wmd-master/jquery.wmd.js" type="text/javascript" ></script>
- 
+    <script src="../../Scripts/openlibrary-wmd-master/jquery.wmd.js" type="text/javascript"></script>
     <%
         }
     %>
     <script type="text/javascript">
-
-
-       
 
         function makePretty() {
             $("pre code").parent().each
@@ -91,7 +87,6 @@
                     }
                 );
             prettyPrint();
-
         }
 
         function weaponize() {
@@ -100,9 +95,8 @@
                 //"output": true,
                 "helpLink": "http://daringfireball.net/projects/markdown/",
                 "helpHoverTitle": "Markdown Help"
-               
             });
-            
+
             $("#comment").wmd({
                 "preview": true,
                 //"output": true,
@@ -111,49 +105,41 @@
             });
         }
 
-        
-
-        var editor = "wmd";
+        var editor = "markitup";
         if (editor == "markitup") {
             mySettings.previewParserPath = '<%= Url.Content("~/MarkdownPreview")%>';
             mySettings.nameSpace = 'commentEditor';
             mySettings.previewOpenCallback = CheckActivityHeight;
             mySettings.previewCloseCallback = CheckActivityHeight;
             mySettings.previewOpen = true;
-
         }
 
         var WMDCallbackWaiting = false;
-        var WMDCallback = 
-        function () 
-        {
-            if(!WMDCallbackWaiting)
-            {
+        var WMDCallback =
+        function () {
+            if (!WMDCallbackWaiting) {
                 WMDCallbackWaiting = true;
-                window.setTimeout(function() {
-                     CheckActivityHeight();
-                     WMDCallbackWaiting = false;
+                window.setTimeout(function () {
+                    CheckActivityHeight();
+                    WMDCallbackWaiting = false;
                 }, 250);
             }
         };
-        
-
-
 
         $("document").ready(function () { $("#ModifyAttachmentsLink").show(); CheckScrollDetails(); Corners(); AddStyles(); CheckActivityHeight(); });
 
         function AddStyles() {
             $("head").append("<style>#comment{display:none;}</style>"); //style hides the comment boxes by default, but only when javascript is enabled on client
-            $("#activitySizer").css("overflow", "hidden").css("height", "250px");
+            $("#activitySizer").css("overflow", "hidden").css("height", "100px");
             makePretty();
         }
 
         function Corners() {
-            $(".displayContainerInner").corner("bevel 6px").parent().css('padding', '4px').corner("round keep  12px");
+            $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
         }
 
         var detailsLastHeight = 0;
-        var detailsMinHeight = 180;
+        var detailsMinHeight = 150;
         var hasExpander = false;
         var isExpanded = false;
 
@@ -173,7 +159,7 @@
         function CheckActivityHeight() {
             var newHeight = 150;
             newHeight = $('#activityArea').get(0).scrollHeight + 20;
-            $("#activitySizer").animate({ height: newHeight }, 300);
+            $("#activitySizer").animate({ height: newHeight }, 500);
         }
 
         function expandDetails() {
@@ -208,16 +194,14 @@
         };
 
         function beginChangeActivity(args) {
-            $(".validation-summary-errors").attr("style", "display:none;").text("");
-        }
 
+            $(".validation-summary-errors").attr("style", "display:none;").text("");
+            $("#activityArea").animate({ opacity: 0.5 }, 200);
+        }
 
         function beginChangeToModifyDetailsActivity() {
             beginChangeActivity();
-
-
         }
-
 
         function beginRefreshAttachments(args) {
             $('#attachmentsWrapper').animate({ opacity: 0.5 }, 200);
@@ -236,21 +220,19 @@
         }
 
         function completeChangeToEditActivity() {
-            completeChangeActivity({ width: 525 });
+            completeChangeActivity();
         }
 
-        function completeChangeActivity(data) {
-            var w = 450;
-            if (data.width) {
-                w = data.width;
-            }
-            $("#activityColumn").animate({ width: w }, 300, function () {
+        function completeChangeActivity() {
+
+            $("#activityArea").animate({ opacity: 1 }, 200, function () {
+
                 if (editor == "wmd") {
-                    $("#comment").show();
+                    $("#comment").show("fast", function () { CheckActivityHeight(); });
                     weaponize();
                 }
                 else if (editor == "markitup") {
-                    $("#comment").show().markItUp(mySettings);
+                    $("#comment").show().markItUp(mySettings, function () { CheckActivityHeight(); });
                     $("#details").markItUp(mySettings);
                 }
                 goUploadify();
@@ -258,23 +240,14 @@
                 $("#ModifyAttachmentsLink").show();
                 //TODO: Need to wait until div has been replaced with new content, then focus either details editor or comment editor.
                 //        waiting for stackoverflow question before working out how to do this here
-                CheckActivityHeight();
+
+
             });
-            if (hasExpander && !isExpanded) {
-                if (editor == "markitup") {
-                    detailsMinHeight = (mySettings.previewOpen) ? 150 : 0;
-                }
-                else {
-                    detailsMinHeight = 150;
-                }
-                detailsMinHeight += 260;
-                $("#detailsText").animate({ height: detailsMinHeight }, 300);
-            }
-            
+
         }
 
         function completeRefreshAttachments() {
-            $('#attachmentsWrapper').animate({ opacity: 1 }, 300);
+            $('#attachmentsWrapper').animate({ opacity: 1 }, 300, function () { Corners(); });
         }
 
         function completeRefreshHistory() {
@@ -300,12 +273,18 @@
         }
 
         function completeActivity(data) {
-            var commentBox = $("#comment");
+            $("#activityArea").animate({ opacity: 1 }, 200, function () {
 
-            if (commentBox.length < 1) {
-                $("#activityColumn").animate({ width: 250 }, 300, function () { $("#ModifyAttachmentsLink").show(); CheckActivityHeight(); restoreDetailsHeight(); });
-            }
-            
+                var commentBox = $("#comment");
+
+                if (commentBox.length < 1) {
+                    $("#ModifyAttachmentsLink").show();
+
+                }
+
+
+            });
+            CheckActivityHeight();
         }
 
 
@@ -337,7 +316,9 @@
         function completeModifyTicketActivityAttachmentsAndDetails(data) {
             completeModifyTicketActivityAndDetails(data);
             var n = $('#files_list').length;
+
             if (n < 1) {
+
                 $("#refreshAttachmentsButton").click();
             }
         }
@@ -381,118 +362,89 @@
         {             
             
     %>
-    <div style="padding:2px;">
-    <%= Html.ActionLink("Back to: " + TempData["TicketCenterListDisplayName"], MVC.TicketCenter.Actions.List(Convert.ToInt32(TempData["TicketCenterPage"]), (string)TempData["TicketCenterList"]), new { Style = "margin:2px;" })%>
+    <div style="padding: 2px;">
+        <%= Html.ActionLink("Back to: " + TempData["TicketCenterListDisplayName"], MVC.TicketCenter.Actions.List(Convert.ToInt32(TempData["TicketCenterPage"]), (string)TempData["TicketCenterList"]), new { Style = "margin:2px;" })%>
     </div>
     <%
         }
     %>
     <div class="contentContainer">
-    
-        <table style="width: 100%;" cellpadding="0" cellspacing="0">
-            <tr>
-                <td style="vertical-align: top; width: 100%;">
-                    <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshDetails, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "detailsArea", OnBegin = "beginRefreshDetails", OnSuccess = "completeRefreshDetails" }))
-                       {
-                    %>
-                    <div id="detailsWrapper">
-                        <div class="displayContainerOuter">
-                            <div class="displayContainerInner">
-                                <div id="detailsArea">
-                                    <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData);%>
-                                </div>
-                            </div>
-                        </div>
+        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshStats, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "statsArea", OnBegin = "beginRefreshStats", OnSuccess = "completeRefreshStats" }))
+           {
+        %>
+        <div id="statsWrapper" style="width: 250px; float: right;">
+            <div class="displayContainerOuter">
+                <div class="displayContainerInner">
+                    <div id="statsArea">
+                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
                     </div>
-                    <div>
-                        <input type="submit" style="display: none;" id="refreshDetailsButton" value="Refresh Details" />
+                </div>
+            </div>
+            <div>
+                <input type="submit" style="display: none;" id="refreshStatsButton" value="Refresh Stats" />
+            </div>
+        </div>
+        <%
+            }
+        %>
+        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshDetails, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "detailsArea", OnBegin = "beginRefreshDetails", OnSuccess = "completeRefreshDetails" }))
+           {
+        %>
+        <div id="detailsWrapper" style="margin-right: 275px;">
+            <div class="displayContainerOuter">
+                <div class="displayContainerInner">
+                    <div id="detailsArea">
+                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData);%>
                     </div>
-                    <%
-                        }
-                    %>
-                      <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshAttachments, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "attachmentsArea", OnBegin = "beginRefreshAttachments", OnSuccess = "completeRefreshAttachments" }))
-                           {
-                        %>
-                        <div id="attachmentsWrapper">
-                            <div class="displayContainerOuter">
-                                <div class="displayContainerInner">
-                                    <div id="attachmentsArea">
-                                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData);%>
-                                    </div>
-                                </div>
-                            </div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" style="display: none;" id="refreshDetailsButton" value="Refresh Details" />
+            </div>
+        </div>
+        <%
+            }
+        %>
+        <%  using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshAttachments, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "attachmentsArea", OnBegin = "beginRefreshAttachments", OnSuccess = "completeRefreshAttachments" }))
+            {
+        %><div id="attachmentsArea">
+            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData);%>
+        </div>
+        <div>
+            <input type="submit" style="display: none;" id="refreshAttachmentsButton" value="Refresh Attachments" />
+        </div>
+        <%
+            }
+        %>
+        <div id="activityWrapper">
+            <div class="displayContainerOuter">
+                <div class="displayContainerInner">
+                    <div id="activitySizer">
+                        <div id="activityArea">
+                            <% Html.RenderPartial(string.Format("~/Views/TicketEditor/Controls/{0}.ascx", activity), Model); %>
                         </div>
-                        <div>
-                            <input type="submit" style="display: none;" id="refreshAttachmentsButton" value="Refresh Attachments" />
-                        </div>
-                        <%
-                            }
-                        %>
-                </td>
-                <td style="vertical-align: top; padding-left: 25px;">
-                    <div id="activityColumn" style="width: <%= (activity == "ActivityButtons") ? "250px;" : "450px;"%> padding-right: 12px;">
-                        <div id="activityWrapper">
-                            <div class="displayContainerOuter">
-                                <div class="displayContainerInner">
-                                    <div id="activitySizer">
-                                        <div id="activityArea">
-                                            <% Html.RenderPartial(string.Format("~/Views/TicketEditor/Controls/{0}.ascx", activity), Model); %>
-                                        </div>
-                                        <span class="validation-summary-errors" style="display: none;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      
+                        <span class="validation-summary-errors" style="display: none;"></span>
                     </div>
-                </td>
-            </tr>
-        </table>
-        <table style="width: 100%;" cellpadding="0" cellspacing="0">
-            <tr>
-                <td style="width: 100%; vertical-align: top;">
-                    <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshHistory, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "activityHistoryArea", OnBegin = "beginRefreshHistory", OnSuccess = "completeRefreshHistory" }))
-                       {
-                    %>
-                    <div>
-                        <div class="displayContainerOuter">
-                            <div class="displayContainerInner">
-                                <div id="activityHistoryArea">
-                                    <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model, ViewData); %>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </div>
+        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshHistory, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "activityHistoryArea", OnBegin = "beginRefreshHistory", OnSuccess = "completeRefreshHistory" }))
+           {
+        %>
+        <div id="activityHistoryWrapper">
+            <div class="displayContainerOuter">
+                <div class="displayContainerInner">
+                    <div id="activityHistoryArea">
+                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.ActivityHistory, Model, ViewData); %>
                     </div>
-                    <div>
-                        <input type="submit" style="display: none;" id="refreshHistoryButton" value="Refresh History" />
-                    </div>
-                    <%
-                        }
-                    %>
-                </td>
-                <td style="vertical-align: top; padding-left: 25px;">
-                    <div style="width: 250px; padding-right: 12px;">
-                        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshStats, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "statsArea", OnBegin = "beginRefreshStats", OnSuccess = "completeRefreshStats" }))
-                           {
-                        %>
-                        <div id="statsWrapper">
-                            <div class="displayContainerOuter">
-                                <div class="displayContainerInner">
-                                    <div id="statsArea">
-                                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="submit" style="display: none;" id="refreshStatsButton" value="Refresh Stats" />
-                        </div>
-                        <%
-                            }
-                        %>
-                    </div>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+            <div>
+                <input type="submit" style="display: none;" id="refreshHistoryButton" value="Refresh History" />
+            </div>
+        </div>
+        <%
+            }
+        %>
     </div>
 </asp:Content>
