@@ -32,8 +32,8 @@ namespace TicketDesk.Web.Client.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult AddAttachment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.AddAttachment);
+        public System.Web.Mvc.JsonResult AddAttachment() {
+            return new T4MVC_JsonResult(Area, Name, ActionNames.AddAttachment);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -64,8 +64,8 @@ namespace TicketDesk.Web.Client.Controllers {
     public class T4MVC_UploaderController: TicketDesk.Web.Client.Controllers.UploaderController {
         public T4MVC_UploaderController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult AddAttachment(int? id) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddAttachment);
+        public override System.Web.Mvc.JsonResult AddAttachment(int? id) {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.AddAttachment);
             callInfo.RouteValueDictionary.Add("id", id);
             return callInfo;
         }

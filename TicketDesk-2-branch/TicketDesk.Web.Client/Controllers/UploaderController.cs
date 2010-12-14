@@ -24,11 +24,11 @@ namespace TicketDesk.Web.Client.Controllers
             Settings = settingsService;
             Tickets = ticketService;
         }
-       
-        [FlashCompatibleAuthorizeAttribute]
-        public virtual ActionResult AddAttachment(int? id)
+
+        [Authorize]
+        public virtual JsonResult AddAttachment(int? id)
         {
-            if (User.Identity.IsAuthenticated ||  string.Equals(ConfigurationManager.AppSettings["SecurityMode"], "AD"))//only in SQL mode
+            if (User.Identity.IsAuthenticated)
             {
                 if (Request.Files.Count > 0)
                 {
@@ -58,13 +58,13 @@ namespace TicketDesk.Web.Client.Controllers
                         }
                         try
                         {
-
+                            System.Threading.Thread.Sleep(2000);
                             int fileId = Tickets.AddPendingAttachment(id, attachment);
-                            return Content(fileId.ToString());
+                            return new JsonResult() { ContentType = "text/plain", Data = new { success = true, id = fileId.ToString() } };
                         }
-                        catch 
+                        catch
                         {
-                            return new EmptyResult();
+                            return new JsonResult();
                         }
 
 

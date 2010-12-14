@@ -474,7 +474,8 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
     text-decoration: none;
 }
 
-.activityButton:hover, .searchButton:hover
+
+.activityButton:hover, .searchButton:hover, div.activityButton.hover 
 {
     background-color: #999999;
 }

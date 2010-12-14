@@ -6,30 +6,20 @@
 </asp:Content>
 <asp:Content ID="head" ContentPlaceHolderID="CustomHeadContent" runat="server">
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_css %>" />
-     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.uploadify.uploadify_css %>" />
-    
-    
-
-    <script type="text/javascript" src="<%= Links.Scripts.jquery_qtip_1_0_0_beta3_1020438.jquery_qtip_1_0_0_beta3_1_min_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.jquery_hoverIntent_minified_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_min_js %>"></script>
-     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
+    <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
     <script type="text/javascript" src="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_js %>"></script>
+    <script type="text/javascript" src="<%= Links.Scripts.valums_ajax_upload_6f977de.ajaxupload_js %>"></script>
     <% var Editor = "markitup"; %>
     <% if (Editor == "wmd")
        { %>
-
-
     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.openlibrary_wmd_master.wmdCustom_css %>" />
-    
     <script type="text/javascript" src="<%= Links.Scripts.openlibrary_wmd_master.showdown_js %>"></script>
-   
     <script type="text/javascript" src="<%= Links.Scripts.openlibrary_wmd_master.jquery_wmd_js %>"></script>
     <% }
        else if (Editor == "markitup")
        {%>
-
-      
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.markitup_editor.markitup.skins.markdown.style_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.markitup_editor.markitup.sets.markdown.style_css %>" />
     <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.jquery_markitup_js %>"></script>
@@ -93,7 +83,7 @@
             }
         )
         
-        $(document).ready(function() { corners(); goUploadify(); $("#attachmentsArea").show(); })
+        $(document).ready(function() { corners(); $("#attachmentsArea").show(); })
         
         function corners() {
             $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
@@ -104,9 +94,9 @@
         function onUploadError() {
             alert("error during upload");
         }
-        function onUploadComplete(event, qId, file, response) {
+        function onUploadComplete(filename, response) {
 
-            $('<tr id="fileItem_' + response + '"><td><table class="formatTable" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #B3CBDF;"> <tbody> <tr> <td rowspan="2" class="PendingFileAttachmentItemContainer"> <img alt="Pending File" src="<%= Url.Content(string.Format("~/Content/pendingFlag.png")) %>" /> </td> <th> <label> File: </label> </th> <td><input id="newFileId_' + response + '" name="newFileId_' + response + '" type="hidden" value="' + response + '" /><input id="newFileName_' + response + '" name="newFileName_' + response + '" type="text" style="width: 225px;" value="' + file.name + '" /> </td> <td rowspan="2" style="text-align:right;"> <a href="" onclick="removeAttachment(' + response + ');return false;"> <img src="<%= Url.Content("~/Content/cancel.png") %>" alt="remove" /></a></td> </tr> <tr> <th> <label> Description: </label> </th> <td> <input id="newFileDescription_' + response + '" name="newFileDescription_' + response + '" type="text" style="width:200px;" /> (optional) </td> </tr> </tbody> </table></td></tr>').appendTo('#files_list');
+            $('<tr id="fileItem_' + response + '"><td><table class="formatTable" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #B3CBDF;"> <tbody> <tr> <td rowspan="2" class="PendingFileAttachmentItemContainer"> <img alt="Pending File" src="<%= Url.Content(string.Format("~/Content/pendingFlag.png")) %>" /> </td> <th> <label> File: </label> </th> <td><input id="newFileId_' + response + '" name="newFileId_' + response + '" type="hidden" value="' + response + '" /><input id="newFileName_' + response + '" name="newFileName_' + response + '" type="text" style="width: 225px;" value="' + filename + '" /> </td> <td rowspan="2" style="text-align:right;"> <a href="" onclick="removeAttachment(' + response + ');return false;"> <img src="<%= Url.Content("~/Content/cancel.png") %>" alt="remove" /></a></td> </tr> <tr> <th> <label> Description: </label> </th> <td> <input id="newFileDescription_' + response + '" name="newFileDescription_' + response + '" type="text" style="width:200px;" /> (optional) </td> </tr> </tbody> </table></td></tr>').appendTo('#files_list');
             $('.PendingFileAttachmentItemContainer').fadeIn('normal');
             return true;
 
@@ -118,30 +108,51 @@
             return false;
         }
 
+        $(document).ready(function () {
+            var button = $('#fileUploader'), interval;
+
+            new AjaxUpload(button, {
+                action: '<%= Url.Content("~/Uploader/AddAttachment/") %>',
+                name: 'myfile',
+                responseType: 'json',
+                onSubmit: function (file, ext) {
+                    button.text('Uploading');
+                    $("#progress").show();
+                    this.disable();
+
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading');
+                        }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    debugger;
+                    button.text('Upload');
+                    $("#progress").hide();
+                    window.clearInterval(interval);
+
+                    this.enable();
+
+                    onUploadComplete(file, response.id);
+
+
+                }
+            });
+        });
         
     </script>
-    <%= Html.Uploadify(
-            "fileUpload", 
-            new UploadifyOptions
-               {
-                    UploadUrl = Url.Content("~/Uploader/AddAttachment/"),
-                    FileExtensions = "*",
-                    FileDescription = "All Files",
-                    AuthenticationToken = Request.Cookies[FormsAuthentication.FormsCookieName] == null ?
-                        string.Empty :
-                        Request.Cookies[FormsAuthentication.FormsCookieName].Value,
-                    ErrorFunction = "onUploadError",
-                    CompleteFunction = "onUploadComplete",
-                    ButtonText = "Add Files",
-                   
-                    
-               }
-        ) %>
+    <style type="text/css">
+        
+    </style>
 </asp:Content>
 <asp:Content ID="main" ContentPlaceHolderID="MainContent" runat="server">
     <% var Editor = "markitup"; %>
     <div class="contentContainer">
-    <% Html.EnableClientValidation(); %>
+        <% Html.EnableClientValidation(); %>
         <% using (Html.BeginForm(MVC.NewTicket.Create(), FormMethod.Post, new { id = "createTicketForm", enctype = "multipart/form-data" }))
            { %>
         <div class="displayContainerOuter">
@@ -156,11 +167,10 @@
                         <tbody>
                             <tr>
                                 <th>
-                                   <%: Html.ValidationMessageFor(m => m.Ticket.Title,"*") %><%=  Html.LabelFor(m => m.Ticket.Title) %>
+                                    <%: Html.ValidationMessageFor(m => m.Ticket.Title,"*") %><%=  Html.LabelFor(m => m.Ticket.Title) %>
                                 </th>
                                 <td colspan="2">
                                     <%: Html.TextBoxFor(m => m.Ticket.Title, new { style = "min-width:300px;width:450px;" })%>
-                                    
                                 </td>
                             </tr>
                             <tr>
@@ -169,7 +179,6 @@
                                 </th>
                                 <td>
                                     <%: Html.DropDownListFor(m => m.Ticket.Type, Model.TicketTypeList) %>
-                                    
                                 </td>
                                 <td style="width: 100%; padding: 0px;">
                                     <table class="formatTable" cellpadding="0" cellspacing="0">
@@ -180,7 +189,6 @@
                                                 </th>
                                                 <td>
                                                     <%:  Html.DropDownListFor(m => m.Ticket.Category, Model.CategoryList) %>
-                                                    
                                                 </td>
                                                 <%
                                                     if (Model.DisplayPriorityList)
@@ -191,7 +199,6 @@
                                                 </th>
                                                 <td>
                                                     <%:  Html.DropDownListFor(m => m.Ticket.Priority, Model.PriorityList)%>
-                                                    
                                                 </td>
                                                 <%
                                                     } 
@@ -207,7 +214,6 @@
                                 </th>
                                 <td colspan="2">
                                     <%: Html.TextBoxFor(m => m.Ticket.TagList, new { style = "min-width:300px;width:450px;" })%>
-                                    
                                     <script type="text/javascript">
                                         $(document).ready(function () {
                                             $('#Ticket_TagList').autocomplete('<%= Url.Action("AutoComplete", "TagList") %>',
@@ -251,7 +257,6 @@
                             <tr>
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Details, "*")%><%= Html.LabelFor(m => m.Ticket.Details) %>
-                                    
                                 </th>
                                 <td colspan="2">
                                     <%if (Editor == "markitup")
@@ -270,10 +275,10 @@
                                 <th>
                                     <%: Html.LabelFor(m => m.Ticket.TicketAttachments) %>
                                 </th>
-                                <td colspan="2">
+                                <td colspan="2" style="height:35px;">
                                     <%: Html.ValidationMessageFor(m => m.Ticket.TicketAttachments, "*")%>
-                                    <div id="fileUpload">
-                                    </div>
+                                    <div id="fileUploader" class="activityButton" style="width: 100px;display:inline-block;">
+                                        Upload</div><img id="progress" src="<%= Url.Content("~/Content/progress.gif") %>" style="display: none;" />
                                 </td>
                             </tr>
                             <tr>

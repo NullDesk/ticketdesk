@@ -300,6 +300,23 @@ namespace Links {
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class ajaxfileupload1_0 {
+            private const string URLPATH = "~/Scripts/ajaxfileupload1.0";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string ajaxfileupload_css = Url("ajaxfileupload.css");
+            public static readonly string ajaxfileupload_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ajaxfileupload.min.js") ? Url("ajaxfileupload.min.js") : Url("ajaxfileupload.js");
+                          
+            public static readonly string ajaxfileupload_php = Url("ajaxfileupload.php");
+            public static readonly string ajaxfileupload_instructions_txt = Url("ajaxfileupload_instructions.txt");
+            public static readonly string change_notes_php = Url("change_notes.php");
+            public static readonly string doajaxfileupload_php = Url("doajaxfileupload.php");
+            public static readonly string jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.min.js") ? Url("jquery.min.js") : Url("jquery.js");
+                          
+            public static readonly string loading_gif = Url("loading.gif");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class corner {
             private const string URLPATH = "~/Scripts/corner";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -767,6 +784,66 @@ namespace Links {
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class valums_ajax_upload_6f977de {
+            private const string URLPATH = "~/Scripts/valums-ajax-upload-6f977de";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string ajaxupload_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ajaxupload.min.js") ? Url("ajaxupload.min.js") : Url("ajaxupload.js");
+                          
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class demos {
+                private const string URLPATH = "~/Scripts/valums-ajax-upload-6f977de/demos";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string button_png = Url("button.png");
+                public static readonly string demo_jquery_htm = Url("demo-jquery.htm");
+                public static readonly string do_nothing_htm = Url("do-nothing.htm");
+            }
+        
+            public static readonly string readme_md = Url("readme.md");
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class server_side {
+                private const string URLPATH = "~/Scripts/valums-ajax-upload-6f977de/server-side";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string upload_handler_php = Url("upload-handler.php");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class tests {
+                private const string URLPATH = "~/Scripts/valums-ajax-upload-6f977de/tests";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string file_input_css_htm = Url("file-input-css.htm");
+                public static readonly string manual_htm = Url("manual.htm");
+                public static readonly string upload_test_php = Url("upload-test.php");
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class valums_file_uploader_461068d {
+            private const string URLPATH = "~/Scripts/valums-file-uploader-461068d";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class client {
+                private const string URLPATH = "~/Scripts/valums-file-uploader-461068d/client";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string demo_htm = Url("demo.htm");
+                public static readonly string do_nothing_htm = Url("do-nothing.htm");
+            }
+        
+            public static readonly string fileuploader_css = Url("fileuploader.css");
+            public static readonly string fileuploader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fileuploader.min.js") ? Url("fileuploader.min.js") : Url("fileuploader.js");
+                          
+            public static readonly string gpl_2_0_txt = Url("gpl-2.0.txt");
+            public static readonly string license_txt = Url("license.txt");
+            public static readonly string loading_gif = Url("loading.gif");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class wmd_1_0_136 {
             private const string URLPATH = "~/Scripts/wmd-1.0-136";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -870,14 +947,12 @@ namespace Links {
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string activeFlag_png = Url("activeFlag.png");
-        public static readonly string activeFlagEmail_png = Url("activeFlagEmail.png");
         public static readonly string arrow_down_png = Url("arrow_down.png");
         public static readonly string arrow_top_png = Url("arrow_top.png");
         public static readonly string attachedFlag_png = Url("attachedFlag.png");
         public static readonly string calibri_ttf = Url("calibri.ttf");
         public static readonly string cancel_png = Url("cancel.png");
         public static readonly string closedFlag_png = Url("closedFlag.png");
-        public static readonly string closedFlagEmail_png = Url("closedFlagEmail.png");
         public static readonly string collapseUp_png = Url("collapseUp.png");
         public static readonly string collapseUpActive_png = Url("collapseUpActive.png");
         public static readonly string email_png = Url("email.png");
@@ -886,11 +961,10 @@ namespace Links {
         public static readonly string expandDownActive_png = Url("expandDownActive.png");
         public static readonly string logs_png = Url("logs.png");
         public static readonly string moreinfoFlag_png = Url("moreinfoFlag.png");
-        public static readonly string moreinfoFlagEmail_png = Url("moreinfoFlagEmail.png");
         public static readonly string newEmailAlert_png = Url("newEmailAlert.png");
         public static readonly string pendingFlag_png = Url("pendingFlag.png");
+        public static readonly string progress_gif = Url("progress.gif");
         public static readonly string resolvedFlag_png = Url("resolvedFlag.png");
-        public static readonly string resolvedFlagEmail_png = Url("resolvedFlagEmail.png");
         public static readonly string roles_png = Url("roles.png");
         public static readonly string security_png = Url("security.png");
         public static readonly string settings_png = Url("settings.png");
@@ -900,7 +974,6 @@ namespace Links {
         public static readonly string TicketDesk2Logo_png = Url("TicketDesk2Logo.png");
         public static readonly string TicketDesk2Logo_psd = Url("TicketDesk2Logo.psd");
         public static readonly string unassignedFlag_png = Url("unassignedFlag.png");
-        public static readonly string unassignedFlagEmail_png = Url("unassignedFlagEmail.png");
         public static readonly string users_png = Url("users.png");
     }
 

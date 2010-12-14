@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<TicketDesk.Domain.Models.Ticket>" %>
 <% var Editor = "markitup"; %>
-
 <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.TicketEditorController; %>
 <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.ModifyAttachments, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "activityArea", OnBegin = "beginChangeActivity", OnSuccess = "completeModifyTicketActivityAttachmentsAndDetails", OnFailure = "failModifyTicketActivity" }, new { defaultbutton = "modifyAttachmentsButton", @Class = "editForm" }))
    {
@@ -11,7 +10,7 @@
     </div>
 </div>
 <div class="activityBody">
-   <div class="commentContainer">
+    <div class="commentContainer">
         <%if (Editor == "markitup")
           { %>
         <%= Html.TextArea("comment", new { @Class = "markItUpEditor" })%>
@@ -32,13 +31,12 @@
                         Attachments:
                     </label>
                 </td>
-                <td>
-                    <div id="fileUpload">
-                    </div>
+                <td style="height:35px;">
+                    <div id="fileUploader" class="activityButton" style="width: 100px; display:inline-block;">
+                        Upload</div><img id="progress" src="<%= Url.Content("~/Content/progress.gif") %>" style="display: none;" />
                 </td>
             </tr>
         </table>
-        
         <div id="attachmentsArea" style="padding-left: 15px;">
             <table id="files_list">
                 <tr>
@@ -78,7 +76,8 @@
                                         </label>
                                     </th>
                                     <td>
-                                        <%: Html.TextBox("fileDescription_" + att.FileId, att.FileDescription, new { Style = "width: 225px;" })%> (optional)
+                                        <%: Html.TextBox("fileDescription_" + att.FileId, att.FileDescription, new { Style = "width: 225px;" })%>
+                                        (optional)
                                     </td>
                                 </tr>
                             </tbody>

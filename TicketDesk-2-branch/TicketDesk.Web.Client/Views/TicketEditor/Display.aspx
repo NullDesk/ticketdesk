@@ -23,36 +23,18 @@
     <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.jquery_markitup_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.markitup_editor.markitup.sets.markdown.set_js %>"></script>
     <%} %>
+    <script type="text/javascript" src="<%= Links.Scripts.valums_ajax_upload_6f977de.ajaxupload_js %>"></script>
     <script type="text/javascript" src="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_js %>"></script>
     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_css %>" />
-    <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.uploadify.uploadify_css %>" />
     <script type="text/javascript" src="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_min_js %>"></script>
-    <%= Html.Uploadify
-        (
-            "fileUpload", 
-            new UploadifyOptions
-               {
-                    UploadUrl = Url.Content("~/Uploader/AddAttachment/" + Model.TicketId.ToString()),
-                    FileExtensions = "*",
-                    FileDescription = "All Files",
-                    AuthenticationToken = Request.Cookies[FormsAuthentication.FormsCookieName] == null ?
-                        string.Empty :
-                        Request.Cookies[FormsAuthentication.FormsCookieName].Value,
-                    ErrorFunction = "onUploadError",
-                    CompleteFunction = "onUploadComplete",
-                    ButtonText = "Add Files"
-                    
-               }
-           ) %>
+   
     <script type="text/javascript">
 
-        function onUploadError() {
 
-        }
-        function onUploadComplete(event, qId, file, response) {
+        function onUploadComplete(filename, response) {
 
-            $('<tr id="fileItem_' + response + '"><td><table class="formatTable" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #B3CBDF;"> <tbody> <tr> <td rowspan="2" class="PendingFileAttachmentItemContainer"> <img alt="Pending File" src="<%= Url.Content(string.Format("~/Content/pendingFlag.png")) %>" /> </td> <th> <label> File: </label> </th> <td><input id="newFileId_' + response + '" name="newFileId_' + response + '" type="hidden" value="' + response + '" /><input id="newFileName_' + response + '" name="newFileName_' + response + '" type="text" style="width: 225px;" value="' + file.name + '" /> </td> <td rowspan="2" style="text-align:right;"> <a href="" onclick="removeAttachment(' + response + ');return false;"> <img src="<%= Url.Content("~/Content/cancel.png") %>" alt="remove" /></a></td> </tr> <tr> <th> <label> Description: </label> </th> <td> <input id="newFileDescription_' + response + '" name="newFileDescription_' + response + '" type="text" style="width:200px;" /> (optional) </td> </tr> </tbody> </table></td></tr>').appendTo('#files_list');
+            $('<tr id="fileItem_' + response + '"><td><table class="formatTable" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #B3CBDF;"> <tbody> <tr> <td rowspan="2" class="PendingFileAttachmentItemContainer"> <img alt="Pending File" src="<%= Url.Content(string.Format("~/Content/pendingFlag.png")) %>" /> </td> <th> <label> File: </label> </th> <td><input id="newFileId_' + response + '" name="newFileId_' + response + '" type="hidden" value="' + response + '" /><input id="newFileName_' + response + '" name="newFileName_' + response + '" type="text" style="width: 225px;" value="' + filename + '" /> </td> <td rowspan="2" style="text-align:right;"> <a href="" onclick="removeAttachment(' + response + ');return false;"> <img src="<%= Url.Content("~/Content/cancel.png") %>" alt="remove" /></a></td> </tr> <tr> <th> <label> Description: </label> </th> <td> <input id="newFileDescription_' + response + '" name="newFileDescription_' + response + '" type="text" style="width:200px;" /> (optional) </td> </tr> </tbody> </table></td></tr>').appendTo('#files_list');
 
             $('.PendingFileAttachmentItemContainer').fadeIn('normal', function () { CheckActivityHeight(); });
 
@@ -127,6 +109,44 @@
         };
 
         $("document").ready(function () { $("#ModifyAttachmentsLink").show(); CheckScrollDetails(); Corners(); AddStyles(); CheckActivityHeight(); });
+
+        function goUploadify() {
+
+            var button = $('#fileUploader'), interval;
+            if (button.length > 0) {
+                new AjaxUpload(button, {
+                    action: '<%= Url.Content("~/Uploader/AddAttachment/") %>',
+                    name: 'myfile',
+                    data: { 'id': <%= Model.TicketId %> },
+                    responseType: 'json',
+                    onSubmit: function (file, ext) {
+                        button.text('Uploading');
+                        $("#progress").show();
+
+                        this.disable();
+
+                        interval = window.setInterval(function () {
+                            var text = button.text();
+                            if (text.length < 13) {
+                                button.text(text + '.');
+                            } else {
+                                button.text('Uploading');
+                            }
+                        }, 200);
+                    },
+                    onComplete: function (file, response) {
+                        debugger;
+                        button.text('Upload');
+                        $("#progress").hide();
+                        window.clearInterval(interval);
+
+                        this.enable();
+
+                        onUploadComplete(file, response.id);
+                    }
+                });
+            }
+        }
 
         function AddStyles() {
             $("head").append("<style>#comment{display:none;}</style>"); //style hides the comment boxes by default, but only when javascript is enabled on client
@@ -287,8 +307,6 @@
             CheckActivityHeight();
         }
 
-
-
         function completeModifyTicketActivity(data) {
             var commentBox = $("#comment");
             if (commentBox.length > 0) {
@@ -301,7 +319,6 @@
                     commentBox.show().markItUp(mySettings);
                     $("#details").markItUp(mySettings);
                 }
-
 
                 goUploadify();
                 setupAutocomplete();

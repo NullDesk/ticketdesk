@@ -119,7 +119,6 @@
     <Compile Include="Helpers\Attributes\AuthorizeAdminOnly.cs" />
     <Compile Include="Helpers\ActionFilters\NoCacheAttribute.cs" />
     <Compile Include="Helpers\ActionFilters\ValidateOnlyIncomingValuesAttribute.cs" />
-    <Compile Include="Helpers\Attributes\FlashCompatibleAuthorizeAttribute.cs" />
     <Compile Include="Helpers\Extensions\IntExtensions.cs" />
     <Compile Include="Helpers\Extensions\RuleExceptionExtensions.cs" />
     <Compile Include="Helpers\Extensions\TicketExtensions.cs">
@@ -193,8 +192,6 @@
     <Compile Include="Helpers\T4MVC\UploaderController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\UploadifyHelper.cs" />
-    <Compile Include="Helpers\UploadifyOptions.cs" />
     <Compile Include="Mef\FilteredCatalog.cs" />
     <Compile Include="Mef\MefControllerFactory.cs" />
     <Compile Include="Mef\MefHttpApplication.cs" />
@@ -245,6 +242,7 @@
     <Content Include="Content\moreinfoFlag.png" />
     <Content Include="Content\newEmailAlert.png" />
     <Content Include="Content\pendingFlag.png" />
+    <Content Include="Content\progress.gif" />
     <Content Include="Content\resolvedFlag.png" />
     <Content Include="Content\roles.png" />
     <Content Include="Content\security.png" />
@@ -461,54 +459,7 @@
     <Content Include="Scripts\prettify-small-3-Dec-2009\lang-wiki.js" />
     <Content Include="Scripts\prettify-small-3-Dec-2009\prettify.css" />
     <Content Include="Scripts\prettify-small-3-Dec-2009\prettify.js" />
-    <Content Include="Scripts\uploadify\cancel.png" />
-    <Content Include="Scripts\uploadify\expressInstall.swf" />
-    <Content Include="Scripts\uploadify\jquery-1.3.2.min.js" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.init.js" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.v2.1.0.js" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.v2.1.0.min.js" />
-    <Content Include="Scripts\uploadify\swfobject.js" />
-    <Content Include="Scripts\uploadify\uploadify.allglyphs.swf" />
-    <Content Include="Scripts\uploadify\uploadify.css" />
-    <Content Include="Scripts\uploadify\uploadify.swf" />
-    <Content Include="Scripts\uploadify\uploadifySelect.png" />
-    <Content Include="Scripts\wmd-1.0-136\images\wmd-buttons.png" />
-    <Content Include="Scripts\wmd-1.0-136\Img\wmd-buttons2.png" />
-    <Content Include="Scripts\wmd-1.0-136\Img\wmd-buttons.png" />
-    <Content Include="Scripts\wmd-1.0-136\mit license.txt" />
-    <Content Include="Scripts\wmd-1.0-136\pasteme.txt" />
-    <Content Include="Scripts\wmd-1.0-136\readme.txt" />
-    <Content Include="Scripts\wmd-1.0-136\showdown.js" />
-    <Content Include="Scripts\wmd-1.0-136\tdwmd.css" />
-    <Content Include="Scripts\wmd-1.0-136\Uservoice bugs.txt" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\apiExample.html" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\minimalExample.html" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\optionsExample.html" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\readme.txt" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\bg-fill.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\bg.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\blockquote.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\bold.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\code.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\h1.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\hr.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\img.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\italic.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\link.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\ol.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\redo.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\separator.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\ul.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\undo.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\wmd-on.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\images\wmd.png" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\showdown.js" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\wmd-base.js" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\wmd-plus.js" />
-    <Content Include="Scripts\wmd-1.0-136\original-wmd-1.0.1\wmd\wmd.js" />
-    <Content Include="Scripts\wmd-1.0-136\wmd-test.html" />
-    <Content Include="Scripts\wmd-1.0-136\wmd.css" />
-    <Content Include="Scripts\wmd-1.0-136\wmd.js" />
+    <Content Include="Scripts\valums-ajax-upload-6f977de\ajaxupload.js" />
     <Content Include="Views\Account\ChangePreferences.aspx" />
     <Content Include="Views\Account\ChangePreferencesSuccess.aspx" />
     <Content Include="Views\Account\MyAccount.aspx" />
@@ -632,14 +583,6 @@
     <None Include="Scripts\openlibrary-wmd-master\jsmin.py" />
     <None Include="Scripts\openlibrary-wmd-master\Makefile" />
     <None Include="Scripts\openlibrary-wmd-master\Readme.md" />
-    <None Include="Scripts\uploadify\check.php" />
-    <None Include="Scripts\uploadify\Uploadify v2.1.0 Manual.pdf" />
-    <None Include="Scripts\uploadify\uploadify.fla" />
-    <None Include="Scripts\uploadify\uploadify.php" />
-    <None Include="Scripts\wmd-1.0-136\images\wmd-buttons.psd" />
-    <None Include="Scripts\wmd-1.0-136\markdown 1.0.1\License.text" />
-    <None Include="Scripts\wmd-1.0-136\markdown 1.0.1\Markdown Readme.text" />
-    <None Include="Scripts\wmd-1.0-136\markdown 1.0.1\Markdown.pl" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
