@@ -130,7 +130,7 @@
                     }, 200);
                 },
                 onComplete: function (file, response) {
-                    debugger;
+                    
                     button.text('Upload');
                     $("#progress").hide();
                     window.clearInterval(interval);

@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="activityBody ticketDetailsHeaderInfo">
+<div class="activityBody ticketStatsBody">
     <table class="formatTable">
         <tr>
             <th>

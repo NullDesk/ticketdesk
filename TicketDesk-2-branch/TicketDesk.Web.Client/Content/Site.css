@@ -1,8 +1,4 @@
-﻿/*----------------------------------------------------------
-The base color for this template is #5c87b2. If you'd like
-to use a different color start by replacing all instances of
-#5c87b2 with your new color.
-----------------------------------------------------------*/
+﻿/**/
 @media screen {
 @font-face {
   font-family: 'Calibri';
@@ -11,31 +7,33 @@ to use a different color start by replacing all instances of
   src: local('Calibri'), url('calibri.ttf') format('truetype');
 }
 }
+
 body
 {
     background-color: #F7F7F7;
     font-size: 11pt;
-    font-family: Calibri, Arial, Helvetica, Sans-Serif;
+    font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #555;
 }
 
-a, a * {
+a, a *
+{
     color: #14498D;
-    padding:2px;
+    padding: 2px;
     -moz-transition: background-color 0.35s linear;
     -o-transition: background-color 0.35s linear;
     -webkit-transition: background-color 0.35s linear;
     transition: background-color 0.35s linear;
-    
     -moz-transition: color 0.35s linear;
     -o-transition: color 0.35s linear;
     -webkit-transition: color 0.35s linear;
     transition: color 0.35s linear;
 }
 
-a:hover, a:hover * {
+a:hover, a:hover *
+{
     background-color: #999999;
     color: #FFFFFF;
     text-decoration: none;
@@ -56,29 +54,25 @@ img
 
 .historyArea pre
 {
-     max-width:800px;
+    max-width: 800px;
 }
-  pre
-        {
-            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
-            margin-bottom: 10px;
-            min-height: 35px;
-            overflow: auto;
-            max-width: 600px;
-            padding: 5px;
-            background-color: #eee;
-            
-            
-            
-        }
-        code
-        {
-            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
-            background-color: #eee;
-            padding: 1px 5px 1px 5px;
-            font-size: 9pt;
-            
-        }
+pre
+{
+    font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+    margin-bottom: 10px;
+    min-height: 35px;
+    overflow: auto;
+    max-width: 600px;
+    padding: 5px;
+    background-color: #eee;
+}
+code
+{
+    font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+    background-color: #eee;
+    padding: 1px 5px 1px 5px;
+    font-size: 9pt;
+}
 
 /* HEADINGS   
 ----------------------------------------------------------*/
@@ -128,7 +122,6 @@ page width. Or, you can specify an exact pixel width. */
 
 #header
 {
-    position: relative;
     margin-bottom: 0px;
     color: #000;
     padding: 0px 20px 0px 20px;
@@ -141,7 +134,7 @@ page width. Or, you can specify an exact pixel width. */
     margin: 0;
     color: #1C3D60;
     border: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
     font-size: 32px !important;
 }
 
@@ -149,7 +142,6 @@ page width. Or, you can specify an exact pixel width. */
 {
     border-top: solid 6px #134A8A;
     margin: 5px 0px 30px 0px;
-    _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
 }
 
 #footer
@@ -166,7 +158,6 @@ page width. Or, you can specify an exact pixel width. */
 ----------------------------------------------------------*/
 ul#menu
 {
-   
     margin: 0;
     text-align: right;
     padding: 0;
@@ -196,12 +187,9 @@ ul#menu li a
     -o-transition: background-color 0.35s linear;
     -webkit-transition: background-color 0.35s linear;
     transition: background-color 0.35s linear;
-    
-    
     padding: 7px 14px;
     font-weight: bold;
     text-decoration: none;
-    
 }
 
 ul#menu li a:hover
@@ -290,13 +278,11 @@ table th
 
 div#title
 {
-    width:240px;
-    vertical-align:bottom;
+    width: 240px;
+    vertical-align: bottom;
     display: block;
     float: left;
-    
-    
-    padding:0px;
+    padding: 0px;
 }
 
 #logindisplay
@@ -365,16 +351,14 @@ div#title
 .jsGuide, .jsGuide:link, .jsGuide:visited
 {
     text-decoration: none;
-    
 }
 
 .jsClickable
 {
-     -moz-transition: background-color 0.35s linear;
+    -moz-transition: background-color 0.35s linear;
     -o-transition: background-color 0.35s linear;
     -webkit-transition: background-color 0.35s linear;
     transition: background-color 0.35s linear;
-    
     -moz-transition: color 0.35s linear;
     -o-transition: color 0.35s linear;
     -webkit-transition: color 0.35s linear;
@@ -402,7 +386,7 @@ div#title
     width: 95%;
     margin: auto;
 }
-.displayContainerOuter
+.displayContainerOuter, .displayContainerOuterHome
 {
     width: 100%;
     margin-left: auto;
@@ -411,7 +395,7 @@ div#title
     margin-bottom: 5px;
     background-color: #B3CBDF;
 }
-.displayContainerInner
+.displayContainerInner, .displayContainerInnerHome
 {
     background-color: #fff;
     border: solid 2px #B3CBDF;
@@ -421,15 +405,15 @@ div#title
 
 .activityHeadWrapper
 {
-    background-color: #B3CBDF;
-    border-bottom: solid 2px #134A8A;
+    background-color: #D2E0EC;
+    border-bottom: solid 2px #B3CBDF;
 }
 
 .activityHead
 {
     font-weight: bold;
     color: #0B294F;
-    padding: 8px;
+    padding: 4px;
 }
 
 .activityBody
@@ -439,14 +423,14 @@ div#title
 }
 .searchArea
 {
-    margin:0px 0px 5px 0px;
+    margin: 0px 0px 5px 0px;
     font-size: 9pt;
 }
 
 
 .searchButton
 {
-    font-family: Calibri,Tahoma, Verdana, Helvetica, Sans-Serif;
+    font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
     padding: 1px 2px 1px 2px;
     border: 1px ridge #999999;
     color: #333;
@@ -457,8 +441,7 @@ div#title
 
 .activityButton, input.activityButton
 {
-    
-    font-family: Calibri,Tahoma, Verdana, Helvetica, Sans-Serif;
+    font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
     margin-bottom: 3px;
     padding: 3px;
     border: 1px ridge #999999;
@@ -475,7 +458,7 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 }
 
 
-.activityButton:hover, .searchButton:hover, div.activityButton.hover 
+.activityButton:hover, .searchButton:hover, div.activityButton.hover
 {
     background-color: #999999;
 }
@@ -549,7 +532,7 @@ a:link.activityButton, a:visited.activityButton, a:active.activityButton
 
 table.ticketListGrid
 {
-    font-size:10pt;
+    font-size: 10pt;
     border: solid 1px #B3CBDF;
     border-collapse: collapse;
 }
@@ -583,7 +566,6 @@ table.ticketListGrid th a
 ul#submenu
 {
     padding: 0;
-    position: relative;
     margin: 0;
 }
 
@@ -598,12 +580,10 @@ ul#submenu li
 
 ul#submenu li a
 {
-     -moz-transition: background-color 0.35s linear;
+    -moz-transition: background-color 0.35s linear;
     -o-transition: background-color 0.35s linear;
     -webkit-transition: background-color 0.35s linear;
     transition: background-color 0.35s linear;
-    
-  
     padding: 5px 8px;
     font-weight: bold;
     text-decoration: none;
@@ -662,7 +642,7 @@ ul#submenu li.selected a
 .formatTable tbody tr th
 {
     text-align: right;
-    padding: 4px 3px 3px 3px;
+    padding: 2px;
     color: #134A8A;
     vertical-align: top;
     white-space: nowrap;
@@ -671,16 +651,22 @@ ul#submenu li.selected a
 
 .formatTable tbody tr td
 {
-    padding: 3px;
+    padding: 2px;
     vertical-align: top;
 }
 
 .formatTable tbody tr td.textField
 {
-    padding: 4px 3px 3px 3px;
+    padding: 2px;
 }
 
 /* File Attachment Containers */
+
+#attachmentsList
+{
+    font-size: 9pt;
+}
+
 .PendingFileAttachmentItemContainer
 {
     background-color: #FFC862;
@@ -738,13 +724,12 @@ ul#submenu li.selected a
 
 .commentDisplayName
 {
-    font-weight:bold;
+    font-weight: bold;
 }
 .commentDate
 {
     color: #666;
     font-size: 9pt;
-    
     margin-left: 25px;
 }
 .commentBody
@@ -784,20 +769,31 @@ ul#submenu li.selected a
 
 div.ticketDetailsHeaderOuter
 {
-    
     margin-top: 0px;
 }
 div.ticketDetailsHeaderInner
 {
-   color: #0B294F;
-   border-bottom: solid 2px #134A8A;
+    color: #0B294F;
+    border-bottom: 1px solid #B3CBDF;
+}
+
+
+.ticketDetailsTopper
+{
+    margin-left: 20px;
+    background-color: #ECFBEA;
+    min-height: 100px;
+}
+
+ticketDetailsExtraInfo
+{
+    
 }
 
 .ticketDetailsHeader
 {
-    min-height:100px;
-    margin-left: 20px; 
-    background-color: #F0F5F9;
+    min-height:50px;
+    
 }
 
 .ticketDetailsHeaderId
@@ -809,65 +805,75 @@ div.ticketDetailsHeaderInner
 }
 .ticketDetailsHeaderPriority
 {
-   padding: 3px;
-   float: right; 
-   margin-right: 15px;
+    padding: 3px;
+    float: right;
+    margin-right: 15px;
 }
 
 .ticketDetailsHeaderTitle
 {
     font-size: 10pt;
-      padding: 3px 3px 3px 20px;
-      color: #444;
+    padding: 3px 3px 3px 20px;
+    color: #444;
+    min-height: 25px;
 }
 .ticketDetailsHeaderInfo
 {
     background-color: #FBFCFD;
-    border-top: solid 1px #B3CBDF;
-    
+    border-top: 1px solid #B3CBDF;
     font-size: 9pt;
-    padding:3px;
+    padding: 3px;
+    min-height:38px;
 }
 
+
+.ticketStatsBody
+{
+     background-color: #FBFCFD;
+    font-size: 9pt;
+    padding: 3px;
+    
+}
 .ticketDetailsHeaderInfoLabel
 {
-    display:inline-block;
-    color:#444; 
-    width:75px; 
-    text-align:right;
+    color: #444;
+    width: 75px;
+    text-align: right;
 }
 .ticketDetailsHeaderInfoText
 {
-    display:inline-block;
+   
 }
 
 .ticketDetailsHeaderAssignedTo
 {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .ticketDetailsHeaderTagsArea
 {
-    color:#444; 
-    float:right;
+    color: #444;
+    float: right;
     margin-right: 15px;
 }
 
 div.ticketDetailsOuter
 {
-    
     background-color: #fff;
     padding-bottom: 0px;
 }
 div.ticketDetailsInner
 {
-   
 }
 
-.detailsArea
+#detailsArea
+{
+    margin-right: 300px;
+    border-right: 2px solid #B3CBDF;
+}
+.detailsTextWrapper
 {
     overflow: auto;
-    
 }
 
 #detailsText
@@ -875,19 +881,23 @@ div.ticketDetailsInner
     padding: 8px;
 }
 
+.displayHeaderSideBar
+{
+    width: 300px;
+    float: right;
+}
 
 
 .statusFlag
 {
     float: left;
-    min-height: 90px;
+    min-height: 100px;
     width: 20px;
     border-right: solid 1px #B3CBDF;
 }
 .unassignedFlag
 {
-    
-     background-color: #fff600;
+    background-color: #fff600;
 }
 .activeFlag
 {
@@ -936,16 +946,28 @@ div.ticketDetailsInner
     height: 50px;
 }
 .adminItemContainer.elmahLogs
-{background-image: url('logs.png');}
+{
+    background-image: url('logs.png');
+}
 .adminItemContainer.applicationSettings
-{background-image: url('settings.png');}
+{
+    background-image: url('settings.png');
+}
 
 .adminItemContainer.securitySettings
-{background-image: url('security.png');}
+{
+    background-image: url('security.png');
+}
 
 .adminItemContainer.userSettings
-{background-image: url('users.png');}
+{
+    background-image: url('users.png');
+}
 .adminItemContainer.roleSettings
-{background-image: url('roles.png');}
+{
+    background-image: url('roles.png');
+}
 .adminItemContainer.emailSettings
-{background-image: url('email.png');}
+{
+    background-image: url('email.png');
+}

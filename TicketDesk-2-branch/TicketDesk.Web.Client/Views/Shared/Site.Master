@@ -12,16 +12,19 @@
     <script src="<%= Links.Scripts.MicrosoftMvcAjax_js %>" type="text/javascript"></script>
     <script src="<%= Links.Scripts.MicrosoftMvcValidation_js %>" type="text/javascript"></script>
     <script src="<%= Links.Scripts.corner.jquery_corner_js %>" type="text/javascript"></script>
-    <%--<script type="text/javascript">
-        $("document").ready(function () { CornerMain(); });
-
-
-        function CornerMain() {
-            //  $("#main").corner("round 10px").parent().css('padding', '5px').corner("round 12px");
-
+    <script type="text/javascript">
+        $("document").ready(function () {corners()});
+        function corners() {
+            var t = " ";
+            if ($.browser.msie) {
+                t = " top ";
+            }
+            if ($(".displayContainerInner")[0]) {
+                $(".displayContainerInner").corner("bevel" + t + "5px").parent().css('padding', '3px').corner("round" + t + "keep 10px");
+            }
         }
           
-    </script>--%>
+    </script>
     <asp:ContentPlaceHolder ID="CustomHeadContent" runat="server" />
 </head>
 <body>

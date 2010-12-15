@@ -6,16 +6,16 @@
 <asp:Content ID="headContent" ContentPlaceHolderID="CustomHeadContent" runat="server">
     <script type="text/javascript">
 
-        $("document").ready(function () { corners(); });
-        function corners() {
-            $(".displayContainerInner").corner("bevel tl 30px").corner("bevel tr 6px").corner("bevel bottom 6px").parent().css('padding', '6px').corner("round keep tl 20px").corner("round keep tr 12px").corner("round keep bottom 12px");
+        $("document").ready(function () { cornersHome(); });
+        function cornersHome() {
+            $(".displayContainerInnerHome").corner("bevel tl 30px").corner("bevel tr 6px").corner("bevel bottom 6px").parent().css('padding', '6px').corner("round keep tl 20px").corner("round keep tr 12px").corner("round keep bottom 12px");
         }
     </script>
 </asp:Content>
 <asp:Content ID="mainContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="contentContainer">
-        <div class="displayContainerOuter">
-            <div class="displayContainerInner">
+        <div class="displayContainerOuterHome">
+            <div class="displayContainerInnerHome">
                 <table cellpadding="0" cellspacing="0" style="width: 100%;">
                     <tbody>
                         <tr>

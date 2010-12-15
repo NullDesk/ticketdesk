@@ -5,7 +5,7 @@
     
     var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
     var currentFlagStatus = Model.CurrentStatus.Replace(" ", "").ToLower();
-    if (string.IsNullOrEmpty(Model.AssignedTo))
+    if (string.IsNullOrEmpty(Model.AssignedTo) && Model.CurrentStatus != "Closed")
     {
         currentFlagStatus = "unassigned";
     }
@@ -15,7 +15,7 @@
 
     var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}", Model.TicketId.ToString()));
 
-    var detailsHeight = (ViewData["formatForSearch"] == null) ? 150 : 70;
+    var detailsHeight = (ViewData["formatForSearch"] == null) ? 200 : 70;
     
 %>
 <div class="ticketDetailsHeaderOuter">
@@ -23,56 +23,57 @@
         <div class="statusFlag">
             <img alt="<%: currentFlagStatus %>" src="<%= flagUrl %>" />
         </div>
-        <div class="ticketDetailsHeader">
-            <%
-                if (!string.IsNullOrEmpty(Model.Priority))
-                {     
-            %>
-            <div class="ticketDetailsHeaderPriority">
-                <div>
-                    Priority:
-                    <%: Model.Priority%>
-                </div>
-            </div>
-            <%
-                }
-            %>
-            <div class="ticketDetailsHeaderId">
-                <a href="<%= ticketUrl %>">Ticket: #<%: Model.TicketId %>
-                    -
-                    <%: Model.Category%>
-                    <%: Model.Type%></a>
-            </div>
-            <div class="ticketDetailsHeaderTitle">
-                <%: Model.Title%>
-            </div>
-            <div class="ticketDetailsHeaderInfo">
+        <div class="ticketDetailsTopper">
+            <div class="ticketDetailsHeader">
                 <%
-                    if (!string.IsNullOrEmpty(Model.TagList))
-                    { 
+                    if (!string.IsNullOrEmpty(Model.Priority))
+                    {     
                 %>
-                <div class="ticketDetailsHeaderTagsArea">
-                    <span>Tags:
-                        <%: Model.TagList%>
-                    </span>
+                <div class="ticketDetailsHeaderPriority">
+                    <div>
+                        Priority:
+                        <%: Model.Priority%>
+                    </div>
                 </div>
                 <%
                     }
                 %>
-                <div>
-                    <div class="ticketDetailsHeaderInfoLabel">
-                        Assigned To:
-                    </div>
-                    <div class="ticketDetailsHeaderAssignedTo ticketDetailsHeaderInfoText">
-                        <%: Model.GetAssignedToDisplayName(controller)%>
-                    </div>
+                <div class="ticketDetailsHeaderId">
+                    <a href="<%= ticketUrl %>">Ticket: #<%: Model.TicketId %>
+                        -
+                        <%: Model.Category%>
+                        <%: Model.Type%></a>
                 </div>
-                <div>
-                    <div class="ticketDetailsHeaderInfoLabel">
-                        Owned By:
+                <div class="ticketDetailsHeaderTitle">
+                    <%: Model.Title%>
+                </div>
+                <div class="ticketDetailsHeaderInfo">
+                    <%
+                        if (!string.IsNullOrEmpty(Model.TagList))
+                        { 
+                    %>
+                    <div class="ticketDetailsHeaderTagsArea">
+                        <span>Tags:
+                            <%: Model.TagList%>
+                        </span>
                     </div>
-                    <div class="ticketDetailsHeaderInfoText">
-                        <%: Model.GetOwnerDisplayName(controller)%>
+                    <%
+                        }
+                    %>
+                    <div style="padding: 2px;">
+                    
+                        <div style="white-space: nowrap;">
+                           <span class="ticketDetailsHeaderInfoLabel" style="display:inline-block;">Assigned To:</span>&nbsp;<span class="ticketDetailsHeaderAssignedTo ticketDetailsHeaderInfoText">
+                                <%: Model.GetAssignedToDisplayName(controller)%>
+                            </span>
+                        </div>
+                    </div>
+                    <div style="padding: 2px;">
+                        <div style="white-space: nowrap;">
+                           <span class="ticketDetailsHeaderInfoLabel" style="display:inline-block;"> Owned By:</span>&nbsp;<span class="ticketDetailsHeaderInfoText">
+                                <%: Model.GetOwnerDisplayName(controller)%>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,8 +82,9 @@
 </div>
 <div class="ticketDetailsOuter">
     <div class="ticketDetailsInner">
-        <div class="detailsArea">
-            <div id="detailsText" <%if(ViewData["formatForEmail"] == null){ %> style="height: <%= detailsHeight%>px;" <% } %>>
+        <div class="detailsTextWrapper">
+            <div id="detailsText" <%if(ViewData["formatForEmail"] == null){ %> style="height: <%= detailsHeight%>px;"
+                <% } %>>
                 <%= Model.HtmlDetails%>
             </div>
         </div>

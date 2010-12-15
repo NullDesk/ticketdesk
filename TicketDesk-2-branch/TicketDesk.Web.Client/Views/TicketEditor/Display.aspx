@@ -28,7 +28,6 @@
     <link rel="stylesheet" type="text/css" href="<%= Links.Scripts.prettify_small_3_Dec_2009.prettify_css %>" />
     <link rel="Stylesheet" type="text/css" media="all" href="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_css %>" />
     <script type="text/javascript" src="<%= Links.Scripts.jquery_autocomplete.jquery_autocomplete_min_js %>"></script>
-   
     <script type="text/javascript">
 
 
@@ -108,7 +107,7 @@
             }
         };
 
-        $("document").ready(function () { $("#ModifyAttachmentsLink").show(); CheckScrollDetails(); Corners(); AddStyles(); CheckActivityHeight(); });
+        $("document").ready(function () { $("#ModifyAttachmentsLink").show(); CheckScrollDetails(); AddStyles(); CheckActivityHeight(); });
 
         function goUploadify() {
 
@@ -135,7 +134,7 @@
                         }, 200);
                     },
                     onComplete: function (file, response) {
-                        debugger;
+                        
                         button.text('Upload');
                         $("#progress").hide();
                         window.clearInterval(interval);
@@ -150,23 +149,22 @@
 
         function AddStyles() {
             $("head").append("<style>#comment{display:none;}</style>"); //style hides the comment boxes by default, but only when javascript is enabled on client
-            $("#activitySizer").css("overflow", "hidden").css("height", "100px");
+            $("#activitySizer").css("overflow", "hidden").css("height", "88px");
             makePretty();
         }
 
-        function Corners() {
-            $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
-        }
+        
 
         var detailsLastHeight = 0;
-        var detailsMinHeight = 150;
+        var detailsMinHeight = 200;
         var hasExpander = false;
         var isExpanded = false;
 
         function CheckScrollDetails() {
             $("#detailTextExpander").hide();
-            var dt = $("#detailsText");
+           
             $("#detailsText").each(function () {
+                
                 if ((this.scrollHeight > this.clientHeight)) {
                     hasExpander = true;
                     detailsLastHeight = this.scrollHeight;
@@ -178,7 +176,7 @@
 
         function CheckActivityHeight() {
             var newHeight = 150;
-            newHeight = $('#activityArea').get(0).scrollHeight + 20;
+            newHeight = $('#activityArea').get(0).scrollHeight + 10;
             $("#activitySizer").animate({ height: newHeight }, 500);
         }
 
@@ -186,10 +184,12 @@
             if ($("#detailTextExpander").hasClass("collapserButton")) {
                 isExpanded = false;
                 $("#detailsText").animate({ height: detailsMinHeight }, 300, function () { $("#detailsText").css('overflow', 'auto'); $("#detailTextExpander").toggleClass("collapserButton"); });
+               
             }
             else {
                 isExpanded = true;
                 $("#detailsText").animate({ height: detailsLastHeight }, 300, function () { $("#detailsText").css('overflow', 'visible'); $("#detailTextExpander").toggleClass("collapserButton"); });
+                
             }
         }
 
@@ -267,7 +267,7 @@
         }
 
         function completeRefreshAttachments() {
-            $('#attachmentsWrapper').animate({ opacity: 1 }, 300, function () { Corners(); });
+            $('#attachmentsWrapper').animate({ opacity: 1 }, 300, function () { corners(); });
         }
 
         function completeRefreshHistory() {
@@ -386,53 +386,47 @@
         }
     %>
     <div class="contentContainer">
-        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshStats, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "statsArea", OnBegin = "beginRefreshStats", OnSuccess = "completeRefreshStats" }))
-           {
-        %>
-        <div id="statsWrapper" style="width: 250px; float: right;">
+        <div id="detailsWrapper" style="width:100%;">
             <div class="displayContainerOuter">
-                <div class="displayContainerInner">
-                    <div id="statsArea">
-                        <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
+                <div class="displayContainerInner" style="background-color: #FBFCFD;">
+                    <div class="displayHeaderSideBar" >
+                      <%  using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshAttachments, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "attachmentsArea", OnBegin = "beginRefreshAttachments", OnSuccess = "completeRefreshAttachments" }))
+                            {
+                        %><div id="attachmentsArea" >
+                            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData);%>
+                        </div>
+                        <input type="submit" style="display: none;" id="refreshAttachmentsButton" value="Refresh Attachments" />
+                        <%
+                            }
+                        %>
+
+
+                        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshStats, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "statsArea", OnBegin = "beginRefreshStats", OnSuccess = "completeRefreshStats" }))
+                           {
+                        %>
+                        <div id="statsArea"  >
+                            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.TicketStats, Model, ViewData); %>
+                        </div>
+                        <input type="submit" style="display: none;" id="refreshStatsButton" value="Refresh Stats" />
+                        <%
+                            }
+                        %>
+                      
+
                     </div>
-                </div>
-            </div>
-            <div>
-                <input type="submit" style="display: none;" id="refreshStatsButton" value="Refresh Stats" />
-            </div>
-        </div>
-        <%
-            }
-        %>
-        <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshDetails, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "detailsArea", OnBegin = "beginRefreshDetails", OnSuccess = "completeRefreshDetails" }))
-           {
-        %>
-        <div id="detailsWrapper" style="margin-right: 275px;">
-            <div class="displayContainerOuter">
-                <div class="displayContainerInner">
+                    <% using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshDetails, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "detailsArea", OnBegin = "beginRefreshDetails", OnSuccess = "completeRefreshDetails" }))
+                       {
+                    %>
                     <div id="detailsArea">
                         <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Details, Model, ViewData);%>
                     </div>
+                    <input type="submit" style="display: none;" id="refreshDetailsButton" value="Refresh Details" />
+                    <%
+                        }
+                    %>
                 </div>
             </div>
-            <div>
-                <input type="submit" style="display: none;" id="refreshDetailsButton" value="Refresh Details" />
-            </div>
         </div>
-        <%
-            }
-        %>
-        <%  using (Ajax.BeginForm(MVC.TicketEditor.ActionNames.RefreshAttachments, new { ID = Model.TicketId }, new AjaxOptions { UpdateTargetId = "attachmentsArea", OnBegin = "beginRefreshAttachments", OnSuccess = "completeRefreshAttachments" }))
-            {
-        %><div id="attachmentsArea">
-            <% Html.RenderPartial(MVC.TicketEditor.Views.Controls.Attachments, Model, ViewData);%>
-        </div>
-        <div>
-            <input type="submit" style="display: none;" id="refreshAttachmentsButton" value="Refresh Attachments" />
-        </div>
-        <%
-            }
-        %>
         <div id="activityWrapper">
             <div class="displayContainerOuter">
                 <div class="displayContainerInner">
@@ -456,9 +450,7 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <input type="submit" style="display: none;" id="refreshHistoryButton" value="Refresh History" />
-            </div>
+            <input type="submit" style="display: none;" id="refreshHistoryButton" value="Refresh History" />
         </div>
         <%
             }

@@ -619,12 +619,13 @@ namespace TicketDesk.Domain.Services
                 }
                 else//attachment in modified collection, assume it is to be modified
                 {
-
+                    //TODO: the commenting here needs to be moved into the text utilities so it can deal with formatting (html vs. markdown) according to rules defined elsewhere, this is not the right place for the system to make formatting decisions. 
                     if (ticketAttachment.FileName != attMod.FileName)
                     {
                         attachmentsChanged = true;
                         if (!ticketAttachment.IsPending)//add comment about changed attachment only of !IsPending
                         {
+                            
                             changeComments.Add(string.Format("changed file name from {0} to {1}", ticketAttachment.FileName, attMod.FileName));
                         }
                         ticketAttachment.FileName = attMod.FileName;
@@ -668,7 +669,8 @@ namespace TicketDesk.Domain.Services
             StringBuilder sb = new StringBuilder();
             foreach (string s in changeComments)
             {
-                sb.Append(string.Format("- {0}\n", s));
+                //TODO: the replace here is a bit of a hack, need to refactor this for a more robust formatting system.
+                sb.Append(string.Format("- {0}\n", s.Replace("_", @"\_")));//replace to deal with underscores in filenames & markdown formatting
             }
             if (ticketComment.Comment.Length > 0)
             {
