@@ -592,6 +592,8 @@ namespace Links {
                             public static readonly string bg_editor_html_png = Url("bg-editor-html.png");
                             public static readonly string bg_editor_json_png = Url("bg-editor-json.png");
                             public static readonly string bg_editor_markdown_png = Url("bg-editor-markdown.png");
+                            public static readonly string bg_editor_preview_png = Url("bg-editor-preview.png");
+                            public static readonly string bg_editor_preview_psd = Url("bg-editor-preview.psd");
                             public static readonly string bg_editor_textile_png = Url("bg-editor-textile.png");
                             public static readonly string bg_editor_wiki_png = Url("bg-editor-wiki.png");
                             public static readonly string bg_editor_xml_png = Url("bg-editor-xml.png");

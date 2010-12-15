@@ -407,6 +407,7 @@
     <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-html.png" />
     <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-json.png" />
     <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-markdown.png" />
+    <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-preview.png" />
     <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-textile.png" />
     <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-wiki.png" />
     <Content Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-xml.png" />
@@ -579,6 +580,7 @@
     <None Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\INSTALL" />
     <None Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\LICENSE" />
     <None Include="Scripts\jquery-qtip-1.0.0-beta3.1020438\REQUIREMENTS" />
+    <None Include="Scripts\markitup-editor\markitup\skins\markdown\images\bg-editor-preview.psd" />
     <None Include="Scripts\openlibrary-wmd-master\images\wmd-buttons.psd" />
     <None Include="Scripts\openlibrary-wmd-master\jsmin.py" />
     <None Include="Scripts\openlibrary-wmd-master\Makefile" />
