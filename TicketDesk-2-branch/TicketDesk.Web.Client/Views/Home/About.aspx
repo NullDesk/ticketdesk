@@ -23,29 +23,34 @@
                     <div>
                         <div class="activityHeadWrapper">
                             <div class="activityHead">
-                                About TicketDesk MVC
+                                About TicketDesk 2.0
                             </div>
                         </div>
                         <div class="activityBody" style="padding: 15px; min-height: 200px;">
                             <p>
-                                TicketDesk 2.0 MVC is a branch of the open source <a href="http://ticketdesk.codeplex.com">
-                                    TicketDesk project</a> at <a href="http://codeplex.com">CodePlex</a>. TicketDesk
-                                was initially written before the ASP.NET MVC framework was released. Now that ASP.NET MVC
-                                is stable, this next version of TicketDesk is a re-write of the original targeting
-                                the new framework and technologies.
+                                <a href="http://ticketdesk.codeplex.com">TicketDesk 2.0</a> is an open source project
+                                hosted on <a href="http://codeplex.com">CodePlex</a>.
                             </p>
                             <p>
-                                This site is intended to provide an early look at the upcoming TicketDesk MVC application
-                                in a pre-release form. Some features will be missing, others may be broken, but
-                                it should be enough to provide a glimpse of what the finished application will look
-                                like.
+                                TicketDesk is designed to be a fully functional, but simplistic issue tracking system
+                                for IT help desks. The focus of TicketDesk is enabling quick, and easy communication
+                                between help desk staff and users within a single organization.
                             </p>
-                           
-                         
                             <p>
-                                If you are interested in the current shipping version of TicketDesk, please visit
-                                the <a href="http://ticketdesk.codeplex.com">official TicketDesk project site</a>.
+                                For programmers, TicketDesk can be a great learning tool for the newer breed of
+                                Microsoft development technologies. The general design also makes a good foundation
+                                for a large number of different projects.
                             </p>
+                            <p>
+                                TicketDesk uses the following technologies:
+                            </p>
+                            <ul>
+                                <li>Asp.net MVC Framework (2.0) on .NET 4.0</li>
+                                <li>MVCContrib</li>
+                                <li>Entity Framework 4.0</li>
+                                <li>Managed Extensibility Framework (MEF)</li>
+                                <li>SQL 2005 or 2008 (compatible with Express and Full SQL editions).</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

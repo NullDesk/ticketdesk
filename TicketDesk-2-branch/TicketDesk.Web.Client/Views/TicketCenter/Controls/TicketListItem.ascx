@@ -33,10 +33,12 @@
         <%: Model.Priority%>
     </td>
     <td>
-        <%: Model.CreatedDate.ToString("MM/dd/yy hh:mm tt")%>
+        <%: Model.CreatedDate.ToString("MM/dd/yy")%><br />
+        <%: Model.CreatedDate.ToString("hh:mm tt")%>
     </td>
     <td>
-        <%: Model.LastUpdateDate.ToString("MM/dd/yy hh:mm tt")%>
+        <%: Model.LastUpdateDate.ToString("MM/dd/yy")%><br />
+        <%: Model.LastUpdateDate.ToString("hh:mm tt")%>
     </td>
 </tr>
 

@@ -91,6 +91,39 @@ WHERE
 	SettingName = 'KillAllProfilesOnStartup'
 GO
 
+DECLARE @tdAllowSubmitterRoleToEditTags int
+SET @tdAllowSubmitterRoleToEditTags = 0
+SELECT @tdAllowSubmitterRoleToEditTags = 1 FROM Settings WHERE SettingName = 'AllowSubmitterRoleToEditTags'
+IF @tdAllowSubmitterRoleToEditTags = 0
+BEGIN
+	INSERT Settings(SettingName,SettingValue,DefaultValue,SettingType,SettingDescription)
+	VALUES('AllowSubmitterRoleToEditTags','true','true','BoolString','If true submitters can set tags during ticket creation and in the ticket editor. Setting this to false reserves the tags for help desk staff use only, though tags will still be visible to submitters once set by the staff.\n\nTagging is encouraged as it assists in later ticket searches.')
+END
+GO
+
+
+
+DECLARE @tdCreateSqlMembershipRegistrationsAsSubmitters int
+SET @tdCreateSqlMembershipRegistrationsAsSubmitters = 0
+SELECT @tdCreateSqlMembershipRegistrationsAsSubmitters = 1 FROM Settings WHERE SettingName = 'CreateSqlMembershipRegistrationsAsSubmitters'
+IF @tdCreateSqlMembershipRegistrationsAsSubmitters = 0
+BEGIN
+	INSERT Settings(SettingName,SettingValue,DefaultValue,SettingType,SettingDescription)
+	VALUES('CreateSqlMembershipRegistrationsAsSubmitters','true','true','BoolString','If true new users that register will automatically be added to the submitters role.\n\nIf your system is exposed to the public, and you do NOT intend for the general public to be able to use your system, you should set this to false and require that an admin manually grant new users permissions.')
+END
+GO
+
+
+DECLARE @tdAllowSubmitterRoleToEditPriority int
+SET @tdAllowSubmitterRoleToEditPriority = 0
+SELECT @tdAllowSubmitterRoleToEditPriority = 1 FROM Settings WHERE SettingName = 'AllowSubmitterRoleToEditPriority'
+IF @tdAllowSubmitterRoleToEditPriority = 0
+BEGIN
+	INSERT Settings(SettingName,SettingValue,DefaultValue,SettingType,SettingDescription)
+	VALUES('AllowSubmitterRoleToEditPriority','false','false','BoolString','If true submitters can set the priority field either during ticket creation, or in the ticket editor. Setting this to false reserves the priority field for help desk staff use only, though priorities will still be visible to submitters once set by the staff. \n\nIn all cases, the priority is an optional field.')
+END
+GO
+
 DECLARE @tdRefreshSecurityCacheMinutes int
 SET @tdRefreshSecurityCacheMinutes = 0
 SELECT @tdRefreshSecurityCacheMinutes = 1 FROM Settings WHERE SettingName = 'RefreshSecurityCacheMinutes'

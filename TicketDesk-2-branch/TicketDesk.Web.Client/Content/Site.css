@@ -642,7 +642,7 @@ ul#submenu li.selected a
 .formatTable tbody tr th
 {
     text-align: right;
-    padding: 2px;
+    padding: 10px 2px 2px 2px;
     color: #134A8A;
     vertical-align: top;
     white-space: nowrap;
@@ -651,14 +651,47 @@ ul#submenu li.selected a
 
 .formatTable tbody tr td
 {
-    padding: 2px;
+    padding: 8px 2px 2px 2px;
     vertical-align: top;
 }
 
 .formatTable tbody tr td.textField
 {
+    padding: 10px 2px 2px 2px;
+}
+
+
+.statsTable
+{
+}
+
+.statsTable tbody tr th label
+{
+    
+}
+
+.statsTable tbody tr th
+{
+    text-align: right;
+    padding: 2px;
+    color: #134A8A;
+    vertical-align: top;
+    white-space: nowrap;
+    font-weight: normal;
+}
+
+.statsTable tbody tr td
+{
+    padding: 2px;
+    vertical-align: top;
+}
+
+.statsTable tbody tr td.textField
+{
     padding: 2px;
 }
+
+
 
 /* File Attachment Containers */
 

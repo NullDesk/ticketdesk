@@ -31,10 +31,10 @@
                              <div class="adminItemContainer userSettings">
                                <%= Html.ActionLink("Manage Users", MVC.Admin.SecurityManagement.UsersList()) %>
                             </div>
-                            
+                          <%--  
                             <div class="adminItemContainer roleSettings">
                                  <%= Html.ActionLink("Manage Roles", MVC.Admin.SecurityManagement.RolesList())%>
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                 </div>

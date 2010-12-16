@@ -22,21 +22,29 @@
                             <td style="vertical-align: top; background-color: #fff;">
                                 <div style="padding: 10px;">
                                     <h2>
-                                        Welcome to TicketDesk 2.0 (beta 2)!</h2>
+                                        Welcome to TicketDesk 2.0 <sup>(RC1)</sup></h2>
                                     <p>
-                                        This is a beta version of <b>TicketDesk 2.0</b>. Most of it should work fine, but
-                                        it is still a beta release.
+                                        This is a pre-release version of <b>TicketDesk 2.0</b>. Most of it should work fine,
+                                        but it isn&#39;t quite done cooking yet. This preview is intended to allow users
+                                        to experiment with the new system and offer feedback and suggestions before the
+                                        final release. This is your opportunity to help us help you!
                                     </p>
                                     <p>
-                                        There are two pre-defined example users:
+                                        There are three pre-defined example users:
                                     </p>
                                     <ul>
                                         <li>Admin User: login as "admin" with "admin" as the password.
                                             <br />
-                                            This user has full access to the system and is a member of the help desk staff role.<br />
+                                            This user has full access to the system and is a member of all three roles.<br />
                                             <br />
                                         </li>
-                                        <li>Toastman Wasiesname: login as "toastman" with "toastman" as the password.
+                                        <li>Other Staffer: login as "otherstaffer" with "otherstaffer" as the password.
+                                            <br />
+                                            This user is a help desk staff member and submitter; this is an example of how the
+                                            site would behave for most of the technical staff.<br />
+                                            <br />
+                                        </li>
+                                        <li>Toastman Wazisname: login as "toastman" with "toastman" as the password.
                                             <br />
                                             This user is a ticket submitter only and is an example of how the site would behave
                                             to regualr end-users.<br />
@@ -44,23 +52,20 @@
                                         </li>
                                     </ul>
                                     <p>
-                                        You can register your own users, but they will only be members of the "ticket submitters
-                                        role" for now (until the admin tools for user management are implemented).</p>
-                                    <p>
-                                        <p>
-                                            Notes:
-                                        </p>
-                                        <ul>
-                                            <li>Admin tools have been implemented, except for SQL security user management.
-                                                <br />
-                                                <br />
-                                            </li>
-                                            <li>This release includes some database structure changes in the settings table, as
-                                                well as the need for seed data for the default set of application settings.
-                                                <br />
-                                                <br />
-                                            </li>
-                                        </ul>
+                                        Notes:
+                                    </p>
+                                    <ul>
+                                        <li>This version should work in Firefox 4+, Chrome 7+, and IE8. It has not been tested
+                                            with other browsers yet.&nbsp;&nbsp;
+                                            <br />
+                                            &nbsp; </li>
+                                        <li>This system is designed for all major browsers, but not all of the UI effects work
+                                            exactly the same in all of them; Google&#39;s Chrome browser has the best overall
+                                            user experience, but all of the features should be usable in all browsers.
+                                            <br />
+                                            <br />
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="clear">
                                 </div>
@@ -72,15 +77,12 @@
                                         <h3>
                                             This Release</h3>
                                         <ul>
-                                            <li>Admin area and tools implemented</li>
-                                            <li>Refactored application settings & moved most of the settings from web.config to
-                                                the DB.</li>
-                                            <li>TicketDesk 2 Logo (hey, I'm not a graphics guy... gimmie a break!)</li>
-                                            <li>New Structure for the Settings DB table, as well as new "seed" data.</li>
-                                            <li>New Email Diagnostics admin section; allows you to view how email templates will be rendered</li>
-                                            <li>Fixed lucene bug; adding attachments for new tickets broke index update.</li>
-                                            <li>Fixed bug with edit details not correctly identifying "changed" ticket properties when building the comment details.</li>
-                                            <li>Changed search behavior to limit results to 20 (was 100)</li>
+                                            <li>Refactord UI for IE8 compatibility.</li>
+                                            <li>New side-by-side preview window for the text editors.</li>
+                                            <li>New Email content templates specifically for outlook environments. </li>
+                                            <li>Attachments now fully supported in AD environments. </li>
+                                            <li>Fixed unassigned flag appearing on closed tickets that lacked an assigned user.</li>
+                                            <li>Numerous minor tweaks, fixes, and enhancements. </li>
                                         </ul>
                                     </div>
                                 </div>

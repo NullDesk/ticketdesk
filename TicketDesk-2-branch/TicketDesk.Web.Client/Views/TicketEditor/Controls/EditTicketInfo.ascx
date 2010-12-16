@@ -27,11 +27,10 @@
                 <th>
                     <%: Html.ValidationMessageFor(m => m.Type, "*")%><%= Html.LabelFor(m => m.Type) %>
                 </th>
-                <td style="padding:0px;">
+                <td style="padding: 0px;">
                     <table class="formatTable" cellpadding="0" cellspacing="0">
                         <tbody>
                             <tr>
-                               
                                 <td>
                                     <%: Html.DropDownListFor(m => m.Type, Model.GetTicketTypeSelectList()) %>
                                 </td>
@@ -41,12 +40,15 @@
                                 <td>
                                     <%:  Html.DropDownListFor(m => m.Category, Model.GetCategorySelectList())%>
                                 </td>
+                                <% if (controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority)
+                                   {%>
                                 <th>
-                                    <%: Html.ValidationMessageFor(m => m.Priority, "*")%><%= Html.LabelFor(m => m.Priority) %>
+                                    <%: Html.ValidationMessageFor(m => m.Priority, "*")%><%= Html.LabelFor(m => m.Priority)%>
                                 </th>
                                 <td>
                                     <%:  Html.DropDownListFor(m => m.Priority, Model.GetPrioritySelectList())%>
                                 </td>
+                                <% } %>
                             </tr>
                         </tbody>
                     </table>
@@ -78,14 +80,17 @@
                     <%: Html.ValidationMessageFor(m => m.Owner, "*")%>
                 </td>
             </tr>
+            <% if (controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority)
+               {%>
             <tr>
                 <th>
-                    <%: Html.ValidationMessageFor(m => m.TagList, "*")%><%= Html.LabelFor(m => m.TagList) %>
+                    <%: Html.ValidationMessageFor(m => m.TagList, "*")%><%= Html.LabelFor(m => m.TagList)%>
                 </th>
                 <td colspan="2">
                     <%: Html.TextBoxFor(m => m.TagList, new { style = "min-width:300px;width:450px;" })%>
                 </td>
             </tr>
+            <%} %>
             <tr>
                 <th>
                     comment:

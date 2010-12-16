@@ -31,11 +31,11 @@ namespace TicketDesk.Domain.Services
         /// Gets a collection of available priorities.
         /// </summary>
         /// <returns></returns>
-        public  string[] AvailablePriorities
+        public string[] AvailablePriorities
         {
             get
             {
-                return (string[])GetSettingValue("PriorityList"); 
+                return (string[])GetSettingValue("PriorityList");
             }
         }
 
@@ -43,7 +43,7 @@ namespace TicketDesk.Domain.Services
         /// Gets a collection of available categories.
         /// </summary>
         /// <returns></returns>
-        public  string[] AvailableCategories
+        public string[] AvailableCategories
         {
             get
             {
@@ -56,11 +56,11 @@ namespace TicketDesk.Domain.Services
         /// </summary>
         /// <value></value>
         /// <returns></returns>
-        public  string[] AvailableTicketTypes
+        public string[] AvailableTicketTypes
         {
             get
             {
-                return (string[])GetSettingValue("TicketTypesList"); 
+                return (string[])GetSettingValue("TicketTypesList");
             }
         }
 
@@ -186,15 +186,37 @@ namespace TicketDesk.Domain.Services
             }
         }
 
+        public bool AllowSubmitterRoleToEditTags
+        {
+            get
+            {
+                return (bool)(GetSettingValue("AllowSubmitterRoleToEditTags") ?? true);
+            }
+        }
+        public bool AllowSubmitterRoleToEditPriority
+        {
+            get
+            {
+                return (bool)(GetSettingValue("AllowSubmitterRoleToEditPriority") ?? false);
+            }
+        }
 
-         #region MEF Setting Exports
+        public bool CreateSqlMembershipRegistrationsAsSubmitters
+        {
+            get
+            {
+                return (bool)(GetSettingValue("CreateSqlMembershipRegistrationsAsSubmitters") ?? true);
+            }
+        }
+
+        #region MEF Setting Exports
 
         [Export("RefreshSecurityCacheMinutes")]
         public int RefreshSecurityCacheMinutes
         {
             get
             {
-                return  (int)(GetSettingValue("RefreshSecurityCacheMinutes") ?? 60);
+                return (int)(GetSettingValue("RefreshSecurityCacheMinutes") ?? 60);
             }
         }
 
@@ -206,15 +228,15 @@ namespace TicketDesk.Domain.Services
                 return (int)(GetSettingValue("AdUserPropertiesSqlCacheRefreshMinutes") ?? 120);
             }
         }
-        
+
 
 
         //////////////////////////////////////////////////
 
 
         [Export("EmailNotificationsEnabled")]
-        public bool EmailNotificationsEnabled() 
-        { 
+        public bool EmailNotificationsEnabled()
+        {
             return (bool)(GetSettingValue("EnableEmailNotifications") ?? false);
         }
 
@@ -242,8 +264,8 @@ namespace TicketDesk.Domain.Services
         [Export("BlindCopyToEmailAddress")]
         public string BlindCopyToEmailAddress() { return (string)(GetSettingValue("BlindCopyToEmailAddress") ?? null); }
 
-        
-        
+
+
 
         #endregion
     }

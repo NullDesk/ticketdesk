@@ -150,6 +150,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="main" ContentPlaceHolderID="MainContent" runat="server">
+
     <% var Editor = "markitup"; %>
     <div class="contentContainer">
         <% Html.EnableClientValidation(); %>
@@ -198,6 +199,7 @@
                                                     <%: Html.ValidationMessageFor(m => m.Ticket.Priority, "*")%><%= Html.LabelFor(m => m.Ticket.Priority) %>
                                                 </th>
                                                 <td>
+                                                    
                                                     <%:  Html.DropDownListFor(m => m.Ticket.Priority, Model.PriorityList)%>
                                                 </td>
                                                 <%
@@ -208,9 +210,11 @@
                                     </table>
                                 </td>
                             </tr>
+                            <% if (Model.DisplayTags)
+                               { %>
                             <tr>
                                 <th>
-                                    <%: Html.ValidationMessageFor(m => m.Ticket.TagList, "*")%><%= Html.LabelFor(m => m.Ticket.TagList) %>
+                                    <%: Html.ValidationMessageFor(m => m.Ticket.TagList, "*")%><%= Html.LabelFor(m => m.Ticket.TagList)%>
                                 </th>
                                 <td colspan="2">
                                     <%: Html.TextBoxFor(m => m.Ticket.TagList, new { style = "min-width:300px;width:450px;" })%>
@@ -238,6 +242,7 @@
                                     </script>
                                 </td>
                             </tr>
+                            <% } %>
                             <%
                                 if (Model.DisplayOwner)
                                 {

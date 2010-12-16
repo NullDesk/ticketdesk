@@ -9,7 +9,7 @@
 </div>
 
 <div class="activityBody ticketStatsBody">
-    <table class="formatTable">
+    <table class="statsTable">
         <tr>
             <th>
                 <label for="LastUpdateBy">

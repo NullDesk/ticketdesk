@@ -77,7 +77,9 @@ namespace TicketDesk.Domain.Services
         int EmailDeliveryTimerIntervalMinutes { get; }
         string SiteRootUrlForEmail { get; }
         string LuceneDirectory { get; }
-
+        bool AllowSubmitterRoleToEditTags { get; }
+        bool AllowSubmitterRoleToEditPriority { get; }
+        bool CreateSqlMembershipRegistrationsAsSubmitters { get; }
         int RefreshSecurityCacheMinutes { get; }
         int AdUserPropertiesSqlCacheRefreshMinutes { get; }
 
@@ -90,5 +92,6 @@ namespace TicketDesk.Domain.Services
         string FromEmailDisplayName();
         string FromEmailAddress();
         string BlindCopyToEmailAddress();
+         
     }
 }

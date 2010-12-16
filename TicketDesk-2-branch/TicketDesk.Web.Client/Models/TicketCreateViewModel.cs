@@ -34,6 +34,23 @@ namespace TicketDesk.Web.Client.Models
             }
         }
 
+        public bool DisplayTags
+        {
+            get
+            {
+                bool isAllowed = Security.IsTdStaff();
+                if (Security.IsTdSubmitter() && !Security.IsTdStaff())
+                {
+                    var configValue = Settings.ApplicationSettings.AllowSubmitterRoleToEditTags;
+                    if (configValue != null)
+                    {
+                        isAllowed = Convert.ToBoolean(configValue);
+                    }
+                }
+                return isAllowed;
+            }
+        }
+
         public bool DisplayPriorityList
         {
             get
@@ -41,7 +58,7 @@ namespace TicketDesk.Web.Client.Models
                 bool isAllowed = Security.IsTdStaff();
                 if (Security.IsTdSubmitter() && !Security.IsTdStaff())
                 {
-                    var configValue = ConfigurationManager.AppSettings["AllowSubmitterRoleToEditPriority"];
+                    var configValue = Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority;
                     if (configValue != null)
                     {
                         isAllowed = Convert.ToBoolean(configValue);

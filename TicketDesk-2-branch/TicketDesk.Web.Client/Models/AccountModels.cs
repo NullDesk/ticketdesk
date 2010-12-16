@@ -102,7 +102,7 @@ namespace TicketDesk.Web.Client.Models
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security);
+        MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security, IApplicationSettingsService appSettings);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
         bool ChangeUserPreferences(string userName, string displayName, bool openEditorWithPreview, SettingsService settingsService);
     }
@@ -137,7 +137,7 @@ namespace TicketDesk.Web.Client.Models
             return _provider.ValidateUser(userName, password);
         }
 
-        public MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security)
+        public MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security, IApplicationSettingsService appSettings)
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
@@ -149,8 +149,10 @@ namespace TicketDesk.Web.Client.Models
             {
                 u.Comment = displayName;
                 _provider.UpdateUser(u);
-
-                security.AddUserToTdSubmitter(u.UserName);
+                if (appSettings.CreateSqlMembershipRegistrationsAsSubmitters)
+                {
+                    security.AddUserToTdSubmitter(u.UserName);
+                }
             }
             return status;
         }
