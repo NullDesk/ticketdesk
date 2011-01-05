@@ -52,7 +52,7 @@
                                     <td>
                                         <%: item.SettingName.ConvertPascalCaseToFriendlyString()%>
                                     </td>
-                                    <td>
+                                    <td style="white-space:normal;">
                                         <%: item.SettingValue %>
                                     </td>
                                    

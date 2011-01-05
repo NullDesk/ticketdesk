@@ -59,7 +59,7 @@ COMMIT
 UPDATE Settings 
 SET 
 	
-	DefaultValue = 'Hardware,Software,Network/Services,Non-Technical',
+	DefaultValue = 'Hardware,Software,Network',
 	SettingType = 'StringList',
 	SettingDescription = 'This is the list of possible selections for the Category dropdown list.\n\nIs is advised that your use generic categories. The recommended rule-of-thumb is that there should be one option that fits any possible ticket a user might create, and there should NOT be a value such as "other", "N/A", or "unknown". Keeping the values general in nature increases the odds that users will pick a meaningful value.'
 WHERE
