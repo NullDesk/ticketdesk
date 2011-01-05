@@ -18,6 +18,8 @@ body
     color: #555;
 }
 
+
+
 a, a *
 {
     color: #14498D;
@@ -38,6 +40,15 @@ a:hover, a:hover *
     color: #FFFFFF;
     text-decoration: none;
     text-shadow: 1px 1px 1px #335;
+}
+
+
+a.noLink, a.noLink *
+{
+}
+a.noLink:hover, a.noLink:hover *
+{
+    background-color: transparent;
 }
 
 
@@ -705,7 +716,7 @@ ul#submenu li.selected a
     background-color: #FFC862;
     border: solid 1px #666666;
     list-style: none;
-    max-width: 700px;
+   
 }
 
 .FileAttachmentItemContainer
@@ -713,7 +724,7 @@ ul#submenu li.selected a
     border: solid 1px #666666;
     background-color: #CCFFCC;
     list-style: none;
-    max-width: 700px;
+   
 }
 
 .FileAttachmentItemContainer label, .PendingFileAttachmentItemContainer label
