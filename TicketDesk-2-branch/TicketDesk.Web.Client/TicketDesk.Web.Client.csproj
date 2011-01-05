@@ -257,7 +257,6 @@
     <Content Include="Content\users.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="ReleaseChecklist.txt" />
     <Content Include="Scripts\corner\jquery.corner.js" />
     <Content Include="Scripts\jquery-autocomplete\changelog.txt" />
     <Content Include="Scripts\jquery-autocomplete\demo\bg.gif" />

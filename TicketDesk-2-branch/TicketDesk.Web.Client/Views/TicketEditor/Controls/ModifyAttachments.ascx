@@ -62,10 +62,10 @@
                                     </th>
                                     <td>
                                         <%: Html.Hidden("fileId_" + att.FileId, att.FileId) %>
-                                        <%: Html.TextBox("fileName_" + att.FileId, att.FileName, new { Style = "width: 225px;"})%>
+                                        <%: Html.TextBox("fileName_" + att.FileId, att.FileName, new { Style = "width: 325px;"})%>
                                     </td>
                                     <td rowspan="2" style="text-align: right;">
-                                        <a href="" onclick="removeAttachment(<%= att.FileId.ToString() %>);return false;">
+                                        <a  class="noLink" href="" onclick="removeAttachment(<%= att.FileId.ToString() %>);return false;">
                                             <img src="<%= Url.Content("~/Content/cancel.png") %>" alt="remove" /></a>
                                     </td>
                                 </tr>
@@ -76,7 +76,7 @@
                                         </label>
                                     </th>
                                     <td>
-                                        <%: Html.TextBox("fileDescription_" + att.FileId, att.FileDescription, new { Style = "width: 225px;" })%>
+                                        <%: Html.TextBox("fileDescription_" + att.FileId, att.FileDescription, new { Style = "width: 325px;" })%>
                                         (optional)
                                     </td>
                                 </tr>
