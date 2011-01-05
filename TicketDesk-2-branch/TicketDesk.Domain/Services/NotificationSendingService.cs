@@ -109,9 +109,9 @@ namespace TicketDesk.Domain.Services
                 var now = DateTime.Now;
 
 
-                var queuedNotes = from n in NotificationRepository.GetQueuedNotifications()
+                var queuedNotes = (from n in NotificationRepository.GetQueuedNotifications()
                                   group n by new { n.NotifyUser, n.TicketId } into userTicketNotes
-                                  select new { userTicketNotes.Key.NotifyUser, userTicketNotes.Key.TicketId, userTicketNotes };
+                                  select new { userTicketNotes.Key.NotifyUser, userTicketNotes.Key.TicketId, userTicketNotes }).ToList();
                 var alteredNotes = new List<TicketEventNotification>();
                 try
                 {

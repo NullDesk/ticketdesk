@@ -49,7 +49,7 @@
                                     <td>
                                         <%: Html.ActionLink("Edit", "Edit", new { settingName = item.SettingName })%>
                                     </td>
-                                    <td>
+                                    <td style="white-space:normal;">
                                         <%: item.SettingName.ConvertPascalCaseToFriendlyString()%>
                                     </td>
                                     <td style="white-space:normal;">

@@ -44,11 +44,11 @@ namespace TicketDesk.Web.Client
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("{*favicon}", new { favicon= @"(.*)?favicon.ico" });
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*)?favicon.ico" });
             //routes.IgnoreRoute("{*css}", new { css = @"(.*)?.css"});
-            routes.IgnoreRoute("{*script}", new { script = @"Scripts/(.*)"});
-            routes.IgnoreRoute("{*content}", new { content= @"Content/(.*)" });
-            
+            routes.IgnoreRoute("{*script}", new { script = @"Scripts/(.*)" });
+            routes.IgnoreRoute("{*content}", new { content = @"Content/(.*)" });
+
             routes.MapRoute("Attachments", "Attachment/{action}/{fileId}", new { Controller = "Attachment" });
 
             routes.MapRoute(
@@ -113,21 +113,18 @@ namespace TicketDesk.Web.Client
             DerelictAttachmentsTimer.AutoReset = true;
             DerelictAttachmentsTimer.Start();
 
-            if (ConfigurationManager.AppSettings["EnableEmailNotifications"] != null)
+            if (AppSettings.EmailNotificationsEnabled())
             {
-                var emailEnabled = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEmailNotifications"]);
 
-                if (emailEnabled)
-                {
-                    EmaiNotificationsTimer = new System.Timers.Timer();
+                EmaiNotificationsTimer = new System.Timers.Timer();
 
-                    int emailInterval = AppSettings.EmailDeliveryTimerIntervalMinutes * 60000;
+                int emailInterval = AppSettings.EmailDeliveryTimerIntervalMinutes * 60000;
 
-                    EmaiNotificationsTimer.Elapsed += new System.Timers.ElapsedEventHandler(EmaiNotificationsTimer_Elapsed);
-                    EmaiNotificationsTimer.Interval = emailInterval;
-                    EmaiNotificationsTimer.AutoReset = true;
-                    EmaiNotificationsTimer.Start();
-                }
+                EmaiNotificationsTimer.Elapsed += new System.Timers.ElapsedEventHandler(EmaiNotificationsTimer_Elapsed);
+                EmaiNotificationsTimer.Interval = emailInterval;
+                EmaiNotificationsTimer.AutoReset = true;
+                EmaiNotificationsTimer.Start();
+
             }
         }
 
