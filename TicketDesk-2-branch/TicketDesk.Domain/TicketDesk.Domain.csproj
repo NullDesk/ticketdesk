@@ -35,10 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Highlighter.Net, Version=2.3.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Library\Highlighter.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Library\Lucene.Net.dll</HintPath>
@@ -165,7 +161,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AutoMetaData.cs</LastGenOutput>
     </None>
-    <None Include="TicketDesk.Domain.Diagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

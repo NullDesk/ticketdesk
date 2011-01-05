@@ -35,10 +35,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ExcludeApp_Data>true</ExcludeApp_Data>
-    <PublishDatabases>false</PublishDatabases>
+    <ExcludeApp_Data>false</ExcludeApp_Data>
+    <PublishDatabases>true</PublishDatabases>
     <PackageAsSingleFile>true</PackageAsSingleFile>
     <DeployIisAppPath>WeberTicketDeskMVC</DeployIisAppPath>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elmah">
@@ -116,7 +120,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActionFilters\SqlSecurityOnlyAttribute.cs" />
-    <Compile Include="Helpers\Attributes\AuthorizeAdminOnly.cs" />
+    <Compile Include="Helpers\ActionFilters\AuthorizeAdminOnly.cs" />
     <Compile Include="Helpers\ActionFilters\NoCacheAttribute.cs" />
     <Compile Include="Helpers\ActionFilters\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Helpers\Extensions\IntExtensions.cs" />
@@ -549,20 +553,8 @@
     <Content Include="SqlWeb.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SqlWeb.Debug.config">
-      <DependentUpon>SqlWeb.config</DependentUpon>
-    </Content>
-    <Content Include="SqlWeb.Release.config">
-      <DependentUpon>SqlWeb.config</DependentUpon>
-    </Content>
     <Content Include="ADWeb.config">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="ADWeb.Debug.config">
-      <DependentUpon>ADWeb.config</DependentUpon>
-    </Content>
-    <Content Include="ADWeb.Release.config">
-      <DependentUpon>ADWeb.config</DependentUpon>
     </Content>
     <None Include="Content\TicketDesk2Logo.psd" />
     <None Include="Helpers\T4MVC\T4MVC.settings.t4" />

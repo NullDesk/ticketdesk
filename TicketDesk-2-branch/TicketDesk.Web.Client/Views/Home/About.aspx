@@ -32,17 +32,13 @@
                                 hosted on <a href="http://codeplex.com">CodePlex</a>.
                             </p>
                             <p>
-                                TicketDesk is designed to be a fully functional, but simplistic issue tracking system
-                                for IT help desks. The focus of TicketDesk is enabling quick, and easy communication
-                                between help desk staff and users within a single organization.
+                                TicketDesk is designed to be a fully functional yet simplistic web based issue tracking system
+                                with a focus on promoting frictionless communication between the help desk and
+                                end-users. TicketDesk is designed primarily for internal use within a single organization. 
                             </p>
+                            
                             <p>
-                                For programmers, TicketDesk can be a great learning tool for the newer breed of
-                                Microsoft development technologies. The general design also makes a good foundation
-                                for a large number of different projects.
-                            </p>
-                            <p>
-                                TicketDesk uses the following technologies:
+                                TicketDesk was developed with the following technologies:
                             </p>
                             <ul>
                                 <li>Asp.net MVC Framework (2.0) on .NET 4.0</li>

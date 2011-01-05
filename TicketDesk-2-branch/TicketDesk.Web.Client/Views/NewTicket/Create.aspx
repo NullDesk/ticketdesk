@@ -130,7 +130,7 @@
                     }, 200);
                 },
                 onComplete: function (file, response) {
-                    
+
                     button.text('Upload');
                     $("#progress").hide();
                     window.clearInterval(interval);
@@ -150,7 +150,6 @@
     </style>
 </asp:Content>
 <asp:Content ID="main" ContentPlaceHolderID="MainContent" runat="server">
-
     <% var Editor = "markitup"; %>
     <div class="contentContainer">
         <% Html.EnableClientValidation(); %>
@@ -170,7 +169,7 @@
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Title,"*") %><%=  Html.LabelFor(m => m.Ticket.Title) %>
                                 </th>
-                                <td colspan="2">
+                                <td >
                                     <%: Html.TextBoxFor(m => m.Ticket.Title, new { style = "min-width:300px;width:450px;" })%>
                                 </td>
                             </tr>
@@ -178,13 +177,13 @@
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Type, "*")%><%= Html.LabelFor(m => m.Ticket.Type) %>
                                 </th>
-                                <td>
-                                    <%: Html.DropDownListFor(m => m.Ticket.Type, Model.TicketTypeList) %>
-                                </td>
                                 <td style="width: 100%; padding: 0px;">
                                     <table class="formatTable" cellpadding="0" cellspacing="0">
                                         <tbody>
                                             <tr>
+                                                <td>
+                                                    <%: Html.DropDownListFor(m => m.Ticket.Type, Model.TicketTypeList) %>
+                                                </td>
                                                 <th>
                                                     <%: Html.ValidationMessageFor(m => m.Ticket.Category, "*")%><%= Html.LabelFor(m => m.Ticket.Category) %>
                                                 </th>
@@ -199,12 +198,13 @@
                                                     <%: Html.ValidationMessageFor(m => m.Ticket.Priority, "*")%><%= Html.LabelFor(m => m.Ticket.Priority) %>
                                                 </th>
                                                 <td>
-                                                    
                                                     <%:  Html.DropDownListFor(m => m.Ticket.Priority, Model.PriorityList)%>
                                                 </td>
                                                 <%
                                                     } 
                                                 %>
+                                                <td style="width: 100%;">
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -216,7 +216,7 @@
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.TagList, "*")%><%= Html.LabelFor(m => m.Ticket.TagList)%>
                                 </th>
-                                <td colspan="2">
+                                <td >
                                     <%: Html.TextBoxFor(m => m.Ticket.TagList, new { style = "min-width:300px;width:450px;" })%>
                                     <script type="text/javascript">
                                         $(document).ready(function () {
@@ -251,7 +251,7 @@
                                 <th>
                                     <%: Html.LabelFor(m => m.Ticket.Owner) %>
                                 </th>
-                                <td colspan="2">
+                                <td >
                                     <%: Html.DropDownListFor(m => m.Ticket.Owner, Model.OwnersList)%>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Owner, "*")%>
                                 </td>
@@ -263,7 +263,7 @@
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Details, "*")%><%= Html.LabelFor(m => m.Ticket.Details) %>
                                 </th>
-                                <td colspan="2">
+                                <td >
                                     <%if (Editor == "markitup")
                                       { %>
                                     <%: Html.TextAreaFor(m => m.Ticket.Details, new { @Class = "markItUpEditor" })%>
@@ -280,16 +280,17 @@
                                 <th>
                                     <%: Html.LabelFor(m => m.Ticket.TicketAttachments) %>
                                 </th>
-                                <td colspan="2" style="height:35px;">
+                                <td  style="height: 35px;">
                                     <%: Html.ValidationMessageFor(m => m.Ticket.TicketAttachments, "*")%>
-                                    <div id="fileUploader" class="activityButton" style="width: 100px;display:inline-block;">
-                                        Upload</div><img id="progress" src="<%= Url.Content("~/Content/progress.gif") %>" style="display: none;" />
+                                    <div id="fileUploader" class="activityButton" style="width: 100px; display: inline-block;">
+                                        Upload</div>
+                                    <img id="progress" src="<%= Url.Content("~/Content/progress.gif") %>" style="display: none;" />
                                 </td>
                             </tr>
                             <tr>
                                 <th>
                                 </th>
-                                <td colspan="2">
+                                <td >
                                     <div id="attachmentsArea" style="padding-left: 15px;">
                                         <table id="files_list">
                                             <tr>

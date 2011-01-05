@@ -15,7 +15,7 @@ Run them in this order:
 
 3_SecurityDefaultUsers.sql
 
-	This script will create default user accounts for three users. You do not have to run this script; instead you can use the aspnet configuration utility to create your initial users. 
+	This script will create default user accounts for three users. You do not have to run this script; instead you can use the aspnet configuration utility to create an initial admin users, then from there use the online tools to create and manage other user accounts. 
 
 	Here are the users created:
 		

@@ -52,6 +52,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string Index = "~/Areas/Admin/Views/AdminHome/Index.aspx";
         }
     }
 
