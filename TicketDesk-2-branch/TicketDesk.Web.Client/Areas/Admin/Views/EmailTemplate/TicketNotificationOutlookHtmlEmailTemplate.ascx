@@ -98,6 +98,13 @@
             padding: 2px 2px 2px 5px;
             background-color: #E1EBF2;
         }
+        
+         .fieldSubText
+        {
+            font-size: 9pt;
+            color: #999;
+            margin-left: 25px;
+        }
     </style>
 </head>
 <body>
@@ -174,7 +181,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap; text-align:right;">
                             <label for="LastUpdateBy">
                                 Status:
                             </label>
@@ -184,7 +191,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap;text-align:right;">
                             <label for="LastUpdateBy">
                                 Updated By:
                             </label>
@@ -194,7 +201,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap;text-align:right;">
                             <label for="LastUpdateDate">
                                 Updated Date:
                             </label>
@@ -205,7 +212,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap;text-align:right;">
                             <label for="CurrentStatusSetBy">
                                 Status By:
                             </label>
@@ -215,7 +222,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap;text-align:right;">
                             <label for="CurrentStatusDate">
                                 Status Date:
                             </label>
@@ -226,7 +233,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap;text-align:right;">
                             <label for="CreatedBy">
                                 Created by:
                             </label>
@@ -236,7 +243,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="white-space: nowrap;">
+                        <th style="white-space: nowrap;text-align:right;">
                             <label for="CreatedDate">
                                 Created Date:
                             </label>
@@ -268,7 +275,7 @@
                 <%foreach (var a in Model.TicketAttachments.Where(ta => !ta.IsPending))
                   {
                 %>
-                <div style="border: solid 1px #CCDCEA; padding: 5px;">
+                <div style="border: solid 1px #CCDCEA; padding: 5px; font-size:9pt;">
                     <%: a.FileName%>
                     (<%: a.FileSize.ToFileSizeString()%>)
                     <%  if (!string.IsNullOrEmpty(a.FileDescription))

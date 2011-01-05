@@ -254,7 +254,44 @@
         {
             min-height: 145px;
         }
+        #attachmentsList
+        {
+            font-size: 9pt;
+        }
+        .statsTable
+        {
+        }
         
+        .ticketStatsBody
+        {
+            background-color: #FBFCFD;
+            font-size: 9pt;
+            padding: 3px;
+        }
+        .statsTable tbody tr th label
+        {
+        }
+        
+        .statsTable tbody tr th
+        {
+            text-align: right;
+            padding: 2px;
+            color: #134A8A;
+            vertical-align: top;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+        
+        .statsTable tbody tr td
+        {
+            padding: 2px;
+            vertical-align: top;
+        }
+        
+        .statsTable tbody tr td.textField
+        {
+            padding: 2px;
+        }
         
         pre
         {
@@ -274,6 +311,12 @@
             background-color: #eee;
             padding: 1px 5px 1px 5px;
             font-size: 9pt;
+        }
+        .fieldSubText
+        {
+            font-size: 9pt;
+            color: #999;
+            margin-left: 25px;
         }
     </style>
 </head>
