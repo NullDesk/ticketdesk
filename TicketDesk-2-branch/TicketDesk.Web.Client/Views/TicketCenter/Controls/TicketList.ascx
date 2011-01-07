@@ -119,7 +119,8 @@
                         (page
                         <%= Model.Tickets.PageNumber%>
                         of
-                        <%= Model.Tickets.TotalPages%>)
+                        <%= Model.Tickets.TotalPages%> | <%= Model.Tickets.TotalItems%> records)
+
                     </th>
                 </tr>
             </tfoot>

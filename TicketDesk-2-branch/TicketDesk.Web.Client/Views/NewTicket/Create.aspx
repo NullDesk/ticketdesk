@@ -170,7 +170,7 @@
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Title,"*") %><%=  Html.LabelFor(m => m.Ticket.Title) %>
                                 </th>
                                 <td >
-                                    <%: Html.TextBoxFor(m => m.Ticket.Title, new { style = "min-width:300px;width:450px;" })%>
+                                    <%: Html.TextBoxFor(m => m.Ticket.Title, new {TabIndex = 1, style = "min-width:300px;width:450px;" })%>
                                 </td>
                             </tr>
                             <tr>
@@ -182,13 +182,13 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <%: Html.DropDownListFor(m => m.Ticket.Type, Model.TicketTypeList) %>
+                                                    <%: Html.DropDownListFor(m => m.Ticket.Type, Model.TicketTypeList, new { TabIndex = 2 })%>
                                                 </td>
                                                 <th>
                                                     <%: Html.ValidationMessageFor(m => m.Ticket.Category, "*")%><%= Html.LabelFor(m => m.Ticket.Category) %>
                                                 </th>
                                                 <td>
-                                                    <%:  Html.DropDownListFor(m => m.Ticket.Category, Model.CategoryList) %>
+                                                    <%:  Html.DropDownListFor(m => m.Ticket.Category, Model.CategoryList, new { TabIndex = 3 })%>
                                                 </td>
                                                 <%
                                                     if (Model.DisplayPriorityList)
@@ -198,7 +198,7 @@
                                                     <%: Html.ValidationMessageFor(m => m.Ticket.Priority, "*")%><%= Html.LabelFor(m => m.Ticket.Priority) %>
                                                 </th>
                                                 <td>
-                                                    <%:  Html.DropDownListFor(m => m.Ticket.Priority, Model.PriorityList)%>
+                                                    <%:  Html.DropDownListFor(m => m.Ticket.Priority, Model.PriorityList, new { TabIndex = 4 })%>
                                                 </td>
                                                 <%
                                                     } 
@@ -217,7 +217,7 @@
                                     <%: Html.ValidationMessageFor(m => m.Ticket.TagList, "*")%><%= Html.LabelFor(m => m.Ticket.TagList)%>
                                 </th>
                                 <td >
-                                    <%: Html.TextBoxFor(m => m.Ticket.TagList, new { style = "min-width:300px;width:450px;" })%>
+                                    <%: Html.TextBoxFor(m => m.Ticket.TagList, new { style = "min-width:300px;width:450px;", TabIndex = 5 })%>
                                     <script type="text/javascript">
                                         $(document).ready(function () {
                                             $('#Ticket_TagList').autocomplete('<%= Url.Action("AutoComplete", "TagList") %>',
@@ -252,7 +252,7 @@
                                     <%: Html.LabelFor(m => m.Ticket.Owner) %>
                                 </th>
                                 <td >
-                                    <%: Html.DropDownListFor(m => m.Ticket.Owner, Model.OwnersList)%>
+                                    <%: Html.DropDownListFor(m => m.Ticket.Owner, Model.OwnersList, new { TabIndex = 6 })%>
                                     <%: Html.ValidationMessageFor(m => m.Ticket.Owner, "*")%>
                                 </td>
                             </tr>
@@ -266,12 +266,12 @@
                                 <td >
                                     <%if (Editor == "markitup")
                                       { %>
-                                    <%: Html.TextAreaFor(m => m.Ticket.Details, new { @Class = "markItUpEditor" })%>
+                                    <%: Html.TextAreaFor(m => m.Ticket.Details, new { @Class = "markItUpEditor",  TabIndex = 7  })%>
                                     <%}
                                       else if (Editor == "wmd")
                                       { %>
                                     <div id="wmd-container">
-                                        <%: Html.TextAreaFor(m => m.Ticket.Details, new { @Class = "wmd-input", Cols = "92", Rows = "15" })%>
+                                        <%: Html.TextAreaFor(m => m.Ticket.Details, new { @Class = "wmd-input", Cols = "92", Rows = "15",  TabIndex = 7   })%>
                                     </div>
                                     <%} %>
                                 </td>
@@ -305,7 +305,7 @@
                         </tbody>
                     </table>
                     <%: Html.ValidationSummary("Ticket creation was unsuccessful. Please correct the errors and try again.") %>
-                    <input type="submit" value="Create Now" class="activityButton" />
+                    <input type="submit" value="Create Now" class="activityButton" tabindex="50" />
                 </div>
             </div>
         </div>

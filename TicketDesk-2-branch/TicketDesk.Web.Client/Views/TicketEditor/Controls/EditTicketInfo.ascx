@@ -20,7 +20,7 @@
                     <%: Html.ValidationMessageFor(m => m.Title,"*") %><%=  Html.LabelFor(m => m.Title) %>
                 </th>
                 <td colspan="2">
-                    <%: Html.TextBoxFor(m => m.Title, new { style = "min-width:300px;width:400px;" })%>
+                    <%: Html.TextBoxFor(m => m.Title, new { style = "min-width:300px;width:400px;", TabIndex = 1 })%>
                 </td>
             </tr>
             <tr>
@@ -32,13 +32,13 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <%: Html.DropDownListFor(m => m.Type, Model.GetTicketTypeSelectList()) %>
+                                    <%: Html.DropDownListFor(m => m.Type, Model.GetTicketTypeSelectList(), new { TabIndex = 2 }) %>
                                 </td>
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Category, "*")%><%= Html.LabelFor(m => m.Category) %>
                                 </th>
                                 <td>
-                                    <%:  Html.DropDownListFor(m => m.Category, Model.GetCategorySelectList())%>
+                                    <%:  Html.DropDownListFor(m => m.Category, Model.GetCategorySelectList(), new { TabIndex = 3 })%>
                                 </td>
                                 <% if (controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority)
                                    {%>
@@ -46,7 +46,7 @@
                                     <%: Html.ValidationMessageFor(m => m.Priority, "*")%><%= Html.LabelFor(m => m.Priority)%>
                                 </th>
                                 <td>
-                                    <%:  Html.DropDownListFor(m => m.Priority, Model.GetPrioritySelectList())%>
+                                    <%:  Html.DropDownListFor(m => m.Priority, Model.GetPrioritySelectList(), new { TabIndex = 4 })%>
                                 </td>
                                 <% } %>
                             </tr>
@@ -61,12 +61,12 @@
                 <td colspan="2">
                     <%if (Editor == "markitup")
                       { %>
-                    <%: Html.TextArea("details", new { @Class = "markItUpEditor" })%>
+                    <%: Html.TextArea("details", new { @Class = "markItUpEditor", TabIndex = 5 })%>
                     <%}
                       else if (Editor == "wmd")
                       { %>
                     <div id="wmd-container">
-                        <%: Html.TextArea("details", new { @Class = "wmd-input", Cols = "92", Rows = "15" })%>
+                        <%: Html.TextArea("details", new { @Class = "wmd-input", Cols = "92", Rows = "15", TabIndex = 5  })%>
                     </div>
                     <%} %>
                 </td>
@@ -76,7 +76,7 @@
                     <%: Html.LabelFor(m => m.Owner) %>
                 </th>
                 <td colspan="2">
-                    <%: Html.DropDownListFor(m => m.Owner, Model.GetOwnerSelectList())%>
+                    <%: Html.DropDownListFor(m => m.Owner, Model.GetOwnerSelectList(), new { TabIndex = 6 })%>
                     <%: Html.ValidationMessageFor(m => m.Owner, "*")%>
                 </td>
             </tr>
@@ -87,7 +87,7 @@
                     <%: Html.ValidationMessageFor(m => m.TagList, "*")%><%= Html.LabelFor(m => m.TagList)%>
                 </th>
                 <td colspan="2">
-                    <%: Html.TextBoxFor(m => m.TagList, new { style = "min-width:300px;width:450px;" })%>
+                    <%: Html.TextBoxFor(m => m.TagList, new { style = "min-width:300px;width:450px;", TabIndex = 7 })%>
                 </td>
             </tr>
             <%} %>
@@ -99,12 +99,12 @@
                     <div class="commentContainer">
                         <%if (Editor == "markitup")
                           { %>
-                        <%= Html.TextArea("comment", new { @Class = "markItUpEditor" })%>
+                        <%= Html.TextArea("comment", new { @Class = "markItUpEditor", TabIndex = 8})%>
                         <%}
                           else if (Editor == "wmd")
                           { %>
                         <div id="Div1" class="wmd-container-small">
-                            <%= Html.TextArea("comment", new { @Class = "wmd-input", Cols = "92", Rows = "15" })%>
+                            <%= Html.TextArea("comment", new { @Class = "wmd-input", Cols = "92", Rows = "15", TabIndex = 9 })%>
                         </div>
                         <%} %>
                         <%: Html.ValidationMessage("comment")%>
@@ -114,7 +114,7 @@
         </tbody>
     </table>
     <input id="editDetailsButton" type="submit" value="Save Changes" class="activityButton"
-        style="display: inline;" /><span class="neverMindLink">
+        style="display: inline;" tabindex="50"/><span class="neverMindLink">
             <%= Ajax.ActionLink("Nevermind", MVC.TicketEditor.Display(Model.TicketId, string.Empty), new AjaxOptions { UpdateTargetId = "activityArea", OnBegin = "beginChangeActivity", OnSuccess = "completeActivity" })%></span>
     <br />
     <%= Html.ValidationMessage("ticketInfo") %>
