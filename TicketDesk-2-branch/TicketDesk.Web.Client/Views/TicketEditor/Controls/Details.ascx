@@ -82,8 +82,8 @@
 </div>
 <div class="ticketDetailsOuter">
     <div class="ticketDetailsInner">
-        <div class="detailsTextWrapper">
-            <div id="detailsText" <%if(ViewData["formatForEmail"] == null){ %> style="height: <%= detailsHeight%>px;"
+        <div >
+            <div class="detailsTextWrapper" id="detailsText" <%if(ViewData["formatForEmail"] == null){ %> style="height: <%= detailsHeight%>px;"
                 <% } %>>
                 <%= Model.HtmlDetails%>
             </div>
