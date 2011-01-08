@@ -86,6 +86,13 @@ namespace TicketDesk.Domain.Repositories
         /// <returns></returns>
         public bool SaveSettings(IEnumerable<Setting> settingsToSave)
         {
+            foreach (var s in settingsToSave)
+            {
+                if (s.EntityState == System.Data.EntityState.Detached)
+                {
+                    ctx.Settings.AddObject(s);
+                }
+            }
             ctx.SaveChanges();
             ctx = new TicketDeskEntities();//reset the entities
             return true;

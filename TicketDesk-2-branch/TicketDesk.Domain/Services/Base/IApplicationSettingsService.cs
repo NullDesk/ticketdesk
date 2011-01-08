@@ -86,6 +86,7 @@ namespace TicketDesk.Domain.Services
         object GetSettingValue(string settingName);
 
         int CleanupPendingAttachmentsAfterHours { get; }
+        bool HideHomePage { get; }
         bool EnableOutlookFriendlyHtmlEmail { get; }
         int EmailDeliveryTimerIntervalMinutes { get; }
         string SiteRootUrlForEmail { get; }

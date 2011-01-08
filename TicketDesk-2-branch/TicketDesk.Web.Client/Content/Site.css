@@ -181,6 +181,19 @@ ul#menu li
     margin-right: 2px;
 }
 
+ul#menu li.selectedMenuItem a
+{
+     background-color: #2C7DE2;
+    color: #fff;
+    -moz-transition: background-color 0.35s linear;
+    -o-transition: background-color 0.35s linear;
+    -webkit-transition: background-color 0.35s linear;
+    transition: background-color 0.35s linear;
+    padding: 7px 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 ul#menu li#greeting
 {
     padding: 0;

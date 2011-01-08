@@ -113,10 +113,12 @@
     <Compile Include="Repositories\AdSecurityRepository.cs" />
     <Compile Include="Repositories\AdSqlCacheRepository.cs" />
     <Compile Include="Repositories\ApplicationSettingsRepository.cs" />
+    <Compile Include="Repositories\Base\IDatabaseSchemaManagerRepository.cs" />
     <Compile Include="Repositories\Base\INotificationRepository.cs" />
     <Compile Include="Repositories\Base\ISecurityRepository.cs" />
     <Compile Include="Repositories\Base\ITicketRepository.cs" />
     <Compile Include="Repositories\Base\IApplicationSettingsRepository.cs" />
+    <Compile Include="Repositories\DatabaseSchemaManagerRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
     <Compile Include="Repositories\SqlSecurityRepository.cs" />
     <Compile Include="Repositories\Base\SecurityRepositoryBase.cs" />
@@ -124,8 +126,10 @@
     <Compile Include="Repositories\TicketRepository.cs" />
     <Compile Include="Services\AdSecurityCacheService.cs" />
     <Compile Include="Services\ApplicationSettingsService.cs" />
+    <Compile Include="Services\Base\IDatabaseSchemaManagerService.cs" />
     <Compile Include="Services\Base\IEmailHandlerService.cs" />
     <Compile Include="Services\Base\INotificationSendingService.cs" />
+    <Compile Include="Services\DatabaseSchemaManagerService.cs" />
     <Compile Include="Services\DefaultSmtpEmailHandlerService.cs" />
     <Compile Include="Services\Enums\EditorModes.cs" />
     <Compile Include="Services\Base\ISecurityService.cs" />

@@ -89,6 +89,7 @@ namespace TicketDesk.Domain.Services
 
         public bool SaveSettings(IEnumerable<Setting> settingsToSave)
         {
+            
             return Repository.SaveSettings(settingsToSave);
         }
 
@@ -174,6 +175,14 @@ namespace TicketDesk.Domain.Services
             get
             {
                 return (bool)(GetSettingValue("EnableOutlookFriendlyHtmlEmail") ?? false);
+            }
+        }
+
+        public bool HideHomePage
+        {
+            get
+            {
+                return (bool)(GetSettingValue("HideHomePage") ?? false);
             }
         }
 

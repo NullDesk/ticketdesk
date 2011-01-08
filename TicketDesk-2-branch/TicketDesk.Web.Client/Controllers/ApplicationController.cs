@@ -29,12 +29,15 @@ namespace TicketDesk.Web.Client.Controllers
     public abstract partial class ApplicationController : Controller
     {
         public ISecurityService Security { get; set; }
-
+        public IApplicationSettingsService AppSettings { get; set; }
         public ApplicationController(ISecurityService security)
         {
             Security = security;
+            AppSettings = MefHttpApplication.ApplicationContainer.GetExportedValue<IApplicationSettingsService>();
         }
-        
+
+            
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (User.Identity.IsAuthenticated)

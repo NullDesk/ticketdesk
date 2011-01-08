@@ -41,7 +41,7 @@ namespace TicketDesk.Web.Client
 
 
         public static CompositionContainer RootContainer;
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void RegisterRoutes(RouteCollection routes, bool hideHome)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*)?favicon.ico" });
@@ -73,11 +73,22 @@ namespace TicketDesk.Web.Client
                 new { controller = "TicketCenter", page = @"\d+" }
                 );
 
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
+            if (hideHome)
+            {
+                routes.MapRoute(
+                    "Default", // Route name
+                    "{controller}/{action}/{id}", // URL with parameters
+                    new { controller = "TicketCenter", action = "List", id = UrlParameter.Optional } // Parameter defaults
+                );
+            }
+            else
+            {
+                routes.MapRoute(
+                       "Default", // Route name
+                       "{controller}/{action}/{id}", // URL with parameters
+                       new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                   );
+            }
 
             routes.MapRoute(
                 "404-PageNotFound",
@@ -89,15 +100,22 @@ namespace TicketDesk.Web.Client
         private static System.Timers.Timer SecurityRefreshTimer { get; set; }
 
         private IApplicationSettingsService AppSettings;
+
         protected override void Application_Start()
         {
+            
             base.Application_Start();
-            AreaRegistration.RegisterAllAreas();
-            RegisterRoutes(RouteTable.Routes);
+            AppSettings = MefHttpApplication.ApplicationContainer.GetExportedValue<IApplicationSettingsService>();
 
+            AreaRegistration.RegisterAllAreas();
+            RegisterRoutes(RouteTable.Routes, AppSettings.HideHomePage);
+
+            var databaseSchemaManager = MefHttpApplication.ApplicationContainer.GetExportedValue<IDatabaseSchemaManagerService>();
             var searchService = MefHttpApplication.ApplicationContainer.GetExportedValue<TicketSearchService>();
             var ticketService = MefHttpApplication.ApplicationContainer.GetExportedValue<ITicketService>();
-            AppSettings = MefHttpApplication.ApplicationContainer.GetExportedValue<IApplicationSettingsService>();
+            
+            databaseSchemaManager.EnsureSchemaVersion();
+
             searchService.InitializeSearch(ticketService);
 
             var securityService = MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>();

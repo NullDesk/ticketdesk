@@ -22,15 +22,12 @@
                             <td style="vertical-align: top; background-color: #fff;">
                                 <div style="padding: 10px;">
                                     <h2>
-                                        Welcome to TicketDesk 2.0 <sup>(RC1)</sup></h2>
+                                        Welcome to TicketDesk 2.0 <sup>(RC2)</sup></h2>
                                     <p>
-                                        This is a pre-release version of <b>TicketDesk 2.0</b>. Most of it should work fine,
-                                        but it isn&#39;t quite done cooking yet. This preview is intended to allow users
-                                        to experiment with the new system and offer feedback and suggestions before the
-                                        final release. This is your opportunity to help us help you!
+                                        <i>You can hide this page by changing the "Hide Home Page" setting in the administration section's applicaiton settings tool.</i>
                                     </p>
                                     <p>
-                                        There are three pre-defined example users:
+                                        There are three pre-defined example users in a default TicketDesk 2.0 distribution:
                                     </p>
                                     <ul>
                                         <li>Admin User: login as "admin" with "admin" as the password.
@@ -51,21 +48,6 @@
                                             <br />
                                         </li>
                                     </ul>
-                                    <p>
-                                        Notes:
-                                    </p>
-                                    <ul>
-                                        <li>This version should work in Firefox 4+, Chrome 7+, and IE8. It has not been tested
-                                            with other browsers yet.&nbsp;&nbsp;
-                                            <br />
-                                            &nbsp; </li>
-                                        <li>This system is designed for all major browsers, but not all of the UI effects work
-                                            exactly the same in all of them; Google&#39;s Chrome browser has the best overall
-                                            user experience, but all of the features should be usable in all browsers.
-                                            <br />
-                                            <br />
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="clear">
                                 </div>
@@ -77,12 +59,11 @@
                                         <h3>
                                             This Release</h3>
                                         <ul>
-                                            <li>Refactord UI for IE8 compatibility.</li>
-                                            <li>New side-by-side preview window for the text editors.</li>
-                                            <li>New Email content templates specifically for outlook environments. </li>
-                                            <li>Attachments now fully supported in AD environments. </li>
-                                            <li>Fixed unassigned flag appearing on closed tickets that lacked an assigned user.</li>
-                                            <li>Numerous minor tweaks, fixes, and enhancements. </li>
+                                            <li>Minor UI tweaks.</li>
+                                            <li>New setting to allow you to hide the home page and direct root requests to the ticketcenter by default (requires an application restart to fully take effect).</li>
+                                            <li>Added self-updating database support; database will automatically update itself from version 2.0.0 up to the current version on startup.</li>
+                                            <li>Added total record count in ticketcenter pager.</li>
+                                            <li>Fixed tab ordering in new ticket and edit ticket detail forms.</li>
                                         </ul>
                                     </div>
                                 </div>
