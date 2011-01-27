@@ -35,15 +35,9 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
     public partial class EmailTemplateController : ApplicationController
     {
 
-        private IApplicationSettingsService AppSettings { get; set; }
         [ImportingConstructor]
-        public EmailTemplateController()
-        {
-            var sec = MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>();
-            AppSettings = MefHttpApplication.ApplicationContainer.GetExportedValue<IApplicationSettingsService>();
-
-            base.Security = sec;
-        }
+        public EmailTemplateController(): base(MefHttpApplication.ApplicationContainer.GetExportedValue<ISecurityService>()){}
+        
 
         #region Admin preview stuff
 
@@ -51,7 +45,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
         private TicketDesk.Domain.Services.NotificationSendingService noteService { get; set; }
 
 
-       [AuthorizeAdminOnly]
+        [AuthorizeAdminOnly]
         public virtual ActionResult Index()
         {
             if (!Security.IsTdAdmin())
@@ -170,7 +164,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
         #endregion
 
         #region Email Automation Actions
-        
+
         public string GenerateTicketNotificationTextEmailBody(TicketEventNotification notification, int firstUnsentCommentId)
         {
             var templateName = MVC.Admin.EmailTemplate.Views.TicketNotificationTextEmailTemplate;
@@ -180,7 +174,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
         public string GenerateTicketNotificationHtmlEmailBody(TicketEventNotification notification, int firstUnsentCommentId)
         {
             var forOutlook = (AppSettings.EnableOutlookFriendlyHtmlEmail);
-            var templateToRender = (forOutlook) ? MVC.Admin.EmailTemplate.Views.TicketNotificationOutlookHtmlEmailTemplate: MVC.Admin.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate;
+            var templateToRender = (forOutlook) ? MVC.Admin.EmailTemplate.Views.TicketNotificationOutlookHtmlEmailTemplate : MVC.Admin.EmailTemplate.Views.TicketNotificationHtmlEmailTemplate;
 
             return GenerateTicketNotificationEmailBody(notification, firstUnsentCommentId, templateToRender);
         }
