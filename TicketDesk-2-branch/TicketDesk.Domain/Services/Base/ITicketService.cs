@@ -65,7 +65,7 @@ namespace TicketDesk.Domain.Services
         /// <param name="creatorDisplayName">Display name of the creator.</param>
         /// <param name="ownerDisplayName">Display name of the owner.</param>
         /// <returns></returns>
-        int? CreateNewTicket(Ticket ticke);
+        int? CreateNewTicket(Ticket ticket);
 
         /// <summary>
         /// Adds the comment to ticket
