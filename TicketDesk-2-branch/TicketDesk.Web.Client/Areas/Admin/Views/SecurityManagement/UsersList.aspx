@@ -79,7 +79,7 @@
                                 <tfoot>
                                     <tr>
                                         <th colspan="7" style="text-align: right;">
-                                            <%=  Html.Pager(Model) %>
+                                            <%=  Html.Pager(Model).Link(pageNumber => Url.Action("UsersList", new { Page = pageNumber }))%>
                                         </th>
                                     </tr>
                                 </tfoot>
