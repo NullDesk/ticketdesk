@@ -1,0 +1,358 @@
+﻿/****** Object:  Table [dbo].[Settings]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Settings](
+	[SettingName] [nvarchar](50) NOT NULL,
+	[SettingValue] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Settings] PRIMARY KEY CLUSTERED 
+(
+	[SettingName] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ELMAH_Error]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [ELMAH_Error](
+	[ErrorId] [uniqueidentifier] NOT NULL,
+	[Application] [nvarchar](60) NOT NULL,
+	[Host] [nvarchar](50) NOT NULL,
+	[Type] [nvarchar](100) NOT NULL,
+	[Source] [nvarchar](60) NOT NULL,
+	[Message] [nvarchar](500) NOT NULL,
+	[User] [nvarchar](50) NOT NULL,
+	[StatusCode] [int] NOT NULL,
+	[TimeUtc] [datetime] NOT NULL,
+	[Sequence] [int] IDENTITY(1,1) NOT NULL,
+	[AllXml] [ntext] NOT NULL,
+ CONSTRAINT [PK_ELMAH_Error] PRIMARY KEY NONCLUSTERED 
+(
+	[ErrorId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+CREATE NONCLUSTERED INDEX [IX_ELMAH_Error_App_Time_Seq] ON [ELMAH_Error] 
+(
+	[Application] ASC,
+	[TimeUtc] DESC,
+	[Sequence] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tickets]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Tickets](
+	[TicketId] [int] IDENTITY(1,1) NOT NULL,
+	[Type] [nvarchar](50) NOT NULL,
+	[Category] [nvarchar](50) NOT NULL,
+	[Title] [nvarchar](500) NOT NULL,
+	[Details] [ntext] NOT NULL,
+	[IsHtml] [bit] NOT NULL,
+	[TagList] [nvarchar](100) NULL,
+	[CreatedBy] [nvarchar](100) NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[Owner] [nvarchar](100) NOT NULL,
+	[AssignedTo] [nvarchar](100) NULL,
+	[CurrentStatus] [nvarchar](50) NOT NULL,
+	[CurrentStatusDate] [datetime] NOT NULL,
+	[CurrentStatusSetBy] [nvarchar](100) NOT NULL,
+	[LastUpdateBy] [nvarchar](100) NOT NULL,
+	[LastUpdateDate] [datetime] NOT NULL,
+	[Priority] [nvarchar](25) NULL,
+	[AffectsCustomer] [bit] NOT NULL,
+	[PublishedToKb] [bit] NOT NULL,
+	[Version] [timestamp] NOT NULL,
+ CONSTRAINT [PK_Tickets] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TicketComments]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [TicketComments](
+	[TicketId] [int] NOT NULL,
+	[CommentId] [int] IDENTITY(1,1) NOT NULL,
+	[CommentEvent] [nvarchar](500) NULL,
+	[Comment] [ntext] NULL,
+	[IsHtml] [bit] NOT NULL,
+	[CommentedBy] [nvarchar](100) NOT NULL,
+	[CommentedDate] [datetime] NOT NULL,
+	[Version] [timestamp] NOT NULL,
+ CONSTRAINT [PK_TicketComments] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC,
+	[CommentId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TicketEventNotifications]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [TicketEventNotifications](
+	[TicketId] [int] NOT NULL,
+	[CommentId] [int] NOT NULL,
+	[NotifyUser] [nvarchar](100) NOT NULL,
+	[NotifyUserDisplayName] [nvarchar](100) NOT NULL,
+	[NotifyEmail] [nvarchar](255) NOT NULL,
+	[NotifyUserReason] [nvarchar](50) NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[DeliveryAttempts] [int] NOT NULL,
+	[LastDeliveryAttemptDate] [datetime] NULL,
+	[Status] [nvarchar](20) NOT NULL,
+	[NextDeliveryAttemptDate] [datetime] NULL,
+	[EventGeneratedByUser] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_TicketEventNotifications] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC,
+	[CommentId] ASC,
+	[NotifyUser] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TicketAttachments]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [TicketAttachments](
+	[TicketId] [int] NOT NULL,
+	[FileId] [int] IDENTITY(1,1) NOT NULL,
+	[FileName] [nvarchar](255) NOT NULL,
+	[FileSize] [int] NOT NULL,
+	[FileType] [nvarchar](50) NOT NULL,
+	[UploadedBy] [nvarchar](100) NOT NULL,
+	[UploadedDate] [datetime] NOT NULL,
+	[FileContents] [varbinary](max) NOT NULL,
+	[FileDescription] [nvarchar](500) NULL,
+ CONSTRAINT [PK_TicketAttachments] PRIMARY KEY CLUSTERED 
+(
+	[TicketId] ASC,
+	[FileId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[TicketTags]    Script Date: 02/05/2009 02:08:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [TicketTags](
+	[TicketTagId] [int] IDENTITY(1,1) NOT NULL,
+	[TagName] [nvarchar](100) NOT NULL,
+	[TicketId] [int] NOT NULL,
+ CONSTRAINT [PK_TicketTags] PRIMARY KEY CLUSTERED 
+(
+	[TicketTagId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[ELMAH_GetErrorXml]    Script Date: 02/05/2009 02:08:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [ELMAH_GetErrorXml]
+(
+    @Application NVARCHAR(60),
+    @ErrorId UNIQUEIDENTIFIER
+)
+AS
+
+SET NOCOUNT ON
+
+SELECT 
+    AllXml
+FROM 
+    ELMAH_Error
+WHERE
+    ErrorId = @ErrorId
+AND
+    Application = @Application
+GO
+/****** Object:  StoredProcedure [dbo].[ELMAH_GetErrorsXml]    Script Date: 02/05/2009 02:08:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [ELMAH_GetErrorsXml]
+(
+    @Application NVARCHAR(60),
+    @PageIndex INT = 0,
+    @PageSize INT = 15,
+    @TotalCount INT OUTPUT
+)
+AS 
+
+SET NOCOUNT ON
+
+DECLARE @FirstTimeUTC DateTime
+DECLARE @FirstSequence int
+DECLARE @StartRow int
+DECLARE @StartRowIndex int
+
+-- Get the ID of the first error for the requested page
+
+SET @StartRowIndex = @PageIndex * @PageSize + 1
+SET ROWCOUNT @StartRowIndex
+
+SELECT  
+    @FirstTimeUTC = TimeUTC,
+    @FirstSequence = Sequence
+FROM 
+    ELMAH_Error
+WHERE   
+    Application = @Application
+ORDER BY 
+    TimeUTC DESC, 
+    Sequence DESC
+
+-- Now set the row count to the requested page size and get
+-- all records below it for the pertaining application.
+
+SET ROWCOUNT @PageSize
+
+SELECT 
+    @TotalCount = COUNT(1) 
+FROM 
+    ELMAH_Error
+WHERE 
+    Application = @Application
+
+SELECT 
+    errorId, 
+    application,
+    host, 
+    type,
+    source,
+    message,
+    [user],
+    statusCode, 
+    CONVERT(VARCHAR(50), TimeUtc, 126) + 'Z' time
+FROM 
+    ELMAH_Error error
+WHERE
+    Application = @Application
+AND 
+    TimeUTC <= @FirstTimeUTC
+AND 
+    Sequence <= @FirstSequence
+ORDER BY
+    TimeUTC DESC, 
+    Sequence DESC
+FOR
+    XML AUTO
+GO
+/****** Object:  StoredProcedure [dbo].[ELMAH_LogError]    Script Date: 02/05/2009 02:08:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [ELMAH_LogError]
+(
+    @ErrorId UNIQUEIDENTIFIER,
+    @Application NVARCHAR(60),
+    @Host NVARCHAR(30),
+    @Type NVARCHAR(100),
+    @Source NVARCHAR(60),
+    @Message NVARCHAR(500),
+    @User NVARCHAR(50),
+    @AllXml NTEXT,
+    @StatusCode INT,
+    @TimeUtc DATETIME
+)
+AS
+
+SET NOCOUNT ON
+
+INSERT
+INTO
+    ELMAH_Error
+    (
+        ErrorId,
+        Application,
+        Host,
+        Type,
+        Source,
+        Message,
+        [User],
+        AllXml,
+        StatusCode,
+        TimeUtc
+    )
+VALUES
+    (
+        @ErrorId,
+        @Application,
+        @Host,
+        @Type,
+        @Source,
+        @Message,
+        @User,
+        @AllXml,
+        @StatusCode,
+        @TimeUtc
+    )
+GO
+/****** Object:  Default [DF_ELMAH_Error_ErrorId]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [ELMAH_Error] ADD  CONSTRAINT [DF_ELMAH_Error_ErrorId]  DEFAULT (newid()) FOR [ErrorId]
+GO
+/****** Object:  Default [DF_Tickets_IsHtml]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [Tickets] ADD  CONSTRAINT [DF_Tickets_IsHtml]  DEFAULT ((0)) FOR [IsHtml]
+GO
+/****** Object:  Default [DF_Tickets_CreatedDate]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [Tickets] ADD  CONSTRAINT [DF_Tickets_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+/****** Object:  Default [DF_Tickets_AffectsCustomer]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [Tickets] ADD  CONSTRAINT [DF_Tickets_AffectsCustomer]  DEFAULT ((0)) FOR [AffectsCustomer]
+GO
+/****** Object:  Default [DF_Tickets_PublishedToKb]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [Tickets] ADD  CONSTRAINT [DF_Tickets_PublishedToKb]  DEFAULT ((0)) FOR [PublishedToKb]
+GO
+/****** Object:  Default [DF_TicketComments_IsHtml]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [TicketComments] ADD  CONSTRAINT [DF_TicketComments_IsHtml]  DEFAULT ((0)) FOR [IsHtml]
+GO
+/****** Object:  Default [DF_TicketComments_CommentDate]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [TicketComments] ADD  CONSTRAINT [DF_TicketComments_CommentDate]  DEFAULT (getdate()) FOR [CommentedDate]
+GO
+/****** Object:  ForeignKey [FK_TicketComments_Tickets]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [TicketComments]  WITH CHECK ADD  CONSTRAINT [FK_TicketComments_Tickets] FOREIGN KEY([TicketId])
+REFERENCES [Tickets] ([TicketId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [TicketComments] CHECK CONSTRAINT [FK_TicketComments_Tickets]
+GO
+/****** Object:  ForeignKey [FK_TicketEventNotifications_TicketComments]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [TicketEventNotifications]  WITH CHECK ADD  CONSTRAINT [FK_TicketEventNotifications_TicketComments] FOREIGN KEY([TicketId], [CommentId])
+REFERENCES [TicketComments] ([TicketId], [CommentId])
+GO
+ALTER TABLE [TicketEventNotifications] CHECK CONSTRAINT [FK_TicketEventNotifications_TicketComments]
+GO
+/****** Object:  ForeignKey [FK_TicketAttachments_Tickets]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [TicketAttachments]  WITH CHECK ADD  CONSTRAINT [FK_TicketAttachments_Tickets] FOREIGN KEY([TicketId])
+REFERENCES [Tickets] ([TicketId])
+GO
+ALTER TABLE [TicketAttachments] CHECK CONSTRAINT [FK_TicketAttachments_Tickets]
+GO
+/****** Object:  ForeignKey [FK_TicketTags_Tickets]    Script Date: 02/05/2009 02:08:15 ******/
+ALTER TABLE [TicketTags]  WITH CHECK ADD  CONSTRAINT [FK_TicketTags_Tickets] FOREIGN KEY([TicketId])
+REFERENCES [Tickets] ([TicketId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [TicketTags] CHECK CONSTRAINT [FK_TicketTags_Tickets]
+GO
