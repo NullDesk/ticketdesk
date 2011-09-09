@@ -32,8 +32,5 @@ _ReSharper*/
 *.[Pp]ublish.xml
 *.resharper
 *.vs10x
-Code/Weber.Vfao.Web/App_Data/WeberData.sdf
-Code/Weber.Core.Queues.Database/Weber.Core.Queues.Database.dbmdl
-Code/Weber.Core.Queues.Database/Weber.Core.Queues.Database.dbproj.schemaview
 Code/Packages.dgml
-Code/Weber.Vfao.Web/WeberTrace.SqlLog.txt
+
