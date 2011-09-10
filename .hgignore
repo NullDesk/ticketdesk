@@ -34,3 +34,4 @@ _ReSharper*/
 *.vs10x
 Code/Packages.dgml
 
+TicketDesk-2-branch/TicketDesk.Web.Client/TdSearchIndex/*

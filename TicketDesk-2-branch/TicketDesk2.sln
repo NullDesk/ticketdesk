@@ -31,24 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MefDiagnostics", "MefDiagno
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lucene.Net", "Lucene.Net", "{3F9BC626-B901-48A3-A738-EDF43C3BC9D8}"
-	ProjectSection(SolutionItems) = preProject
-		Library\Lucene.Net.dll = Library\Lucene.Net.dll
-		Library\Lucene.Net.pdb = Library\Lucene.Net.pdb
-	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = TicketDesk.Domain\\TicketDesk.Domain.csproj
-		SccProjectName1 = TicketDesk.Domain
-		SccLocalPath1 = TicketDesk.Domain
-		SccProjectUniqueName2 = TicketDesk.Web.Client\\TicketDesk.Web.Client.csproj
-		SccProjectName2 = TicketDesk.Web.Client
-		SccLocalPath2 = TicketDesk.Web.Client
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

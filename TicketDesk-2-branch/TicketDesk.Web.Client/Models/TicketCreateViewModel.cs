@@ -25,7 +25,7 @@ namespace TicketDesk.Web.Client.Models
 {
     public class TicketCreateViewModel
     {
-        
+
         public SelectListUtility ListUtility { get; private set; }
         public ISecurityService Security { get; private set; }
         public SettingsService Settings { get; private set; }
@@ -55,10 +55,9 @@ namespace TicketDesk.Web.Client.Models
                 if (Security.IsTdSubmitter() && !Security.IsTdStaff())
                 {
                     var configValue = Settings.ApplicationSettings.AllowSubmitterRoleToEditTags;
-                    if (configValue != null)
-                    {
-                        isAllowed = Convert.ToBoolean(configValue);
-                    }
+
+                    isAllowed = Convert.ToBoolean(configValue);
+
                 }
                 return isAllowed;
             }
@@ -72,10 +71,8 @@ namespace TicketDesk.Web.Client.Models
                 if (Security.IsTdSubmitter() && !Security.IsTdStaff())
                 {
                     var configValue = Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority;
-                    if (configValue != null)
-                    {
-                        isAllowed = Convert.ToBoolean(configValue);
-                    }
+                    isAllowed = Convert.ToBoolean(configValue);
+                    
                 }
                 return isAllowed;
             }

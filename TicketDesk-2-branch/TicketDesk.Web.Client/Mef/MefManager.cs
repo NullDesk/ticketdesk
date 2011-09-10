@@ -25,8 +25,7 @@ namespace TicketDesk.Web.Client
 {
     public class MefManager
     {
-        private IApplicationSettingsService AppSettings;
-
+        
 
         [Export("RuntimeSecurityMode")]
         public string RuntimeSecurityMode() { return ConfigurationManager.AppSettings["SecurityMode"]; }
