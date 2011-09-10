@@ -9,15 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "Ticket
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvcContrib", "MvcContrib", "{4B68AE5A-390E-41FE-A39F-91610D9CC7EA}"
-	ProjectSection(SolutionItems) = preProject
-		Library\Moq.dll = Library\Moq.dll
-		Library\MvcContrib.dll = Library\MvcContrib.dll
-		Library\MvcContrib.TestHelper.dll = Library\MvcContrib.TestHelper.dll
-		Library\MvcContrib.TestHelper.pdb = Library\MvcContrib.TestHelper.pdb
-		Library\MvcContrib.XML = Library\MvcContrib.XML
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4MVCAutoRunner2010AddIn", "T4MVCAutoRunner2010AddIn", "{B6F19A7A-5C4B-4D7B-BCDE-E400C9A717B1}"
 	ProjectSection(SolutionItems) = preProject
 		Tools\T4MVCAutoRunner2010AddIn.vsi = Tools\T4MVCAutoRunner2010AddIn.vsi
@@ -29,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MefDiagnostics", "MefDiagno
 		Library\Microsoft.ComponentModel.Composition.Diagnostics.dll = Library\Microsoft.ComponentModel.Composition.Diagnostics.dll
 		Library\Microsoft.ComponentModel.Composition.Diagnostics.pdb = Library\Microsoft.ComponentModel.Composition.Diagnostics.pdb
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lucene.Net", "Lucene.Net", "{3F9BC626-B901-48A3-A738-EDF43C3BC9D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,10 +56,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4B68AE5A-390E-41FE-A39F-91610D9CC7EA} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 		{B6F19A7A-5C4B-4D7B-BCDE-E400C9A717B1} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 		{A4065970-51EB-4218-AAB0-EBCF9149A8C5} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
-		{3F9BC626-B901-48A3-A738-EDF43C3BC9D8} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
