@@ -44,8 +44,14 @@ namespace TicketDesk.Web.Client
         public static void RegisterRoutes(RouteCollection routes, bool hideHome)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*)?favicon.ico" });
+            //routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*)?favicon.ico" });
+            //routes.IgnoreRoute("{*crossdomain}", new { crossdomain = @"(.*)?crossdomain.xml" });
+            //routes.IgnoreRoute("{*robots}", new { crossdomain = @"(.*)?robots.txt" });
             //routes.IgnoreRoute("{*css}", new { css = @"(.*)?.css"});
+            routes.IgnoreRoute("{file}.txt");
+            routes.IgnoreRoute("{file}.htm");
+            routes.IgnoreRoute("{file}.html");
+            routes.IgnoreRoute("{file}.xml");
             routes.IgnoreRoute("{*script}", new { script = @"Scripts/(.*)" });
             routes.IgnoreRoute("{*content}", new { content = @"Content/(.*)" });
 
