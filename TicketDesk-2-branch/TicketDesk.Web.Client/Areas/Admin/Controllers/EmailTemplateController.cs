@@ -191,7 +191,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             using (StringWriter sw = new StringWriter())
             {
                 var fakeResponse = new HttpResponse(sw);
-                var fakeContext = new HttpContext(new HttpRequest("", "http://anywherefake.com/", ""), fakeResponse);
+                var fakeContext = new HttpContext(new HttpRequest("", AppSettings.SiteRootUrlForEmail, ""), fakeResponse);
                 var fakeControllerContext = new ControllerContext
                 (
                     new HttpContextWrapper(fakeContext),
