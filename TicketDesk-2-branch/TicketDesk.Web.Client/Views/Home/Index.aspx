@@ -22,7 +22,7 @@
                             <td style="vertical-align: top; background-color: #fff;">
                                 <div style="padding: 10px;">
                                     <h2>
-                                        Welcome to TicketDesk 2.0 <sup>(RC2)</sup></h2>
+                                        Welcome to TicketDesk 2.0 <sup>(.Net 4.5 Refresh)</sup></h2>
                                     <p>
                                         <i>You can hide this page by changing the "Hide Home Page" setting in the administration section's applicaiton settings tool.</i>
                                     </p>
@@ -59,11 +59,11 @@
                                         <h3>
                                             This Release</h3>
                                         <ul>
-                                            <li>Minor UI tweaks.</li>
-                                            <li>New setting to allow you to hide the home page and direct root requests to the ticketcenter by default (requires an application restart to fully take effect).</li>
-                                            <li>Added self-updating database support; database will automatically update itself from version 2.0.0 up to the current version on startup.</li>
-                                            <li>Added total record count in ticketcenter pager.</li>
-                                            <li>Fixed tab ordering in new ticket and edit ticket detail forms.</li>
+                                            <li>Migrated TicketDesk projects to Visual Studio 2012</li>
+                                            <li>Upgraded to Asp.Net MVC 4, compiling to .Net Framework 4.5</li>
+                                            <li>Removed MVCContrib packages and dependencies</li>
+                                            <li>Updated for MEF 2 compatibility</li>
+                                            <li>Updated Elmah Package</li>
                                         </ul>
                                     </div>
                                 </div>
