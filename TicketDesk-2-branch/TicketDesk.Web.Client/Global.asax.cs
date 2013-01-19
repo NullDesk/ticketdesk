@@ -30,7 +30,7 @@ using TicketDesk.Domain.Services;
 namespace TicketDesk.Web.Client
 {
 
-
+    
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -39,7 +39,7 @@ namespace TicketDesk.Web.Client
         private System.Timers.Timer DerelictAttachmentsTimer;
         private System.Timers.Timer EmaiNotificationsTimer;
 
-
+        
         public static CompositionContainer RootContainer;
         public static void RegisterRoutes(RouteCollection routes, bool hideHome)
         {
@@ -54,7 +54,7 @@ namespace TicketDesk.Web.Client
             routes.IgnoreRoute("{file}.xml");
             routes.IgnoreRoute("{*script}", new { script = @"Scripts/(.*)" });
             routes.IgnoreRoute("{*content}", new { content = @"Content/(.*)" });
-
+            
             routes.MapRoute("Attachments", "Attachment/{action}/{fileId}", new { Controller = "Attachment" });
 
             routes.MapRoute(

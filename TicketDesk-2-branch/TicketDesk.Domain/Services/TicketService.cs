@@ -18,7 +18,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using MvcContrib.Pagination;
+using TicketDesk.Domain.Utilities.Pagination;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Repositories;
 using TicketDesk.Domain.Utilities;

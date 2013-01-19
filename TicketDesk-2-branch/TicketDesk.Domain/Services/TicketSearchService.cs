@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
 using TicketDesk.Domain.Repositories;
-using MvcContrib.Pagination;
+using TicketDesk.Domain.Utilities.Pagination;
 using TicketDesk.Domain.Models;
 using Lucene.Net.Store;
 using Lucene.Net.Search;

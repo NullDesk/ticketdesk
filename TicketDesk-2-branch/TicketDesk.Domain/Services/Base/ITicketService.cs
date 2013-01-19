@@ -12,7 +12,7 @@
 // provided to the recipient.
 
 using System.Collections.Generic;
-using MvcContrib.Pagination;
+using TicketDesk.Domain.Utilities.Pagination;
 using TicketDesk.Domain.Models;
 using TicketDesk.Domain.Repositories;
 
