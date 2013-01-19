@@ -168,6 +168,8 @@
     <Compile Include="Helpers\ModelBinders\TicketWithAttachmentsModelBinder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Pager\Pager.cs" />
+    <Compile Include="Helpers\Pager\PaginationExtensions.cs" />
     <Compile Include="Helpers\Paging\PagerBuilder.cs" />
     <Compile Include="Helpers\Paging\PagerHelper.cs" />
     <Compile Include="Helpers\Paging\PagerItem.cs" />

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<TicketDesk.Domain.Models.Ticket>>" %>
 
-<%@ Import Namespace="MvcContrib.UI.Pager" %>
+
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Display

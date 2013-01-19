@@ -172,9 +172,6 @@
     <Compile Include="Utilities\TicketTextUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ThingsToConsider.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
     <EntityDeploy Include="Models\TicketDeskEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
