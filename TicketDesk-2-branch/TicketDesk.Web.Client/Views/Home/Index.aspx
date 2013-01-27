@@ -22,7 +22,7 @@
                             <td style="vertical-align: top; background-color: #fff;">
                                 <div style="padding: 10px;">
                                     <h2>
-                                        Welcome to TicketDesk 2.0 <sup>(.Net 4.5 Refresh)</sup></h2>
+                                        Welcome to TicketDesk 2.1 <sup>(.Net 4.5 Refresh)</sup></h2>
                                     <p>
                                         <i>You can hide this page by changing the "Hide Home Page" setting in the administration section's applicaiton settings tool.</i>
                                     </p>
@@ -64,6 +64,7 @@
                                             <li>Removed MVCContrib packages and dependencies</li>
                                             <li>Updated for MEF 2 compatibility</li>
                                             <li>Updated Elmah Package</li>
+                                            <li>Updated jQuery version</li>
                                         </ul>
                                     </div>
                                 </div>

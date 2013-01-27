@@ -23,12 +23,12 @@
                     <div>
                         <div class="activityHeadWrapper">
                             <div class="activityHead">
-                                About TicketDesk 2.0
+                                About TicketDesk 2.1
                             </div>
                         </div>
                         <div class="activityBody" style="padding: 15px; min-height: 200px;">
                             <p>
-                                <a href="http://ticketdesk.codeplex.com">TicketDesk 2.0</a> is an open source project
+                                <a href="http://ticketdesk.codeplex.com">TicketDesk 2.1</a> is an open source project
                                 hosted on <a href="http://codeplex.com">CodePlex</a>.
                             </p>
                             <p>
