@@ -1,9 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Areas/Admin/Views/Shared/Admin.Master"
-    Inherits="System.Web.Mvc.ViewPage<MvcContrib.Pagination.CustomPagination<TicketDesk.Web.Client.Areas.Admin.Models.SecurityManagementUserViewModel>>" %>
+    Inherits="System.Web.Mvc.ViewPage<TicketDesk.Domain.Utilities.Pagination.CustomPagination<TicketDesk.Web.Client.Areas.Admin.Models.SecurityManagementUserViewModel>>" %>
 
 <%@ Import Namespace="TicketDesk.Web.Client.Helpers" %>
 <%@ Import Namespace="TicketDesk.Web.Client.Areas.Admin.Models" %>
-<%@ Import Namespace="MvcContrib.UI.Pager" %>
 <asp:Content ID="TitleContent" ContentPlaceHolderID="AdminTitleContent" runat="server">
 </asp:Content>
 <asp:Content ID="HeadContent" ContentPlaceHolderID="AdminCustomHead" runat="server">

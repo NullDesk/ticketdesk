@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -202,6 +203,7 @@ namespace TicketDesk.Domain.Models
         private ObjectSet<Setting> _Settings;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -269,11 +271,11 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -302,7 +304,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -321,7 +324,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnGroupNameChanging(value);
                     ReportPropertyChanging("GroupName");
-                    _GroupName = StructuralObject.SetValidValue(value, false);
+                    _GroupName = StructuralObject.SetValidValue(value, false, "GroupName");
                     ReportPropertyChanged("GroupName");
                     OnGroupNameChanged();
                 }
@@ -348,7 +351,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnMemberNameChanging(value);
                     ReportPropertyChanging("MemberName");
-                    _MemberName = StructuralObject.SetValidValue(value, false);
+                    _MemberName = StructuralObject.SetValidValue(value, false, "MemberName");
                     ReportPropertyChanged("MemberName");
                     OnMemberNameChanged();
                 }
@@ -373,7 +376,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnMemberDisplayNameChanging(value);
                 ReportPropertyChanging("MemberDisplayName");
-                _MemberDisplayName = StructuralObject.SetValidValue(value, false);
+                _MemberDisplayName = StructuralObject.SetValidValue(value, false, "MemberDisplayName");
                 ReportPropertyChanged("MemberDisplayName");
                 OnMemberDisplayNameChanged();
             }
@@ -383,7 +386,7 @@ namespace TicketDesk.Domain.Models
         partial void OnMemberDisplayNameChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -412,7 +415,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -431,7 +435,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnUserNameChanging(value);
                     ReportPropertyChanging("UserName");
-                    _UserName = StructuralObject.SetValidValue(value, false);
+                    _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                     ReportPropertyChanged("UserName");
                     OnUserNameChanged();
                 }
@@ -458,7 +462,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnPropertyNameChanging(value);
                     ReportPropertyChanging("PropertyName");
-                    _PropertyName = StructuralObject.SetValidValue(value, false);
+                    _PropertyName = StructuralObject.SetValidValue(value, false, "PropertyName");
                     ReportPropertyChanged("PropertyName");
                     OnPropertyNameChanged();
                 }
@@ -483,7 +487,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnPropertyValueChanging(value);
                 ReportPropertyChanging("PropertyValue");
-                _PropertyValue = StructuralObject.SetValidValue(value, true);
+                _PropertyValue = StructuralObject.SetValidValue(value, true, "PropertyValue");
                 ReportPropertyChanged("PropertyValue");
                 OnPropertyValueChanged();
             }
@@ -507,7 +511,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnLastRefreshedChanging(value);
                 ReportPropertyChanging("LastRefreshed");
-                _LastRefreshed = StructuralObject.SetValidValue(value);
+                _LastRefreshed = StructuralObject.SetValidValue(value, "LastRefreshed");
                 ReportPropertyChanged("LastRefreshed");
                 OnLastRefreshedChanged();
             }
@@ -531,7 +535,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnIsActiveInAdChanging(value);
                 ReportPropertyChanging("IsActiveInAd");
-                _IsActiveInAd = StructuralObject.SetValidValue(value);
+                _IsActiveInAd = StructuralObject.SetValidValue(value, "IsActiveInAd");
                 ReportPropertyChanged("IsActiveInAd");
                 OnIsActiveInAdChanged();
             }
@@ -541,7 +545,7 @@ namespace TicketDesk.Domain.Models
         partial void OnIsActiveInAdChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -568,7 +572,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -587,7 +592,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnSettingNameChanging(value);
                     ReportPropertyChanging("SettingName");
-                    _SettingName = StructuralObject.SetValidValue(value, false);
+                    _SettingName = StructuralObject.SetValidValue(value, false, "SettingName");
                     ReportPropertyChanged("SettingName");
                     OnSettingNameChanged();
                 }
@@ -612,7 +617,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnSettingValueChanging(value);
                 ReportPropertyChanging("SettingValue");
-                _SettingValue = StructuralObject.SetValidValue(value, true);
+                _SettingValue = StructuralObject.SetValidValue(value, true, "SettingValue");
                 ReportPropertyChanged("SettingValue");
                 OnSettingValueChanged();
             }
@@ -636,7 +641,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnDefaultValueChanging(value);
                 ReportPropertyChanging("DefaultValue");
-                _DefaultValue = StructuralObject.SetValidValue(value, true);
+                _DefaultValue = StructuralObject.SetValidValue(value, true, "DefaultValue");
                 ReportPropertyChanged("DefaultValue");
                 OnDefaultValueChanged();
             }
@@ -660,7 +665,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnSettingTypeChanging(value);
                 ReportPropertyChanging("SettingType");
-                _SettingType = StructuralObject.SetValidValue(value, false);
+                _SettingType = StructuralObject.SetValidValue(value, false, "SettingType");
                 ReportPropertyChanged("SettingType");
                 OnSettingTypeChanged();
             }
@@ -684,7 +689,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnSettingDescriptionChanging(value);
                 ReportPropertyChanging("SettingDescription");
-                _SettingDescription = StructuralObject.SetValidValue(value, true);
+                _SettingDescription = StructuralObject.SetValidValue(value, true, "SettingDescription");
                 ReportPropertyChanged("SettingDescription");
                 OnSettingDescriptionChanged();
             }
@@ -694,7 +699,7 @@ namespace TicketDesk.Domain.Models
         partial void OnSettingDescriptionChanged();
 
         #endregion
-    
+
     }
     
     /// <summary>
@@ -751,7 +756,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -770,7 +776,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnTicketIdChanging(value);
                     ReportPropertyChanging("TicketId");
-                    _TicketId = StructuralObject.SetValidValue(value);
+                    _TicketId = StructuralObject.SetValidValue(value, "TicketId");
                     ReportPropertyChanged("TicketId");
                     OnTicketIdChanged();
                 }
@@ -795,7 +801,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnTypeChanging(value);
                 ReportPropertyChanging("Type");
-                _Type = StructuralObject.SetValidValue(value, false);
+                _Type = StructuralObject.SetValidValue(value, false, "Type");
                 ReportPropertyChanged("Type");
                 OnTypeChanged();
             }
@@ -819,7 +825,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCategoryChanging(value);
                 ReportPropertyChanging("Category");
-                _Category = StructuralObject.SetValidValue(value, false);
+                _Category = StructuralObject.SetValidValue(value, false, "Category");
                 ReportPropertyChanged("Category");
                 OnCategoryChanged();
             }
@@ -843,7 +849,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnTitleChanging(value);
                 ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, false);
+                _Title = StructuralObject.SetValidValue(value, false, "Title");
                 ReportPropertyChanged("Title");
                 OnTitleChanged();
             }
@@ -867,7 +873,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnDetailsChanging(value);
                 ReportPropertyChanging("Details");
-                _Details = StructuralObject.SetValidValue(value, false);
+                _Details = StructuralObject.SetValidValue(value, false, "Details");
                 ReportPropertyChanged("Details");
                 OnDetailsChanged();
             }
@@ -891,7 +897,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnIsHtmlChanging(value);
                 ReportPropertyChanging("IsHtml");
-                _IsHtml = StructuralObject.SetValidValue(value);
+                _IsHtml = StructuralObject.SetValidValue(value, "IsHtml");
                 ReportPropertyChanged("IsHtml");
                 OnIsHtmlChanged();
             }
@@ -915,7 +921,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnTagListChanging(value);
                 ReportPropertyChanging("TagList");
-                _TagList = StructuralObject.SetValidValue(value, true);
+                _TagList = StructuralObject.SetValidValue(value, true, "TagList");
                 ReportPropertyChanged("TagList");
                 OnTagListChanged();
             }
@@ -939,7 +945,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value, false);
+                _CreatedBy = StructuralObject.SetValidValue(value, false, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -963,7 +969,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCreatedDateChanging(value);
                 ReportPropertyChanging("CreatedDate");
-                _CreatedDate = StructuralObject.SetValidValue(value);
+                _CreatedDate = StructuralObject.SetValidValue(value, "CreatedDate");
                 ReportPropertyChanged("CreatedDate");
                 OnCreatedDateChanged();
             }
@@ -987,7 +993,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnOwnerChanging(value);
                 ReportPropertyChanging("Owner");
-                _Owner = StructuralObject.SetValidValue(value, false);
+                _Owner = StructuralObject.SetValidValue(value, false, "Owner");
                 ReportPropertyChanged("Owner");
                 OnOwnerChanged();
             }
@@ -1011,7 +1017,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnAssignedToChanging(value);
                 ReportPropertyChanging("AssignedTo");
-                _AssignedTo = StructuralObject.SetValidValue(value, true);
+                _AssignedTo = StructuralObject.SetValidValue(value, true, "AssignedTo");
                 ReportPropertyChanged("AssignedTo");
                 OnAssignedToChanged();
             }
@@ -1035,7 +1041,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCurrentStatusChanging(value);
                 ReportPropertyChanging("CurrentStatus");
-                _CurrentStatus = StructuralObject.SetValidValue(value, false);
+                _CurrentStatus = StructuralObject.SetValidValue(value, false, "CurrentStatus");
                 ReportPropertyChanged("CurrentStatus");
                 OnCurrentStatusChanged();
             }
@@ -1059,7 +1065,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCurrentStatusDateChanging(value);
                 ReportPropertyChanging("CurrentStatusDate");
-                _CurrentStatusDate = StructuralObject.SetValidValue(value);
+                _CurrentStatusDate = StructuralObject.SetValidValue(value, "CurrentStatusDate");
                 ReportPropertyChanged("CurrentStatusDate");
                 OnCurrentStatusDateChanged();
             }
@@ -1083,7 +1089,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCurrentStatusSetByChanging(value);
                 ReportPropertyChanging("CurrentStatusSetBy");
-                _CurrentStatusSetBy = StructuralObject.SetValidValue(value, false);
+                _CurrentStatusSetBy = StructuralObject.SetValidValue(value, false, "CurrentStatusSetBy");
                 ReportPropertyChanged("CurrentStatusSetBy");
                 OnCurrentStatusSetByChanged();
             }
@@ -1107,7 +1113,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnLastUpdateByChanging(value);
                 ReportPropertyChanging("LastUpdateBy");
-                _LastUpdateBy = StructuralObject.SetValidValue(value, false);
+                _LastUpdateBy = StructuralObject.SetValidValue(value, false, "LastUpdateBy");
                 ReportPropertyChanged("LastUpdateBy");
                 OnLastUpdateByChanged();
             }
@@ -1131,7 +1137,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnLastUpdateDateChanging(value);
                 ReportPropertyChanging("LastUpdateDate");
-                _LastUpdateDate = StructuralObject.SetValidValue(value);
+                _LastUpdateDate = StructuralObject.SetValidValue(value, "LastUpdateDate");
                 ReportPropertyChanged("LastUpdateDate");
                 OnLastUpdateDateChanged();
             }
@@ -1155,7 +1161,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value, true);
+                _Priority = StructuralObject.SetValidValue(value, true, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -1179,7 +1185,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnAffectsCustomerChanging(value);
                 ReportPropertyChanging("AffectsCustomer");
-                _AffectsCustomer = StructuralObject.SetValidValue(value);
+                _AffectsCustomer = StructuralObject.SetValidValue(value, "AffectsCustomer");
                 ReportPropertyChanged("AffectsCustomer");
                 OnAffectsCustomerChanged();
             }
@@ -1203,7 +1209,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnPublishedToKbChanging(value);
                 ReportPropertyChanging("PublishedToKb");
-                _PublishedToKb = StructuralObject.SetValidValue(value);
+                _PublishedToKb = StructuralObject.SetValidValue(value, "PublishedToKb");
                 ReportPropertyChanged("PublishedToKb");
                 OnPublishedToKbChanged();
             }
@@ -1227,7 +1233,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnVersionChanging(value);
                 ReportPropertyChanging("Version");
-                _Version = StructuralObject.SetValidValue(value, true);
+                _Version = StructuralObject.SetValidValue(value, true, "Version");
                 ReportPropertyChanged("Version");
                 OnVersionChanged();
             }
@@ -1237,7 +1243,7 @@ namespace TicketDesk.Domain.Models
         partial void OnVersionChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1307,6 +1313,7 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1345,7 +1352,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1362,7 +1370,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnTicketIdChanging(value);
                 ReportPropertyChanging("TicketId");
-                _TicketId = StructuralObject.SetValidValue(value);
+                _TicketId = StructuralObject.SetValidValue(value, "TicketId");
                 ReportPropertyChanged("TicketId");
                 OnTicketIdChanged();
             }
@@ -1388,7 +1396,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnFileIdChanging(value);
                     ReportPropertyChanging("FileId");
-                    _FileId = StructuralObject.SetValidValue(value);
+                    _FileId = StructuralObject.SetValidValue(value, "FileId");
                     ReportPropertyChanged("FileId");
                     OnFileIdChanged();
                 }
@@ -1413,7 +1421,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnFileNameChanging(value);
                 ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, false);
+                _FileName = StructuralObject.SetValidValue(value, false, "FileName");
                 ReportPropertyChanged("FileName");
                 OnFileNameChanged();
             }
@@ -1437,7 +1445,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnFileSizeChanging(value);
                 ReportPropertyChanging("FileSize");
-                _FileSize = StructuralObject.SetValidValue(value);
+                _FileSize = StructuralObject.SetValidValue(value, "FileSize");
                 ReportPropertyChanged("FileSize");
                 OnFileSizeChanged();
             }
@@ -1461,7 +1469,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnFileTypeChanging(value);
                 ReportPropertyChanging("FileType");
-                _FileType = StructuralObject.SetValidValue(value, false);
+                _FileType = StructuralObject.SetValidValue(value, false, "FileType");
                 ReportPropertyChanged("FileType");
                 OnFileTypeChanged();
             }
@@ -1485,7 +1493,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnUploadedByChanging(value);
                 ReportPropertyChanging("UploadedBy");
-                _UploadedBy = StructuralObject.SetValidValue(value, false);
+                _UploadedBy = StructuralObject.SetValidValue(value, false, "UploadedBy");
                 ReportPropertyChanged("UploadedBy");
                 OnUploadedByChanged();
             }
@@ -1509,7 +1517,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnUploadedDateChanging(value);
                 ReportPropertyChanging("UploadedDate");
-                _UploadedDate = StructuralObject.SetValidValue(value);
+                _UploadedDate = StructuralObject.SetValidValue(value, "UploadedDate");
                 ReportPropertyChanged("UploadedDate");
                 OnUploadedDateChanged();
             }
@@ -1533,7 +1541,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnFileContentsChanging(value);
                 ReportPropertyChanging("FileContents");
-                _FileContents = StructuralObject.SetValidValue(value, false);
+                _FileContents = StructuralObject.SetValidValue(value, false, "FileContents");
                 ReportPropertyChanged("FileContents");
                 OnFileContentsChanged();
             }
@@ -1557,7 +1565,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnFileDescriptionChanging(value);
                 ReportPropertyChanging("FileDescription");
-                _FileDescription = StructuralObject.SetValidValue(value, true);
+                _FileDescription = StructuralObject.SetValidValue(value, true, "FileDescription");
                 ReportPropertyChanged("FileDescription");
                 OnFileDescriptionChanged();
             }
@@ -1581,7 +1589,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnIsPendingChanging(value);
                 ReportPropertyChanging("IsPending");
-                _IsPending = StructuralObject.SetValidValue(value);
+                _IsPending = StructuralObject.SetValidValue(value, "IsPending");
                 ReportPropertyChanged("IsPending");
                 OnIsPendingChanged();
             }
@@ -1591,7 +1599,7 @@ namespace TicketDesk.Domain.Models
         partial void OnIsPendingChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1633,6 +1641,7 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1667,7 +1676,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1686,7 +1696,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnTicketIdChanging(value);
                     ReportPropertyChanging("TicketId");
-                    _TicketId = StructuralObject.SetValidValue(value);
+                    _TicketId = StructuralObject.SetValidValue(value, "TicketId");
                     ReportPropertyChanged("TicketId");
                     OnTicketIdChanged();
                 }
@@ -1713,7 +1723,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnCommentIdChanging(value);
                     ReportPropertyChanging("CommentId");
-                    _CommentId = StructuralObject.SetValidValue(value);
+                    _CommentId = StructuralObject.SetValidValue(value, "CommentId");
                     ReportPropertyChanged("CommentId");
                     OnCommentIdChanged();
                 }
@@ -1738,7 +1748,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCommentEventChanging(value);
                 ReportPropertyChanging("CommentEvent");
-                _CommentEvent = StructuralObject.SetValidValue(value, true);
+                _CommentEvent = StructuralObject.SetValidValue(value, true, "CommentEvent");
                 ReportPropertyChanged("CommentEvent");
                 OnCommentEventChanged();
             }
@@ -1762,7 +1772,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
+                _Comment = StructuralObject.SetValidValue(value, true, "Comment");
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -1786,7 +1796,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnIsHtmlChanging(value);
                 ReportPropertyChanging("IsHtml");
-                _IsHtml = StructuralObject.SetValidValue(value);
+                _IsHtml = StructuralObject.SetValidValue(value, "IsHtml");
                 ReportPropertyChanged("IsHtml");
                 OnIsHtmlChanged();
             }
@@ -1810,7 +1820,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCommentedByChanging(value);
                 ReportPropertyChanging("CommentedBy");
-                _CommentedBy = StructuralObject.SetValidValue(value, false);
+                _CommentedBy = StructuralObject.SetValidValue(value, false, "CommentedBy");
                 ReportPropertyChanged("CommentedBy");
                 OnCommentedByChanged();
             }
@@ -1834,7 +1844,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCommentedDateChanging(value);
                 ReportPropertyChanging("CommentedDate");
-                _CommentedDate = StructuralObject.SetValidValue(value);
+                _CommentedDate = StructuralObject.SetValidValue(value, "CommentedDate");
                 ReportPropertyChanged("CommentedDate");
                 OnCommentedDateChanged();
             }
@@ -1858,7 +1868,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnVersionChanging(value);
                 ReportPropertyChanging("Version");
-                _Version = StructuralObject.SetValidValue(value, true);
+                _Version = StructuralObject.SetValidValue(value, true, "Version");
                 ReportPropertyChanged("Version");
                 OnVersionChanged();
             }
@@ -1868,7 +1878,7 @@ namespace TicketDesk.Domain.Models
         partial void OnVersionChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -1932,6 +1942,7 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1974,7 +1985,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1993,7 +2005,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnTicketIdChanging(value);
                     ReportPropertyChanging("TicketId");
-                    _TicketId = StructuralObject.SetValidValue(value);
+                    _TicketId = StructuralObject.SetValidValue(value, "TicketId");
                     ReportPropertyChanged("TicketId");
                     OnTicketIdChanged();
                 }
@@ -2020,7 +2032,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnCommentIdChanging(value);
                     ReportPropertyChanging("CommentId");
-                    _CommentId = StructuralObject.SetValidValue(value);
+                    _CommentId = StructuralObject.SetValidValue(value, "CommentId");
                     ReportPropertyChanged("CommentId");
                     OnCommentIdChanged();
                 }
@@ -2047,7 +2059,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnNotifyUserChanging(value);
                     ReportPropertyChanging("NotifyUser");
-                    _NotifyUser = StructuralObject.SetValidValue(value, false);
+                    _NotifyUser = StructuralObject.SetValidValue(value, false, "NotifyUser");
                     ReportPropertyChanged("NotifyUser");
                     OnNotifyUserChanged();
                 }
@@ -2072,7 +2084,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnNotifyUserDisplayNameChanging(value);
                 ReportPropertyChanging("NotifyUserDisplayName");
-                _NotifyUserDisplayName = StructuralObject.SetValidValue(value, false);
+                _NotifyUserDisplayName = StructuralObject.SetValidValue(value, false, "NotifyUserDisplayName");
                 ReportPropertyChanged("NotifyUserDisplayName");
                 OnNotifyUserDisplayNameChanged();
             }
@@ -2096,7 +2108,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnNotifyEmailChanging(value);
                 ReportPropertyChanging("NotifyEmail");
-                _NotifyEmail = StructuralObject.SetValidValue(value, false);
+                _NotifyEmail = StructuralObject.SetValidValue(value, false, "NotifyEmail");
                 ReportPropertyChanged("NotifyEmail");
                 OnNotifyEmailChanged();
             }
@@ -2120,7 +2132,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnNotifyUserReasonChanging(value);
                 ReportPropertyChanging("NotifyUserReason");
-                _NotifyUserReason = StructuralObject.SetValidValue(value, false);
+                _NotifyUserReason = StructuralObject.SetValidValue(value, false, "NotifyUserReason");
                 ReportPropertyChanged("NotifyUserReason");
                 OnNotifyUserReasonChanged();
             }
@@ -2144,7 +2156,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnCreatedDateChanging(value);
                 ReportPropertyChanging("CreatedDate");
-                _CreatedDate = StructuralObject.SetValidValue(value);
+                _CreatedDate = StructuralObject.SetValidValue(value, "CreatedDate");
                 ReportPropertyChanged("CreatedDate");
                 OnCreatedDateChanged();
             }
@@ -2168,7 +2180,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnDeliveryAttemptsChanging(value);
                 ReportPropertyChanging("DeliveryAttempts");
-                _DeliveryAttempts = StructuralObject.SetValidValue(value);
+                _DeliveryAttempts = StructuralObject.SetValidValue(value, "DeliveryAttempts");
                 ReportPropertyChanged("DeliveryAttempts");
                 OnDeliveryAttemptsChanged();
             }
@@ -2192,7 +2204,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnLastDeliveryAttemptDateChanging(value);
                 ReportPropertyChanging("LastDeliveryAttemptDate");
-                _LastDeliveryAttemptDate = StructuralObject.SetValidValue(value);
+                _LastDeliveryAttemptDate = StructuralObject.SetValidValue(value, "LastDeliveryAttemptDate");
                 ReportPropertyChanged("LastDeliveryAttemptDate");
                 OnLastDeliveryAttemptDateChanged();
             }
@@ -2216,7 +2228,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value, false);
+                _Status = StructuralObject.SetValidValue(value, false, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -2240,7 +2252,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnNextDeliveryAttemptDateChanging(value);
                 ReportPropertyChanging("NextDeliveryAttemptDate");
-                _NextDeliveryAttemptDate = StructuralObject.SetValidValue(value);
+                _NextDeliveryAttemptDate = StructuralObject.SetValidValue(value, "NextDeliveryAttemptDate");
                 ReportPropertyChanged("NextDeliveryAttemptDate");
                 OnNextDeliveryAttemptDateChanged();
             }
@@ -2264,7 +2276,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnEventGeneratedByUserChanging(value);
                 ReportPropertyChanging("EventGeneratedByUser");
-                _EventGeneratedByUser = StructuralObject.SetValidValue(value, false);
+                _EventGeneratedByUser = StructuralObject.SetValidValue(value, false, "EventGeneratedByUser");
                 ReportPropertyChanged("EventGeneratedByUser");
                 OnEventGeneratedByUserChanged();
             }
@@ -2274,7 +2286,7 @@ namespace TicketDesk.Domain.Models
         partial void OnEventGeneratedByUserChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -2316,6 +2328,7 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2344,7 +2357,8 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
-        #region Primitive Properties
+
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2363,7 +2377,7 @@ namespace TicketDesk.Domain.Models
                 {
                     OnTicketTagIdChanging(value);
                     ReportPropertyChanging("TicketTagId");
-                    _TicketTagId = StructuralObject.SetValidValue(value);
+                    _TicketTagId = StructuralObject.SetValidValue(value, "TicketTagId");
                     ReportPropertyChanged("TicketTagId");
                     OnTicketTagIdChanged();
                 }
@@ -2388,7 +2402,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnTagNameChanging(value);
                 ReportPropertyChanging("TagName");
-                _TagName = StructuralObject.SetValidValue(value, false);
+                _TagName = StructuralObject.SetValidValue(value, false, "TagName");
                 ReportPropertyChanged("TagName");
                 OnTagNameChanged();
             }
@@ -2412,7 +2426,7 @@ namespace TicketDesk.Domain.Models
             {
                 OnTicketIdChanging(value);
                 ReportPropertyChanging("TicketId");
-                _TicketId = StructuralObject.SetValidValue(value);
+                _TicketId = StructuralObject.SetValidValue(value, "TicketId");
                 ReportPropertyChanged("TicketId");
                 OnTicketIdChanged();
             }
@@ -2422,7 +2436,7 @@ namespace TicketDesk.Domain.Models
         partial void OnTicketIdChanged();
 
         #endregion
-    
+
         #region Navigation Properties
     
         /// <summary>
@@ -2464,8 +2478,9 @@ namespace TicketDesk.Domain.Models
         }
 
         #endregion
+
     }
 
     #endregion
-    
+
 }

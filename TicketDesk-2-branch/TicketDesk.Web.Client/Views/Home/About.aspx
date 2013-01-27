@@ -47,6 +47,15 @@
                                 <li>Managed Extensibility Framework (MEF)</li>
                                 <li>SQL 2005 or 2008 (compatible with Express and Full SQL editions).</li>
                             </ul>
+                            <p>
+                                This version has since been updated for compatibility with the following:
+                            </p>
+                            <ul>
+                                <li>Asp.net MVC 4</li>
+                                <li>.net Framework 4.5</li>
+                                <li>Managed Extensibility Framework 2</li>
+                                <li>Tested with SQL 2012 localdb, express, and full editions</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

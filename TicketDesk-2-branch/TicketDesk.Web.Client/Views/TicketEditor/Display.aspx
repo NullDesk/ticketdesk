@@ -48,7 +48,7 @@
     %>
     <script src="../../Scripts/MicrosoftAjax.debug.js" type="text/javascript"></script>
     <script src="../../Scripts/MicrosoftMvcAjax.debug.js" type="text/javascript"></script>
-    <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-1.9.0.js" type="text/javascript"></script>
     <script src="../../Scripts/markitup/markitup/jquery.markitup.js" type="text/javascript"></script>
     <script src="../../Scripts/markitup/markitup/sets/markdown/set.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery-autocomplete/jquery.autocomplete.min.js" type="text/javascript"></script>

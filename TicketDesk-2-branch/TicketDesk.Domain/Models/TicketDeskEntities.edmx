@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="TicketDeskModelStoreContainer">
-          <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.Store.AdCachedRoleMembers" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.Store.AdCachedUserProperties" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Settings" EntityType="TicketDeskModel.Store.Settings" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TicketAttachments" EntityType="TicketDeskModel.Store.TicketAttachments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TicketComments" EntityType="TicketDeskModel.Store.TicketComments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TicketEventNotifications" EntityType="TicketDeskModel.Store.TicketEventNotifications" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Tickets" EntityType="TicketDeskModel.Store.Tickets" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TicketTags" EntityType="TicketDeskModel.Store.TicketTags" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.Store.AdCachedRoleMembers" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.Store.AdCachedUserProperties" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Settings" EntityType="TicketDeskModel.Store.Settings" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TicketAttachments" EntityType="TicketDeskModel.Store.TicketAttachments" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TicketComments" EntityType="TicketDeskModel.Store.TicketComments" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TicketEventNotifications" EntityType="TicketDeskModel.Store.TicketEventNotifications" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Tickets" EntityType="TicketDeskModel.Store.Tickets" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TicketTags" EntityType="TicketDeskModel.Store.TicketTags" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="FK_TicketAttachments_Tickets" Association="TicketDeskModel.Store.FK_TicketAttachments_Tickets">
             <End Role="Tickets" EntitySet="Tickets" />
             <End Role="TicketAttachments" EntitySet="TicketAttachments" />
@@ -199,8 +199,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TicketDeskModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="TicketDeskEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="TicketDeskModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TicketDeskEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="TicketAttachments" EntityType="TicketDeskModel.TicketAttachment" />
           <EntitySet Name="TicketComments" EntityType="TicketDeskModel.TicketComment" />
           <EntitySet Name="TicketEventNotifications" EntityType="TicketDeskModel.TicketEventNotification" />
@@ -231,7 +231,7 @@
             <PropertyRef Name="FileId" />
           </Key>
           <Property Name="TicketId" Type="Int32" />
-          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="FileSize" Type="Int32" Nullable="false" />
           <Property Name="FileType" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
@@ -248,13 +248,13 @@
             <PropertyRef Name="CommentId" />
           </Key>
           <Property Name="TicketId" Type="Int32" Nullable="false" />
-          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="CommentEvent" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IsHtml" Type="Boolean" Nullable="false" />
           <Property Name="CommentedBy" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="CommentedDate" Type="DateTime" Nullable="false" />
-          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <NavigationProperty Name="Ticket" Relationship="TicketDeskModel.FK_TicketComments_Tickets" FromRole="TicketComments" ToRole="Tickets" />
           <NavigationProperty Name="TicketEventNotifications" Relationship="TicketDeskModel.FK_TicketEventNotifications_TicketComments" FromRole="TicketComments" ToRole="TicketEventNotifications" />
         </EntityType>
@@ -282,7 +282,7 @@
           <Key>
             <PropertyRef Name="TicketId" />
           </Key>
-          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
@@ -301,7 +301,7 @@
           <Property Name="Priority" Type="String" MaxLength="25" Unicode="true" FixedLength="false" />
           <Property Name="AffectsCustomer" Type="Boolean" Nullable="false" />
           <Property Name="PublishedToKb" Type="Boolean" Nullable="false" />
-          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <NavigationProperty Name="TicketAttachments" Relationship="TicketDeskModel.FK_TicketAttachments_Tickets" FromRole="Tickets" ToRole="TicketAttachments" />
           <NavigationProperty Name="TicketComments" Relationship="TicketDeskModel.FK_TicketComments_Tickets" FromRole="Tickets" ToRole="TicketComments" />
           <NavigationProperty Name="TicketTags" Relationship="TicketDeskModel.FK_TicketTags_Tickets" FromRole="Tickets" ToRole="TicketTags" />
@@ -310,7 +310,7 @@
           <Key>
             <PropertyRef Name="TicketTagId" />
           </Key>
-          <Property Name="TicketTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="TagName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="TicketId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Ticket" Relationship="TicketDeskModel.FK_TicketTags_Tickets" FromRole="TicketTags" ToRole="Tickets" />
@@ -403,7 +403,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TicketDeskModelStoreContainer" CdmEntityContainer="TicketDeskEntities">
           <EntitySetMapping Name="TicketAttachments"><EntityTypeMapping TypeName="TicketDeskModel.TicketAttachment"><MappingFragment StoreEntitySet="TicketAttachments">
             <ScalarProperty Name="TicketId" ColumnName="TicketId" />
@@ -504,7 +504,7 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />

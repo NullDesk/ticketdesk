@@ -21,6 +21,7 @@ using System.Web.Mvc;
 using System.Collections;
 using System.Web.Routing;
 using TicketDesk.Domain.Services;
+using System.Web.SessionState;
 
 namespace TicketDesk.Web.Client
 {
@@ -66,6 +67,12 @@ namespace TicketDesk.Web.Client
             }
             return container;
         }
-        
+
+
+
+        public System.Web.SessionState.SessionStateBehavior GetControllerSessionBehavior(RequestContext requestContext, string controllerName)
+        {
+            return SessionStateBehavior.Default;
+        }
     }
 }

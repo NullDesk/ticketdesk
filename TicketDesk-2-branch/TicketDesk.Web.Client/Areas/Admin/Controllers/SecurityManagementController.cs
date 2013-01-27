@@ -20,7 +20,7 @@ using TicketDesk.Web.Client.Controllers;
 using System.ComponentModel.Composition;
 using TicketDesk.Domain.Services;
 using TicketDesk.Web.Client.Helpers;
-using MvcContrib.Pagination;
+using TicketDesk.Domain.Utilities.Pagination;
 using TicketDesk.Domain.Models;
 using System.Web.Security;
 using TicketDesk.Web.Client.Areas.Admin.Models;

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 11
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B6A11BF-E2E7-437E-BC2E-A71D3695290D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}"
@@ -17,9 +17,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MefDiagnostics", "MefDiagno
 		Library\Microsoft.ComponentModel.Composition.Diagnostics.pdb = Library\Microsoft.ComponentModel.Composition.Diagnostics.pdb
 	EndProjectSection
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{DD96F42D-912F-4CE8-8B0D-191D410BF379}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{DD96F42D-912F-4CE8-8B0D-191D410BF379}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5DA4DCCC-FA34-4008-8823-6336CCEDDE1A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +38,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD96F42D-912F-4CE8-8B0D-191D410BF379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD96F42D-912F-4CE8-8B0D-191D410BF379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD96F42D-912F-4CE8-8B0D-191D410BF379}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -51,13 +48,23 @@ Global
 		{DD96F42D-912F-4CE8-8B0D-191D410BF379}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DD96F42D-912F-4CE8-8B0D-191D410BF379}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DD96F42D-912F-4CE8-8B0D-191D410BF379}.Release|x86.ActiveCfg = Release|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2DC0BB5F-07C6-4948-89C8-E94D3CA1CC27}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A4065970-51EB-4218-AAB0-EBCF9149A8C5} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 		{B6F19A7A-5C4B-4D7B-BCDE-E400C9A717B1} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
+		{A4065970-51EB-4218-AAB0-EBCF9149A8C5} = {3F60AD4A-9FAF-45D6-8992-3FFF07A9707E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

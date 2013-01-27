@@ -15,7 +15,7 @@ using System;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Web.Mvc.Ajax;
-using MvcContrib.Pagination;
+using TicketDesk.Domain.Utilities.Pagination;
 
 namespace TicketDesk.Web.Client.Helpers
 {

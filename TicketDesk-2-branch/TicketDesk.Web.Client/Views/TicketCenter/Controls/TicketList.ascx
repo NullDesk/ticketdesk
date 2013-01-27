@@ -13,7 +13,7 @@
 
 <script src="../../../Scripts/MicrosoftMvcAjax.debug.js" type="text/javascript"></script>
 
-<script src="../../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+<script src="../../../Scripts/jquery-1.9.0.js" type="text/javascript"></script>
 
 <script src="../../../Scripts/jquery-qtip-1.0.0-beta3.1020438/jquery.qtip-1.0.0-beta3.1.min.js"
     type="text/javascript"></script>
