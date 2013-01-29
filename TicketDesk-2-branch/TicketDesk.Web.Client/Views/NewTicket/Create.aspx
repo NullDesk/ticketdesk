@@ -33,7 +33,7 @@
     <script src="../../Scripts/markitup-editor/markitup/sets/markdown/set.js" type="text/javascript"></script>
     <script src="../../Scripts/MicrosoftAjax.debug.js" type="text/javascript"></script>
     <script src="../../Scripts/MicrosoftMvcAjax.debug.js" type="text/javascript"></script>
-    <script src="../../Scripts/jjquery-1.9.0.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery-qtip-1.0.0-beta3.1020438/jquery.qtip-1.0.0-beta3.1.min.js"
         type="text/javascript"></script>
     <script src="../../Scripts/jquery.hoverIntent.minified.js" type="text/javascript"></script>

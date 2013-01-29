@@ -11,7 +11,7 @@
         if (false)
         {
     %>
-    <script src="../../Scripts/jquery-1.9.0.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery.clickable-0.1.9.js" type="text/javascript"></script>
     <%
         }
