@@ -74,7 +74,8 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
                 IsAdmin = Security.IsTdAdmin(u.UserName),
                 IsStaff = Security.IsTdStaff(u.UserName),
                 IsSubmitter = Security.IsTdSubmitter(u.UserName),
-                IsApproved = u.IsApproved
+                IsApproved = u.IsApproved,
+                IsLockedOut = u.IsLockedOut
             };
 
         }
@@ -104,7 +105,13 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 m.Comment = user.DisplayName;
+                m.Email = user.Email;
                 m.IsApproved = user.IsApproved;
+                if(m.IsLockedOut && !user.IsLockedOut)
+                {
+                    m.UnlockUser();
+                }
+                
                 membership.UpdateUser(m);
 
                 if (Security.IsTdAdmin(user.UserName) != user.IsAdmin)

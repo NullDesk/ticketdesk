@@ -13,8 +13,23 @@
             $(".displayContainerInner").corner("bevel 5px").parent().css('padding', '3px').corner("round keep  10px");
         }
     </script>
+    <script runat="server">
+    protected object getHtmlEnabledAttributes(bool locked)
+    {
+        if(!locked)
+        {
+            return new {Disabled = true};
+        }
+        else
+        {
+            return null;
+        }
+    }    
+</script>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="AdminContent" runat="server">
+
+
     <div class="contentContainer">
         <div style="max-width: 600px; margin: auto;">
             <div class="displayContainerOuter">
@@ -79,6 +94,14 @@
                                 </div>
                                 <div class="editor-label" style="display: inline;">
                                     <%: Html.LabelFor(model => model.IsApproved) %>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="editor-field" style="display: inline;">
+                                    <%: Html.CheckBoxFor(model => model.IsLockedOut, getHtmlEnabledAttributes(Model.IsLockedOut))%>
+                                </div>
+                                <div class="editor-label" style="display: inline;">
+                                    <%: Html.LabelFor(model => model.IsLockedOut) %>
                                 </div>
                             </div>
                           

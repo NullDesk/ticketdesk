@@ -36,5 +36,9 @@ namespace TicketDesk.Web.Client.Areas.Admin.Models
 
         [DisplayName("Is Submitter")]
         public bool IsSubmitter { get; set; }
+
+        [DisplayName("Locked")]
+        public bool IsLockedOut { get; set; }
+
     }
 }

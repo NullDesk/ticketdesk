@@ -43,6 +43,7 @@
                                         <th>TD Help Desk</th>
                                         <th>TD Submitter</th>
                                         <th>Approved</th>
+                                        <th>Locked</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,6 +72,9 @@
                                         </td>
                                         <td>
                                         <%: Html.CheckBoxFor(i => item.IsApproved, new { disabled = "true" })%>
+                                        </td>
+                                        <td>
+                                             <%: Html.CheckBoxFor(i => item.IsLockedOut, new {disabled = "true" })%>
                                         </td>
                                     </tr>
                                    <% } %>
