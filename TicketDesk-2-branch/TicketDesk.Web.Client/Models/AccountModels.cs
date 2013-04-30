@@ -75,7 +75,7 @@ namespace TicketDesk.Web.Client.Models
         public string DisplayName { get; set; }
 
         [Required]
-        [ValidateEmailAttribute]
+        [ValidateEmail]
         [DataType(DataType.EmailAddress)]
         [DisplayName("Email address")]
         public string Email { get; set; }
@@ -99,8 +99,15 @@ namespace TicketDesk.Web.Client.Models
         [DataType(DataType.Text)]
         public string DisplayName { get; set; }
 
+        [Required]
+        [DisplayName("Email Address")]
+        [ValidateEmail]
+        [DataType(DataType.Text)]
+        public string EmailAddress { get; set; }
+
         [DisplayName("Show preview window when I open a rich text editor")]
         public bool OpenEditorWithPreview { get; set; }
+
     }
     #endregion
 
@@ -117,7 +124,7 @@ namespace TicketDesk.Web.Client.Models
         bool ValidateUser(string userName, string password);
         MembershipCreateStatus CreateUser(string userName, string displayName, string password, string email, ISecurityService security, IApplicationSettingsService appSettings);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
-        bool ChangeUserPreferences(string userName, string displayName, bool openEditorWithPreview, SettingsService settingsService);
+        bool ChangeUserPreferences(string userName, string displayName, string emailAddress, bool openEditorWithPreview, SettingsService settingsService);
     }
 
     public class AccountMembershipService : IMembershipService
@@ -193,12 +200,13 @@ namespace TicketDesk.Web.Client.Models
             }
         }
 
-        public bool ChangeUserPreferences(string userName, string displayName, bool openEditorWithPreview, SettingsService settingsService)
+        public bool ChangeUserPreferences(string userName, string displayName, string emailAddress, bool openEditorWithPreview, SettingsService settingsService)
         {
             bool status = false;
             try
             {
                 var user = _provider.GetUser(userName, true);
+                user.Email = emailAddress;
                 user.Comment = displayName;
                 _provider.UpdateUser(user);
                 settingsService.UserSettings.OpenEditorWithPreview = openEditorWithPreview;

@@ -144,6 +144,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             var model = new AccountPreferencesModel();
             model.DisplayName = ViewData["UserDisplayName"] as string;
+            model.EmailAddress = Security.GetUserEmailAddress(Security.CurrentUserName);
             model.OpenEditorWithPreview = Settings.UserSettings.OpenEditorWithPreview;
             return View(model);
         }
@@ -162,7 +163,7 @@ namespace TicketDesk.Web.Client.Controllers
             if (ModelState.IsValid)
             {
                 
-                    if(MembershipService.ChangeUserPreferences(User.Identity.Name, model.DisplayName, model.OpenEditorWithPreview, Settings))
+                    if(MembershipService.ChangeUserPreferences(User.Identity.Name, model.DisplayName, model.EmailAddress, model.OpenEditorWithPreview, Settings))
                     {
                         return RedirectToAction(MVC.Account.ChangePreferencesSuccess());
                     }

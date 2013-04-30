@@ -24,10 +24,18 @@
                     <%: Html.TextBoxFor(m => m.DisplayName) %>
                     <%: Html.ValidationMessageFor(m => m.DisplayName) %>
                 </div>
+                <div class="editor-label">
+                    <%: Html.LabelFor(m => m.EmailAddress) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(m => m.EmailAddress) %>
+                    <%: Html.ValidationMessageFor(m => m.EmailAddress) %>
+                </div>
                 <div class="editor-field">
                     <%: Html.CheckBoxFor(m => m.OpenEditorWithPreview) %>
                     <%: Html.LabelFor(m => m.OpenEditorWithPreview) %>
                 </div>
+
                 <p>
                     <input type="submit" value="Save" /></p>
                 <% } %>
