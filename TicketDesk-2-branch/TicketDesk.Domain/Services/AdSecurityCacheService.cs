@@ -49,6 +49,8 @@ namespace TicketDesk.Domain.Services
 
         internal AdSqlCacheRepository AdSqlRepository { get; private set; }
 
+
+        private static object roleMembersLock = new object();
         /// <summary>
         /// Gets the cached collection of members for a sepcified role.
         /// </summary>
@@ -62,8 +64,7 @@ namespace TicketDesk.Domain.Services
         /// </remarks>
         internal UserInfo[] GetRoleMembers(string groupName)
         {
-            var oLock = new object();
-            lock (oLock)
+            lock (roleMembersLock)
             {
                 string key = GetAdUserGroupCacheKey(groupName);
                 ObjectCache cache = MemoryCache.Default;
@@ -143,6 +144,10 @@ namespace TicketDesk.Domain.Services
             CurrentCacheKeys.Add(key);
         }
 
+
+        private static object cachedUserPropertieLock = new object();
+       
+
         /// <summary>
         /// Gets the cached collection of user properties.
         /// </summary>
@@ -154,8 +159,7 @@ namespace TicketDesk.Domain.Services
         /// </remarks>
         private Dictionary<string, Dictionary<string, string>> GetCachedUserProperties()
         {
-            var oLock = new object();
-            lock (oLock)
+            lock (cachedUserPropertieLock)
             {
                 ObjectCache cache = MemoryCache.Default;
                 var cacheCollection = cache["AdUserPropertyCollection"] as Dictionary<string, Dictionary<string, string>>;

@@ -99,12 +99,10 @@ namespace TicketDesk.Domain.Services
 
         //TODO: These may be best suited to being static rather than instance based... depends on invocation and testability
 
-        private object processLock;
-
+        private static object processWaitingTicketEventNotificationsLock = new object();
         public void ProcessWaitingTicketEventNotifications()
         {
-            processLock = new object();
-            lock (processLock)
+            lock (processWaitingTicketEventNotificationsLock)
             {
                 var now = DateTime.Now;
 
@@ -204,12 +202,12 @@ namespace TicketDesk.Domain.Services
             }
         }
 
-        private object sendingLock;
+        private static object sendingLock = new object();
 
 
         private void SendTicketEventNotificationEmail(TicketEventNotification note, List<TicketEventNotification> consolidations)
         {
-            sendingLock = new object();
+            
             lock (sendingLock)
             {
                 PrepareTicketEventNotificationForDelivery(note, consolidations);

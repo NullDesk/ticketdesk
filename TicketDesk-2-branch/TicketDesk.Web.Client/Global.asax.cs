@@ -151,21 +151,20 @@ namespace TicketDesk.Web.Client
 
             }
         }
-
+        private static Object emaiNotificationsTimerIsRunningLock = new Object();
         private void EmaiNotificationsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Object isRunningLock = new Object();
-            lock (isRunningLock)
+            lock (emaiNotificationsTimerIsRunningLock)
             {
                 var noteSender = MefHttpApplication.ApplicationContainer.GetExportedValue<INotificationSendingService>();
                 noteSender.ProcessWaitingTicketEventNotifications();
             }
         }
 
+        private static Object derelictAttachmentsTimerIsRunningLock = new Object();
         private void DerelictAttachmentsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Object isRunningLock = new Object();
-            lock (isRunningLock)
+            lock (derelictAttachmentsTimerIsRunningLock)
             {
                 //clean up pending attachments that are now derelict
                 int hoursOld = AppSettings.CleanupPendingAttachmentsAfterHours;

@@ -66,7 +66,7 @@ namespace TicketDesk.Domain.Services
 
         }
 
-        private object resetDirectoryLock = new object();
+        private static object resetDirectoryLock = new object();
         private void ResetTdSearchDirectory()
         {
             lock (resetDirectoryLock)
@@ -104,7 +104,7 @@ namespace TicketDesk.Domain.Services
                 return _tdIndexSearcher;
             }
         }
-        private object resetSearcherLock = new object();
+        private static object resetSearcherLock = new object();
         private void ResetTdIndexSearcher()
         {
             lock (resetSearcherLock)
@@ -128,7 +128,7 @@ namespace TicketDesk.Domain.Services
             System.Threading.Tasks.Task.Factory.StartNew(() => UpdateTicket(tickets));
         }
 
-        private object updateLock = new object();
+        private static object updateLock = new object();
         public void UpdateTicket(IEnumerable<Ticket> tickets)
         {
             lock (updateLock)
