@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -26,11 +27,11 @@ namespace TicketDesk.Domain.Models
         internal string[] GetNotificationSubscribers()
         {
             List<string> subs = new List<string>();
-            if (!string.IsNullOrEmpty(PreviousOwner) && PreviousOwner != Owner)
+            if (!string.IsNullOrEmpty(PreviousOwner) && !PreviousOwner.Equals(Owner, StringComparison.InvariantCultureIgnoreCase))
             {
                 subs.Add(PreviousOwner);
             }
-            if (!string.IsNullOrEmpty(PreviousAssignedUser) && PreviousAssignedUser != AssignedTo)
+            if (!string.IsNullOrEmpty(PreviousAssignedUser) && !PreviousAssignedUser.Equals(AssignedTo, StringComparison.InvariantCultureIgnoreCase))
             {
                 subs.Add(PreviousAssignedUser);
             }

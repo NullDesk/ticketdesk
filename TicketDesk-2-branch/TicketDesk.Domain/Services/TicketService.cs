@@ -172,7 +172,7 @@ namespace TicketDesk.Domain.Services
             }
 
             //comment
-            TicketComment openingComment = (newTicket.Owner != Security.CurrentUserName) ?
+            TicketComment openingComment = (!newTicket.Owner.Equals(Security.CurrentUserName, StringComparison.InvariantCultureIgnoreCase)) ?
                 GetActivityComment(TicketActivity.CreateOnBehalfOf, TicketCommentFlag.CommentNotApplicable, null, newTicket.AssignedTo, newTicket.GetNotificationSubscribers(), Security.GetUserDisplayName(newTicket.Owner)) :
                 GetActivityComment(TicketActivity.Create, TicketCommentFlag.CommentNotApplicable, null, newTicket.AssignedTo, newTicket.GetNotificationSubscribers());
 
@@ -395,7 +395,7 @@ namespace TicketDesk.Domain.Services
             {
                 activityEn = (hasPriority) ? TicketActivity.AssignWithPriority : TicketActivity.Assign;
             }
-            else if (ticket.AssignedTo == Security.CurrentUserName)
+            else if (ticket.AssignedTo.Equals(Security.CurrentUserName, StringComparison.InvariantCultureIgnoreCase))
             {
                 activityEn = (hasPriority) ? TicketActivity.PassWithPriority : TicketActivity.Pass;
             }
@@ -571,7 +571,7 @@ namespace TicketDesk.Domain.Services
             }
 
             //If user is already owner, prevent "as the owner" part of event text
-            if (Security.CurrentUserName == ticket.Owner)
+            if (Security.CurrentUserName.Equals(ticket.Owner, StringComparison.InvariantCultureIgnoreCase))
             {
                 reopenOwnedByUser = false;
             }
