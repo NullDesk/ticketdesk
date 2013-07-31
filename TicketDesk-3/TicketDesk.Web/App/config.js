@@ -3,17 +3,17 @@
 
     var routes = [{
             url: 'home',
-            name: 'Home',
+            name: $.i18n.t('navMainHome'),//'Home',
             visible: true
         },{
             url: 'tickets',
-            name: 'Tickets',
+            name: $.i18n.t('navMainTickets'),//'Tickets',
             moduleId: 'viewmodels/ticketlist',
             visible: true
         },{
             url: 'ticket/:id',
             moduleId: 'viewmodels/ticketdetails',
-            name: 'Ticket Details',
+            name: $.i18n.t('navMainTicketDetails'),//'Ticket Details',
             visible: false
         }];
 

@@ -117,13 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName in en-US (default)</value>
+  <data name="Start_ScopedString" xml:space="preserve">
+    <value>default-scoped string here (en-US default)</value>
+  </data>
+  <data name="NavMainTickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="NavMainTicketDetails" xml:space="preserve">
+    <value>Ticket Details</value>
+  </data>
+  <data name="NavMainHome" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="LocalizeMe" xml:space="preserve">
     <value>i18next Localization (en-US default)</value>
   </data>
-  <data name="Start_ScopedString" xml:space="preserve">
-    <value>default-scoped string here (en-US default)</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName in en-US (default)</value>
+  </data>
+  <data name="BtnRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>TicketDesk 3</value>
   </data>
 </root>

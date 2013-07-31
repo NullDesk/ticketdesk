@@ -7,8 +7,8 @@
   "paths": {
     "text": "durandal/amd/text"
   },
-  "baseUrl": "C:\\Users\\stephenr\\Documents\\Visual Studio 2012\\Projects\\Personal\\TicketDesk3\\Code\\TicketDesk.Web\\App",
-  "mainConfigFile": "C:\\Users\\stephenr\\Documents\\Visual Studio 2012\\Projects\\Personal\\TicketDesk3\\Code\\TicketDesk.Web\\App\\main.js",
+  "baseUrl": "C:\\Users\\stephenr\\Documents\\Visual Studio 2012\\Projects\\Personal\\ticketdesk\\TicketDesk-3\\TicketDesk.Web\\App",
+  "mainConfigFile": "C:\\Users\\stephenr\\Documents\\Visual Studio 2012\\Projects\\Personal\\ticketdesk\\TicketDesk-3\\TicketDesk.Web\\App\\main.js",
   "include": [
     "config",
     "main-built",
@@ -47,7 +47,7 @@
   "exclude": [],
   "keepBuildDir": true,
   "optimize": "uglify2",
-  "out": "C:\\Users\\stephenr\\Documents\\Visual Studio 2012\\Projects\\Personal\\TicketDesk3\\Code\\TicketDesk.Web\\App\\main-built.js",
+  "out": "C:\\Users\\stephenr\\Documents\\Visual Studio 2012\\Projects\\Personal\\ticketdesk\\TicketDesk-3\\TicketDesk.Web\\App\\main-built.js",
   "pragmas": {
     "build": true
   },

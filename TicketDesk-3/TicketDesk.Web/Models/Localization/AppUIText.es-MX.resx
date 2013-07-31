@@ -120,4 +120,25 @@
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName in es</value>
   </data>
+  <data name="LocalizeMe" xml:space="preserve">
+    <value>i18next Localization (en-US default)</value>
+  </data>
+  <data name="Start_ScopedString" xml:space="preserve">
+    <value>default-scoped string here (en-US default)</value>
+  </data>
+  <data name="NavMainHome" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="NavMainTickets" xml:space="preserve">
+    <value>Billetes</value>
+  </data>
+  <data name="BtnRefresh" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="NavMainTicketDetails" xml:space="preserve">
+    <value>Billetes Details</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>BilleteBureau 3</value>
+  </data>
 </root>

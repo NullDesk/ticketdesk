@@ -61,6 +61,24 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TicketDesk 3.
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string BtnRefresh {
+            get {
+                return ResourceManager.GetString("BtnRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DisplayName in en-US (default).
         /// </summary>
         public static string DisplayName {
@@ -75,6 +93,33 @@ namespace TicketDesk.Web.Models.Localization {
         public static string LocalizeMe {
             get {
                 return ResourceManager.GetString("LocalizeMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string NavMainHome {
+            get {
+                return ResourceManager.GetString("NavMainHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Details.
+        /// </summary>
+        public static string NavMainTicketDetails {
+            get {
+                return ResourceManager.GetString("NavMainTicketDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tickets.
+        /// </summary>
+        public static string NavMainTickets {
+            get {
+                return ResourceManager.GetString("NavMainTickets", resourceCulture);
             }
         }
         

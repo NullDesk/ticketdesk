@@ -1,4 +1,7 @@
-﻿using System.Globalization;
+﻿using System.Collections;
+using System.Dynamic;
+using System.Globalization;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading;
 using Newtonsoft.Json;
@@ -10,6 +13,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Resources;
+using Newtonsoft.Json.Serialization;
+using TicketDesk.Web.Models.Localization;
 
 namespace TicketDesk.Web.Controllers
 {
@@ -18,25 +23,37 @@ namespace TicketDesk.Web.Controllers
         // GET api/<controller>/en-us/appuitext
         public HttpResponseMessage Get(string lang, string ns)
         {
-            CultureInfo ci = lang.Equals("dev", StringComparison.InvariantCultureIgnoreCase) ?
+            var cinfo = lang.Equals("dev", StringComparison.InvariantCultureIgnoreCase) ?
                 CultureInfo.InvariantCulture : new CultureInfo(lang);
 
-            Thread.CurrentThread.CurrentUICulture = ci;
-            object content = null;
+            ICollection<KeyValuePair<string, object>> content = null;
+
             switch (ns)
             {
                 case "appuitext":
-                    content = new
-                        {
-                            localizeMe = TicketDesk.Web.Models.Localization.AppUIText.LocalizeMe,
-                            start = new { TicketDesk.Web.Models.Localization.AppUIText.Start_ScopedString },
-                            displayName = TicketDesk.Web.Models.Localization.AppUIText.DisplayName
-                        };
+                    content = GetTextResourceContent(AppUIText.ResourceManager.GetResourceSet(cinfo, true, true));
                     break;
                 default:
                     break;
             }
-            return Request.CreateResponse(HttpStatusCode.OK, content, Configuration.Formatters.JsonFormatter);
+
+            var jsonFormatter = Configuration.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            return Request.CreateResponse(HttpStatusCode.OK, content, jsonFormatter); //Configuration.Formatters.JsonFormatter);
+        }
+
+        private ICollection<KeyValuePair<string, object>> GetTextResourceContent(ResourceSet set)
+        {
+            var resourceDictionary = set.Cast<DictionaryEntry>()
+                                        .ToDictionary(r => r.Key.ToString(),
+                                                      r => r.Value.ToString());
+            var content = (ICollection<KeyValuePair<string, object>>) new ExpandoObject();
+
+            foreach (var item in resourceDictionary)
+            {
+                content.Add(new KeyValuePair<string, object>(item.Key, item.Value));
+            }
+            return content;
         }
 
         //// POST api/<controller>
