@@ -1,0 +1,36 @@
+﻿﻿using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+using TicketDesk.Domain;
+using TicketDesk.Legacy;
+using TicketDesk.Legacy.Migrations;
+
+namespace TicketDesk.Web
+{
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // visit http://go.microsoft.com/?LinkId=9394801
+
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            System.Data.Entity.Database.SetInitializer(new LegacyDatabaseInitializer("TicketDesk"));
+            System.Data.Entity.Database.SetInitializer<TicketDeskContext>(new TicketDeskDatabaseInitializer("TicketDesk"));
+
+            using (var legacyCtx = new TicketDeskLegacyContext())
+            {
+                legacyCtx.Database.Initialize(false);
+            }
+            using (var ctx = new TicketDeskContext())
+            {
+                ctx.Database.Initialize(false);
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{D1E669CC-6548-464B-85BF-A69E6A158AA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Tests", "TicketDesk.Domain.Tests\TicketDesk.Domain.Tests.csproj", "{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{97780B12-E27B-46E7-A4BC-A7F428B4F26E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{48857500-A01A-442C-8B90-2A56026A8546}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{BC3DF6D9-9B43-4C43-AF9D-D092DD24A780}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Legacy", "TicketDesk.Legacy\TicketDesk.Legacy.csproj", "{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web", "TicketDesk.Web\TicketDesk.Web.csproj", "{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1E669CC-6548-464B-85BF-A69E6A158AA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E669CC-6548-464B-85BF-A69E6A158AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E669CC-6548-464B-85BF-A69E6A158AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E669CC-6548-464B-85BF-A69E6A158AA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0} = {97780B12-E27B-46E7-A4BC-A7F428B4F26E}
+	EndGlobalSection
+EndGlobal
