@@ -35,9 +35,18 @@ namespace TicketDesk.Legacy.Migrations
 
         public static bool IsLegacyDatabase(TicketDeskLegacyContext context)
         {
-            var oldVersion = context.Database.SqlQuery<string>("select SettingValue from Settings where SettingName = 'Version'");
-            return (oldVersion != null && oldVersion.Count() > 0 && oldVersion.First().Equals("2.0.2"));
-            
+            var isLegacy = false;
+            try
+            {
+                var oldVersion =
+                    context.Database.SqlQuery<string>("select SettingValue from Settings where SettingName = 'Version'");
+                isLegacy = (oldVersion != null && oldVersion.Any() && oldVersion.First().Equals("2.0.2"));
+            }
+            catch
+            {
+                //eat any exception, we'll assume that if the db exists, but we can't read the settings, then it is an just empty new db
+            }
+            return isLegacy;
 
         }
     }
