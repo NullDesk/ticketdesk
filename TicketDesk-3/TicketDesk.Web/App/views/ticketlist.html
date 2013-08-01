@@ -24,9 +24,9 @@
             <header class="row-fluid">
                 <div class="inline pull-left" style="margin: 0 15px 0 0;">
                     <h1><span data-i18n="appmodeltext:ticketTicketId" /><!--ko text: ticketId --><!--/ko-->
-                        <!--ko text: category -->
+                        <!--ko text:  $.i18n.t('appmodeltext:category-' + category()) -->
                         <!--/ko-->
-                        <!--ko text: ticketType -->
+                        <!--ko text:  $.i18n.t('appmodeltext:ticketType-' + ticketType())  -->
                         <!--/ko-->
                     </h1>
                     <h2>
@@ -53,7 +53,7 @@
                         <!--ko text: currentStatus -->
                         <!--/ko-->
                         -
-                        <!--ko text: priority -->
+                        <!--ko text: $.i18n.t('appmodeltext:priority-' + priority()) -->
                         <!--/ko-->
                         <span data-i18n="appmodeltext:ticketPriority" />
                     </p>

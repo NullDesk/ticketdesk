@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,23 +60,35 @@ namespace TicketDesk.Domain.Model
             return settingValue;
         }
 
-        /// <summary>
-        /// Gets a collection of available priorities.
-        /// </summary>
-        /// <returns></returns>
+
         public static IEnumerable<SimpleSetting> GetAvailablePriorities(this DbSet<Setting> settings)
         {
-            return ((string[])GetSettingValue(settings, "PriorityList")).Select(s => new SimpleSetting(s));
+            return GetAvailablePriorities(settings, null);
+        }
+
+        public static IEnumerable<SimpleSetting> GetAvailablePriorities(this DbSet<Setting> settings, string language)
+        {
+            return GetLocalizedSimpleSettingList(settings, language, "PriorityList");
         }
 
         public static IEnumerable<SimpleSetting> GetAvailableTicketTypes(this DbSet<Setting> settings)
         {
-            return ((string[])GetSettingValue(settings, "TicketTypesList")).Select(s => new SimpleSetting(s));
+            return GetAvailableTicketTypes(settings, null);
+        }
+
+        public static IEnumerable<SimpleSetting> GetAvailableTicketTypes(this DbSet<Setting> settings, string language)
+        {
+            return GetLocalizedSimpleSettingList(settings, language, "TicketTypesList");
         }
 
         public static IEnumerable<SimpleSetting> GetAvailableCategories(this DbSet<Setting> settings)
         {
-            return ((string[])GetSettingValue(settings, "CategoryList")).Select(s => new SimpleSetting(s));
+            return GetAvailableCategories(settings, null);
+        }
+
+        public static IEnumerable<SimpleSetting> GetAvailableCategories(this DbSet<Setting> settings, string language)
+        {
+            return GetLocalizedSimpleSettingList(settings, language, "CategoryList");
         }
 
         public static IEnumerable<SimpleSetting> GetAvailableStatuses(this DbSet<Setting> settings)
@@ -84,7 +97,24 @@ namespace TicketDesk.Domain.Model
             var statuses = new [] { "Active", "More Info", "Closed", "Resolved" };
             return statuses.Select(s => new SimpleSetting(s));
         }
-        
+
+        private static IEnumerable<SimpleSetting> GetLocalizedSimpleSettingList(DbSet<Setting> settings, string language, string settingBaseName)
+        {
+            IEnumerable<SimpleSetting> data = null;
+            var settingName = settingBaseName;
+            if (!string.IsNullOrEmpty(language) && language.Length > 1)
+            {
+                var langCode = language.Substring(0, 2);
+                settingName = string.Format("{0}-{1}", settingBaseName, langCode);
+                if (!settings.Any(s => s.SettingName.Equals(settingName, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    settingName = settingBaseName;
+                }
+            }
+
+            data = ((string[])GetSettingValue(settings, settingName)).Select(s => new SimpleSetting(s));
+            return data;
+        }
 
         private static void ThrowSettingTypeException(string settingName, string settingType)
         {
