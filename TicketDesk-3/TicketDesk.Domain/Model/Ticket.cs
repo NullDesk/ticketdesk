@@ -4,57 +4,60 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TicketDesk.Domain.Model.Localization;
 
 namespace TicketDesk.Domain.Model
 {
     public class Ticket
     {
-        [DisplayName("Ticket Id")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketTicketId")]
         [Required]
         public int TicketId { get; set; }
 
-        [DisplayName("Type")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketTicketType")]
         [Required]
         [StringLength(50)]
         public string TicketType { get; set; }
 
-        [DisplayName("Category")]
+
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketCategory")]
+
         [Required]
         [StringLength(50)]
         public string Category { get; set; }
 
-        [DisplayName("Title")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketTitle")]
         [Required]
         [StringLength(500)]
         public string Title { get; set; }
 
-        [DisplayName("Details")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketDetails")]
         [Required]
         [Column(TypeName = "ntext")]
         public string Details { get; set; }
 
-        [DisplayName("Is Html")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketIsHtml")]
         [Required]
         [DefaultValue(false)]
         public bool IsHtml { get; set; }
 
-        [DisplayName("Tag List")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketTagList")]
         [StringLength(100)]
         public string TagList { get; set; }
 
-        [DisplayName("Created By")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketCreatedBy")]
         [Required]
         [StringLength(100)]
         public string CreatedBy { get; set; }
 
-        [DisplayName("Created Date")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketCreatedDate")]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTimeOffset CreatedDate { get; set; }
 
         private string _owner;
 
-        [DisplayName("Owner")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketOwner")]
         [Required]
         [StringLength(100)]
         public string Owner
@@ -69,10 +72,11 @@ namespace TicketDesk.Domain.Model
                 _owner = value;
             }
         }
-        
+
         private string _assignedTo;
 
-        [DisplayName("Assigned To")]
+
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketAssignedTo")]
         [StringLength(100)]
         public string AssignedTo
         {
@@ -87,34 +91,34 @@ namespace TicketDesk.Domain.Model
             }
         }
 
-        [DisplayName("Current Status")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketCurrentStatus")]
         [Required]
         [StringLength(50)]
         public string CurrentStatus { get; set; }
 
-        [DisplayName("Current Status Date")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketCurrentStatusDate")]
         [Required]
         public DateTimeOffset CurrentStatusDate { get; set; }
 
-        [DisplayName("Current Status Set By")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketCurrentStatusBy")]
         [Required]
         [StringLength(100)]
         public string CurrentStatusSetBy { get; set; }
 
-        [DisplayName("Last Update By")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketLastUpdateBy")]
         [Required]
         [StringLength(100)]
         public string LastUpdateBy { get; set; }
 
-        [DisplayName("Last Update Date")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketLastUpdateDate")]
         [Required]
         public DateTimeOffset LastUpdateDate { get; set; }
 
-        [DisplayName("Priority")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketPriority")]
         [StringLength(25)]
         public string Priority { get; set; }
 
-        [DisplayName("Affects Customer")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketAffectsCustomer")]
         [Required]
         [DefaultValue(false)]
         public bool AffectsCustomer { get; set; }
@@ -132,7 +136,7 @@ namespace TicketDesk.Domain.Model
         public virtual ICollection<TicketAttachment> TicketAttachments { get; set; }
 
         public virtual ICollection<TicketComment> TicketComments { get; set; }
-        
+
         public virtual ICollection<TicketTag> TicketTags { get; set; }
 
         internal string[] GetNotificationSubscribers()
@@ -157,7 +161,7 @@ namespace TicketDesk.Domain.Model
             return subs.ToArray();
         }
 
-        [DisplayName("Details")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketDetails")]
         [NotMapped]
         public string HtmlDetails
         {

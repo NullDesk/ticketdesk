@@ -79,20 +79,11 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DisplayName in en-US (default).
+        ///   Looks up a localized string similar to title.
         /// </summary>
-        public static string DisplayName {
+        public static string CssNavLogo {
             get {
-                return ResourceManager.GetString("DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to i18next Localization (en-US default).
-        /// </summary>
-        public static string LocalizeMe {
-            get {
-                return ResourceManager.GetString("LocalizeMe", resourceCulture);
+                return ResourceManager.GetString("CssNavLogo", resourceCulture);
             }
         }
         
@@ -124,11 +115,74 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to default-scoped string here (en-US default).
+        ///   Looks up a localized string similar to Next.
         /// </summary>
-        public static string Start_ScopedString {
+        public static string PagerNext {
             get {
-                return ResourceManager.GetString("Start_ScopedString", resourceCulture);
+                return ResourceManager.GetString("PagerNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to found.
+        /// </summary>
+        public static string PagerNumberFound {
+            get {
+                return ResourceManager.GetString("PagerNumberFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string PagerOf {
+            get {
+                return ResourceManager.GetString("PagerOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string PagerPrevious {
+            get {
+                return ResourceManager.GetString("PagerPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ms-PL license - ©2013 Stephen M. Redd.
+        /// </summary>
+        public static string ViewFooterCopyright {
+            get {
+                return ResourceManager.GetString("ViewFooterCopyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to see here, move along... move along.....
+        /// </summary>
+        public static string ViewHomeContent {
+            get {
+                return ResourceManager.GetString("ViewHomeContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TIcketDesk Home.
+        /// </summary>
+        public static string ViewHomeTitle {
+            get {
+                return ResourceManager.GetString("ViewHomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Tickets.
+        /// </summary>
+        public static string ViewTicketListTitle {
+            get {
+                return ResourceManager.GetString("ViewTicketListTitle", resourceCulture);
             }
         }
     }

@@ -199,7 +199,7 @@
             deactivate: deactivate,
             refresh: refresh,
             tickets: tickets,
-            title: 'Tickets',
+            title: $.i18n.t('appuitext:viewTicketListTitle'),//'Tickets',
             viewAttached: viewAttached,
             ticketItemsRendered: ticketItemsRendered
         };

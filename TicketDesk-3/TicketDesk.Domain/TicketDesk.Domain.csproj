@@ -59,6 +59,16 @@
       <DependentUpon>201301150719329_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Extensions\SettingExtensions.cs" />
+    <Compile Include="Model\Localization\AppModelText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModelText.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Localization\AppModelText.es.Designer.cs">
+      <DependentUpon>AppModelText.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="TicketDeskDatabaseInitializer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +95,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201301150719329_Initial.resx">
       <DependentUpon>201301150719329_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\Localization\AppModelText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppModelText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\Localization\AppModelText.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppModelText.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

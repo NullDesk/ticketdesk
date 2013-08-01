@@ -1,20 +1,20 @@
 ﻿<section id="tickets-view" style="overflow-x: hidden;" class="view">
     <header>
         <a class="btn btn-info btn-force-refresh pull-right"
-            data-bind="click: refresh" href="#"><i class="icon-refresh"></i>Refresh</a>
+           data-bind="click: refresh" href="#"><i class="icon-refresh"></i><span data-i18n="appuitext:btnRefresh" /></a>
         <h2 class="page-title" data-bind="text: title"></h2>
         <div class="article-counter">
             <address data-bind="text: rowCount()"></address>
-            <address>found</address>
+            <address data-i18n="pagerNumberFound"></address>
         </div>
         <div class="pager">
             <ul>
                 <li class="previous" data-bind="css:{ disabled: !canPrev()}">
-                    <a href="#" data-bind="click: previous, clickBubble: false"><i class="icon-angle-left"></i> Previous</a>
+                    <a href="#" data-bind="click: previous, clickBubble: false"><i class="icon-angle-left"></i> <span data-i18n="appuitext:pagerPrevious" /></a>
                 </li>
-                <li>Page <!--ko text: currentPage --><!--/ko--> of  <!--ko text: maxPage --><!--/ko--></li>
+                <li>Page <!--ko text: currentPage --><!--/ko--> <i data-i18n="appuitext:pagerOf" /> <!--ko text: maxPage --><!--/ko--></li>
                 <li class="next" data-bind="css: { disabled: !canNext() }">
-                    <a href="#" data-bind="click: next, clickBubble: false">Next <i class="icon-angle-right"></i></a>
+                    <a href="#" data-bind="click: next, clickBubble: false"><span data-i18n="appuitext:pagerNext" /> <i class="icon-angle-right"></i></a>
                 </li>
             </ul>
         </div>
@@ -23,7 +23,7 @@
         <article class="ticket-brief article-left-content" title="Go to ticket details"  data-bind="ticketChanged: lastUpdateDate">
             <header class="row-fluid">
                 <div class="inline pull-left" style="margin: 0 15px 0 0;">
-                    <h1>Ticket #<!--ko text: ticketId --><!--/ko-->
+                    <h1><span data-i18n="appmodeltext:ticketTicketId" /><!--ko text: ticketId --><!--/ko-->
                         <!--ko text: category -->
                         <!--/ko-->
                         <!--ko text: ticketType -->
@@ -35,12 +35,13 @@
                     </h2>
                     <address class="muted">
                         <p>
-                            Owner:
+                            <span data-i18n="appmodeltext:ticketOwner" />
+                            
                             <!--ko text: owner || 'none' -->
                             <!--/ko-->
                         </p>
                         <p>
-                            Assigned:
+                            <span data-i18n="appmodeltext:ticketAssignedTo" />
                             <!--ko text: assignedTo() || 'unassigned' -->
                             <!--/ko-->
                         </p>
@@ -54,16 +55,14 @@
                         -
                         <!--ko text: priority -->
                         <!--/ko-->
-                        priority
+                        <span data-i18n="appmodeltext:ticketPriority" />
                     </p>
                     <p>
-                        Created on
-                        <!--ko text: moment(createdDate()).format('lll') -->
+                        <!--ko text: createdCombined -->
                         <!--/ko-->
                     </p>
                     <p>
-                        Updated on  
-                        <!--ko text: moment(lastUpdateDate()).format('lll') -->
+                        <!--ko text: lastUpdatedCombined -->
                         <!--/ko-->
                     </p>
                 </div>

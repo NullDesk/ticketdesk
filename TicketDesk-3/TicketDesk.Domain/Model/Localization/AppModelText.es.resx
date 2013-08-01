@@ -117,46 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NavMainTickets" xml:space="preserve">
-    <value>¿Tickets?</value>
+  <data name="TicketTicketId" xml:space="preserve">
+    <value>¿Ticket #?</value>
   </data>
-  <data name="NavMainTicketDetails" xml:space="preserve">
-    <value>¿Ticket Details?</value>
+  <data name="TicketTicketType" xml:space="preserve">
+    <value>¿Type?</value>
   </data>
-  <data name="NavMainHome" xml:space="preserve">
-    <value>¿Home?</value>
+  <data name="TicketCategory" xml:space="preserve">
+    <value>¿Category?</value>
   </data>
-  <data name="BtnRefresh" xml:space="preserve">
-    <value>¿Refresh?</value>
+  <data name="TicketTitle" xml:space="preserve">
+    <value>¿Title?</value>
   </data>
-  <data name="AppName" xml:space="preserve">
-    <value>¿TicketDesk 3?</value>
+  <data name="TicketDetails" xml:space="preserve">
+    <value>¿Details?</value>
   </data>
-  <data name="ViewHomeTitle" xml:space="preserve">
-    <value>¿TIcketDesk Home?</value>
+  <data name="TicketIsHtml" xml:space="preserve">
+    <value>¿Is Html?</value>
   </data>
-  <data name="ViewHomeContent" xml:space="preserve">
-    <value>¿Nothing to see here, move along... move along....?</value>
+  <data name="TicketTagList" xml:space="preserve">
+    <value>¿Tags?</value>
   </data>
-  <data name="ViewFooterCopyright" xml:space="preserve">
-    <value>¿Ms-PL license - ©2013 Stephen M. Redd?</value>
+  <data name="TicketCreatedBy" xml:space="preserve">
+    <value>¿Created By?</value>
   </data>
-  <data name="ViewTicketListTitle" xml:space="preserve">
-    <value>¿Open Tickets?</value>
+  <data name="TicketCreatedDate" xml:space="preserve">
+    <value>¿Created Date?</value>
   </data>
-  <data name="PagerNumberFound" xml:space="preserve">
-    <value>¿found?</value>
+  <data name="TicketOwner" xml:space="preserve">
+    <value>¿Owner?</value>
   </data>
-  <data name="PagerOf" xml:space="preserve">
-    <value>¿of?</value>
+  <data name="TicketAssignedTo" xml:space="preserve">
+    <value>¿Assigned To?</value>
   </data>
-  <data name="PagerNext" xml:space="preserve">
-    <value>¿Next?</value>
+  <data name="TicketCurrentStatus" xml:space="preserve">
+    <value>¿Current Status?</value>
   </data>
-  <data name="PagerPrevious" xml:space="preserve">
-    <value>¿Previous?</value>
+  <data name="TicketCurrentStatusBy" xml:space="preserve">
+    <value>¿Current Status By?</value>
   </data>
-  <data name="CssNavLogo" xml:space="preserve">
-    <value>title-es</value>
+  <data name="TicketCurrentStatusDate" xml:space="preserve">
+    <value>¿Current Status Date?</value>
+  </data>
+  <data name="TicketLastUpdateBy" xml:space="preserve">
+    <value>¿Last Updated By?</value>
+  </data>
+  <data name="TicketLastUpdateDate" xml:space="preserve">
+    <value>¿Last Updated Date?</value>
+  </data>
+  <data name="TicketPriority" xml:space="preserve">
+    <value>¿Priority?</value>
+  </data>
+  <data name="TicketAffectsCustomer" xml:space="preserve">
+    <value>¿Affects Customer?</value>
+  </data>
+  <data name="TicketStatusCombined" xml:space="preserve">
+    <value>¿Current Status on __date__ by __user__?</value>
+  </data>
+  <data name="TicketCreatedCombined" xml:space="preserve">
+    <value>¿Created on __date__ by __user__?</value>
+  </data>
+  <data name="TicketLastUpdatedCombined" xml:space="preserve">
+    <value>¿Updated on __date__ by __user__?</value>
   </data>
 </root>

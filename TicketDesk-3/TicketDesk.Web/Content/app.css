@@ -42,7 +42,7 @@ section.main {
 }
 
 .navbar .brand {
-    padding: 6px 10px 12px 10px;
+    /*padding: 6px 10px 12px 10px;*/
     margin-bottom: -8px;
     height: 48px;
 }
@@ -51,7 +51,7 @@ h2.page-title {
     font-size: 32px;
 }
 
-.brand .title {
+.brand .title, .brand .title-es {
     float: left;
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     font-size: 145%;
@@ -74,6 +74,12 @@ span.title {
         -o-background-size: 45px;
         -webkit-background-size: 45px;
         background-size: 45px;*/
+}
+
+span.title-es {
+    background: url(/content/images/ticketdesk3logo-es.png) no-repeat left center;
+    min-width: 240px;
+    min-height: 50px;
 }
 
 .page-splash {

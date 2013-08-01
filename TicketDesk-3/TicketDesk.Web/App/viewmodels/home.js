@@ -1,12 +1,8 @@
 ﻿define(['services/logger'], function (logger) {
     var vm = {
         activate: activate,
-        title: 'Home View',
-
-
+        title: $.i18n.t('appuitext:viewHomeTitle'),
     };
-
-
 
     //#region Internal Methods
     

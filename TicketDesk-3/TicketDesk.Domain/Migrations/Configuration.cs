@@ -35,7 +35,7 @@ namespace TicketDesk.Domain.Migrations
                 context.Tickets.AddOrUpdate(t => t.Title,
                     new Ticket
                     {
-                        Title = "Test Ticket" + p,
+                        Title = "Test Ticket " + p,
                         AffectsCustomer = false,
                         AssignedTo = "admin",
                         Category = "Hardware",

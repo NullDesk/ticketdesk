@@ -267,6 +267,7 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\icon.png" />
+    <Content Include="Content\images\ticketdesk3logo-es.png" />
     <Content Include="Content\images\ticketdesk3logo.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="favicon.ico" />
@@ -316,7 +317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="App_GlobalResources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -337,7 +337,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppUIText.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Localization\AppUIText.es-MX.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

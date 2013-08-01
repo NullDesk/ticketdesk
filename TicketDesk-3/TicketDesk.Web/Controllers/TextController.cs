@@ -15,6 +15,7 @@ using System.Web.Http;
 using System.Resources;
 using Newtonsoft.Json.Serialization;
 using TicketDesk.Web.Models.Localization;
+using TicketDesk.Domain.Model.Localization;
 
 namespace TicketDesk.Web.Controllers
 {
@@ -32,6 +33,9 @@ namespace TicketDesk.Web.Controllers
             {
                 case "appuitext":
                     content = GetTextResourceContent(AppUIText.ResourceManager.GetResourceSet(cinfo, true, true));
+                    break;
+                case "appmodeltext":
+                    content = GetTextResourceContent(AppModelText.ResourceManager.GetResourceSet(cinfo, true, true));
                     break;
                 default:
                     break;

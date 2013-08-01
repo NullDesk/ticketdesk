@@ -36,8 +36,9 @@ define([
            
             var option = {
                 lng: window.ticketDeskUserLanguage(),
-                fallbackLang: 'en',
-                ns: { namespaces: ['appuitext'], defaultNs: 'appuitext' },
+                //fallbackLang: 'en',
+                useCookie: false,
+                ns: { namespaces: ['appuitext', 'appmodeltext'], defaultNs: 'appuitext' },
                 resGetPath: 'api/text/__lng__/__ns__'
             };
             viewModelBinder.beforeBind = function (obj, view) {

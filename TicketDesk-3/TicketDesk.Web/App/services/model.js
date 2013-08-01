@@ -1,6 +1,6 @@
 ﻿define(['config', 'durandal/system', 'services/logger'],
     function (config, system, logger) {
-        
+
         var orderBy = {
             ticket: 'lastUpdateDate desc, assignedTo'
         };
@@ -27,7 +27,7 @@
         //#region Internal Methods
         function configureMetadataStore(metadataStore) {
             addPrioritySettingType(metadataStore);
-            
+
             metadataStore.registerEntityTypeCtor('Ticket', function () { this.isPartial = false; }, ticketInitializer);
         }
 
@@ -53,7 +53,7 @@
                     value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
                 }
             });
-            
+
             metadataStore.addEntityType({
                 shortName: 'TicketStatusSetting',
                 namespace: 'TicketDesk.Domain.Model',
@@ -61,7 +61,7 @@
                     value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
                 }
             });
-            
+
             metadataStore.setEntityTypeForResourceName('PriorityList', 'PrioritySetting');
             metadataStore.setEntityTypeForResourceName('TicketTypeList', 'CategorySetting');
             metadataStore.setEntityTypeForResourceName('CategoryList', 'TicketTypeSetting');
@@ -77,6 +77,23 @@
                 },
                 write: function (value) {
                     ticket.tagList(value.replace(/\, /g, ','));
+                }
+            });
+            ticket.createdCombined = ko.computed({
+                read: function () {
+                    return $.i18n.t("appmodeltext:ticketCreatedCombined", {
+                        date: moment(ticket.createdDate()).format('lll'),
+                        user: ticket.createdBy()
+                    });
+                }
+            });
+            
+            ticket.lastUpdatedCombined = ko.computed({
+                read: function () {
+                    return $.i18n.t("appmodeltext:ticketLastUpdatedCombined", {
+                        date: moment(ticket.lastUpdateDate()).format('lll'),
+                        user: ticket.lastUpdateBy()
+                    });
                 }
             });
         }
