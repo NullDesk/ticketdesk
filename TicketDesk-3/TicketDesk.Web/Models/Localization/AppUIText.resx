@@ -136,7 +136,7 @@
     <value>TIcketDesk Home</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>Nothing to see here, move along... move along....</value>
+    <value>To test localization, either change your browser's language to spanish, or add the querystring "?setLng=es" to the url (remember, the querystring must come before the pathdata (#) part of the url. Example:  http://localhost:64297/?setLng=es#/home</value>
   </data>
   <data name="ViewFooterCopyright" xml:space="preserve">
     <value>Ms-PL license - ©2013 Stephen M. Redd</value>

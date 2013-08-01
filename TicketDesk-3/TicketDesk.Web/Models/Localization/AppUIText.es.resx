@@ -136,7 +136,7 @@
     <value>¿TIcketDesk Home?</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>¿Nothing to see here, move along... move along....?</value>
+    <value>I don't speak spanish. For testing localization, I have just addded question marks to all the english text in the spanish resource files. Later, when the application is closer to completion, I will have all the text translated by a fluent speaker.</value>
   </data>
   <data name="ViewFooterCopyright" xml:space="preserve">
     <value>¿Ms-PL license - ©2013 Stephen M. Redd?</value>

@@ -160,7 +160,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nothing to see here, move along... move along.....
+        ///   Looks up a localized string similar to To test localization, either change your browser&apos;s language to spanish, or add the querystring &quot;?setLng=es&quot; to the url (remember, the querystring must come before the pathdata (#) part of the url. Example:  http://localhost:64297/?setLng=es#/home.
         /// </summary>
         public static string ViewHomeContent {
             get {

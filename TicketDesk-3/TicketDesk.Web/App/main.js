@@ -33,18 +33,21 @@ define([
             router.useConvention();
             viewLocator.useConvention();
             
-           
             var option = {
-                lng: window.ticketDeskUserLanguage(),
                 //fallbackLang: 'en',
                 useCookie: false,
                 ns: { namespaces: ['appuitext', 'appmodeltext'], defaultNs: 'appuitext' },
                 resGetPath: 'api/text/__lng__/__ns__'
             };
+
+            if (!window.location.search.indexOf("setLng=")) {
+                $.extend(option, { lng: window.ticketDeskUserLanguage() });
+            }
             viewModelBinder.beforeBind = function (obj, view) {
                 $(view).i18n();
             };
-
+            
+            
             $.i18n.init(option, function () {
                 // Adapt to touch devices
                 app.adaptToDevice();

@@ -38,9 +38,9 @@ namespace TicketDesk.Web.Controllers
                     break;
                 case "appmodeltext":
                     content = GetTextResourceContent(AppModelText.ResourceManager.GetResourceSet(cinfo, true, true), lang);
-                    AddPrioritySettingList(lang, content);
-                    AddTicketTypeSettingList(lang, content);
-                    AddCategorySettingList(lang, content);
+                    AddLocalizedPrioritySettingList(lang, content);
+                    AddLocalizedTicketTypeSettingList(lang, content);
+                    AddLocalizedCategorySettingList(lang, content);
                     break;
                 default:
                     break;
@@ -66,46 +66,42 @@ namespace TicketDesk.Web.Controllers
             return content;
         }
 
-        private static void AddPrioritySettingList(string lang, ICollection<KeyValuePair<string, object>> content)
+        private static void AddLocalizedPrioritySettingList(string lang, ICollection<KeyValuePair<string, object>> content)
         {
             using (var ctx = new TicketDeskContext())
             {
                 var baseItem = ctx.Settings.GetAvailablePriorities().ToArray();
                 var localItem = ctx.Settings.GetAvailablePriorities(lang).ToArray();
-                for (int i = 0; i < localItem.Count(); i++)
-                {
-                    var p = localItem[i];
-                    var b = baseItem[i];
-                    content.Add(new KeyValuePair<string, object>("Priority-" + b.Value, p.Value));
-                }
+                AddLocalizedSettingList(content, "Priority-", localItem, baseItem);
             }
         }
-        private static void AddTicketTypeSettingList(string lang, ICollection<KeyValuePair<string, object>> content)
+
+        private static void AddLocalizedTicketTypeSettingList(string lang, ICollection<KeyValuePair<string, object>> content)
         {
             using (var ctx = new TicketDeskContext())
             {
                 var baseItem = ctx.Settings.GetAvailableTicketTypes().ToArray();
                 var localItem = ctx.Settings.GetAvailableTicketTypes(lang).ToArray();
-                for (int i = 0; i < localItem.Count(); i++)
-                {
-                    var p = localItem[i];
-                    var b = baseItem[i];
-                    content.Add(new KeyValuePair<string, object>("TicketType-" + b.Value, p.Value));
-                }
+                AddLocalizedSettingList(content, "TicketType-", localItem, baseItem);
             }
         }
-        private static void AddCategorySettingList(string lang, ICollection<KeyValuePair<string, object>> content)
+        private static void AddLocalizedCategorySettingList(string lang, ICollection<KeyValuePair<string, object>> content)
         {
             using (var ctx = new TicketDeskContext())
             {
                 var baseItem = ctx.Settings.GetAvailableCategories().ToArray();
                 var localItem = ctx.Settings.GetAvailableCategories(lang).ToArray();
-                for (int i = 0; i < localItem.Count(); i++)
-                {
-                    var p = localItem[i];
-                    var b = baseItem[i];
-                    content.Add(new KeyValuePair<string, object>("Category-" + b.Value, p.Value));
-                }
+                AddLocalizedSettingList(content, "Category-", localItem, baseItem);
+            }
+        }
+
+        private static void AddLocalizedSettingList(ICollection<KeyValuePair<string, object>> content,string prefix, SimpleSetting[] localItem, SimpleSetting[] baseItem)
+        {
+            for (int i = 0; i < localItem.Count(); i++)
+            {
+                var p = localItem[i];
+                var b = baseItem[i];
+                content.Add(new KeyValuePair<string, object>(prefix + b.Value, p.Value));
             }
         }
 
