@@ -6,6 +6,7 @@
 */App_Data/*.mdf
 */App_Data/*.ldf
 *.pubxml
+*Web.ticketdesk3dev.config
 
 #################
 ## Visual Studio

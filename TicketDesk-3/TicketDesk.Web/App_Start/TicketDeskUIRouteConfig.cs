@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.AspNet.SignalR;
 
 [assembly: WebActivator.PreApplicationStartMethod(
     typeof(TicketDesk.Web.App_Start.TicketDeskUIRouteConfig), "PreStart", Order = 2)]
@@ -20,6 +21,12 @@ namespace TicketDesk.Web.App_Start
         public static void PreStart()
         {
             //for SignalR
+            var connectionString = System.Configuration.ConfigurationManager.AppSettings.Get("Microsoft.ServiceBus.ConnectionString");
+            if(!string.IsNullOrEmpty(connectionString))
+            {
+                GlobalHost.DependencyResolver.UseServiceBus(connectionString, "TicketDesk");
+            }
+
             System.Web.Routing.RouteTable.Routes.MapHubs();
             // Preempt standard default MVC page routing to go to HotTowel Sample
             System.Web.Routing.RouteTable.Routes.MapRoute(
