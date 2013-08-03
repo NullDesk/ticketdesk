@@ -49,8 +49,13 @@ define([
             
             
             $.i18n.init(option, function () {
+                
+                //// smr - This breaks scrolling on touch enabled devices; I am not sure 
+                ////   what they thought preventing default on touch events
+                ////   was supposed to do, but it isn't what I'd call adapting
+                ////   to the device.
                 // Adapt to touch devices
-                app.adaptToDevice();
+                // app.adaptToDevice();
                 //Show the app by setting the root view model for our application.
                 app.setRoot('viewmodels/shell', 'entrance');
             });
