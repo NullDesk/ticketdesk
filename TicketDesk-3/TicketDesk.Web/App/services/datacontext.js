@@ -32,7 +32,7 @@
             
             var baseOpenTicketPartialQuery =
                 entityQuery.from('Tickets')
-                    .where("currentStatus", "!=", "Closed")
+                    .where("ticketStatus", "!=", "Closed")
                     .orderBy(orderBy.ticket);
             
             var getOpenTicketPagedList = function(ticketsObservable, forPageIndex, forceRemote) {
@@ -58,7 +58,7 @@
 
             var fetchOpenTicketPartials = function() {
                 var query = baseOpenTicketPartialQuery
-                    .select('ticketId, title, ticketType, owner, assignedTo, currentStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate')
+                    .select('ticketId, title, ticketType, owner, assignedTo, ticketStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate')
                     .using(breeze.FetchStrategy.FromServer).inlineCount(true);
                 return manager.executeQuery(query)
                     .then(querySucceeded)
@@ -80,7 +80,7 @@
 
                 function localFetchSucceeded(data) {
                     log('refreshed Ticket ' + ticketId, data, true);
-                    var wasOpen = data.entity.currentStatus() !== 'Closed';
+                    var wasOpen = data.entity.ticketStatus() !== 'Closed';
                     return entityQuery.fromEntities(data.entity)
                         .using(manager).execute().then(remoteFetchSucceeded);
 
@@ -89,7 +89,7 @@
                         //  count of cached partials to make sure paging doesn't break
                         //  when a ticket is closed or un-closed
                         if (rdata.results.length > 0) {
-                            var isOpen = rdata.results[0].currentStatus() !== 'Closed';
+                            var isOpen = rdata.results[0].ticketStatus() !== 'Closed';
                             if (wasOpen !== isOpen) {
                                 if (isOpen) {
                                     ticketEntityManager.openTicketRowCount(ticketEntityManager.openTicketRowCount() + 1);

@@ -115,15 +115,6 @@ namespace TicketDesk.Domain.Model.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Status.
-        /// </summary>
-        public static string TicketCurrentStatus {
-            get {
-                return ResourceManager.GetString("TicketCurrentStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Current Status By.
         /// </summary>
         public static string TicketCurrentStatusBy {
@@ -205,11 +196,56 @@ namespace TicketDesk.Domain.Model.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string TicketStatus {
+            get {
+                return ResourceManager.GetString("TicketStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string TicketStatusActive {
+            get {
+                return ResourceManager.GetString("TicketStatusActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        public static string TicketStatusClosed {
+            get {
+                return ResourceManager.GetString("TicketStatusClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Status on __date__ by __user__.
         /// </summary>
         public static string TicketStatusCombined {
             get {
                 return ResourceManager.GetString("TicketStatusCombined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Info.
+        /// </summary>
+        public static string TicketStatusMoreInfo {
+            get {
+                return ResourceManager.GetString("TicketStatusMoreInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolved.
+        /// </summary>
+        public static string TicketStatusResolved {
+            get {
+                return ResourceManager.GetString("TicketStatusResolved", resourceCulture);
             }
         }
         

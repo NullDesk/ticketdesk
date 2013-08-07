@@ -72,7 +72,7 @@ namespace TicketDesk.Web.Controllers
             {
                 var baseItem = ctx.Settings.GetAvailablePriorities().ToArray();
                 var localItem = ctx.Settings.GetAvailablePriorities(lang).ToArray();
-                AddLocalizedSettingList(content, "Priority-", localItem, baseItem);
+                AddLocalizedSettingList(content, "Priority", localItem, baseItem);
             }
         }
 
@@ -82,7 +82,7 @@ namespace TicketDesk.Web.Controllers
             {
                 var baseItem = ctx.Settings.GetAvailableTicketTypes().ToArray();
                 var localItem = ctx.Settings.GetAvailableTicketTypes(lang).ToArray();
-                AddLocalizedSettingList(content, "TicketType-", localItem, baseItem);
+                AddLocalizedSettingList(content, "TicketType", localItem, baseItem);
             }
         }
         private static void AddLocalizedCategorySettingList(string lang, ICollection<KeyValuePair<string, object>> content)
@@ -91,7 +91,7 @@ namespace TicketDesk.Web.Controllers
             {
                 var baseItem = ctx.Settings.GetAvailableCategories().ToArray();
                 var localItem = ctx.Settings.GetAvailableCategories(lang).ToArray();
-                AddLocalizedSettingList(content, "Category-", localItem, baseItem);
+                AddLocalizedSettingList(content, "Category", localItem, baseItem);
             }
         }
 

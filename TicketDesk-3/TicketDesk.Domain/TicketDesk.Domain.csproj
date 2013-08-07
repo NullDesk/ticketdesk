@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201301150719329_Initial.Designer.cs">
       <DependentUpon>201301150719329_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308070506527_TD03.0.0.001.cs" />
+    <Compile Include="Migrations\201308070506527_TD03.0.0.001.Designer.cs">
+      <DependentUpon>201308070506527_TD03.0.0.001.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Extensions\SettingExtensions.cs" />
     <Compile Include="Model\Localization\AppModelText.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -69,6 +73,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Model\TicketStatus.cs" />
     <Compile Include="TicketDeskDatabaseInitializer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +100,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201301150719329_Initial.resx">
       <DependentUpon>201301150719329_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308070506527_TD03.0.0.001.resx">
+      <DependentUpon>201308070506527_TD03.0.0.001.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model\Localization\AppModelText.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

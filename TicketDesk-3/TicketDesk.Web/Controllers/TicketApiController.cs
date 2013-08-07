@@ -55,7 +55,7 @@ namespace TicketDesk.Web.Controllers
         [HttpGet]
         public IEnumerable<SimpleSetting> StatusList()
         {
-            return _contextProvider.Context.Settings.GetAvailableStatuses();
+            return _contextProvider.Context.Settings.GetAvailableStatuses("en");
         }
 
 

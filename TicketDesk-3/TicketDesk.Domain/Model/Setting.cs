@@ -38,7 +38,14 @@ namespace TicketDesk.Domain.Model
         public SimpleSetting(string settingValue)
         {
             Value = settingValue;
+            Name = settingValue;
         }
+        public SimpleSetting(string settingName, string settingValue)
+        {
+            Value = settingValue;
+            Name = settingName;
+        }
+        public string Name { get; set; }
         public string Value { get; set; }
 
     }

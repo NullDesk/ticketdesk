@@ -150,9 +150,6 @@
   <data name="TicketAssignedTo" xml:space="preserve">
     <value>¿Assigned To?</value>
   </data>
-  <data name="TicketCurrentStatus" xml:space="preserve">
-    <value>¿Current Status?</value>
-  </data>
   <data name="TicketCurrentStatusBy" xml:space="preserve">
     <value>¿Current Status By?</value>
   </data>
@@ -179,5 +176,20 @@
   </data>
   <data name="TicketLastUpdatedCombined" xml:space="preserve">
     <value>¿Updated on __date__ by __user__?</value>
+  </data>
+  <data name="TicketStatus" xml:space="preserve">
+    <value>¿Status?</value>
+  </data>
+  <data name="TicketStatusClosed" xml:space="preserve">
+    <value>¿Closed?</value>
+  </data>
+  <data name="TicketStatusResolved" xml:space="preserve">
+    <value>¿Resolved?</value>
+  </data>
+  <data name="TicketStatusMoreInfo" xml:space="preserve">
+    <value>¿More Info?</value>
+  </data>
+  <data name="TicketStatusActive" xml:space="preserve">
+    <value>¿Active?</value>
   </data>
 </root>

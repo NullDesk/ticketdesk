@@ -40,7 +40,7 @@ namespace TicketDesk.Domain.Migrations
                         AssignedTo = "admin",
                         Category = "Hardware",
                         CreatedBy = "otherstaffer",
-                        CurrentStatus = "Active",
+                        TicketStatus = TicketStatus.Active,
                         CurrentStatusDate = DateTimeOffset.Now,
                         CurrentStatusSetBy = "otherstaffer",
                         Details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",

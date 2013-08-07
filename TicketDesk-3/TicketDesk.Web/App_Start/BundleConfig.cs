@@ -10,6 +10,9 @@ namespace TicketDesk.Web
             bundles.IgnoreList.Clear();
             AddDefaultIgnorePatterns(bundles.IgnoreList);
 
+            bundles.Add(new ScriptBundle("~/scripts/modernizr")
+                .Include("~/scripts/modernizr-{version}.js"));
+
             bundles.Add(
               new ScriptBundle("~/scripts/vendor")
                 .Include("~/scripts/jquery-{version}.js")
@@ -20,20 +23,20 @@ namespace TicketDesk.Web
                 .Include("~/scripts/breeze.min.js")
                 .Include("~/scripts/bootstrap.js")
                 .Include("~/scripts/moment.js")
-                .Include("~/Scripts/i18next-1.6.3.js")
+                .Include("~/Scripts/i18next-{version}.js")
               );
             bundles.Add(
               new ScriptBundle("~/scripts/signalr")
                 .Include("~/Scripts/jquery.signalR-{version}.js"));
             bundles.Add(
-              new StyleBundle("~/Content/css")
-                .Include("~/Content/ie10mobile.css")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/bootstrap-responsive.css")
-                .Include("~/Content/font-awesome.css")
-                .Include("~/Content/durandal.css")
-                .Include("~/Content/toastr.css")
-                .Include("~/Content/app.css")
+              new StyleBundle("~/content/css")
+                .Include("~/content/ie10mobile.css")
+                .Include("~/content/bootstrap.css")
+                .Include("~/content/bootstrap-responsive.css")
+                .Include("~/content/font-awesome.css")
+                .Include("~/content/durandal.css")
+                .Include("~/content/toastr.css")
+                .Include("~/content/app.css")
               );
         }
 

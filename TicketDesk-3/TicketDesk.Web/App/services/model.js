@@ -21,45 +21,50 @@
             orderBy: orderBy
         };
 
+        
+
         return model;
 
 
         //#region Internal Methods
+        
+       
+
         function configureMetadataStore(metadataStore) {
             addPrioritySettingType(metadataStore);
 
             metadataStore.registerEntityTypeCtor('Ticket', function () { this.isPartial = false; }, ticketInitializer);
         }
 
+
+
         function addPrioritySettingType(metadataStore) {
+            
+            var simpleSettingDataProperties = {
+                name: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: false },
+                value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
+            };
+
             metadataStore.addEntityType({
                 shortName: 'PrioritySetting',
                 namespace: 'TicketDesk.Domain.Model',
-                dataProperties: {
-                    value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
-                }
+                dataProperties: simpleSettingDataProperties
             });
             metadataStore.addEntityType({
                 shortName: 'CategorySetting',
                 namespace: 'TicketDesk.Domain.Model',
-                dataProperties: {
-                    value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
-                }
+                dataProperties: simpleSettingDataProperties
             });
             metadataStore.addEntityType({
                 shortName: 'TicketTypeSetting',
                 namespace: 'TicketDesk.Domain.Model',
-                dataProperties: {
-                    value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
-                }
+                dataProperties: simpleSettingDataProperties
             });
 
             metadataStore.addEntityType({
                 shortName: 'TicketStatusSetting',
                 namespace: 'TicketDesk.Domain.Model',
-                dataProperties: {
-                    value: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: true },
-                }
+                dataProperties: simpleSettingDataProperties
             });
 
             metadataStore.setEntityTypeForResourceName('PriorityList', 'PrioritySetting');

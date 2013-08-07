@@ -23,7 +23,7 @@
                     if ($(element).attr('data-listenforchanges') === 'true') {
                         logger.log("ticketChanged", null, null, false);
                         var p = $(element).fadeTo(50, 0.3).fadeTo(450, 1);;
-                        if (bindingContext.$data.currentStatus() != 'Closed') {
+                        if (bindingContext.$data.ticketStatus() != 'Closed') {
                         } else {
                             p.css({ 'background-color': 'rgba(200,200,200,0.8)' });
                         }

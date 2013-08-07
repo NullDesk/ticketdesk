@@ -91,10 +91,14 @@ namespace TicketDesk.Domain.Model
             }
         }
 
-        [Display(ResourceType = typeof(AppModelText), Name = "TicketCurrentStatus")]
+        //[Display(ResourceType = typeof(AppModelText), Name = "TicketCurrentStatus")]
+        //[Required]
+        //[StringLength(50)]
+        //public string CurrentStatus { get; set; }
+
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketStatus")]
         [Required]
-        [StringLength(50)]
-        public string CurrentStatus { get; set; }
+        public TicketStatus TicketStatus { get; set; }
 
         [Display(ResourceType = typeof(AppModelText), Name = "TicketCurrentStatusDate")]
         [Required]

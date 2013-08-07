@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketDesk.Domain.Model.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -93,9 +94,21 @@ namespace TicketDesk.Domain.Model
 
         public static IEnumerable<SimpleSetting> GetAvailableStatuses(this DbSet<Setting> settings)
         {
-            //TODO: localize
-            var statuses = new [] { "Active", "More Info", "Closed", "Resolved" };
-            return statuses.Select(s => new SimpleSetting(s));
+            return GetAvailableStatuses(settings, CultureInfo.CurrentUICulture.Name);
+        }
+
+        public static IEnumerable<SimpleSetting> GetAvailableStatuses(this DbSet<Setting> settings, string language)
+        {
+            var rSet = AppModelText.ResourceManager.GetResourceSet(new CultureInfo(language), true, true);
+            var enumeration = new TicketStatus();
+            var list = from Enum e in Enum.GetValues(enumeration.GetType())
+                       let ev = Enum.Parse(enumeration.GetType(), Enum.GetName(enumeration.GetType(), e))
+                       select
+                           new SimpleSetting(
+                                rSet.GetString("TicketStatus" + ev.ToString()),
+                                ev.ToString()
+                           );
+            return list;
         }
 
         private static IEnumerable<SimpleSetting> GetLocalizedSimpleSettingList(DbSet<Setting> settings, string language, string settingBaseName)
