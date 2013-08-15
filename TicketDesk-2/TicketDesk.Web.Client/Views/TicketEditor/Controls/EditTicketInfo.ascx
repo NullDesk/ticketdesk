@@ -40,7 +40,7 @@
                                 <td>
                                     <%:  Html.DropDownListFor(m => m.Category, Model.GetCategorySelectList(), new { TabIndex = 3 })%>
                                 </td>
-                                <% if (controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority)
+                                <% if (controller.Security.IsTdStaff() || controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority)
                                    {%>
                                 <th>
                                     <%: Html.ValidationMessageFor(m => m.Priority, "*")%><%= Html.LabelFor(m => m.Priority)%>
@@ -80,7 +80,7 @@
                     <%: Html.ValidationMessageFor(m => m.Owner, "*")%>
                 </td>
             </tr>
-            <% if (controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditPriority)
+            <% if (controller.Security.IsTdStaff() || controller.Settings.ApplicationSettings.AllowSubmitterRoleToEditTags)
                {%>
             <tr>
                 <th>
