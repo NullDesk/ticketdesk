@@ -262,7 +262,7 @@ namespace TicketDesk.Domain.Services
 
             Lucene.Net.Documents.Field detailsField = new Lucene.Net.Documents.Field
                                                     (
-                                                        "dtails",
+                                                        "details",
                                                         ticket.Details ?? string.Empty,
                                                         Lucene.Net.Documents.Field.Store.NO,
                                                         Lucene.Net.Documents.Field.Index.ANALYZED,
