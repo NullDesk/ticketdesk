@@ -52,7 +52,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             int p = page ?? 1;
 
-            if (string.IsNullOrEmpty(listName))
+            if (string.IsNullOrEmpty(listName) || !dp.TicketCenterListPreferences.Any(pr => pr.ListName == listName))
             {
                 var defaultTicketCenterListPreferences = dp.TicketCenterListPreferences.OrderBy(ls => ls.ListMenuDisplayOrder).FirstOrDefault();
                 if (defaultTicketCenterListPreferences != null)
