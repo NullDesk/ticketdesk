@@ -7,7 +7,7 @@
 */App_Data/*.ldf
 *.pubxml
 *Web.ticketdesk3dev.config
-**/TdSearchIndex/
+**TdSearchIndex
 #################
 ## Visual Studio
 #################

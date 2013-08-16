@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Title="TicketDesk Home" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Home Page
@@ -21,8 +21,7 @@
                         <tr>
                             <td style="vertical-align: top; background-color: #fff;">
                                 <div style="padding: 10px;">
-                                    <h2>
-                                        Welcome to TicketDesk 2.1 <sup>(.Net 4.5 Refresh)</sup></h2>
+                                    <h2>Welcome to TicketDesk 2.1 <sup>(.Net 4.5 Refresh)</sup></h2>
                                     <p>
                                         <i>You can hide this page by changing the "Hide Home Page" setting in the administration section's applicaiton settings tool.</i>
                                     </p>
@@ -52,19 +51,19 @@
                                 <div class="clear">
                                 </div>
                             </td>
-                            <td style="max-width: 500px; min-width: 300px; vertical-align: top; padding: 0px;
-                                border-left: solid 1px #B3CBDF;">
+                            <td style="max-width: 500px; min-width: 300px; vertical-align: top; padding: 0px; border-left: solid 1px #B3CBDF;">
                                 <div style="float: right;">
                                     <div style="padding: 8px;">
-                                        <h3>
-                                            This Release</h3>
+                                        <h3>This Release</h3>
+                                        <strong>Roll-up of minor fixes</strong>
                                         <ul>
-                                            <li>Migrated TicketDesk projects to Visual Studio 2012</li>
-                                            <li>Upgraded to Asp.Net MVC 4, compiling to .Net Framework 4.5</li>
-                                            <li>Removed MVCContrib packages and dependencies</li>
-                                            <li>Updated for MEF 2 compatibility</li>
-                                            <li>Updated Elmah Package</li>
-                                            <li>Updated jQuery version</li>
+                                            <li>tag and priority fields not displaying</li>
+                                            <li>details not indexed for search</li>
+                                            <li>TicketCenter default view for submitters</li>
+                                            <li>object locking</li>
+                                            <li>inconsistent capitalization for usernames; notification failures</li>
+                                            <li>account preferences, edit email address</li>
+                                            <li>unlock user accounts from security management</li>
                                         </ul>
                                     </div>
                                 </div>
