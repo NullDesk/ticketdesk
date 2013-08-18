@@ -1,0 +1,17 @@
+﻿<section id="session-view" class="view">
+    <h2 class="page-title" data-bind="text: title"></h2>
+    <div class="button-bar btn-block">
+        <button class="btn btn-info"
+            data-bind="click: goBack">
+            <i class="icon-hand-left"></i>Back</button>
+        <button class="btn btn-info"
+            data-bind="click: cancel, enable: canSave">
+            <i class="icon-undo"></i>Cancel</button>
+        <button class="btn btn-info"
+            data-bind="click: save, enable: canSave">
+            <i class="icon-save"></i>Save</button>
+        <i class="icon-asterisk" data-bind="visible: hasChanges"></i>
+    </div>
+    <div class="form-horizontal" data-bind="with: ticket">
+    </div>
+</section>

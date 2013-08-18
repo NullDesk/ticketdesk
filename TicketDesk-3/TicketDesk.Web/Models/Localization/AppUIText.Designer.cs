@@ -88,11 +88,38 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string GeneralNo {
+            get {
+                return ResourceManager.GetString("GeneralNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string GeneralYes {
+            get {
+                return ResourceManager.GetString("GeneralYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string NavMainHome {
             get {
                 return ResourceManager.GetString("NavMainHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Ticket.
+        /// </summary>
+        public static string NavMainTicketCreate {
+            get {
+                return ResourceManager.GetString("NavMainTicketCreate", resourceCulture);
             }
         }
         
@@ -111,6 +138,24 @@ namespace TicketDesk.Web.Models.Localization {
         public static string NavMainTickets {
             get {
                 return ResourceManager.GetString("NavMainTickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navigate away and cancel your changes?.
+        /// </summary>
+        public static string NavNavigateAwayConfirmDialogMessage {
+            get {
+                return ResourceManager.GetString("NavNavigateAwayConfirmDialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to leave __pagetitle__?.
+        /// </summary>
+        public static string NavNavigateAwayConfirmDialogTitle {
+            get {
+                return ResourceManager.GetString("NavNavigateAwayConfirmDialogTitle", resourceCulture);
             }
         }
         
@@ -174,6 +219,24 @@ namespace TicketDesk.Web.Models.Localization {
         public static string ViewHomeTitle {
             get {
                 return ResourceManager.GetString("ViewHomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Ticket.
+        /// </summary>
+        public static string ViewTicketCreateTitle {
+            get {
+                return ResourceManager.GetString("ViewTicketCreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Details.
+        /// </summary>
+        public static string ViewTicketDetailsTitle {
+            get {
+                return ResourceManager.GetString("ViewTicketDetailsTitle", resourceCulture);
             }
         }
         

@@ -1,25 +1,8 @@
-﻿define(['durandal/app','services/datacontext', 'durandal/plugins/router'],
+﻿define(['durandal/app', 'services/datacontext', 'durandal/plugins/router'],
     function (app, datacontext, router) {
-
-        var ticket = ko.observable();
-        var priorityList = ko.observableArray();
-        var categoryList = ko.observableArray();
-        var statusList = ko.observableArray();
-        var ticketTypeList = ko.observableArray();
         var isSaving = ko.observable(false);
         var isDeleting = ko.observable(false);
-
-
-        var activate = function (routeData) {
-            var id = parseInt(routeData.id);
-            return Q.all([
-                datacontext.getTicketById(id, ticket),
-                datacontext.getPriorityList(priorityList),
-                datacontext.getTicketTypeList(ticketTypeList),
-                datacontext.getCategoryList(categoryList),
-                datacontext.getStatusList(statusList)
-            ]);
-        };
+        var ticket = ko.observable();
 
         var goBack = function () {
             router.navigateBack();
@@ -37,6 +20,26 @@
             return hasChanges() && !isSaving();
         });
 
+
+
+        var canDeactivate = function () {
+            if (isDeleting()) { return false; }
+
+            if (hasChanges()) {
+                var title = $.i18n.t('appuitext:navNavigateAwayConfirmDialogTitle', { pagetitle: vm.title });
+                var msg = $.i18n.t('appuitext:navNavigateAwayConfirmDialogMessage');
+                var checkAnswer = function (selectedOption) {
+                    if (selectedOption === $.i18n.t('appuitext:generalYes')) {
+                        cancel();
+                    }
+                    return selectedOption;
+                };
+                return app.showMessage(title, msg, [$.i18n.t('appuitext:generalYes'), $.i18n.t('appuitext:generalNo')])
+                    .then(checkAnswer);
+            };
+            return true;
+        };
+
         var save = function () {
             isSaving(true);
             return datacontext.saveChanges().fin(complete);
@@ -46,39 +49,16 @@
             }
         };
 
-        var canDeactivate = function () {
-            if (isDeleting()) { return false; }
-
-            if (hasChanges()) {
-                var title = $.i18n.t('appuitext:navNavigateAwayConfirmDialogTitle', { pagetitle: ticket().title() });
-                var msg = $.i18n.t('appuitext:navNavigateAwayConfirmDialogMessage');
-                var checkAnswer = function (selectedOption) {
-                    if (selectedOption === $.i18n.t('appuitext:generalYes')) {
-                        cancel();
-                    }
-                    return selectedOption;
-                }
-
-                return app.showMessage(title, msg, [$.i18n.t('appuitext:generalYes'), $.i18n.t('appuitext:generalNo')])
-                    .then(checkAnswer);
-            };
-            return true;
-        };
-
         var vm = {
-            activate: activate,
-            title: $.i18n.t('appuitext:viewTicketDetailsTitle'),
+            title: $.i18n.t('appuitext:viewTicketCreateTitle'),
             cancel: cancel,
             canDeactivate: canDeactivate,
             canSave: canSave,
             goBack: goBack,
             hasChanges: hasChanges,
             save: save,
-            ticket: ticket,
-            categoryList: categoryList,
-            ticketTypeList: ticketTypeList,
-            priorityList: priorityList,
-            statusList: statusList
+            ticket: ticket
         };
+
         return vm;
     });
