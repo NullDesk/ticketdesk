@@ -1,8 +1,25 @@
-﻿define(['durandal/app', 'services/datacontext', 'durandal/plugins/router'],
-    function (app, datacontext, router) {
+﻿define(['durandal/app', 'services/datacontext', 'durandal/plugins/router', 'services/logger'],
+    function (app, datacontext, router, logger) {
         var isSaving = ko.observable(false);
         var isDeleting = ko.observable(false);
         var ticket = ko.observable();
+        var priorityList = ko.observableArray();
+        var categoryList = ko.observableArray();
+        var ticketTypeList = ko.observableArray();
+
+        var activate = function () {
+            ticket(datacontext.ticketEntityManager.createTicket());
+            return Q.all([
+
+                            datacontext.getPriorityList(priorityList),
+                            datacontext.getTicketTypeList(ticketTypeList),
+                            datacontext.getCategoryList(categoryList)])
+                .then(function () {
+                    logger.log('Ticket Create View Activated', null, 'TicketCreate', true);
+                });
+        };
+
+
 
         var goBack = function () {
             router.navigateBack();
@@ -19,8 +36,6 @@
         var canSave = ko.computed(function () {
             return hasChanges() && !isSaving();
         });
-
-
 
         var canDeactivate = function () {
             if (isDeleting()) { return false; }
@@ -49,7 +64,47 @@
             }
         };
 
+
+        var initEditors = function () {
+            (function () {
+
+                var help = function () { alert("Do you need help?"); };
+                var options = {
+                    helpButton: { handler: help },
+                    strings: { quoteexample: "whatever you're quoting, put it right here" }
+                };
+
+                var converter1 = Markdown.getSanitizingConverter();
+                converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                    });
+                });
+
+                // smarter newline handling
+                converter1.hooks.chain("preConversion", function (text) {
+                    return text.replace(/(\w+)\n/g, '$1  \n');
+                });
+
+
+                converter1.hooks.chain("plainLinkText", function (url) {
+                    return url; //.replace(/^https?:\/\//, "");
+                });
+
+                var editor1 = new Markdown.Editor(converter1, "-ticketDetails", options);
+                editor1.run();
+                $('.wmd-panel .btn-toolbar .btn').addClass('btn-mini');
+
+                logger.log('Ticket Create View Editor Initialized', null, 'TicketCreate', false);
+
+            })();
+
+
+        };
+
         var vm = {
+            viewAttached: initEditors,
+            activate: activate,
             title: $.i18n.t('appuitext:viewTicketCreateTitle'),
             cancel: cancel,
             canDeactivate: canDeactivate,
@@ -57,7 +112,10 @@
             goBack: goBack,
             hasChanges: hasChanges,
             save: save,
-            ticket: ticket
+            ticket: ticket,
+            categoryList: categoryList,
+            ticketTypeList: ticketTypeList,
+            priorityList: priorityList,
         };
 
         return vm;

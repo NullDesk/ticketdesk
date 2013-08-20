@@ -3,15 +3,138 @@
     <div class="button-bar btn-block">
         <button class="btn btn-info"
             data-bind="click: goBack">
-            <i class="icon-hand-left"></i>Back</button>
+            <i class="icon-hand-left"></i> Back</button>
         <button class="btn btn-info"
             data-bind="click: cancel, enable: canSave">
-            <i class="icon-undo"></i>Cancel</button>
+            <i class="icon-undo"></i> Cancel</button>
         <button class="btn btn-info"
             data-bind="click: save, enable: canSave">
-            <i class="icon-save"></i>Save</button>
+            <i class="icon-save"></i> Save</button>
         <i class="icon-asterisk" data-bind="visible: hasChanges"></i>
     </div>
-    <div class="form-horizontal" data-bind="with: ticket">
-    </div>
+    <section data-bind="with: ticket">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label" for="title">Title</label>
+                        <div class="controls">
+                            <input type="text" class="input-xxlarge" id="title" data-bind="value: title"
+                                placeholder="Ticket title" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <div class="control-group">
+                        <label class="control-label" for="category">Category</label>
+                        <div class="controls">
+                            <select id="category" class="input-medium" data-bind="options: $parent.categoryList, optionsText: 'value',
+    optionsValue: 'value', value: category, optionsCaption: '--select--'">
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        <label class="control-label" for="ticketType">Type</label>
+                        <div class="controls">
+                            <select id="ticketType" class="input-medium" data-bind="options: $parent.ticketTypeList, optionsText: 'value',
+    optionsValue: 'value', value: ticketType, optionsCaption: '--select--'">
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        <label class="control-label" for="priority">Priority</label>
+                        <div class="controls">
+                            <select id="priority" class="input-medium" data-bind="options: $parent.priorityList, optionsText: 'value',
+    optionsValue: 'value', value: priority, optionsCaption: '--select--'">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label" for="tagList">Tags</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" id="tagList" data-bind="value: tagListFormatted" placeholder="tag1,tag2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox" for="affectsCustomer">
+                            <input type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" />Affects Customer</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <div class="control-group"  style="width: 100%;">
+                        <label class="control-label" for="wmd-input-ticketDetails">Details</label>
+                        <div class="wmd-panel controls">
+                            <div class="tabbable tabs-below">
+                                <div class="tab-content">
+                                    <div id="wmd-button-bar-ticketDetails"></div>
+                                    <div class="tab-pane" id="tab2">
+                                        <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview well"></div>
+                                    </div>
+                                    <div class="tab-pane active" id="tab1">
+                                        <textarea class="wmd-input" id="wmd-input-ticketDetails" name="ticketDetails" rows="10" data-bind="value: details"></textarea>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-tabs pull-right">
+                                    <li class="active"><a href="#tab1" data-toggle="tab">Compose</a></li>
+                                    <li><a href="#tab2" data-toggle="tab">Preview</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <div class="control-group">
+                        <label class="control-label" for="owner">Owner</label>
+                        <div class="controls">
+                            <input type="text" id="owner" data-bind="value: owner" placeholder="person name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        <label class="control-label" for="assignedTo">Assigned To</label>
+                        <div class="controls">
+                            <input type="text" id="assignedTo" data-bind="value: assignedTo"
+                                placeholder="person name" />
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </section>
 </section>
+
+<!--           
+            
+
+          
+
+
+
+
+
+    
+
+
+        </div>-->

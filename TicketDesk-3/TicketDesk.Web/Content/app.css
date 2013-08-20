@@ -1,19 +1,5 @@
-﻿/* #region HTML RESET */
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr,
-acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot,
-thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu,
-nav, section, summary, time, mark, audio, video {
-    font: inherit;
-    margin: 0;
-}
-
-/* #endregion */
-
-
-.ticket-brief p, .ticket-brief ul {
-    font-size: 14px;
+﻿.ticket-brief p, .ticket-brief ul {
+    font-size: 12px;
 }
 
 html {
@@ -23,7 +9,7 @@ html {
 }
 
 body {
-    font-size: 16px;
+    font-size: 14px;
     margin: 0 auto;
     max-width: 1100px;
     background-color: transparent;
@@ -36,6 +22,8 @@ h1, h2, h3 {
     color: #555;
 }
 
+
+
 section.main {
     margin-top: 70px;
     margin-bottom: 80px;
@@ -47,9 +35,6 @@ section.main {
     height: 48px;
 }
 
-h2.page-title {
-    font-size: 32px;
-}
 
 .brand .title, .brand .title-es {
     float: left;
@@ -71,9 +56,9 @@ span.title {
     min-width: 240px;
     min-height: 50px;
     /*-moz-background-size: 45px;
-        -o-background-size: 45px;
-        -webkit-background-size: 45px;
-        background-size: 45px;*/
+		-o-background-size: 45px;
+		-webkit-background-size: 45px;
+		background-size: 45px;*/
 }
 
 span.title-es {
@@ -142,10 +127,13 @@ footer span {
     font-size: 18px;
 }
 
+
 /***************************/
 /* Boostrap overrides      */
 
-
+.btn-group > .btn-small {
+    font-size: 14px;
+}
 
 .loader .page-progress-bar {
     margin: 14px 0 0 0;
@@ -193,11 +181,115 @@ footer span {
     }
 
 
+blockquote {
+    border-left: none;
+    margin-left: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+    blockquote p {
+        font: inherit;
+    }
+
+/* Insert the pseudo element - replicating what FontAwesome does */
+/*blockquote:before {
+	content: "\f10d"; 
+	font-family: FontAwesome;
+	float: left;
+	margin-right: 10px;
+}*/
+
 
 /* End Boostrap overrides  */
 /***************************/
 
 
+
+
+/* Begin PageDown          */
+/***************************/
+
+/*.tab-content {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+}
+*/
+.nav-tabs {
+    margin-top: 0;
+}
+
+
+.wmd-panel {
+    
+}
+
+    .wmd-panel .tab-content {
+        overflow: visible;
+    }
+
+.wmd-input {
+    height: 250px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 5px 5px 25px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    background-image: url('/content/images/bg-editor-markdown.png');
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+
+.wmd-preview {
+    margin: 0;
+    padding: 5px 5px 5px 25px;
+    height: 250px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    background-image: url('/content/images/bg-editor-preview.png');
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+
+.wmd-panel .btn-toolbar {
+    margin-bottom: 0;
+    padding: 0 0 5px;
+    width: 100%;
+}
+
+.wmd-prompt-dialog {
+    border: 1px solid #999999;
+    background-color: #F5F5F5;
+}
+
+    .wmd-prompt-dialog > div {
+        font-size: 0.8em;
+        font-family: arial,helvetica,sans-serif;
+    }
+
+    .wmd-prompt-dialog > form > input[type="text"] {
+        border: 1px solid #999999;
+        color: black;
+    }
+
+    .wmd-prompt-dialog > form > input[type="button"] {
+        border: 1px solid #888888;
+        font-family: trebuchet MS,helvetica,sans-serif;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+
+
+/* End PageDown                */
+/***************************/
 
 
 /***************************/
@@ -235,7 +327,6 @@ footer span {
 }
 
     .view-list > article {
-     
         background-color: transparent;
         background-image: none;
         border-color: transparent;
@@ -266,9 +357,19 @@ footer span {
                 color: #ccc;
             }
 
+
         .view-list > article h1 {
-            font-size: 120%;
-            line-height: 120%;
+            font-size: 130%;
+            line-height: 130%;
+            font-weight: normal;
+            margin: 2px 0 5px;
+        }
+
+        .view-list > article h2 {
+            font-size: 115%;
+            line-height: 115%;
+            font-weight: normal;
+            margin: 2px 0 5px;
         }
 
         .view-list > article > div > img {
@@ -321,120 +422,49 @@ div.article-counter {
 
 
 
-/*.titleblock
-{
-    float: left;
-    clear: both;
-    width: 520px;
-}
-
-    .titleblock > label
-    {
-        float: left;
-        clear: both;
-        display: block;
-        margin-bottom: 2%;
-        width: 100px;
-    }
-
-    .titleblock > input
-    {
-        width: 400px;
-        margin-bottom: 2%;
-    }
-
-    .titleblock > h1
-    {
-        color: white;
-        font-size: 130%;
-        margin-bottom: 1%;
-        font-weight: bold;
-    }*/
-
-/*.details-left
-{
-    float: left;
-    width: 260px;
-    clear: both;
-}
-
-    .details-left label
-    {
-        clear: both;
-        display: block;
-        float: left;
-        width: 100px;
-    }
-
-    .details-left select,
-    .details-left label
-    {
-        margin-bottom: 2%;
-    }
-
-    .details-left input
-    {
-        width: 140px;
-        margin-bottom: 2%;
-    }
-
-    .details-left select
-    {
-        width: 150px;
-    }
-
-    .details-left img
-    {
-        height: 60px;
-        margin: 0 18px;
-        float: left;
-    }
-
-    .details-left div address
-    {
-        height: 25px;
-        margin-bottom: 2%;
-    }
-
-    .details-left div a
-    {
-        height: 25px;
-        margin-left: 100px;
-        margin-bottom: 2%;
-        display: block;
-    }
-
-.details-right
-{
-    float: left;
-    margin-left: 0;
-    margin-top: 1%;
-    clear: both;
-}
-
-    .details-right label
-    {
-        display: block;
-        clear: both;
-    }
-
-    .details-right textarea,
-    span.scrollable-text
-    {
-        font-family: 'Segoe UI Light', 'Segoe UI';
-        height: 100px;
-        width: 230px;
-        float: left;
-        overflow-y: scroll;
-        margin-bottom: 6px;
-    }*/
 
 /* End from jpapa              */
 /***************************/
 
+ul.nav-tabs {
+    display: none;
+}
+
+
+
+/*#tab1 {
+    width: 45%;
+}*/
+
+@media only screen and (min-width: 980px) {
+    #tab1 {
+        width: 49%;
+        display: block;
+    }
+
+    #tab2 {
+        float: right;
+        width: 49%;
+        display: block;
+    }
+}
+
 @media only screen and (max-width: 979px) {
     .page-splash-message {
-        font-size: 150%;
+        font-size: 250%;
+    }
+
+    #tab2 {
+        float: none;
+        width: 100%;
+    }
+
+    #tab1 {
+        width: 100%;
+    }
+
+    ul.nav-tabs {
+        display: block;
     }
 }
 

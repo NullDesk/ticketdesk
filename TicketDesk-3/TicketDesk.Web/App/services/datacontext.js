@@ -104,13 +104,17 @@
                 }
             };
 
+            var createTicket = function () {
+                return manager.createEntity(entityNames.ticket);
+            };
+
 
             var ticketManager = {
                 getOpenTicketPagedList: getOpenTicketPagedList,
                 openTicketRowCount: openTicketRowCount,
                 refreshTicketById: refreshTicketById,
-                backgroudTicketRefreshCounter: backgroudTicketRefreshCounter
-             
+                backgroudTicketRefreshCounter: backgroudTicketRefreshCounter,
+                createTicket: createTicket
             };
 
             return ticketManager;

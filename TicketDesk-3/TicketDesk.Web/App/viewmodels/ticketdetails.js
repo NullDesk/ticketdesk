@@ -1,5 +1,5 @@
-﻿define(['durandal/app','services/datacontext', 'durandal/plugins/router'],
-    function (app, datacontext, router) {
+﻿define(['durandal/app', 'services/datacontext', 'durandal/plugins/router', 'services/logger'],
+    function (app, datacontext, router, logger) {
 
         var ticket = ko.observable();
         var priorityList = ko.observableArray();

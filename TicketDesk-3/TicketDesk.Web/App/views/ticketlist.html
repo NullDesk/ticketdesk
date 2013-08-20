@@ -34,37 +34,37 @@
                         <!--/ko-->
                     </h2>
                     <address class="muted">
-                        <p>
+                        <div>
                             <span data-i18n="appmodeltext:ticketOwner" />
                             
                             <!--ko text: owner || 'none' -->
                             <!--/ko-->
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                             <span data-i18n="appmodeltext:ticketAssignedTo" />
                             <!--ko text: assignedTo() || 'unassigned' -->
                             <!--/ko-->
-                        </p>
+                        </div>
                     </address>
 
                 </div>
                 <div class="pull-right muted">
-                    <p>
+                    <div>
                         <!--ko text: $.i18n.t('appmodeltext:ticketStatus' + ticketStatus()) -->
                         <!--/ko-->
                         -
                         <!--ko text: $.i18n.t('appmodeltext:priority' + priority()) -->
                         <!--/ko-->
                         <span data-i18n="appmodeltext:ticketPriority" />
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <!--ko text: createdCombined -->
                         <!--/ko-->
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <!--ko text: lastUpdatedCombined -->
                         <!--/ko-->
-                    </p>
+                    </div>
                 </div>
 
             </header>

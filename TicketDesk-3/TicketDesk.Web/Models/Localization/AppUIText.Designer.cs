@@ -133,7 +133,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tickets.
+        ///   Looks up a localized string similar to Ticket Center.
         /// </summary>
         public static string NavMainTickets {
             get {

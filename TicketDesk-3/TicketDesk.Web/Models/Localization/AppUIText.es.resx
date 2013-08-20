@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NavMainTickets" xml:space="preserve">
-    <value>¿Tickets?</value>
+    <value>¿Tickets Center?</value>
   </data>
   <data name="NavMainTicketDetails" xml:space="preserve">
     <value>¿Ticket Details?</value>

@@ -1,10 +1,19 @@
 ﻿define(['durandal/system', 'durandal/plugins/router', 'services/logger', 'config', 'services/datacontext', 'services/notifiercontext'],
     function (system, router, logger, config, datacontext, notifiercontext) {
+        
+        
+        var formRoutes = ko.computed(function () {
+            return router.allRoutes().filter(function (r) {
+                return r.settings.form;
+            });
+        });
+
         var shell = {
             activate: activate,
-            router: router
+            router: router,
+            formRoutes: formRoutes
         };
-        
+
         return shell;
 
         //#region Internal Methods

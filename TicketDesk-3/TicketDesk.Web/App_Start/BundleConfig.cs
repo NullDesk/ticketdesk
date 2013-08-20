@@ -11,7 +11,8 @@ namespace TicketDesk.Web
             AddDefaultIgnorePatterns(bundles.IgnoreList);
 
             bundles.Add(new ScriptBundle("~/scripts/modernizr")
-                .Include("~/scripts/modernizr-{version}.js"));
+                .Include("~/scripts/modernizr-{version}.js")
+            );
 
             bundles.Add(
               new ScriptBundle("~/scripts/vendor")
@@ -24,10 +25,15 @@ namespace TicketDesk.Web
                 .Include("~/scripts/bootstrap.js")
                 .Include("~/scripts/moment.js")
                 .Include("~/Scripts/i18next-{version}.js")
+                .Include("~/scripts/pagedown/Markdown.Converter.js")
+                .Include("~/scripts/pagedown/Markdown.Editor.js")
+                .Include("~/scripts/pagedown/Markdown.Sanitizer.js")
               );
             bundles.Add(
               new ScriptBundle("~/scripts/signalr")
-                .Include("~/Scripts/jquery.signalR-{version}.js"));
+                .Include("~/Scripts/jquery.signalR-{version}.js")
+            );
+
             bundles.Add(
               new StyleBundle("~/content/css")
                 .Include("~/content/ie10mobile.css")
@@ -37,7 +43,8 @@ namespace TicketDesk.Web
                 .Include("~/content/durandal.css")
                 .Include("~/content/toastr.css")
                 .Include("~/content/app.css")
-              );
+                .Include("~/content/pagedown/pagedown.bootstrap.fontawesome.css")
+          );
         }
 
         public static void AddDefaultIgnorePatterns(IgnoreList ignoreList)
