@@ -57,6 +57,7 @@ define([
                 // Adapt to touch devices
                 // app.adaptToDevice();
                 //Show the app by setting the root view model for our application.
+                app.title = $.i18n.t('appuitext:appName');//"TicketDesk"
                 app.setRoot('viewmodels/shell', 'entrance');
             });
         });
