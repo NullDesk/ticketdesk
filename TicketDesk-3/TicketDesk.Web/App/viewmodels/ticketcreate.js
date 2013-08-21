@@ -68,11 +68,11 @@
         var initEditors = function () {
             (function () {
 
-                var help = function () { alert("Do you need help?"); };
-                var options = {
-                    helpButton: { handler: help },
-                    strings: { quoteexample: "whatever you're quoting, put it right here" }
-                };
+                //var help = function () { alert("Do you need help?"); };
+                //var options = {
+                //    helpButton: { handler: help },
+                //    strings: { quoteexample: "whatever you're quoting, put it right here" }
+                //};
 
                 var converter1 = Markdown.getSanitizingConverter();
                 converter1.hooks.chain("preBlockGamut", function (text, rbg) {
@@ -91,9 +91,10 @@
                     return url; //.replace(/^https?:\/\//, "");
                 });
 
-                var editor1 = new Markdown.Editor(converter1, "-ticketDetails", options);
+                var editor1 = new Markdown.Editor(converter1, "-ticketDetails", null);
                 editor1.run();
                 $('.wmd-panel .btn-toolbar .btn').addClass('btn-mini');
+                $('.icon-undo').parent().parent().hide();
 
                 logger.log('Ticket Create View Editor Initialized', null, 'TicketCreate', false);
 

@@ -1,38 +1,25 @@
-.icon-blockquote, .icon-bullet-list, .icon-header, .icon-hr-line {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-top: 1px;
-    *margin-right: .3em;
-    line-height: 14px;
-    vertical-align: text-top;
-    background-position: 14px 14px;
-    background-repeat: no-repeat;
-    background-image: url(Markdown.Editor.Icons.png);
+.wmd-panel .btn-group > .btn-mini {
+    font-size: 10pt;
 }
 
-.icon-blockquote {
-    background-position: -24px 0;
+.wmd-panel .icon-blockquote:before {
+    content: "\f03c";
 }
 
-.icon-bullet-list {
-    background-position: -72px 0;
+.wmd-panel .icon-bullet-list:before {
+    content: "\f03a";
 }
 
 
-.icon-list:before {
-  content: "\f0cb";
-}
-.icon-list {
-   
-
-    background-position: -96px 0;
+.wmd-panel .icon-list:before {
+    content: "\f0cb";
 }
 
-.icon-header {
-    background-position: -120px 0;
+
+.wmd-panel .icon-header:before {
+    content: "\f034";
 }
 
-.icon-hr-line {
-    background-position: -144px 0;
+.wmd-panel .icon-hr-line:before {
+    content: "\f068";
 }
