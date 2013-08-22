@@ -12,7 +12,7 @@
                 moduleId: 'home',
                 title: $.i18n.t('appuitext:navMainHome'),
                 nav: true,
-                button: '<i class="icon-home"></i> ' + $.i18n.t('appuitext:navMainHome')
+                button: '<i class="icon-home"></i> '
             }, {
                 route: 'tickets',
                 moduleId: 'ticketlist',
