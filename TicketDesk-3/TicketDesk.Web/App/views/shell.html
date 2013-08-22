@@ -1,14 +1,8 @@
 ﻿<div>
-    <header>
-        <!--ko compose: {view: 'nav'} --><!--/ko-->
+    <header data-bind="compose: { view: 'nav' }">
     </header>
-     <section id="content" class="main container-fluid">
-        <!--ko compose: {model: router.activeItem, 
-            afterCompose: router.afterCompose, 
-            transition: 'entrance'} -->
-        <!--/ko-->
+    <section id="content" class="main container-fluid" data-bind="router: { transition: 'entrance', cacheViews: true }">
     </section>
-    <footer>
-        <!--ko compose: {view: 'footer'} --><!--/ko-->
+    <footer data-bind="compose: { view: 'footer' }">
     </footer>
 </div>

@@ -1,4 +1,4 @@
-﻿define(['services/datacontext', 'durandal/plugins/router', 'services/logger'],
+﻿define(['services/datacontext', 'plugins/router', 'services/logger'],
     function (datacontext, router, logger) {
         var tickets = ko.observableArray();
         var currentPage = ko.observable();
@@ -165,11 +165,11 @@
         var gotoDetails = function (selectedTicket) {
             if (selectedTicket && selectedTicket.ticketId()) {
                 var url = '#/ticket/' + selectedTicket.ticketId();
-                router.navigateTo(url);
+                router.navigate(url);
             }
         };
 
-        var viewAttached = function (view) {
+        var attached = function (view) {
             bindEventToList(view, '.ticket-brief', gotoDetails);
         };
 
@@ -200,7 +200,7 @@
             refresh: refresh,
             tickets: tickets,
             title: $.i18n.t('appuitext:viewTicketListTitle'),//'Tickets',
-            viewAttached: viewAttached,
+            attached: attached,
             ticketItemsRendered: ticketItemsRendered
         };
         return vm;

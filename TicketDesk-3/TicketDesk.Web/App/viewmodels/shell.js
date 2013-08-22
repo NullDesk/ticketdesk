@@ -1,33 +1,23 @@
-﻿define(['durandal/system', 'durandal/plugins/router', 'services/logger', 'config', 'services/datacontext', 'services/notifiercontext'],
-    function (system, router, logger, config, datacontext, notifiercontext) {
+﻿define(['durandal/system','plugins/router', 'config', 'services/datacontext', 'services/notifiercontext','services/logger'],
+    function (system, router, config, datacontext, notifiercontext, logger) {
         
-        
-        var formRoutes = ko.computed(function () {
-            return router.allRoutes().filter(function (r) {
-                return r.settings.form;
-            });
-        });
-
         var shell = {
-            activate: activate,
             router: router,
-            formRoutes: formRoutes
+            activate: activate
         };
 
         return shell;
 
         //#region Internal Methods
         function activate() {
-            return datacontext.primeData().then(notifiercontext.activate).then(boot);
+            return datacontext.primeData().then(boot).then(notifiercontext.activate);
         }
 
         function boot() {
-
-            router.map(config.routes);
-            log('TicketDesk SPA Loaded!', null, true);
-            return router.activate('home');
+            return config.activate().then(function() {
+                log('TicketDesk SPA Loaded!', null, true);
+            });
         }
-
         function log(msg, data, showToast) {
             logger.log(msg, data, system.getModuleId(shell), showToast);
         }

@@ -3,19 +3,23 @@
         <a class="brand" href="/">
             <span data-i18n="[class]appuitext:cssNavLogo"></span> 
         </a>
-        <div class="btn-group " data-bind="foreach: router.visibleRoutes">
-            <a data-bind="css: { active: isActive }, attr: { href: hash }, text: name, html: button"  
+        <div class="btn-group " data-bind="foreach: router.navigationModel">
+            <a data-bind="css: { active: isActive }, attr: { href: hash }, text: title, html: button"  
                class="btn btn-info" href="#"></a>
         </div>
         
         <!--<div class="btn-group" data-bind="foreach: formRoutes">
-             <a data-bind="css: { active: isActive }, attr: { href: hash }, html: caption" 
-               class="btn btn-info" href="#"></a>
-        </div>-->
-        <div class="loader pull-right" data-bind="css: { active: router.isNavigating }">
+                <a data-bind="css: { active: isActive }, attr: { href: hash }, html: caption" 
+                   class="btn btn-info" href="#"></a>
+            </div>-->
+         <div class="loader pull-right" data-bind="css: { active: router.isNavigating }">
+                <i class="icon-spinner icon-2x icon-spin"></i>
+            </div>
+
+        <!--  <div class="loader pull-right" data-bind="css: { active: router.isNavigating }">
             <div class="progress progress-striped active page-progress-bar">
                 <div class="bar" style="width: 100px;"></div>
             </div>
-        </div>
+        </div>-->
     </div>
 </nav>

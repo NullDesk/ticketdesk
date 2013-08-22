@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'services/datacontext', 'durandal/plugins/router', 'services/logger'],
+﻿define(['durandal/app', 'services/datacontext', 'plugins/router', 'services/logger'],
     function (app, datacontext, router, logger) {
         var isSaving = ko.observable(false);
         var isDeleting = ko.observable(false);
@@ -30,7 +30,14 @@
         });
 
         var cancel = function () {
+            resetModel(false);
+        };
+
+        var resetModel = function(isDeactivating) {
             datacontext.cancelChanges();
+            if (!isDeactivating) {
+                ticket(datacontext.ticketEntityManager.createTicket());
+            }
         };
 
         var canSave = ko.computed(function () {
@@ -44,10 +51,11 @@
                 var title = $.i18n.t('appuitext:navNavigateAwayConfirmDialogTitle', { pagetitle: vm.title });
                 var msg = $.i18n.t('appuitext:navNavigateAwayConfirmDialogMessage');
                 var checkAnswer = function (selectedOption) {
-                    if (selectedOption === $.i18n.t('appuitext:generalYes')) {
-                        cancel();
+                    var isYes = selectedOption === $.i18n.t('appuitext:generalYes');
+                    if (isYes) {
+                        resetModel(true);
                     }
-                    return selectedOption;
+                    return isYes;
                 };
                 return app.showMessage(title, msg, [$.i18n.t('appuitext:generalYes'), $.i18n.t('appuitext:generalNo')])
                     .then(checkAnswer);
@@ -94,7 +102,7 @@
                 var editor1 = new Markdown.Editor(converter1, "-ticketDetails", null);
                 editor1.run();
                 $('.wmd-panel .btn-toolbar .btn').addClass('btn-mini');
-                $('.icon-undo').parent().parent().hide();
+                $('.wmd-panel .icon-undo').parent().parent().hide();
 
                 logger.log('Ticket Create View Editor Initialized', null, 'TicketCreate', false);
 
@@ -104,7 +112,7 @@
         };
 
         var vm = {
-            viewAttached: initEditors,
+            attached: initEditors,
             activate: activate,
             title: $.i18n.t('appuitext:viewTicketCreateTitle'),
             cancel: cancel,

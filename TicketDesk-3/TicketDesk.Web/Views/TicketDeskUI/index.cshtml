@@ -34,11 +34,10 @@
     @Scripts.Render("~/scripts/vendor")
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
-        <script type="text/javascript" src="~/App/durandal/amd/require.js" data-main="@Url.Content("~/App/main")"></script>
+        <script type="text/javascript" src="~/scripts/require.js" data-main="@Url.Content("~/App/main")"></script>
     }
     else
     {
-        <!-- Remember to run the Durandal optimizer.exe to create the main-built.js  -->
         <script type="text/javascript" src="~/App/main-built.js"></script>
     }
     

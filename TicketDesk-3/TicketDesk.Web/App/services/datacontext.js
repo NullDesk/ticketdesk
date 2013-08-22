@@ -1,9 +1,11 @@
-﻿define([
+﻿define(
+    [
     'durandal/system',
     'services/model',
     'config',
     'services/logger',
-    'services/breeze.partial-entities'],
+    'services/breeze.partial-entities'
+    ],
     function (system, model, config, logger, partialMapper) {
         var entityQuery = breeze.EntityQuery;
         var manager = configureBreezeManager();
@@ -181,6 +183,7 @@
         };
 
         var primeData = function () {
+            log('Priming Data', null, true);
             return manager.fetchMetadata(manager.dataService);
 
         };

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'services/datacontext', 'durandal/plugins/router', 'services/logger'],
+﻿define(['durandal/app', 'services/datacontext', 'plugins/router', 'services/logger'],
     function (app, datacontext, router, logger) {
 
         var ticket = ko.observable();
@@ -10,8 +10,8 @@
         var isDeleting = ko.observable(false);
 
 
-        var activate = function (routeData) {
-            var id = parseInt(routeData.id);
+        var activate = function (id) {
+            var id = parseInt(id);
             return Q.all([
                 datacontext.getTicketById(id, ticket),
                 datacontext.getPriorityList(priorityList),
