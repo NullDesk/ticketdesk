@@ -14,7 +14,7 @@ body,
     height: auto !important;
     height: 100%;
     /* Negative indent footer by its height */
-    margin: 0 auto -30px;
+    margin: 40px auto -30px;
     /* Pad bottom by footer height */
     padding: 0 0 30px;
 }
@@ -62,6 +62,22 @@ body,
     bottom: 50px;
 }
 
+
+#loader {
+    visibility: hidden;
+    padding: 7px 0 7px 15px;
+   
+   
+}
+
+    #loader.active {
+        visibility: visible;
+    }
+
+.nav-loader {
+    font-size: 2em;
+   
+}
 
 
 /*  Unadjusted orig   */

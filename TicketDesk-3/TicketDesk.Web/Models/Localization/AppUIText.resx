@@ -154,7 +154,7 @@
     <value>Ms-PL license - ©2013 Stephen M. Redd</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>To test localization, either change your browser's language to spanish, or add the querystring "?setLng=es" to the url (remember, the querystring must come before the pathdata (#) part of the url. Example:  http://localhost:64297/?setLng=es#/home</value>
+    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. The UI is a bit of a mess in places, but overall the new skin is coming along well.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href='/?setLng=es'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
   </data>
   <data name="ViewHomeTitle" xml:space="preserve">
     <value>TicketDesk Home</value>
@@ -179,5 +179,11 @@
   </data>
   <data name="NavNavigateAwayConfirmDialogMessage" xml:space="preserve">
     <value>Navigate away and cancel your changes?</value>
+  </data>
+  <data name="NavMainAdmin" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="NavMainToggleNavigation" xml:space="preserve">
+    <value>Toggle navigation</value>
   </data>
 </root>

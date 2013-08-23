@@ -166,7 +166,7 @@
     <value>¿Ms-PL license - ©2013 Stephen M. Redd?</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>I don't speak spanish. For testing localization, I have just addded question marks to all the english text in the spanish resource files. Later, when the application is closer to completion, I will have all the text translated by a fluent speaker.</value>
+    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. The UI is a bit of a mess in places, but overall the new skin is coming along well.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the english site &lt;a href='/'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
   </data>
   <data name="ViewHomeTitle" xml:space="preserve">
     <value>¿TicketDesk Home?</value>
@@ -179,5 +179,11 @@
   </data>
   <data name="ViewTicketListTitle" xml:space="preserve">
     <value>¿Open Tickets?</value>
+  </data>
+  <data name="NavMainAdmin" xml:space="preserve">
+    <value>¿Administration?</value>
+  </data>
+  <data name="NavMainToggleNavigation" xml:space="preserve">
+    <value>¿Toggle navigation?</value>
   </data>
 </root>

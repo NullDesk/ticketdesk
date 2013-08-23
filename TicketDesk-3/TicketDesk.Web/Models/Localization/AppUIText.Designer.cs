@@ -106,6 +106,15 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administration.
+        /// </summary>
+        public static string NavMainAdmin {
+            get {
+                return ResourceManager.GetString("NavMainAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string NavMainHome {
@@ -138,6 +147,15 @@ namespace TicketDesk.Web.Models.Localization {
         public static string NavMainTickets {
             get {
                 return ResourceManager.GetString("NavMainTickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle navigation.
+        /// </summary>
+        public static string NavMainToggleNavigation {
+            get {
+                return ResourceManager.GetString("NavMainToggleNavigation", resourceCulture);
             }
         }
         
@@ -205,7 +223,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To test localization, either change your browser&apos;s language to spanish, or add the querystring &quot;?setLng=es&quot; to the url (remember, the querystring must come before the pathdata (#) part of the url. Example:  http://localhost:64297/?setLng=es#/home.
+        ///   Looks up a localized string similar to Forgive the mess, but I&apos;m working my way through a major conversion to Durandal 2 and Bootstrap 3. The UI is a bit of a mess in places, but overall the new skin is coming along well.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href=&apos;/?setLng=es&apos;&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd.
         /// </summary>
         public static string ViewHomeContent {
             get {

@@ -3,33 +3,52 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only" data-i18n="appuitext:navMainToggleNavigation"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
             <a href="/" data-i18n="[class]appuitext:cssNavLogo"></a>
-
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div id="navMain" class="navbar-collapse collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav" data-bind="foreach: router.navigationModel">
                 <li data-bind="css: { active: isActive }">
                     <a data-bind="attr: { href: hash }, text: title, html: button"></a>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> <span data-i18n="appuitext:navMainAdmin"></span><b class="caret"></b></a>
+                    <ul class="dropdown-menu" data-bind="foreach: adminRoutes">
+                        <li data-bind="css: { active: $parent.router.isActive }">
+                            <a data-bind="attr: { href: hash }, text: title"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a id="loader" data-bind="css: { active: router.isNavigating }">
+                        <i class="nav-loader icon-spinner icon-2x icon-spin"></i>
+                    </a>
+                </li>
 
             </ul>
-
         </div>
+
+
+
         <!-- /.navbar-collapse -->
 
+
+        <!--   <div class="nav navbar-text progress" style="width: 300px; margin-top:10px">
+                <div class="bar" style="width: 30%;"></div>
+            </div> -->
+        <!--<div class="loader pull-right" data-bind="css: { active: router.isNavigating }">
+            <div class="progress progress-striped active page-progress-bar">
+                <div class="bar" style="width: 100px;"></div>
+            </div>
+        </div>-->
     </div>
 </div>
 
-<!--<div class="loader pull-right" data-bind="css: { active: router.isNavigating }">
-    <div class="progress progress-striped active page-progress-bar">
-        <div class="bar" style="width: 100px;"></div>
-    </div>
-</div>-->
+<!---->

@@ -30,6 +30,12 @@
                 moduleId: 'ticketdetails',
                 title: $.i18n.t('appuitext:navMainTicketDetails'),
                 nav: false
+            }, {
+                route: '',
+                moduleId: 'home',
+                title: 'some admin page',
+                nav: false,
+                isAdmin: true
             }]).buildNavigationModel()
               .mapUnknownRoutes('home', 'home')
               .activate();
