@@ -1,4 +1,71 @@
-﻿.ticket-brief p, .ticket-brief ul {
+﻿html,
+body,
+#applicationHost,
+.durandal-wrapper {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+    padding: 0;
+    margin: 0;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -30px;
+    /* Pad bottom by footer height */
+    padding: 0 0 30px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+    height: 30px;
+    padding: 7px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e7e7e7;
+}
+
+
+/*smr - bug in bootstrap 3.0.0
+        This appears not to be a problem in versions used in their examples, so hopefully it will workout after an update */
+.navbar .navbar-nav > .active > a {
+    background-color: #e7e7e7;
+}
+
+.navbar-brand {
+    padding: 0;
+    margin: 10px 15px 10px 0;
+    min-width: 150px;
+    height: 30px;
+    display: inline-block;
+}
+
+    .navbar-brand.title {
+        background: url(/content/images/ticketdesk3logo.png) no-repeat left center;
+    }
+
+    .navbar-brand.title-es {
+        background: url(/content/images/ticketdesk3logo-es.png) no-repeat left center;
+    }
+
+.toast {
+    font-weight: normal;
+}
+
+.toast-info {
+    background-color: #194D7B;
+}
+
+.toast-bottom-right {
+    bottom: 50px;
+}
+
+
+
+/*  Unadjusted orig   */
+/*.ticket-brief p, .ticket-brief ul {
     font-size: 12px;
 }
 
@@ -17,56 +84,21 @@ body {
 }
 
 h1, h2, h3 {
-    /*text-transform: uppercase;*/
+ 
     letter-spacing: -1px !important;
     color: #555;
-}
+}*/
 
 
 
-section.main {
+/*section.main {
     margin-top: 70px;
     margin-bottom: 80px;
 }
 
-.navbar .brand {
-    /*padding: 6px 10px 12px 10px;*/
-    margin-bottom: -8px;
-    height: 48px;
-}
-
-
-.brand .title, .brand .title-es {
-    float: left;
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-    font-size: 145%;
-    font-weight: 900;
-    letter-spacing: -2px;
-    padding-left: 15px;
-    -webkit-text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
-    /*text-transform: uppercase;*/
-    text-transform: initial;
-    text-decoration: none;
-    color: #0081C2;
-}
-
-span.title {
-    background: url(/content/images/ticketdesk3logo.png) no-repeat left center;
-    min-width: 240px;
-    min-height: 50px;
-    /*-moz-background-size: 45px;
-		-o-background-size: 45px;
-		-webkit-background-size: 45px;
-		background-size: 45px;*/
-}
-
-span.title-es {
-    background: url(/content/images/ticketdesk3logo-es.png) no-repeat left center;
-    min-width: 240px;
-    min-height: 50px;
-}
-
+.navbar-brand {
+    padding: 0;
+}*/
 .page-splash {
     position: fixed;
     top: 0;
@@ -100,38 +132,22 @@ span.title-es {
     padding: 0;
 }
 
-.page-progress-bar {
-    margin: 10% 30% 0 30%;
-}
-
-.toast {
-    font-weight: normal;
-}
-
-.toast-info {
-    background-color: #194D7B;
-}
-
-.toast-bottom-right {
-    bottom: 50px;
-}
 
 
-
-footer a {
+/*footer a {
     font-weight: bold;
 }
 
 footer span {
     padding: 10px 80px;
     font-size: 18px;
-}
+}*/
 
 
 /***************************/
 /* Boostrap overrides      */
 
-.btn-group > .btn-small {
+/*.btn-group > .btn-small {
     font-size: 14px;
 }
 
@@ -148,7 +164,6 @@ footer span {
     }
 
 .btn {
-    /*text-transform: uppercase;*/
     letter-spacing: 1px;
 }
 
@@ -170,14 +185,13 @@ footer span {
         color: white;
         background-color: #0081C2;
         *background-color: #0081C2;
-        /*background-color: #194D7B;*/
-        /**background-color: #194D7B;*/
+     
     }
 
     .btn-info:active,
     .btn-info.active {
         background-color: #0081C2 \9;
-        /*background-color: #194D7B \9;*/
+      
     }
 
 
@@ -190,15 +204,8 @@ blockquote {
 
     blockquote p {
         font: inherit;
-    }
+    }*/
 
-/* Insert the pseudo element - replicating what FontAwesome does */
-/*blockquote:before {
-	content: "\f10d"; 
-	font-family: FontAwesome;
-	float: left;
-	margin-right: 10px;
-}*/
 
 
 /* End Boostrap overrides  */
@@ -217,22 +224,18 @@ blockquote {
 	padding: 10px;
 }
 */
-.nav-tabs {
+.wmd-panel .nav-tabs {
     margin-top: 0;
 }
 
 
-.wmd-panel {
-    
-}
 
-    .wmd-panel .tab-content {
-        overflow: visible;
-    }
+.wmd-panel .tab-content {
+    overflow: visible;
+}
 
 .wmd-input {
     height: 250px;
-
     width: 100%;
     box-sizing: border-box;
     padding: 5px 5px 5px 25px;
@@ -301,7 +304,7 @@ blockquote {
 
 
 
-.article-left-content {
+/*.article-left-content {
     border-bottom: solid 1px rgba(0, 0, 0, 0.08);
     box-shadow: 0 1px rgba(255,255,255,.8);
     min-height: 100px;
@@ -419,7 +422,7 @@ div.article-counter {
     div.article-counter > address {
         display: inline-block;
         vertical-align: middle;
-    }
+    }*/
 
 
 
@@ -427,9 +430,9 @@ div.article-counter {
 /* End from jpapa              */
 /***************************/
 
-ul.nav-tabs {
+/*ul.nav-tabs {
     display: none;
-}
+}*/
 
 
 
@@ -464,14 +467,14 @@ ul.nav-tabs {
         width: 100%;
     }
 
-    ul.nav-tabs {
+    .wmd-input ul.nav-tabs {
         display: block;
     }
 }
 
 @media (max-width: 979px) {
-    section.main {
+    /*section.main {
         margin-top: 0;
         margin-bottom: 80px;
-    }
+    }*/
 }

@@ -37,8 +37,8 @@ namespace TicketDesk.Web
             bundles.Add(
               new StyleBundle("~/content/css")
                 .Include("~/content/ie10mobile.css")
-                .Include("~/content/bootstrap.css")
-                .Include("~/content/bootstrap-responsive.css")
+                .Include("~/content/bootstrap/bootstrap.css")
+                .Include("~/content/bootstrap/bootstrap-theme.css")
                 .Include("~/content/font-awesome.css")
                 .Include("~/content/durandal.css")
                 .Include("~/content/toastr.css")

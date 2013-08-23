@@ -124,7 +124,7 @@
     <value>Refresh</value>
   </data>
   <data name="CssNavLogo" xml:space="preserve">
-    <value>title</value>
+    <value>navbar-brand title</value>
   </data>
   <data name="NavMainHome" xml:space="preserve">
     <value>Home</value>
@@ -157,7 +157,7 @@
     <value>To test localization, either change your browser's language to spanish, or add the querystring "?setLng=es" to the url (remember, the querystring must come before the pathdata (#) part of the url. Example:  http://localhost:64297/?setLng=es#/home</value>
   </data>
   <data name="ViewHomeTitle" xml:space="preserve">
-    <value>TIcketDesk Home</value>
+    <value>TicketDesk Home</value>
   </data>
   <data name="ViewTicketCreateTitle" xml:space="preserve">
     <value>New Ticket</value>

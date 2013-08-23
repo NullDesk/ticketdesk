@@ -79,7 +79,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to title.
+        ///   Looks up a localized string similar to navbar-brand title.
         /// </summary>
         public static string CssNavLogo {
             get {
@@ -214,7 +214,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TIcketDesk Home.
+        ///   Looks up a localized string similar to TicketDesk Home.
         /// </summary>
         public static string ViewHomeTitle {
             get {

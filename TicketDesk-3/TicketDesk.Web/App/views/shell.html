@@ -1,8 +1,11 @@
-﻿<div>
+﻿<div id="wrap">
     <header data-bind="compose: { view: 'nav' }">
     </header>
-    <section id="content" class="main container-fluid" data-bind="router: { transition: 'entrance', cacheViews: false }">
+    <section id="content" class="container" data-bind="router: { transition: 'entrance', cacheViews: false }">
     </section>
-    <footer data-bind="compose: { view: 'footer' }">
-    </footer>
 </div>
+<footer id="footer">
+    <div class="container" data-bind="compose: { view: 'footer' }"></div>
+</footer>
+
+

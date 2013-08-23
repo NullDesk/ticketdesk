@@ -117,32 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NavMainTickets" xml:space="preserve">
-    <value>¿Tickets Center?</value>
-  </data>
-  <data name="NavMainTicketDetails" xml:space="preserve">
-    <value>¿Ticket Details?</value>
-  </data>
-  <data name="NavMainHome" xml:space="preserve">
-    <value>¿Home?</value>
+  <data name="AppName" xml:space="preserve">
+    <value>¿TicketDesk 3?</value>
   </data>
   <data name="BtnRefresh" xml:space="preserve">
     <value>¿Refresh?</value>
   </data>
-  <data name="AppName" xml:space="preserve">
-    <value>¿TicketDesk 3?</value>
+  <data name="CssNavLogo" xml:space="preserve">
+    <value>navbar-brand title-es</value>
   </data>
-  <data name="ViewHomeTitle" xml:space="preserve">
-    <value>¿TIcketDesk Home?</value>
+  <data name="GeneralNo" xml:space="preserve">
+    <value>¿No?</value>
   </data>
-  <data name="ViewHomeContent" xml:space="preserve">
-    <value>I don't speak spanish. For testing localization, I have just addded question marks to all the english text in the spanish resource files. Later, when the application is closer to completion, I will have all the text translated by a fluent speaker.</value>
+  <data name="GeneralYes" xml:space="preserve">
+    <value>¿Yes?</value>
   </data>
-  <data name="ViewFooterCopyright" xml:space="preserve">
-    <value>¿Ms-PL license - ©2013 Stephen M. Redd?</value>
+  <data name="NavMainHome" xml:space="preserve">
+    <value>¿Home?</value>
   </data>
-  <data name="ViewTicketListTitle" xml:space="preserve">
-    <value>¿Open Tickets?</value>
+  <data name="NavMainTicketCreate" xml:space="preserve">
+    <value>¿New Ticket?</value>
+  </data>
+  <data name="NavMainTicketDetails" xml:space="preserve">
+    <value>¿Ticket Details?</value>
+  </data>
+  <data name="NavMainTickets" xml:space="preserve">
+    <value>¿Tickets Center?</value>
+  </data>
+  <data name="NavNavigateAwayConfirmDialogMessage" xml:space="preserve">
+    <value>¿Navigate away and cancel your changes?</value>
+  </data>
+  <data name="NavNavigateAwayConfirmDialogTitle" xml:space="preserve">
+    <value>¿Do you want to leave __pagetitle__?</value>
+  </data>
+  <data name="PagerNext" xml:space="preserve">
+    <value>¿Next?</value>
   </data>
   <data name="PagerNumberFound" xml:space="preserve">
     <value>¿found?</value>
@@ -150,34 +159,25 @@
   <data name="PagerOf" xml:space="preserve">
     <value>¿of?</value>
   </data>
-  <data name="PagerNext" xml:space="preserve">
-    <value>¿Next?</value>
-  </data>
   <data name="PagerPrevious" xml:space="preserve">
     <value>¿Previous?</value>
   </data>
-  <data name="CssNavLogo" xml:space="preserve">
-    <value>title-es</value>
+  <data name="ViewFooterCopyright" xml:space="preserve">
+    <value>¿Ms-PL license - ©2013 Stephen M. Redd?</value>
   </data>
-  <data name="NavMainTicketCreate" xml:space="preserve">
+  <data name="ViewHomeContent" xml:space="preserve">
+    <value>I don't speak spanish. For testing localization, I have just addded question marks to all the english text in the spanish resource files. Later, when the application is closer to completion, I will have all the text translated by a fluent speaker.</value>
+  </data>
+  <data name="ViewHomeTitle" xml:space="preserve">
+    <value>¿TicketDesk Home?</value>
+  </data>
+  <data name="ViewTicketCreateTitle" xml:space="preserve">
     <value>¿New Ticket?</value>
   </data>
   <data name="ViewTicketDetailsTitle" xml:space="preserve">
     <value>¿Ticket Details?</value>
   </data>
-  <data name="ViewTicketCreateTitle" xml:space="preserve">
-    <value>¿New Ticket?</value>
-  </data>
-  <data name="GeneralYes" xml:space="preserve">
-    <value>¿Yes?</value>
-  </data>
-  <data name="GeneralNo" xml:space="preserve">
-    <value>¿No?</value>
-  </data>
-  <data name="NavNavigateAwayConfirmDialogTitle" xml:space="preserve">
-    <value>¿Do you want to leave __pagetitle__?</value>
-  </data>
-  <data name="NavNavigateAwayConfirmDialogMessage" xml:space="preserve">
-    <value>¿Navigate away and cancel your changes?</value>
+  <data name="ViewTicketListTitle" xml:space="preserve">
+    <value>¿Open Tickets?</value>
   </data>
 </root>
