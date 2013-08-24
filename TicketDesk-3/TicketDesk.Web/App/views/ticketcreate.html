@@ -1,17 +1,22 @@
-﻿<section id="session-view" class="view">
-    <h2 class="page-title" data-bind="text: title"></h2>
-    <div class="button-bar btn-block">
-        <button class="btn btn-info"
+﻿<section id="session-view">
+
+    <header class="page-header">
+        <h1 data-bind="text: title"></h1>
+    </header>
+    
+  
+    <div class="btn-group">
+        <button class="btn btn-default"
             data-bind="click: goBack">
             <i class="icon-hand-left"></i> Back</button>
-        <button class="btn btn-info"
+        <button class="btn btn-primary"
             data-bind="click: cancel, enable: canSave">
             <i class="icon-undo"></i> Cancel</button>
-        <button class="btn btn-info"
+        <button class="btn btn-success"
             data-bind="click: save, enable: canSave">
             <i class="icon-save"></i> Save</button>
-        <i class="icon-asterisk" data-bind="visible: hasChanges"></i>
-    </div>
+       
+    </div> <i class="icon-asterisk" data-bind="visible: hasChanges"></i>
     <section data-bind="with: ticket">
         <div class="form-horizontal">
             <div class="row">
