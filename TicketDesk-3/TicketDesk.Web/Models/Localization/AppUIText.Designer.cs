@@ -205,11 +205,29 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        public static string PagerPage {
+            get {
+                return ResourceManager.GetString("PagerPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         public static string PagerPrevious {
             get {
                 return ResourceManager.GetString("PagerPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to records.
+        /// </summary>
+        public static string PagerTotalTickets {
+            get {
+                return ResourceManager.GetString("PagerTotalTickets", resourceCulture);
             }
         }
         
@@ -223,7 +241,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forgive the mess, but I&apos;m working my way through a major conversion to Durandal 2 and Bootstrap 3. The UI is a bit of a mess in places, but overall the new skin is coming along well.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href=&apos;/?setLng=es&apos;&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd.
+        ///   Looks up a localized string similar to Forgive the mess, but I&apos;m working my way through a major conversion to Durandal 2 and Bootstrap 3. Overall the new skin is coming along well, and I should have it back in shape in a few days.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href=&apos;/?setLng=es&apos;&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd.
         /// </summary>
         public static string ViewHomeContent {
             get {

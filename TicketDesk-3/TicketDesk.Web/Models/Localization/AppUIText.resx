@@ -126,6 +126,15 @@
   <data name="CssNavLogo" xml:space="preserve">
     <value>navbar-brand title</value>
   </data>
+  <data name="GeneralNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="GeneralYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="NavMainAdmin" xml:space="preserve">
+    <value>Administration</value>
+  </data>
   <data name="NavMainHome" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -137,6 +146,15 @@
   </data>
   <data name="NavMainTickets" xml:space="preserve">
     <value>Ticket Center</value>
+  </data>
+  <data name="NavMainToggleNavigation" xml:space="preserve">
+    <value>Toggle navigation</value>
+  </data>
+  <data name="NavNavigateAwayConfirmDialogMessage" xml:space="preserve">
+    <value>Navigate away and cancel your changes?</value>
+  </data>
+  <data name="NavNavigateAwayConfirmDialogTitle" xml:space="preserve">
+    <value>Do you want to leave __pagetitle__?</value>
   </data>
   <data name="PagerNext" xml:space="preserve">
     <value>Next</value>
@@ -150,11 +168,14 @@
   <data name="PagerPrevious" xml:space="preserve">
     <value>Previous</value>
   </data>
+  <data name="PagerTotalTickets" xml:space="preserve">
+    <value>records</value>
+  </data>
   <data name="ViewFooterCopyright" xml:space="preserve">
     <value>Ms-PL license - ©2013 Stephen M. Redd</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. The UI is a bit of a mess in places, but overall the new skin is coming along well.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href='/?setLng=es'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
+    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. Overall the new skin is coming along well, and I should have it back in shape in a few days.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href='/?setLng=es'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
   </data>
   <data name="ViewHomeTitle" xml:space="preserve">
     <value>TicketDesk Home</value>
@@ -168,22 +189,7 @@
   <data name="ViewTicketListTitle" xml:space="preserve">
     <value>Open Tickets</value>
   </data>
-  <data name="GeneralYes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="GeneralNo" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="NavNavigateAwayConfirmDialogTitle" xml:space="preserve">
-    <value>Do you want to leave __pagetitle__?</value>
-  </data>
-  <data name="NavNavigateAwayConfirmDialogMessage" xml:space="preserve">
-    <value>Navigate away and cancel your changes?</value>
-  </data>
-  <data name="NavMainAdmin" xml:space="preserve">
-    <value>Administration</value>
-  </data>
-  <data name="NavMainToggleNavigation" xml:space="preserve">
-    <value>Toggle navigation</value>
+  <data name="PagerPage" xml:space="preserve">
+    <value>Page</value>
   </data>
 </root>

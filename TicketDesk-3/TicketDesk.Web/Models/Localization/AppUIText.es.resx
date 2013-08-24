@@ -166,7 +166,7 @@
     <value>¿Ms-PL license - ©2013 Stephen M. Redd?</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. The UI is a bit of a mess in places, but overall the new skin is coming along well.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the english site &lt;a href='/'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
+    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. Overall the new skin is coming along well, and I should have it back in shape in a few days.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the english site &lt;a href='/'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
   </data>
   <data name="ViewHomeTitle" xml:space="preserve">
     <value>¿TicketDesk Home?</value>
@@ -185,5 +185,11 @@
   </data>
   <data name="NavMainToggleNavigation" xml:space="preserve">
     <value>¿Toggle navigation?</value>
+  </data>
+  <data name="PagerTotalTickets" xml:space="preserve">
+    <value>¿records?</value>
+  </data>
+  <data name="PagerPage" xml:space="preserve">
+    <value>¿Page?</value>
   </data>
 </root>

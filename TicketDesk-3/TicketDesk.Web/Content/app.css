@@ -79,6 +79,51 @@ body,
    
 }
 
+i {
+    font-style: normal;
+}
+
+
+
+.ticket-brief {
+    padding: 0 5px;
+}
+.view-list {
+    
+    width: 100%;
+}
+
+    .view-list > article {
+        background-color: transparent;
+        background-image: none;
+        border-color: transparent;
+    }
+
+        .view-list > article:hover {
+            cursor: pointer;
+            
+            background-color: #f4f4f4;
+            background-image: -moz-linear-gradient(top,#F4F4F4,#e8e8e8);
+            background-image: -webkit-gradient(linear,0 0,0 100%,from(#F4F4F4),to(#e8e8e8));
+            background-image: -webkit-linear-gradient(top,#F4F4F4,#e8e8e8);
+            background-image: -o-linear-gradient(top,#F4F4F4,#e8e8e8);
+            background-image: linear-gradient(to bottom,#F4F4F4,#e8e8e8);
+            background-repeat: repeat-x;
+            border-color: #59C0F3;
+            border-radius: 5px;
+        }
+
+            .view-list > article:hover small,
+            .view-list > article:hover address,
+            .view-list > article:hover h1,
+            .view-list > article:hover h2 {
+                
+            }
+
+            .view-list > article:hover .muted {
+                
+            }
+
 
 /*  Unadjusted orig   */
 /*.ticket-brief p, .ticket-brief ul {

@@ -1,76 +1,92 @@
-﻿<section id="tickets-view" style="overflow-x: hidden;" class="view">
-    <header>
-        <a class="btn btn-info btn-force-refresh pull-right"
-           data-bind="click: refresh" href="#"><i class="icon-refresh"></i><span data-i18n="appuitext:btnRefresh" /></a>
-        <h2 class="page-title" data-bind="text: title"></h2>
-        <div class="article-counter">
-            <address data-bind="text: rowCount()"></address>
-            <address data-i18n="pagerNumberFound"></address>
-        </div>
-        <div class="pager">
-            <ul>
-                <li class="previous" data-bind="css:{ disabled: !canPrev()}">
-                    <a href="#" data-bind="click: previous, clickBubble: false"><i class="icon-angle-left"></i> <span data-i18n="appuitext:pagerPrevious" /></a>
+﻿<section id="tickets-view">
+    <header class="page-header">
+        <a class="btn btn-primary pull-right"
+            data-bind="click: refresh" href="#"><i class="icon-refresh"></i><span data-i18n="appuitext:btnRefresh" /></a>
+        <h1 data-bind="text: title"></h1>
+
+
+    </header>
+    <div>
+        <nav class="well well-sm">
+            <ul class="pager pagination pagination-sm col-md-12" style="display: block; margin: 0;">
+                <li class="previous" data-bind="css: { disabled: !canPrev() }">
+                    <a href="#" data-bind="click: previous, clickBubble: false"><i class="icon-chevron-left"></i>&nbsp;<span data-i18n="appuitext:pagerPrevious" /></a>
                 </li>
-                <li>Page <!--ko text: currentPage --><!--/ko--> <i data-i18n="appuitext:pagerOf" /> <!--ko text: maxPage --><!--/ko--></li>
+                <li><small><i data-i18n="appuitext:pagerPage" />
+                    <!--ko text: currentPage -->
+                    <!--/ko-->
+                    <i data-i18n="appuitext:pagerOf" />
+                    <!--ko text: maxPage -->
+                    <!--/ko-->
+                    (<!-- ko text: rowCount --><!--/ko-->
+                    <i data-i18n="appuitext:pagerTotalTickets" />)</small></li>
                 <li class="next" data-bind="css: { disabled: !canNext() }">
-                    <a href="#" data-bind="click: next, clickBubble: false"><span data-i18n="appuitext:pagerNext" /> <i class="icon-angle-right"></i></a>
+                    <a href="#" data-bind="click: next, clickBubble: false"><span data-i18n="appuitext:pagerNext" />&nbsp;<i class="icon-chevron-right"></i></a>
                 </li>
             </ul>
-        </div>
-    </header>
-    <section class="view-list" data-bind="template: { foreach: tickets, beforeRemove: hideTicketElement, afterAdd: showTicketElement, afterRender: ticketItemsRendered }">
-        <article class="ticket-brief article-left-content" title="Go to ticket details"  data-bind="ticketChanged: lastUpdateDate">
-            <header class="row-fluid">
-                <div class="inline pull-left" style="margin: 0 15px 0 0;">
-                    <h1><span data-i18n="appmodeltext:ticketTicketId" /><!--ko text: ticketId --><!--/ko-->
-                        <!--ko text:  $.i18n.t('appmodeltext:category' + category()) -->
-                        <!--/ko-->
-                        <!--ko text:  $.i18n.t('appmodeltext:ticketType' + ticketType())  -->
-                        <!--/ko-->
-                    </h1>
-                    <h2>
-                        <!--ko text: title -->
-                        <!--/ko-->
-                    </h2>
-                    <address class="muted">
-                        <div>
-                            <span data-i18n="appmodeltext:ticketOwner" />
-                            
-                            <!--ko text: owner || 'none' -->
+        </nav>
+        <section class="view-list" data-bind="template: { foreach: tickets, beforeRemove: hideTicketElement, afterAdd: showTicketElement, afterRender: ticketItemsRendered }">
+            <!--ko if: $index() != 0--><hr /><!--/ko-->
+            <article class="ticket-brief" title="Go to ticket details" data-bind="ticketChanged: lastUpdateDate">
+                <header class="row">
+                    <div class="col-md-7">
+                        <h4><span data-i18n="appmodeltext:ticketTicketId" />
+                            <!--ko text: ticketId -->
                             <!--/ko-->
+                            <!--ko text:  $.i18n.t('appmodeltext:category' + category()) -->
+                            <!--/ko-->
+                            <!--ko text:  $.i18n.t('appmodeltext:ticketType' + ticketType())  -->
+                            <!--/ko-->
+                        </h4>
+                        <h5>
+                            <!--ko text: title -->
+                            <!--/ko-->
+                        </h5>
+                        <address>
+                            <div>
+                                <span data-i18n="appmodeltext:ticketOwner" />
+
+                                <!--ko text: owner || 'none' -->
+                                <!--/ko-->
+                            </div>
+                            <div>
+                                <span data-i18n="appmodeltext:ticketAssignedTo" />
+                                <!--ko text: assignedTo() || 'unassigned' -->
+                                <!--/ko-->
+                            </div>
+                        </address>
+
+                    </div>
+                    <div class="col-md-5">
+                        <div>
+                            <small>
+                                <!--ko text: $.i18n.t('appmodeltext:ticketStatus' + ticketStatus()) -->
+                                <!--/ko-->
+                                -
+                                <!--ko text: $.i18n.t('appmodeltext:priority' + priority()) -->
+                                <!--/ko-->
+                                <span data-i18n="appmodeltext:ticketPriority" />
+                            </small>
                         </div>
                         <div>
-                            <span data-i18n="appmodeltext:ticketAssignedTo" />
-                            <!--ko text: assignedTo() || 'unassigned' -->
-                            <!--/ko-->
+                            <small>
+                                <!--ko text: createdCombined -->
+                                <!--/ko-->
+                            </small>
                         </div>
-                    </address>
-
-                </div>
-                <div class="pull-right muted">
-                    <div>
-                        <!--ko text: $.i18n.t('appmodeltext:ticketStatus' + ticketStatus()) -->
-                        <!--/ko-->
-                        -
-                        <!--ko text: $.i18n.t('appmodeltext:priority' + priority()) -->
-                        <!--/ko-->
-                        <span data-i18n="appmodeltext:ticketPriority" />
+                        <div>
+                            <small>
+                                <!--ko text: lastUpdatedCombined -->
+                                <!--/ko-->
+                            </small>
+                        </div>
                     </div>
-                    <div>
-                        <!--ko text: createdCombined -->
-                        <!--/ko-->
-                    </div>
-                    <div>
-                        <!--ko text: lastUpdatedCombined -->
-                        <!--/ko-->
-                    </div>
-                </div>
+                </header>
+            </article>
 
-            </header>
+        </section>
+    </div>
 
-        </article>
- 
-    </section>
+
 
 </section>
