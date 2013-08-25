@@ -9,8 +9,9 @@ define(['plugins/router'], function (router) {
     });
 
     var collapseMenu = function () {
-        var navMain = $("#navMain");
-        navMain.collapse('hide');
+        if ($('#navMainButton').is(":visible")) {
+            $("#navMain").collapse('hide');
+        }
     };
     return {
         attached: function () {

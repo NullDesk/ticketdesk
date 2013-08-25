@@ -66,8 +66,6 @@ body,
 #loader {
     visibility: hidden;
     padding: 7px 0 7px 15px;
-   
-   
 }
 
     #loader.active {
@@ -76,7 +74,6 @@ body,
 
 .nav-loader {
     font-size: 2em;
-   
 }
 
 i {
@@ -88,8 +85,8 @@ i {
 .ticket-brief {
     padding: 0 5px;
 }
+
 .view-list {
-    
     width: 100%;
 }
 
@@ -101,7 +98,6 @@ i {
 
         .view-list > article:hover {
             cursor: pointer;
-            
             background-color: #f4f4f4;
             background-image: -moz-linear-gradient(top,#F4F4F4,#e8e8e8);
             background-image: -webkit-gradient(linear,0 0,0 100%,from(#F4F4F4),to(#e8e8e8));
@@ -117,49 +113,11 @@ i {
             .view-list > article:hover address,
             .view-list > article:hover h1,
             .view-list > article:hover h2 {
-                
             }
 
             .view-list > article:hover .muted {
-                
             }
 
-
-/*  Unadjusted orig   */
-/*.ticket-brief p, .ticket-brief ul {
-    font-size: 12px;
-}
-
-html {
-    padding: 0;
-    color: black;
-    background: #EFEFEF;
-}
-
-body {
-    font-size: 14px;
-    margin: 0 auto;
-    max-width: 1100px;
-    background-color: transparent;
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-}
-
-h1, h2, h3 {
- 
-    letter-spacing: -1px !important;
-    color: #555;
-}*/
-
-
-
-/*section.main {
-    margin-top: 70px;
-    margin-bottom: 80px;
-}
-
-.navbar-brand {
-    padding: 0;
-}*/
 .page-splash {
     position: fixed;
     top: 0;
@@ -195,96 +153,6 @@ h1, h2, h3 {
 
 
 
-/*footer a {
-    font-weight: bold;
-}
-
-footer span {
-    padding: 10px 80px;
-    font-size: 18px;
-}*/
-
-
-/***************************/
-/* Boostrap overrides      */
-
-/*.btn-group > .btn-small {
-    font-size: 14px;
-}
-
-.loader .page-progress-bar {
-    margin: 14px 0 0 0;
-}
-
-.loader {
-    visibility: hidden;
-}
-
-    .loader.active {
-        visibility: visible;
-    }
-
-.btn {
-    letter-spacing: 1px;
-}
-
-.btn-info {
-    background-color: #0081C2;
-    background-image: -moz-linear-gradient(top,#77CCFF,#194D7B);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#77CCFF),to(#194D7B));
-    background-image: -webkit-linear-gradient(top,#77CCFF,#194D7B);
-    background-image: -o-linear-gradient(top,#77CCFF,#194D7B);
-    background-image: linear-gradient(to bottom,#77CCFF,#194D7B);
-    background-repeat: repeat-x;
-    border-color: #77CCFF #2f96b4 #194D7B;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff77CCFF', endColorstr='#ff194D7B', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-
-    .btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
-        color: white;
-        background-color: #0081C2;
-        *background-color: #0081C2;
-     
-    }
-
-    .btn-info:active,
-    .btn-info.active {
-        background-color: #0081C2 \9;
-      
-    }
-
-
-blockquote {
-    border-left: none;
-    margin-left: 15px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-
-    blockquote p {
-        font: inherit;
-    }*/
-
-
-
-/* End Boostrap overrides  */
-/***************************/
-
-
-
-
-/* Begin PageDown          */
-/***************************/
-
-/*.tab-content {
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	padding: 10px;
-}
-*/
 .wmd-panel .nav-tabs {
     margin-top: 0;
 }
@@ -296,28 +164,18 @@ blockquote {
 }
 
 .wmd-input {
-    height: 250px;
+    padding-left:25px;
     width: 100%;
-    box-sizing: border-box;
-    padding: 5px 5px 5px 25px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     background-image: url('/content/images/bg-editor-markdown.png');
     background-repeat: no-repeat;
     background-color: #fff;
 }
 
 .wmd-preview {
-    margin: 0;
-    padding: 5px 5px 5px 25px;
+    padding-left:25px;
+    overflow: auto;
     height: 250px;
     width: 100%;
-    box-sizing: border-box;
-    overflow: auto;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     background-image: url('/content/images/bg-editor-preview.png');
     background-repeat: no-repeat;
     background-color: #fff;
@@ -352,169 +210,24 @@ blockquote {
     }
 
 
-
-/* End PageDown                */
-/***************************/
-
-
-/***************************/
-/* Begin from jpapa              */
-
-
-
-
-
-
-/*.article-left-content {
-    border-bottom: solid 1px rgba(0, 0, 0, 0.08);
-    box-shadow: 0 1px rgba(255,255,255,.8);
-    min-height: 100px;
-    padding: 8px;
-}
-
-.article-container-full-width {
-    margin: 6px;
-    float: left;
-    width: 110px;
-    height: 140px;
-    border-bottom: solid 0 transparent;
-    padding: 1.5% .5%;
-}
-
-.button-bar {
-    display: inline-block;
-    margin: 0 0 1em 1em;
-}
-
-.view-list {
-    margin-top: 1%;
-    width: 100%;
-}
-
-    .view-list > article {
-        background-color: transparent;
-        background-image: none;
-        border-color: transparent;
-    }
-
-        .view-list > article:hover {
-            cursor: pointer;
-            color: white;
-            background-color: #0081C2;
-            background-image: -moz-linear-gradient(top,#59C0F3,#0081C2);
-            background-image: -webkit-gradient(linear,0 0,0 100%,from(#59C0F3),to(#0081C2));
-            background-image: -webkit-linear-gradient(top,#59C0F3,#0081C2);
-            background-image: -o-linear-gradient(top,#59C0F3,#0081C2);
-            background-image: linear-gradient(to bottom,#59C0F3,#0081C2);
-            background-repeat: repeat-x;
-            border-color: #59C0F3 #0081C2 #194D7B;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-        }
-
-            .view-list > article:hover small,
-            .view-list > article:hover address,
-            .view-list > article:hover h1,
-            .view-list > article:hover h2 {
-                color: white;
-            }
-
-            .view-list > article:hover .muted {
-                color: #ccc;
-            }
-
-
-        .view-list > article h1 {
-            font-size: 130%;
-            line-height: 130%;
-            font-weight: normal;
-            margin: 2px 0 5px;
-        }
-
-        .view-list > article h2 {
-            font-size: 115%;
-            line-height: 115%;
-            font-weight: normal;
-            margin: 2px 0 5px;
-        }
-
-        .view-list > article > div > img {
-            height: 90px;
-            float: left;
-            margin-right: 4%;
-        }
-
-        .view-list > article > div > time {
-            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            float: right;
-            margin-left: 2%;
-            text-transform: uppercase;
-        }
-
-        .view-list > article > div > address {
-            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-            font-size: 95%;
-            font-weight: bold;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-    .view-list > .article-container-full-width img {
-        float: none;
-        display: block;
-        margin: auto;
-    }
-
-    .view-list > .article-container-full-width address {
-        text-align: center;
-    }
-
-.btn-force-refresh {
-    float: right;
-    margin-right: 1em;
-}
-
-div.article-counter {
-    margin-left: 15px;
-    font-size: 18px;
-    color: rgb(150, 150, 150);
-}
-
-    div.article-counter > address {
-        display: inline-block;
-        vertical-align: middle;
-    }*/
-
-
-
-
-/* End from jpapa              */
-/***************************/
-
-/*ul.nav-tabs {
-    display: none;
-}*/
-
-
-
-/*#tab1 {
-    width: 45%;
-}*/
-
-@media only screen and (min-width: 980px) {
+@media only screen and (min-width: 768px) {
     #tab1 {
-        width: 49%;
+        width: 54%;
         display: block;
     }
 
     #tab2 {
         float: right;
-        width: 49%;
+        width: 44%;
         display: block;
+    }
+
+    .wmd-panel ul.nav-tabs {
+        display: none;
     }
 }
 
-@media only screen and (max-width: 979px) {
+@media only screen and (max-width: 768px) {
     .page-splash-message {
         font-size: 250%;
     }
@@ -528,14 +241,7 @@ div.article-counter {
         width: 100%;
     }
 
-    .wmd-input ul.nav-tabs {
-        display: block;
+    .wmd-panel ul.nav-tabs {
+        display: inline-block;
     }
-}
-
-@media (max-width: 979px) {
-    /*section.main {
-        margin-top: 0;
-        margin-bottom: 80px;
-    }*/
 }
