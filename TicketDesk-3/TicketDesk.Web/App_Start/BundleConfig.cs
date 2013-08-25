@@ -33,12 +33,13 @@ namespace TicketDesk.Web
               new ScriptBundle("~/scripts/signalr")
                 .Include("~/Scripts/jquery.signalR-{version}.js")
             );
+            IItemTransform cssFixer = new CssRewriteUrlTransform();
 
             bundles.Add(
               new StyleBundle("~/content/css")
                 .Include("~/content/ie10mobile.css")
-                .Include("~/content/bootstrap/bootstrap.css")
-                .Include("~/content/bootstrap/bootstrap-theme.css")
+                .Include("~/content/bootstrap/bootstrap.css", cssFixer)
+                .Include("~/content/bootstrap/bootstrap-theme.css", cssFixer)
                 .Include("~/content/font-awesome.css")
                 .Include("~/content/durandal.css")
                 .Include("~/content/toastr.css")
