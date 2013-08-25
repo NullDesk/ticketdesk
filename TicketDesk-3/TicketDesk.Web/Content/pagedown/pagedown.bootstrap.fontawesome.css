@@ -1,26 +1,18 @@
-.wmd-panel .btn-group > .btn-mini {
-    font-size: 10pt;
+
+
+.wmd-button-group [id^="wmd-image-button-"] {
+        display: none;
+    }
+
+@media only screen and (max-width: 575px) {
+    .btn-toolbar .wmd-button-group:nth-child(2) {
+        display: none;
+    }
 }
+@media only screen and (max-width: 1024px) {
+    .btn-toolbar .wmd-button-group:nth-child(4) {
+        display: none;
+    }
+    
 
-.wmd-panel .icon-blockquote:before {
-    content: "\f03c";
 }
-
-.wmd-panel .icon-bullet-list:before {
-    content: "\f03a";
-}
-
-
-.wmd-panel .icon-list:before {
-    content: "\f0cb";
-}
-
-
-.wmd-panel .icon-header:before {
-    content: "\f034";
-}
-
-.wmd-panel .icon-hr-line:before {
-    content: "\f068";
-}
-

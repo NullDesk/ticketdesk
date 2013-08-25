@@ -80,7 +80,15 @@ i {
     font-style: normal;
 }
 
+blockquote {
+    border-left: none;
+}
 
+    blockquote p {
+        font-size: inherit;
+        font-weight: normal;
+        line-height: inherit;
+    }
 
 .ticket-brief {
     padding: 0 5px;
@@ -159,12 +167,9 @@ i {
 
 
 
-.wmd-panel .tab-content {
-    overflow: visible;
-}
 
 .wmd-input {
-    padding-left:25px;
+    padding-left: 25px;
     width: 100%;
     background-image: url('/content/images/bg-editor-markdown.png');
     background-repeat: no-repeat;
@@ -172,7 +177,7 @@ i {
 }
 
 .wmd-preview {
-    padding-left:25px;
+    padding-left: 25px;
     overflow: auto;
     height: 250px;
     width: 100%;
@@ -181,11 +186,11 @@ i {
     background-color: #fff;
 }
 
-.wmd-panel .btn-toolbar {
+/*.wmd-panel .btn-toolbar {
     margin-bottom: 0;
     padding: 0 0 5px;
     width: 100%;
-}
+}*/
 
 .wmd-prompt-dialog {
     border: 1px solid #999999;

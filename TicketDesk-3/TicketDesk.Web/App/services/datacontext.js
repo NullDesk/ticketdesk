@@ -31,13 +31,13 @@
         var ticketEntityManager = function () {
             var openTicketRowCount = ko.observable(0);
             var backgroudTicketRefreshCounter = ko.observable(0);
-            
+
             var baseOpenTicketPartialQuery =
                 entityQuery.from('Tickets')
                     .where("ticketStatus", "!=", "Closed")
                     .orderBy(orderBy.ticket);
-            
-            var getOpenTicketPagedList = function(ticketsObservable, forPageIndex, forceRemote) {
+
+            var getOpenTicketPagedList = function (ticketsObservable, forPageIndex, forceRemote) {
                 if (forceRemote || openTicketRowCount() < 1) {
                     return fetchOpenTicketPartials().then(fetchLocal);
                 } else {
@@ -58,7 +58,7 @@
                 }
             };
 
-            var fetchOpenTicketPartials = function() {
+            var fetchOpenTicketPartials = function () {
                 var query = baseOpenTicketPartialQuery
                     .select('ticketId, title, ticketType, owner, assignedTo, ticketStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate')
                     .using(breeze.FetchStrategy.FromServer).inlineCount(true);
@@ -72,9 +72,9 @@
                     log('Retrieved [Tickets] from remote data source', data, true);
                 }
             };
-            
+
             var refreshTicketById = function (ticketId) {
-               
+
                 return manager.fetchEntityByKey(
                     entityNames.ticket, ticketId, true)
                     .then(localFetchSucceeded)
@@ -122,8 +122,8 @@
             return ticketManager;
         }();
 
-       
-       
+
+
 
         var getTicketById = function (ticketId, ticketObservable) {
 
@@ -252,14 +252,13 @@
 
         function getValidationMessages(error) {
             try {
-                //foreach entity with a validation error
-                return error.entitiesWithErrors.map(function (entity) {
-                    // get each validation error
-                    return entity.entityAspect.getValidationErrors().map(function (valError) {
-                        // return the error message from the validation
-                        return valError.errorMessage;
-                    }).join('; <br/>');
+
+                var x = error.entityErrors.map(function (valError) {
+                    // return the error message from the validation
+                    var y = valError.errorMessage;
+                    return y;
                 }).join('; <br/>');
+                return x;
             }
             catch (e) { }
             return 'validation error';

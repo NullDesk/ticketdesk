@@ -18,40 +18,56 @@
         };
 
     var defaultsStrings = {
+        btnClasses: "btn btn-default btn-sm",
         bold: "Strong <strong> Ctrl+B",
         boldexample: "strong text",
+        boldClasses: 'glyphicon glyphicon-bold',
 
         italic: "Emphasis <em> Ctrl+I",
         italicexample: "emphasized text",
+        italicClasses: "glyphicon glyphicon-italic",
 
         link: "Hyperlink <a> Ctrl+L",
         linkdescription: "enter link description here",
         linkdialogtitle: "Insert Hyperlink",
         linkdialog: "<p>http://example.com/ \"optional title\"</p>",
+        linkClasses: "icon-link",
 
         quote: "Blockquote <blockquote> Ctrl+Q",
         quoteexample: "Blockquote",
+        quoteClasses: "icon-indent-right",
 
         code: "Code Sample <pre><code> Ctrl+K",
         codeexample: "enter code here",
+        codeClasses: "icon-code",
 
         image: "Image <img> Ctrl+G",
         imagedescription: "enter image description here",
         imagedialogtitle: "Insert Image",
         imagedialog: "<p>http://example.com/images/diagram.jpg \"optional title\"<br><br>Need <a href='http://www.google.com/search?q=free+image+hosting' target='_blank'>free image hosting?</a></p>",
+        imageClasses: "glyphicon glyphicon-picture",
 
         olist: "Numbered List <ol> Ctrl+O",
+        olistClasses: "icon-list-ol",
+
         ulist: "Bulleted List <ul> Ctrl+U",
+        ulistClasses: "icon-list-ul",
+        
         litem: "List item",
 
         heading: "Heading <h1>/<h2> Ctrl+H",
         headingexample: "Heading",
+        headingClasses: "glyphicon glyphicon-header",
 
         hr: "Horizontal Rule <hr> Ctrl+R",
+        hrClasses:"icon-resize-horizontal",
 
         undo: "Undo - Ctrl+Z",
+        undoClasses: "icon-undo",
+        
         redo: "Redo - Ctrl+Y",
         redomac: "Redo - Ctrl+Shift+Z",
+        redoClasses: "icon-share-alt",
 
         help: "Markdown Editing Help"
     };
@@ -1345,7 +1361,7 @@
             buttonRow = buttonBar.appendChild(buttonRow);
             var makeButton = function (id, title, icon, textOp, group) {
                 var button = document.createElement("button");
-                button.className = "btn";
+                button.className = getString("btnClasses");
                 var buttonImage = document.createElement("i");
                 buttonImage.className = icon;
                 button.appendChild(buttonImage);
@@ -1366,38 +1382,38 @@
                 return group
             }
             var group = makeGroup();            
-            buttons.bold = makeButton("wmd-bold-button", getString("bold"), "icon-bold", bindCommand("doBold"), group);
-            buttons.italic = makeButton("wmd-italic-button", getString("italic"), "icon-italic", bindCommand("doItalic"), group);
+            buttons.bold = makeButton("wmd-bold-button", getString("bold"), getString("boldClasses"), bindCommand("doBold"), group);
+            buttons.italic = makeButton("wmd-italic-button", getString("italic"), getString("italicClasses"), bindCommand("doItalic"), group);
 
             var group = makeGroup();            
-            buttons.link = makeButton("wmd-link-button", getString("link"), "icon-link", bindCommand(function (chunk, postProcessing) {
+            buttons.link = makeButton("wmd-link-button", getString("link"), getString("linkClasses"), bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }), group);
-            buttons.quote = makeButton("wmd-quote-button", getString("quote"), "icon-blockquote", bindCommand("doBlockquote"), group);
-            buttons.code = makeButton("wmd-code-button", getString("code"), "icon-code", bindCommand("doCode"), group);
-            buttons.image = makeButton("wmd-image-button", getString("image"), "icon-picture", bindCommand(function (chunk, postProcessing) {
+            buttons.quote = makeButton("wmd-quote-button", getString("quote"), getString("quoteClasses"), bindCommand("doBlockquote"), group);
+            buttons.code = makeButton("wmd-code-button", getString("code"), getString("codeClasses"), bindCommand("doCode"), group);
+            buttons.image = makeButton("wmd-image-button", getString("image"), getString("imageClasses"), bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group);
 
             var group = makeGroup();            
-            buttons.olist = makeButton("wmd-olist-button", getString("olist"), "icon-list", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("wmd-olist-button", getString("olist"), getString("olistClasses"), bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }), group);
-            buttons.ulist = makeButton("wmd-ulist-button", getString("ulist"), "icon-bullet-list", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("wmd-ulist-button", getString("ulist"), getString("ulistClasses"), bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group);
-            buttons.heading = makeButton("wmd-heading-button", getString("heading"), "icon-header", bindCommand("doHeading"), group);
-            buttons.hr = makeButton("wmd-hr-button", getString("hr"), "icon-hr-line", bindCommand("doHorizontalRule"), group);
+            buttons.heading = makeButton("wmd-heading-button", getString("heading"), getString("headingClasses"), bindCommand("doHeading"), group);
+            buttons.hr = makeButton("wmd-hr-button", getString("hr"), getString("hrClasses"), bindCommand("doHorizontalRule"), group);
 
             var group = makeGroup();            
-            buttons.undo = makeButton("wmd-undo-button", getString("undo"), "icon-undo", null, group);
+            buttons.undo = makeButton("wmd-undo-button", getString("undo"), getString("undoClasses"), null, group);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
                 getString("redo") :
                 getString("redomac"); // mac and other non-Windows platforms
 
-            buttons.redo = makeButton("wmd-redo-button", redoTitle, "icon-share-alt", null, group);
+            buttons.redo = makeButton("wmd-redo-button", redoTitle,  getString("redoClasses"), null, group);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
             if (helpOptions) {

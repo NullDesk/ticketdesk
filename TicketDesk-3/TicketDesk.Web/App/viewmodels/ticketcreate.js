@@ -101,9 +101,7 @@
 
                 var editor1 = new Markdown.Editor(converter1, "-ticketDetails", null);
                 editor1.run();
-                $('.wmd-panel .btn-toolbar .btn').addClass('btn-sm');
-                $('.wmd-panel .icon-undo').parent().parent().hide();
-
+               
                 logger.log('Ticket Create View Editor Initialized', null, 'TicketCreate', false);
 
             })();
