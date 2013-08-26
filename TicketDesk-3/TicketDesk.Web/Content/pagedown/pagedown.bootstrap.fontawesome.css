@@ -13,6 +13,9 @@
     .btn-toolbar .wmd-button-group:nth-child(4) {
         display: none;
     }
-    
-
+}
+@media only screen and (max-width: 450px) {
+    .btn-toolbar [id^="wmd-heading-button-"] {
+        display: none;
+    }
 }
