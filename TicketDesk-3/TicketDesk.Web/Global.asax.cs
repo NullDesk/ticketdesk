@@ -19,18 +19,6 @@ namespace TicketDesk.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            System.Data.Entity.Database.SetInitializer(new LegacyDatabaseInitializer("TicketDesk"));
-            System.Data.Entity.Database.SetInitializer<TicketDeskContext>(new TicketDeskDatabaseInitializer("TicketDesk"));
-
-            using (var legacyCtx = new TicketDeskLegacyContext())
-            {
-                legacyCtx.Database.Initialize(false);
-            }
-            using (var ctx = new TicketDeskContext())
-            {
-                ctx.Database.Initialize(false);
-            }
         }
     }
 }

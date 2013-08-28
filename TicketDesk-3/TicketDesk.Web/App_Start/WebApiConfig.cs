@@ -2,7 +2,7 @@ using System.Web.Http;
 using Newtonsoft.Json;
 
 [assembly: WebActivator.PreApplicationStartMethod(
-    typeof(TicketDesk.Web.App_Start.BreezeWebApiConfig), "RegisterBreezePreStart")]
+    typeof(TicketDesk.Web.App_Start.WebApiConfig), "RegisterBreezePreStart")]
 namespace TicketDesk.Web.App_Start
 {
     ///<summary>
@@ -12,7 +12,7 @@ namespace TicketDesk.Web.App_Start
     /// This class is discovered and run during startup; see
     /// http://blogs.msdn.com/b/davidebb/archive/2010/10/11/light-up-your-nupacks-with-startup-code-and-webactivator.aspx
     ///</remarks>
-    public static class BreezeWebApiConfig
+    public static class WebApiConfig
     {
 
         public static void RegisterBreezePreStart()
