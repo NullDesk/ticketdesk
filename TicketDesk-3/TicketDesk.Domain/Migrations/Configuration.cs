@@ -11,7 +11,7 @@ namespace TicketDesk.Domain.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "TicketDeskDb";
+            ContextKey = "TicketDeskDomain";
         }
 
         protected override void Seed(TicketDeskContext context)

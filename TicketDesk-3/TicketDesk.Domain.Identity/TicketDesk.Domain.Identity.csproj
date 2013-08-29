@@ -55,7 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppModel.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="TicketDeskIdentityDatabaseInitializer.cs" />
+    <Compile Include="TicketDeskIdentityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

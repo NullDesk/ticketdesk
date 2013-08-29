@@ -30,7 +30,8 @@
     <div id="applicationHost">
         @Html.Partial("_splash")
     </div>
-
+    @Scripts.Render("~/scripts/jquery")
+    @Scripts.Render("~/scripts/bootstrap")
     @Scripts.Render("~/scripts/vendor")
     @if (HttpContext.Current.IsDebuggingEnabled)
     {

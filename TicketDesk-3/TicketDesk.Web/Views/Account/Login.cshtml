@@ -1,5 +1,7 @@
 @model TicketDesk.Web.Models.LoginViewModel
-
+@{
+    Layout = "~/Views/Account/_Layout.cshtml";
+}
 @{
     ViewBag.Title = "Log in";
 }
@@ -56,5 +58,5 @@
     </div>
 </div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/jqueryval")
 }

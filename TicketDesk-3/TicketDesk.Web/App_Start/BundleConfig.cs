@@ -10,19 +10,28 @@ namespace TicketDesk.Web
             bundles.IgnoreList.Clear();
             AddDefaultIgnorePatterns(bundles.IgnoreList);
 
+            bundles.Add(new ScriptBundle("~/scripts/jqueryval")
+                .Include(
+                   "~/Scripts/jquery.unobtrusive*",
+                   "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/scripts/bootstrap")
+                .Include("~/scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/scripts/jquery")
+                 .Include("~/Scripts/jquery-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/scripts/modernizr")
                 .Include("~/scripts/modernizr-{version}.js")
             );
 
             bundles.Add(
               new ScriptBundle("~/scripts/vendor")
-                .Include("~/scripts/jquery-{version}.js")
                 .Include("~/scripts/knockout-{version}.js")
                 .Include("~/scripts/sammy-{version}.js")
                 .Include("~/scripts/toastr.js")
                 .Include("~/scripts/Q.js")
                 .Include("~/scripts/breeze.min.js")
-                .Include("~/scripts/bootstrap.js")
                 .Include("~/scripts/moment.js")
                 .Include("~/Scripts/i18next-{version}.js")
                 .Include("~/scripts/pagedown/Markdown.Converter.js")

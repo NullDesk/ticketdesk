@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Identity;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Legacy.Migrations;
 
@@ -13,17 +14,11 @@ namespace TicketDesk.Web
     {
         public static void PostStart()
         {
-            System.Data.Entity.Database.SetInitializer(new LegacyDatabaseInitializer("TicketDesk"));
-            System.Data.Entity.Database.SetInitializer<TicketDeskContext>(new TicketDeskDatabaseInitializer("TicketDesk"));
-
-            using (var legacyCtx = new TicketDeskLegacyContext())
-            {
-                legacyCtx.Database.Initialize(false);
-            }
-            using (var ctx = new TicketDeskContext())
-            {
-                ctx.Database.Initialize(false);
-            }
+            TicketDeskLegacyDatabaseInitializer.InitDatabase("TicketDesk");
+            TicketDeskDatabaseInitializer.InitDatabase("TicketDesk");
+            TicketDeskIdentityDatabaseInitializer.InitDatabase("TicketDesk");
+          
+           
         }
     }
 }

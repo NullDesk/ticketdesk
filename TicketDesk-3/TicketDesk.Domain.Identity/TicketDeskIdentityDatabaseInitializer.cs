@@ -6,28 +6,28 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TicketDesk.Domain.Migrations;
+using TicketDesk.Domain.Identity.Migrations;
 
-namespace TicketDesk.Domain
+namespace TicketDesk.Domain.Identity
 {
-    public class TicketDeskDatabaseInitializer : IDatabaseInitializer<TicketDeskContext>
+    public class TicketDeskIdentityDatabaseInitializer : IDatabaseInitializer<TicketDeskIdentityContext>
     {
         public static void InitDatabase(string nameOrConnectionString)
         {
-            System.Data.Entity.Database.SetInitializer<TicketDeskContext>(new TicketDeskDatabaseInitializer(nameOrConnectionString));
-            using (var ctx = new TicketDeskContext(nameOrConnectionString))
+            System.Data.Entity.Database.SetInitializer<TicketDeskIdentityContext>(new TicketDeskIdentityDatabaseInitializer(nameOrConnectionString));
+            using (var ctx = new TicketDeskIdentityContext(nameOrConnectionString))
             {
                 ctx.Database.Initialize(false);
             }
         }
 
         private string ConnectionName { get; set; }
-        public TicketDeskDatabaseInitializer(string connectionName)
+        public TicketDeskIdentityDatabaseInitializer(string connectionName)
         {
             ConnectionName = connectionName;
         }
 
-        public void InitializeDatabase(TicketDeskContext context)
+        public void InitializeDatabase(TicketDeskIdentityContext context)
         {
 
             //run the standard set of TD 3x migrations

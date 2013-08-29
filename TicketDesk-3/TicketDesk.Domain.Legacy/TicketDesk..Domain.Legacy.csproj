@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LegacyDatabaseInitializer.cs" />
+    <Compile Include="TicketDeskLegacyDatabaseInitializer.cs" />
     <Compile Include="Migrations\201301150719329_Initial.cs" />
     <Compile Include="Migrations\201301150719329_Initial.Designer.cs">
       <DependentUpon>201301150719329_Initial.cs</DependentUpon>

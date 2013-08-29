@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using TicketDesk.Web.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TicketDesk.Domain.Identity;
 
 namespace TicketDesk.Web.Controllers
 {
@@ -19,7 +20,7 @@ namespace TicketDesk.Web.Controllers
     {
         public AccountController()
         {
-            IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new MyDbContext()));
+            IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new TicketDeskIdentityContext()));
         }
 
         public AccountController(AuthenticationIdentityManager manager)
@@ -90,14 +91,14 @@ namespace TicketDesk.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Create a local login before signing in the user
-                var user = new MyUser();
+                var user = new TdUser();
                 user.UserName = model.UserName;
                 user.HomeTown = model.HomeTown;
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
                     await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "TicketDeskUI");
                 }
                 else
                 {
@@ -252,7 +253,7 @@ namespace TicketDesk.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var user = new MyUser();
+                var user = new TdUser();
                 user.UserName = model.UserName;
                 IdentityResult result = await IdentityManager.Authentication.CreateAndSignInExternalUserAsync(AuthenticationManager, user);
                 if (result.Success)
@@ -269,14 +270,18 @@ namespace TicketDesk.Web.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            return LogOff();
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "TicketDeskUI");
         }
 
         //
@@ -333,7 +338,7 @@ namespace TicketDesk.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "TicketDeskUI");
             }
         }
 

@@ -12,8 +12,6 @@ namespace TicketDesk.Domain.Tests
     [TestClass]
     public class TicketDeskDatabaseInitializerTests
     {
-
-
         [ClassInitialize]
         public static void InitTests(TestContext context)
         {
@@ -110,7 +108,7 @@ namespace TicketDesk.Domain.Tests
         private void MigrateLegacyDb()
         {
             var ctx = new TicketDeskLegacyContext("TicketDesk2xRefernece");
-            var dbInit = new LegacyDatabaseInitializer("TicketDesk2xRefernece");
+            var dbInit = new TicketDeskLegacyDatabaseInitializer("TicketDesk2xRefernece");
             dbInit.InitializeDatabase(ctx);
         }
 
