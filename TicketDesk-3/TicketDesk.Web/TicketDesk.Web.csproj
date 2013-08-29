@@ -415,13 +415,13 @@
       <Project>{56ad2d55-2a04-49b2-85cc-76a4862567e2}</Project>
       <Name>TicketDesk.Domain.Identity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Domain.Legacy\TicketDesk..Domain.Legacy.csproj">
+      <Project>{bf4c4db0-ad36-49e9-90cf-3d5402e23462}</Project>
+      <Name>TicketDesk..Domain.Legacy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Domain\TicketDesk.Domain.csproj">
       <Project>{d1e669cc-6548-464b-85bf-a69e6a158aa6}</Project>
       <Name>TicketDesk.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.Legacy\TicketDesk..Domain.Legacy.csproj">
-      <Project>{bf4c4db0-ad36-49e9-90cf-3d5402e23462}</Project>
-      <Name>TicketDesk..Domain.Legacy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

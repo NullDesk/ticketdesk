@@ -21,11 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{BC3DF6
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk..Domain.Legacy", "TicketDesk.Legacy\TicketDesk..Domain.Legacy.csproj", "{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web", "TicketDesk.Web\TicketDesk.Web.csproj", "{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Identity", "TicketDesk.Domain.Identity\TicketDesk.Domain.Identity.csproj", "{56AD2D55-2A04-49B2-85CC-76A4862567E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk..Domain.Legacy", "TicketDesk.Domain.Legacy\TicketDesk..Domain.Legacy.csproj", "{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,6 @@ Global
 		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +49,10 @@ Global
 		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
