@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TicketDesk.Domain;
-using TicketDesk.Legacy;
-using TicketDesk.Legacy.Migrations;
+using TicketDesk.Domain.Legacy;
+using TicketDesk.Domain.Legacy.Migrations;
 
 [assembly: WebActivator.PostApplicationStartMethod(typeof(TicketDesk.Web.TicketDeskDatabaseConfig), "PostStart")]
 namespace TicketDesk.Web

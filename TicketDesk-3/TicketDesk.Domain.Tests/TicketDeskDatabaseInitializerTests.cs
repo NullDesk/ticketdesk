@@ -4,8 +4,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
-using TicketDesk.Legacy.Migrations;
-using TicketDesk.Legacy;
+using TicketDesk.Domain.Legacy.Migrations;
+using TicketDesk.Domain.Legacy;
 
 namespace TicketDesk.Domain.Tests
 {
@@ -99,7 +99,7 @@ namespace TicketDesk.Domain.Tests
 
         private void UnMigrateLegacyDb()
         {
-            var upgradeConfig = new TicketDesk.Legacy.Migrations.Configuration();
+            var upgradeConfig = new TicketDesk.Domain.Legacy.Migrations.Configuration();
             upgradeConfig.TargetDatabase = new DbConnectionInfo("TicketDesk2xRefernece");
 
             //this will do nothing but add the migration history table with the exact same migration ID as is used by the standard migrator.

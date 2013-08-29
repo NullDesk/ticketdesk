@@ -74,9 +74,9 @@
       <Project>{d1e669cc-6548-464b-85bf-a69e6a158aa6}</Project>
       <Name>TicketDesk.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.Legacy\TicketDesk.Legacy.csproj">
+    <ProjectReference Include="..\TicketDesk.Legacy\TicketDesk..Domain.Legacy.csproj">
       <Project>{bf4c4db0-ad36-49e9-90cf-3d5402e23462}</Project>
-      <Name>TicketDesk.Legacy</Name>
+      <Name>TicketDesk..Domain.Legacy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

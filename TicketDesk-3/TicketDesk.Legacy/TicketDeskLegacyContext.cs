@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace TicketDesk.Legacy
+namespace TicketDesk.Domain.Legacy
 {
     public class TicketDeskLegacyContext : DbContext
     {

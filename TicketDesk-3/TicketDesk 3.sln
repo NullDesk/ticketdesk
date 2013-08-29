@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{D1E669CC-6548-464B-85BF-A69E6A158AA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Tests", "TicketDesk.Domain.Tests\TicketDesk.Domain.Tests.csproj", "{23808B77-BD9F-4A75-A26C-1AF18EAB4AD0}"
@@ -19,9 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{BC3DF6
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Legacy", "TicketDesk.Legacy\TicketDesk.Legacy.csproj", "{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk..Domain.Legacy", "TicketDesk.Legacy\TicketDesk..Domain.Legacy.csproj", "{BF4C4DB0-AD36-49E9-90CF-3D5402E23462}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web", "TicketDesk.Web\TicketDesk.Web.csproj", "{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Identity", "TicketDesk.Domain.Identity\TicketDesk.Domain.Identity.csproj", "{56AD2D55-2A04-49B2-85CC-76A4862567E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFE7E489-98B3-4F1F-AA32-F53D2986FDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56AD2D55-2A04-49B2-85CC-76A4862567E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,8 +4,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using TicketDesk.Domain;
-using TicketDesk.Legacy;
-using TicketDesk.Legacy.Migrations;
+using TicketDesk.Domain.Legacy;
+using TicketDesk.Domain.Legacy.Migrations;
 
 namespace TicketDesk.Web
 {

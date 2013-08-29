@@ -1,4 +1,4 @@
-namespace TicketDesk.Legacy.Migrations
+namespace TicketDesk.Domain.Legacy.Migrations
 {
 	using System;
 	using System.Linq;

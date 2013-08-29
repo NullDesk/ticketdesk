@@ -4,9 +4,9 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TicketDesk.Legacy;
+using TicketDesk.Domain.Legacy;
 
-namespace TicketDesk.Legacy.Migrations
+namespace TicketDesk.Domain.Legacy.Migrations
 {
 
     
