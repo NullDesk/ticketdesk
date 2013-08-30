@@ -7,6 +7,7 @@ using TicketDesk.Web.Infrastructure;
 
 namespace TicketDesk.Web.Controllers
 {
+    [Authorize]
     public class TicketDeskHub : Hub
     {
         // this test is taken from an article at http://www.dotnetcurry.com/ShowArticle.aspx?ID=903

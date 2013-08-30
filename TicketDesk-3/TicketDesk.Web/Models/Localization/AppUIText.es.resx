@@ -192,4 +192,10 @@
   <data name="PagerPage" xml:space="preserve">
     <value>¿Page?</value>
   </data>
+  <data name="NavLoginHome" xml:space="preserve">
+    <value>¿Login?</value>
+  </data>
+  <data name="ViewLoginTitle" xml:space="preserve">
+    <value>¿Login?</value>
+  </data>
 </root>

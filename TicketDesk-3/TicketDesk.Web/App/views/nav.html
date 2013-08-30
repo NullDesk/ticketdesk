@@ -18,14 +18,20 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
+                <li class="dropdown" data-bind="visible: adminRoutes().length > 0">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> <span data-i18n="appuitext:navMainAdmin"></span><b class="caret"></b></a>
                     <ul class="dropdown-menu" data-bind="foreach: adminRoutes">
                         <li data-bind="css: { active: $parent.router.isActive }">
                             <a data-bind="attr: { href: hash }, text: title"></a>
                         </li>
+                       
                     </ul>
                 </li>
+                <!-- ko foreach: accountRoutes -->
+                <li data-bind="css: { active: $data.isActive }">
+                    <a data-bind="attr: { href: $data.hash }, text: $data.title, html: $data.button"></a>
+                </li>
+                <!-- /ko -->
                 <li>
                     <a id="loader" data-bind="css: { active: router.isNavigating }">
                         <i class="nav-loader icon-spinner icon-2x icon-spin" style="margin-right: 15px;"></i>

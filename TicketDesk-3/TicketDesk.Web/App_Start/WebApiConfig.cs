@@ -1,6 +1,7 @@
 using System.Web.Http;
 using Newtonsoft.Json;
 
+
 [assembly: WebActivator.PreApplicationStartMethod(
     typeof(TicketDesk.Web.App_Start.WebApiConfig), "RegisterBreezePreStart")]
 namespace TicketDesk.Web.App_Start
@@ -17,6 +18,7 @@ namespace TicketDesk.Web.App_Start
 
         public static void RegisterBreezePreStart()
         {
+
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(
                 name: "BreezeApi",
                 routeTemplate: "breeze/{controller}/{action}"

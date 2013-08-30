@@ -282,12 +282,14 @@
     <Content Include="App\services\datacontext.js" />
     <Content Include="App\services\logger.js" />
     <Content Include="App\services\model.js" />
+    <Content Include="App\viewmodels\login.js" />
     <Content Include="App\viewmodels\nav.js" />
     <Content Include="App\viewmodels\ticketcreate.js" />
     <Content Include="App\viewmodels\ticketlist.js" />
     <Content Include="App\viewmodels\home.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\viewmodels\ticketdetails.js" />
+    <Content Include="App\views\login.html" />
     <Content Include="App\views\ticketcreate.html" />
     <Content Include="App\views\ticketlist.html" />
     <Content Include="App\views\footer.html" />

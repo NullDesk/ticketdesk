@@ -31,7 +31,7 @@ namespace TicketDesk.Web
                 .Include("~/scripts/sammy-{version}.js")
                 .Include("~/scripts/toastr.js")
                 .Include("~/scripts/Q.js")
-                .Include("~/scripts/breeze.min.js")
+                .Include("~/scripts/breeze.debug.js")
                 .Include("~/scripts/moment.js")
                 .Include("~/Scripts/i18next-{version}.js")
                 .Include("~/scripts/pagedown/Markdown.Converter.js")

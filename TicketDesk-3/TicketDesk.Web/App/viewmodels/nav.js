@@ -2,6 +2,12 @@
 define(['plugins/router'], function (router) {
 
 
+    var accountRoutes = ko.computed(function () {
+        return router.routes.filter(function (r) {
+            return r.isAccount;
+        });
+    });
+
     var adminRoutes = ko.computed(function () {
         return router.routes.filter(function (r) {
             return r.isAdmin;
@@ -19,7 +25,7 @@ define(['plugins/router'], function (router) {
             router.on('router:navigation:complete', collapseMenu);
         },
         router: router,
-        adminRoutes: adminRoutes
-        
+        adminRoutes: adminRoutes,
+        accountRoutes: accountRoutes
     };
 });

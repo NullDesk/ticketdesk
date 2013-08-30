@@ -11,13 +11,18 @@ using TicketDesk.Domain.Model;
 using TicketDesk.Domain;
 using Breeze.WebApi;
 using TicketDesk.Web.Infrastructure;
+using System.Web.Http.Controllers;
+using System.Threading;
 
 namespace TicketDesk.Web.Controllers
 {
+
+
     [BreezeController]
+    [Authorize]
     public class TicketApiController : ApiController
     {
-       
+
         //private readonly TicketDeskContext _db = new TicketDeskContext();
         private readonly TicketDeskBreezeContext _contextProvider = new TicketDeskBreezeContext();
 
@@ -45,7 +50,7 @@ namespace TicketDesk.Web.Controllers
         {
             return _contextProvider.Context.Settings.GetAvailableTicketTypes();
         }
-        
+
         [HttpGet]
         public IEnumerable<SimpleSetting> CategoryList()
         {
@@ -61,7 +66,7 @@ namespace TicketDesk.Web.Controllers
 
 
 
-            //// GET api/Ticket/5
+        //// GET api/Ticket/5
         //[HttpGet]
         //public Ticket Ticket(int id)
         //{

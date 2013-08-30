@@ -21,6 +21,7 @@ using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Web.Controllers
 {
+    
     public class TextController : ApiController
     {
         // GET api/<controller>/en-us/appuitext
