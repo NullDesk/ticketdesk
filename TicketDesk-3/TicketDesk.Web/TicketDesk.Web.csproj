@@ -259,6 +259,7 @@
     <Compile Include="Controllers\TicketDeskHub.cs" />
     <Compile Include="Controllers\TicketDeskUIController.cs" />
     <Compile Include="Controllers\TicketApiController.cs" />
+    <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,11 +278,13 @@
     <Content Include="App\config.js" />
     <Content Include="App\main-built.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\services\account.js" />
     <Content Include="App\services\breeze.partial-entities.js" />
     <Content Include="App\services\notifiercontext.js" />
     <Content Include="App\services\datacontext.js" />
     <Content Include="App\services\logger.js" />
     <Content Include="App\services\model.js" />
+    <Content Include="App\viewmodels\logout.js" />
     <Content Include="App\viewmodels\login.js" />
     <Content Include="App\viewmodels\nav.js" />
     <Content Include="App\viewmodels\ticketcreate.js" />
@@ -289,6 +292,7 @@
     <Content Include="App\viewmodels\home.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\viewmodels\ticketdetails.js" />
+    <Content Include="App\views\logout.html" />
     <Content Include="App\views\login.html" />
     <Content Include="App\views\ticketcreate.html" />
     <Content Include="App\views\ticketlist.html" />
@@ -472,8 +476,7 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>
-cd $(ProjectDir)
+    <PostBuildEvent>cd $(ProjectDir)
 weyland build
 </PostBuildEvent>
   </PropertyGroup>

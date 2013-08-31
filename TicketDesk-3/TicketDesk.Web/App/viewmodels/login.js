@@ -1,17 +1,51 @@
-﻿define(['services/logger'], function (logger) {
-    var vm = {
-        activate: activate,
-        title: $.i18n.t('appuitext:viewLoginTitle'),
-    };
+﻿define(['services/account', 'services/logger'],
+    function (account, logger) {
+        var username = ko.observable("admin");
 
-    //#region Internal Methods
+        var password = ko.observable("");
 
-    function activate() {
-        logger.log('Login View Activated', null, 'login', true);
-        return true;
-    }
+        var isValid = ko.computed(function () {
+            return username() && password();
+        });
 
-    //#endregion
+        //#region Internal Methods
 
-    return vm;
-});
+        var activate = function () {
+            logger.log('Login View Activated', null, 'login', true);
+            return true;
+        };
+
+        var loginUser = function () {
+            if (!isValid()) {
+                return Q.resolve(false);
+            }
+            return account.loginUser(username(), password())
+                .then(function () {
+                    window.location = '/';
+                    return true;
+                });
+                
+        };
+        var keyMonitor = function (data, event) {
+            if (event.keyCode == 13) {
+                $('#loginbutton').focus();
+                loginUser();
+            }
+            return true;
+        };
+
+        //#endregion
+        var vm = {
+            keyMonitor: keyMonitor,
+            activate: activate,
+            title: $.i18n.t('appuitext:viewLoginTitle'),
+            username: username,
+            password: password,
+            loginUser: loginUser,
+            isValid: isValid
+        };
+        return vm;
+
+    });
+
+

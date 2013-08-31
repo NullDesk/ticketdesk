@@ -192,10 +192,16 @@
   <data name="PagerPage" xml:space="preserve">
     <value>Page</value>
   </data>
-  <data name="NavLoginHome" xml:space="preserve">
+  <data name="NavAccountLogin" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="ViewLoginTitle" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="navAccountLogout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="ViewLogoutTitle" xml:space="preserve">
+    <value>Logout</value>
   </data>
 </root>

@@ -6,10 +6,10 @@
         return r.map([{
             route: 'login',
             moduleId: 'login',
-            title: $.i18n.t('appuitext:navLoginHome'),
+            title: $.i18n.t('appuitext:navAccountLogin'),
             nav: false,
             isAccount: true,
-            button: '<i class="icon-signin"></i> ' + $.i18n.t('appuitext:navLoginHome')
+            button: '<i class="icon-signin"></i> ' + $.i18n.t('appuitext:navAccountLogin')
         }]);
     }
 
@@ -43,10 +43,18 @@
             title: 'some admin page',
             nav: false,
             isAdmin: true
+        }, {
+            route: 'logout',
+            moduleId: 'logout',
+            title: $.i18n.t('appuitext:navAccountLogout'),
+            nav: false,
+            isAccount: true,
+            button: '<i class="icon-signout"></i> ' + $.i18n.t('appuitext:navAccountLogout')
         }]);
     }
 
     var initRoutes = function (mapFn, initialRoute) {
+        router.deactivate();
         router.reset();
          var r = router.makeRelative({ moduleId: 'viewmodels' })
          return mapFn(r).buildNavigationModel()
@@ -55,12 +63,13 @@
     }
 
     return {
+
         remoteServiceName: remoteServiceName,
         router: router,
         activateForLogin: function () {
             return initRoutes(mapLogin);
         },
-        activate: function (mapMain) {
+        activate: function () {
             return initRoutes(mapMain);
         }
     };

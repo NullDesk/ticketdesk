@@ -108,9 +108,18 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        public static string NavLoginHome {
+        public static string NavAccountLogin {
             get {
-                return ResourceManager.GetString("NavLoginHome", resourceCulture);
+                return ResourceManager.GetString("NavAccountLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string navAccountLogout {
+            get {
+                return ResourceManager.GetString("navAccountLogout", resourceCulture);
             }
         }
         
@@ -273,6 +282,15 @@ namespace TicketDesk.Web.Models.Localization {
         public static string ViewLoginTitle {
             get {
                 return ResourceManager.GetString("ViewLoginTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string ViewLogoutTitle {
+            get {
+                return ResourceManager.GetString("ViewLogoutTitle", resourceCulture);
             }
         }
         

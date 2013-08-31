@@ -281,6 +281,11 @@ namespace TicketDesk.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+
+            //TODO: this is a hack to force kill the auth cookie, since this doesn't seem to work in this 
+            //  hacked up version of asp.net identity
+            //System.Web.Security.FormsAuthentication.SignOut();
+
             return RedirectToAction("Index", "TicketDeskUI");
         }
 
