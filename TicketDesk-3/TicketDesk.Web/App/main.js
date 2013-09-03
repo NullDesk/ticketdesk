@@ -14,8 +14,7 @@ define('knockout', [], function () { return ko; });
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/binder','services/logger'],
     function (system, app, viewLocator, binder, logger) {
 
-        app.title = $.i18n.t('appuitext:appName');//"TicketDesk"
-
+       
         // Enable debug message to show in the console 
         system.debug(true);
 
@@ -52,6 +51,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/bin
 
 
             $.i18n.init(i18nOptions, function () {
+                app.title = $.i18n.t('appuitext:appName');//"TicketDesk"
 
                 //Show the app by setting the root view model for our application.
                 app.setRoot('viewmodels/shell', 'entrance');

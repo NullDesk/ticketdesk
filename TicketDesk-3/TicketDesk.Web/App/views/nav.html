@@ -20,14 +20,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" data-bind="visible: hasAdminRoutes()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> <span data-i18n="appuitext:navMainAdmin"></span><b class="caret"></b></a>
-                    <ul class="dropdown-menu" data-bind="foreach: adminRoutes">
+                    <ul class="dropdown-menu" data-bind="foreach: router.adminNavigationModel">
                         <li data-bind="css: { active: $parent.router.isActive }">
                             <a data-bind="attr: { href: hash }, text: title"></a>
                         </li>
 
                     </ul>
                 </li>
-                <!-- ko foreach: accountRoutes -->
+                <!-- ko foreach: router.accountNavigationModel -->
                 <li data-bind="css: { active: $data.isActive }">
                     <a data-bind="attr: { href: $data.hash }, text: $data.title, html: $data.button"></a>
                 </li>

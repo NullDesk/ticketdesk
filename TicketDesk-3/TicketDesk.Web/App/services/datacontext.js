@@ -1,16 +1,22 @@
 ﻿define(
     [
     'durandal/system',
+    'services/notifiercontext',
     'services/model',
     'config',
     'services/logger',
     'services/breeze.partial-entities'
     ],
-    function (system, model, config, logger, partialMapper) {
+    function (system, notifiercontext, model, config, logger, partialMapper) {
         var entityQuery = breeze.EntityQuery;
         var manager = configureBreezeManager();
         var orderBy = model.orderBy;
         var entityNames = model.entityNames;
+        var openTicketRowCount = ko.observable(0);
+        var backgroudTicketRefreshCounter = ko.observable(0);
+        var hasChanges = ko.observable(false);
+
+
 
         var getPriorityList = function (priorityListObservable, forceRemote) {
             return getSettingList('PriorityList', priorityListObservable, forceRemote);
@@ -28,99 +34,85 @@
             return getSettingList('StatusList', statusListObservable, forceRemote);
         };
 
-        var ticketEntityManager = function () {
-            var openTicketRowCount = ko.observable(0);
-            var backgroudTicketRefreshCounter = ko.observable(0);
+        var baseOpenTicketPartialQuery =
+            entityQuery.from('Tickets')
+                .where("ticketStatus", "!=", "Closed")
+                .orderBy(orderBy.ticket);
 
-            var baseOpenTicketPartialQuery =
-                entityQuery.from('Tickets')
-                    .where("ticketStatus", "!=", "Closed")
-                    .orderBy(orderBy.ticket);
+        var getOpenTicketPagedList = function (ticketsObservable, forPageIndex, forceRemote) {
+            if (forceRemote || openTicketRowCount() < 1) {
+                return fetchOpenTicketPartials().then(fetchLocal);
+            } else {
+                return fetchLocal();
+            }
 
-            var getOpenTicketPagedList = function (ticketsObservable, forPageIndex, forceRemote) {
-                if (forceRemote || openTicketRowCount() < 1) {
-                    return fetchOpenTicketPartials().then(fetchLocal);
-                } else {
-                    return fetchLocal();
-                }
-
-                function fetchLocal() {
-                    var query = baseOpenTicketPartialQuery.skip(forPageIndex * 5).take(5).using(breeze.FetchStrategy.FromLocalCache);
-                    return manager.executeQuery(query)
-                        .then(querySucceeded)
-                        .fail(queryFailed);
-
-                    function querySucceeded(data) {
-                        if (data.results.length > 0) {
-                            ticketsObservable(data.results);
-                        }
-                    }
-                }
-            };
-
-            var fetchOpenTicketPartials = function () {
-                var query = baseOpenTicketPartialQuery
-                    .select('ticketId, title, ticketType, owner, assignedTo, ticketStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate')
-                    .using(breeze.FetchStrategy.FromServer).inlineCount(true);
+            function fetchLocal() {
+                var query = baseOpenTicketPartialQuery.skip(forPageIndex * 5).take(5).using(breeze.FetchStrategy.FromLocalCache);
                 return manager.executeQuery(query)
                     .then(querySucceeded)
                     .fail(queryFailed);
 
                 function querySucceeded(data) {
-                    openTicketRowCount(data.inlineCount);
-                    partialMapper.mapDtosToEntities(manager, data.results, entityNames.ticket, 'ticketId');
-                    log('Retrieved [Tickets] from remote data source', data, true);
-                }
-            };
-
-            var refreshTicketById = function (ticketId) {
-
-                return manager.fetchEntityByKey(
-                    entityNames.ticket, ticketId, true)
-                    .then(localFetchSucceeded)
-                    .fail(queryFailed);
-
-                function localFetchSucceeded(data) {
-                    log('refreshed Ticket ' + ticketId, data, true);
-                    var wasOpen = data.entity.ticketStatus() !== 'Closed';
-                    return entityQuery.fromEntities(data.entity)
-                        .using(manager).execute().then(remoteFetchSucceeded);
-
-                    function remoteFetchSucceeded(rdata) {
-                        //the entire point here is to make sure we decriment/increment the 
-                        //  count of cached partials to make sure paging doesn't break
-                        //  when a ticket is closed or un-closed
-                        if (rdata.results.length > 0) {
-                            var isOpen = rdata.results[0].ticketStatus() !== 'Closed';
-                            if (wasOpen !== isOpen) {
-                                if (isOpen) {
-                                    ticketEntityManager.openTicketRowCount(ticketEntityManager.openTicketRowCount() + 1);
-                                } else {
-                                    ticketEntityManager.openTicketRowCount(ticketEntityManager.openTicketRowCount() - 1);
-                                }
-                            }
-                            //increment this to notify listeners that a new refresh occured
-                            ticketEntityManager.backgroudTicketRefreshCounter(ticketEntityManager.backgroudTicketRefreshCounter() + 1);
-                        }
+                    if (data.results.length > 0) {
+                        ticketsObservable(data.results);
                     }
                 }
-            };
+            }
+        };
 
-            var createTicket = function () {
-                return manager.createEntity(entityNames.ticket);
-            };
+        var fetchOpenTicketPartials = function () {
+            var query = baseOpenTicketPartialQuery
+                .select('ticketId, title, ticketType, owner, assignedTo, ticketStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate')
+                .using(breeze.FetchStrategy.FromServer).inlineCount(true);
+            return manager.executeQuery(query)
+                .then(querySucceeded)
+                .fail(queryFailed);
+
+            function querySucceeded(data) {
+                openTicketRowCount(data.inlineCount);
+                partialMapper.mapDtosToEntities(manager, data.results, entityNames.ticket, 'ticketId');
+                log('Retrieved [Tickets] from remote data source', data, true);
+            }
+        };
+
+        var refreshTicketById = function (ticketId) {
+
+            return manager.fetchEntityByKey(
+                entityNames.ticket, ticketId, true)
+                .then(localFetchSucceeded)
+                .fail(queryFailed);
+
+            function localFetchSucceeded(data) {
+                log('refreshed Ticket ' + ticketId, data, true);
+                var wasOpen = data.entity.ticketStatus() !== 'Closed';
+                return entityQuery.fromEntities(data.entity)
+                    .using(manager).execute().then(remoteFetchSucceeded);
+
+                function remoteFetchSucceeded(rdata) {
+                    //the entire point here is to make sure we decriment/increment the 
+                    //  count of cached partials to make sure paging doesn't break
+                    //  when a ticket is closed or un-closed
+                    if (rdata.results.length > 0) {
+                        var isOpen = rdata.results[0].ticketStatus() !== 'Closed';
+                        if (wasOpen !== isOpen) {
+                            if (isOpen) {
+                                openTicketRowCount(openTicketRowCount() + 1);
+                            } else {
+                                openTicketRowCount(openTicketRowCount() - 1);
+                            }
+                        }
+                        //increment this to notify listeners that a new refresh occured
+                        backgroudTicketRefreshCounter(backgroudTicketRefreshCounter() + 1);
+                    }
+                }
+            }
+        };
+
+        var createTicket = function () {
+            return manager.createEntity(entityNames.ticket);
+        };
 
 
-            var ticketManager = {
-                getOpenTicketPagedList: getOpenTicketPagedList,
-                openTicketRowCount: openTicketRowCount,
-                refreshTicketById: refreshTicketById,
-                backgroudTicketRefreshCounter: backgroudTicketRefreshCounter,
-                createTicket: createTicket
-            };
-
-            return ticketManager;
-        }();
 
 
 
@@ -181,19 +173,20 @@
                 throw error;
             }
         };
+        var reset = function () {
+            openTicketRowCount(0);
+            backgroudTicketRefreshCounter(0);
+
+            manager = null;
+            notifiercontext.stopHubs();
+        };
 
         var primeData = function () {
             log('Priming Data', null, true);
-            return manager.fetchMetadata(manager.dataService);
-
+            manager = configureBreezeManager();
+            return manager.fetchMetadata(manager.dataService)
+                .then(notifiercontext.startHubs).then(subscribeToChanges);
         };
-
-
-        var hasChanges = ko.observable(false);
-
-        manager.hasChangesChanged.subscribe(function (eventArgs) {
-            hasChanges(eventArgs.hasChanges);
-        });
 
         var datacontext = {
             getPriorityList: getPriorityList,
@@ -201,16 +194,27 @@
             getCategoryList: getCategoryList,
             getStatusList: getStatusList,
             hasChanges: hasChanges,
-            getTicketById: getTicketById,
-            primeData: primeData,
             cancelChanges: cancelChanges,
             saveChanges: saveChanges,
-            ticketEntityManager: ticketEntityManager
+            getOpenTicketPagedList: getOpenTicketPagedList,
+            openTicketRowCount: openTicketRowCount,
+            refreshTicketById: refreshTicketById,
+            backgroudTicketRefreshCounter: backgroudTicketRefreshCounter,
+            createTicket: createTicket,
+            getTicketById: getTicketById,
+            primeData: primeData,
+            reset: reset
         };
 
         return datacontext;
 
         //#region Internal methods  
+
+        function subscribeToChanges() {
+            manager.hasChangesChanged.subscribe(function (eventArgs) {
+                hasChanges(eventArgs.hasChanges);
+            });
+        }
 
         function getSettingList(resource, observable, forceRemote) {
             if (!forceRemote) {
@@ -273,7 +277,10 @@
         function configureBreezeManager() {
             breeze.NamingConvention.camelCase.setAsDefault();
             var mgr = new breeze.EntityManager(config.remoteServiceName);
-            model.configureMetadataStore(mgr.metadataStore);
+
+            if (!mgr.metadataStore.hasMetadataFor(config.remoteServiceName)) {
+                model.configureMetadataStore(mgr.metadataStore);
+            }
             return mgr;
         }
 

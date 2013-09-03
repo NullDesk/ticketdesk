@@ -7,7 +7,7 @@
     //#region Internal Methods
     
     function activate() {
-        logger.log('Home View Activated', null, 'home', true);
+        logger.log('Home View Activated', null, 'home');
         return true;
     }
     

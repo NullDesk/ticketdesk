@@ -18,6 +18,14 @@ namespace TicketDesk.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult LoginForm()
+        {
+            return View();
+        }
+
+
         public AccountController()
         {
             IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new TicketDeskIdentityContext()));
@@ -47,6 +55,25 @@ namespace TicketDesk.Web.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<HttpStatusCodeResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Validate the password
+        //        IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, model.UserName, model.Password, model.RememberMe);
+        //        if (result.Success)
+        //        {
+        //            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);// RedirectToLocal(returnUrl);
+        //        }
+        //    }
+        //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
+          
+        //}
+
 
         //
         // POST: /Account/Login

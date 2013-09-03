@@ -280,6 +280,7 @@
     <Content Include="App\main.js" />
     <Content Include="App\services\account.js" />
     <Content Include="App\services\breeze.partial-entities.js" />
+    <Content Include="App\util\routerExtension.js" />
     <Content Include="App\services\notifiercontext.js" />
     <Content Include="App\services\datacontext.js" />
     <Content Include="App\services\logger.js" />
@@ -416,6 +417,10 @@
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\_Layout.cshtml" />
     <Content Include="Views\Account\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\LoginForm.cshtml" />
+    <None Include="Web.ticketdesk3dev.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

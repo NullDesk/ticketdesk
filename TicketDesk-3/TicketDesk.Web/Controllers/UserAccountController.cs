@@ -43,8 +43,17 @@ namespace TicketDesk.Web.Controllers
             }
         }
 
+        [HttpPost]
+        [ActionName("LoginDummy")]
+        public HttpResponseMessage LoginDummy(Credential credential)
+        {
+            //this is just a dummy location for faking ajax login 
+            //  forms in iframes --so browsers will remember passwords
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
 
         [HttpPost]
+        [ActionName("Login")]
         public async Task<HttpResponseMessage> Login(Credential credential)
         {
             await Seed();
@@ -70,6 +79,17 @@ namespace TicketDesk.Web.Controllers
 
         [HttpGet]
         [Authorize]
+        [ActionName("AuthenticationCheck")]
+        public HttpResponseMessage AuthenticationCheck()
+        {
+            //just return ok, the real work was done by the Authorize attribute
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+        
+
+        [HttpGet]
+        [Authorize]
+        [ActionName("Logout")]
         public HttpResponseMessage Logout()
         {
            
@@ -102,6 +122,7 @@ namespace TicketDesk.Web.Controllers
 
     public class Credential
     {
+        
         [JsonProperty("username")]
         public string Username { get; set; }
 

@@ -1,5 +1,5 @@
-﻿define(['durandal/system', 'plugins/router', 'config', 'services/datacontext', 'services/notifiercontext', 'services/logger'],
-    function (system, router, config, datacontext, notifiercontext, logger) {
+﻿define(['durandal/system', 'plugins/router', 'config', 'services/account', 'services/datacontext', 'services/logger'],
+    function (system, router, config, account, datacontext, logger) {
 
         var shell = {
             router: router,
@@ -10,45 +10,8 @@
 
         //#region Internal Methods
         function activate() {
-            $.extend(router, {
-                loginModel: ko.observableArray([]),
-                buildLoginModel: function (defaultOrder) {
 
-                    var addActiveFlag = function (config, r) {
-                        if (config.isActive) {
-                            return;
-                        }
-
-                        config.isActive = ko.computed(function () {
-                            var theItem = r.activeItem();
-                            return theItem && theItem.__moduleId__ == config.moduleId;
-                        });
-                    };
-                    var lmod = [], routes = router.routes;
-                    defaultOrder = defaultOrder || 100;
-
-                    for (var i = 0; i < routes.length; i++) {
-                        var current = routes[i];
-
-                        if (current.account) {
-                            if (!system.isNumber(current.lmod)) {
-                                current.lmod = defaultOrder;
-                            }
-
-
-                            addActiveFlag(current, this);
-
-                            lmod.push(current);
-                        }
-                    }
-
-                    lmod.sort(function (a, b) { return a.account - b.account; });
-                    router.loginModel(lmod);
-
-                    return router;
-                }
-            });
-            return datacontext.primeData()
+            return account.checkAuthentication()
                 .then(boot)
                 .fail(function (e) {
                     if (e.status === 401) {
@@ -65,15 +28,12 @@
             }
             return config.activateForLogin()
                 .then(function () {
-                    log('Login Mode Activated!', null, true);
+                    log('Login Mode Activated!', null, false);
                 });
         }
         function boot() {
             return config.activate()
-                .then(notifiercontext.activate)
-                .then(function () {
-                    log('TicketDesk SPA Loaded!', null, true);
-                });
+                .then(datacontext.primeData()).then(function () { log('TicketDesk SPA Loaded!', null, false); });
 
         }
         function log(msg, data, showToast) {

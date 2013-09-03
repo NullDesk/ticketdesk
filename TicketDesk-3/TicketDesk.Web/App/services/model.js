@@ -32,7 +32,6 @@
 
         function configureMetadataStore(metadataStore) {
             addPrioritySettingType(metadataStore);
-
             metadataStore.registerEntityTypeCtor('Ticket', function () { this.isPartial = false; }, ticketInitializer);
         }
 

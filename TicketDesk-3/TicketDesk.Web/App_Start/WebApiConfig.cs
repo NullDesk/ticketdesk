@@ -27,12 +27,18 @@ namespace TicketDesk.Web.App_Start
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(
                 name: "TextApi",
                 routeTemplate: "api/text/{lang}/{ns}",
-                defaults: new {controller = "Text"}
+                defaults: new { controller = "Text" }
+            );
+
+            GlobalConfiguration.Configuration.Routes.MapHttpRoute(
+                name: "UserAccountActionApi",
+                routeTemplate: "api/useraccount/{action}/{id}",
+                defaults: new {  controller = "UserAccount" ,id = RouteParameter.Optional }
             );
 
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{id}/",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

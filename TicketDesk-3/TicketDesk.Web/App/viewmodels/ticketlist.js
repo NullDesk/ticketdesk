@@ -30,10 +30,10 @@
                     }
                 }
             };
-            datacontext.ticketEntityManager.backgroudTicketRefreshCounter.subscribe(ticketCountChanged);
+            datacontext.backgroudTicketRefreshCounter.subscribe(ticketCountChanged);
             currentPage(1);
-            logger.log('Ticket List View Activated', null, 'TicketList', true);
-            return datacontext.ticketEntityManager.getOpenTicketPagedList(tickets, currentPageIndex())
+            logger.log('Ticket List View Activated', null, 'TicketList', false);
+            return datacontext.getOpenTicketPagedList(tickets, currentPageIndex())
                 .finally(toggleBackgroundChanges);
         };
 
@@ -62,7 +62,7 @@
                     previous();
                 } else {
                     toggleBackgroundChanges();
-                    datacontext.ticketEntityManager.getOpenTicketPagedList(tickets, currentPageIndex()).then(toggleBackgroundChanges);
+                    datacontext.getOpenTicketPagedList(tickets, currentPageIndex()).then(toggleBackgroundChanges);
                 }
             }
         };
@@ -97,7 +97,7 @@
         };
 
         var maxPage = ko.computed(function () {
-            return Math.ceil(datacontext.ticketEntityManager.openTicketRowCount() / 5);
+            return Math.ceil(datacontext.openTicketRowCount() / 5);
         });
 
         var canPrev = ko.computed(function () {
@@ -117,7 +117,7 @@
                 elem.css(donePagingValues);
                 return Q.all([
                     $.when(elem.animate(offsetRightValues, 300, 'swing')),
-                    datacontext.ticketEntityManager.getOpenTicketPagedList(tickets, currentPageIndex())
+                    datacontext.getOpenTicketPagedList(tickets, currentPageIndex())
                 ]).then(pageIn);
 
                 function pageIn() {
@@ -139,7 +139,7 @@
                 elem.css(donePagingValues);
                 return Q.all([
                     $.when(elem.animate(offsetLeftValues, 200, 'swing')),
-                     datacontext.ticketEntityManager.getOpenTicketPagedList(tickets, currentPageIndex())
+                     datacontext.getOpenTicketPagedList(tickets, currentPageIndex())
                 ]).then(pageIn);
 
                 function pageIn() {
@@ -158,7 +158,7 @@
 
         var refresh = function () {
             toggleBackgroundChanges();
-            return datacontext.ticketEntityManager.getOpenTicketPagedList(tickets, currentPageIndex(), true)
+            return datacontext.getOpenTicketPagedList(tickets, currentPageIndex(), true)
                 .then(toggleBackgroundChanges);
         };
 
@@ -194,7 +194,7 @@
             currentPage: currentPage,
             canPrev: canPrev,
             canNext: canNext,
-            rowCount: datacontext.ticketEntityManager.openTicketRowCount,
+            rowCount: datacontext.openTicketRowCount,
             activate: activate,
             deactivate: deactivate,
             refresh: refresh,

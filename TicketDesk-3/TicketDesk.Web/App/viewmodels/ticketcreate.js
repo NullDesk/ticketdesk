@@ -8,14 +8,13 @@
         var ticketTypeList = ko.observableArray();
 
         var activate = function () {
-            ticket(datacontext.ticketEntityManager.createTicket());
+            ticket(datacontext.createTicket());
             return Q.all([
-
                             datacontext.getPriorityList(priorityList),
                             datacontext.getTicketTypeList(ticketTypeList),
                             datacontext.getCategoryList(categoryList)])
                 .then(function () {
-                    logger.log('Ticket Create View Activated', null, 'TicketCreate', true);
+                    logger.log('Ticket Create View Activated', null, 'TicketCreate', false);
                 });
         };
 
@@ -36,7 +35,7 @@
         var resetModel = function(isDeactivating) {
             datacontext.cancelChanges();
             if (!isDeactivating) {
-                ticket(datacontext.ticketEntityManager.createTicket());
+                ticket(datacontext.createTicket());
             }
         };
 

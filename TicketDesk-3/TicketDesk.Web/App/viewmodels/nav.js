@@ -1,22 +1,13 @@
 ﻿
 define(['plugins/router'], function (router) {
 
-
-    var accountRoutes = ko.computed(function () {
-        return router.routes.filter(function (r) {
-            return r.isAccount;
-        });
-    });
-
-    
-
-    var adminRoutes = ko.computed(function () {
-        return router.routes.filter(function (r) {
-            return r.isAdmin;
-        });
-    });
+    //var adminRoutes = ko.computed(function () {
+    //    return router.routes.filter(function (r) {
+    //        return r.isAdmin;
+    //    });
+    //});
     var hasAdminRoutes = ko.computed(function () {
-        return (adminRoutes().length > 0) && (!window.location.href.indexOf('#login'));
+        return (router.adminNavigationModel().length > 0);
     });
     var collapseMenu = function () {
         if ($('#navMainButton').is(":visible")) {
@@ -25,12 +16,9 @@ define(['plugins/router'], function (router) {
     };
     return {
         attached: function () {
-            //$("#navMain").on("click", 'a', null, collapseMenu);
             router.on('router:navigation:complete', collapseMenu);
         },
         router: router,
-        hasAdminRoutes: hasAdminRoutes,
-        adminRoutes: adminRoutes,
-        accountRoutes: accountRoutes
+        hasAdminRoutes: hasAdminRoutes
     };
 });
