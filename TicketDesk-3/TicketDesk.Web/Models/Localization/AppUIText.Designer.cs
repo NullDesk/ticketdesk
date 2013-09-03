@@ -259,7 +259,7 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forgive the mess, but I&apos;m working my way through a major conversion to Durandal 2 and Bootstrap 3. Overall the new skin is coming along well, and I should have it back in shape in a few days.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href=&apos;/?setLng=es&apos;&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd.
+        ///   Looks up a localized string similar to Login as user &apos;admin&apos; with a password of &apos;password&apos;.&lt;br /&gt;&lt;br /&gt;This deployment is based off of a private branch where I&apos;m working out the security framework. Currently, this is backed by the RC version of the new Asp.Net Identity Framework. It is a bit hacked to run on MVC 4 and Web Api v1, but so far it seems to work decently. There will be some massive refactoring on the Web Api side once I am able to upgrade the project to the new tech stack... but before that can happen, Breeze has to be adapted to sup [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ViewHomeContent {
             get {

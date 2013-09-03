@@ -175,7 +175,7 @@
     <value>Ms-PL license - ©2013 Stephen M. Redd</value>
   </data>
   <data name="ViewHomeContent" xml:space="preserve">
-    <value>Forgive the mess, but I'm working my way through a major conversion to Durandal 2 and Bootstrap 3. Overall the new skin is coming along well, and I should have it back in shape in a few days.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;For the spanish example translation &lt;a href='/?setLng=es'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
+    <value>Login as user 'admin' with a password of 'password'.&lt;br /&gt;&lt;br /&gt;This deployment is based off of a private branch where I'm working out the security framework. Currently, this is backed by the RC version of the new Asp.Net Identity Framework. It is a bit hacked to run on MVC 4 and Web Api v1, but so far it seems to work decently. There will be some massive refactoring on the Web Api side once I am able to upgrade the project to the new tech stack... but before that can happen, Breeze has to be adapted to support the new Web Api features. Currently, it doesn't play nice with the new oData support in Web Api 2. &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;Translations for the login fetures are incomplete at this time, but for the rest of the spanish example translations &lt;a href='/?setLng=es'&gt;click here&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;-- Stephen M. Redd</value>
   </data>
   <data name="ViewHomeTitle" xml:space="preserve">
     <value>TicketDesk Home</value>
