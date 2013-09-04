@@ -1,39 +1,6 @@
 ﻿define(['durandal/system', 'services/account', 'plugins/router', 'services/logger'],
     function (system, account, router, logger) {
-        var username = ko.observable();
 
-        var password = ko.observable();
-
-
-        //var iframeDefaultSource;
-        //var doSubmit = function (form) {
-        //    var url = 'api/useraccount/login';
-
-        //    account.loginUser($(form), url).fail(function () {
-        //        logger.logError("Login failed", null, system.getModuleId(vm), true);
-        //        var targ = $("#loginTarget");
-        //        targ.get(0).contentDocument.location.replace(iframeDefaultSource);
-        //    });
-        //    return true;
-        //}
-        //var setLoginIframeHeight = function () {
-        //   var iframe = $("#loginTarget").get(0);
-        //    if (iframe) {
-        //        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-        //        if (iframeWin.document.body) {
-        //            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-        //        }
-        //    }
-        //};
-
-        //var attached = function () {
-        //    iframe = $("#loginTarget");
-        //    iframeDefaultSource = iframe.attr('src');
-        //    window.doSubmit = doSubmit;
-        //    window.setLoginIframeHeight = setLoginIframeHeight;
-        //    $(window).resize(setLoginIframeHeight);
-
-        //};
 
         var keyMonitor = function (data, event) {
             if (event.keyCode == 13) {
@@ -45,25 +12,40 @@
 
         var doLogin = function () {
             var form = $("#loginTarget").contents().find("#loginForm");
-            form.find("#username").val(username());
-            form.find("#password").val(password());
+            var u = $('#username').val();
+            var p = $('#password').val();
+            form.find("#username").val(u);
+            form.find("#password").val(p);
             form.submit();
-            
-            account.loginUser(username(), password()).fail(function () {
-                        logger.logError("Login failed", null, system.getModuleId(vm), true);
-                       
-                    });
+
+            account.loginUser(u, p)
+                .fail(function () {
+                    logger.logError("Login failed", null, system.getModuleId(vm), true);
+
+                });
+        };
+
+        window.formLoaded = function () {
+
         };
         var attached = function () {
-
-
+            $("#loginTarget").ready(window.setTimeout(function () {
+                var form = $("#loginTarget").contents().find("#loginForm");
+                $('#username').val(form.find("#username").val());
+                $('#password').val(form.find("#password").val());
+            }, 100));
+          
+        };
+        var deactivate = function () {
+            $('#username').val('');
+            $('#password').val('');
         };
 
         var vm = {
+            deactivate: deactivate,
             attached: attached,
             keyMonitor: keyMonitor,
-            username: username,
-            password: password,
+
             doLogin: doLogin,
             title: $.i18n.t('appuitext:viewLoginTitle'),
         };

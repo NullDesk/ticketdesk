@@ -2,30 +2,32 @@
     <h1 data-bind="text: title"></h1>
 </header>
 <section id="content" class="container col-md-12">
-    <iframe class="col-md-12" id="loginTarget" src="/account/loginform" seamless="seamless" style="overflow:hidden;height:300px;display:none;" frameborder="0"> </iframe>
-    <div class="panel panel-default" data-bind="event: { keypress: keyMonitor }">
-        <div class=" btn-toolbar panel-heading">
-        <div class="btn-group btn-group-sm">
-            <button id="loginbutton" class="btn btn-primary btn-sm" data-bind="click: doLogin">Login</button>
-        </div>
-    </div>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-md-2 col-sm-2 control-label" for="username">Username: </label>
-                    <div class="col-md-3 col-sm-3">
-                        <input class="form-control input-sm" id="username" name="username" type="text" data-bind="value: username" />
-                    </div>
+    <iframe class="col-md-12" id="loginTarget" src="/account/loginform" seamless="seamless" style="overflow:hidden;height:0px;" frameborder="0"> </iframe>
+    <form action="api/useraccount/logindummy">
+        <div class="panel panel-default" data-bind="event: { keypress: keyMonitor }">
+            <div class=" btn-toolbar panel-heading">
+                <div class="btn-group btn-group-sm">
+                    <button id="loginbutton" class="btn btn-primary btn-sm" data-bind="click: doLogin">Login</button>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2 col-sm-2  control-label" for="password">Password: </label>
-                    <div class="col-md-3 col-sm-3">
-                        <input class="form-control input-sm" id="password" name="password" type="password" data-bind="value: password" />
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-2 control-label" for="username">Username: </label>
+                        <div class="col-md-3 col-sm-3">
+                            <input class="form-control input-sm" id="username" name="username" type="text" />
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-2  control-label" for="password">Password: </label>
+                        <div class="col-md-3 col-sm-3">
+                            <input class="form-control input-sm" id="password" name="password" type="password"  />
+                        </div>
+                    </div>
 
 
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </section>

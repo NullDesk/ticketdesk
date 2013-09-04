@@ -7,7 +7,7 @@
     <title>loginform</title>
 </head>
 <body>
-    <section style="display:none;">
+    <section >
         @using (Html.BeginForm("", "api/useraccount/logindummy", FormMethod.Post, new { id = "loginForm" }))
         {
             @Html.AntiForgeryToken()
@@ -20,6 +20,6 @@
 
         }
     </section>
-
+    
 </body>
 </html>
