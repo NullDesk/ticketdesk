@@ -16,8 +16,7 @@
             return Q.when($.ajax({
                 url: '/api/useraccount/authenticationcheck',
                 type: 'GET',
-                contentType: 'application/json'//,
-                //data: JSON.stringify({ action: 'authenticationcheck' })
+                contentType: 'application/json'
             }))
         }
 
@@ -31,14 +30,6 @@
                 }
             });
 
-            //var url = form.attr('action');
-            //$.post(url, form.serialize(), function (data, status, response) {
-            //    if (response.status === 200) {
-            //        secureRoutes(true);
-            //        datacontext.primeData();
-            //        router.navigate('');
-            //    }
-            //}).fail(queryFailed);
         };
 
         var secureRoutes = function (isAuthenticated) {

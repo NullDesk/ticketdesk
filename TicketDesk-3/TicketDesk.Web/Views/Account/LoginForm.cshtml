@@ -54,16 +54,11 @@
     @Scripts.Render("~/scripts/jquery")
     @Scripts.Render("~/scripts/bootstrap")
     <script type="application/javascript">
-
-
         $("#loginForm").submit(function () {
             top.doSubmit(this);
-            return false;
+           
         });
-        //setTimeout to give browsers time to form up the DOMs; I'm talking to you IE!
         $.ready(window.setTimeout(top.setLoginIframeHeight,150));
-        
-
     </script>
 </body>
 </html>
