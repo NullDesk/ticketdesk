@@ -1,13 +1,12 @@
 ﻿define(
     [
     'durandal/system',
-    'services/notifiercontext',
     'services/model',
     'config',
     'services/logger',
     'services/breeze.partial-entities'
     ],
-    function (system, notifiercontext, model, config, logger, partialMapper) {
+    function (system, model, config, logger, partialMapper) {
         var entityQuery = breeze.EntityQuery;
         var manager = configureBreezeManager();
         var orderBy = model.orderBy;
@@ -178,14 +177,12 @@
             backgroudTicketRefreshCounter(0);
 
             manager = null;
-            notifiercontext.stopHubs();
         };
 
         var primeData = function () {
             log('Priming Data', null, true);
             manager = configureBreezeManager();
-            return manager.fetchMetadata(manager.dataService)
-                .then(notifiercontext.startHubs).then(subscribeToChanges);
+            return manager.fetchMetadata(manager.dataService).then(subscribeToChanges);
         };
 
         var datacontext = {

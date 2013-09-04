@@ -1,12 +1,21 @@
-﻿define(['durandal/system', 'plugins/router', 'config', 'services/account', 'services/datacontext', 'services/logger'],
-    function (system, router, config, account, datacontext, logger) {
+﻿define(['durandal/system', 'plugins/router', 'config', 'services/account', 'services/datacontext', 'services/logger', 'services/notifiercontext'],
+    function (system, router, config, account, datacontext, logger, notifiercontext) {
 
         var shell = {
             router: router,
-            activate: activate
+            activate: activate,
+            attached: attached
         };
 
         return shell;
+
+        function attached() {
+            if (navigator.appVersion.indexOf("MSIE")) {
+                elems = [ $('body'), $('#applicationHost'), $('.durandal-wrapper'), $('html') ];
+                elems.forEach(function(i){i.css('height', '100%').css('position', 'relative')});
+
+            }
+        }
 
         //#region Internal Methods
         function activate() {
@@ -33,7 +42,9 @@
         }
         function boot() {
             return config.activate()
-                .then(datacontext.primeData()).then(function () { log('TicketDesk SPA Loaded!', null, false); });
+                .then(datacontext.primeData())
+                .then(notifiercontext.startHubs)
+                .then(function () { log('TicketDesk SPA Loaded!', null, false); });
 
         }
         function log(msg, data, showToast) {

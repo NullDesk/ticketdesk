@@ -63,14 +63,18 @@
 
         //#endregion
 
-        var bindSubmit = function () {
-            var form = $("#loginTarget").contents().find("#loginForm")
-            form.submit(doSubmit);
-        };
+        //var bindSubmit = function () {
+        //    var form = $("#loginTarget").contents().find("#loginForm")
+        //    form.submit(function () { doSubmit(); return false; });
+        //};
 
         var iframeDefaultSource;
-        var doSubmit = function (e) {
-            //e.preventDefault();
+        var doSubmit = function (form) {
+
+            //if(navigator.userAgent.match(/MSIE ([0-9]+)\./)){
+            //    e.preventDefault();
+            //}
+
             var url = 'api/useraccount/login';
 
 
@@ -80,20 +84,33 @@
             //    }
             //})
 
-            account.loginUser($(this), url).fail(function () {
+            account.loginUser($(form), url).fail(function () {
                 logger.logError("Login failed", null, system.getModuleId(vm), true);
                 var targ = $("#loginTarget");
                 targ.get(0).contentDocument.location.replace(iframeDefaultSource);
-                
+
             });
 
             return true;
         }
-
+        var setLoginIframeHeight = function () {
+           var iframe = $("#loginTarget").get(0);
+            if (iframe) {
+                var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+                if (iframeWin.document.body) {
+                    iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+                }
+            }
+        };
 
         var attached = function () {
-            iframeDefaultSource = $("#loginTarget").attr('src');
-            window.bindLoginSubmit = bindSubmit;
+            iframe = $("#loginTarget");
+            iframeDefaultSource = iframe.attr('src');
+            window.doSubmit = doSubmit;
+            window.setLoginIframeHeight = setLoginIframeHeight;
+            
+            $(window).resize(setLoginIframeHeight);
+            
         };
         var vm = {
             attached: attached,

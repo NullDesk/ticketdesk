@@ -1,5 +1,5 @@
-﻿define(['durandal/system', 'services/datacontext', 'config', 'plugins/router', 'services/logger'],
-    function (system, datacontext, config, router, logger) {
+﻿define(['durandal/system', 'services/datacontext', 'config', 'plugins/router', 'services/logger', 'services/notifiercontext'],
+    function (system, datacontext, config, router, logger, notifiercontext) {
         var logoutUser = function () {
             return Q.when($.ajax({
                 url: '/api/useraccount/logout',
@@ -8,7 +8,7 @@
                 data: JSON.stringify({ action: 'logout' })
             }))
                 .then(function () { secureRoutes(false); })
-                .then(datacontext.reset)
+                .then(datacontext.reset).then(notifiercontext.stopHubs)
                 .fail(queryFailed);
         }
 
@@ -26,7 +26,7 @@
             return $.post(url, form.serialize(), function (data, status, response) {
                 if (response.status === 200) {
                     secureRoutes(true);
-                    datacontext.primeData();
+                    datacontext.primeData().then(notifiercontext.startHubs);
                     router.navigate('');
                 }
             });

@@ -10,6 +10,7 @@
     <title>loginform</title>
     @Styles.Render("~/content/css")
     @Scripts.Render("~/scripts/modernizr")
+   
 </head>
 <body>
     <section>
@@ -32,13 +33,13 @@
                         <div class="form-group">
                             <label class="col-md-2 col-sm-2 control-label" for="username">Username: </label>
                             <div class="col-md-3 col-sm-3">
-                                <input class="form-control input-sm" id="username" name="username" type="text" data-bind="value: username" />
+                                <input class="form-control input-sm" id="username" name="username" type="text" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 col-sm-2  control-label" for="password">Password: </label>
                             <div class="col-md-3 col-sm-3">
-                                <input class="form-control input-sm" id="password" name="password" type="password" data-bind="value: password" />
+                                <input class="form-control input-sm" id="password" name="password" type="password" />
                             </div>
                         </div>
 
@@ -52,8 +53,17 @@
     </section>
     @Scripts.Render("~/scripts/jquery")
     @Scripts.Render("~/scripts/bootstrap")
-    <script type="text/javascript">
-        parent.bindLoginSubmit();
+    <script type="application/javascript">
+
+
+        $("#loginForm").submit(function () {
+            top.doSubmit(this);
+            return false;
+        });
+        //setTimeout to give browsers time to form up the DOMs; I'm talking to you IE!
+        $.ready(window.setTimeout(top.setLoginIframeHeight,150));
+        
+
     </script>
 </body>
 </html>
