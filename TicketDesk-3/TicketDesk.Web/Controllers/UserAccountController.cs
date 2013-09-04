@@ -68,7 +68,7 @@ namespace TicketDesk.Web.Controllers
             else
             {
                 code = HttpStatusCode.Unauthorized;
-                content = new { Result = result.Errors.ToString() };
+                content = new { Result = result.Errors };
             }
 
             var jsonFormatter = Configuration.Formatters.OfType<JsonMediaTypeFormatter>().First();

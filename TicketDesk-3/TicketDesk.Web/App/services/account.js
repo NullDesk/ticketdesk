@@ -20,16 +20,28 @@
             }))
         }
 
-        var loginUser = function (form, url) {
+        var loginUser = function (username, password) {
+            var data = {
+                username: username,
+                password: password
+            };
 
-            return $.post(url, form.serialize(), function (data, status, response) {
-                if (response.status === 200) {
+            return Q.when($.ajax({
+                url: '/api/useraccount/login',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data)
+            }))
+                .then(function () {
                     secureRoutes(true);
-                    datacontext.primeData().then(notifiercontext.startHubs);
+                })
+                .then(datacontext.primeData)
+                .then(notifiercontext.startHubs)
+                .then(function () {
                     router.navigate('');
-                }
-            });
-
+                })
+                .fail(queryFailed);
         };
 
         var secureRoutes = function (isAuthenticated) {
