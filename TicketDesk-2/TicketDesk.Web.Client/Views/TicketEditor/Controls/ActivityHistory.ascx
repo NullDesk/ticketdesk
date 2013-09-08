@@ -8,8 +8,12 @@
 <div class="activityBody">
     <div class="historyArea">
         <% var controller = ViewContext.Controller as TicketDesk.Web.Client.Controllers.ApplicationController;
-           var root = ViewData["siteRootUrl"] as string;
-           var newEmailAlertUrl = root + Url.Content("~/Content/newEmailAlert.png"); 
+           
+           var r = ViewData["siteRootUrl"] as string;
+           var root = string.IsNullOrEmpty(r) ? "~" : r.TrimEnd('/');
+    
+           
+           var newEmailAlertUrl = Url.Content(string.Format("{0}/Content/newEmailAlert.png",root)); 
     
                  
         %>
