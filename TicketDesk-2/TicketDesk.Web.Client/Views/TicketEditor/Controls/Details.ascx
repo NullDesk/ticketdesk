@@ -9,11 +9,13 @@
     {
         currentFlagStatus = "unassigned";
     }
-    var root = ViewData["siteRootUrl"] as string;
+    var r = ViewData["siteRootUrl"] as string;
+    var root = string.IsNullOrEmpty(r)? "~": r.TrimEnd('/');
+    
 
-    var flagUrl = root + Url.Content(string.Format("~/Content/{0}Flag.png", Url.Encode(currentFlagStatus)));
+    var flagUrl = Url.Content(string.Format("{0}/Content/{1}Flag.png", root, Url.Encode(currentFlagStatus)));
 
-    var ticketUrl = root + Url.Content(string.Format("~/Ticket/{0}", Model.TicketId.ToString()));
+    var ticketUrl = Url.Content(string.Format("{0}/Ticket/{1}", root, Model.TicketId.ToString()));
 
     var detailsHeight = (ViewData["formatForSearch"] == null) ? 200 : 70;
     
