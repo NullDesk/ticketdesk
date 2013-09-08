@@ -20,10 +20,11 @@
             }))
         }
 
-        var loginUser = function (username, password) {
+        var loginUser = function (username, password, rememberme) {
             var data = {
                 username: username,
-                password: password
+                password: password,
+                rememberme: rememberme
             };
 
             return Q.when($.ajax({

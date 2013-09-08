@@ -204,4 +204,19 @@
   <data name="ViewLogoutTitle" xml:space="preserve">
     <value>¿Logout?</value>
   </data>
+  <data name="ViewLoginFailedErrorMessage" xml:space="preserve">
+    <value>¿Login failed!?</value>
+  </data>
+  <data name="ViewLoginLoginButtonLabel" xml:space="preserve">
+    <value>¿Login?</value>
+  </data>
+  <data name="ViewLoginPasswordFieldLabel" xml:space="preserve">
+    <value>¿Password?</value>
+  </data>
+  <data name="ViewLoginRememberMeFieldLabel" xml:space="preserve">
+    <value>¿Remember me?</value>
+  </data>
+  <data name="ViewLoginUserNameFieldLabel" xml:space="preserve">
+    <value>¿User Name?</value>
+  </data>
 </root>

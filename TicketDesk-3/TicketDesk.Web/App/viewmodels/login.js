@@ -14,13 +14,14 @@
             var form = $("#loginTarget").contents().find("#loginForm");
             var u = $('#username').val();
             var p = $('#password').val();
+            var r = $('#rememberme').val();
             form.find("#username").val(u);
             form.find("#password").val(p);
             form.submit();
 
-            account.loginUser(u, p)
+            account.loginUser(u, p, r)
                 .fail(function () {
-                    logger.logError("Login failed", null, system.getModuleId(vm), true);
+                    logger.logError($.i18n.t('appuitext:viewLoginFailedErrorMessage'), null, system.getModuleId(vm), true);
 
                 });
         };

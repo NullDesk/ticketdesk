@@ -58,7 +58,7 @@ namespace TicketDesk.Web.Controllers
         {
             await Seed();
 
-            IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, credential.Username, credential.Password, false);
+            IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, credential.Username, credential.Password, credential.RememberMe);
             HttpStatusCode code = HttpStatusCode.OK;
             object content = null;
             if (result.Success)
@@ -85,28 +85,28 @@ namespace TicketDesk.Web.Controllers
             //just return ok, the real work was done by the Authorize attribute
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
-        
+
 
         [HttpGet]
         [Authorize]
         [ActionName("Logout")]
         public HttpResponseMessage Logout()
         {
-           
+
             AuthenticationManager.SignOut();
             var respMessage = new HttpResponseMessage(HttpStatusCode.OK);
             var reqcookies = Request.Headers.GetCookies();
             foreach (var c in reqcookies)
             {
-                if(c.Cookies.Any(ck => ck.Name == ".Aspnet.Application"))
+                if (c.Cookies.Any(ck => ck.Name == ".Aspnet.Application"))
                 {
                     c.Expires = DateTimeOffset.Now.AddDays(-1);
                     respMessage.Headers.AddCookies(new CookieHeaderValue[] { c });
                     break;
                 }
             }
-            
-            
+
+
             return respMessage;
         }
 
@@ -122,11 +122,16 @@ namespace TicketDesk.Web.Controllers
 
     public class Credential
     {
-        
+
         [JsonProperty("username")]
         public string Username { get; set; }
 
         [JsonProperty("password")]
         public string Password { get; set; }
+
+        [JsonProperty("rememberme")]
+        public bool RememberMe { get; set; }
+
+
     }
 }

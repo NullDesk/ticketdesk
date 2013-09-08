@@ -277,11 +277,56 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login failed!.
+        /// </summary>
+        public static string ViewLoginFailedErrorMessage {
+            get {
+                return ResourceManager.GetString("ViewLoginFailedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string ViewLoginLoginButtonLabel {
+            get {
+                return ResourceManager.GetString("ViewLoginLoginButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string ViewLoginPasswordFieldLabel {
+            get {
+                return ResourceManager.GetString("ViewLoginPasswordFieldLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember me.
+        /// </summary>
+        public static string ViewLoginRememberMeFieldLabel {
+            get {
+                return ResourceManager.GetString("ViewLoginRememberMeFieldLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string ViewLoginTitle {
             get {
                 return ResourceManager.GetString("ViewLoginTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Name.
+        /// </summary>
+        public static string ViewLoginUserNameFieldLabel {
+            get {
+                return ResourceManager.GetString("ViewLoginUserNameFieldLabel", resourceCulture);
             }
         }
         
