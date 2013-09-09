@@ -108,6 +108,7 @@
         };
 
         var createTicket = function () {
+            
             return manager.createEntity(entityNames.ticket);
         };
 
@@ -178,11 +179,11 @@
 
             manager = null;
         };
-
+        var primed = false;
         var primeData = function () {
             log('Priming Data', null, true);
             manager = configureBreezeManager();
-            return manager.fetchMetadata(manager.dataService).then(subscribeToChanges);
+            return manager.fetchMetadata(manager.dataService).then(function() { primed = true; }).then(subscribeToChanges);
         };
 
         var datacontext = {
@@ -278,6 +279,7 @@
             if (!mgr.metadataStore.hasMetadataFor(config.remoteServiceName)) {
                 model.configureMetadataStore(mgr.metadataStore);
             }
+         
             return mgr;
         }
 

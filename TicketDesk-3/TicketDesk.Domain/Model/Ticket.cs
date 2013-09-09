@@ -26,7 +26,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(50)]
         public string Category { get; set; }
 
-        [Display(ResourceType = typeof(AppModelText), Name = "TicketTitle")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketTitle", Prompt = "TicketTitlePrompt")]
         [Required]
         [StringLength(500)]
         public string Title { get; set; }
@@ -41,7 +41,7 @@ namespace TicketDesk.Domain.Model
         [DefaultValue(false)]
         public bool IsHtml { get; set; }
 
-        [Display(ResourceType = typeof(AppModelText), Name = "TicketTagList")]
+        [Display(ResourceType = typeof(AppModelText), Name = "TicketTagList", Prompt = "TicketTagPrompt")]
         [StringLength(100)]
         public string TagList { get; set; }
 

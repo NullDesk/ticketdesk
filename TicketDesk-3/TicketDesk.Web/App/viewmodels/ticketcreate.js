@@ -8,12 +8,13 @@
         var ticketTypeList = ko.observableArray();
 
         var activate = function () {
-            ticket(datacontext.createTicket());
+           
             return Q.all([
                             datacontext.getPriorityList(priorityList),
                             datacontext.getTicketTypeList(ticketTypeList),
                             datacontext.getCategoryList(categoryList)])
                 .then(function () {
+                    ticket(datacontext.createTicket());
                     logger.log('Ticket Create View Activated', null, 'TicketCreate', false);
                 });
         };

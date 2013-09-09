@@ -120,9 +120,6 @@
   <data name="AppName" xml:space="preserve">
     <value>¿TicketDesk 3?</value>
   </data>
-  <data name="BtnRefresh" xml:space="preserve">
-    <value>¿Refresh?</value>
-  </data>
   <data name="CssNavLogo" xml:space="preserve">
     <value>navbar-brand title-es</value>
   </data>
@@ -198,7 +195,7 @@
   <data name="ViewLoginTitle" xml:space="preserve">
     <value>¿Login?</value>
   </data>
-  <data name="navAccountLogout" xml:space="preserve">
+  <data name="NavAccountLogout" xml:space="preserve">
     <value>¿Logout?</value>
   </data>
   <data name="ViewLogoutTitle" xml:space="preserve">
@@ -218,5 +215,17 @@
   </data>
   <data name="ViewLoginUserNameFieldLabel" xml:space="preserve">
     <value>¿User Name?</value>
+  </data>
+  <data name="GeneralBack" xml:space="preserve">
+    <value>¿Back?</value>
+  </data>
+  <data name="GeneralCancel" xml:space="preserve">
+    <value>¿Cancel?</value>
+  </data>
+  <data name="GeneralRefresh" xml:space="preserve">
+    <value>¿Refresh?</value>
+  </data>
+  <data name="GeneralSave" xml:space="preserve">
+    <value>¿Save?</value>
   </data>
 </root>

@@ -7,70 +7,89 @@
         <div class="btn-toolbar panel-heading">
             <div class="btn-group btn-group-sm">
                 <button class="btn btn-primary btn-sm"
-                    data-bind="click: goBack">
-                    <i class="icon-hand-left"></i>&nbsp;Back</button>
+                        data-bind="click: goBack">
+                    <i class="icon-hand-left"></i>&nbsp;<span data-i18n="appuitext:generalBack" />
+                </button>
                 <button class="btn btn-primary btn-sm"
-                    data-bind="click: cancel, enable: canSave">
-                    <i class="icon-undo"></i>&nbsp;Cancel</button>
+                        data-bind="click: cancel, enable: canSave">
+                    <i class="icon-undo"></i>&nbsp;<span data-i18n="appuitext:generalCancel" />
+                </button>
             </div>
             <div class="btn-group">
                 <button class="btn btn-success btn-sm"
-                    data-bind="click: save, enable: canSave">
-                    <i class="icon-save"></i>&nbsp;Save</button>
+                        data-bind="click: save, enable: canSave">
+                    <i class="icon-save"></i>&nbsp;<span data-i18n="appuitext:generalSave" />
+                </button>
 
             </div>
-            <i class="icon-asterisk" data-bind="visible: hasChanges" style="color: orange;"></i>
+            <div class="btn-group">
+                <i class="icon-asterisk" data-bind="visible: hasChanges" style="color: orange;"></i>
+            </div>
         </div>
-
         <section class="panel-body" data-bind="with: ticket">
             <div class="form-horizontal">
 
                 <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="title">Title</label>
+                    <label class="col-md-1 col-sm-1 control-label" for="title" data-i18n="appmodeltext:ticketTitle"></label>
                     <div class="col-md-8 col-sm-11">
-                        <input type="text" class="form-control input-sm" id="title" data-bind="value: title"
-                            placeholder="Ticket title" />
+                        <input type="text" class="form-control input-sm" id="title" data-bind="value: title" data-i18n="[placeholder]appmodeltext:ticketTitlePrompt" />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="ticketType">Type</label>
+                    <label class="col-md-1 col-sm-1 control-label" for="ticketType" data-i18n="appmodeltext:ticketTicketType"></label>
                     <div class="col-md-3 col-sm-3">
-                        <select id="ticketType" class="form-control input-sm" data-bind="options: $parent.ticketTypeList, optionsText: 'value',
-    optionsValue: 'value', value: ticketType, optionsCaption: ' '">
-                        </select>
+                        <select id="ticketType" class="form-control input-sm"
+                                data-bind="options: $parent.ticketTypeList,
+                                    optionsText: function(item){
+                                        var key = 'appmodeltext:ticketType' + item.value();
+                                        return $.i18n.t(key);},
+                                    optionsValue: 'value',
+                                    value: ticketType,
+                                    optionsCaption: ' '"></select>
                     </div>
 
 
-                    <label class="col-md-1 col-sm-2 control-label" for="category">Category</label>
+                    <label class="col-md-1 col-sm-2 control-label" for="category" data-i18n="appmodeltext:ticketCategory"></label>
                     <div class="col-md-3 col-sm-3">
-                        <select id="category" class="form-control input-sm" data-bind="options: $parent.categoryList, optionsText: 'value',
-    optionsValue: 'value', value: category, optionsCaption: ' '">
-                        </select>
+                        <select id="category" class="form-control input-sm"
+                                data-bind="options: $parent.categoryList,
+                                    optionsText:  function(item){
+                                        var key = 'appmodeltext:category' + item.value();
+                                        return $.i18n.t(key);},
+                                    optionsValue: 'value',
+                                    value: category,
+                                    optionsCaption: ' '"></select>
                     </div>
 
-                    <label class="col-md-1 col-sm-1 control-label" for="priority">Priority</label>
+                    <label class="col-md-1 col-sm-1 control-label" for="priority" data-i18n="appmodeltext:ticketPriority"></label>
                     <div class="col-md-3 col-sm-2">
-                        <select id="priority" class="form-control input-sm" data-bind="options: $parent.priorityList, optionsText: 'value',
-    optionsValue: 'value', value: priority, optionsCaption: ' '">
-                        </select>
+                        <select id="priority" class="form-control input-sm"
+                                data-bind="options: $parent.priorityList,
+                                    optionsText: function(item){
+                                        var key = 'appmodeltext:priority' + item.value();
+                                        return $.i18n.t(key);},
+                                    optionsValue: 'value',
+                                    value: priority,
+                                    optionsCaption: ' '"></select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="tagList">Tags</label>
+                    <label class="col-md-1 col-sm-1 control-label" for="tagList" data-i18n="appmodeltext:ticketTagList"></label>
                     <div class="col-md-7 col-sm-7">
-                        <input type="text" class="form-control input-sm" id="tagList" data-bind="value: tagListFormatted" placeholder="tag1,tag2" />
+                        <input type="text" class="form-control input-sm" id="tagList" data-bind="value: tagListFormatted"
+                               data-i18n="[placeholder]appmodeltext:ticketTagPrompt" />
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <label class="checkbox-inline" for="affectsCustomer">
+                        <label class="checkbox" for="affectsCustomer">
                             <input class="" type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" />
-                            Affects Customer
+                            <!-- ko text: $.i18n.t('appmodeltext:ticketAffectsCustomer')--><!--/ko-->
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="wmd-input-ticketDetails">Details</label>
+                    <label class="col-md-1 col-sm-1 control-label" for="wmd-input-ticketDetails" data-i18n="appmodeltext:ticketDetails"></label>
                     <div class="col-md-11 col-sm-11 wmd-panel">
                         <div class="tabbable">
 
@@ -98,14 +117,14 @@
 
                 </div>
                 <div class="form-group">
-                    <label class="col-md-1 col-sm-2 control-label" for="owner">Owner</label>
+                    <label class="col-md-1 col-sm-2 control-label" for="owner" data-i18n="appmodeltext:ticketOwner"></label>
                     <div class="col-md-4 col-sm-4">
                         <input class="form-control input-sm" type="text" id="owner" data-bind="value: owner" placeholder="person name" />
                     </div>
-                    <label class="col-md-2 col-sm-2 control-label" for="assignedTo">Assigned To</label>
+                    <label class="col-md-2 col-sm-2 control-label" for="assignedTo" data-i18n="appmodeltext:ticketAssignedTo"></label>
                     <div class="col-md-4 col-sm-4">
                         <input class="form-control input-sm" type="text" id="assignedTo" data-bind="value: assignedTo"
-                            placeholder="person name" />
+                               placeholder="person name" />
 
                     </div>
                 </div>

@@ -259,6 +259,15 @@ namespace TicketDesk.Domain.Model.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tag,tag-item2,etc.
+        /// </summary>
+        public static string TicketTagPrompt {
+            get {
+                return ResourceManager.GetString("TicketTagPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ticket #.
         /// </summary>
         public static string TicketTicketId {
@@ -282,6 +291,15 @@ namespace TicketDesk.Domain.Model.Localization {
         public static string TicketTitle {
             get {
                 return ResourceManager.GetString("TicketTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket title.
+        /// </summary>
+        public static string TicketTitlePrompt {
+            get {
+                return ResourceManager.GetString("TicketTitlePrompt", resourceCulture);
             }
         }
     }

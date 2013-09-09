@@ -70,15 +70,6 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Refresh.
-        /// </summary>
-        public static string BtnRefresh {
-            get {
-                return ResourceManager.GetString("BtnRefresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to navbar-brand title.
         /// </summary>
         public static string CssNavLogo {
@@ -88,11 +79,47 @@ namespace TicketDesk.Web.Models.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string GeneralBack {
+            get {
+                return ResourceManager.GetString("GeneralBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string GeneralCancel {
+            get {
+                return ResourceManager.GetString("GeneralCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string GeneralNo {
             get {
                 return ResourceManager.GetString("GeneralNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string GeneralRefresh {
+            get {
+                return ResourceManager.GetString("GeneralRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string GeneralSave {
+            get {
+                return ResourceManager.GetString("GeneralSave", resourceCulture);
             }
         }
         
@@ -117,9 +144,9 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
-        public static string navAccountLogout {
+        public static string NavAccountLogout {
             get {
-                return ResourceManager.GetString("navAccountLogout", resourceCulture);
+                return ResourceManager.GetString("NavAccountLogout", resourceCulture);
             }
         }
         

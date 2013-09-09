@@ -192,4 +192,10 @@
   <data name="TicketStatusActive" xml:space="preserve">
     <value>¿Active?</value>
   </data>
+  <data name="TicketTagPrompt" xml:space="preserve">
+    <value>¿tag,tag-item2,etc?</value>
+  </data>
+  <data name="TicketTitlePrompt" xml:space="preserve">
+    <value>¿Ticket title?</value>
+  </data>
 </root>
