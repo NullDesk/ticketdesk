@@ -56,7 +56,7 @@ namespace TicketDesk.Web.Controllers
         [ActionName("Login")]
         public async Task<HttpResponseMessage> Login(Credential credential)
         {
-            await Seed();
+            //await Seed();
 
             IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, credential.Username, credential.Password, credential.RememberMe);
             HttpStatusCode code = HttpStatusCode.OK;
@@ -110,14 +110,14 @@ namespace TicketDesk.Web.Controllers
             return respMessage;
         }
 
-        private async Task Seed()
-        {
-            if (!IdentityManager.Logins.HasLocalLogin("admin"))
-            {
-                var result = await IdentityManager.Users.CreateLocalUserAsync(new TdUser() { UserName = "admin" }, "password");
-                var x = result.Errors;
-            }
-        }
+        //private async Task Seed()
+        //{
+        //    if (!IdentityManager.Logins.HasLocalLogin("admin"))
+        //    {
+        //        var result = await IdentityManager.Users.CreateLocalUserAsync(new TdUser() { UserName = "admin" }, "password");
+        //        var x = result.Errors;
+        //    }
+        //}
     }
 
     public class Credential

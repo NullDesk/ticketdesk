@@ -25,27 +25,27 @@
         };
     </script>
 </head>
-<body>
+    <body>
+     
+        <div id="applicationHost">
+            @Html.Partial("_splash")
+        </div>
+        @Scripts.Render("~/scripts/jquery")
+        @Scripts.Render("~/scripts/bootstrap")
+        @Scripts.Render("~/scripts/vendor")
+        @if (HttpContext.Current.IsDebuggingEnabled)
+        {
+            <script type="application/javascript" src="~/scripts/require.js" data-main="@Url.Content("~/App/main")"></script>
+        }
+        else
+        {
+            <script type="application/javascript" src="~/App/main-built.js"></script>
+        }
     
-    <div id="applicationHost">
-        @Html.Partial("_splash")
-    </div>
-    @Scripts.Render("~/scripts/jquery")
-    @Scripts.Render("~/scripts/bootstrap")
-    @Scripts.Render("~/scripts/vendor")
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
-        <script type="application/javascript" src="~/scripts/require.js" data-main="@Url.Content("~/App/main")"></script>
-    }
-    else
-    {
-        <script type="application/javascript" src="~/App/main-built.js"></script>
-    }
-    
-    @*signalr test*@
-    @Scripts.Render("~/scripts/signalr")
-    <script src="~/signalr/hubs"></script>
-    @*end signalr test*@
+        @*signalr test*@
+        @Scripts.Render("~/scripts/signalr")
+        <script src="~/signalr/hubs"></script>
+        @*end signalr test*@
         
-</body>
+    </body>
 </html>
