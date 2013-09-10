@@ -1,5 +1,7 @@
-﻿define(['durandal/app', 'services/datacontext', 'plugins/router', 'services/logger'],
-    function (app, datacontext, router, logger) {
+﻿define(['durandal/app', 'services/datacontext', 'plugins/router', 'services/logger', 'services/securitycontext'],
+    function (app, datacontext, router, logger, securitycontext) {
+        var submitterList = ko.observableArray();
+        var staffList = ko.observableArray();
         var isSaving = ko.observable(false);
         var isDeleting = ko.observable(false);
         var ticket = ko.observable();
@@ -8,15 +10,17 @@
         var ticketTypeList = ko.observableArray();
 
         var activate = function () {
-           
+
             return Q.all([
                             datacontext.getPriorityList(priorityList),
                             datacontext.getTicketTypeList(ticketTypeList),
-                            datacontext.getCategoryList(categoryList)])
-                .then(function () {
-                    ticket(datacontext.createTicket());
-                    logger.log('Ticket Create View Activated', null, 'TicketCreate', false);
-                });
+                            datacontext.getCategoryList(categoryList),
+                            securitycontext.getTdSubmitters(submitterList),
+                            securitycontext.getTdStaff(staffList)
+            ]).then(function () {
+                ticket(datacontext.createTicket());
+                logger.log('Ticket Create View Activated', null, 'TicketCreate', false);
+            });
         };
 
 
@@ -33,7 +37,7 @@
             resetModel(false);
         };
 
-        var resetModel = function(isDeactivating) {
+        var resetModel = function (isDeactivating) {
             datacontext.cancelChanges();
             if (!isDeactivating) {
                 ticket(datacontext.createTicket());
@@ -101,7 +105,7 @@
 
                 var editor1 = new Markdown.Editor(converter1, "-ticketDetails", null);
                 editor1.run();
-               
+
                 logger.log('Ticket Create View Editor Initialized', null, 'TicketCreate', false);
 
             })();
@@ -123,6 +127,8 @@
             categoryList: categoryList,
             ticketTypeList: ticketTypeList,
             priorityList: priorityList,
+            submitterList: submitterList,
+            staffList: staffList
         };
 
         return vm;

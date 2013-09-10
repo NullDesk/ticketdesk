@@ -13,7 +13,7 @@ namespace TicketDesk.Domain.Identity.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<TicketDesk.Domain.Identity.TicketDeskIdentityContext>
     {
-        
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
@@ -98,11 +98,14 @@ namespace TicketDesk.Domain.Identity.Migrations
                     UserName = "user"
                 }
             };
-            var userRoles = new Dictionary<string, string>
+            var userRoles = new List<Tuple<string,string>>
             {
-                {"admin", "TdAdmin"},
-                {"staff", "TdStaff"},
-                {"user", "TdSubmitter"}
+                Tuple.Create("admin", "TdAdmin"),
+                Tuple.Create("admin", "TdStaff"),
+                Tuple.Create("admin", "TdSubmitter"),
+                Tuple.Create("staff", "TdStaff"),
+                Tuple.Create("staff", "TdSubmitter"),
+                Tuple.Create("user", "TdSubmitter")
             };
 
 
@@ -119,15 +122,15 @@ namespace TicketDesk.Domain.Identity.Migrations
             {
                 if (!context.Users.Any(u => u.UserName == tdUser.UserName))
                 {
-                  idMgr.Users.CreateLocalUser(tdUser, "password");
+                    idMgr.Users.CreateLocalUser(tdUser, "password");
                 }
             }
             foreach (var userRole in userRoles)
             {
-                var rlTask = idMgr.Roles.FindRoleByNameAsync(userRole.Value);
+                var rlTask = idMgr.Roles.FindRoleByNameAsync(userRole.Item2);
                 rlTask.Wait();
                 var rl = rlTask.Result;
-                var usrTask = idMgr.Store.Users.FindByNameAsync(userRole.Key, CancellationToken.None);
+                var usrTask = idMgr.Store.Users.FindByNameAsync(userRole.Item1, CancellationToken.None);
                 usrTask.Wait();
                 var usr = usrTask.Result;
                 var inRoleTask = idMgr.Roles.IsUserInRoleAsync(usr.Id, rl.Id, CancellationToken.None);
@@ -139,8 +142,8 @@ namespace TicketDesk.Domain.Identity.Migrations
                     rrTask.Wait();
                 }
             }
-           
-            
+
+
 
         }
     }

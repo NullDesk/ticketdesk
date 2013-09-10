@@ -259,6 +259,7 @@
     <Compile Include="Controllers\TicketDeskHub.cs" />
     <Compile Include="Controllers\TicketDeskUIController.cs" />
     <Compile Include="Controllers\TicketApiController.cs" />
+    <Compile Include="Controllers\TicketSecurityApiController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -280,6 +281,7 @@
     <Content Include="App\main.js" />
     <Content Include="App\services\account.js" />
     <Content Include="App\services\breeze.partial-entities.js" />
+    <Content Include="App\services\securitycontext.js" />
     <Content Include="App\util\routerExtension.js" />
     <Content Include="App\services\notifiercontext.js" />
     <Content Include="App\services\datacontext.js" />

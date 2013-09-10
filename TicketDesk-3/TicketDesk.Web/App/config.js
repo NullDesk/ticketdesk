@@ -1,5 +1,6 @@
 ﻿define(['plugins/router',  'util/routerExtension'], function (router,routerExtension) {
     var remoteServiceName = 'breeze/ticketapi';
+    var remoteSecurityServiceName = 'breeze/ticketsecurityapi';
 
     var mainMap = [{
         route: '',
@@ -57,8 +58,10 @@
             .secureMappedRoutes(isAuthenticated)
             .buildNavigationModel()
             .mapUnknownRoutes('login', 'login').activate();
-    }
+    };
+    
     var config = {
+        remoteSecurityServiceName:remoteSecurityServiceName,
         remoteServiceName: remoteServiceName,
         router: router,
         activateForLogin: function () {

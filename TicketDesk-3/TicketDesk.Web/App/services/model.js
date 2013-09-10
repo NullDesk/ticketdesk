@@ -2,7 +2,8 @@
     function (config, system, logger) {
 
         var orderBy = {
-            ticket: 'lastUpdateDate desc, assignedTo'
+            ticket: 'lastUpdateDate desc, assignedTo',
+            tdUser: 'userName'
         };
 
         var entityNames = {
@@ -10,34 +11,41 @@
             priorityList: 'PriorityList',
             categoryList: 'CategoryList',
             ticketTypeList: 'TicketTypeList',
-            statusList: 'StatusList'
+            statusList: 'StatusList',
+            submitterList: 'SubmitterList',
+            staffList: 'StaffList'
         };
 
-
-
         var model = {
+            configureSecurityMetadataStore: configureSecurityMetadataStore,
             configureMetadataStore: configureMetadataStore,
             entityNames: entityNames,
             orderBy: orderBy
         };
-
-        
 
         return model;
 
 
         //#region Internal Methods
         
-       
+        function configureSecurityMetadataStore(metadataStore) {
+            //this is a sort-of-hack: see :
+            //  http://stackoverflow.com/questions/16727432/
+            metadataStore.setEntityTypeForResourceName("TdUser", "TdUser:#TicketDesk.Domain.Identity");
+            metadataStore.setEntityTypeForResourceName("SubmitterList", "TdUser:#TicketDesk.Domain.Identity");
+            metadataStore.setEntityTypeForResourceName("StaffList", "TdUser:#TicketDesk.Domain.Identity");
+            
+            
+        }
 
         function configureMetadataStore(metadataStore) {
-            addPrioritySettingType(metadataStore);
+            addSimpleSettingTypes(metadataStore);
             metadataStore.registerEntityTypeCtor('Ticket', function () { this.isPartial = false; }, ticketInitializer);
         }
 
 
 
-        function addPrioritySettingType(metadataStore) {
+        function addSimpleSettingTypes(metadataStore) {
             
             var simpleSettingDataProperties = {
                 name: { dataType: breeze.DataType.String, isNullable: false, isPartOfKey: false },

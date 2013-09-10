@@ -1,52 +1,58 @@
-﻿define(['durandal/system', 'plugins/router', 'config', 'services/account', 'services/datacontext', 'services/logger', 'services/notifiercontext'],
-    function (system, router, config, account, datacontext, logger, notifiercontext) {
+﻿define(['durandal/system', 'plugins/router', 'config', 'services/account', 'services/datacontext', 'services/logger', 'services/notifiercontext', 'services/securitycontext'],
+    function (system, router, config, account, datacontext, logger, notifiercontext, securitycontext) {
+        var isAuthenticated = false;
 
         var shell = {
             router: router,
             activate: activate,
-            attached: attached
+            attached: attached,
+            isAuthenticated: isAuthenticated
         };
 
         return shell;
 
         function attached() {
             if (navigator.appVersion.indexOf("MSIE")) {
-                elems = [ $('body'), $('#applicationHost'), $('.durandal-wrapper'), $('html') ];
-                elems.forEach(function(i){i.css('height', '100%').css('position', 'relative')});
+                elems = [$('body'), $('#applicationHost'), $('.durandal-wrapper'), $('html')];
+                elems.forEach(function (i) { i.css('height', '100%').css('position', 'relative') });
 
             }
         }
 
         //#region Internal Methods
+
         function activate() {
-
-            return account.checkAuthentication()
-                .then(boot)
-                .fail(function (e) {
-                    if (e.status === 401) {
-                        return bootToLogin();
-                    } else {
-                        log(e.message, null, true);
-                        return false;
-                    }
-                });
-        }
-        function bootToLogin() {
-            if (!window.location.href.indexOf('#login')) {
-                window.location.replace('/#login')
-            }
-            return config.activateForLogin()
+            var self = this;
+            return Q
+                .when(account.checkAuthentication()
+                        .then(function () {
+                            self.isAuthenticated = true;
+                        })
+                        .fail(function () {
+                            self.isAuthenticated = false;
+                        }))
                 .then(function () {
-                    log('Login Mode Activated!', null, false);
+                    if (self.isAuthenticated) {
+                        return datacontext.primeData()
+                            .then(securitycontext.primeData)
+                            .then(notifiercontext.startHubs)
+                            .then(config.activate);
+                    } else {
+                        if (window.location.href.indexOf('#login') < 0) {
+                            window.location.replace('/#login');
+                        }
+                        return config.activateForLogin();
+
+                    }
+                })
+                .then(function () {
+                    log('TicketDesk SPA Loaded!', null, true);
                 });
-        }
-        function boot() {
-            return config.activate()
-                .then(datacontext.primeData())
-                .then(notifiercontext.startHubs)
-                .then(function () { log('TicketDesk SPA Loaded!', null, false); });
+
 
         }
+
+
         function log(msg, data, showToast) {
             logger.log(msg, data, system.getModuleId(shell), showToast);
         }

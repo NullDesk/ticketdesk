@@ -117,14 +117,26 @@
 
                 </div>
                 <div class="form-group">
-                    <label class="col-md-1 col-sm-2 control-label" for="owner" data-i18n="appmodeltext:ticketOwner"></label>
+                    <label class="col-md-2 col-sm-2 control-label" for="owner" data-i18n="appmodeltext:ticketOwner"></label>
                     <div class="col-md-4 col-sm-4">
-                        <input class="form-control input-sm" type="text" id="owner" data-bind="value: owner" placeholder="person name" />
+                        <select id="owner" class="form-control input-sm"
+                                data-bind="options: $parent.submitterList,
+                                    optionsText: 'userName',
+                                    optionsValue:'userName',
+                                    value: owner,
+                                    optionsCaption: ' '"></select>
                     </div>
+
+
+
                     <label class="col-md-2 col-sm-2 control-label" for="assignedTo" data-i18n="appmodeltext:ticketAssignedTo"></label>
                     <div class="col-md-4 col-sm-4">
-                        <input class="form-control input-sm" type="text" id="assignedTo" data-bind="value: assignedTo"
-                               placeholder="person name" />
+                        <select id="owner" class="form-control input-sm"
+                                data-bind="options: $parent.staffList,
+                                    optionsText: 'userName',
+                                    optionsValue:'userName',
+                                    value: assignedTo,
+                                    optionsCaption: ' '"></select>
 
                     </div>
                 </div>

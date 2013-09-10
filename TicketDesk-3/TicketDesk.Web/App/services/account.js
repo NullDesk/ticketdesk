@@ -1,24 +1,24 @@
-﻿define(['durandal/system', 'services/datacontext', 'config', 'plugins/router', 'services/logger', 'services/notifiercontext'],
-    function (system, datacontext, config, router, logger, notifiercontext) {
-        var logoutUser = function () {
+﻿define(['durandal/system', 'services/datacontext', 'config', 'plugins/router', 'services/logger', 'services/notifiercontext', 'services/securitycontext'],
+    function (system, datacontext, config, router, logger, notifiercontext, securitycontext) {
+        var logoutUser = function() {
             return Q.when($.ajax({
                 url: '/api/useraccount/logout',
                 type: 'GET',
                 contentType: 'application/json',
                 data: JSON.stringify({ action: 'logout' })
             }))
-                .then(function () { secureRoutes(false); })
+                .then(function() { secureRoutes(false); })
                 .then(datacontext.reset).then(notifiercontext.stopHubs)
                 .fail(queryFailed);
-        }
+        };
 
-        var checkAuthentication = function () {
+        var checkAuthentication = function() {
             return Q.when($.ajax({
                 url: '/api/useraccount/authenticationcheck',
                 type: 'GET',
                 contentType: 'application/json'
-            }))
-        }
+            }));
+        };
 
         var loginUser = function (username, password, rememberme) {
             var data = {
@@ -38,6 +38,7 @@
                     secureRoutes(true);
                 })
                 .then(datacontext.primeData)
+                .then(securitycontext.primeData)
                 .then(notifiercontext.startHubs)
                 .then(function () {
                     router.navigate('');
@@ -50,7 +51,7 @@
             return true;
         };
 
-        var queryFailed = function (error, txt) {
+        var queryFailed = function(error, txt) {
             msg = txt;
             if (error.responseJSON) {
                 var result = error.responseJSON.result;
@@ -58,7 +59,7 @@
             }
             logger.logError(msg, error, system.getModuleId(vm), true);
             throw error;
-        }
+        };
 
         var vm = {
             checkAuthentication: checkAuthentication,
