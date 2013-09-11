@@ -21,7 +21,7 @@
             if (!forceRemote) {
                 var p = getUserLookup(entityNames.staffList, true);
                 if (p.length > 0) {
-                    observable(p);
+                    usersObservable(p);
                     return Q.resolve();
                 }
             }
@@ -33,7 +33,7 @@
             if (!forceRemote) {
                 var p = getUserLookup(entityNames.submitterList, true);
                 if (p.length > 0) {
-                    observable(p);
+                    usersObservable(p);
                     return Q.resolve();
                 }
             }
