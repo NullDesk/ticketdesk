@@ -110,14 +110,6 @@ namespace TicketDesk.Web.Controllers
             return respMessage;
         }
 
-        //private async Task Seed()
-        //{
-        //    if (!IdentityManager.Logins.HasLocalLogin("admin"))
-        //    {
-        //        var result = await IdentityManager.Users.CreateLocalUserAsync(new TdUser() { UserName = "admin" }, "password");
-        //        var x = result.Errors;
-        //    }
-        //}
     }
 
     public class Credential

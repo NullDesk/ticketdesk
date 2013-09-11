@@ -7,9 +7,13 @@
             activate: activate,
             attached: attached,
             isAuthenticated: isAuthenticated
+           
         };
 
         return shell;
+        
+
+    
 
         function attached() {
             if (navigator.appVersion.indexOf("MSIE")) {
@@ -23,6 +27,7 @@
 
         function activate() {
             var self = this;
+            
             return Q
                 .when(account.checkAuthentication()
                         .then(function () {
@@ -47,7 +52,7 @@
                 })
                 .then(function () {
                     log('TicketDesk SPA Loaded!', null, true);
-                });
+                })
 
 
         }
