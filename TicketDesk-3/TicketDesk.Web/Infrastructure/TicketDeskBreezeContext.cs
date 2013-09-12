@@ -30,6 +30,7 @@ namespace TicketDesk.Web.Infrastructure
                 {
                     //this hack is necessary so server thinks the client updated this field
                     entityInfo.OriginalValuesMap.Add("LastUpdateDate", ticket.LastUpdateDate);
+
                     //TODO: move to an event and subscribe to the event from the hubhelper
                     TicketDeskHubHelper.Instance.NotifyTicketChanged(ticket.TicketId);
                     allowSave = true;

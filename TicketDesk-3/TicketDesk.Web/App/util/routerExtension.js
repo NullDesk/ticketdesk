@@ -9,7 +9,7 @@
                         route.isNavOnAuthenticate = route.nav;
                     }
                     if (('isAdmin' in route) && route.isAdmin()) {
-                        route.isAccountOnAuthenticate = route.isAdmin() && !route.hideOnAuthenticate;
+                        route.isAdminOnAuthenticate = route.isAdmin() && !route.hideOnAuthenticate;
                     }
                     if (('isAccount' in route) && route.isAccount()) {
                         route.isAccountOnAuthenticate = route.isAccount() && !route.hideOnAuthenticate;
