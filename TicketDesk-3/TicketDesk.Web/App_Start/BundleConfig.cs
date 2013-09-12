@@ -19,7 +19,8 @@ namespace TicketDesk.Web
                 .Include("~/scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/jquery")
-                 .Include("~/Scripts/jquery-{version}.js"));
+                 .Include("~/scripts/jquery-{version}.js")
+                 .Include("~/scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/modernizr")
                 .Include("~/scripts/modernizr-{version}.js")
@@ -27,6 +28,7 @@ namespace TicketDesk.Web
 
             bundles.Add(
               new ScriptBundle("~/scripts/vendor")
+                .Include("~/scripts/tag-it.js")
                 .Include("~/scripts/knockout-{version}.js")
                 .Include("~/scripts/sammy-{version}.js")
                 .Include("~/scripts/toastr.js")
@@ -37,6 +39,7 @@ namespace TicketDesk.Web
                 .Include("~/scripts/pagedown/Markdown.Converter.js")
                 .Include("~/scripts/pagedown/Markdown.Editor.js")
                 .Include("~/scripts/pagedown/Markdown.Sanitizer.js")
+              
               );
             bundles.Add(
               new ScriptBundle("~/scripts/signalr")
@@ -54,6 +57,9 @@ namespace TicketDesk.Web
                 .Include("~/content/toastr.css")
                 .Include("~/content/app.css")
                 .Include("~/content/pagedown/pagedown.bootstrap.fontawesome.css")
+                .Include("~/content/jquery.tagit.css")
+                .Include("~/content/tagit.ui-zendesk.css")
+                .Include("~/content/themes/base/jquery-ui.css")
           );
         }
 

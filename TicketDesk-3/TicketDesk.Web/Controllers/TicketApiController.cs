@@ -40,6 +40,12 @@ namespace TicketDesk.Web.Controllers
         }
 
         [HttpGet]
+        public IEnumerable<TicketTag> TagSuggestionList()
+        {
+            return _contextProvider.Context.TicketTags.GetTagList();
+        }
+
+        [HttpGet]
         public IEnumerable<SimpleSetting> PriorityList()
         {
             return _contextProvider.Context.Settings.GetAvailablePriorities();

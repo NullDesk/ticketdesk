@@ -16,6 +16,9 @@
         var hasChanges = ko.observable(false);
 
 
+        var getTagSuggestionList = function(tagListObservable, forceRemote) {
+            return getSettingList('TagSuggestionList', tagListObservable, forceRemote);
+        };
 
         var getPriorityList = function (priorityListObservable, forceRemote) {
             return getSettingList('PriorityList', priorityListObservable, forceRemote);
@@ -183,7 +186,9 @@
         var primeData = function () {
             log('Priming Data', null, true);
             manager = configureBreezeManager();
-            return manager.fetchMetadata(manager.dataService).then(function() { primed = true; }).then(subscribeToChanges);
+            return model.loadMetadata(manager)
+                .then(function () { primed = true; })
+                .then(subscribeToChanges);
         };
 
         var datacontext = {
@@ -191,6 +196,7 @@
             getTicketTypeList: getTicketTypeList,
             getCategoryList: getCategoryList,
             getStatusList: getStatusList,
+            getTagSuggestionList: getTagSuggestionList,
             hasChanges: hasChanges,
             cancelChanges: cancelChanges,
             saveChanges: saveChanges,

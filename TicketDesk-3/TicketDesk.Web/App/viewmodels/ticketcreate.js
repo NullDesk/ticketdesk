@@ -1,6 +1,7 @@
 ﻿define(['durandal/app', 'services/datacontext', 'plugins/router', 'services/logger', 'services/securitycontext'],
     function (app, datacontext, router, logger, securitycontext) {
         var submitterList = ko.observableArray();
+        var tagList = ko.observableArray();
         var staffList = ko.observableArray();
         var isSaving = ko.observable(false);
         var isDeleting = ko.observable(false);
@@ -15,6 +16,7 @@
                             datacontext.getPriorityList(priorityList),
                             datacontext.getTicketTypeList(ticketTypeList),
                             datacontext.getCategoryList(categoryList),
+                            datacontext.getTagSuggestionList(tagList),
                             securitycontext.getTdSubmitters(submitterList),
                             securitycontext.getTdStaff(staffList)
             ]).then(function () {
@@ -68,16 +70,24 @@
         };
 
         var save = function () {
+            ticket().ticketStatus("Active");
             isSaving(true);
-            return datacontext.saveChanges().fin(complete);
+            return datacontext.saveChanges().then(complete);
 
             function complete() {
                 isSaving(false);
+                router.navigate('#/ticket/' + ticket().ticketId(), { replace: true });
             }
         };
 
 
         var initEditors = function () {
+            $('#tagList').tagit({
+                availableTags: $.map(tagList(), function (tag) {
+                    return tag.tagName();
+                })
+            });
+
             (function () {
 
                 //var help = function () { alert("Do you need help?"); };
@@ -114,6 +124,7 @@
         };
 
         var vm = {
+
             attached: initEditors,
             activate: activate,
             title: $.i18n.t('appuitext:viewTicketCreateTitle'),
@@ -128,7 +139,8 @@
             ticketTypeList: ticketTypeList,
             priorityList: priorityList,
             submitterList: submitterList,
-            staffList: staffList
+            staffList: staffList,
+            tagList: tagList
         };
 
         return vm;
