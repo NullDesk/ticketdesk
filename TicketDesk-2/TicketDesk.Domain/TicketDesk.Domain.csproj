@@ -75,38 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\DataAnnotations\AdCachedRoleMemberMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAnnotations\AdCachedUserPropertyMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAnnotations\AutoMetaData.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DataAnnotations\AdCachedRoleMemberMeta.cs" />
+    <Compile Include="Models\DataAnnotations\AdCachedUserPropertyMeta.cs" />
+    <Compile Include="Models\DataAnnotations\AutoMetaData.cs" />
     <Compile Include="Models\DataAnnotations\CustomValidators\SettingValueAttribute.cs" />
-    <Compile Include="Models\DataAnnotations\SettingMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DataAnnotations\SettingMeta.cs" />
     <Compile Include="Models\DataAnnotations\SettingMetaCustom.cs" />
-    <Compile Include="Models\DataAnnotations\TicketAttachmentMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAnnotations\TicketCommentMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAnnotations\TicketEventNotificationMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataAnnotations\TicketMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketAttachmentMeta.cs" />
+    <Compile Include="Models\DataAnnotations\TicketCommentMeta.cs" />
+    <Compile Include="Models\DataAnnotations\TicketEventNotificationMeta.cs" />
+    <Compile Include="Models\DataAnnotations\TicketMeta.cs" />
     <Compile Include="Models\DataAnnotations\TicketMetaCustom.cs" />
-    <Compile Include="Models\DataAnnotations\TicketTagMeta.cs">
-      <DependentUpon>AutoMetaData.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DataAnnotations\TicketTagMeta.cs" />
     <Compile Include="Models\Dto\ColumnSortDirection.cs" />
     <Compile Include="Models\Dto\IProfile.cs" />
     <Compile Include="Models\Dto\TicketCenterListSettings.cs" />
@@ -177,10 +157,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TicketDeskEntities1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\DataAnnotations\AutoMetaData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AutoMetaData.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
