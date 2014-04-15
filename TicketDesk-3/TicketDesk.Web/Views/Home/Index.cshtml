@@ -1,0 +1,623 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TicketDesk 3</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <meta name="fragment" content="!">
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/custom")
+
+    <script type="text/javascript">
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            var mq = "@@-ms-viewport{width:auto!important}";
+            msViewportStyle.appendChild(document.createTextNode(mq));
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+        window.applicationPath = "@Request.ApplicationPath";
+        window.ticketDeskUserLanguage = function () {
+            return '@System.Threading.Thread.CurrentThread.CurrentUICulture.Name';
+        };
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '@System.Configuration.ConfigurationManager.AppSettings["AnalyticsCode"]', '@System.Configuration.ConfigurationManager.AppSettings["AnalyticsDomain"]');
+
+    </script>
+</head>
+<body>
+    <div class="st-sticky-wrap" id="applicationHost">
+        <div class="durandal-wrapper" data-view="views/shell" style="" data-active-view="true">
+            @*<div>
+                <header data-bind="compose : 'viewmodels/header'">
+                    <nav class="navbar navbar-fixed-top" role="navigation" data-view="views/header" data-active-view="true" style="">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a data-bind="attr: { href: router.convertRouteToHash('/' + router.navigationModel()[0].hash) }" class="navbar-brand" href="/home/index"><i class="fa fa-home"></i>    TicketDesk</a>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-main-collapse" style="height: 0px;">
+                            <ul class="nav navbar-nav" data-bind="foreach: router.navigationModel">
+                                <li data-bind="css: { active: isActive }" class="active">
+                                    <a data-bind="attr: { href: $parent.router.convertRouteToHash('/' + hash) }, text: title" href="/home/index">Home</a>
+                                </li>
+
+                                <li data-bind="css: { active: isActive }" class="">
+                                    <a data-bind="attr: { href: $parent.router.convertRouteToHash('/' + hash) }, text: title" href="/home/articles">Articles</a>
+                                </li>
+
+                                <li data-bind="css: { active: isActive }" class="">
+                                    <a data-bind="attr: { href: $parent.router.convertRouteToHash('/' + hash) }, text: title" href="/home/help">Help</a>
+                                </li>
+
+                                <li data-bind="css: { active: isActive }" class="">
+                                    <a data-bind="attr: { href: $parent.router.convertRouteToHash('/' + hash) }, text: title" href="/home/about">About</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right" data-bind="if: typeof(appsecurity.userInfo()) == 'undefined'">
+                                <li>
+                                    <a data-bind="attr: { href: router.convertRouteToHash('/account/login') }" href="/account/login"><i class="fa fa-lock"></i>&nbsp; Login</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right" data-bind="if: !(typeof(appsecurity.userInfo()) == 'undefined')"></ul>
+                            <ul class="nav navbar-nav navbar-right visible-xs visible-sm">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-share-square"></i>   Share
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li role="presentation" class="dropdown-header">Share this site on your favourite network</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https://TicketDesk.azurewebsites.net&amp;p[images][0]=&amp;p[title]=TicketDesk%202.0&amp;p[summary]=ASP.NET%20Identity%20token%20authentication%20using%20Durandal" target="_blank">
+                                                <i class="fa fa-facebook-square"></i>   Share on Facebook
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="http://twitter.com/home?status=TicketDesk%202.0,%20ASP.NET%20Identity%20token%20authentication%20using%20Durandal%0A%0Ahttps://TicketDesk.azurewebsites.net" target="_blank">
+                                                <i class="fa fa-twitter-square"></i>   Share on Twitter
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://TicketDesk.azurewebsites.net&amp;title=TicketDesk%202.0&amp;summary=ASP.NET%20Identity%20token%20authentication%20using%20Durandal&amp;source=" target="_blank">
+                                                <i class="fa fa-linkedin-square"></i>   Share on LinkedIn
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://plus.google.com/share?url=https://TicketDesk.azurewebsites.net" target="_blank">
+                                                <i class="fa fa-google-plus-square"></i>   Share on Google plus
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul id="sharebar" class="nav navbar-nav navbar-right visible-md visible-lg">
+                                <li>
+                                    <a href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https://TicketDesk.azurewebsites.net&amp;p[images][0]=&amp;p[title]=TicketDesk%202.0&amp;p[summary]=ASP.NET%20Identity%20token%20authentication%20using%20Durandal" target="_blank">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://twitter.com/home?status=TicketDesk%202.0,%20ASP.NET%20Identity%20token%20authentication%20using%20Durandal%0A%0Ahttps://TicketDesk.azurewebsites.net" target="_blank">
+                                        <i class="fa fa-twitter-square"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://TicketDesk.azurewebsites.net&amp;title=TicketDesk%202.0&amp;summary=ASP.NET%20Identity%20token%20authentication%20using%20Durandal&amp;source=" target="_blank">
+                                        <i class="fa fa-linkedin-square"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://plus.google.com/share?url=https://TicketDesk.azurewebsites.net" target="_blank">
+                                        <i class="fa fa-google-plus-square"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+                <div class="page-host" data-bind="router: { transition:'entrance', cacheViews:true }">
+                    <div id="login" data-view="views/account/login" style="display: none;">
+                        <div class="container">
+                            <div class="page-header">
+                                <h1>Login to your account   <small>use your site credentials or any of the external providers allowed</small></h1>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form class="form-horizontal">
+                                        <div class="page-header">
+                                            <h4>Sign in with your credentials</h4>
+                                        </div>
+                                        <div class="form-group" data-bind="validationElement: username">
+                                            <label class="control-label col-lg-4" for="username">Username</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control" type="text" data-bind="value: username" placeholder="User name"><span class="validationMessage" style="display: none;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" data-bind="validationElement: password">
+                                            <label class="control-label col-lg-4" for="email">Password</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control" type="password" data-bind="value: password" placeholder="Password"><span class="validationMessage" style="display: none;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="checkbox col-lg-offset-4">
+                                            <label class="checkbox">
+                                                <input type="checkbox" data-bind="checked: rememberMe">Remember me
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-offset-4 mart2">
+                                            <button type="submit" class="btn btn-primary" data-bind="click: login">Sign in</button>
+                                            <button type="reset" class="btn btn-default">Reset</button>
+                                            <hr>
+                                            <a href="/account/register" class="btn btn-default" data-bind="attr: { href: convertRouteToHash('/account/register') }">Register if don't have and account</a>
+                                            <hr>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-offset-1 col-lg-5">
+                                    <div class="page-header">
+                                        <h4>... or you can sign in using another service</h4>
+                                    </div>
+                                    <div class="list-group" data-bind="foreach: externalLoginProviders">
+                                        <a class="list-group-item lead" href="#" data-bind="click: login, attr: { 'data-provider': name,  title: 'Log in using your ' + name() + ' account'}" data-provider="Google" title="Log in using your Google account">
+                                            <i data-bind="css: socialIcon($data)" class="fa fa-google-plus-square"></i>
+                                            <span data-bind="text: name">Google</span>
+                                        </a>
+
+                                        <a class="list-group-item lead" href="#" data-bind="click: login, attr: { 'data-provider': name,  title: 'Log in using your ' + name() + ' account'}" data-provider="Facebook" title="Log in using your Facebook account">
+                                            <i data-bind="css: socialIcon($data)" class="fa fa-facebook-square"></i>
+                                            <span data-bind="text: name">Facebook</span>
+                                        </a>
+
+                                        <a class="list-group-item lead" href="#" data-bind="click: login, attr: { 'data-provider': name,  title: 'Log in using your ' + name() + ' account'}" data-provider="Twitter" title="Log in using your Twitter account">
+                                            <i data-bind="css: socialIcon($data)" class="fa fa-twitter-square"></i>
+                                            <span data-bind="text: name">Twitter</span>
+                                        </a>
+
+                                        <a class="list-group-item lead" href="#" data-bind="click: login, attr: { 'data-provider': name,  title: 'Log in using your ' + name() + ' account'}" data-provider="Microsoft" title="Log in using your Microsoft account">
+                                            <i data-bind="css: socialIcon($data)" class="fa fa-envelope"></i>
+                                            <span data-bind="text: name">Microsoft</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div id="about" data-view="views/home/about" style="display: none;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="about-content well">
+                                    <h1><i class="fa fa-user"></i>    Who am I?</h1>
+                                    <p class="lead">
+                                        My name is Yago and I am a developer who
+                                        is passionate about web design and programming.
+                                    </p>
+                                </div>
+                                <div class="about-content well" style="margin-top:-5px;">
+                                    <h1><i class="fa fa-eye"></i>    What I like to do?</h1>
+                                    <p class="lead">I like to learn and explore new technologies and development environments. I also like to take a look at new and amazing projects to see how they evolve.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="about-content well">
+                                    <h1><i class="fa fa-comments"></i>    How can you contact me?</h1>
+                                    <ul class="list-unstyled">
+                                        <li><a href="https://github.com/yagopv" target="_blank"><i class="fa fa-github"></i>    Github</a></li>
+                                        <li><a href="https://twitter.com/yperezva" target="_blank"><i class="fa fa-twitter"></i>    Twitter</a></li>
+                                        <li><a href="https://www.facebook.com/yago.perezvazquez" target="_blank"><i class="fa fa-facebook"></i>    Facebook</a></li>
+                                        <li><a href="http://es.linkedin.com/pub/yago-p%C3%A9rez-v%C3%A1zquez/45/453/381" target="_blank"><i class="fa fa-linkedin"></i>    LinkedIn</a></li>
+                                    </ul>
+                                </div>
+                                <div class="about-content well" style="margin-top:-5px;">
+                                    <h1><i class="fa fa-cloud"></i>    Where I am?</h1>
+                                    <p class="lead">In a galaxy far, far away...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div id="help" data-view="views/home/help" style="display: none;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-header">
+                                        <h2 class="text-primary"><i class="fa fa-question-circle"></i>   How is this site working?</h2>
+                                    </div>
+                                    <p>
+                                        This site simulates a community-managed article repository. People with accounts can write articles in their
+                                        dashboards and make them public on the web.
+                                    </p>
+                                    <p>
+                                        The main objective of this sample application is to provide a way to authenticate and authorize users similar to
+                                        the default ASP MVC 5 SPA template but configured for being used with <span class="text-success">Durandal</span>.
+                                        You will find <span class="text-success">OAuth bearer token authentication</span> built-in for local and external providers among another useful features.
+                                    </p>
+                                    <hr>
+                                    <p>
+                                        The first thing you can do in this site is creating a new account using the
+                                        <a href="account/login" data-bind="attr: { href: convertRouteToHash('account/login') }">
+                                            membership system or the oAuth providers
+                                        </a>.
+                                    </p>
+                                    <p>
+                                        After logged in, the <span class="text-success">User</span>
+                                        role will be assigned to your new user that will allow access to the <a href="user/dashboard" data-bind="attr: { href: convertRouteToHash('user/dashboard') }">user dashboard</a>.
+                                        Once there, you can start writing articles.
+                                    </p>
+                                    <p>
+                                        While writing on your dashboard, remember to set the article as a public article if you want to make it visible for the rest of the community.
+                                    </p>
+                                    <p>
+                                        Administrator users can access the <a href="admin/panel" data-bind="attr: { href: convertRouteToHash('admin/panel') }">admin panel view</a>, but not the dashboard
+                                        because they have assigned the <span class="text-success">Administrator</span> role. but not the
+                                        <span class="text-success"> User one</span>.
+                                    </p>
+                                    <p>
+                                        For accesing the <a href="admin/panel" data-bind="attr: { href: convertRouteToHash('admin/panel') }">admin panel view</a>, try to log in with the
+                                        following user and password, <span class="text-success">admin/admin1234</span>. Once there, you will be able to check a list with the registered users
+                                        on this site.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-header">
+                                        <h2 class="text-primary"><i class="fa fa-plus-circle"></i>   Add you own Entities</h2>
+                                    </div>
+                                    <p>
+                                        One of the first things you would like to do with this sample template is creating your own entities and your own domain model.
+                                        You can remove all the sample entities and add you own ones following this steps.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <h3><span class="text-primary">Domain Layer</span></h3>
+                                            <ul>
+                                                <li>
+                                                    <p>First step should be adding the new entity to the <span class="text-success">Model</span> folder.</p>
+                                                    <p>
+                                                        It´s important to remember the <span class="text-success">[DataContract]</span> and <span class="text-success">[DataMember]</span>
+                                                        attributes. Fields not decorated with <span class="text-success">[DataMember]</span> won´t be managed by Breeze and won´t be propagated to the client application.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        Optionally you can add a extended repository contract like <span class="text-success">IMyNewEntityRepository.cs</span>
+                                                        in the <span class="text-success">Repositories</span> folder.
+                                                    </p>
+                                                    <p>This new repository will inherit from <span class="text-success">IRepository.cs</span> and should content specific methods for the new entity.</p>
+                                                    <p>You should do this only if need more functionality that the included in <span class="text-success">IRepository.cs</span>.</p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <h3><span class="text-primary">Data Layer</span></h3>
+                                            <ul>
+                                                <li>
+                                                    <p>Add the newly created entity to the <span class="text-success">TicketDeskDbContext.cs</span> class.</p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        If you decided to create a new repository contract in the <span class="text-success">Domain layer</span>, you need to
+                                                        implement it in the <span class="text-success">Data layer</span>.
+                                                    </p>
+                                                    <p>
+                                                        Create a new <span class="text-success">MyNewEntityRepository.cs</span> class under the <span class="text-success">Repositories</span> folder
+                                                        implementing <span class="text-success">IMyNewEntityRepository.cs</span> interface.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>Add the new repository to the <span class="text-success">UnitOfWork.cs</span>.</p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <h3><span class="text-primary">Web Layer</span></h3>
+                                            <ul>
+                                                <li>
+                                                    <p>
+                                                        Add methods to the <span class="text-success">TicketDeskController.cs</span> class in order to retrieve the new entity data.
+                                                        If you prefer to not use <span class="text-success">Breeze</span>, create a new Api Controller for the resource and call it from
+                                                        the client using standard AJAX calls.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>Under the Durandal App folder:</p>
+                                                    <ol>
+                                                        <li>
+                                                            <p>Add new initialization methods and constructors for the breeze entities using the <span class="text-success">model/modelBuilder.js</span> module.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>
+                                                                Add a new breeze resource in the <span class="text-success">services/unitofwork.js</span> module using the base
+                                                                <span class="text-success">repository.js</span> module or a new one you can create extending that one. Samples for
+                                                                extending <span class="text-success">repository.js</span> are <span class="text-success">privatearticlesrepository.js</span> and
+                                                                <span class="text-success">publicarticlesrepository.js</span>.
+                                                            </p>
+                                                        </li>
+                                                    </ol>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        Perhaps you would like to add some bussiness rules for the new entity. This sort of things can be accomplished in several ways
+                                                        like using data attributes. Another way breeze specific is using Breeze delegates. Under the <span class="text-success">Helpers</span> folder you have
+                                                        the <span class="text-success">BreezeValidator.cs</span> class implementing the <span class="text-success">IBreezeValidator.cs</span> on the Domain layer.
+                                                        The Breeze delegates are asigned in the <span class="text-success">UnitOfWork.cs</span> class under the <span class="text-success">Data Layer</span>.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        If you create new interfaces for repositories, remember to add them to the <span class="text-success">IoC.cs</span> container under the
+                                                        <span class="text-success">DependencyResolution folder</span>.
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="well well-danger mart2">
+                                        <h3>Important !!</h3>
+                                        <p>
+                                            The authorization system in the client can always be hacked!
+                                            Always authenticate and authorize the request in the server when retrieving the necessary data for your views.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-header">
+                                        <h2 class="text-primary"><i class="fa fa-lock"></i>   OAuth bearer token authentication using OWIN</h2>
+                                    </div>
+                                    <p>
+                                        The TicketDesk authentication system is based in <span class="text-success"> OAuth with bearer tokens and OWIN </span>.
+                                        A picked up code from the new ASP MVC 5 SPA application template and adapted it for being used with Durandal.
+                                        If you are familiar with that template you will understand TicketDesk.
+                                    </p>
+                                    <p>
+                                        For learning about bearer token authentication I recommend reading <a href="http://blogs.msdn.com/b/webdev/archive/2013/09/20/understanding-security-features-in-spa-template.aspx" target="_blank">this blog post</a>
+                                        about the new SPA template included in Visual Studio 2013. The ideas implemented in TicketDesk are pretty much the same.
+                                    </p>
+                                    <p>
+                                        The OAuth flows in TicketDesk are <a href="http://tools.ietf.org/html/rfc6749#section-4.3" target="_blank">Resource Owner Password Credentials Grant</a>
+                                        for local authentication and <a href="http://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">Implicit Grant</a> for external authentication services.
+                                    </p>
+                                    <p>
+                                        The use of bearer tokens implies you should be using HTTPS protocol to avoid the token to be intercepted. By default TicketDesk is configured for redirecting all
+                                        the requests to HTTPS via the <span class="text-success">RequireHttpsAttribute</span> present in ASP MVC and another one created for the Web API 2 and which you can find on the
+                                        <span class="text-success"> Filters</span> folder.
+                                    </p>
+                                    <p>
+                                        When you authenticate successfully and get the access token, this bearer token will be sent with each authenticated AJAX request to the server.
+                                        You can check the request <span class="text-success">Authorize header</span> using your favourite tool and will find it.
+                                    </p>
+                                    <div class="well mart2">
+                                        <h3>About token expiration</h3>
+                                        <p>
+                                            When checking the Remember Me checkbox in the login view, the token will be stored in the localstorage for subsequent sessions.
+                                            By default TicketDesk has configured a token expiration of 14 days since the user is authenticated. It means that when the 14 are completed,
+                                            the token will become invalid and the user must authenticate again.
+                                            The token expiration duration is configured in <span class="text-success">Startup.Auth.cs</span> so use your preferred timeframe.
+                                        </p>
+                                        <p>
+                                            When authenticating with external services, the token is stored in sessionstorage so the user must authenticate again in a new session. It´s easy to
+                                            change this behaviour:
+                                        </p>
+                                        <pre>if (data.hasRegistered) {
+    // Change persistent (last parameter) to true for storing the authentication token in local storage when
+    // login with external services
+    self.setAuthInfo(data.userName, data.roles, fragment.access_token, false);
+    dfd.resolve(true);
+}
+                    </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-header">
+                                        <h2 class="text-primary"><i class="fa fa-exchange"></i>   Theming with BootStrap</h2>
+                                    </div>
+                                    <p>I choose Bootstrap for theming TicketDesk. I think is easy to understand, mature and widely used.</p>
+                                    <p>
+                                        The theme applied by default is called WhitePlum, a beautiful purple theme,  but  you can use your own one replacing
+                                        in <span class="text-success">BundleConfig.cs</span> the <span class="text-success">bootstrap-whiteplum.css</span> file with your own theme.
+                                        Be aware about the Bootstrap nuget package is included so you can use bootstrap.css file in the <span class="text-success">Content</span> folder and
+                                        the default theme will be applied.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-header">
+                                        <h2 class="text-primary"><i class="fa fa-search"></i>   About SEO Optimization</h2>
+                                    </div>
+                                    <p>The template is ready to be SEO crawlable. TicketDesk implements the <a href="https://developers.google.com/webmasters/ajax-crawling/docs/getting-started" target="_blank"> google ajax crawling scheme</a> for pages without hash fragments. You need the default pushstate option enabled.</p>
+                                    <p>I created a interface (Helpers/ISnapshot.cs) that needs to be implemented in order to work.</p>
+                                    <p>The default implementation uses <a href="https://github.com/yagopv/azurecrawler" target="_blank"> a new project I created called AzureCrawler</a>.</p>
+                                    <p>This new project is a Worker Role ready to be deployed to Windows Azure and serving a REST Web API via OWIN. The Web API executes a phantomjs process when receiving requests and returns html snapshots. Moreover, AzureCrawler can save the snapshot to Azure Storage and keep it there with the expiration date you choose, so next time the page is requested for any bot, the stored snapshot will be served.</p>
+                                    <p>I created AzureCrawler like a separate project but it´s easy to bring all the concepts from AzureCrawler to your own project if you want to keep it in the same solution. Another option is creating your own implementation of ISnapshot.cs</p>
+                                    <p>Another included feature, very useful for SEO, is the dynamic generation of sitemaps. <a href="/sitemap" target="_blank">Click here</a> for browsing to the sitemap of this site.</p>
+                                    <p>Include your own urls in the <span class="text-success">SitemapController</span> and change the <span class="text-success">robots.txt</span> for pointing to your own domain.</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="page-header">
+                                        <h2 class="text-primary"><i class="fa fa-question"></i>   Need more information</h2>
+                                    </div>
+                                </div>
+                                <p>Write me an email or <a href="home/about" data-bind="attr: { href: convertRouteToHash('home/about') }">contact with me</a>.</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div><div id="articles" data-view="views/home/articles" style="display: none;">
+                        <div class="st-offcanvas no-additional active-transitions" style="opacity: 1;">
+                            <div class="st-offcanvas-menu">
+                                <div class="input-group mart5">
+                                    <input type="text" class="form-control" data-bind="value: search, event: { 'change': function () { searchArticles(false); }, 'keypress': evaluateKey }" placeholder="Search for articles">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" data-bind="click: function () { searchArticles(false); }" type="button"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                                <div class="panel panel-default mart5">
+                                    <div class="panel-heading">Select any Category</div>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item" data-bind="text: 'All', click: removeSelectedCategory">All</a>
+                                        <!-- ko  foreach : categories -->
+                                        <a href="#" class="list-group-item" data-bind="text: name, click: function () { $parent.changeSelectedCategory($data, $parent) } ">About TicketDesk</a>
+
+                                        <a href="#" class="list-group-item" data-bind="text: name, click: function () { $parent.changeSelectedCategory($data, $parent) } ">General</a>
+
+                                        <a href="#" class="list-group-item" data-bind="text: name, click: function () { $parent.changeSelectedCategory($data, $parent) } ">Development</a>
+
+                                        <a href="#" class="list-group-item" data-bind="text: name, click: function () { $parent.changeSelectedCategory($data, $parent) } ">Security</a>
+
+                                        <a href="#" class="list-group-item" data-bind="text: name, click: function () { $parent.changeSelectedCategory($data, $parent) } ">Technology</a>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="st-offcanvas-main">
+                                <div class="row offcanvas-buttons well">
+                                    <a href="#" class="showmenubutton" style="visibility: hidden;"><i class="fa fa-th"></i></a>
+                                </div>
+
+                                <div data-bind="if: articles().length === 0" class="mart5">
+                                    <h1>No articles found</h1>
+                                    <p class="lead">Change filter criteria to find articles</p>
+                                </div>
+
+                                <div data-bind="if: articles().length &gt; 0" class="mart5"></div>
+                                <hr class="mart2">
+                            </div>
+                        </div>
+                    </div><div id="index" data-view="views/home/index" style="" data-active-view="true">
+
+                        <div id="featured" class="jumbotron">
+                            <div class="container">
+                                <h1>Welcome to TicketDesk 3</h1>
+                                <p>A way to authenticate users using Durandal and token authentication with the new ASP.NET Identity membership</p>
+                                <p><a href="https://github.com/yagopv/TicketDesk" target="_blank" class=" btn btn-primary btn-lg" role="button">Visit the project repo on Github</a></p>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row mart5">
+                                <div class="col-sm-4 text-center">
+                                    <img src="/Content/icons/icon_data.png" alt="Breeze!!" width="200">
+                                    <h2>Breeze for data management</h2>
+                                    <p class="lead">Client-side data management uses the excellent Breeze JS framework</p>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <img src="/Content/icons/icon_cloud.png" alt="ASP MVC and Web API" width="200">
+                                    <h2>ASP MVC and Web API</h2>
+                                    <p class="lead">ASP MVC and Web API on the server-side</p>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <img src="/Content/icons/icon_library.png" alt="Patterns!!" width="200">
+                                    <h2>Unit of Work and Repositories</h2>
+                                    <p class="lead">You will find an implementation of this pattern both server (Entity Framework) and client side (Breeze)</p>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <img src="/Content/icons/icon_seo.png" alt="SEO ready!!" width="200">
+                                    <h2>SEO Optimization</h2>
+                                    <p class="lead">The template is ready to be SEO crawlable using a <a href="https://github.com/yagopv/azurecrawler" target="_blank">headless browser</a></p>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <img src="/Content/icons/icon_lock.png" alt="ASP.NET Identity!!" width="200">
+                                    <h2>ASP.NET Identity</h2>
+                                    <p class="lead">ASP.NET Identity system and token authentication ready</p>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <img src="/Content/icons/icon_angles.png" alt="Bootstrap!!" width="200">
+                                    <h2>... and of course</h2>
+                                    <p class="lead">My favorite tool ... Bootstrap for styling this site</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="container">
+
+                        <div class="container">
+                            <div class="row mart5">
+                                <div class="col-lg-4 text-center">
+                                    <img src="/Content/icons/icon_question.png" alt="Why this project?" width="150">
+                                    <h2>Why this project?</h2>
+                                    <p class="lead">
+                                        Because I couldn't find any proper way of working with this technology stack and this kind of authentication ... so
+                                        I tried to write it myself.
+                                    </p>
+                                </div>
+                                <div class="col-lg-4 text-center">
+                                    <img src="/Content/icons/icon_social.png" alt="Collaborate" width="150">
+                                    <h2>Collaborate</h2>
+                                    <p class="lead">
+                                        If you find bugs or want to improve the sample project template, feel free to contact me, create
+                                        a pull request, or
+                                        whatever you want.
+                                    </p>
+                                </div>
+                                <div class="col-lg-4 text-center">
+                                    <img src="/Content/icons/icon_project.png" alt="Project" width="150">
+                                    <h2>Visit the project site ...</h2>
+                                    <p class="lead">... <a href="https://github.com/yagopv/TicketDesk" target="_blank"> on Github</a> and check the code if you want.</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="st-sticky-push"></div>
+        </div>
+    </div>
+    <footer class="st-sticky-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="footer-content">
+                    <p>By <a href="http://reddnet.net" target="_blank">Stephen M. Redd</a></p>
+                    <p>TicketDesk is licensed under the <a href="https://raw.github.com/StephenRedd/TicketDesk/master/license" target="_blank">Ms-PL license</a></p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="footer-content">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="https://github.com/StephenRedd/TicketDesk" target="_blank"><i class="fa fa-github"></i>&nbsp;View project on Github</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/scripts/vendor")
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script type="text/javascript" src="/Scripts/require.js" data-main="/App/main"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="/App/main-built.js"></script>
+    }
+
+</body>
+</html>

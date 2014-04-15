@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Antlr 3.5.0.2" Category="Package" Bounds="1396.37333333333,880,82.6433333333334,25.96" Label="Antlr 3.5.0.2" />
+    <Node Id="Breeze.Client 1.4.6" Category="Package" Bounds="493.455,1408,116.183333333333,25.96" Label="Breeze.Client 1.4.6" />
+    <Node Id="Breeze.Server.ContextProvider 1.4.6" Category="Package" Bounds="734.311666666667,1464,206.686666666667,25.96" Label="Breeze.Server.ContextProvider 1.4.6" />
+    <Node Id="Breeze.Server.ContextProvider.EF6 1.4.6" Category="Package" Bounds="437.703333333333,1464,227.686666666667,25.96" Label="Breeze.Server.ContextProvider.EF6 1.4.6" />
+    <Node Id="Breeze.Server.WebApi2 1.4.6" Category="Package" Bounds="466.478333333333,1320,170.136666666667,25.96" Label="Breeze.Server.WebApi2 1.4.6" />
+    <Node Id="Breeze.WebApi2.EF6 1.4.6" Category="Package" Bounds="181.541666666667,1408,155.516666666667,25.96" Label="Breeze.WebApi2.EF6 1.4.6" />
+    <Node Id="CommonServiceLocator 1.0" Category="Package" Bounds="469.208333333333,864,164.676666666667,25.96" Label="CommonServiceLocator 1.0" />
+    <Node Id="Durandal 2.0.1" Category="Package" Bounds="503.421666666667,44,96.25,25.96" Label="Durandal 2.0.1" />
+    <Node Id="Durandal.Transitions 2.0.1" Category="Package" Bounds="181.253333333334,56,156.093333333333,25.96" Label="Durandal.Transitions 2.0.1" />
+    <Node Id="EntityFramework 6.0.1" Category="Package" Bounds="769.556666666666,1520,136.196666666667,25.96" Label="EntityFramework 6.0.1" />
+    <Node Id="FontAwesome 4.0.3.1" Category="Package" Bounds="193.23,1464,132.14,25.96" Label="FontAwesome 4.0.3.1" />
+    <Node Id="HtmlAgilityPack 1.4.6" Category="Package" Bounds="193.57,740,131.46,25.96" Label="HtmlAgilityPack 1.4.6" />
+    <Node Id="Knockout.Validation 1.0.1" Category="Package" Bounds="182.295,200,154.01,25.96" Label="Knockout.Validation 1.0.1" />
+    <Node Id="MarkdownSharp 1.13.0.0" Category="Package" Bounds="476.29,1552,150.513333333333,25.96" Label="MarkdownSharp 1.13.0.0" />
+    <Node Id="Microsoft.AspNet.Identity.Core 1.0.0" Category="Package" Bounds="732.473333333333,1576,210.363333333333,25.96" Label="Microsoft.AspNet.Identity.Core 1.0.0" />
+    <Node Id="Microsoft.AspNet.Identity.EntityFramework 1.0.0" Category="Package" Bounds="414.67,1640,273.753333333333,25.96" Label="Microsoft.AspNet.Identity.EntityFramework 1.0.0" />
+    <Node Id="Microsoft.AspNet.Identity.Owin 1.0.0" Category="Package" Bounds="152.865,620,212.87,25.96" Label="Microsoft.AspNet.Identity.Owin 1.0.0" />
+    <Node Id="Microsoft.AspNet.Mvc 5.0.0" Category="Package" Bounds="469.173333333333,1136,164.746666666667,25.96" Label="Microsoft.AspNet.Mvc 5.0.0" />
+    <Node Id="Microsoft.AspNet.Mvc.es 5.0.0" Category="Package" Bounds="169.941666666667,1080,178.716666666667,25.96" Label="Microsoft.AspNet.Mvc.es 5.0.0" />
+    <Node Id="Microsoft.AspNet.Razor 3.0.0" Category="Package" Bounds="1056.52,1124,172.593333333333,25.96" Label="Microsoft.AspNet.Razor 3.0.0" />
+    <Node Id="Microsoft.AspNet.Razor.es 3.0.0" Category="Package" Bounds="166.018333333333,1236,186.563333333333,25.96" Label="Microsoft.AspNet.Razor.es 3.0.0" />
+    <Node Id="Microsoft.AspNet.Web.Optimization 1.1.2" Category="Package" Bounds="718.423333333333,916,238.463333333333,25.96" Label="Microsoft.AspNet.Web.Optimization 1.1.2" />
+    <Node Id="Microsoft.AspNet.WebApi 5.0.0" Category="Package" Bounds="459.086666666667,1080,184.92,25.96" Label="Microsoft.AspNet.WebApi 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Client 5.0.0" Category="Package" Bounds="1328.74666666667,1156,217.896666666667,25.96" Label="Microsoft.AspNet.WebApi.Client 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Client.es 5.0.0" Category="Package" Bounds="1026.88333333333,1068,231.866666666667,25.96" Label="Microsoft.AspNet.WebApi.Client.es 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Core 5.0.0" Category="Package" Bounds="1036.60166666667,1268,212.43,25.96" Label="Microsoft.AspNet.WebApi.Core 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Core.es 5.0.0" Category="Package" Bounds="146.1,1352,226.4,25.96" Label="Microsoft.AspNet.WebApi.Core.es 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.HelpPage 5.0.0" Category="Package" Bounds="140.076666666667,1180,238.446666666667,25.96" Label="Microsoft.AspNet.WebApi.HelpPage 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.OData 5.0.0" Category="Package" Bounds="727.025,1232,221.26,25.96" Label="Microsoft.AspNet.WebApi.OData 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.Owin 5.0.0" Category="Package" Bounds="730.186666666667,804,214.936666666667,25.96" Label="Microsoft.AspNet.WebApi.Owin 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost 5.0.0" Category="Package" Bounds="719.27,1320,236.77,25.96" Label="Microsoft.AspNet.WebApi.WebHost 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost.es 5.0.0" Category="Package" Bounds="133.93,1292,250.74,25.96" Label="Microsoft.AspNet.WebApi.WebHost.es 5.0.0" />
+    <Node Id="Microsoft.AspNet.WebPages 3.0.0" Category="Package" Bounds="738.413333333333,972,198.483333333333,25.96" Label="Microsoft.AspNet.WebPages 3.0.0" />
+    <Node Id="Microsoft.AspNet.WebPages.es 3.0.0" Category="Package" Bounds="153.073333333334,960,212.453333333333,25.96" Label="Microsoft.AspNet.WebPages.es 3.0.0" />
+    <Node Id="Microsoft.Data.Edm 5.6.0" Category="Package" Bounds="1361.875,1268,151.64,25.96" Label="Microsoft.Data.Edm 5.6.0" />
+    <Node Id="Microsoft.Data.OData 5.6.0" Category="Package" Bounds="1061.86333333333,1212,161.906666666667,25.96" Label="Microsoft.Data.OData 5.6.0" />
+    <Node Id="Microsoft.Owin 2.0.2" Category="Package" Bounds="1078.67166666667,596,128.29,25.96" Label="Microsoft.Owin 2.0.2" />
+    <Node Id="Microsoft.Owin.Host.SystemWeb 2.0.2" Category="Package" Bounds="727.308333333333,564,220.693333333333,25.96" Label="Microsoft.Owin.Host.SystemWeb 2.0.2" />
+    <Node Id="Microsoft.Owin.Security 2.0.2" Category="Package" Bounds="751.241666666666,652,172.826666666667,25.96" Label="Microsoft.Owin.Security 2.0.2" />
+    <Node Id="Microsoft.Owin.Security.Cookies 2.0.2" Category="Package" Bounds="442.968333333333,576,217.156666666667,25.96" Label="Microsoft.Owin.Security.Cookies 2.0.2" />
+    <Node Id="Microsoft.Owin.Security.Facebook 2.0.2" Category="Package" Bounds="438.401666666667,664,226.29,25.96" Label="Microsoft.Owin.Security.Facebook 2.0.2" />
+    <Node Id="Microsoft.Owin.Security.Google 2.0.2" Category="Package" Bounds="444.561666666667,720,213.97,25.96" Label="Microsoft.Owin.Security.Google 2.0.2" />
+    <Node Id="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" Category="Package" Bounds="416.893333333333,456,269.306666666667,25.96" Label="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" />
+    <Node Id="Microsoft.Owin.Security.OAuth 2.0.2" Category="Package" Bounds="446.616666666667,328,209.86,25.96" Label="Microsoft.Owin.Security.OAuth 2.0.2" />
+    <Node Id="Microsoft.Owin.Security.Twitter 2.0.2" Category="Package" Bounds="445.608333333333,264,211.876666666667,25.96" Label="Microsoft.Owin.Security.Twitter 2.0.2" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" Bounds="1038.77833333333,868,208.076666666667,25.96" Label="Microsoft.Web.Infrastructure 1.0.0.0" />
+    <Node Id="Microsoft.WindowsAzure.ConfigurationManager 2.0.2.0" Category="Package" Bounds="986.886666666666,980,311.86,25.96" Label="Microsoft.WindowsAzure.ConfigurationManager 2.0.2.0" />
+    <Node Id="Moment.js 2.4.0" Category="Package" Bounds="207.413333333333,424,103.773333333333,25.96" Label="Moment.js 2.4.0" />
+    <Node Id="Newtonsoft.Json 5.0.8" Category="Package" Bounds="1576.64333333333,924,135.453333333333,25.96" Label="Newtonsoft.Json 5.0.8" />
+    <Node Id="Owin 1.0" Category="Package" Bounds="1404.57333333333,520,66.2433333333333,25.96" Label="Owin 1.0" />
+    <Node Id="Q 0.9.7" Category="Package" Bounds="809.183333333333,1408,56.9433333333334,25.96" Label="Q 0.9.7" />
+    <Node Id="RequireJS 2.1.9" Category="Package" Bounds="1093.20666666667,0,99.2200000000003,25.96" Label="RequireJS 2.1.9" />
+    <Node Id="RequireJS.Text 2.0.7" Category="Package" Bounds="775.676666666666,44,123.956666666667,25.96" Label="RequireJS.Text 2.0.7" />
+    <Node Id="Stashy 1.1.3" Category="Package" Bounds="510.48,100,82.1333333333334,25.96" Label="Stashy 1.1.3" />
+    <Node Id="StructureMap.MVC4 2.6.4.3" Category="Package" Bounds="177.356666666667,872,163.886666666667,25.96" Label="StructureMap.MVC4 2.6.4.3" />
+    <Node Id="System.Spatial 5.6.0" Category="Package" Bounds="1375.71,1212,123.97,25.96" Label="System.Spatial 5.6.0" />
+    <Node Id="TicketDesk.Domain" Category="Project" Bounds="198.813333333334,1596,120.973333333333,25.96" Label="TicketDesk.Domain" />
+    <Node Id="TicketDesk.Web" Category="Project" Bounds="0,740,103.93,25.96" Label="TicketDesk.Web" />
+    <Node Id="WebActivator 1.5.3" Category="Package" Bounds="777.746666666666,860,119.816666666667,25.96" Label="WebActivator 1.5.3" />
+    <Node Id="WebGrease 1.5.2" Category="Package" Bounds="1088.51833333333,924,108.596666666667,25.96" Label="WebGrease 1.5.2" />
+    <Node Id="WindowsAzure.Storage 3.0.0.0" Category="Package" Bounds="747.736666666666,1028,179.836666666667,25.96" Label="WindowsAzure.Storage 3.0.0.0" />
+    <Node Id="bootstrap 3.0.2" Category="Package" Bounds="209.515,144,99.5699999999999,25.96" Label="bootstrap 3.0.2" />
+    <Node Id="jQuery 2.0.3" Category="Package" Bounds="796.206666666666,100,82.8966666666666,25.96" Label="jQuery 2.0.3" />
+    <Node Id="knockoutjs 3.0.0" Category="Package" Bounds="785.118333333333,156,105.073333333333,25.96" Label="knockoutjs 3.0.0" />
+    <Node Id="structuremap 2.6.4.1" Category="Package" Bounds="487.828333333333,808,127.436666666667,25.96" Label="structuremap 2.6.4.1" />
+  </Nodes>
+  <Links>
+    <Link Source="Breeze.Client 1.4.6" Target="Q 0.9.7" Category="Package Dependency" Bounds="609.638305664063,1420.97998046875,190.545043945313,0" />
+    <Link Source="Breeze.Server.ContextProvider 1.4.6" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="870.663330078125,958.730895996094,768.702758789063,505.269104003906" />
+    <Link Source="Breeze.Server.ContextProvider.EF6 1.4.6" Target="Breeze.Server.ContextProvider 1.4.6" Category="Package Dependency" Bounds="665.390014648438,1476.97998046875,59.921630859375,0" />
+    <Link Source="Breeze.Server.ContextProvider.EF6 1.4.6" Target="EntityFramework 6.0.1" Category="Package Dependency" Bounds="617.862487792969,1489.9599609375,145.1201171875,28.4044189453125" />
+    <Link Source="Breeze.Server.WebApi2 1.4.6" Target="Breeze.Server.ContextProvider 1.4.6" Category="Package Dependency" Bounds="633.461486816406,1345.9599609375,180.978515625,112.410888671875" />
+    <Link Source="Breeze.Server.WebApi2 1.4.6" Target="Microsoft.AspNet.WebApi.OData 5.0.0" Category="Package Dependency" Bounds="593.747619628906,1260.60583496094,193.104125976563,59.3941650390625" />
+    <Link Source="Breeze.Server.WebApi2 1.4.6" Target="Microsoft.AspNet.WebApi.WebHost 5.0.0" Category="Package Dependency" Bounds="636.614990234375,1332.97998046875,73.655029296875,0" />
+    <Link Source="Breeze.Server.WebApi2 1.4.6" Target="WebActivator 1.5.3" Category="Package Dependency" Bounds="599.802124023438,888.6298828125,187.472778320313,431.3701171875" />
+    <Link Source="Breeze.WebApi2.EF6 1.4.6" Target="Breeze.Client 1.4.6" Category="Package Dependency" Bounds="337.058319091797,1420.97998046875,147.396667480469,0" />
+    <Link Source="Breeze.WebApi2.EF6 1.4.6" Target="Breeze.Server.ContextProvider.EF6 1.4.6" Category="Package Dependency" Bounds="327.038604736328,1433.9599609375,147.930267333984,28.3463134765625" />
+    <Link Source="Breeze.WebApi2.EF6 1.4.6" Target="Breeze.Server.WebApi2 1.4.6" Category="Package Dependency" Bounds="302.406372070313,1348.55493164063,197.416137695313,59.445068359375" />
+    <Link Source="Durandal 2.0.1" Target="RequireJS 2.1.9" Category="Package Dependency" Bounds="599.671691894531,12.9799995422363,484.534973144531,36.5989570617676" />
+    <Link Source="Durandal 2.0.1" Target="RequireJS.Text 2.0.7" Category="Package Dependency" Bounds="599.671691894531,56.9799995422363,167.005004882813,0" />
+    <Link Source="Durandal 2.0.1" Target="jQuery 2.0.3" Category="Package Dependency" Bounds="599.671691894531,66.3995056152344,187.702575683594,36.7390441894531" />
+    <Link Source="Durandal 2.0.1" Target="knockoutjs 3.0.0" Category="Package Dependency" Bounds="584.70458984375,69.9599990844727,211.411743164063,82.7592697143555" />
+    <Link Source="Durandal.Transitions 2.0.1" Target="Durandal 2.0.1" Category="Package Dependency" Bounds="337.3466796875,59.325309753418,157.082550048828,6.44999694824219" />
+    <Link Source="Knockout.Validation 1.0.1" Target="knockoutjs 3.0.0" Category="Package Dependency" Bounds="336.304992675781,173.659606933594,439.839294433594,33.4620208740234" />
+    <Link Source="Microsoft.AspNet.Identity.EntityFramework 1.0.0" Target="EntityFramework 6.0.1" Category="Package Dependency" Bounds="609.675903320313,1548.09936523438,160.502624511719,91.900634765625" />
+    <Link Source="Microsoft.AspNet.Identity.EntityFramework 1.0.0" Target="Microsoft.AspNet.Identity.Core 1.0.0" Category="Package Dependency" Bounds="609.572998046875,1603.92468261719,161.272705078125,36.0753173828125" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 1.0.0" Target="Microsoft.AspNet.Identity.Core 1.0.0" Category="Package Dependency" Bounds="301.332183837891,645.960021972656,472.765716552734,927.965637207031" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 1.0.0" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="365.734985351563,632.97998046875,376.562438964844,21.3346557617188" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 1.0.0" Target="Microsoft.Owin.Security.Cookies 2.0.2" Category="Package Dependency" Bounds="345.512756347656,603.299926757813,110.921447753906,16.7000732421875" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 1.0.0" Target="Microsoft.Owin.Security.OAuth 2.0.2" Category="Package Dependency" Bounds="280.85986328125,359.406707763672,246.447937011719,260.593292236328" />
+    <Link Source="Microsoft.AspNet.Mvc 5.0.0" Target="Microsoft.AspNet.Razor 3.0.0" Category="Package Dependency" Bounds="633.919982910156,1136.97998046875,413.600036621094,8.5450439453125" />
+    <Link Source="Microsoft.AspNet.Mvc 5.0.0" Target="Microsoft.AspNet.WebPages 3.0.0" Category="Package Dependency" Bounds="589.319580078125,1000.48162841797,193.618103027344,135.518371582031" />
+    <Link Source="Microsoft.AspNet.Mvc.es 5.0.0" Target="Microsoft.AspNet.Mvc 5.0.0" Category="Package Dependency" Bounds="327.038604736328,1105.9599609375,147.930267333984,28.3463134765625" />
+    <Link Source="Microsoft.AspNet.Razor.es 3.0.0" Target="Microsoft.AspNet.Razor 3.0.0" Category="Package Dependency" Bounds="352.581665039063,1151.80737304688,719.536010742188,101.672607421875" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="920.17578125,895.358459472656,131.229370117188,20.6415405273438" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.1.2" Target="WebGrease 1.5.2" Category="Package Dependency" Bounds="956.886657714844,932.105712890625,122.634826660156,3.2149658203125" />
+    <Link Source="Microsoft.AspNet.WebApi 5.0.0" Target="Microsoft.AspNet.WebApi.WebHost 5.0.0" Category="Package Dependency" Bounds="599.76318359375,1105.9599609375,184.60986328125,211.527221679688" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 5.0.0" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="1449.25805664063,956.68017578125,177.562255859375,199.31982421875" />
+    <Link Source="Microsoft.AspNet.WebApi.Client.es 5.0.0" Target="Microsoft.AspNet.WebApi.Client 5.0.0" Category="Package Dependency" Bounds="1186.31127929688,1093.9599609375,199.265014648438,59.46630859375" />
+    <Link Source="Microsoft.AspNet.WebApi.Core 5.0.0" Target="Microsoft.AspNet.WebApi.Client 5.0.0" Category="Package Dependency" Bounds="1176.99096679688,1185.15563964844,218.1162109375,82.8443603515625" />
+    <Link Source="Microsoft.AspNet.WebApi.Core.es 5.0.0" Target="Microsoft.AspNet.WebApi.Core 5.0.0" Category="Package Dependency" Bounds="372.5,1295.49584960938,686.113159179688,67.6500244140625" />
+    <Link Source="Microsoft.AspNet.WebApi.HelpPage 5.0.0" Target="Microsoft.AspNet.Mvc 5.0.0" Category="Package Dependency" Bounds="345.512756347656,1162.56616210938,115.795135498047,17.433837890625" />
+    <Link Source="Microsoft.AspNet.WebApi.HelpPage 5.0.0" Target="Microsoft.AspNet.Razor 3.0.0" Category="Package Dependency" Bounds="378.523345947266,1146.96789550781,669.045745849609,46.0120849609375" />
+    <Link Source="Microsoft.AspNet.WebApi.HelpPage 5.0.0" Target="Microsoft.AspNet.WebApi.WebHost 5.0.0" Category="Package Dependency" Bounds="376.463226318359,1205.80895996094,415.859283447266,111.200561523438" />
+    <Link Source="Microsoft.AspNet.WebApi.OData 5.0.0" Target="Microsoft.AspNet.WebApi.Client 5.0.0" Category="Package Dependency" Bounds="899.545593261719,1173.77954101563,420.208557128906,58.220458984375" />
+    <Link Source="Microsoft.AspNet.WebApi.OData 5.0.0" Target="Microsoft.AspNet.WebApi.Core 5.0.0" Category="Package Dependency" Bounds="946.270751953125,1257.79345703125,82.6029052734375,9.74462890625" />
+    <Link Source="Microsoft.AspNet.WebApi.OData 5.0.0" Target="Microsoft.Data.OData 5.6.0" Category="Package Dependency" Bounds="948.284973144531,1230.87414550781,104.597595214844,6.855224609375" />
+    <Link Source="Microsoft.AspNet.WebApi.Owin 5.0.0" Target="Microsoft.AspNet.WebApi.Core 5.0.0" Category="Package Dependency" Bounds="861.391784667969,829.960021972656,242.669372558594,434.513244628906" />
+    <Link Source="Microsoft.AspNet.WebApi.Owin 5.0.0" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="888.275024414063,623.8896484375,186.619873046875,180.1103515625" />
+    <Link Source="Microsoft.AspNet.WebApi.Owin 5.0.0" Target="Owin 1.0" Category="Package Dependency" Bounds="945.123352050781,553.916442871094,481.502746582031,258.837524414063" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 5.0.0" Target="Microsoft.AspNet.WebApi.Core 5.0.0" Category="Package Dependency" Bounds="913.828063964844,1295.47180175781,143.943420410156,24.5281982421875" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost.es 5.0.0" Target="Microsoft.AspNet.WebApi.WebHost 5.0.0" Category="Package Dependency" Bounds="384.670013427734,1294.8466796875,359.687591552734,23.7852783203125" />
+    <Link Source="Microsoft.AspNet.WebPages 3.0.0" Target="Microsoft.AspNet.Razor 3.0.0" Category="Package Dependency" Bounds="867.625122070313,997.960021972656,206.690307617188,124.044494628906" />
+    <Link Source="Microsoft.AspNet.WebPages 3.0.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="875.741516113281,896.86328125,220.469787597656,75.13671875" />
+    <Link Source="Microsoft.AspNet.WebPages.es 3.0.0" Target="Microsoft.AspNet.WebPages 3.0.0" Category="Package Dependency" Bounds="365.526672363281,977.341796875,363.886657714844,7.63818359375" />
+    <Link Source="Microsoft.Data.OData 5.6.0" Target="Microsoft.Data.Edm 5.6.0" Category="Package Dependency" Bounds="1211.16528320313,1237.9599609375,149.339111328125,28.36083984375" />
+    <Link Source="Microsoft.Data.OData 5.6.0" Target="System.Spatial 5.6.0" Category="Package Dependency" Bounds="1223.77001953125,1224.97998046875,142.93994140625,0" />
+    <Link Source="Microsoft.Owin 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="1193.17883300781,543.762756347656,202.679321289063,52.2372436523438" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="947.572509765625,588.506225585938,122.148193359375,12.8087768554688" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.0.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="883.385192871094,589.960021972656,221.081115722656,274.474792480469" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="948.001647949219,537.545288085938,447.624206542969,35.0955200195313" />
+    <Link Source="Microsoft.Owin.Security 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="908.387084960938,622.279357910156,161.95703125,29.7206420898438" />
+    <Link Source="Microsoft.Owin.Security 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="924.068359375,549.110534667969,473.98876953125,112.471374511719" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="659.295288085938,601.03125,410.38330078125,15.5850830078125" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.0.2" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="600.410949707031,601.960021972656,179.681396484375,47.7294311523438" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="600.116394042969,534.039978027344,795.459777832031,41.9600219726563" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="664.691650390625,623.990905761719,413.320190429688,59.5140991210938" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.0.2" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="664.691650390625,668.981506347656,77.5579223632813,3.2529296875" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.0.2" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="590.270263671875,689.960021972656,1046.796875,625.778381347656" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="632.807312011719,534.23388671875,762.769958496094,129.76611328125" />
+    <Link Source="Microsoft.Owin.Security.Google 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="658.531677246094,623.077880859375,412.487243652344,114.198669433594" />
+    <Link Source="Microsoft.Owin.Security.Google 2.0.2" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="606.159729003906,680.041076660156,168.126159667969,39.9589233398438" />
+    <Link Source="Microsoft.Owin.Security.Google 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="644.388793945313,552.065734863281,772.6376953125,220.914245605469" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="686.200012207031,468.980010986328,394.284729003906,124.901153564453" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="581.470703125,481.959991455078,201.261047363281,167.608489990234" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="609.572998046875,340.980010986328,1027.34729003906,574.516754150391" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="667.599365234375,436.980010986328,728.5166015625,82.4635925292969" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="655.950500488281,352.657135009766,415.990295410156,241.663665771484" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.0.2" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="568.77734375,353.959991455078,217.573181152344,295.422088623047" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.0.2" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="655.950500488281,308.980010986328,985.123596191406,606.120391845703" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="656.476684570313,340.980010986328,739.585205078125,178.678253173828" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.0.2" Target="Microsoft.Owin 2.0.2" Category="Package Dependency" Bounds="657.484985351563,276.980010986328,420.744018554688,316.981658935547" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.0.2" Target="Microsoft.Owin.Security 2.0.2" Category="Package Dependency" Bounds="584.469421386719,289.959991455078,203.180053710938,359.348541259766" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.0.2" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="609.572998046875,212.979995727539,1031.66528320313,702.110702514648" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.0.2" Target="Owin 1.0" Category="Package Dependency" Bounds="656.883850097656,259.380004882813,745.653869628906,256.725646972656" />
+    <Link Source="RequireJS.Text 2.0.7" Target="RequireJS 2.1.9" Category="Package Dependency" Bounds="899.633361816406,21.4174518585205,184.665466308594,26.6261501312256" />
+    <Link Source="Stashy 1.1.3" Target="jQuery 2.0.3" Category="Package Dependency" Bounds="592.613342285156,112.980003356934,194.593322753906,0" />
+    <Link Source="StructureMap.MVC4 2.6.4.3" Target="CommonServiceLocator 1.0" Category="Package Dependency" Bounds="341.243347167969,879.480224609375,118.968353271484,3.25665283203125" />
+    <Link Source="StructureMap.MVC4 2.6.4.3" Target="Microsoft.AspNet.WebApi 5.0.0" Category="Package Dependency" Bounds="311.622039794922,897.960021972656,180.098358154297,179.824401855469" />
+    <Link Source="StructureMap.MVC4 2.6.4.3" Target="WebActivator 1.5.3" Category="Package Dependency" Bounds="341.241180419922,884.519714355469,427.630340576172,26.174560546875" />
+    <Link Source="StructureMap.MVC4 2.6.4.3" Target="structuremap 2.6.4.1" Category="Package Dependency" Bounds="318.5712890625,835.885314941406,164.912445068359,36.1146850585938" />
+    <Link Source="TicketDesk.Domain" Target="Breeze.Server.ContextProvider 1.4.6" Category="Installed Package" Bounds="319.786651611328,1494.03796386719,484.307647705078,114.942016601563" />
+    <Link Source="TicketDesk.Domain" Target="MarkdownSharp 1.13.0.0" Category="Installed Package" Bounds="319.786651611328,1577.60534667969,147.902587890625,22.2679443359375" />
+    <Link Source="TicketDesk.Domain" Target="Microsoft.AspNet.Identity.EntityFramework 1.0.0" Category="Installed Package" Bounds="319.786651611328,1618.08679199219,136.647552490234,20.5732421875" />
+    <Link Source="TicketDesk.Web" Target="Breeze.WebApi2.EF6 1.4.6" Category="Installed Package" Bounds="53.7462043762207,765.960021972656,157.394969940186,639.237121582031" />
+    <Link Source="TicketDesk.Web" Target="Durandal.Transitions 2.0.1" Category="Installed Package" Bounds="53.4687271118164,84.627067565918,155.402030944824,655.372932434082" />
+    <Link Source="TicketDesk.Web" Target="FontAwesome 4.0.3.1" Category="Installed Package" Bounds="53.7385635375977,765.960021972656,169.511985778809,694.242492675781" />
+    <Link Source="TicketDesk.Web" Target="HtmlAgilityPack 1.4.6" Category="Installed Package" Bounds="103.930000305176,752.97998046875,80.640007019043,0" />
+    <Link Source="TicketDesk.Web" Target="Knockout.Validation 1.0.1" Category="Installed Package" Bounds="55.4749031066895,234.003021240234,193.269100189209,505.996978759766" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.Identity.EntityFramework 1.0.0" Category="Installed Package" Bounds="53.6147804260254,765.960021972656,352.055233001709,887.019958496094" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.Identity.Owin 1.0.0" Category="Installed Package" Bounds="61.1273040771484,648.036743164063,108.994827270508,91.9632568359375" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.Mvc.es 5.0.0" Category="Installed Package" Bounds="55.175365447998,765.960021972656,151.182224273682,311.509582519531" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.Razor.es 3.0.0" Category="Installed Package" Bounds="54.242244720459,765.960021972656,154.012058258057,467.407653808594" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.Web.Optimization 1.1.2" Category="Installed Package" Bounds="61.814525604248,765.960021972656,647.640369415283,181.019958496094" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.WebApi.Client.es 5.0.0" Category="Installed Package" Bounds="55.5481071472168,765.960021972656,962.349964141846,307.861145019531" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.WebApi.Core.es 5.0.0" Category="Installed Package" Bounds="53.6556663513184,765.960021972656,157.298206329346,583.248840332031" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.WebApi.HelpPage 5.0.0" Category="Installed Package" Bounds="55.1526145935059,765.960021972656,181.976291656494,408.219177246094" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.WebApi.Owin 5.0.0" Category="Installed Package" Bounds="103.75464630127,763.970642089844,632.144889831543,38.783203125" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.WebApi.WebHost.es 5.0.0" Category="Installed Package" Bounds="54.267276763916,765.960021972656,163.134746551514,522.788879394531" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.AspNet.WebPages.es 3.0.0" Category="Installed Package" Bounds="57.2303771972656,765.960021972656,146.050720214844,191.660095214844" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.Owin.Host.SystemWeb 2.0.2" Category="Installed Package" Bounds="60.497371673584,544.97998046875,658.880619049072,195.02001953125" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.Owin.Security.Facebook 2.0.2" Category="Installed Package" Bounds="69.4916076660156,676.97998046875,359.910064697266,63.02001953125" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.Owin.Security.Google 2.0.2" Category="Installed Package" Bounds="103.75464630127,716.744689941406,331.837211608887,25.2446899414063" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.Owin.Security.MicrosoftAccount 2.0.2" Category="Installed Package" Bounds="56.4610443115234,483.299926757813,399.973159790039,256.700073242188" />
+    <Link Source="TicketDesk.Web" Target="Microsoft.Owin.Security.Twitter 2.0.2" Category="Installed Package" Bounds="55.890625,292.243835449219,437.474273681641,447.756164550781" />
+    <Link Source="TicketDesk.Web" Target="Moment.js 2.4.0" Category="Installed Package" Bounds="55.4490776062012,452.469512939453,150.503513336182,287.530487060547" />
+    <Link Source="TicketDesk.Web" Target="Stashy 1.1.3" Category="Installed Package" Bounds="54.8610877990723,112.980003356934,446.618923187256,627.019996643066" />
+    <Link Source="TicketDesk.Web" Target="StructureMap.MVC4 2.6.4.3" Category="Installed Package" Bounds="72.3529434204102,765.960021972656,158.967155456543,101.20654296875" />
+    <Link Source="TicketDesk.Web" Target="WindowsAzure.Storage 3.0.0.0" Category="Installed Package" Bounds="57.0079765319824,765.960021972656,681.750324249268,268.146423339844" />
+    <Link Source="TicketDesk.Web" Target="bootstrap 3.0.2" Category="Installed Package" Bounds="54.8198127746582,173.748748779297,168.3483543396,566.251251220703" />
+    <Link Source="WebActivator 1.5.3" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" Bounds="897.563354492188,874.550537109375,132.218017578125,3.4661865234375" />
+    <Link Source="WebGrease 1.5.2" Target="Antlr 3.5.0.2" Category="Package Dependency" Bounds="1197.11499023438,900.473999023438,190.35693359375,28.4039306640625" />
+    <Link Source="WebGrease 1.5.2" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="1197.11499023438,936.97998046875,370.5283203125,0" />
+    <Link Source="WindowsAzure.Storage 3.0.0.0" Target="Microsoft.Data.OData 5.6.0" Category="Package Dependency" Bounds="911.640319824219,1053.9599609375,162.523376464844,156.132690429688" />
+    <Link Source="WindowsAzure.Storage 3.0.0.0" Target="Microsoft.WindowsAzure.ConfigurationManager 2.0.2.0" Category="Package Dependency" Bounds="920.17578125,1007.35845947266,131.229370117188,20.6415405273438" />
+    <Link Source="WindowsAzure.Storage 3.0.0.0" Target="Newtonsoft.Json 5.0.8" Category="Package Dependency" Bounds="927.573303222656,953.879943847656,681.868835449219,85.9214477539063" />
+    <Link Source="bootstrap 3.0.2" Target="jQuery 2.0.3" Category="Package Dependency" Bounds="309.084991455078,120.722259521484,478.226226806641,36.2577362060547" />
+  </Links>
+  <Categories>
+    <Category Id="Installed Package" />
+    <Category Id="Package" />
+    <Category Id="Package Dependency" />
+    <Category Id="Project" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

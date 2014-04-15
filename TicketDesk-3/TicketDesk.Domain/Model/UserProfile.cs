@@ -1,27 +1,31 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TicketDesk.Domain.Model
 {
-    [Table("UserProfile")]
-    public class UserProfile
+    /// <summary>
+    ///  User Profile entity
+    /// </summary>
+    [DataContract(IsReference = true)]
+    public class UserProfile : IdentityUser
     {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        
-        public string UserName { get; set; }
-
-        public string DisplayName { get; set; }
-        
-        //public object UserDisplayPreferences{get;set;} //TicketDesk.Domain.Models.UserDisplayPreferences" />
-
-        [DefaultValue(true)]
-        public bool? OpenEditorWithPreview { get; set; }
-        
-        [DefaultValue(2)]
-        public int? EditorMode { get; set; }
-
+        /// <summary>
+        ///  Email for the User
+        /// </summary>
+        /// <remarks>Ignoring this field by not using DataMember</remarks>
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [StringLength(200)]
+        [EmailAddress]
+        [DataMember]
+        public string Email { get; set; }
     }
 }

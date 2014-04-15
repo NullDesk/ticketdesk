@@ -1,0 +1,33 @@
+<div id="externalloginconfirmation">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="text-center">External login confirmation   <small>confirm your internal user name and mail for this site</small></h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-7">
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>You've successfully</strong> authenticated with <span data-bind="text: loginProvider"></span>.
+                    Please enter a user name and email for this site and click confirm button to finish
+                    logging in.
+                </div>
+                <form data-bind="submit: confirmexternalaccount">            
+                    <div class="page-header">
+                        <h4>Associate your <span data-bind="text: loginProvider"></span> account</h4>
+                    </div>    
+                    <div class="form-group" data-bind="validationElement: userName">
+                        <label class="control-label" for="UserName">User name</label>        
+                        <input class="form-control" type="text" data-bind="value: userName" placeholder="User name">        
+                    </div>
+                    <div class="form-group" data-bind="validationElement: email">
+                        <label class="control-label" for="Email">Email</label>    
+                        <input class="form-control" type="text" data-bind="value: email" placeholder="Email">    
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-primary" >Confirm account</button>    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

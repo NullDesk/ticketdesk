@@ -25,6 +25,7 @@ namespace TicketDesk.Web.Controllers
     public class TextController : ApiController
     {
         // GET api/<controller>/en-us/appuitext
+        [AllowAnonymous]
         public HttpResponseMessage Get(string lang, string ns)
         {
             var cinfo = lang.Equals("dev", StringComparison.InvariantCultureIgnoreCase) ?

@@ -1,26 +1,28 @@
-﻿﻿using System.Web;
-using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
-using TicketDesk.Domain;
-using TicketDesk.Domain.Legacy;
-using TicketDesk.Domain.Legacy.Migrations;
+using System.Web.Security;
+using System.Web.SessionState;
+using System.Web.Http;
+using System.Web.Optimization;
+using TicketDesk.Web.App_Start;
 
 namespace TicketDesk.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
-    public class MvcApplication : System.Web.HttpApplication
+    public class Global : HttpApplication
     {
-        protected void Application_Start()
+        void Application_Start(object sender, EventArgs e)
         {
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(RouteConfig.RegisterWebApiRoutes);
+            RouteConfig.RegisterMVCRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(SuppressFormsAuthRedirectModule))
-          
+            AuthConfig.RegisterMVCAuth(GlobalFilters.Filters);
+            AuthConfig.RegisterWebApiAuth(GlobalConfiguration.Configuration);
+            DatabaseConfig.InitDatabase();
         }
     }
 }

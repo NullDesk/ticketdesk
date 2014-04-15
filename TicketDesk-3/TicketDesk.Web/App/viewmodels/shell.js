@@ -1,65 +1,83 @@
-﻿define(['durandal/system', 'plugins/router', 'config', 'services/account', 'services/datacontext', 'services/logger', 'services/notifiercontext', 'services/securitycontext'],
-    function (system, router, config, account, datacontext, logger, notifiercontext, securitycontext) {
-        var isAuthenticated = false;
+﻿define(['plugins/router', 'services/appsecurity', 'services/errorhandler', 'services/entitymanagerprovider', 'model/modelBuilder', 'services/appsecurity', 'i18next'],
+    function (router, appsecurity, errorhandler, entitymanagerprovider, modelBuilder, appsecurity, i18n) {
 
-        var shell = {
-            router: router,
-            activate: activate,
-            attached: attached,
-            isAuthenticated: isAuthenticated
-           
+        entitymanagerprovider.modelBuilder = modelBuilder.extendMetadata;
+
+        var viewmodel = {
+
+            attached: function () {
+                $(document).find("footer").show();
+
+            },
+
+            activate: function () {
+                var self = this;
+
+                return entitymanagerprovider
+                        .prepare()
+                        .then(function () {
+
+                            //configure routing
+                            router.makeRelative({ moduleId: 'viewmodels' });
+
+                            // If the route has the authorize flag and the user is not logged in => navigate to login view                                
+                            router.guardRoute = function (instance, instruction) {
+                                if (sessionStorage["redirectTo"]) {
+                                    var redirectTo = sessionStorage["redirectTo"]
+                                    sessionStorage.removeItem("redirectTo");
+                                    return redirectTo;
+                                }
+
+                                if (instruction.config.authorize) {
+                                    if (typeof (appsecurity.userInfo()) !== 'undefined') {
+                                        if (appsecurity.isUserInRole(instruction.config.authorize)) {
+                                            return true;
+                                        } else {
+                                            return "/account/login?returnUrl=" + encodeURIComponent(instruction.fragment);
+                                        }
+                                    } else {
+                                        return "/account/login?returnUrl=" + encodeURIComponent(instruction.fragment);
+                                    }
+                                } else {
+                                    return true;
+                                }
+                            };
+
+                            // Config Routes
+                            // Routes with authorize flag will be forbidden and will redirect to login page
+                            // As this is javascript and is controlled by the user and his browser, the flag is only a UI guidance. You should always check again on 
+                            // server in order to ensure the resources travelling back on the wire are really allowed
+
+                            return router.map([
+                                // Nav urls
+                                { route: ['', 'home/index'], moduleId: 'home/index', title: 'Home', nav: true, hash: "#home/index" },
+                                { route: 'home/tickets', moduleId: 'home/ticketlist', title: 'Tickets', nav: true, hash: "#home/tickets" },
+
+                                { route: 'home/help', moduleId: 'home/help', title: 'Help', nav: true, hash: "#home/help" },
+                                { route: 'home/about', moduleId: 'home/about', title: 'About', nav: true, hash: "#home/about" },
+                                { route: 'notfound', moduleId: 'notfound', title: 'Not found', nav: false },
+
+                                // Admin panel url
+                                { route: 'admin/panel', moduleId: 'admin/panel', title: 'Admin Panel', nav: false, hash: "#admin/panel", authorize: ["Administrator"] },
+
+                                // Account Controller urls
+                                { route: 'account/login', moduleId: 'account/login', title: 'Login', nav: false, hash: "#account/login" },
+                                { route: 'account/externalloginconfirmation', moduleId: 'account/externalloginconfirmation', title: 'External login confirmation', nav: false, hash: "#account/externalloginconfirmation" },
+                                { route: 'account/externalloginfailure', moduleId: 'account/externalloginfailure', title: 'External login failure', nav: false, hash: "#account/externalloginfailure" },
+                                { route: 'account/register', moduleId: 'account/register', title: 'Register', nav: false, hash: "#account/register" },
+                                { route: 'account/manage', moduleId: 'account/manage', title: 'Manage account', nav: false, hash: "#account/manage", authorize: ["User", "Administrator"] },
+
+                                // User articles urls
+                               ])
+                            .buildNavigationModel()
+                            .mapUnknownRoutes("notfound", "notfound")
+                            .activate({ pushState: true });
+                        })
+                        .fail(self.handlevalidationerrors);
+            }
         };
 
-        return shell;
-        
+        errorhandler.includeIn(viewmodel);
 
-    
-
-        function attached() {
-            if (navigator.appVersion.indexOf("MSIE")) {
-                elems = [$('body'), $('#applicationHost'), $('.durandal-wrapper'), $('html')];
-                elems.forEach(function (i) { i.css('height', '100%').css('position', 'relative') });
-
-            }
-        }
-
-        //#region Internal Methods
-
-        function activate() {
-            var self = this;
-            
-            return Q
-                .when(account.checkAuthentication()
-                        .then(function () {
-                            self.isAuthenticated = true;
-                        })
-                        .fail(function () {
-                            self.isAuthenticated = false;
-                        }))
-                .then(function () {
-                    if (self.isAuthenticated) {
-                        return datacontext.primeData()
-                            .then(securitycontext.primeData)
-                            .then(notifiercontext.startHubs)
-                            .then(config.activate);
-                    } else {
-                        if (window.location.href.indexOf('#login') < 0) {
-                            window.location.replace('/#login');
-                        }
-                        return config.activateForLogin();
-
-                    }
-                })
-                .then(function () {
-                    log('TicketDesk SPA Loaded!', null, true);
-                })
-
-
-        }
-
-
-        function log(msg, data, showToast) {
-            logger.log(msg, data, system.getModuleId(shell), showToast);
-        }
-        //#endregion
+        return viewmodel;
     });

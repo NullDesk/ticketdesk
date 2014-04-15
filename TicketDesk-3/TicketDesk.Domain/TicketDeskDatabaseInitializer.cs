@@ -36,7 +36,7 @@ namespace TicketDesk.Domain
             //      but still allows the system to continue to update the DB normally for all futher migrations
             var config = new Configuration();
             config.TargetDatabase = new DbConnectionInfo(ConnectionName);
-            
+
             var migrator = new DbMigrator(config);
             migrator.Update();
         }
@@ -45,5 +45,5 @@ namespace TicketDesk.Domain
 
     }
 
-    
+
 }

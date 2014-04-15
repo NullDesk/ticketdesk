@@ -1,38 +1,78 @@
-﻿using Owin;
+﻿using System.Configuration;
+
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+
+using Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security.OAuth;
+using TicketDesk.Domain.Identity;
+using TicketDesk.Web.Providers;
+using System;
+using TicketDesk.Domain.Model;
+using TicketDesk.Domain;
 
 namespace TicketDesk.Web
 {
     public partial class Startup
-    {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+    {	
+		//Enable OWIN Bearer Token Middleware	
+        static Startup()
+        {			
+            PublicClientId = "self";
+
+            UserManagerFactory = () => new TicketDeskUserManager();
+            //new UserManager<UserProfile>(new UserStore<UserProfile>(new TicketDeskContext()));
+
+            OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+				//Exposes Token endpoint
+                TokenEndpointPath = new PathString("/Token"),
+				//Use ApplicationOAuthProvider in order to authenticate
+                Provider = new ApplicationOAuthProvider(PublicClientId, UserManagerFactory),
+                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14), //Token expiration => The user will remain authenticated for 14 days
+                AllowInsecureHttp = true                
+            };
+        }
+
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+
+        public static System.Func<UserManager<UserProfile>> UserManagerFactory { get; set; }
+
+        public static string PublicClientId { get; private set; }
+
         public void ConfigureAuth(IAppBuilder app)
         {
-            
-            // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-            //var options = new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions() { LoginPath = "~/#/login" };
-            //Microsoft.Owin.Security.Cookies.
-            var o = new Microsoft.AspNet.Identity.Owin.IdentityAuthenticationOptions();
-            o.LoginPath = "/#/login";
-         
-            app.UseSignInCookies(o);
+			// Enable the application to use bearer tokens to authenticate users
+			// Enabling 3 components:
+			// 1. Authorization Server middleware. For creating the bearer tokens
+			// 2. Application bearer token middleware. Will atuthenticate every request with Authorization : Bearer header
+			// 3. External bearer token middleware. For external providers
+            app.UseOAuthBearerTokens(OAuthOptions);
 
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(ConfigurationManager.AppSettings["MicrosoftKey"], ConfigurationManager.AppSettings["MicrosoftSecret"]);
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(ConfigurationManager.AppSettings["TwitterKey"], ConfigurationManager.AppSettings["TwitterSecret"]);
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(ConfigurationManager.AppSettings["FacebookKey"], ConfigurationManager.AppSettings["FacebookSecret"]);
 
-            app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication();       
+        }
+
+        private static bool IsAjaxRequest(IOwinRequest request)
+        {
+            IReadableStringCollection query = request.Query;
+            if ((query != null) && (query["X-Requested-With"] == "XMLHttpRequest"))
+            {
+                return true;
+            }
+            IHeaderDictionary headers = request.Headers;
+            return ((headers != null) && (headers["X-Requested-With"] == "XMLHttpRequest"));
         }
     }
 }

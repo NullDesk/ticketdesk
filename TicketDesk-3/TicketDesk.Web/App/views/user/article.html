@@ -1,0 +1,33 @@
+﻿<div id="#article">
+    <div class="container" data-bind="with: article">
+        <div class="row">
+            <div class="hidden-xs col-sm-3 col-md-2 col-lg-2">
+                <div class="st-image">
+                    <div class="st-image-container">
+                        <a href="#" class="thumbnail">
+                            <img data-bind="attr: { src: imageUrl }" />
+                        </a>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+                <div class="page-header">
+                    <h1 class="mart0" data-bind="text: title"></h1>       
+                </div>                
+                <span class="label label-info" data-bind="text: formattedCreatedDate"></span>
+                <span class="label label-info" data-bind="text: createdBy"></span>
+            </div>            
+        </div>
+
+        <div class="row col-sm-12 mart2" data-bind="foreach: tags">
+            <span class="label label-primary" data-bind="text: name"></span>
+        </div>
+
+        <div class="row col-sm-12">
+            <p class="mart2 prewrap lead" data-bind="text: description"></p>
+        </div>
+
+        <div class="row col-sm-12 mart2 prewrap" data-bind="html: html"></div>
+
+    </div>
+</div>

@@ -10,57 +10,48 @@ namespace TicketDesk.Web
             bundles.IgnoreList.Clear();
             AddDefaultIgnorePatterns(bundles.IgnoreList);
 
-            bundles.Add(new ScriptBundle("~/scripts/jqueryval")
-                .Include(
-                   "~/Scripts/jquery.unobtrusive*",
-                   "~/Scripts/jquery.validate*"));
-
-            bundles.Add(new ScriptBundle("~/scripts/bootstrap")
-                .Include("~/scripts/bootstrap.js"));
-
-            bundles.Add(new ScriptBundle("~/scripts/jquery")
-                 .Include("~/scripts/jquery-{version}.js")
-                 .Include("~/scripts/jquery-ui-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/scripts/modernizr")
-                .Include("~/scripts/modernizr-{version}.js")
-            );
-
+            // js Vendor
             bundles.Add(
               new ScriptBundle("~/scripts/vendor")
-                .Include("~/scripts/tag-it.js")
-                .Include("~/scripts/knockout-{version}.js")
-                .Include("~/scripts/sammy-{version}.js")
-                .Include("~/scripts/toastr.js")
-                .Include("~/scripts/Q.js")
-                .Include("~/scripts/breeze.debug.js")
-                .Include("~/scripts/moment.js")
-                .Include("~/Scripts/i18next-{version}.js")
-                .Include("~/scripts/pagedown/Markdown.Converter.js")
-                .Include("~/scripts/pagedown/Markdown.Editor.js")
-                .Include("~/scripts/pagedown/Markdown.Sanitizer.js")
-              
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/knockout-{version}.js")
+                .Include("~/Scripts/knockout.validation.js")
+                .Include("~/Scripts/bootstrap.js")
+                .Include("~/Scripts/jquery.hammer.min.js")
+                .Include("~/Scripts/Stashy.js")
+                .Include("~/Scripts/Q.js")
+                .Include("~/Scripts/breeze.min.js")
+                .Include("~/Scripts/moment.js")
+                .Include("~/Scripts/jquery.tagsinput.js")
+                .Include("~/Scripts/marked.js")
+                .Include("~/Scripts/zen-form.js")
+                .Include("~/Scripts/highlight.pack.js")
+                .Include("~/Scripts/jquery.tagsinput.js")
               );
-            bundles.Add(
-              new ScriptBundle("~/scripts/signalr")
-                .Include("~/Scripts/jquery.signalR-{version}.js")
-            );
             IItemTransform cssFixer = new CssRewriteUrlTransform();
 
+            // css vendor
             bundles.Add(
-              new StyleBundle("~/content/css")
-                .Include("~/content/ie10mobile.css")
-                .Include("~/content/bootstrap/bootstrap.css", cssFixer)
-                .Include("~/content/bootstrap/bootstrap-theme.css", cssFixer)
-                .Include("~/content/font-awesome.css")
-                .Include("~/content/durandal.css")
-                .Include("~/content/toastr.css")
-                .Include("~/content/app.css")
-                .Include("~/content/pagedown/pagedown.bootstrap.fontawesome.css")
-                .Include("~/content/jquery.tagit.css")
-                .Include("~/content/tagit.ui-zendesk.css")
-                .Include("~/content/themes/base/jquery-ui.css")
-          );
+              new StyleBundle("~/Content/css")
+                .Include("~/Content/ie10mobile.css")
+                //.Include("~/content/bootstrap/bootstrap.css", cssFixer)
+                //.Include("~/content/bootstrap/bootstrap-theme.css", cssFixer)
+                .Include("~/Content/bootstrap.css", cssFixer)
+                .Include("~/Content/font-awesome.css")
+                .Include("~/Content/durandal.css")
+                .Include("~/Content/toastr.css")
+                .Include("~/Content/Stashy.css")
+                .Include("~/Content/jquery.tagsinput.css")
+                .Include("~/Content/zen-form.css")
+                .Include("~/Content/vs.css")
+                .Include("~/Content/social-buttons-3.css")
+              );
+
+            // css custom
+            bundles.Add(
+              new StyleBundle("~/Content/custom")
+                .Include("~/Content/app.css")
+              );
         }
 
         public static void AddDefaultIgnorePatterns(IgnoreList ignoreList)
@@ -72,10 +63,7 @@ namespace TicketDesk.Web
 
             ignoreList.Ignore("*.intellisense.js");
             ignoreList.Ignore("*-vsdoc.js");
-
-            //ignoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
-            //ignoreList.Ignore("*.min.js", OptimizationMode.WhenDisabled);
-            //ignoreList.Ignore("*.min.css", OptimizationMode.WhenDisabled);
+            ignoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
         }
     }
 }

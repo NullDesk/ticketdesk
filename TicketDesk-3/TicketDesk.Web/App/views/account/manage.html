@@ -1,0 +1,94 @@
+<div id="manage">
+    <div class="container">
+        <div class="page-header">
+            <h1>Manage your account   <small>change passwords and manage your external accounts</small></h1>
+        </div>
+        <div class="row">
+            <section class="col-md-6">
+                <div data-bind="visible : hasLocalPassword()">
+                    <div data-bind="with: changePassword">
+                        <form role="form">
+                            <h2>Change your password</h2>
+                            <hr />
+                            <div class="form-group" data-bind="validationElement: oldPassword">
+                                <label for="ChangePasswordOldPassword" class="control-label">Old password</label>
+                                <input type="password" id="ChangePasswordOldPassword" class="form-control" data-bind="value: oldPassword" />                                
+                            </div>
+                            <div class="form-group" data-bind="validationElement: newPassword">
+                                <label for="ChangePasswordNewPassword" class="control-label">New password</label>
+                                <input type="password" id="ChangePasswordNewPassword" class="form-control" data-bind="value: newPassword" />
+                            </div>
+                            <div class="form-group" data-bind="validationElement: confirmPassword">
+                                <label for="ChangePasswordConfirmPassword" class="control-label">Confirm new password</label>
+                                <input type="password" id="ChangePasswordConfirmPassword" class="form-control" data-bind="value: confirmPassword" />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" data-bind="click: change, disable: changing">Save</button>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div data-bind="visible : !hasLocalPassword()">
+                    <div data-bind="with: setPassword">
+                        <p class="lead">You don´t have any local password for this site. Add a local account by entering a password in this form and you won´t need any external login anymore</p>
+                        <form class="form-horizontal" role="form">
+                            <h2>Create local account</h2>
+                            <hr />
+                            <div class="form-group" data-bind="validationElement: newPassword">
+                                <label for="SetPasswordNewPassword" class="control-label">New password</label>
+                                <input type="password" id="SetPasswordNewPassword" class="form-control" data-bind="value: newPassword" />                                
+                            </div>
+                            <div class="form-group" data-bind="validationElement: confirmPassword">
+                                <label for="SetPasswordConfirmPassword" class="control-label">Confirm new password</label>
+                                <input type="password" id="SetPasswordConfirmPassword" class="form-control" data-bind="value: confirmPassword" />                                
+                            </div>
+                            <div class="form-group">
+                               <button type="submit" class="btn btn-primary" data-bind="click: set, disable: setting">Create local account</button>                               
+                                <button type="reset" class="btn btn-default">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+          </section>
+            <section class="col-md-5 col-md-offset-1">
+                <div data-bind="if: userLogins().length > 0">
+                    <h2>Registered external accounts</h2>
+                    <table class="table">
+                        <tbody data-bind="foreach: userLogins">
+                            <tr>
+                                <td class="lead" data-bind="text: loginProvider"></td>
+                                <td>
+                                    <div data-bind="if: $parent.canRemoveLogin">
+                                        <form>
+                                            <div>
+                                                <button type="submit" class="btn btn-danger pull-right" data-bind="attr: { title: 'Remove this ' + loginProvider() + ' credential from your account' }, click: remove, disable: removing"><i class="fa fa-trash-o"></i>   Remove</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <span data-bind="if: !$parent.canRemoveLogin()">&nbsp;</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2>Add a new external account</h2>
+                <hr />
+                <div data-bind="visible: !hasExternalLogin()">
+                    <p class="lead">
+                        There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+                        for details on setting up this ASP.NET application to support logging in via external services.
+                    </p>
+                </div>
+                <div data-bind="visible: hasExternalLogin">
+                    <div class="list-group" data-bind="foreach: externalLoginProviders">
+                        <a href="#" class="list-group-item lead" data-bind="click: login, attr: { 'data-provider': name,  title: 'Log in using your ' + name() + ' account'}">
+                            <i data-bind="css: socialIcon($data)"></i>
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

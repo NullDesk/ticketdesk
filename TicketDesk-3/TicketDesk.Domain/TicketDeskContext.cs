@@ -1,23 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
+using Microsoft.AspNet.Identity.EntityFramework;
+
 using TicketDesk.Domain.Model;
+//using TicketDesk.Domain.UnitOfWork;
+//using TicketDesk.Data.Repositories;
+//using TicketDesk.Domain.Repositories;
 
 namespace TicketDesk.Domain
 {
-    public class TicketDeskContext : DbContext
+    public class TicketDeskContext : IdentityDbContext<UserProfile>
     {
-
-        public TicketDeskContext(string nameOrConnectionString) 
+        public TicketDeskContext()
+            : this("TicketDesk") { }
+        public TicketDeskContext(string nameOrConnectionString)
             : base(nameOrConnectionString) { }
 
-        public TicketDeskContext()
-            : base("TicketDesk")
-        { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Configuration.LazyLoadingEnabled = false;
             
+          
             base.OnModelCreating(modelBuilder);
         }
 
@@ -30,6 +40,7 @@ namespace TicketDesk.Domain
         public DbSet<AdCachedUserProperty> AdCachedUserProperties { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+
+       
     }
 }

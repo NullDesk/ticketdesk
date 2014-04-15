@@ -1,0 +1,25 @@
+﻿<div id="panel">
+    <div class="container">
+        <div class="page-header">
+            <h1>Admin Panel   <small>supersecret information :)</small></h1>
+        </div>
+        <h4>Check the list of the registered users on this site</h4>
+        <div class="row mart5" data-bind="foreach : userprofiles">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <a class="thumbnail">
+                            <img src="/Content/icons/icon_user.png" />
+                        </a>
+                    </div>
+                    <div class="col-xs-9 h-vcenter-parent">
+                        <div class="h-vcenter-child">
+                            <h4 data-bind="text: userName"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    </div>
+</div>
