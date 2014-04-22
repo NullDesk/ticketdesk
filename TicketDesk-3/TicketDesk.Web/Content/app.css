@@ -96,7 +96,7 @@
 
 .page-host {
     position: relative;
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .loader {
@@ -189,7 +189,7 @@ body {
 /* Index */
 
 #index #featured {
-    margin-top: -30px;
+    /*margin-top: -30px;*/
 }
 
 /* Articles */
