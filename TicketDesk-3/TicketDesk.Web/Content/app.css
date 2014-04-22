@@ -17,6 +17,38 @@
 }
 
 
+.page-splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1f1f1f;
+    opacity: 0.2;
+    pointer-events: auto;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: opacity 0.1s linear;
+    -moz-transition: opacity 0.1s linear;
+    -o-transition: opacity 0.1s linear;
+    transition: opacity 0.1s linear;
+}
+
+.page-splash-message {
+    text-align: center;
+    margin: 10% 0 0 0;
+    font-size: 400%;
+    /*font-family: "Segoe UI", Arial, Helvetica, sans-serif;*/
+    font-weight: normal;
+    -webkit-text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+    /*text-transform: uppercase;*/
+    text-decoration: none;
+    font-family: monospace;
+    color: #5AAD6B;
+    padding: 0;
+}
 
 /* knockout Validation */
 

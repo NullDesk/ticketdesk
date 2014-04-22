@@ -423,7 +423,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Models\Localization\AppUIText.es.resx" />
     <EmbeddedResource Include="Models\Localization\AppUIText.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppUIText.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

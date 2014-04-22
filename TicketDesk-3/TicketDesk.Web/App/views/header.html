@@ -10,7 +10,13 @@
     <div class="collapse navbar-collapse navbar-main-collapse" style="height: 0px;">
         <ul class="nav navbar-nav" data-bind="foreach: router.navigationModel">
             <li data-bind="css: { active: isActive }">
-                <a data-bind="attr: { href: $parent.router.convertRouteToHash('/' + hash) }, text: title"></a>
+                <a data-bind="attr: { href: $parent.router.convertRouteToHash('/' + hash) }">
+                    <!--ko if: $data.icon-->
+                    <i data-bind="css: icon" class="fa"></i>&nbsp;
+                    <!--/ko-->
+                    <span data-bind="text: title"></span>
+
+                </a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" data-bind="if: typeof(appsecurity.userInfo()) == 'undefined'">

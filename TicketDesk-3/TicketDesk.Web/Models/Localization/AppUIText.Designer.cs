@@ -22,7 +22,7 @@ namespace TicketDesk.Web.Models.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppUIText {
+    public class AppUIText {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Models.Localization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TicketDesk.Web.Models.Localization.AppUIText", typeof(AppUIText).Assembly);
@@ -51,7 +51,7 @@ namespace TicketDesk.Web.Models.Localization {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to TicketDesk 3.
         /// </summary>
-        internal static string AppName {
+        public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to navbar-brand title.
         /// </summary>
-        internal static string CssNavLogo {
+        public static string CssNavLogo {
             get {
                 return ResourceManager.GetString("CssNavLogo", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
-        internal static string GeneralBack {
+        public static string GeneralBack {
             get {
                 return ResourceManager.GetString("GeneralBack", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string GeneralCancel {
+        public static string GeneralCancel {
             get {
                 return ResourceManager.GetString("GeneralCancel", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string GeneralNo {
+        public static string GeneralNo {
             get {
                 return ResourceManager.GetString("GeneralNo", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
-        internal static string GeneralRefresh {
+        public static string GeneralRefresh {
             get {
                 return ResourceManager.GetString("GeneralRefresh", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        internal static string GeneralSave {
+        public static string GeneralSave {
             get {
                 return ResourceManager.GetString("GeneralSave", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string GeneralYes {
+        public static string GeneralYes {
             get {
                 return ResourceManager.GetString("GeneralYes", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        internal static string NavAccountLogin {
+        public static string NavAccountLogin {
             get {
                 return ResourceManager.GetString("NavAccountLogin", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
-        internal static string NavAccountLogout {
+        public static string NavAccountLogout {
             get {
                 return ResourceManager.GetString("NavAccountLogout", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Administration.
         /// </summary>
-        internal static string NavAccountMenuAdministration {
+        public static string NavAccountMenuAdministration {
             get {
                 return ResourceManager.GetString("NavAccountMenuAdministration", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Admin Panel.
         /// </summary>
-        internal static string NavAccountMenuAdminPanel {
+        public static string NavAccountMenuAdminPanel {
             get {
                 return ResourceManager.GetString("NavAccountMenuAdminPanel", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Manage your account.
         /// </summary>
-        internal static string NavAccountMenuManageUser {
+        public static string NavAccountMenuManageUser {
             get {
                 return ResourceManager.GetString("NavAccountMenuManageUser", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
-        internal static string NavAccountMenuOptions {
+        public static string NavAccountMenuOptions {
             get {
                 return ResourceManager.GetString("NavAccountMenuOptions", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Administration.
         /// </summary>
-        internal static string NavMainAdmin {
+        public static string NavMainAdmin {
             get {
                 return ResourceManager.GetString("NavMainAdmin", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
-        internal static string NavMainHome {
+        public static string NavMainHome {
             get {
                 return ResourceManager.GetString("NavMainHome", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to New Ticket.
         /// </summary>
-        internal static string NavMainTicketCreate {
+        public static string NavMainTicketCreate {
             get {
                 return ResourceManager.GetString("NavMainTicketCreate", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Ticket Details.
         /// </summary>
-        internal static string NavMainTicketDetails {
+        public static string NavMainTicketDetails {
             get {
                 return ResourceManager.GetString("NavMainTicketDetails", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Ticket Center.
         /// </summary>
-        internal static string NavMainTickets {
+        public static string NavMainTickets {
             get {
                 return ResourceManager.GetString("NavMainTickets", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Toggle navigation.
         /// </summary>
-        internal static string NavMainToggleNavigation {
+        public static string NavMainToggleNavigation {
             get {
                 return ResourceManager.GetString("NavMainToggleNavigation", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Navigate away and cancel your changes?.
         /// </summary>
-        internal static string NavNavigateAwayConfirmDialogMessage {
+        public static string NavNavigateAwayConfirmDialogMessage {
             get {
                 return ResourceManager.GetString("NavNavigateAwayConfirmDialogMessage", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to leave __pagetitle__?.
         /// </summary>
-        internal static string NavNavigateAwayConfirmDialogTitle {
+        public static string NavNavigateAwayConfirmDialogTitle {
             get {
                 return ResourceManager.GetString("NavNavigateAwayConfirmDialogTitle", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
-        internal static string PagerNext {
+        public static string PagerNext {
             get {
                 return ResourceManager.GetString("PagerNext", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to found.
         /// </summary>
-        internal static string PagerNumberFound {
+        public static string PagerNumberFound {
             get {
                 return ResourceManager.GetString("PagerNumberFound", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to of.
         /// </summary>
-        internal static string PagerOf {
+        public static string PagerOf {
             get {
                 return ResourceManager.GetString("PagerOf", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Page.
         /// </summary>
-        internal static string PagerPage {
+        public static string PagerPage {
             get {
                 return ResourceManager.GetString("PagerPage", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
-        internal static string PagerPrevious {
+        public static string PagerPrevious {
             get {
                 return ResourceManager.GetString("PagerPrevious", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to records.
         /// </summary>
-        internal static string PagerTotalTickets {
+        public static string PagerTotalTickets {
             get {
                 return ResourceManager.GetString("PagerTotalTickets", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Ms-PL license - ©2013 Stephen M. Redd.
         /// </summary>
-        internal static string ViewFooterCopyright {
+        public static string ViewFooterCopyright {
             get {
                 return ResourceManager.GetString("ViewFooterCopyright", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login as user &apos;admin&apos; with a password of &apos;admin&apos; or user &apos;otherstaffer&apos; with a password of &apos;otherstaffer&apos;.&lt;br /&gt;&lt;br /&gt;This deployment is based off of a private branch where I&apos;m working out the security framework. Currently, this is backed by the new Asp.Net Identity Framework. I am in the process of migrating to the DurandalAuth UI template.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;Translations for the login fetures are incomplete at this time, but for the rest of the spanish example translations &lt;a href=&apos;/?setLng=es&apos;&gt;click here&lt;/ [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ViewHomeContent {
+        public static string ViewHomeContent {
             get {
                 return ResourceManager.GetString("ViewHomeContent", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to TicketDesk Home.
         /// </summary>
-        internal static string ViewHomeTitle {
+        public static string ViewHomeTitle {
             get {
                 return ResourceManager.GetString("ViewHomeTitle", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login failed!.
         /// </summary>
-        internal static string ViewLoginFailedErrorMessage {
+        public static string ViewLoginFailedErrorMessage {
             get {
                 return ResourceManager.GetString("ViewLoginFailedErrorMessage", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        internal static string ViewLoginLoginButtonLabel {
+        public static string ViewLoginLoginButtonLabel {
             get {
                 return ResourceManager.GetString("ViewLoginLoginButtonLabel", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
-        internal static string ViewLoginPasswordFieldLabel {
+        public static string ViewLoginPasswordFieldLabel {
             get {
                 return ResourceManager.GetString("ViewLoginPasswordFieldLabel", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Remember me.
         /// </summary>
-        internal static string ViewLoginRememberMeFieldLabel {
+        public static string ViewLoginRememberMeFieldLabel {
             get {
                 return ResourceManager.GetString("ViewLoginRememberMeFieldLabel", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        internal static string ViewLoginTitle {
+        public static string ViewLoginTitle {
             get {
                 return ResourceManager.GetString("ViewLoginTitle", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to User Name.
         /// </summary>
-        internal static string ViewLoginUserNameFieldLabel {
+        public static string ViewLoginUserNameFieldLabel {
             get {
                 return ResourceManager.GetString("ViewLoginUserNameFieldLabel", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
-        internal static string ViewLogoutTitle {
+        public static string ViewLogoutTitle {
             get {
                 return ResourceManager.GetString("ViewLogoutTitle", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to New Ticket.
         /// </summary>
-        internal static string ViewTicketCreateTitle {
+        public static string ViewTicketCreateTitle {
             get {
                 return ResourceManager.GetString("ViewTicketCreateTitle", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Ticket Details.
         /// </summary>
-        internal static string ViewTicketDetailsTitle {
+        public static string ViewTicketDetailsTitle {
             get {
                 return ResourceManager.GetString("ViewTicketDetailsTitle", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace TicketDesk.Web.Models.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Open Tickets.
         /// </summary>
-        internal static string ViewTicketListTitle {
+        public static string ViewTicketListTitle {
             get {
                 return ResourceManager.GetString("ViewTicketListTitle", resourceCulture);
             }
