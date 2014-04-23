@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using System.Web.Optimization;
+using StructureMap.Web.Pipeline;
 using TicketDesk.Web.App_Start;
 
 namespace TicketDesk.Web
@@ -23,6 +24,11 @@ namespace TicketDesk.Web
             AuthConfig.RegisterMVCAuth(GlobalFilters.Filters);
             AuthConfig.RegisterWebApiAuth(GlobalConfiguration.Configuration);
             DatabaseConfig.InitDatabase();
+        }
+
+        void Application_EndRequest()
+        {
+            HttpContextLifecycle.DisposeAndClearAll();
         }
     }
 }

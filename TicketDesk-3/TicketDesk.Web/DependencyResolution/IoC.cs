@@ -23,7 +23,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 
 using StructureMap;
-
+using StructureMap.Graph;
+using StructureMap.Web.Pipeline;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Identity;
 using TicketDesk.Domain.Model;
@@ -47,12 +48,12 @@ namespace TicketDesk.Web.DependencyResolution {
 
                             //x.For<ISnapshot>().HttpContextScoped().Use<Snapshot>();
 
-                        
-                            x.For<UserManager<UserProfile>>().HttpContextScoped().Use(() => new TicketDeskUserManager());
 
-                            x.For<ISecureDataFormat<AuthenticationTicket>>().HttpContextScoped().Use(() => Startup.OAuthOptions.AccessTokenFormat);
+                            x.For<UserManager<UserProfile>>().Use(() => new TicketDeskUserManager()).LifecycleIs<HttpContextLifecycle>();
 
-                            x.For<TicketDeskBreezeContext>().HttpContextScoped().Use(() => new TicketDeskBreezeContext());
+                            x.For<ISecureDataFormat<AuthenticationTicket>>().Use(() => Startup.OAuthOptions.AccessTokenFormat).LifecycleIs<HttpContextLifecycle>();
+
+                            x.For<TicketDeskBreezeContext>().Use(() => new TicketDeskBreezeContext()).LifecycleIs<HttpContextLifecycle>();
                         });
 
             return ObjectFactory.Container;
