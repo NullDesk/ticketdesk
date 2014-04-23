@@ -6,7 +6,7 @@ namespace TicketDesk.Domain.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.0.1-21010")]
+    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
     public sealed partial class Initial : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));

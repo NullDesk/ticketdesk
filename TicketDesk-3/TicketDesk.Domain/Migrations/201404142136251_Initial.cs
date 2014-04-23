@@ -194,8 +194,8 @@ namespace TicketDesk.Domain.Migrations
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
                 .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.RoleId)
-                .Index(t => t.UserId);
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
             
         }
         
@@ -209,10 +209,10 @@ namespace TicketDesk.Domain.Migrations
             DropForeignKey("dbo.TicketEventNotifications", new[] { "TicketId", "CommentId" }, "dbo.TicketComments");
             DropForeignKey("dbo.TicketComments", "TicketId", "dbo.Tickets");
             DropForeignKey("dbo.TicketAttachments", "TicketId", "dbo.Tickets");
-            DropIndex("dbo.AspNetUserClaims", new[] { "User_Id" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "User_Id" });
             DropIndex("dbo.TicketTags", new[] { "TicketId" });
             DropIndex("dbo.TicketEventNotifications", new[] { "TicketId", "CommentId" });
             DropIndex("dbo.TicketComments", new[] { "TicketId" });
