@@ -28,7 +28,7 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Identity;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Providers;
-using TicketDesk.Web.SEO;
+
 using TicketDesk.Web.Helpers;
 using System.Security.Principal;
 using TicketDesk.Domain.Validators;
@@ -45,12 +45,9 @@ namespace TicketDesk.Web.DependencyResolution {
                                     });                            
 
 
-                            x.For<ISnapshot>().HttpContextScoped().Use<Snapshot>();
+                            //x.For<ISnapshot>().HttpContextScoped().Use<Snapshot>();
 
-                            x.For<ISitemapGenerator>().HttpContextScoped().Use<SitemapGenerator>();
-
-                            x.For<ISitemapItem>().HttpContextScoped().Use<SitemapItem>();
-
+                        
                             x.For<UserManager<UserProfile>>().HttpContextScoped().Use(() => new TicketDeskUserManager());
 
                             x.For<ISecureDataFormat<AuthenticationTicket>>().HttpContextScoped().Use(() => Startup.OAuthOptions.AccessTokenFormat);
