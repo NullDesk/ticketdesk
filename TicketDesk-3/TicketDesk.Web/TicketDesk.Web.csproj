@@ -293,13 +293,15 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\images\masters\TicketDesk3Logo.psd" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\breeze.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\images\masters\TicketDesk3Logo.psd" />
-    <None Include="Scripts\breeze.intellisense.js" />
     <Content Include="Scripts\breeze.debug.js" />
     <Content Include="Scripts\breeze.min.js" />
     <Content Include="Scripts\durandal\activator.js" />
@@ -318,10 +320,10 @@
     <Content Include="Scripts\durandal\transitions\entrance.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\i18next.amd.withJQuery-1.7.1.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery.hammer.js" />
     <Content Include="Scripts\jquery.hammer.min.js" />
     <Content Include="Scripts\jquery.tagsinput.js" />
@@ -346,7 +348,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
@@ -398,6 +399,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
