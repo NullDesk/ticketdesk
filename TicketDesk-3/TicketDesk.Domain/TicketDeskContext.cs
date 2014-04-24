@@ -17,10 +17,11 @@ namespace TicketDesk.Domain
 {
     public class TicketDeskContext : IdentityDbContext<UserProfile>
     {
-        public TicketDeskContext()
-            : this("TicketDesk") { }
-        public TicketDeskContext(string nameOrConnectionString)
-            : base(nameOrConnectionString) { }
+
+        public TicketDeskContext() : base() { }
+
+        public TicketDeskContext(string nameOrConnectionString): base(nameOrConnectionString) { }
+       
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

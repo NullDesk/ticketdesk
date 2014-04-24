@@ -12,20 +12,21 @@ namespace TicketDesk.Domain.Legacy
 {
     public class TicketDeskLegacyDatabaseInitializer : IDatabaseInitializer<TicketDeskLegacyContext>
     {
-        public static void InitDatabase(string nameOrConnectionString)
+        public static void InitDatabase(string connectionString, string providerInvariantName)
         {
-           Database.SetInitializer(new TicketDeskLegacyDatabaseInitializer(nameOrConnectionString));
-            using (var legacyCtx = new TicketDeskLegacyContext(nameOrConnectionString))
+            Database.SetInitializer(new TicketDeskLegacyDatabaseInitializer(connectionString, providerInvariantName));
+            using (var legacyCtx = new TicketDeskLegacyContext(connectionString))
             {
                 legacyCtx.Database.Initialize(false);
             }
         }
 
-        private string ConnectionName { get; set; }
-
-        public TicketDeskLegacyDatabaseInitializer(string connectionName)
+        private string ConnectionString { get; set; }
+        private string ProviderInvariantName { get; set; }
+        public TicketDeskLegacyDatabaseInitializer(string connectionString, string providerInvariantName)
         {
-            ConnectionName = connectionName;
+            ConnectionString = connectionString;
+            ProviderInvariantName = providerInvariantName;
         }
         
         public void InitializeDatabase(TicketDeskLegacyContext context)
@@ -34,10 +35,11 @@ namespace TicketDesk.Domain.Legacy
             if (context.Database.Exists() && IsLegacyDatabase(context))
             {
                 var upgradeConfig = new Configuration();
-                upgradeConfig.TargetDatabase = new DbConnectionInfo(ConnectionName);
+                var targ = new DbConnectionInfo(ConnectionString, ProviderInvariantName);
 
                 //this add the migration history table with the exact same migration ID as used by the standard migrator.
                 var migrator = new DbMigrator(upgradeConfig);
+                migrator.Configuration.TargetDatabase = targ;
                 migrator.Update("Initial");
             }
         }

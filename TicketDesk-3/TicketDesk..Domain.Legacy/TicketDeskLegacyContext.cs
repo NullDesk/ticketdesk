@@ -7,12 +7,9 @@ namespace TicketDesk.Domain.Legacy
     public class TicketDeskLegacyContext : DbContext
     {
 
-        public TicketDeskLegacyContext(string nameOrConnectionString) 
-            : base(nameOrConnectionString) { }
+        public TicketDeskLegacyContext(string nameOrConnectionString) : base(nameOrConnectionString) { }
 
-        public TicketDeskLegacyContext()
-            : base("TicketDesk")
-        { }
+        public TicketDeskLegacyContext() : base(){ }
 
     }
 }
