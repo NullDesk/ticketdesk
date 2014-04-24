@@ -18,7 +18,7 @@ namespace TicketDesk.Domain
     public class TicketDeskContext : IdentityDbContext<UserProfile>
     {
 
-        public TicketDeskContext() : base() { }
+        public TicketDeskContext() : this("TicketDesk") { }
 
         public TicketDeskContext(string nameOrConnectionString): base(nameOrConnectionString) { }
        
