@@ -10,7 +10,7 @@
 **TdSearchIndex
 **build/
 
-*ticketdesk3dev.pubxml*
+*.pubxml
 
 #################
 ## Visual Studio
