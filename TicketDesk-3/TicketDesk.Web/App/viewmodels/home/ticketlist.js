@@ -164,6 +164,8 @@
             //                datacontext.backgroudTicketRefreshCounter.subscribe(ticketCountChanged);
             currentPage(1);
             //                logger.log('Ticket List View Activated', null, 'TicketList', false);
+           
+
             return unitofwork.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
                 .finally(toggleBackgroundChanges);
         };
