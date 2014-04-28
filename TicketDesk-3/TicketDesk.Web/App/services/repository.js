@@ -10,7 +10,7 @@ define(function () {
 	*/
 	var Repository = (function () {
 
-		var repository = function (entityManagerProvider, entityTypeName, resourceName, fetchStrategy) {
+	    var repository = function (entityManagerProvider, entityTypeName, resourceName) {
 
 			// Ensure resourceName is registered
 			var entityType;
@@ -38,7 +38,7 @@ define(function () {
 						return data.entity;
 					});
 			};
-
+	        
 			/**
 			 * Find Entity by predicate
 			 * @method
@@ -75,7 +75,6 @@ define(function () {
 			this.all = function () {
 				var query = breeze.EntityQuery
 					.from(resourceName);
-
 				return executeQuery(query);
 			};
 
@@ -95,14 +94,16 @@ define(function () {
 			 * @param {object} entity - The entity to delete
 			*/ 
 			this.delete = function(entity) {
-				ensureEntityType(entity,entityTypeName);
+				ensureEntityType(entity);
 				entity.entityAspect.setDeleted(entity);
 			};
 
-			function executeQuery(query) {
+			this.executeQuery = executeQuery;
+			this.executeCacheQuery = executeCacheQuery;
+
+			function executeQuery(query, fetchStrategy) {
 				return entityManagerProvider.manager()
-					.executeQuery(query.using(fetchStrategy || breeze.FetchStrategy.FromServer))
-					.then(function (data) { return data.results; });
+					.executeQuery(query.using(fetchStrategy || breeze.FetchStrategy.FromServer));
 			}
 
 			function executeCacheQuery(query) {
@@ -117,7 +118,7 @@ define(function () {
 				return entityManagerProvider.manager();
 			}
 			
-			function ensureEntityType(obj, entityTypeName) {
+			function ensureEntityType(obj) {
 				if (!obj.entityType || obj.entityType.shortName !== entityTypeName) {
 					throw new Error('Object must be an entity of type ' + entityTypeName);
 				}
@@ -141,7 +142,7 @@ define(function () {
 	 * @param {FetchStrategy} fetchStrategy
 	 * @return {Repository}
 	*/ 
-	function create(entityManagerProvider, entityTypeName, resourceName, fetchStrategy) {
-		return new Repository(entityManagerProvider, entityTypeName, resourceName, fetchStrategy);
+	function create(entityManagerProvider, entityTypeName, resourceName) {
+		return new Repository(entityManagerProvider, entityTypeName, resourceName);
 	}
 });

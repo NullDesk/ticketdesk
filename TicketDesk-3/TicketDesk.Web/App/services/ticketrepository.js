@@ -2,7 +2,7 @@
  * @module Derived repository for the Ticket entity
 */
 
-define(['services/repository', 'services/breeze.partial-entities'], function (repository, partialMapper) {
+define(['durandal/system','services/repository', 'services/logger'], function (system, repository, logger) {
     /**
          * Repository ctor
          * @constructor
@@ -10,62 +10,58 @@ define(['services/repository', 'services/breeze.partial-entities'], function (re
     var TicketRepository = (function () {
         var ticketrepository = function (entityManagerProvider, entityTypeName, resourceName) {
             repository.getCtor.call(this, entityManagerProvider, entityTypeName, resourceName);
+            var self = this;
 
-            this.openTicketRowCount = ko.observable(0);
+            var pageSize = 5;
+
+            var getBaseQuery = function () {
+                return breeze.EntityQuery.from(resourceName)
+                    .orderBy('lastUpdateDate desc, assignedTo');
+            };
+            var getBasePartialQuery = function () {
+                return getBaseQuery()
+                    .select('ticketId, title, ticketType, owner, assignedTo, ticketStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate');
+            };
             
+            self.openTicketRowCount = ko.observable(0);
 
-            this.getOpenTicketPagedList = function (ticketsObservable, forPageIndex, forceRemote) {
+            self.getOpenTicketPagedList = function (ticketsObservable, forPageIndex, forceRemote) {
                 var predicate = breeze.Predicate.create('ticketStatus', '!=', 'Closed');
                 if (forceRemote || this.openTicketRowCount() < 1) {
                     return fetchRemoteTicketPartials(predicate).then(function () {
-                        fetchLocalTicketPartials(predicate, ticketsObservable, forPageIndex);
+                        fetchLocalTickets(predicate, ticketsObservable, forPageIndex);
                     });
                 } else {
-                    return fetchLocalTicketPartials(predicate, ticketsObservable, forPageIndex);
+                    return fetchLocalTickets(predicate, ticketsObservable, forPageIndex);
                 }
             };
-            
 
-            var baseQuery = breeze.EntityQuery.from(resourceName)
-                .orderBy('lastUpdateDate desc, assignedTo');
-                 
-            function fetchLocalTicketPartials(predicate, ticketsObservable, forPageIndex) {
-                var query = baseQuery
+            function fetchLocalTickets(predicate, ticketsObservable, forPageIndex) {
+                var query = getBaseQuery()
                     .where(predicate)
-                    .skip(forPageIndex * 5)
-                    .take(5)
-                    .using(breeze.FetchStrategy.FromLocalCache);
-                return executeQuery(query).then(function (data) {
-                    if (data.results.length > 0) {
-                        ticketsObservable(data.results);
-                    }
-                });
+                    .skip(forPageIndex * pageSize)
+                    .take(pageSize);
+                var data = self.executeCacheQuery(query);
+                if (data.length > 0) {
+                    ticketsObservable(data);
+                    logger.log('Retrieved [Tickets] from local cache', data, 'TicketRepository', false);
+                }
             }
 
-            var rowCount = this.openTicketRowCount;
-
             function fetchRemoteTicketPartials(predicate) {
-                var query = baseQuery
+                var query = getBasePartialQuery()
                     .where(predicate)
-                    .select('ticketId, title, ticketType, owner, assignedTo, ticketStatus, category, priority, createdBy, createdDate, lastUpdateBy, lastUpdateDate')
+                    .toType(entityTypeName)
                     .using(breeze.FetchStrategy.FromServer)
                     .inlineCount(true);
 
-                return executeQuery(query).then(querySucceeded);
+                return self.executeQuery(query).then(querySucceeded);
 
                 function querySucceeded(data) {
-                    rowCount(data.inlineCount);
-                    partialMapper.mapDtosToEntities(entityManagerProvider.manager(), data.results, entityTypeName, 'ticketId');
-                    //log('Retrieved [Tickets] from remote data source', data, true);
+                    self.openTicketRowCount(data.inlineCount);
+                    logger.log('Retrieved [Tickets] from remote data source', data, 'TicketRepository', false);
                 }
             }
-
-            function executeQuery(query) {
-                return entityManagerProvider.manager()
-                    .executeQuery(query);
-                //.then(function (data) { return data.results; });
-            }
-
         };
 
         ticketrepository.prototype = repository.create();

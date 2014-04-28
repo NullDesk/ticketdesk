@@ -9,9 +9,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 using TicketDesk.Domain.Model;
-//using TicketDesk.Domain.UnitOfWork;
-//using TicketDesk.Data.Repositories;
-//using TicketDesk.Domain.Repositories;
+
 
 namespace TicketDesk.Domain
 {
