@@ -238,7 +238,7 @@
     <Content Include="App\services\repository.js" />
     <Content Include="App\services\routeconfig.js" />
     <Content Include="App\services\ticketrepository.js" />
-    <Content Include="App\services\unitofwork.js" />
+    <Content Include="App\services\datacontext.js" />
     <Content Include="App\services\utils.js" />
     <Content Include="App\viewmodels\account\externalloginconfirmation.js" />
     <Content Include="App\viewmodels\account\externalloginfailure.js" />
@@ -250,7 +250,7 @@
     <Content Include="App\viewmodels\home\about.js" />
     <Content Include="App\viewmodels\home\help.js" />
     <Content Include="App\viewmodels\home\index.js" />
-    <Content Include="App\viewmodels\home\ticketlist.js" />
+    <Content Include="App\viewmodels\tickets\ticketlist.js" />
     <Content Include="App\viewmodels\notfound.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\account\externalloginconfirmation.html" />
@@ -263,7 +263,7 @@
     <Content Include="App\views\home\about.html" />
     <Content Include="App\views\home\help.html" />
     <Content Include="App\views\home\index.html" />
-    <Content Include="App\views\home\ticketlist.html" />
+    <Content Include="App\views\tickets\ticketlist.html" />
     <Content Include="App\views\notfound.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\article.html" />

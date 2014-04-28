@@ -20,7 +20,7 @@ namespace TicketDesk.Domain.Migrations
 
         protected override void Seed(TicketDesk.Domain.TicketDeskContext context)
         {
-            var titles = new[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P" };
+            var titles = new[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R" };
             foreach (var p in titles)
             {
                 context.Tickets.AddOrUpdate(t => t.Title,

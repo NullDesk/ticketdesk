@@ -18,9 +18,9 @@ define(['services/entitymanagerprovider',
 		* UnitOfWork ctor
 		* @constructor
 		*/
-	    var UnitOfWork = (function () {
+	    var DataContext = (function () {
 
-	        var unitofwork = function () {
+	        var datacontext = function () {
 	            var provider = entityManagerProvider.create();
 
 	            /**
@@ -58,7 +58,7 @@ define(['services/entitymanagerprovider',
 	            this.tickets = ticketrepository.create(provider, "Ticket", routeconfig.ticketsUrl);
 	        };
 
-	        return unitofwork;
+	        return datacontext;
 	    })();
 
 	    var SmartReference = (function () {
@@ -70,7 +70,7 @@ define(['services/entitymanagerprovider',
 
 	            this.value = function () {
 	                if (value === null) {
-	                    value = new UnitOfWork();
+	                    value = new DataContext();
 	                }
 
 	                this.referenceCount++;
@@ -106,7 +106,7 @@ define(['services/entitymanagerprovider',
 		 * @return {UnitOfWork}
 		*/
 	    function create() {
-	        return new UnitOfWork();
+	        return new DataContext();
 	    }
 
 	    /**

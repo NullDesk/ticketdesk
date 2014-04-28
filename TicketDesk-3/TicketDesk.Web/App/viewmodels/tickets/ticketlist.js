@@ -1,8 +1,8 @@
 ﻿define(
-    ['services/unitofwork', 'services/errorhandler', 'plugins/router'],
-    function (unitofwork, errorhandler, router) {
+    ['services/datacontext', 'services/errorhandler', 'plugins/router'],
+    function (datacontext, errorhandler, router) {
 
-        var unitofwork = unitofwork.create();
+        var datacontext = datacontext.create();
 
         var tickets = ko.observableArray();
 
@@ -49,7 +49,7 @@
                     previous();
                 } else {
                     toggleBackgroundChanges();
-                    unitofwork.tickets.getOpenTicketPagedList(tickets, currentPageIndex()).then(toggleBackgroundChanges);
+                    datacontext.tickets.getOpenTicketPagedList(tickets, currentPageIndex()).then(toggleBackgroundChanges);
                 }
             }
         };
@@ -96,7 +96,7 @@
                 elem.css(donePagingValues);
                 return Q.all([
                     $.when(elem.animate(offsetRightValues, 300, 'swing')),
-                    unitofwork.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
+                    datacontext.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
                 ]).then(pageIn);
 
                 function pageIn() {
@@ -118,7 +118,7 @@
                 elem.css(donePagingValues);
                 return Q.all([
                     $.when(elem.animate(offsetLeftValues, 200, 'swing')),
-                    unitofwork.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
+                    datacontext.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
                 ]).then(pageIn);
 
                 function pageIn() {
@@ -132,7 +132,7 @@
         };
 
         var maxPage = ko.computed(function() {
-            return Math.ceil(unitofwork.tickets.openTicketRowCount() / 5);
+            return Math.ceil(datacontext.tickets.openTicketRowCount() / 5);
         });
 
         var canPrev = ko.computed(function() {
@@ -143,7 +143,7 @@
             return currentPage() < maxPage();
         });
 
-        var rowCount = unitofwork.tickets.openTicketRowCount;
+        var rowCount = datacontext.tickets.openTicketRowCount;
 
         var activate = function() {
             ko.bindingHandlers.ticketChanged = {
@@ -166,7 +166,7 @@
             //                logger.log('Ticket List View Activated', null, 'TicketList', false);
            
 
-            return unitofwork.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
+            return datacontext.tickets.getOpenTicketPagedList(tickets, currentPageIndex())
                 .finally(toggleBackgroundChanges);
         };
         
@@ -176,7 +176,7 @@
 
         var refresh = function() {
             toggleBackgroundChanges();
-            return unitofwork.tickets.getOpenTicketPagedList(tickets, currentPageIndex(), true)
+            return datacontext.tickets.getOpenTicketPagedList(tickets, currentPageIndex(), true)
                 .then(toggleBackgroundChanges);
         };
         

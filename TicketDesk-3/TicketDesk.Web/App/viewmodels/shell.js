@@ -59,11 +59,11 @@
                                     icon: 'fa-home'
                                 },
                                 {
-                                    route: 'home/tickets',
-                                    moduleId: 'home/ticketlist',
+                                    route: 'tickets/list',
+                                    moduleId: 'tickets/ticketlist',
                                     title: $.i18n.t('appuitext:navMainTickets'),
                                     nav: true,
-                                    hash: '#home/tickets',
+                                    hash: '#tickets/list',
                                     authorize: ['User', 'Administrator'],
                                     icon: 'fa-tasks'
                                 },
