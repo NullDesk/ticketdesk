@@ -46,6 +46,7 @@ define(['durandal/system','services/repository', 'services/logger'], function (s
                     ticketsObservable(data);
                     logger.log('Retrieved [Tickets] from local cache', data, 'TicketRepository', false);
                 }
+                return Q.fcall(function() { return data; });
             }
 
             function fetchRemoteTicketPartials(predicate) {
