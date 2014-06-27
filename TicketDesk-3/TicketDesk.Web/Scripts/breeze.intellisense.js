@@ -1,4 +1,4 @@
-﻿// Generated on: Fri Mar 07 2014 20:01:57 GMT-0800 (Pacific Standard Time)
+﻿// Generated on: Tue Jun 17 2014 09:47:56 GMT-0700 (Pacific Daylight Time)
 
 intellisense.annotate(breeze.core, {
 
@@ -8,7 +8,6 @@ intellisense.annotate(breeze.core, {
     ///   Base class for all Breeze enumerations, such as EntityState, DataType, FetchStrategy, MergeStrategy etc. }
     ///   A Breeze Enum is a namespaced set of constant values.  Each Enum consists of a group of related constants, called 'symbols'. }
     ///   Unlike enums in some other environments, each 'symbol' can have both methods and properties. }
-    ///   See the example below: }
     ///   </summary>
     ///   <param name="name" type="String" optional="true"></param>
     ///   <param name="methodObj" type="Object" optional="true"></param>
@@ -57,7 +56,7 @@ intellisense.annotate(breeze.core.Enum.prototype, {
     ///   <returns type="breeze.core.EnumSymbol" >The new symbol</returns>
     /// </signature>
   },
-  'seal': function() {
+  'resolveSymbols': function() {
     /// <signature>
     ///   <summary>
     ///   Seals this enum so that no more symbols may be added to it. This should only be called after all symbols }
@@ -903,7 +902,7 @@ intellisense.annotate(breeze.breeze.EntityAction, {
   /// <field name="AttachOnImport" type="breeze.breeze.EntityAction" >AttachOnImport - Entity was attached as a result of an import.</field>
   'AttachOnImport': null,
   
-  /// <field name="Detach" type="breeze.breeze.EntityAction" >AttachOnQuery - Entity was detached.</field>
+  /// <field name="Detach" type="breeze.breeze.EntityAction" >Detach - Entity was detached.</field>
   'Detach': null,
   
   /// <field name="MergeOnQuery" type="breeze.breeze.EntityAction" >MergeOnQuery - Properties on the entity were merged as a result of a query.</field>
@@ -912,8 +911,8 @@ intellisense.annotate(breeze.breeze.EntityAction, {
   /// <field name="MergeOnImport" type="breeze.breeze.EntityAction" >MergeOnImport - Properties on the entity were merged as a result of an import.</field>
   'MergeOnImport': null,
   
-  /// <field name="MergeOnImport" type="breeze.breeze.EntityAction" >MergeOnImport - Properties on the entity were merged as a result of a save</field>
-  'MergeOnImport': null,
+  /// <field name="MergeOnSave" type="breeze.breeze.EntityAction" >MergeOnSave - Properties on the entity were merged as a result of a save</field>
+  'MergeOnSave': null,
   
   /// <field name="PropertyChange" type="breeze.breeze.EntityAction" >PropertyChange - A property on the entity was changed.</field>
   'PropertyChange': null,
@@ -1090,6 +1089,23 @@ intellisense.annotate(breeze.breeze.EntityAspect, {
 
 intellisense.annotate(breeze.breeze.ComplexAspect.prototype, {
   
+  'getEntityAspect': function() {
+    /// <signature>
+    ///   <summary>
+    ///   Returns the EntityAspect for the top level entity tht contains this complex object. }
+    ///   </summary>
+    ///   <returns type="String" ></returns>
+    /// </signature>
+  },
+  'getPropertyPath': function() {
+    /// <signature>
+    ///   <summary>
+    ///   Executes the specified query against this EntityManager's local cache. }
+    ///   </summary>
+    ///   <param name="propName" type="String" optional="true">The property name of a property on this complex aspect for which we want the full path.</param>
+    ///   <returns type="String" >The 'property path' from the top level entity that contains this complex object to this object.</returns>
+    /// </signature>
+  },
   
   /// <field name="complexObject" type="Entity" >The complex object that this aspect is associated with.</field>
   'complexObject': null,
@@ -1099,12 +1115,6 @@ intellisense.annotate(breeze.breeze.ComplexAspect.prototype, {
   
   /// <field name="parentProperty" type="breeze.breeze.DataProperty" >The  'DataProperty' on the 'parent' that contains this complex object.</field>
   'parentProperty': null,
-  
-  /// <field name="entityAspect" type="String" >The EntityAspect for the top level entity tht contains this complex object.</field>
-  'entityAspect': null,
-  
-  /// <field name="propertyPath" type="String" >The 'property path' from the top level entity that contains this complex object to this object.</field>
-  'propertyPath': null,
   
   /// <field name="originalValues" type="Object" >The 'original values' of this complex object where they are different from the 'current values'.  This is a map where the key is a property name and the value is the 'original value' of the property.</field>
   'originalValues': null,
@@ -1343,7 +1353,7 @@ intellisense.annotate(breeze.breeze.MetadataStore.prototype, {
   'setQ': function() {
     /// <signature>
     ///   <summary>
-    ///   (Re)set Q with a promises implementation suitable for Breeze internal use }
+    ///   (Re)set Q with a promises implementation suitable for Breeze internal use.  Note: This API is likely to change. }
     ///   </summary>
     ///   <param name="q" type="Object" optional="true">- a  'thenable' promises implementation like Q.js with the API that Breeze requires internally.</param>
     
@@ -2574,7 +2584,7 @@ intellisense.annotate(breeze.breeze.EntityManager.prototype, {
     ///   Executes the specified query against this EntityManager's local cache. }
     ///   </summary>
     ///   <param name="query" type="breeze.breeze.EntityQuery" optional="true">The  'EntityQuery' to execute.</param>
-    ///   <returns type="Array" elementType="Entity" >Array of Entities</returns>
+    ///   <returns type="Array" elementType="Entity" >Array of entities from cache that satisfy the query</returns>
     /// </signature>
   },
   'saveChanges': function() {
