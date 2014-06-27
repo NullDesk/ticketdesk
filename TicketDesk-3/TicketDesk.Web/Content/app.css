@@ -94,10 +94,7 @@
 }
 
 
-.page-host  {
-    position: relative;
-    padding-top: 40px;
-}
+
 
 .loader {
     margin: 6px 8px 4px 8px;
@@ -112,6 +109,7 @@
 
 body {
     overflow-x: hidden;
+    padding-top: 40px;
 }
 
 .padt15px {

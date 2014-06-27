@@ -87,7 +87,7 @@ define(['durandal/system', 'durandal/composition', 'jquery'], function(system, c
                     position: 'absolute',
                     left: fadeOnly || animation ? '0px' : '20px',
                     right: 0,
-                    top: 0,
+                    top: 40,
                     bottom: 0
                 };
 
