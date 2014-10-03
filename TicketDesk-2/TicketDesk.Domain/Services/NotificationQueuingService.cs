@@ -27,15 +27,18 @@ namespace TicketDesk.Domain.Services
         public NotificationQueuingService
         (
             ISecurityService security,
-            [Import("EmailNotificationsInitialDelayMinutes")] Func<double> getNotificationsInitialDelayMethod
+            [Import("EmailNotificationsInitialDelayMinutes")] Func<double> getNotificationsInitialDelayMethod,
+            [Import("HelpDeskBroadcastNotificationsEnabled")] Func<bool> getHelpDeskBroadcastNotificationsEnabled 
         )
         {
             GetNotificationsInitialDelay = getNotificationsInitialDelayMethod;
+            GetHelpDeskBroadcastNotificationsEnabled = getHelpDeskBroadcastNotificationsEnabled;
             Security = security;
         }
 
         public ISecurityService Security { get; private set; }
         public Func<bool> GetNotificationsEnabled { get; private set; }
+        public Func<bool> GetHelpDeskBroadcastNotificationsEnabled { get; private set; } 
         public Func<double> GetNotificationsInitialDelay { get; private set; }
 
         /// <summary>
@@ -78,7 +81,18 @@ namespace TicketDesk.Domain.Services
 
                     if (note.NotifyUserReason == "HelpDesk")// for non-broadcasts to helpdesk schedule on the delay 
                     {
-                        note.NextDeliveryAttemptDate = now;
+                        if (GetHelpDeskBroadcastNotificationsEnabled())
+                        {
+                            note.NextDeliveryAttemptDate = now;
+                        }
+                        else
+                        {
+                            note.NextDeliveryAttemptDate = null;
+                            note.Status = "suppressed";
+                            note.LastDeliveryAttemptDate = now;
+                        }
+                        
+                        
                     }
                     else
                     {

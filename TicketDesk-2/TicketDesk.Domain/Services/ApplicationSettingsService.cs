@@ -10,7 +10,7 @@
 // For any distribution that contains code from this file, this notice of 
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
- 
+
 
 
 using System;
@@ -89,7 +89,7 @@ namespace TicketDesk.Domain.Services
 
         public bool SaveSettings(IEnumerable<Setting> settingsToSave)
         {
-            
+
             return Repository.SaveSettings(settingsToSave);
         }
 
@@ -253,22 +253,19 @@ namespace TicketDesk.Domain.Services
             }
         }
 
-
-
         //////////////////////////////////////////////////
 
-
         [Export("EmailNotificationsEnabled")]
-        public bool EmailNotificationsEnabled()
-        {
-            return (bool)(GetSettingValue("EnableEmailNotifications") ?? false);
-        }
+        public bool EmailNotificationsEnabled() { return (bool)(GetSettingValue("EnableEmailNotifications") ?? false); }
 
         [Export("EmailServiceName")]
         public string EmailServiceName() { return GetSettingValue("EmailServiceName") as string; }
 
         [Export("EmailNotificationsInitialDelayMinutes")]
         public double EmailNotificationInitialDelayMinutes() { return (double)(GetSettingValue("EmailNotificationInitialDelayMinutes") ?? 2d); }
+
+        [Export("HelpDeskBroadcastNotificationsEnabled")]
+        public bool HelpDeskBroadcastNotificationsEnabled() { return (bool)(GetSettingValue("HelpDeskBroadcastNotificationsEnabled") ?? true); }
 
         [Export("EmailMaxConsolidationWaitMinutes")]
         public double EmailMaxConsolidationWaitMinutes() { return (double)(GetSettingValue("EmailMaxConsolidationWaitMinutes") ?? 12d); }
@@ -288,9 +285,9 @@ namespace TicketDesk.Domain.Services
         [Export("BlindCopyToEmailAddress")]
         public string BlindCopyToEmailAddress() { return (string)(GetSettingValue("BlindCopyToEmailAddress") ?? null); }
 
-
-
-
         #endregion
+
+
+
     }
 }

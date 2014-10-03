@@ -96,7 +96,7 @@ namespace TicketDesk.Domain.Services
         bool CreateSqlMembershipRegistrationsAsSubmitters { get; }
         int RefreshSecurityCacheMinutes { get; }
         int AdUserPropertiesSqlCacheRefreshMinutes { get; }
-
+        bool HelpDeskBroadcastNotificationsEnabled();
         bool EmailNotificationsEnabled();
         string EmailServiceName();
         double EmailNotificationInitialDelayMinutes();

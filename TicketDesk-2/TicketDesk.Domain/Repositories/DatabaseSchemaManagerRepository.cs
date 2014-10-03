@@ -32,7 +32,7 @@ namespace TicketDesk.Domain.Repositories
                     currentVersionSetting = new Setting() { SettingName = "Version", SettingValue = "2.0.0", DefaultValue = "2.0.0", SettingDescription = "The version of the TicketDesk database. CHANGE AT YOUR OWN RISK!", SettingType = "SimpleString" };
                     AppSettings.SaveSettings(new[] { currentVersionSetting });
                 }
-                UpgradeSchema("2.0.2");
+                UpgradeSchema("2.0.3");
             }
             catch { }
         }
@@ -67,6 +67,19 @@ namespace TicketDesk.Domain.Repositories
                        
                     ";
                     upgradedToVersion = "2.0.2";
+                    break;
+                case "2.0.2":
+                    q = @"INSERT Settings( SettingName, SettingValue, DefaultValue, SettingType, SettingDescription) 
+                          VALUES(
+                                    'HelpDeskBroadcastNotificationsEnabled',
+                                    'true',
+                                    'true',
+                                    'BoolString',
+                                    'Send broadcast notifications to helpdesk for all new tickets'
+                                );
+                       
+                    ";
+                    upgradedToVersion = "2.0.3";
                     break;
             }
             if (!string.IsNullOrEmpty(q))
