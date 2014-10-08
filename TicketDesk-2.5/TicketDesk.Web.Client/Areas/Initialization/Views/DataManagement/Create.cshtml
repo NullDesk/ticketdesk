@@ -1,0 +1,28 @@
+﻿@using TicketDesk.Web.Client.Areas.Initialization.Controllers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section title
+{
+    Create Database
+}
+<div class="contentContainer">
+    <h2>Create Database</h2>
+    <p>
+        No database detected. Would you like to create a new TicketDesk 3 Database now?
+
+    </p>
+    <div>@Html.ActionLink("Create Now", "CreateNow")</div>
+    <p>
+        @if (ViewBag.DbCreated ?? false)
+        {
+            <span>Created</span>
+        }
+
+        @if (!(ViewBag.DbCreated ?? false))
+        {
+            <span>Not yet</span>
+        }
+    </p>
+</div>

@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section title
+{
+    Upgrade Database
+}
+<div class="contentContainer">
+    <h2>Upgrade Database</h2>
+    <p>
+        Legacy TD2.1x database detected. Would you like to upgrade this database now?
+    </p><p>
+        Make sure you have a backup of this database before proceeding
+    </p>
+
+    <p>
+        @if (ViewBag.DbUpgraded ?? false)
+        {
+            <span>Upgraded</span>
+        }
+        else
+        {
+
+            <span>Not Upgraded</span>
+            <div>@Html.ActionLink("Upgrade Now", "UpgradeNow")</div>
+        }
+    </p>
+    <p>
+        @if (ViewBag.UsersMigrated ?? false)
+        {
+            <span>Migrated</span>
+        }
+        else
+        {
+            <span>Not Migrated</span>
+            <div>@Html.ActionLink("Migrate Users Now", "MigrateMembershipToIdentity")</div>
+        }
+        
+    </p>
+</div>

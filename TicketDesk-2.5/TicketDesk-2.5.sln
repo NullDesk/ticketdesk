@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1AB88EFD-7870-4CC0-A79D-91653E6B1553}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Legacy", "TicketDesk.Domain.Legacy\TicketDesk.Domain.Legacy.csproj", "{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Identity", "TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj", "{BD3617C2-A91E-40F3-A441-B085D2491399}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

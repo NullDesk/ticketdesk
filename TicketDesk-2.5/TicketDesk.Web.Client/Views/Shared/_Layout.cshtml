@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        @RenderSection("title", required: false)
+    </title>
+    <style type="text/css">
+        
+    </style>
+    @Styles.Render("~/content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @RenderSection("customHeader", required: false)
+</head>
+<body>
+    <div class="page">
+        <header id="header">
+            <div id="title">
+                <a  href="~/" alt="TicketDesk 2.5" style="display:block;">
+                    &nbsp;
+                </a>
+                @*<img alt="TicketDesk 2.0" src="~/Content/Images/TicketDesk-2.5.png" />*@
+            </div>
+            <div>
+                <div id="logindisplay" style="height: 40px;">
+                    @Html.Partial("_LoginPartial")
+                </div>
+                <div id="menucontainer">
+                    <ul id="menu">
+                        <li><a href="/">Test</a></li>
+                        <li><a href="/">Test</a></li>
+                    </ul>
+
+                </div>
+                <div class="clear;">
+                </div>
+            </div>
+        </header>
+        <div id="main">
+            @RenderBody()
+
+
+        </div>
+        <footer>
+            <p>TicketDesk 2.5 : &copy; @DateTime.Now.Year - Stephen M. Redd</p>
+        </footer>
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/vendor")
+    @RenderSection("scripts", required: false)
+
+
+
+
+
+
+</body>
+</html>
