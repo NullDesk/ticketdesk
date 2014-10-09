@@ -15,6 +15,11 @@ namespace TicketDesk.Web.Client.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
         
     }
 }

@@ -100,6 +100,7 @@ namespace TicketDesk.Web.Client
         {
             return new TicketDeskRoleManager(new RoleStore<IdentityRole>(context.Get<TicketDeskIdentityContext>()));
         }
+
     }
     // Configure the application sign-in manager which is used in this application.
     public class TicketDeskSignInManager : SignInManager<TicketDeskUser, string>

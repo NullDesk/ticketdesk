@@ -7,7 +7,6 @@
         @RenderSection("title", required: false)
     </title>
     <style type="text/css">
-        
     </style>
     @Styles.Render("~/content/css")
 
@@ -15,39 +14,42 @@
 
     @RenderSection("customHeader", required: false)
 </head>
-<body>
-    <div class="page">
-        <header id="header">
-            <div id="title">
-                <a  href="~/" alt="TicketDesk 2.5" style="display:block;">
-                    &nbsp;
-                </a>
-                @*<img alt="TicketDesk 2.0" src="~/Content/Images/TicketDesk-2.5.png" />*@
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(" ", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
-            <div>
-                <div id="logindisplay" style="height: 40px;">
-                    @Html.Partial("_LoginPartial")
-                </div>
-                <div id="menucontainer">
-                    <ul id="menu">
-                        <li><a href="/">Test</a></li>
-                        <li><a href="/">Test</a></li>
-                    </ul>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
 
-                </div>
-                <div class="clear;">
-                </div>
+                    @*@if (Request.IsAuthenticated && User.IsInRole("TdAdministrators"))
+                    {
+                    <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                    <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                    }*@
+
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
-        </header>
-        <div id="main">
-            @RenderBody()
-
-
         </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
         <footer>
             <p>TicketDesk 2.5 : &copy; @DateTime.Now.Year - Stephen M. Redd</p>
         </footer>
     </div>
+
+
+
 
 
 

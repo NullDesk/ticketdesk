@@ -31,17 +31,18 @@ namespace TicketDesk.Web.Identity.Migrations
 
             const string name = "admin@example.com";
             const string password = "Admin@123456";
-            const string roleName = "TdAdministrators";
+            var roleNames = context.DefaultRoleNames;
             const string displayName = "Admin User";
-
-            //Create Role Admin if it does not exist
-            var role = roleManager.FindByName(roleName);
-            if (role == null)
+            foreach (var roleName in roleNames)
             {
-                role = new IdentityRole(roleName);
-                roleManager.Create(role);
+                //Create Role if it does not exist
+                var role = roleManager.FindByName(roleName);
+                if (role == null)
+                {
+                    role = new IdentityRole(roleName);
+                    roleManager.Create(role);
+                }
             }
-
             var user = userManager.FindByName(name);
             if (user == null)
             {
@@ -50,11 +51,11 @@ namespace TicketDesk.Web.Identity.Migrations
                 userManager.SetLockoutEnabled(user.Id, false);
             }
 
-            // Add user admin to Role Admin if not already added
+            // Add user admin to admin if not already added
             var rolesForUser = userManager.GetRoles(user.Id);
-            if (!rolesForUser.Contains(role.Name))
+            if (!rolesForUser.Contains("TdAdministrators"))
             {
-                userManager.AddToRole(user.Id, role.Name);
+                userManager.AddToRole(user.Id, "TdAdministrators");
             }
         }
     }

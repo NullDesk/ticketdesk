@@ -94,10 +94,17 @@ namespace TicketDesk.Web.Client.Models
         /// <param name="roleManager">The role manager.</param>
         private static void EnsureRolesExist(TicketDeskRoleManager roleManager)
         {
-            roleManager.Create(new IdentityRole("TdAdministrators"));
-            roleManager.Create(new IdentityRole("TdHelpDeskUsers"));
-            roleManager.Create(new IdentityRole("TdInternalUsers"));
-            roleManager.Create(new IdentityRole("TdPendingUsers"));
+            //TODO: Move this method to td role manager after extending it to use enum role names
+            var roleNames = TicketDeskIdentityContext.DefaultRoles;
+            foreach (var roleName in roleNames)
+            {
+                var role = roleManager.FindByName(roleName);
+                if (role == null)
+                {
+                    role = new IdentityRole(roleName);
+                    roleManager.Create(role);
+                }
+            }
         }
     }
 }
