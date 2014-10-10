@@ -11,9 +11,40 @@ namespace TicketDesk.Domain.Legacy.Migrations
 			Sql("DROP PROCEDURE [dbo].[ELMAH_GetErrorsXml]");
 			Sql("DROP PROCEDURE [dbo].[ELMAH_GetErrorXml]");
 			Sql("DROP PROCEDURE [dbo].[ELMAH_LogError]");
-
 			RenameColumn("dbo.Tickets", "Type", "TicketType");
-			Sql(@"UPDATE [dbo].[Settings] SET [SettingValue] = '2.5.0' WHERE [SettingName] = 'Version'");
+		 
+			Sql(@"
+				ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [DF_Tickets_CreatedDate];
+
+				ALTER TABLE [dbo].[Tickets] ALTER COLUMN [CreatedDate] DATETIMEOFFSET (7) NOT NULL;
+				ALTER TABLE [dbo].[Tickets] ALTER COLUMN [CurrentStatusDate] DATETIMEOFFSET (7) NOT NULL;
+				ALTER TABLE [dbo].[Tickets] ALTER COLUMN [LastUpdateDate] DATETIMEOFFSET (7) NOT NULL;
+
+				ALTER TABLE [dbo].[Tickets] ADD CONSTRAINT [DF_Tickets_CreatedDate] DEFAULT (sysdatetimeoffset()) FOR [CreatedDate];
+
+				ALTER TABLE [dbo].[TicketComments] DROP CONSTRAINT [DF_TicketComments_CommentDate];
+
+				ALTER TABLE [dbo].[TicketComments] ALTER COLUMN [CommentedDate] DATETIMEOFFSET (7) NOT NULL;
+
+				ALTER TABLE [dbo].[TicketComments] ADD CONSTRAINT [DF_TicketComments_CommentDate] DEFAULT (sysdatetimeoffset()) FOR [CommentedDate];
+				ALTER TABLE [dbo].[TicketAttachments] ALTER COLUMN [UploadedDate] DATETIMEOFFSET (7) NOT NULL;
+
+				ALTER TABLE [dbo].[TicketEventNotifications] ALTER COLUMN [CreatedDate] DATETIMEOFFSET (7) NOT NULL;
+				ALTER TABLE [dbo].[TicketEventNotifications] ALTER COLUMN [LastDeliveryAttemptDate] DATETIMEOFFSET (7) NULL;
+				ALTER TABLE [dbo].[TicketEventNotifications] ALTER COLUMN [NextDeliveryAttemptDate] DATETIMEOFFSET (7) NULL;
+
+
+			");
+
+			AddColumn("dbo.Tickets", "TicketStatus", c => c.Int(nullable: false));
+			Sql("Update dbo.Tickets set TicketStatus = 0 where CurrentStatus = 'Active'");
+			Sql("Update dbo.Tickets set TicketStatus = 1 where CurrentStatus = 'More Info'");
+			Sql("Update dbo.Tickets set TicketStatus = 2 where CurrentStatus = 'Resolved'");
+			Sql("Update dbo.Tickets set TicketStatus = 3 where CurrentStatus = 'Closed'");
+
+			DropColumn("dbo.Tickets", "CurrentStatus");
+			 Sql(@"UPDATE [dbo].[Settings] SET [SettingValue] = '2.5.0' WHERE [SettingName] = 'Version'");
+	
 		}
 		
 		public override void Down()
@@ -224,6 +255,39 @@ namespace TicketDesk.Domain.Legacy.Migrations
 
 			");
 			RenameColumn("dbo.Tickets", "TicketType", "Type");
+
+			Sql(@"
+				ALTER TABLE [dbo].[Tickets] DROP CONSTRAINT [DF_Tickets_CreatedDate];
+
+				ALTER TABLE [dbo].[Tickets] ALTER COLUMN [CreatedDate] DATETIME NOT NULL;
+				ALTER TABLE [dbo].[Tickets] ALTER COLUMN [CurrentStatusDate] DATETIME NOT NULL;
+				ALTER TABLE [dbo].[Tickets] ALTER COLUMN [LastUpdateDate] DATETIME NOT NULL;
+
+				ALTER TABLE [dbo].[Tickets] ADD CONSTRAINT [DF_Tickets_CreatedDate] DEFAULT (getdate()) FOR [CreatedDate];
+
+				ALTER TABLE [dbo].[TicketComments] DROP CONSTRAINT [DF_TicketComments_CommentDate];
+
+				ALTER TABLE [dbo].[TicketComments] ALTER COLUMN [CommentedDate] DATETIME NOT NULL;
+
+				ALTER TABLE [dbo].[TicketComments] ADD CONSTRAINT [DF_TicketComments_CommentDate] DEFAULT (getdate()) FOR [CommentedDate];
+				ALTER TABLE [dbo].[TicketAttachments] ALTER COLUMN [UploadedDate] DATETIME NOT NULL;
+
+				ALTER TABLE [dbo].[TicketEventNotifications] ALTER COLUMN [CreatedDate] DATETIME NOT NULL;
+				ALTER TABLE [dbo].[TicketEventNotifications] ALTER COLUMN [LastDeliveryAttemptDate] DATETIME NULL;
+				ALTER TABLE [dbo].[TicketEventNotifications] ALTER COLUMN [NextDeliveryAttemptDate] DATETIME NULL;
+
+				
+			");
+
+			AddColumn("dbo.Tickets", "CurrentStatus", c => c.String(nullable: false, maxLength: 50));
+
+			Sql("Update dbo.Tickets set CurrentStatus = 'Active' where TicketStatus = 0 ");
+			Sql("Update dbo.Tickets set CurrentStatus = 'More Info' where TicketStatus = 1 ");
+			Sql("Update dbo.Tickets set CurrentStatus = 'Resolved' where TicketStatus = 2 ");
+			Sql("Update dbo.Tickets set CurrentStatus = 'Closed' where TicketStatus = 3 ");
+
+			DropColumn("dbo.Tickets", "TicketStatus");
+
 			Sql(@"UPDATE [dbo].[Settings] SET [SettingValue] = '2.0.2' WHERE [SettingName] = 'Version'");
 	
 		}

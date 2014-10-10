@@ -34,7 +34,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(100)]
         public string CommentedBy { get; set; }
 
-        public DateTime CommentedDate { get; set; }
+        public DateTimeOffset CommentedDate { get; set; }
 
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]

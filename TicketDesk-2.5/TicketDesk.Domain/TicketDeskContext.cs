@@ -12,11 +12,9 @@ namespace TicketDesk.Domain
         public TicketDeskContext()
             : base("name=TicketDesk")
         {
-            
+
         }
 
-        public virtual DbSet<AdCachedRoleMember> AdCachedRoleMembers { get; set; }
-        public virtual DbSet<AdCachedUserProperty> AdCachedUserProperties { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
         public virtual DbSet<TicketComment> TicketComments { get; set; }

@@ -50,13 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201409300440279_InitialCreate.cs" />
-    <Compile Include="Migrations\201409300440279_InitialCreate.Designer.cs">
-      <DependentUpon>201409300440279_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
+    <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
+      <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\AdCachedRoleMember.cs" />
-    <Compile Include="Model\AdCachedUserProperty.cs" />
+    <Compile Include="Model\TicketStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Setting.cs" />
     <Compile Include="Model\Ticket.cs" />
@@ -71,9 +70,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201409300440279_InitialCreate.resx">
-      <DependentUpon>201409300440279_InitialCreate.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Migrations\201410100421345_InitialCreate.resx">
+      <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

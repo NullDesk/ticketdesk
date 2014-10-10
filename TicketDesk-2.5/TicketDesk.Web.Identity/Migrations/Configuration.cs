@@ -24,9 +24,12 @@ namespace TicketDesk.Web.Identity.Migrations
         //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
         public void InitializeUsers(TicketDeskIdentityContext context)
         {
+            
             var userStore = new UserStore<TicketDeskUser>(context);
             var roleStore = new RoleStore<IdentityRole>(context);
+            //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
             var userManager = new UserManager<TicketDeskUser>(userStore);
+
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
             const string name = "admin@example.com";
@@ -47,7 +50,7 @@ namespace TicketDesk.Web.Identity.Migrations
             if (user == null)
             {
                 user = new TicketDeskUser { UserName = name, Email = name, DisplayName = displayName };
-                userManager.Create(user, password);
+                var result = userManager.Create(user, password);
                 userManager.SetLockoutEnabled(user.Id, false);
             }
 

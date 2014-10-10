@@ -27,7 +27,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(100)]
         public string UploadedBy { get; set; }
 
-        public DateTime UploadedDate { get; set; }
+        public DateTimeOffset UploadedDate { get; set; }
 
         [Required]
         public byte[] FileContents { get; set; }

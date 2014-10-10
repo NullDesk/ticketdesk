@@ -35,17 +35,17 @@ namespace TicketDesk.Domain.Model
         [StringLength(50)]
         public string NotifyUserReason { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         public int DeliveryAttempts { get; set; }
 
-        public DateTime? LastDeliveryAttemptDate { get; set; }
+        public DateTimeOffset? LastDeliveryAttemptDate { get; set; }
 
         [Required]
         [StringLength(20)]
         public string Status { get; set; }
 
-        public DateTime? NextDeliveryAttemptDate { get; set; }
+        public DateTimeOffset? NextDeliveryAttemptDate { get; set; }
 
         [Required]
         [StringLength(100)]

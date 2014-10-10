@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace TicketDesk.Domain.Model
 {
     using System;
@@ -10,16 +12,18 @@ namespace TicketDesk.Domain.Model
     {
         public Ticket()
         {
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             TicketAttachments = new HashSet<TicketAttachment>();
             TicketComments = new HashSet<TicketComment>();
             TicketTags = new HashSet<TicketTag>();
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         public int TicketId { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string Type { get; set; }
+        public string TicketType { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -42,7 +46,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(100)]
         public string CreatedBy { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -52,10 +56,9 @@ namespace TicketDesk.Domain.Model
         public string AssignedTo { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string CurrentStatus { get; set; }
+        public TicketStatus TicketStatus { get; set; }
 
-        public DateTime CurrentStatusDate { get; set; }
+        public DateTimeOffset CurrentStatusDate { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -65,14 +68,12 @@ namespace TicketDesk.Domain.Model
         [StringLength(100)]
         public string LastUpdateBy { get; set; }
 
-        public DateTime LastUpdateDate { get; set; }
+        public DateTimeOffset LastUpdateDate { get; set; }
 
         [StringLength(25)]
         public string Priority { get; set; }
 
         public bool AffectsCustomer { get; set; }
-
-        public bool PublishedToKb { get; set; }
 
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]
