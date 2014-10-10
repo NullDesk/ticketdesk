@@ -3,9 +3,7 @@
 }
 
 body {
-    height: 100%;
-    position: fixed;
-    bottom: 10px;
+   
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #fff;
@@ -17,6 +15,7 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
 }
 
 .navbar-fixed-top {
@@ -32,16 +31,18 @@ body {
 }
 
 .body-content {
-    height: 100%;
+   
+   
 }
 
     .body-content > main {
-        height: 100%;
+        min-height: 300px;
     }
 
     .body-content > footer {
         height: 30px;
         border-top: 1px solid #B3CBDF;
+
     }
 
 
@@ -81,5 +82,7 @@ input[type="checkbox"].input-validation-error {
 /*Home page*/
 .right-side-box {
     height: 100%;
+    min-height: 300px;
+    
     border-left: 1px solid #B3CBDF;
 }
