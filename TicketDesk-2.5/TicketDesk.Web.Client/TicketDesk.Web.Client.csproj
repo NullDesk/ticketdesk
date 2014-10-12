@@ -152,6 +152,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="X.PagedList, Version=1.20.1.21688, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="X.PagedList.Mvc, Version=4.7.0.21689, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\X.PagedList.Mvc.4.7.0.2\lib\net40\X.PagedList.Mvc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.SimpleInjector.cs" />
@@ -166,7 +174,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
+    <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\LegacySecurityMigrator.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -181,6 +191,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\TicketDesk-2.5-mobile.png" />
     <Content Include="Content\Images\TicketDesk-2.5.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
     <None Include="Content\Site.css_old" />
@@ -242,6 +253,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\TicketCenter\Index.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

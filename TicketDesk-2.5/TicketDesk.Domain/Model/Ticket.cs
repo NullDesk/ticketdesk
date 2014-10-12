@@ -46,6 +46,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(100)]
         public string CreatedBy { get; set; }
 
+        [DatabaseGenerated()]
         public DateTimeOffset CreatedDate { get; set; }
 
         [Required]

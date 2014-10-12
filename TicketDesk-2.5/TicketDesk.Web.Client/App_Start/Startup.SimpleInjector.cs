@@ -42,7 +42,9 @@ namespace TicketDesk.Web.Client
 
             container.RegisterPerWebRequest<TicketDeskUserManager>();
 
-            container.RegisterPerWebRequest<TicketDeskIdentityContext>(() => new TicketDeskIdentityContext());
+            container.RegisterPerWebRequest<TicketDeskContext>();
+
+            container.RegisterPerWebRequest<TicketDeskIdentityContext>();
 
             container.RegisterPerWebRequest<IUserStore<TicketDeskUser>>(() =>
                 new UserStore<TicketDeskUser>(container.GetInstance<TicketDeskIdentityContext>()));
@@ -70,7 +72,7 @@ namespace TicketDesk.Web.Client
                 return context.Authentication;
             }
                 );
-
+           
             container.RegisterPerWebRequest<SignInManager<TicketDeskUser, string>, TicketDeskSignInManager>();
 
             container.RegisterPerWebRequest<TicketDeskRoleManager>();
