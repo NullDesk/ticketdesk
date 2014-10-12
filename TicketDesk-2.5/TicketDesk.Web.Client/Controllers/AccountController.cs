@@ -16,11 +16,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private TicketDeskUserManager _userManager;
-
-        public AccountController()
-        {
-        }
+        private TicketDeskUserManager UserManager { get; set; }
+        private TicketDeskSignInManager SignInManager { get; set; }
 
         public AccountController(TicketDeskUserManager userManager, TicketDeskSignInManager signInManager )
         {
@@ -28,18 +25,7 @@ namespace TicketDesk.Web.Client.Controllers
             SignInManager = signInManager;
         }
 
-        public TicketDeskUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<TicketDeskUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
+      
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -49,16 +35,8 @@ namespace TicketDesk.Web.Client.Controllers
             return View();
         }
 
-        private TicketDeskSignInManager _signInManager;
-
-        public TicketDeskSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<TicketDeskSignInManager>();
-            }
-            private set { _signInManager = value; }
-        }
+      
+       
 
         //
         // POST: /Account/Login

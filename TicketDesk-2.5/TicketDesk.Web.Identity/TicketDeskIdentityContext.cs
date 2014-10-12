@@ -16,10 +16,7 @@ namespace TicketDesk.Web.Identity
         {
         }
 
-        public static TicketDeskIdentityContext Create()
-        {
-            return new TicketDeskIdentityContext();
-        }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //we have to call the base modelbuilder first, or the new names get overridden by the base

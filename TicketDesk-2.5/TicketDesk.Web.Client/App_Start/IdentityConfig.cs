@@ -41,52 +41,52 @@ namespace TicketDesk.Web.Client
         {
         }
 
-        public static TicketDeskUserManager Create(IdentityFactoryOptions<TicketDeskUserManager> options, IOwinContext context) 
-        {
-            var manager = new TicketDeskUserManager(new UserStore<TicketDeskUser>(context.Get<TicketDeskIdentityContext>()));
-            // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<TicketDeskUser>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+        //public static TicketDeskUserManager Create(IdentityFactoryOptions<TicketDeskUserManager> options, IOwinContext context) 
+        //{
+        //    var manager = new TicketDeskUserManager(new UserStore<TicketDeskUser>(context.Get<TicketDeskIdentityContext>()));
+        //    // Configure validation logic for usernames
+        //    manager.UserValidator = new UserValidator<TicketDeskUser>(manager)
+        //    {
+        //        AllowOnlyAlphanumericUserNames = false,
+        //        RequireUniqueEmail = true
+        //    };
 
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 5,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = false,
-                RequireLowercase = false,
-                RequireUppercase = false,
-            };
+        //    // Configure validation logic for passwords
+        //    manager.PasswordValidator = new PasswordValidator
+        //    {
+        //        RequiredLength = 5,
+        //        RequireNonLetterOrDigit = false,
+        //        RequireDigit = false,
+        //        RequireLowercase = false,
+        //        RequireUppercase = false,
+        //    };
 
-            // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+        //    // Configure user lockout defaults
+        //    manager.UserLockoutEnabledByDefault = true;
+        //    manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        //    manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<TicketDeskUser>
-            {
-                MessageFormat = "Your security code is {0}"
-            });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<TicketDeskUser>
-            {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
-            });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<TicketDeskUser>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
-            return manager;
-        }
+        //    // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+        //    // You can write your own provider and plug it in here.
+        //    manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<TicketDeskUser>
+        //    {
+        //        MessageFormat = "Your security code is {0}"
+        //    });
+        //    manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<TicketDeskUser>
+        //    {
+        //        Subject = "Security Code",
+        //        BodyFormat = "Your security code is {0}"
+        //    });
+        //    manager.EmailService = new EmailService();
+        //    manager.SmsService = new SmsService();
+        //    var dataProtectionProvider = options.DataProtectionProvider;
+        //    if (dataProtectionProvider != null)
+        //    {
+        //        manager.UserTokenProvider =
+        //            new DataProtectorTokenProvider<TicketDeskUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+        //    }
+        //    return manager;
+        //}
     }
     // Configure the RoleManager used in the application. RoleManager is defined in the ASP.NET Identity core assembly
     public class TicketDeskRoleManager : RoleManager<IdentityRole>
@@ -95,11 +95,11 @@ namespace TicketDesk.Web.Client
             : base(roleStore)
         {
         }
-        //TODO: Why are options passed here, and what are they for? This is from the Microsoft.AspNet.Identity.Samples package
-        public static TicketDeskRoleManager Create(IdentityFactoryOptions<TicketDeskRoleManager> options, IOwinContext context)
-        {
-            return new TicketDeskRoleManager(new RoleStore<IdentityRole>(context.Get<TicketDeskIdentityContext>()));
-        }
+        ////TODO: Why are options passed here, and what are they for? This is from the Microsoft.AspNet.Identity.Samples package
+        //public static TicketDeskRoleManager Create(IdentityFactoryOptions<TicketDeskRoleManager> options, IOwinContext context)
+        //{
+        //    return new TicketDeskRoleManager(new RoleStore<IdentityRole>(context.Get<TicketDeskIdentityContext>()));
+        //}
 
     }
     // Configure the application sign-in manager which is used in this application.

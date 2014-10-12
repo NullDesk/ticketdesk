@@ -14,9 +14,7 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        public ManageController()
-        {
-        }
+        
 
         public ManageController(TicketDeskUserManager userManager)
         {
