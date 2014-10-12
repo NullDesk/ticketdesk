@@ -13,8 +13,8 @@ namespace TicketDesk.Domain.Migrations
         {
             AutomaticMigrationsEnabled = false;
             ContextKey = "TicketDeskCore";
-            
-            
+
+
         }
 
         protected override void Seed(TicketDeskContext context)
@@ -31,7 +31,7 @@ namespace TicketDesk.Domain.Migrations
                         AssignedTo = "admin@nowhere.com",
                         Category = "Hardware",
                         CreatedBy = "otherstaffer@nowhere.com",
-                        TicketStatus =  (p == "L") ? TicketStatus.Closed : TicketStatus.Active,
+                        TicketStatus = (p == "L") ? TicketStatus.Closed : TicketStatus.Active,
                         CurrentStatusDate = DateTimeOffset.Now,
                         CurrentStatusSetBy = "otherstaffer@nowhere.com",
                         Details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",
@@ -44,6 +44,39 @@ namespace TicketDesk.Domain.Migrations
                         TicketType = "Problem"
 
                     });
+
+                context.Settings.AddOrUpdate(
+                s => s.SettingName,
+                new Setting
+                {
+                    SettingName = "CategoryList",
+                    SettingValue = "Hardware,Software,Network",
+                    DefaultValue = "Hardware,Software,Network",
+                    SettingType = "StringList",
+                    SettingDescription = "This is the list of possible selections for the Category dropdown list.\n\nIs is advised that your use generic categories. The recommended rule-of-thumb is that there should be one option that fits any possible ticket a user might create, and there should NOT be a value such as 'other', 'N/A', or 'unknown'. Keeping the values general in nature increases the odds that users will pick a meaningful value."
+                },
+                new Setting
+                {
+
+                    SettingName = "PriorityList",
+                    SettingValue = "High,Low,Medium",
+                    DefaultValue = "High,Low,Medium",
+                    SettingType = "StringList",
+                    SettingDescription = "This is the list of possible selections for the Priority dropdown list."
+                },
+                new Setting
+                {
+
+                    SettingName = "TicketTypesList",
+                    SettingValue = "Question,Problem,Request",
+                    DefaultValue = "Question,Problem,Request",
+                    SettingType = "StringList",
+                    SettingDescription = "This is the list of possible selections for the Ticket Type dropdown list. The type of ticket is usually the 'kind' of issue the user is submitting.\n\nIs is advised that your use generic types. The recommended rule-of-thumb is that there should be one option that fits any possible ticket a user might create, and there should NOT be a value such as 'other', 'N/A', or 'unknown'. Keeping the values general in nature increases the odds that users will pick a meaningful value."
+
+                });
+
+
+
             }
             base.Seed(context);
         }
