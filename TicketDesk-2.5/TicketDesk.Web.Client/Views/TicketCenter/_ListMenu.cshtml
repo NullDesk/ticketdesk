@@ -1,0 +1,15 @@
+﻿@using TicketDesk.Domain.Models
+@model IEnumerable<UserTicketListSetting>
+@{
+    var currentListSettings = (UserTicketListSetting)ViewBag.CurrentListSettings;
+}
+<ul>
+    @foreach (var list in Model)
+    {
+        var className = ((currentListSettings.ListName == list.ListName)) ? "selected" : string.Empty;
+        <li class="@className">
+
+            @Html.ActionLink(list.ListDisplayName,"Index",new {ListName = list.ListName} )
+        </li>
+    }
+</ul>

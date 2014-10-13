@@ -7,27 +7,61 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using PagedList;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
     public class TicketCenterController : Controller
     {
         private TicketDeskContext Context { get; set; }
-
         public TicketCenterController(TicketDeskContext context)
         {
             Context = context;
         }
 
         // GET: TicketCenter
-        public async Task<ActionResult> Index(int? page)
+        public async Task<ActionResult> Index(int? page, string listName)
         {
             var pageNumber = page ?? 1;
             var model = await Context.Tickets.Where(t => t.TicketStatus != TicketStatus.Closed).OrderByDescending(t => t.LastUpdateDate).ToPagedListAsync(pageNumber,10);
-            return View(model);
+            
+            var viewModel = new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
+
+            if (this.Request.IsAjaxRequest())
+            {
+                return PartialView("_TicketList", viewModel);
+            }
+            return View(viewModel);
+        }
+
+        public async Task<ActionResult> FilterList(string listName, int pageSize, string currentStatus, string owner,
+            string assignedTo)
+        {
+            var currentListSetting = Context.UserSettings.GetUserListSettingByName(listName, User.Identity.GetUserId());
+
+
+
+            currentListSetting.ItemsPerPage = pageSize;
+
+            if (!currentListSetting.DisabledFilterColumnNames.Contains("CurrentStatus"))
+            {
+                currentListSetting.ChangeCurrentStatusFilter(currentStatus);
+            }
+            if (!currentListSetting.DisabledFilterColumnNames.Contains("Owner"))
+            {
+                currentListSetting.ChangeOwnerFilter(owner);
+            }
+            if (!currentListSetting.DisabledFilterColumnNames.Contains("AssignedTo"))
+            {
+                currentListSetting.ChangeAssignedFilter(assignedTo);
+            }
+            await Context.SaveChangesAsync();
+
+            return RedirectToAction("Index", new {listName});
         }
 
         //// GET: TicketCenter/Details/5

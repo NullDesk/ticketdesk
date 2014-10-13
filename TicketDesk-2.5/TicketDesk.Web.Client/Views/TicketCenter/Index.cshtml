@@ -1,6 +1,8 @@
-﻿@model IEnumerable<TicketDesk.Domain.Model.Ticket>
+﻿@model  TicketCenterListViewModel
+
 @using PagedList.Mvc;
 @using PagedList;
+@using TicketDesk.Web.Client.Models
 
 @section title{ Ticket Center}
 
@@ -9,82 +11,101 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketType)
-        </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Owner)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AssignedTo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastUpdateDate)
-        </th>
+@Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
+{
+    { "CurrentListSettings", Model.CurrentListSetting }
+})
 
-    </tr>
+@{
+    var ajaxSortOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeSort", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };
+   
+}
+<div id="ticketList">
+    <div class="ticketFilterBar">
+        @Html.Partial("_FilterBar")
+    </div>
+    <div>
+        @Html.Partial("_TicketList", Model)
+    </div>
+</div>
 
-    @foreach (var item in Model)
-    {
+@*<table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Owner)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @item.CreatedDate.ToString("MM/dd/yyyy")<br />
-                @item.CreatedDate.ToString("hh:mm tt")
+            <th>
+                @Html.DisplayNameFor(model => model.TicketId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketType)
+            </th>
 
-
-            </td>
-            <td>
-                @item.LastUpdateDate.ToString("MM/dd/yyyy")<br />
-                @item.LastUpdateDate.ToString("hh:mm tt")
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssignedTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastUpdateDate)
+            </th>
 
         </tr>
-    }
-</table>
 
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedTo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </td>
+                <td>
+                    @item.CreatedDate.ToString("MM/dd/yyyy")<br />
+                    @item.CreatedDate.ToString("hh:mm tt")
+
+
+                </td>
+                <td>
+                    @item.LastUpdateDate.ToString("MM/dd/yyyy")<br />
+                    @item.LastUpdateDate.ToString("hh:mm tt")
+                </td>
+
+            </tr>
+        }
+    </table>*@
+
+@Html.PagedListPager((IPagedList)Model.Tickets, page => Url.Action("Index", new { page }))

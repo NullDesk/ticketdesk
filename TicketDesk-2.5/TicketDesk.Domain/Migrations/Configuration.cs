@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using TicketDesk.Domain.Model;
+using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Migrations
 {
@@ -28,13 +30,14 @@ namespace TicketDesk.Domain.Migrations
                     {
                         Title = "Test Ticket " + p,
                         AffectsCustomer = false,
-                        AssignedTo = "admin@nowhere.com",
+                        AssignedTo = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                         Category = "Hardware",
                         CreatedBy = "otherstaffer@nowhere.com",
                         TicketStatus = (p == "L") ? TicketStatus.Closed : TicketStatus.Active,
                         CurrentStatusDate = DateTimeOffset.Now,
                         CurrentStatusSetBy = "otherstaffer@nowhere.com",
-                        Details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",
+                        Details =
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",
                         IsHtml = false,
                         LastUpdateBy = "otherstaffer@nowhere.com",
                         LastUpdateDate = DateTimeOffset.Now,
@@ -44,8 +47,8 @@ namespace TicketDesk.Domain.Migrations
                         TicketType = "Problem"
 
                     });
-
-                context.Settings.AddOrUpdate(
+            }
+            context.Settings.AddOrUpdate(
                 s => s.SettingName,
                 new Setting
                 {
@@ -57,7 +60,6 @@ namespace TicketDesk.Domain.Migrations
                 },
                 new Setting
                 {
-
                     SettingName = "PriorityList",
                     SettingValue = "High,Low,Medium",
                     DefaultValue = "High,Low,Medium",
@@ -66,7 +68,6 @@ namespace TicketDesk.Domain.Migrations
                 },
                 new Setting
                 {
-
                     SettingName = "TicketTypesList",
                     SettingValue = "Question,Problem,Request",
                     DefaultValue = "Question,Problem,Request",
@@ -75,9 +76,12 @@ namespace TicketDesk.Domain.Migrations
 
                 });
 
+            //open tickets
+            const string id = "64165817-9cb5-472f-8bfb-6a35ca54be6a"; //the stock admin's user id
+            var settings = UserTicketListSetting.GetDefaultListSettings();
 
+            context.UserSettings.AddOrUpdate(s => s.UserId, new UserSetting { UserId = id, ListSettings = settings });
 
-            }
             base.Seed(context);
         }
     }

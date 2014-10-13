@@ -24,14 +24,14 @@ namespace TicketDesk.Web.Identity.Migrations
         //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
         public void InitializeUsers(TicketDeskIdentityContext context)
         {
-            
+
             var userStore = new UserStore<TicketDeskUser>(context);
             var roleStore = new RoleStore<IdentityRole>(context);
             //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
             var userManager = new UserManager<TicketDeskUser>(userStore);
 
             var roleManager = new RoleManager<IdentityRole>(roleStore);
-
+            const string id = "64165817-9cb5-472f-8bfb-6a35ca54be6a";
             const string name = "admin@example.com";
             const string password = "Admin@123456";
             var roleNames = context.DefaultRoleNames;
@@ -49,16 +49,17 @@ namespace TicketDesk.Web.Identity.Migrations
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new TicketDeskUser { UserName = name, Email = name, DisplayName = displayName };
+                user = new TicketDeskUser { Id = id, UserName = name, Email = name, DisplayName = displayName };
                 var result = userManager.Create(user, password);
                 userManager.SetLockoutEnabled(user.Id, false);
             }
 
             // Add user admin to admin if not already added
             var rolesForUser = userManager.GetRoles(user.Id);
-            if (!rolesForUser.Contains("TdAdministrators"))
+            var rnames = new[] { "TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers" };
+            foreach (var rname in rnames.Where(rname => !rolesForUser.Contains(rname)))
             {
-                userManager.AddToRole(user.Id, "TdAdministrators");
+                userManager.AddToRole(user.Id, rname);
             }
         }
     }

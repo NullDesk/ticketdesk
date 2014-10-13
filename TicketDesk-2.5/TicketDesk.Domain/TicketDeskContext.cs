@@ -1,3 +1,4 @@
+using TicketDesk.Domain.Conventions;
 using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain
@@ -21,9 +22,12 @@ namespace TicketDesk.Domain
         public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketTag> TicketTags { get; set; }
+        public virtual DbSet<UserSetting> UserSettings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Add(new NonPublicColumnAttributeConvention());
+
             modelBuilder.Entity<TicketComment>()
                 .Property(e => e.Version)
                 .IsFixedLength();

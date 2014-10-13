@@ -1,0 +1,18 @@
+﻿@model TicketDesk.Web.Client.Models.TicketCenterListViewModel
+@{
+    var ajaxFilterOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeFilter", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };
+}
+@using (Ajax.BeginForm("FilterList", "TicketCenter", new { ListName = Model.CurrentListSetting.ListName }, ajaxFilterOptions, new { id = "filterForm" }))
+{
+    <aside>
+        Items/Page:
+        @Html.DropDownList("PageSize", Model.FilterBar.ItemsPerPageSelectList, new { @class = "postback" })
+        Status:
+        @Html.DropDownList("CurrentStatus", Model.FilterBar.CurrentStatusSelectList, Model.FilterBar.StatusFilterHtmlAttributes)
+        Owner:
+        @Html.DropDownList("Owner", Model.FilterBar.SubmittersSelectList, Model.FilterBar.OwnerFilterHtmlAttributes)
+        Assigned To:
+        @Html.DropDownList("AssignedTo", Model.FilterBar.AssignedToSelectList, Model.FilterBar.AssignedFilterHtmlAttributes)
+        <input type="submit" value="filter" id="filterSubmitButton" />
+    </aside>
+}
