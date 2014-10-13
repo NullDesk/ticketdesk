@@ -7,11 +7,23 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
+using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
 {
     public class DataManagementController : Controller
     {
+        private TicketDeskUserManager UserManager { get; set; }
+        private TicketDeskRoleManager RoleManager { get; set; }
+        private TicketDeskIdentityContext IdentityContext { get; set; }
+        public DataManagementController(TicketDeskUserManager userManager, TicketDeskRoleManager roleManager, TicketDeskIdentityContext context)
+        {
+            UserManager = userManager;
+            RoleManager = roleManager;
+            IdentityContext = context;
+         
+        }
+
         public ActionResult Upgrade()
         {
             return View();
@@ -57,10 +69,7 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
         
         public ActionResult MigrateMembershipToIdentity()
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<TicketDeskUserManager>();
-            var roleManager = HttpContext.GetOwinContext().Get<TicketDeskRoleManager>();
-            var ctx = HttpContext.GetOwinContext().Get<TicketDeskIdentityContext>();
-            LegacySecurityMigrator.MigrateSecurity(ctx, userManager, roleManager);
+            LegacySecurityMigrator.MigrateSecurity(IdentityContext, UserManager, RoleManager);
             ViewBag.UsersMigrated = true;
             return View("Upgrade");
         }
