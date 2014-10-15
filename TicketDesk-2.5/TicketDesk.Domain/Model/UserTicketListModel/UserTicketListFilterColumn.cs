@@ -11,9 +11,6 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace TicketDesk.Domain.Models
 {
     public class UserTicketListFilterColumn

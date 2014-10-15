@@ -11,11 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace TicketDesk.Domain.Models
@@ -28,7 +24,7 @@ namespace TicketDesk.Domain.Models
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListViewSettings"/> class.
+        /// Initializes a new instance of the <see cref="UserTicketListSetting"/> class.
         /// </summary>
         /// <remarks>
         /// Required for serialization by the profile provider 
@@ -37,9 +33,12 @@ namespace TicketDesk.Domain.Models
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListViewSetting"/> class with a default sort and filter.
+        /// Initializes a new instance of the <see cref="UserTicketListSetting" /> class with a default sort and filter.
         /// </summary>
-        /// <param name="listViewName">Name of the list view.</param>
+        /// <param name="listName">Name of the list.</param>
+        /// <param name="listDisplayName">Display name of the list.</param>
+        /// <param name="listMenuDisplayOrder">The list menu display order.</param>
+        /// <param name="includeClosedTickets">if set to <c>true</c> [include closed tickets].</param>
         public UserTicketListSetting(string listName, string listDisplayName, int listMenuDisplayOrder, bool includeClosedTickets)
         {
             ListName = listName;
@@ -56,7 +55,7 @@ namespace TicketDesk.Domain.Models
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TicketCenterListSettings"/> class.
+        /// Initializes a new instance of the <see cref="UserTicketListSetting" /> class.
         /// </summary>
         /// <param name="listName">Name of the list.</param>
         /// <param name="listDisplayName">Display name of the list.</param>
@@ -118,11 +117,30 @@ namespace TicketDesk.Domain.Models
         /// <value>The disabled filter column names.</value>
         public IEnumerable<string> DisabledFilterColumnNames { get; set; }
 
+
+        public void UpdateSetting(int pageSize, string currentStatus, string owner, string assignedTo)
+        {
+            ItemsPerPage = pageSize;
+
+            if (!DisabledFilterColumnNames.Contains("CurrentStatus"))
+            {
+                ChangeCurrentStatusFilter(currentStatus);
+            }
+            if (!DisabledFilterColumnNames.Contains("Owner"))
+            {
+                ChangeOwnerFilter(owner);
+            }
+            if (!DisabledFilterColumnNames.Contains("AssignedTo"))
+            {
+                ChangeAssignedFilter(assignedTo);
+            }
+        }
+
         /// <summary>
         /// Changes the preferences to filter by the specified assigned user.
         /// </summary>
         /// <param name="assigned">The assigned user to filter by.</param>
-        public void ChangeAssignedFilter(string assigned)
+        private void ChangeAssignedFilter(string assigned)
         {
             if (!string.IsNullOrEmpty(assigned))
             {
@@ -161,7 +179,7 @@ namespace TicketDesk.Domain.Models
         /// Changes the preferences to filter by the specified owner.
         /// </summary>
         /// <param name="ownerValue">The owner name to filter by.</param>
-        public void ChangeOwnerFilter(string ownerValue)
+        private void ChangeOwnerFilter(string ownerValue)
         {
             if (!string.IsNullOrEmpty(ownerValue))
             {
@@ -193,7 +211,7 @@ namespace TicketDesk.Domain.Models
         /// Changes the preferences to filter by the specified current status.
         /// </summary>
         /// <param name="statusValue">The status value to filter by.</param>
-        public void ChangeCurrentStatusFilter(string statusValue)
+        private void ChangeCurrentStatusFilter(string statusValue)
         {
             if (!string.IsNullOrEmpty(statusValue))
             {
@@ -225,7 +243,7 @@ namespace TicketDesk.Domain.Models
         {
             var settings = new List<UserTicketListSetting>();
 
-            var disableStatusColumn = new List<string> { { "CurrentStatus" } };
+            var disableStatusColumn = new List<string> { "CurrentStatus"};
 
             const int disOrder = 0;
             var openSortColumns = new List<UserTicketListSortColumn>();

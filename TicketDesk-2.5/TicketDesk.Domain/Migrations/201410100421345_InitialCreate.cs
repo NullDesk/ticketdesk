@@ -1,3 +1,4 @@
+
 namespace TicketDesk.Domain.Migrations
 {
     using System;

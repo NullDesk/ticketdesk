@@ -11,8 +11,6 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.ComponentModel.DataAnnotations;
-
 namespace TicketDesk.Domain.Models
 {
     public class UserTicketListSortColumn
@@ -43,8 +41,6 @@ namespace TicketDesk.Domain.Models
         /// Gets or sets the name of the column to sort.
         /// </summary>
         /// <value>The name of the column to sort.</value>
-        [StringLength(50)]
-        [Required]
         public string ColumnName { get; set; }
 
 
@@ -52,8 +48,6 @@ namespace TicketDesk.Domain.Models
         /// Gets the friendly name of the column to sort.
         /// </summary>
         /// <value>The friendly name of the column to sort.</value>
-        [StringLength(100)]
-        [Required]
         public string ColumnFriendlyName
         {
             get

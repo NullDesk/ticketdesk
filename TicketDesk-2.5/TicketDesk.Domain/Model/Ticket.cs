@@ -1,3 +1,15 @@
+// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
 using System.ComponentModel;
 
 namespace TicketDesk.Domain.Model
@@ -6,9 +18,8 @@ namespace TicketDesk.Domain.Model
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class Ticket
+    public class Ticket
     {
         public Ticket()
         {
@@ -58,7 +69,7 @@ namespace TicketDesk.Domain.Model
         [DisplayName("Created Date")]
         public DateTimeOffset CreatedDate { get; set; }
 
-        private string _owner;
+        private string owner;
 
 
         [Required]
@@ -68,16 +79,16 @@ namespace TicketDesk.Domain.Model
         {
             get
             {
-                return _owner;
+                return owner;
             }
             set
             {
-                PreviousOwner = this._owner;
-                _owner = value;
+                PreviousOwner = owner;
+                owner = value;
             }
         }
 
-        private string _assignedTo;
+        private string assignedTo;
 
         [StringLength(100)]
         [DisplayName("Assigned To")]
@@ -85,12 +96,12 @@ namespace TicketDesk.Domain.Model
         {
             get
             {
-                return _assignedTo;
+                return assignedTo;
             }
             set
             {
-                PreviousAssignedUser = this._assignedTo;
-                _assignedTo = value;
+                PreviousAssignedUser = assignedTo;
+                assignedTo = value;
             }
         }
 

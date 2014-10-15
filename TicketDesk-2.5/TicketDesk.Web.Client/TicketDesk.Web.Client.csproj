@@ -180,7 +180,7 @@
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
-    <Compile Include="Models\LegacySecurityMigrator.cs" />
+    <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />

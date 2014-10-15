@@ -8,7 +8,7 @@ using TicketDesk.Web.Client.Annotations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
-namespace TicketDesk.Web.Client.Models
+namespace TicketDesk.Web.Client
 {
 
     /// <summary>

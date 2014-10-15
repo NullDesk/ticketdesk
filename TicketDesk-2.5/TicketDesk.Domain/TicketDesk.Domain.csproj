@@ -65,11 +65,11 @@
       <DependentUpon>201410140448323_Td2.5.001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Dto\ColumnSortDirection.cs" />
+    <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
     <Compile Include="Model\Extensions\UserSettingsExtensions.cs" />
-    <Compile Include="Model\TicketCenterSettings\UserTicketListSetting.cs" />
-    <Compile Include="Model\TicketCenterSettings\UserTicketListFilterColumn.cs" />
-    <Compile Include="Model\TicketCenterSettings\UserTicketListSortColumn.cs" />
+    <Compile Include="Model\UserTicketListModel\UserTicketListSetting.cs" />
+    <Compile Include="Model\UserTicketListModel\UserTicketListFilterColumn.cs" />
+    <Compile Include="Model\UserTicketListModel\UserTicketListSortColumn.cs" />
     <Compile Include="Model\TicketStatus.cs" />
     <Compile Include="Model\UserSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

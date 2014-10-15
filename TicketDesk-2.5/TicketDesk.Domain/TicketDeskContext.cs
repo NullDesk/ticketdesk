@@ -1,14 +1,23 @@
+// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
 using TicketDesk.Domain.Conventions;
 using TicketDesk.Domain.Model;
-
+using System.Data.Entity;
 namespace TicketDesk.Domain
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+  
 
-    public partial class TicketDeskContext : DbContext
+    public class TicketDeskContext : DbContext
     {
         public TicketDeskContext()
             : base("name=TicketDesk")

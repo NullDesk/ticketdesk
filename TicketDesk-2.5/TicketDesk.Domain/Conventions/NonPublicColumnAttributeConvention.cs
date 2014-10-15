@@ -1,11 +1,13 @@
-﻿using System;
+﻿// TicketDesk - Attribution notice
+// Borrowed from here:
+//  http://stackoverflow.com/questions/7619955/mapping-private-property-entity-framework-code-first
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TicketDesk.Domain.Conventions
 {
