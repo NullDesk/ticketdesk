@@ -16,6 +16,8 @@ using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [RoutePrefix("Tickets")]
+    [Authorize]
     public class TicketCenterController : Controller
     {
         private TicketDeskContext Context { get; set; }
@@ -25,6 +27,7 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         // GET: TicketCenter
+        [Route("{listName=opentickets}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
             var pageNumber = page ?? 1;
@@ -46,9 +49,12 @@ namespace TicketDesk.Web.Client.Controllers
             string owner, 
             string assignedTo)
         {
-            var currentListSetting = Context.UserSettings.GetUserListSettingByName(listName, User.Identity.GetUserId());
+            var uId = User.Identity.GetUserId();
+            var userSetting = Context.UserSettings.GetUserSetting(uId);
+            
+            var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
-            currentListSetting.UpdateSetting(pageSize, currentStatus, owner, assignedTo);
+            currentListSetting.ModifySetting(pageSize, currentStatus, owner, assignedTo);
 
             await Context.SaveChangesAsync();
 

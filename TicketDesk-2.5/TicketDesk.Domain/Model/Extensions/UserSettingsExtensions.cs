@@ -29,8 +29,11 @@ namespace TicketDesk.Domain.Model
         /// <returns>UserTicketListSetting.</returns>
         public static UserTicketListSetting GetUserListSettingByName(this DbSet<UserSetting> settings, string listName, string userId)
         {
-            return GetUserSettings(settings, userId).ListSettings.FirstOrDefault(us => us.ListName == listName);
+            return GetUserSetting(settings, userId).GetUserListSettingByName(listName);
+            //return GetUserSettings(settings, userId).ListSettings.FirstOrDefault(us => us.ListName == listName);
         }
+
+        
 
         /// <summary>
         /// Gets all user list settings.
@@ -38,10 +41,10 @@ namespace TicketDesk.Domain.Model
         /// <param name="settings">The settings.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns>ICollection{UserTicketListSetting}.</returns>
-        public static ICollection<UserTicketListSetting> GetAllUserListSettings(this DbSet<UserSetting> settings,
+        public static ICollection<UserTicketListSetting> GetUserListSettings(this DbSet<UserSetting> settings,
             string userId)
         {
-            return GetUserSettings(settings, userId).ListSettings;
+            return GetUserSetting(settings, userId).ListSettings;
 
         }
 
@@ -51,7 +54,7 @@ namespace TicketDesk.Domain.Model
         /// <param name="settings">The settings.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns>UserSetting.</returns>
-        private static UserSetting GetUserSettings(DbSet<UserSetting> settings, string userId)
+        public static UserSetting GetUserSetting(this DbSet<UserSetting> settings, string userId)
         {
             return (settings.FirstOrDefault(us => us.UserId == userId) ??
                     UserSetting.GetDefaultSettingsForUser(userId));

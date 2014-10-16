@@ -13,6 +13,8 @@
 using TicketDesk.Domain.Conventions;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
+using TicketDesk.Domain.Models;
+
 namespace TicketDesk.Domain
 {
   
@@ -50,6 +52,11 @@ namespace TicketDesk.Domain
             modelBuilder.Entity<Ticket>()
                 .Property(e => e.Version)
                 .IsFixedLength();
+
+            modelBuilder.ComplexType<UserTicketListSettingsCollection>()
+                .Property(p => p.Serialized)
+                .HasColumnName("ListSettingsJson");
+            
         }
     }
 }

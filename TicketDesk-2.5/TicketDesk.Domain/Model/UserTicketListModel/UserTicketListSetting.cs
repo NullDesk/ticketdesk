@@ -32,6 +32,7 @@ namespace TicketDesk.Domain.Models
         public UserTicketListSetting()
         { }
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserTicketListSetting" /> class with a default sort and filter.
         /// </summary>
@@ -118,7 +119,7 @@ namespace TicketDesk.Domain.Models
         public IEnumerable<string> DisabledFilterColumnNames { get; set; }
 
 
-        public void UpdateSetting(int pageSize, string currentStatus, string owner, string assignedTo)
+        public void ModifySetting(int pageSize, string currentStatus, string owner, string assignedTo)
         {
             ItemsPerPage = pageSize;
 
@@ -252,6 +253,14 @@ namespace TicketDesk.Domain.Models
             openSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             openFilterColumns.Add(new UserTicketListFilterColumn("CurrentStatus", false, "closed"));
             settings.Add(new UserTicketListSetting("opentickets", "All Open Tickets", disOrder + 1, 20, openSortColumns, openFilterColumns, disableStatusColumn));
+
+
+            var historyticketsSortColumns = new List<UserTicketListSortColumn>();
+            var historyticketsFilterColumns = new List<UserTicketListFilterColumn>();
+            historyticketsSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
+            historyticketsFilterColumns.Add(new UserTicketListFilterColumn("CurrentStatus", true, "closed"));
+           
+            settings.Add(new UserTicketListSetting("historytickets", "Ticket History", disOrder + 2, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn));
             
             return settings;
         }

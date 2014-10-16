@@ -12,7 +12,7 @@ namespace TicketDesk.Domain.Migrations
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
-                        ListSettingsJson = c.String(nullable: false),
+                        ListSettingsJson = c.String(),
                     })
                 .PrimaryKey(t => t.UserId);
             

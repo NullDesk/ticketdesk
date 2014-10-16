@@ -20,7 +20,7 @@ namespace TicketDesk.Web.Client.Models
         /// <param name="userId">The user identifier.</param>
         public TicketCenterListViewModel(string listName, IPagedList<Ticket> ticketsList, TicketDeskContext context, string userId)
         {
-            UserListSettings = context.UserSettings.GetAllUserListSettings(userId).OrderBy(lp => lp.ListMenuDisplayOrder);
+            UserListSettings = context.UserSettings.GetUserListSettings(userId).OrderBy(lp => lp.ListMenuDisplayOrder);
             Tickets = ticketsList;
             if (string.IsNullOrEmpty(listName))
             {
