@@ -34,6 +34,7 @@
     }
 
     function beginChangeSort(args) {
+
         if (shiftstatus) {
             args.get_request()._url = args.get_request()._url + "&isMultiSort=true";
         }

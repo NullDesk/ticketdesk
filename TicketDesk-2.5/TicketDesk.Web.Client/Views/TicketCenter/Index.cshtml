@@ -6,6 +6,7 @@
 
 @section title{ Ticket Center}
 
+
 <h2>Ticket Center</h2>
 
 <p>
@@ -17,16 +18,60 @@
     { "CurrentListSettings", Model.CurrentListSetting }
 })
 
-<div id="ticketList">
-    <div class="ticketFilterBar">
-        @Html.Partial("_FilterBar")
-    </div>
-    <div>
-        @Html.Partial("_TicketList", Model)
-        
-    </div>
-</div>
 
-@**@
+@Html.Partial("_TicketList", Model)
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        var ticketCenter = (function(tc) {
+
+            //root level features
+
+            return tc;
+
+        })(ticketCenter || {});
+
+
+        //sub-module for filterbar features
+        ticketCenter.filters = (function(tc) {
+            //stuff
+        })();
+
+
+        //sub-module for sort features
+        ticketCenter.sorts = (function () {
+            var shiftstatus = false;
+
+
+            var setShiftStatus = function (e) {
+                if (e) {
+                    shiftstatus = e.shiftKey;
+                }
+            };
+
+            var beginChangeSort = function (event, args) {
+
+                if (shiftstatus) {
+                    args.url = args.url + "&isMultiSort=true";
+                }
+                $('#ticketList').fadeOut('fast');
+            };
+
+            var completeChangeList = function () {
+                // Animate
+                $('#ticketList').fadeIn('fast');
+
+                //setupFilterForm();
+            };
+            return {
+                setShiftStatus: setShiftStatus,
+                beginChangeSort: beginChangeSort,
+                completeChangeList: completeChangeList
+            }
+        })();
+    </script>
+}
 
 @Html.PagedListPager((IPagedList)Model.Tickets, page => Url.Action("Index", new { page }))

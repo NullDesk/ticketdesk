@@ -1,85 +1,91 @@
 ﻿@model TicketDesk.Web.Client.Models.TicketCenterListViewModel
 @{
     var tickets = Model.Tickets;
-    var ajaxSortOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeSort", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };    
+    var ajaxSortOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "ticketCenter.sorts.beginChangeSort", OnSuccess = "ticketCenter.sorts.completeChangeList", OnFailure = "ticketCenter.sorts.completeChangeList" };
 }
-<table class="table">
-    <tr><th>
-           @* Ajax.SortableColumnHeader(Html, Model.CurrentListSettings, "SortList", Model.CurrentListSettings.ListName, "TicketId", "ID", ajaxOptions)*@
-        </th></tr>
-    <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => tickets.TicketId)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => tickets.TicketType)*@
-        </th>
-
-        <th>
-            @*@Html.DisplayNameFor(model => model.Title)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Owner)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.AssignedTo)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.TicketStatus)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Category)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Priority)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.CreatedDate)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.LastUpdateDate)*@
-        </th>
-
-    </tr>
-
-    @foreach (var item in tickets)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Owner)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @item.CreatedDate.ToString("MM/dd/yyyy")<br />
-                @item.CreatedDate.ToString("hh:mm tt")
 
 
-            </td>
-            <td>
-                @item.LastUpdateDate.ToString("MM/dd/yyyy")<br />
-                @item.LastUpdateDate.ToString("hh:mm tt")
-            </td>
 
-        </tr>
-    }
-</table>
+<div id="ticketList">
+    <div class="ticketFilterBar">
+        @Html.Partial("_FilterBar")
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "TicketId", "ID", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Type", "Type", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Title", "Title", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Owner", "Owner", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "AssignedTo", "Assigned", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "CurrentStatus", "Status", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Category", "Category", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Priority", "Priority", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "CreatedDate", "Created", ajaxSortOptions)
+                </th>
+                <th>
+                    @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "LastUpdateDate", "Updated", ajaxSortOptions)
+                </th>
+            </tr>
+
+
+            @foreach (var item in tickets)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owner)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignedTo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td>
+                        @item.CreatedDate.ToString("MM/dd/yyyy")<br />
+                        @item.CreatedDate.ToString("hh:mm tt")
+
+
+                    </td>
+                    <td>
+                        @item.LastUpdateDate.ToString("MM/dd/yyyy")<br />
+                        @item.LastUpdateDate.ToString("hh:mm tt")
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>

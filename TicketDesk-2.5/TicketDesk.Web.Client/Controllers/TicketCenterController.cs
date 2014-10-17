@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using TicketDesk.Domain;
@@ -43,18 +44,58 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         public async Task<ActionResult> FilterList(
-            string listName, 
-            int pageSize, 
-            string currentStatus, 
-            string owner, 
+            string listName,
+            int pageSize,
+            string currentStatus,
+            string owner,
             string assignedTo)
         {
             var uId = User.Identity.GetUserId();
             var userSetting = Context.UserSettings.GetUserSetting(uId);
-            
+
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
             currentListSetting.ModifySetting(pageSize, currentStatus, owner, assignedTo);
+
+            await Context.SaveChangesAsync();
+
+            return RedirectToAction("Index", new { listName });
+        }
+
+        public async Task<ActionResult> SortList(string listName, string columnName, bool isMultiSort = false)
+        {
+            var uId = User.Identity.GetUserId();
+            var userSetting = Context.UserSettings.GetUserSetting(uId);
+            var currentListSetting = userSetting.GetUserListSettingByName(listName);
+
+            var sortCol = currentListSetting.SortColumns.SingleOrDefault(sc => sc.ColumnName == columnName);
+
+            if (isMultiSort)
+            {
+                if (sortCol != null)// column already in sort, remove from sort
+                {
+                    if (currentListSetting.SortColumns.Count > 1)//only remove if there are more than one sort
+                    {
+                        currentListSetting.SortColumns.Remove(sortCol);
+                    }
+                }
+                else// column not in sort, add to sort
+                {
+                    currentListSetting.SortColumns.Add(new UserTicketListSortColumn(columnName, ColumnSortDirection.Ascending));
+                }
+            }
+            else
+            {
+                if (sortCol != null)// column already in sort, just flip direction
+                {
+                    sortCol.SortDirection = (sortCol.SortDirection == ColumnSortDirection.Ascending) ? ColumnSortDirection.Descending : ColumnSortDirection.Ascending;
+                }
+                else // column not in sort, replace sort with new simple sort for column
+                {
+                    currentListSetting.SortColumns.Clear();
+                    currentListSetting.SortColumns.Add(new UserTicketListSortColumn(columnName, ColumnSortDirection.Ascending));
+                }
+            }
 
             await Context.SaveChangesAsync();
 

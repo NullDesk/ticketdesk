@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
+    <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -192,6 +193,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\arrow_down.png" />
+    <Content Include="Content\Images\arrow_top.png" />
     <Content Include="Content\Images\TicketDesk-2.5-mobile.png" />
     <Content Include="Content\Images\TicketDesk-2.5.png" />
     <Content Include="Content\PagedList.css" />
@@ -214,6 +217,8 @@
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
