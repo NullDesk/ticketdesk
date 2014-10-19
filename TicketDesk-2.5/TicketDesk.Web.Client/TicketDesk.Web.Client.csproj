@@ -177,6 +177,7 @@
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -193,6 +194,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\arrow_down.png" />
     <Content Include="Content\Images\arrow_top.png" />
     <Content Include="Content\Images\TicketDesk-2.5-mobile.png" />
@@ -205,10 +208,15 @@
     <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
     <Content Include="Areas\Initialization\Views\DataManagement\Create.cshtml" />
     <Compile Include="App_Start\Startup.Database.cs" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\azure.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -216,7 +224,14 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\jquery.clickable-0.1.9.min.js.map">
+      <DependentUpon>jquery.clickable-0.1.9.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.clickable-0.1.9.js" />
+    <Content Include="Scripts\jquery.clickable-0.1.9.min.js">
+      <DependentUpon>jquery.clickable-0.1.9.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

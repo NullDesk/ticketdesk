@@ -1,33 +1,40 @@
 ﻿@model  TicketCenterListViewModel
 
-@using PagedList.Mvc;
-@using PagedList;
 @using TicketDesk.Web.Client.Models
 
 @section title{ Ticket Center}
 
 
-<h2>Ticket Center</h2>
+<main >
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-@Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
+    @Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
 {
     { "CurrentListSettings", Model.CurrentListSetting }
 })
 
 
-@Html.Partial("_TicketList", Model)
-
+    @Html.Partial("_TicketList", Model)
+</main>
 
 @section scripts{
     <script type="text/javascript">
 
-        var ticketCenter = (function(tc) {
+        $(document).ready(function() {
+            ticketCenter.filters.setupFilterForm();
+            ticketCenter.makeClicky();
+        });
 
-            //root level features
+        var ticketCenter = (function(tc) {
+            tc.makeClicky = function () {
+                $(".clickable").clickable();
+            }
+
+            tc.completeChangeList = function() {
+                // Animate
+                $('#ticketList').fadeIn('fast');
+                tc.makeClicky();
+                tc.filters.setupFilterForm();
+            }
 
             return tc;
 
@@ -36,7 +43,26 @@
 
         //sub-module for filterbar features
         ticketCenter.filters = (function(tc) {
-            //stuff
+            
+            
+            var beginChangeFilter = function(args) {
+
+                $('#ticketList').fadeOut('fast');
+            };
+
+            var setupFilterForm = function () {
+                $('.filterBar select').addClass('form-control input-sm');
+                $('.pagination').addClass('pagination-sm');
+                $("#filterSubmitButton").hide();
+                $('select.postback').change(function() {
+                    $('#filterSubmitButton').trigger('click');
+                });
+            };
+            
+            return {
+                beginChangeFilter: beginChangeFilter,
+                setupFilterForm: setupFilterForm
+            }
         })();
 
 
@@ -59,19 +85,13 @@
                 $('#ticketList').fadeOut('fast');
             };
 
-            var completeChangeList = function () {
-                // Animate
-                $('#ticketList').fadeIn('fast');
-
-                //setupFilterForm();
-            };
+            
             return {
                 setShiftStatus: setShiftStatus,
                 beginChangeSort: beginChangeSort,
-                completeChangeList: completeChangeList
             }
         })();
     </script>
 }
 
-@Html.PagedListPager((IPagedList)Model.Tickets, page => Url.Action("Index", new { page }))
+

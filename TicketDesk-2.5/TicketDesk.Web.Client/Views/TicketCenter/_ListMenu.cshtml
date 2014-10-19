@@ -3,13 +3,15 @@
 @{
     var currentListSettings = (UserTicketListSetting)ViewBag.CurrentListSettings;
 }
-<ul>
-    @foreach (var list in Model)
-    {
-        var className = ((currentListSettings.ListName == list.ListName)) ? "selected" : string.Empty;
-        <li class="@className">
+<div class="container">
+    <ul class="nav nav-tabs navbar-right" role="tablist">
+        @foreach (var list in Model)
+        {
+            var className = ((currentListSettings.ListName == list.ListName)) ? "active" : string.Empty;
+            <li class="@className">
 
-            @Html.ActionLink(list.ListDisplayName,"Index",new {ListName = list.ListName} )
-        </li>
-    }
-</ul>
+                @Html.ActionLink(list.ListDisplayName, "Index", new { ListName = list.ListName })
+            </li>
+        }
+    </ul>
+</div>
