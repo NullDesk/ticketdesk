@@ -1,18 +1,58 @@
 ﻿@model TicketDesk.Web.Client.Models.TicketCenterListViewModel
 @{
-    var ajaxFilterOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "beginChangeFilter", OnSuccess = "completeChangeList", OnFailure = "completeChangeList" };
+    var ajaxFilterOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "ticketCenter.filters.beginChangeFilter", OnSuccess = "ticketCenter.completeChangeList", OnFailure = "ticketCenter.completeChangeList" };
 }
-@using (Ajax.BeginForm("FilterList", "TicketCenter", new { ListName = Model.CurrentListSetting.ListName }, ajaxFilterOptions, new { id = "filterForm" }))
-{
-    <aside>
-        Items/Page:
-        @Html.DropDownList("PageSize", Model.FilterBar.ItemsPerPageSelectList, new { @class = "postback" })
-        Status:
-        @Html.DropDownList("CurrentStatus", Model.FilterBar.CurrentStatusSelectList, Model.FilterBar.StatusFilterHtmlAttributes)
-        Owner:
-        @Html.DropDownList("Owner", Model.FilterBar.SubmittersSelectList, Model.FilterBar.OwnerFilterHtmlAttributes)
-        Assigned To:
-        @Html.DropDownList("AssignedTo", Model.FilterBar.AssignedToSelectList, Model.FilterBar.AssignedFilterHtmlAttributes)
-        <input type="submit" value="filter" id="filterSubmitButton" />
-    </aside>
-}
+
+<div class="navbar filterBar navbar-default">
+    <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#filterbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class=""><i class="fa fa-filter"></i></span>
+            
+        </button>
+        
+    </div>
+    <div class="collapse navbar-collapse" id="filterbar-collapse">
+        @using (Ajax.BeginForm("FilterList", "TicketCenter", new { ListName = Model.CurrentListSetting.ListName }, ajaxFilterOptions, new { id = "filterForm", @class = "navbar-form navbar-left", role = "form" }))
+        {
+            <div class="form-group small form-horizontal">
+                <label class="control-label col-sm-1">
+                    Tickets/Page
+                </label>
+                <div class="col-sm-2">
+                    @Html.DropDownList("PageSize", Model.FilterBar.ItemsPerPageSelectList, new { @class = "postback number-select" })
+                </div>
+
+
+                <label class="control-label col-sm-1">
+                    Status:
+                </label>
+                <div class="col-sm-2">
+                    @Html.DropDownList("CurrentStatus", Model.FilterBar.CurrentStatusSelectList, Model.FilterBar.StatusFilterHtmlAttributes)
+                </div>
+
+                <label class="control-label col-sm-1">
+                    Owner:
+                </label>
+                <div class="col-sm-2">
+                    @Html.DropDownList("Owner", Model.FilterBar.SubmittersSelectList, Model.FilterBar.OwnerFilterHtmlAttributes)
+                </div>
+
+                <label class="control-label col-sm-1">
+                    Assigned:
+                </label>
+                <div class="col-sm-2">
+                    @Html.DropDownList("AssignedTo", Model.FilterBar.AssignedToSelectList, Model.FilterBar.AssignedFilterHtmlAttributes)
+                    <input type="submit" value="filter" id="filterSubmitButton" />
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>
+
+
+
+

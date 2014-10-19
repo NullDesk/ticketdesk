@@ -163,6 +163,7 @@ namespace TicketDesk.Web.Client.Models
                 {
                     statusHtmlAttributes.Add("Disabled", true);
                 }
+                
                 return statusHtmlAttributes;
             }
         }

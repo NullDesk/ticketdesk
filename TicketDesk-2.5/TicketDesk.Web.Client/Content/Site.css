@@ -3,7 +3,6 @@
 }
 
 body {
-   
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #fff;
@@ -15,35 +14,30 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    
 }
 
-.navbar-fixed-top {
+#mainNav.navbar-fixed-top {
     background-color: #f7f7f7;
 }
 
 
-.navbar-brand {
+#mainNav .navbar-brand {
     width: 300px;
     height: 50px;
     background-repeat: no-repeat;
     background-image: url('Images/TicketDesk-2.5.png');
 }
 
-.body-content {
-   
-   
+.body-content > main {
+    min-height: 300px;
+    padding: 15px 8px;
+
 }
 
-    .body-content > main {
-        min-height: 300px;
-    }
-
-    .body-content > footer {
-        height: 30px;
-        border-top: 1px solid #B3CBDF;
-
-    }
+.body-content > footer {
+    height: 30px;
+    border-top: 1px solid #B3CBDF;
+}
 
 
 
@@ -83,6 +77,69 @@ input[type="checkbox"].input-validation-error {
 .right-side-box {
     height: 100%;
     min-height: 300px;
-    
     border-left: 1px solid #B3CBDF;
+}
+
+
+/*Ticket Center*/
+#ticketList {
+    border: 1px solid #B3CBDF;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    #ticketList table {
+        margin-bottom: 0;
+    }
+
+    #ticketList footer {
+        -ms-border-bottom-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        -ms-border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: #E1EBF2;
+        padding: 0 20px;
+    }
+
+
+    #ticketList .filterBar {
+        margin: 0;
+        display: block;
+        border-bottom: 1px solid #B3CBDF;
+        background-color: #E1EBF2;
+        -ms-border-top-left-radius: 10px;
+        border-top-left-radius: 10px;
+        -ms-border-top-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+
+
+.number-select {
+    width: 75px;
+}
+
+
+
+#ticketList table {
+    font-size: 10pt;
+    /*border: 1px solid #B3CBDF;*/
+}
+
+    #ticketList table td {
+        border: 1px dotted #B3CBDF;
+        border-collapse: collapse;
+        white-space: nowrap;
+    }
+
+    #ticketList table th {
+        white-space: nowrap;
+        border: 1px dotted #B3CBDF;
+        background-color: #FFFFDD;
+    }
+
+tr.clickable:nth-child(odd) {
+    /*background-color: #FBFCFD;*/
 }
