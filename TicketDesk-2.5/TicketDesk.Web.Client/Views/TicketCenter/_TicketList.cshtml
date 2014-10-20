@@ -1,5 +1,6 @@
 ﻿@using PagedList
 @using PagedList.Mvc
+@using TicketDesk.Web.Client.Models.Extensions
 @model TicketDesk.Web.Client.Models.TicketCenterListViewModel
 @{
     var tickets = Model.Tickets;
@@ -64,10 +65,10 @@
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Owner)
+                            @Html.DisplayFor(modelItem => item.GetOwnerUser().DisplayName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.AssignedTo)
+                            @Html.DisplayFor(modelItem => item.GetAssignedToUser().DisplayName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TicketStatus)
@@ -98,6 +99,6 @@
     </div>
     <footer>
        
-        @Html.PagedListPager((IPagedList)Model.Tickets, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPagerOptions))
+        @Html.PagedListPager(Model.Tickets, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPagerOptions))
     </footer>
 </section>
