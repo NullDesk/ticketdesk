@@ -106,17 +106,8 @@ namespace TicketDesk.Domain.Model
                 {
                     var filterColumn = filterColumns[i];
 
-                    //var colVal = (filterColumn.ColumnValue == null) ? "null" : string.Format("\"{0}\"", filterColumn.ColumnValue);
-                    string optr;
+                    var optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "!=" : "=";
 
-                    //if (filterColumn.ColumnValue == null)
-                    //{
-                    //    optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "IS NOT" : "IS";
-                    //}
-                    //else
-                    //{
-                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "!=" : "=";
-                    //}
                     fkeys[i] = string.Format("it.{0} {1} {2}", filterColumn.ColumnName, optr, "@" + filterColumn.ColumnName);
 
 
@@ -128,6 +119,7 @@ namespace TicketDesk.Domain.Model
                         filterColumn.ColumnValue = Enum.Parse(filterColumn.ColumnValueType, filterColumn.ColumnValue.ToString());
                     }
 
+                    //assigning the type in ctor, then value directly as a param works around issues when the colum val is null.
                     fParams[i] = new ObjectParameter(filterColumn.ColumnName, filterColumn.ColumnValueType)
                     {
                         Value = filterColumn.ColumnValue

@@ -13,7 +13,7 @@
         </button>
         
     </div>
-    <div class="collapse navbar-collapse" id="filterbar-collapse">
+    <div class="filter-collapse collapse navbar-collapse" id="filterbar-collapse">
         @using (Ajax.BeginForm("FilterList", "TicketCenter", new {Page =  Model.CurrentPage, ListName = Model.CurrentListSetting.ListName}, ajaxFilterOptions, new { id = "filterForm", @class = "navbar-form navbar-left", role = "form" }))
         {
             <div class="form-group small form-horizontal">

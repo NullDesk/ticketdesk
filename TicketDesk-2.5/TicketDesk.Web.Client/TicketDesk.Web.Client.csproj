@@ -176,7 +176,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
-    <Compile Include="Infrastructure\Extensions\ControllerExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
