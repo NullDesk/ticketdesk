@@ -11,20 +11,23 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+
 namespace TicketDesk.Domain.Models
 {
     public class UserTicketListFilterColumn
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserTicketListFilterColumn"/> class.
+        /// Initializes a new instance of the <see cref="UserTicketListFilterColumn" /> class.
         /// </summary>
         /// <param name="columnName">Name of the column to test.</param>
         /// <param name="useEqualityComparison">The equality comparison selection.</param>
         /// <param name="columnValue">The column value to test for.</param>
-        public UserTicketListFilterColumn(string columnName, bool? useEqualityComparison, string columnValue)
+        public UserTicketListFilterColumn(string columnName, bool? useEqualityComparison, object columnValue)
         {
             ColumnName = columnName;
             ColumnValue = columnValue;
+            ColumnValueType = columnValue.GetType();
             UseEqualityComparison = useEqualityComparison;
         }
 
@@ -60,6 +63,19 @@ namespace TicketDesk.Domain.Models
         /// <summary>
         /// Gets or sets the column value to test for.
         /// </summary>
-        public string ColumnValue { get; set; }
+        public object ColumnValue { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the type of the column value.
+        /// </summary>
+        /// <remarks>
+        /// The column value gets shipped to json as an integer, but esql can't deal 
+        /// with the conversion automatically. To work around this, we'll store the 
+        /// value type so esql can interrogate it to perform the correct type 
+        /// conversions.
+        /// </remarks>
+        /// <value>The type of the column value.</value>
+        public Type ColumnValueType { get; set; }
     }
 }

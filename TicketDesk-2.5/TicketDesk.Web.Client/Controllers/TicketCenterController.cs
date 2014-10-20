@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -21,22 +22,28 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class TicketCenterController : Controller
     {
+
+        
+
         private TicketDeskContext Context { get; set; }
         public TicketCenterController(TicketDeskContext context)
         {
             Context = context;
         }
 
+
+        
+
         // GET: TicketCenter
         [Route("{listName=opentickets}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
             var pageNumber = page ?? 1;
-            var model = await Context.Tickets.Where(t => t.TicketStatus != TicketStatus.Closed).OrderByDescending(t => t.LastUpdateDate).ToPagedListAsync(pageNumber, 10);
+            //var model = await Context.Tickets.Where(t => t.TicketStatus != TicketStatus.Closed).OrderByDescending(t => t.LastUpdateDate).ToPagedListAsync(pageNumber, 10);
 
-            var viewModel = new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
+            var viewModel = await TicketCenterListViewModel.GetViewModelAsync(listName, pageNumber, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
 
-            if (this.Request.IsAjaxRequest())
+            if (this.IsItReallyRedirectFromAjax())
             {
                 return PartialView("_TicketList", viewModel);
             }
@@ -55,10 +62,11 @@ namespace TicketDesk.Web.Client.Controllers
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
-            currentListSetting.ModifySetting(pageSize, currentStatus, owner, assignedTo);
+            currentListSetting.ModifyFilterSettings(pageSize, currentStatus, owner, assignedTo);
 
             await Context.SaveChangesAsync();
-
+            TempData["IsRedirectFromAjax"] = this.IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
+          
             return RedirectToAction("Index", new { listName });
         }
 
@@ -98,7 +106,8 @@ namespace TicketDesk.Web.Client.Controllers
             }
 
             await Context.SaveChangesAsync();
-
+            TempData["IsRedirectFromAjax"] = this.IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
+          
             return RedirectToAction("Index", new { listName });
         }
 

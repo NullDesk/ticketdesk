@@ -4,7 +4,8 @@
 @{
     var tickets = Model.Tickets;
     var ajaxSortOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "ticketCenter.sorts.beginChangeSort", OnSuccess = "ticketCenter.completeChangeList", OnFailure = "ticketCenter.completeChangeList" };
-}
+    var ajaxPagerOptions = new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "ticketList", OnBegin = "ticketCenter.paging.beginChangePage", OnSuccess = "ticketCenter.completeChangeList", OnFailure = "ticketCenter.completeChangeList" };
+    }
 
 
 
@@ -20,7 +21,7 @@
                         @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "TicketId", "ID", ajaxSortOptions)
                     </th>
                     <th class="hidden-sm">
-                        @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Type", "Type", ajaxSortOptions)
+                        @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "TicketType", "Type", ajaxSortOptions)
                     </th>
                     <th>
                         @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Title", "Title", ajaxSortOptions)
@@ -32,7 +33,7 @@
                         @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "AssignedTo", "Assigned", ajaxSortOptions)
                     </th>
                     <th>
-                        @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "CurrentStatus", "Status", ajaxSortOptions)
+                        @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "TicketStatus", "Status", ajaxSortOptions)
                     </th>
                     <th class="hidden-sm">
                         @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, "SortList", Model.CurrentListSetting.ListName, "Category", "Category", ajaxSortOptions)
@@ -96,6 +97,7 @@
         </table>
     </div>
     <footer>
-        @Html.PagedListPager((IPagedList)Model.Tickets, page => Url.Action("Index", new { page }))
+       
+        @Html.PagedListPager((IPagedList)Model.Tickets, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPagerOptions))
     </footer>
 </section>

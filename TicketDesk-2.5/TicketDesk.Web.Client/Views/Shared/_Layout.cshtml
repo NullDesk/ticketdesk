@@ -28,13 +28,13 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="@Html.IsActive("Home", "Index")">
+                <li class="@Html.IsActiveRoute("Home", "Index")">
                     @Html.ActionLink("Home", "Index", "Home", routeValues: new { area = "" }, htmlAttributes: null)
                 </li>
-                <li class="@Html.IsActive("TicketCenter", "Index")">
+                <li class="@Html.IsActiveRoute("TicketCenter", "Index")">
                     @Html.ActionLink("Ticket Center", "Index", "TicketCenter", routeValues: new { area = "" }, htmlAttributes: null)
                 </li>
-                <li class="@Html.IsActive("Home", "About")">
+                <li class="@Html.IsActiveRoute("Home", "About")">
                     @Html.ActionLink("About", "About", "Home", routeValues: new { area = "" }, htmlAttributes: null)
                 </li>
 

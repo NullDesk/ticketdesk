@@ -54,7 +54,7 @@ namespace TicketDesk.Web.Client.Models
                 {
                     if (fColumn.ColumnValue != "closed")
                     {
-                        selectedStatus = fColumn.ColumnValue;
+                        selectedStatus = fColumn.ColumnValue.ToString();
                     }
                     else
                     {
@@ -105,7 +105,7 @@ namespace TicketDesk.Web.Client.Models
                 var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "Owner");
                 if (fColumn != null)
                 {
-                    selectedUserName = fColumn.ColumnValue;
+                    selectedUserName = fColumn.ColumnValue.ToString();
                 }
                
                 var lusers = GetUsersInRole("TdInternalUsers");
@@ -126,7 +126,7 @@ namespace TicketDesk.Web.Client.Models
                 if (fColumn != null)
                 {
                     //when filter for column exists, but the value is null it means the selection was unassigned
-                    selectedUserName = (string.IsNullOrEmpty(fColumn.ColumnValue)) ? "unassigned" : fColumn.ColumnValue;
+                    selectedUserName = (string.IsNullOrEmpty(fColumn.ColumnValue.ToString())) ? "unassigned" : fColumn.ColumnValue.ToString();
                 }
 
                 var lusers = GetUsersInRole("TdHelpDeskUsers");

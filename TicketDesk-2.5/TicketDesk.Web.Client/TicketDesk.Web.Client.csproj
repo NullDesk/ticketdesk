@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
+    <Compile Include="Infrastructure\Extensions\ControllerExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
@@ -239,6 +240,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ticketdesk\ticketcenter.js" />
+    <Content Include="Scripts\ticketdesk\ticketcenter.min.js">
+      <DependentUpon>ticketcenter.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -280,6 +285,9 @@
     <Content Include="Views\TicketCenter\_ListMenu.cshtml" />
     <Content Include="Views\TicketCenter\_FilterBar.cshtml" />
     <Content Include="Views\TicketCenter\_TicketList.cshtml" />
+    <Content Include="Scripts\ticketdesk\ticketcenter.min.js.map">
+      <DependentUpon>ticketcenter.min.js</DependentUpon>
+    </Content>
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
