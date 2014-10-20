@@ -8,20 +8,12 @@ namespace TicketDesk.Web.Client
 {
     public static class HtmlHelperExtensions
     {
-        public static string IsActive(this HtmlHelper html,
-                                  string control,
-                                  string action)
+        public static string IsActiveRoute(this HtmlHelper html, string controllerName, string actionName)
         {
-            var routeData = html.ViewContext.RouteData;
+            var action = html.ViewContext.RouteData.Values["action"] as string;
+            var controller = html.ViewContext.RouteData.Values["controller"] as string;
 
-            var routeAction = (string)routeData.Values["action"];
-            var routeControl = (string)routeData.Values["controller"];
-
-            // both must match
-            var returnActive = control == routeControl &&
-                               action == routeAction;
-
-            return returnActive ? "active" : "";
+            return (controllerName == controller && actionName == action) ? "active" : "";
         }
     }
 }

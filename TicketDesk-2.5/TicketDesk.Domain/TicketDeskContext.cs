@@ -10,6 +10,9 @@
 // For any distribution that contains code from this file, this notice of 
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
+
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using TicketDesk.Domain.Conventions;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
@@ -17,7 +20,7 @@ using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain
 {
-  
+
 
     public class TicketDeskContext : DbContext
     {
@@ -25,6 +28,12 @@ namespace TicketDesk.Domain
             : base("name=TicketDesk")
         {
 
+        }
+
+        public ObjectQuery<T> GetObjectQueryFor<T>(IDbSet<T> entity) where T : class
+        {
+            var oc = ((IObjectContextAdapter)this).ObjectContext;
+            return oc.CreateObjectSet<T>();
         }
 
         public virtual DbSet<Setting> Settings { get; set; }
@@ -56,7 +65,7 @@ namespace TicketDesk.Domain
             modelBuilder.ComplexType<UserTicketListSettingsCollection>()
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
-            
+
         }
     }
 }

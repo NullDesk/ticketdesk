@@ -83,9 +83,9 @@ input[type="checkbox"].input-validation-error {
 
 /*Ticket Center*/
 #ticketList {
-    border: 1px solid #B3CBDF;
+    /*border: 1px solid #B3CBDF;
     -ms-border-radius: 10px;
-    border-radius: 10px;
+    border-radius: 10px;*/
     border-collapse: collapse;
     margin-bottom: 20px;
 }
@@ -95,6 +95,7 @@ input[type="checkbox"].input-validation-error {
     }
 
     #ticketList footer {
+        border: 1px dotted #B3CBDF;
         -ms-border-bottom-left-radius: 10px;
         border-bottom-left-radius: 10px;
         -ms-border-bottom-right-radius: 10px;
@@ -107,7 +108,7 @@ input[type="checkbox"].input-validation-error {
     #ticketList .filterBar {
         margin: 0;
         display: block;
-        border-bottom: 1px solid #B3CBDF;
+        border: 1px dotted #B3CBDF;
         background-color: #E1EBF2;
         -ms-border-top-left-radius: 10px;
         border-top-left-radius: 10px;

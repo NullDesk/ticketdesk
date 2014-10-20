@@ -9,8 +9,12 @@ namespace TicketDesk.Web.Client
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
+                "~/Scripts/ticketdesk/ticketcenter.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", 
+                        "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/jquery.clickable-{version}.js"));
 

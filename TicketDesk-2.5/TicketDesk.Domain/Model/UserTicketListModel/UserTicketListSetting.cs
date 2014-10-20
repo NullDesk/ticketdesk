@@ -11,8 +11,10 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain.Models
 {
@@ -119,151 +121,32 @@ namespace TicketDesk.Domain.Models
         public IEnumerable<string> DisabledFilterColumnNames { get; set; }
 
 
-        public void ModifySetting(int pageSize, string currentStatus, string owner, string assignedTo)
-        {
-            ItemsPerPage = pageSize;
-
-            if (!DisabledFilterColumnNames.Contains("CurrentStatus"))
-            {
-                ChangeCurrentStatusFilter(currentStatus);
-            }
-            if (!DisabledFilterColumnNames.Contains("Owner"))
-            {
-                ChangeOwnerFilter(owner);
-            }
-            if (!DisabledFilterColumnNames.Contains("AssignedTo"))
-            {
-                ChangeAssignedFilter(assignedTo);
-            }
-        }
-
-        /// <summary>
-        /// Changes the preferences to filter by the specified assigned user.
-        /// </summary>
-        /// <param name="assigned">The assigned user to filter by.</param>
-        private void ChangeAssignedFilter(string assigned)
-        {
-            if (!string.IsNullOrEmpty(assigned))
-            {
-                var fColumn = FilterColumns.SingleOrDefault(fc => fc.ColumnName == "AssignedTo");
-
-                if (assigned == "anyone")
-                {
-                    if (fColumn != null)
-                    {
-                        FilterColumns.Remove(fColumn);
-                    }
-                }
-                else
-                {
-                    if (fColumn == null)
-                    {
-                        fColumn = new UserTicketListFilterColumn("AssignedTo");
-                        FilterColumns.Add(fColumn);
-                    }
-
-                    if (assigned == "unassigned")
-                    {
-                        fColumn.UseEqualityComparison = null;
-                        fColumn.ColumnValue = null;
-                    }
-                    else
-                    {
-                        fColumn.UseEqualityComparison = true;
-                        fColumn.ColumnValue = assigned;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Changes the preferences to filter by the specified owner.
-        /// </summary>
-        /// <param name="ownerValue">The owner name to filter by.</param>
-        private void ChangeOwnerFilter(string ownerValue)
-        {
-            if (!string.IsNullOrEmpty(ownerValue))
-            {
-                var fColumn = FilterColumns.SingleOrDefault(fc => fc.ColumnName == "Owner");
-
-                if (ownerValue == "anyone")
-                {
-                    if (fColumn != null)
-                    {
-                        FilterColumns.Remove(fColumn);
-                    }
-                }
-                else
-                {
-                    if (fColumn == null)
-                    {
-                        fColumn = new UserTicketListFilterColumn("Owner");
-                        FilterColumns.Add(fColumn);
-                    }
-
-                    fColumn.UseEqualityComparison = true;
-                    fColumn.ColumnValue = ownerValue;
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Changes the preferences to filter by the specified current status.
-        /// </summary>
-        /// <param name="statusValue">The status value to filter by.</param>
-        private void ChangeCurrentStatusFilter(string statusValue)
-        {
-            if (!string.IsNullOrEmpty(statusValue))
-            {
-                var fColumn = FilterColumns.SingleOrDefault(fc => fc.ColumnName == "CurrentStatus");
-
-                if (statusValue == "any")
-                {
-                    if (fColumn != null)
-                    {
-                        FilterColumns.Remove(fColumn);
-                    }
-                }
-                else
-                {
-                    bool equality = (statusValue != "open");
-                    if (fColumn == null)
-                    {
-                        fColumn = new UserTicketListFilterColumn("CurrentStatus");
-                        FilterColumns.Add(fColumn);
-                    }
-
-                    fColumn.UseEqualityComparison = equality;
-                    fColumn.ColumnValue = (statusValue == "open") ? "closed" : statusValue;
-                }
-            }
-        }
 
         internal static List<UserTicketListSetting> GetDefaultListSettings()
         {
             var settings = new List<UserTicketListSetting>();
 
-            var disableStatusColumn = new List<string> { "CurrentStatus"};
+            var disableStatusColumn = new List<string> { "CurrentStatus" };
 
             const int disOrder = 0;
             var openSortColumns = new List<UserTicketListSortColumn>();
             var openFilterColumns = new List<UserTicketListFilterColumn>();
-            openSortColumns.Add(new UserTicketListSortColumn("CurrentStatus", ColumnSortDirection.Ascending));
+            openSortColumns.Add(new UserTicketListSortColumn("TicketStatus", ColumnSortDirection.Ascending));
             openSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
-            openFilterColumns.Add(new UserTicketListFilterColumn("CurrentStatus", false, "closed"));
+            openFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
             settings.Add(new UserTicketListSetting("opentickets", "All Open Tickets", disOrder + 1, 20, openSortColumns, openFilterColumns, disableStatusColumn));
 
 
             var historyticketsSortColumns = new List<UserTicketListSortColumn>();
             var historyticketsFilterColumns = new List<UserTicketListFilterColumn>();
             historyticketsSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
-            historyticketsFilterColumns.Add(new UserTicketListFilterColumn("CurrentStatus", true, "closed"));
-           
+            historyticketsFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", true, TicketStatus.Closed));
+
             settings.Add(new UserTicketListSetting("historytickets", "Ticket History", disOrder + 2, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn));
-            
+
             return settings;
         }
+        
     }
 }
 
