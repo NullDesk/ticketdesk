@@ -23,7 +23,7 @@ namespace TicketDesk.Web.Client.Controllers
     public class TicketCenterController : Controller
     {
 
-        
+
 
         private TicketDeskContext Context { get; set; }
         public TicketCenterController(TicketDeskContext context)
@@ -32,25 +32,29 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
 
-        
+
 
         // GET: TicketCenter
         [Route("{listName=opentickets}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
             var pageNumber = page ?? 1;
-            //var model = await Context.Tickets.Where(t => t.TicketStatus != TicketStatus.Closed).OrderByDescending(t => t.LastUpdateDate).ToPagedListAsync(pageNumber, 10);
 
-            var viewModel = await TicketCenterListViewModel.GetViewModelAsync(listName, pageNumber, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
+            var viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
 
-            if (this.IsItReallyRedirectFromAjax())
-            {
-                return PartialView("_TicketList", viewModel);
-            }
             return View(viewModel);
         }
 
-        public async Task<ActionResult> FilterList(
+        [Route("PageList/{listName=opentickets}/{page:int?}")]
+        public async Task<ActionResult> PageList(int? page, string listName)
+        {
+            return await GetTicketListPartial(page, listName);
+        }
+
+
+        [Route("FilterList/{listName=opentickets}/{page:int?}")]
+        public async Task<PartialViewResult> FilterList(
+            int? page,
             string listName,
             int pageSize,
             string currentStatus,
@@ -65,12 +69,17 @@ namespace TicketDesk.Web.Client.Controllers
             currentListSetting.ModifyFilterSettings(pageSize, currentStatus, owner, assignedTo);
 
             await Context.SaveChangesAsync();
-            TempData["IsRedirectFromAjax"] = this.IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
-          
-            return RedirectToAction("Index", new { listName });
+
+            return await GetTicketListPartial(page, listName);
+
         }
 
-        public async Task<ActionResult> SortList(string listName, string columnName, bool isMultiSort = false)
+        [Route("SortList/{listName=opentickets}/{page:int?}")]
+        public async Task<PartialViewResult> SortList(
+            int? page,
+            string listName,
+            string columnName,
+            bool isMultiSort = false)
         {
             var uId = User.Identity.GetUserId();
             var userSetting = Context.UserSettings.GetUserSetting(uId);
@@ -106,12 +115,19 @@ namespace TicketDesk.Web.Client.Controllers
             }
 
             await Context.SaveChangesAsync();
-            TempData["IsRedirectFromAjax"] = this.IsItReallyRedirectFromAjax();// some browsers don't correctly send headers necessary for IsAjaxRequest after a redirect, so we are making out own indicator
-          
-            return RedirectToAction("Index", new { listName });
+
+            return await GetTicketListPartial(page, listName);
         }
 
 
+        private async Task<PartialViewResult> GetTicketListPartial(int? page, string listName)
+        {
+            var pageNumber = page ?? 1;
+
+            var viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
+            return PartialView("_TicketList", viewModel);
+
+        }
 
         //// GET: TicketCenter/Details/5
         //public async Task<ActionResult> Details(int? id)

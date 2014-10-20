@@ -109,14 +109,14 @@ namespace TicketDesk.Domain.Model
                     //var colVal = (filterColumn.ColumnValue == null) ? "null" : string.Format("\"{0}\"", filterColumn.ColumnValue);
                     string optr;
 
-                    if (filterColumn.ColumnValue == null)
-                    {
-                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "IS NOT" : "IS";
-                    }
-                    else
-                    {
+                    //if (filterColumn.ColumnValue == null)
+                    //{
+                    //    optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "IS NOT" : "IS";
+                    //}
+                    //else
+                    //{
                         optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "!=" : "=";
-                    }
+                    //}
                     fkeys[i] = string.Format("it.{0} {1} {2}", filterColumn.ColumnName, optr, "@" + filterColumn.ColumnName);
 
 
@@ -128,8 +128,10 @@ namespace TicketDesk.Domain.Model
                         filterColumn.ColumnValue = Enum.Parse(filterColumn.ColumnValueType, filterColumn.ColumnValue.ToString());
                     }
 
-                    fParams[i] = new ObjectParameter(filterColumn.ColumnName, filterColumn.ColumnValue);
-                    
+                    fParams[i] = new ObjectParameter(filterColumn.ColumnName, filterColumn.ColumnValueType)
+                    {
+                        Value = filterColumn.ColumnValue
+                    };
                 }
 
                 wString = string.Join(" and ", fkeys);

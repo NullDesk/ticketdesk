@@ -126,7 +126,8 @@ namespace TicketDesk.Web.Client.Models
                 if (fColumn != null)
                 {
                     //when filter for column exists, but the value is null it means the selection was unassigned
-                    selectedUserName = (string.IsNullOrEmpty(fColumn.ColumnValue.ToString())) ? "unassigned" : fColumn.ColumnValue.ToString();
+                    selectedUserName = (fColumn.ColumnValue ?? "unassigned").ToString();
+                        //(string.IsNullOrEmpty(fColumn.ColumnValue.ToString())) ? "unassigned" : fColumn.ColumnValue.ToString();
                 }
 
                 var lusers = GetUsersInRole("TdHelpDeskUsers");

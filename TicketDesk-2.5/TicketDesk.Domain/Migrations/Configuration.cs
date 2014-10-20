@@ -33,6 +33,28 @@ namespace TicketDesk.Domain.Migrations
         protected override void Seed(TicketDeskContext context)
         {
 
+            context.Tickets.AddOrUpdate(t => t.Title,
+                   new Ticket
+                   {
+                       Title = "Test Unassigned Ticket",
+                       AffectsCustomer = false,
+                       Category = "Hardware",
+                       CreatedBy = "17f78f38-fa68-445f-90de-38896140db28",
+                       TicketStatus = TicketStatus.Active,
+                       CurrentStatusDate = DateTimeOffset.Now,
+                       CurrentStatusSetBy = "otherstaffer@nowhere.com",
+                       Details =
+                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",
+                       IsHtml = false,
+                       LastUpdateBy = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
+                       LastUpdateDate = DateTimeOffset.Now,
+                       Owner = "17f78f38-fa68-445f-90de-38896140db28",
+                       Priority = "Low",
+                       TagList = "test,moretest",
+                       TicketType = "Problem"
+
+                   });
+
             var titles = new[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "I1", "J1", "K1", "L1", "M1", "N1", "O1", "P1", "Q1", "R1" };
             var n = 0;
             foreach (var p in titles)
@@ -50,6 +72,8 @@ namespace TicketDesk.Domain.Migrations
                     tt = "Problem";
                     cc = "Software";
                 }
+
+                
                 var now = DateTimeOffset.Now.AddDays(n);
                 context.Tickets.AddOrUpdate(t => t.Title,
                     new Ticket

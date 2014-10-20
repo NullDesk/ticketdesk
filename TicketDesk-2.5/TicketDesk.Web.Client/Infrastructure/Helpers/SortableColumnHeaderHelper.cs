@@ -12,7 +12,7 @@ namespace TicketDesk.Web.Client
     public static class SortableColumnHeaderHelper
     {
         public static IHtmlString SortableColumnHeader(this AjaxHelper helper, HtmlHelper htmlHelper,
-            UserTicketListSetting currentDisplayPreferences, string action, string listName, string sortColumn,
+            UserTicketListSetting currentDisplayPreferences,int currentPage, string action, string listName, string sortColumn,
             string linkText, AjaxOptions ajaxOptions)
         {
             var imgContent = string.Empty;
@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client
             var sb = new StringBuilder();
             sb.AppendLine("<span style='white-space:nowrap;'>");
             var lLine =
-                helper.ActionLink(linkContent, "SortList", new { ListName = listName, ColumnName = sortColumn },
+                helper.ActionLink(linkContent, "SortList", new {page = currentPage,  ListName = listName, ColumnName = sortColumn },
                     ajaxOptions,
                     new
                     {

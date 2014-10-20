@@ -10,7 +10,7 @@ var ticketCenter = (function (tc) {
 
     tc.completeChangeList = function () {
         // Animate
-        $('#ticketList').fadeIn('fast');
+        $('#ticketList').fadeIn(100);
         tc.makeClicky();
         tc.filters.setupFilterForm();
     }
@@ -23,7 +23,7 @@ var ticketCenter = (function (tc) {
 ticketCenter.paging = (function () {
     var beginChangePage = function (args) {
 
-        $('#ticketList').fadeOut('fast');
+        $('#ticketList').fadeOut(100);
     };
 
     return { beginChangePage: beginChangePage }
@@ -33,7 +33,7 @@ ticketCenter.paging = (function () {
 ticketCenter.filters = (function () {
     var beginChangeFilter = function (args) {
 
-        $('#ticketList').fadeOut('fast');
+        $('#ticketList').fadeOut(100);
     };
 
     var setupFilterForm = function () {
@@ -68,7 +68,7 @@ ticketCenter.sorts = (function () {
         if (shiftstatus) {
             args.url = args.url + "&isMultiSort=true";
         }
-        $('#ticketList').fadeOut('fast');
+        $('#ticketList').fadeOut(100);
     };
 
 

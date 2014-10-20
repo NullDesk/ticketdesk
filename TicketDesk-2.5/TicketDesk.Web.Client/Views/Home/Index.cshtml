@@ -6,22 +6,39 @@
     <article class="col-md-8">
         <h2>Welcome to TicketDesk 2.5</h2>
         <p>
-            Currently this is just an alpha build. The back-end components are being re-factored, so there isn't much of a UI to see yet. Once the back-end framework is stabalized, I'll port the front end UI over to the new platform.
+            Currently this is just an alpha build.
+        </p>
+        <p class="alert-danger">
+            Do not use this to upgrade a production TD 2.1 system.
+            You will NOT like the results...
         </p>
         <p>
-            The UI parts that are present will change and improve. The application is using the stock user login and user managment screens that ship with the asp.net samples framework while I work out the back-end customizations needed for TicketDesk's particular security system. The database management tooling is also working, but the UI for it is a bare-bones placeholder --good enough to test the back-end functions, but certainly not pretty.
+            I'm in the process of porting in the new UI bits, and am refactoring the back-end as I go.
+            The ticket center is largely complete, though performance tweaks and back-end settings are still in progress.
+            There are some very interesting changes in how list settings are managed, as well as in how ESQL queries are being generated to drive the ticket center.
         </p>
+        <div class="panel">
+            <h3>Logins:</h3>
+            <p>
+                Login with one of the following:
+                <ul>admin@example.com</ul>
+                <ul>staff@example.com</ul>
+                <ul>user@example.com</ul>
+                Password is "123456" for all three users.
+            </p>
+
+        </div>
     </article>
     <aside class="col-md-4 right-side-box">
         <h3>TD 2.5 Change List</h3>
         <strong>Technology Update</strong>
         <ul>
-            <li>Entity Framework 6x code-first (in progress)</li>
+            <li>Entity Framework 6x code-first</li>
             <li>MVC 5x - Razor View Engine</li>
             <li>Bootstrap 3</li>
             <li>Simple Injector (IoC / DI)</li>
-            <li>Aspnet.Identity 2.x  (in progress)</li>
-            <li>Deployable to Azure Websites (in progress)</li>
+            <li>Aspnet.Identity 2.x</li>
+            <li>Deployable to Azure Websites</li>
         </ul>
     </aside>
 </main>
