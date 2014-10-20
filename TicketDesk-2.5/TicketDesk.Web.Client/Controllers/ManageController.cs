@@ -11,6 +11,7 @@ using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    //TODO: clear user and role caches when changes are made
     [Authorize]
     public class ManageController : Controller
     {

@@ -12,32 +12,32 @@ namespace TicketDesk.Web.Client.Models.Extensions
 {
     public static class TicketExtensions
     {
-        public static TicketDeskUser GetAssignedToUser(this Ticket ticket)
+        public static UserDisplayInfo GetAssignedToInfo(this Ticket ticket)
         {
-            return GetUser(ticket.AssignedTo);
+            return GetUserInfo(ticket.AssignedTo);
         }
-        public static TicketDeskUser GetCreatedByUser(this Ticket ticket)
+        public static UserDisplayInfo GetCreatedByInfo(this Ticket ticket)
         {
-            return  GetUser(ticket.CreatedBy);
+            return GetUserInfo(ticket.CreatedBy);
         }
-        public static TicketDeskUser GetOwnerUser(this Ticket ticket)
+        public static UserDisplayInfo GetOwnerInfo(this Ticket ticket)
         {
-            return  GetUser(ticket.Owner);
+            return GetUserInfo(ticket.Owner);
         }
-        public static TicketDeskUser GetLastUpdatedByUser(this Ticket ticket)
+        public static UserDisplayInfo GetLastUpdatedByInfo(this Ticket ticket)
         {
-            return  GetUser(ticket.LastUpdateBy);
+            return GetUserInfo(ticket.LastUpdateBy);
         }
-        public static TicketDeskUser GetCurrentStatusSetByUser(this Ticket ticket)
+        public static UserDisplayInfo GetCurrentStatusSetByInfo(this Ticket ticket)
         {
-            return  GetUser(ticket.CurrentStatusSetBy);
+            return GetUserInfo(ticket.CurrentStatusSetBy);
         }
 
-        private static TicketDeskUser GetUser(string userId)
+        private static UserDisplayInfo GetUserInfo(string userId)
         {
-            //TODO: this is a lot of query for every ticket, need to implement serious caching
+           
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return userManager.FindById(userId);
+            return userManager.InfoCache.GetUserInfo(userId);
         }
     }
 }

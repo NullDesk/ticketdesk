@@ -171,13 +171,16 @@ namespace TicketDesk.Web.Client.Models
 
         internal class UserItem
         {
+            //TODO: add caching and reuse UserDisplayInfo from UserDisplayInfoCache
             public string Name { get; set; }
             public string DisplayName { get; set; }
         }
 
         private List<UserItem> GetUsersInRole(string roleName)
         {
-            //TODO: Add caching for this, either here or deeper in the underlying framework
+
+
+            //TODO: Add caching for this in role manager
             return RoleManager
                 .FindByName(roleName)
                 .Users

@@ -98,6 +98,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -180,6 +181,10 @@
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
+    <Compile Include="Infrastructure\Identity\TicketDeskRoleManager.cs" />
+    <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
+    <Compile Include="Infrastructure\Identity\TicketDeskUserManager.cs" />
+    <Compile Include="Infrastructure\Identity\UserDisplayInfoCache.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />

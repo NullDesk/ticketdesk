@@ -5,11 +5,13 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.UI;
 using PagedList;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Domain.Models;
+using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Models
 {
@@ -45,22 +47,26 @@ namespace TicketDesk.Web.Client.Models
 
         public int CurrentPage { get; set; }
 
+        public TicketDeskUserManager UserManager
+        {
+            get { return DependencyResolver.Current.GetService<TicketDeskUserManager>(); }
+        }
 
         public Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TicketDeskContext context)
         {
             var filterColumns = CurrentListSetting.FilterColumns.ToList();
             var sortColumns = CurrentListSetting.SortColumns.ToList();
-            
+
             var pageSize = CurrentListSetting.ItemsPerPage;
 
-           
-          
+
+
             var query = context.GetObjectQueryFor(context.Tickets);
-            
-            
+
+
             query = filterColumns.ApplyToQuery(query);
             query = sortColumns.ApplyToQuery(query);
-            
+
 
             return query.ToPagedListAsync(pageIndex, pageSize);
         }

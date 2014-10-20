@@ -62,10 +62,10 @@
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.GetOwnerUser().DisplayName)
+                            @Html.DisplayFor(modelItem => item.GetOwnerInfo().DisplayName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.GetAssignedToUser().DisplayName)
+                            @Html.DisplayFor(modelItem => item.GetAssignedToInfo().DisplayName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TicketStatus)
