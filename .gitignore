@@ -7,7 +7,9 @@
 */App_Data/*.ldf
 *.pubxml
 *Web.ticketdesk3dev.config
-**TdSearchIndex
+**/SearchIndexes/*
+**/TdSearchIndex/*
+**TD2_DB_Reference_SQL2012Compat.zip
 **build/
 
 *.pubxml
@@ -111,5 +113,4 @@ Thumbs.db
 Desktop.ini
 
 
-*/TD2_DB_Reference_SQL2012Compat.zip
-*/SearchIndexes/*
+
