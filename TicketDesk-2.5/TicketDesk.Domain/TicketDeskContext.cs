@@ -46,7 +46,8 @@ namespace TicketDesk.Domain
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Add(new NonPublicColumnAttributeConvention());
+            //TODO: Remove along with supoprting class if unneeded
+            //modelBuilder.Conventions.Add(new NonPublicColumnAttributeConvention());
 
             modelBuilder.Entity<TicketComment>()
                 .Property(e => e.Version)
