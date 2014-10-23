@@ -11,6 +11,8 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+
 namespace TicketDesk.Domain.Model
 {
     using System.ComponentModel.DataAnnotations;
@@ -30,5 +32,7 @@ namespace TicketDesk.Domain.Model
         public string SettingType { get; set; }
 
         public string SettingDescription { get; set; }
+
+        
     }
 }

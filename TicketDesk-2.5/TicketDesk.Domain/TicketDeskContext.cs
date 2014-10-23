@@ -11,11 +11,16 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.IO;
+using System.Linq;
 using TicketDesk.Domain.Conventions;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
+using TicketDesk.Domain.Model.Extensions;
+using TicketDesk.Domain.Model.Search;
 using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain
@@ -43,6 +48,40 @@ namespace TicketDesk.Domain
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketTag> TicketTags { get; set; }
         public virtual DbSet<UserSetting> UserSettings { get; set; }
+
+        private static SearchIndexer search;
+
+        public SearchIndexer SearchIndexer
+        {
+            get
+            {
+                if (search == null && this.Database.Exists())
+                {
+                    var indexLocation = Settings.GetSettingValue("SearchIndexLocation", (string)null);
+                    if (indexLocation == null)
+                    {
+                        var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
+                        indexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), "SearchIndexes");
+                    }
+                    var batchSize = Settings.GetSettingValue("SearchIndexBatchSize", 50);
+                    search = new SearchIndexer(indexLocation, batchSize);
+                    
+                }
+                return search;
+            }
+        }
+
+        public override int SaveChanges()
+        {
+            var changes = ChangeTracker.Entries<Ticket>().Select(t => t.Entity);
+            var result = base.SaveChanges();
+            if (result > 0)
+            {
+                SearchIndexer.UpdateIndexForTicketsAsync(changes);//don't await, just run in background
+            }
+            return result;
+        }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

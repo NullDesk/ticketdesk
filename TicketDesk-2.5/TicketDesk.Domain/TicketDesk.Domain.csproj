@@ -71,11 +71,11 @@
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Extensions\SettingsExtensions.cs" />
     <Compile Include="Model\Extensions\TicketSearchExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
-    <Compile Include="Model\Extensions\UserTicketListSettingExtensions.cs" />
-    <Compile Include="Model\Search\SearchIndexer.cs" />
-    <Compile Include="Model\Search\SearchLocator.cs" />
+    <Compile Include="Model\SearchModel\SearchIndexer.cs" />
+    <Compile Include="Model\SearchModel\SearchLocator.cs" />
     <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
     <Compile Include="Model\Extensions\UserSettingsExtensions.cs" />
     <Compile Include="Model\UserTicketListModel\UserTicketListSettingsCollection.cs" />

@@ -80,7 +80,6 @@ namespace TicketDesk.Domain.Model.Search
                 {
                     ticketIds.Add(o, ticketId);
                     o++;
-
                 }
             }
 

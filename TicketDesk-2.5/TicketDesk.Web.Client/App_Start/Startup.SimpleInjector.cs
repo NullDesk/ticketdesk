@@ -53,12 +53,6 @@ namespace TicketDesk.Web.Client
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
                 new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
 
-            //TODO: Move to application settings, may be best to have the SearchIndexer Class fetch from application settings instead of pushing them through ctro
-            var maxTicketsPerBatch = 5;
-            var rawDir = "SearchIndexes";
-            var dir = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/" + rawDir);
-            container.RegisterSingle(() => new SearchIndexer(dir, maxTicketsPerBatch));
-
             container.RegisterPerWebRequest<IAuthenticationManager>(() =>
             {
                 IOwinContext context = null;
@@ -79,7 +73,7 @@ namespace TicketDesk.Web.Client
                 return context.Authentication;
             }
                 );
-           
+
             container.RegisterPerWebRequest<SignInManager<TicketDeskUser, string>, TicketDeskSignInManager>();
 
             container.RegisterPerWebRequest<TicketDeskRoleManager>();

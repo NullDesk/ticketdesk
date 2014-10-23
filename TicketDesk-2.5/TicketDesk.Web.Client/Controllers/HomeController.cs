@@ -12,16 +12,13 @@ namespace TicketDesk.Web.Client.Controllers
 {
     public class HomeController : Controller
     {
-        private SearchIndexer Searcher { get; set; }
         private TicketDeskContext Context { get; set; }
-        public HomeController(SearchIndexer searcher, TicketDeskContext context)
+        public HomeController(TicketDeskContext context)
         {
-            Searcher = searcher;
             Context = context;
         }
         public ActionResult Index()
         {
-            
             return View();
         }
 
