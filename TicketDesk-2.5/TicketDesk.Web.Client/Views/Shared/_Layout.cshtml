@@ -44,8 +44,11 @@
                     <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }*@
 
-            </ul>
-            @Html.Partial("_LoginPartial")
+            </ul>@Html.Partial("_LoginPartial")
+            <div class="pull-right">
+                @Html.Partial("_QuickSearch")
+              
+            </div>
         </div>
     </nav>
     <div class="body-content">

@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
@@ -294,6 +295,8 @@
     <Content Include="Scripts\ticketdesk\ticketcenter.min.js.map">
       <DependentUpon>ticketcenter.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\_QuickSearch.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

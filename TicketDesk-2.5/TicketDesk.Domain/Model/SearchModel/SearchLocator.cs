@@ -20,14 +20,14 @@ namespace TicketDesk.Domain.Model.Search
         private string IndexLocation { get; set; }
         private Directory TdIndexDirectory { get; set; }
         private Analyzer TdIndexAnalyzer { get; set; }
-        private int MaxTicketsPerBatch { get; set; }
+
         public IndexSearcher TdIndexSearcher { get; set; }
 
-        public SearchLocator(string indexLocation, int maxTicketsPerBatch)
+        public SearchLocator(string indexLocation)
         {
             IndexLocation = indexLocation;
             TdIndexDirectory = FSDirectory.Open(indexLocation);
-            TdIndexAnalyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            TdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30);
             TdIndexSearcher = new IndexSearcher(TdIndexDirectory, true);
         }
 
@@ -49,7 +49,7 @@ namespace TicketDesk.Domain.Model.Search
         //    return tickets;
         //}
 
-        public IEnumerable<Ticket> SearchIndex(TicketDeskContext context, string searchText, out string queryTerm)
+        public IEnumerable<Ticket> SearchIndex(IQueryable<Ticket> tickets, string searchText, out string queryTerm)
         {
             var fields = new[] { "title", "details", "tags", "comments" };
             var parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30,
@@ -84,7 +84,7 @@ namespace TicketDesk.Domain.Model.Search
             }
 
             return from i in ticketIds
-                      join t in context.Tickets
+                      join t in tickets
                       on i.Value equals t.TicketId
                       orderby i.Key
                       select t;
