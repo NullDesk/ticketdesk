@@ -112,7 +112,7 @@ namespace TicketDesk.Domain
             var result = base.SaveChanges();
             if (result > 0)
             {
-                SearchIndexer.UpdateIndexForTicketsAsync(changes);//don't await, just run in background
+                SearchIndexer.UpdateIndexForTicketsAsync(changes.ToArray());//don't await, just run in background
             }
             return result;
         }

@@ -14,45 +14,19 @@ using Version = Lucene.Net.Util.Version;
 
 namespace TicketDesk.Domain.Model.Search
 {
-    public class SearchLocator
+    public class SearchLocator: SearchIndexManagerBase
     {
-
-        private string IndexLocation { get; set; }
-        private Directory TdIndexDirectory { get; set; }
-        private Analyzer TdIndexAnalyzer { get; set; }
-
         public IndexSearcher TdIndexSearcher { get; set; }
 
-        public SearchLocator(string indexLocation)
+        public SearchLocator(string indexLocation) : base(indexLocation)
         {
-            IndexLocation = indexLocation;
-            TdIndexDirectory = FSDirectory.Open(indexLocation);
-            TdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30);
             TdIndexSearcher = new IndexSearcher(TdIndexDirectory, true);
         }
-
-        //TODO: this is here for diagnostics, replace with admin diagnostics
-        //public List<string> ScanIndex()
-        //{
-        //    List<string> tickets = new List<string>();
-        //    IndexReader reader = TdIndexSearcher.IndexReader;// create IndexReader
-        //    for (int i = 0; i < reader.MaxDoc; i++)
-        //    {
-        //        if (reader.IsDeleted(i))
-        //            continue;
-
-        //        var doc = reader.Document(i);
-        //        tickets.Add(doc.Get("id"));
-
-        //        // do something with docId here...
-        //    }
-        //    return tickets;
-        //}
 
         public IEnumerable<Ticket> SearchIndex(IQueryable<Ticket> tickets, string searchText, out string queryTerm)
         {
             var fields = new[] { "title", "details", "tags", "comments" };
-            var parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30,
+            var parser = new MultiFieldQueryParser(Version.LUCENE_30,
                 fields,
                 TdIndexAnalyzer);
 

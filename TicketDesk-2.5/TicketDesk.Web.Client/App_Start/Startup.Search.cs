@@ -16,7 +16,7 @@ namespace TicketDesk.Web.Client
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
             if (DatabaseConfig.IsDatabaseReady)
             {
-                context.SearchIndexer.GenerateIndexAsync();//don't await this, it'll run in the background
+                context.SearchIndexer.RebuildIndexAsync();//don't await this, it'll run in the background
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
@@ -13,23 +14,29 @@ using Version = Lucene.Net.Util.Version;
 
 namespace TicketDesk.Domain.Model.Search
 {
-    public class SearchIndexer : IDisposable
+    public class SearchIndexer : SearchIndexManagerBase
     {
-        internal SearchIndexer(string indexLocation, int maxTicketsPerBatch)
+        private readonly int maxTicketsPerBatch;
+
+        internal SearchIndexer(string indexLocation, int maxTicketsPerBatch):base(indexLocation)
         {
-            isGenerating = false;
-            MaxTicketsPerBatch = maxTicketsPerBatch;
-            IndexLocation = indexLocation;
+            this.maxTicketsPerBatch = maxTicketsPerBatch;
         }
 
-        public System.Threading.Tasks.Task UpdateIndexForTicketsAsync(IEnumerable<Ticket> tickets)
+        public Task RebuildIndexAsync()
         {
-            return System.Threading.Tasks.Task.Run(() =>
+            return Task.Run(async () =>
             {
-                DelayIfLocked();
-                var indexWriter = new IndexWriter(TdIndexDirectory, TdIndexAnalyzer,
-                    IndexWriter.MaxFieldLength.UNLIMITED);
+                var indexWriter = await GetIndexWriterAsync();
+                BuildSearchIndex(TdIndexAnalyzer, indexWriter, maxTicketsPerBatch);
+            });
+        }
 
+        internal Task UpdateIndexForTicketsAsync(params Ticket[] tickets)
+        {
+            return Task.Run(async () =>
+            {
+                var indexWriter = await GetIndexWriterAsync();
                 foreach (var ticket in tickets)
                 {
                     UpdateIndexForTicket(indexWriter, ticket);
@@ -37,95 +44,14 @@ namespace TicketDesk.Domain.Model.Search
                 indexWriter.Optimize();
                 indexWriter.Dispose();
             });
-
         }
 
-        public System.Threading.Tasks.Task GenerateIndexAsync()
-        {
-
-            return System.Threading.Tasks.Task.Run(() =>
-            {
-                if (!isGenerating)
-                {
-                    isGenerating = true;
-                    DelayIfLocked();
-                    var indexWriter = new IndexWriter(TdIndexDirectory, TdIndexAnalyzer,
-                        IndexWriter.MaxFieldLength.UNLIMITED);
-                    BuildSearchIndex(TdIndexDirectory, TdIndexAnalyzer, indexWriter, MaxTicketsPerBatch);
-                    isGenerating = false;
-                }
-            });
-        }
-
-        #region Internals
-
-        private string IndexLocation { get; set; }
-        private Directory tdIndexDirectory;
-        private Analyzer tdIndexAnalyzer;
-        private int MaxTicketsPerBatch { get; set; }
-        private bool isGenerating;
-
-        private void DelayIfLocked()
-        {
-            //wait up to 4 minutes for lock to clear on its own
-            var delayCount = 0;
-            while (IndexWriter.IsLocked(TdIndexDirectory) && delayCount++ < 16)//delay 16 times (4 mins)
-            {
-                Thread.Sleep(15000);
-            }
-            if (IndexWriter.IsLocked(TdIndexDirectory))
-            {
-                IndexWriter.Unlock(TdIndexDirectory);
-            }
-        }
-
-        private Directory TdIndexDirectory
-        {
-            get
-            {
-                if (tdIndexDirectory == null)
-                {
-                    if (string.Equals(IndexLocation, "ram", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        tdIndexDirectory = new RAMDirectory();
-                    }
-                    else
-                    {
-                        var dirInfo = new System.IO.DirectoryInfo(IndexLocation);
-                        tdIndexDirectory = FSDirectory.Open(dirInfo);
-                    }
-                }
-                return tdIndexDirectory;
-            }
-
-        }
-        private Analyzer TdIndexAnalyzer
-        {
-            get
-            {
-                return tdIndexAnalyzer ??
-                    (tdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30));
-            }
-        }
-
-        public void Dispose()
-        {
-            if (TdIndexAnalyzer != null) { TdIndexAnalyzer.Dispose(); }
-            if (TdIndexDirectory != null) { TdIndexDirectory.Dispose(); }
-        }
-        #endregion
 
         #region static internals
 
-        private static void CleanupDirectory(Directory directory)
-        {
-                if (directory is RAMDirectory)
-                {
-                    directory.Dispose();
-                }
-        }
+       
 
-        private static void BuildSearchIndex(Directory indexDirectory, Analyzer indexAnalyzer, IndexWriter indexWriter, int batchSize)
+        private static void BuildSearchIndex(Analyzer indexAnalyzer, IndexWriter indexWriter, int batchSize)
         {
             int count;
             var skip = 0;
@@ -144,7 +70,6 @@ namespace TicketDesk.Domain.Model.Search
             //cleanup
             indexWriter.Dispose();
             indexAnalyzer.Dispose();
-            CleanupDirectory(indexDirectory);
 
         }
 
@@ -170,7 +95,6 @@ namespace TicketDesk.Domain.Model.Search
             indexWriter.UpdateDocument(
                 new Term("id", ticket.TicketId.ToString(CultureInfo.InvariantCulture)),
                 ticket.CreateSearchDocument());
-
         }
 
         #endregion
