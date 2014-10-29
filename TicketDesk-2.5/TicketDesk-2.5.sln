@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}"
 EndProject
@@ -17,6 +17,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Legacy", "TicketDesk.Domain.Legacy\TicketDesk.Domain.Legacy.csproj", "{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Identity", "TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj", "{BD3617C2-A91E-40F3-A441-B085D2491399}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Search", "TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj", "{E7049FEA-5C7F-4C59-A101-BC44F292FA62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Diagnostics.AzureSearch", "TicketDesk.Diagnostics.AzureSearch\TicketDesk.Diagnostics.AzureSearch.csproj", "{E34F6F27-8FE4-4E65-A98D-8F8F580F4572}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +44,14 @@ Global
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E34F6F27-8FE4-4E65-A98D-8F8F580F4572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E34F6F27-8FE4-4E65-A98D-8F8F580F4572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E34F6F27-8FE4-4E65-A98D-8F8F580F4572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E34F6F27-8FE4-4E65-A98D-8F8F580F4572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
