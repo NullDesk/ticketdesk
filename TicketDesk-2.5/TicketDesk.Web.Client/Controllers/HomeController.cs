@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Model.Search;
+using TicketDesk.Domain.Search;
 
 namespace TicketDesk.Web.Client.Controllers
 {

@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -54,8 +60,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndexManager.cs" />
+    <Compile Include="AzureSearch\AzureSearchConector.cs" />
+    <Compile Include="AzureSearch\AzureIndexManager.cs" />
+    <Compile Include="AzureSearch\AzureSearchQueueItemExtensions.cs" />
+    <Compile Include="Common\ISearchIndexManager.cs" />
+    <Compile Include="Common\SearchManager.cs" />
+    <Compile Include="Common\SearchResultItem.cs" />
+    <Compile Include="Lucene\LuceneIndexManager.cs" />
+    <Compile Include="Lucene\LuceneSearchConnector.cs" />
+    <Compile Include="Lucene\LuceneSearchLocator.cs" />
+    <Compile Include="Lucene\LuceneSearchQueueItemExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\SearchQueueItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

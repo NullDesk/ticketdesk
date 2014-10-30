@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
@@ -9,9 +6,9 @@ using Lucene.Net.Index;
 using Lucene.Net.Store;
 using Version = Lucene.Net.Util.Version;
 
-namespace TicketDesk.Domain.Model
+namespace TicketDesk.Domain.Search.Lucene
 {
-    public abstract class SearchIndexManagerBase : IDisposable
+    public abstract class LuceneSearchConnector : IDisposable
     {
         private Directory tdIndexDirectory;
         private Analyzer tdIndexAnalyzer;
@@ -19,7 +16,7 @@ namespace TicketDesk.Domain.Model
 
         private readonly string indexLocation;
 
-        internal SearchIndexManagerBase(string indexLocation)
+        internal LuceneSearchConnector(string indexLocation)
         {
             
             this.indexLocation = indexLocation;
