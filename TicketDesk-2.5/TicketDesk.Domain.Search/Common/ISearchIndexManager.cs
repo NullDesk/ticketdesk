@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TicketDesk.Domain.Search
 {
-    interface ISearchIndexManager
+    internal interface ISearchIndexManager
     {
         Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items);
-        void RunStartupIndexMaintenanceAsync();
+        Task<bool> RunStartupIndexMaintenanceAsync();
 
     }
 }

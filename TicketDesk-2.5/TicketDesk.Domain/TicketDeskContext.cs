@@ -70,6 +70,11 @@ namespace TicketDesk.Domain
 
         #endregion
 
+        public SearchManager SearchManager
+        {
+            get { return SearchManager.GetInstance(true); }
+        }
+
         #region utility
         public override int SaveChanges()
         {
@@ -81,7 +86,7 @@ namespace TicketDesk.Domain
                 if (result > 0)
                 {
                     var queueItems = changes.ToSeachQueueItems();
-                    SearchManager.GetInstance(false).QueueItemsForIndexing(queueItems);
+                    SearchManager.QueueItemsForIndexing(queueItems);
                         //don't await, just run in background
                 }
             }

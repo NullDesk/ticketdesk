@@ -5,15 +5,15 @@ using Lucene.Net.Index;
 
 namespace TicketDesk.Domain.Search.Lucene
 {
-    public class LuceneIndexManager : LuceneSearchConnector, ISearchIndexManager
+    internal class LuceneIndexManager : LuceneSearchConnector, ISearchIndexManager
     {
         internal LuceneIndexManager(string indexLocation):base(indexLocation)
         {
         }
 
-        public void RunStartupIndexMaintenanceAsync()
+        public async Task<bool> RunStartupIndexMaintenanceAsync()
         {
-            return;//nothing to do
+            return await Task.FromResult(true);
         }
 
         public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)

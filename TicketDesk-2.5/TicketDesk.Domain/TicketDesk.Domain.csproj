@@ -71,6 +71,7 @@
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\SettingsExtensions.cs" />
     <Compile Include="Model\Extensions\TicketExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />

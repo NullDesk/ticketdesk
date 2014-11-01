@@ -21,8 +21,27 @@ namespace TicketDesk.Domain.Search
             this.indexName = "ticketdesk-tickets";
         }
 
-        private ISearchIndexManager indexManager;
+        private ISearchLocator indexSearcher;
+        internal ISearchLocator IndexSearcher
+        {
+            get
+            {
+                if (indexSearcher == null)
+                {
+                    if (isAzure)
+                    {
+                        indexSearcher = new AzureSearchLocator(indexName);
+                    }
+                    else
+                    {
+                        indexSearcher = new LuceneSearchLocator(indexName);
+                    }
+                }
+                return indexSearcher;            
+            }
+        }
 
+        private ISearchIndexManager indexManager;
         internal ISearchIndexManager IndexManager
         {
             get
@@ -44,6 +63,11 @@ namespace TicketDesk.Domain.Search
                 return indexManager;
             }
         }
+
+        public IEnumerable<SearchResultItem> Search(string searchText)
+        {
+            return IndexSearcher.Search(searchText);
+        } 
 
         public bool QueueItemsForIndexing(IEnumerable<SearchQueueItem> items)
         {

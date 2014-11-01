@@ -1,25 +1,27 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
 using Lucene.Net.Store;
+using Directory = Lucene.Net.Store.Directory;
 using Version = Lucene.Net.Util.Version;
 
 namespace TicketDesk.Domain.Search.Lucene
 {
-    public abstract class LuceneSearchConnector : IDisposable
+    internal abstract class LuceneSearchConnector : IDisposable
     {
         private Directory tdIndexDirectory;
         private Analyzer tdIndexAnalyzer;
         private IndexWriter tdIndexWriter;
 
-        private readonly string indexLocation;
+        private string IndexLocation { get; set; }
 
         internal LuceneSearchConnector(string indexLocation)
         {
             
-            this.indexLocation = indexLocation;
+            this.IndexLocation = indexLocation;
         }
 
         protected Task<IndexWriter> GetIndexWriterAsync()
@@ -55,13 +57,16 @@ namespace TicketDesk.Domain.Search.Lucene
             {
                 if (tdIndexDirectory == null)
                 {
-                    if (string.Equals(indexLocation, "ram", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(IndexLocation, "ram", StringComparison.InvariantCultureIgnoreCase))
                     {
                         tdIndexDirectory = new RAMDirectory();
                     }
                     else
                     {
-                        var dirInfo = new System.IO.DirectoryInfo(indexLocation);
+                        var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
+                        IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), IndexLocation);
+
+                        var dirInfo = new System.IO.DirectoryInfo(IndexLocation);
                         tdIndexDirectory = FSDirectory.Open(dirInfo);
                     }
                 }

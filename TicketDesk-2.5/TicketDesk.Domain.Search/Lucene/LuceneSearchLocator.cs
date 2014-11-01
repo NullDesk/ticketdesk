@@ -6,16 +6,17 @@ using Version = Lucene.Net.Util.Version;
 
 namespace TicketDesk.Domain.Search.Lucene
 {
-    public class SearchLocator: LuceneSearchConnector
+    internal class LuceneSearchLocator: LuceneSearchConnector, ISearchLocator
     {
-        public IndexSearcher TdIndexSearcher { get; set; }
+        private IndexSearcher TdIndexSearcher { get; set; }
 
-        public SearchLocator(string indexLocation) : base(indexLocation)
+        internal LuceneSearchLocator(string indexLocation)
+            : base(indexLocation)
         {
             TdIndexSearcher = new IndexSearcher(TdIndexDirectory, true);
         }
 
-        public IEnumerable<SearchResultItem> SearchIndex(string searchText, out string queryTerm)
+        public IEnumerable<SearchResultItem> Search(string searchText)
         {
             var fields = new[] {"id", "title", "details", "tags", "comments"};
             var parser = new MultiFieldQueryParser(Version.LUCENE_30,
@@ -23,8 +24,7 @@ namespace TicketDesk.Domain.Search.Lucene
                 TdIndexAnalyzer);
 
             var query = parser.Parse(searchText);
-
-            queryTerm = query.ToString();
+            
             var collector = TopScoreDocCollector.Create(20, true);
 
             TdIndexSearcher.Search(query, collector);
@@ -38,8 +38,6 @@ namespace TicketDesk.Domain.Search.Lucene
                     SearchScore = d.Score
                 };
             });
-        
-
         }
     }
 }

@@ -16,10 +16,11 @@ namespace TicketDesk.Domain.Search.AzureSearch
         {
             this.indexName = indexName;
         }
-        
-        public async void RunStartupIndexMaintenanceAsync()
+
+        public async Task<bool> RunStartupIndexMaintenanceAsync()
         {
             await CreateIndexAsync();
+            return true;
         }
         
         public async Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)

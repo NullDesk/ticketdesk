@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 
@@ -23,9 +19,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (!string.IsNullOrEmpty(find))
             {
-                string searchParsed;
-
-                var model = Context.SearchLocator.SearchIndex(Context.Tickets, find, out searchParsed);
+                var model = Context.SearchManager.Search(Context.Tickets, find);
                 return View(model);
             }
             else
