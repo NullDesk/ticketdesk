@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TicketDesk.Domain.Search.AzureSearch;
 using TicketDesk.Domain.Search.Lucene;
 
@@ -12,55 +13,55 @@ namespace TicketDesk.Domain.Search
             return _instance ?? (_instance = new SearchManager(isAzure));
         }
 
-        private readonly bool isAzure;
-        private readonly string indexName;
+        private readonly bool _isAzure;
+        private readonly string _indexName;
 
         internal SearchManager(bool isAzure)
         {
-            this.isAzure = isAzure;
-            this.indexName = "ticketdesk-tickets";
+            _isAzure = isAzure;
+            _indexName = "ticketdesk-tickets";
         }
 
-        private ISearchLocator indexSearcher;
+        private ISearchLocator _indexSearcher;
         internal ISearchLocator IndexSearcher
         {
             get
             {
-                if (indexSearcher == null)
+                if (_indexSearcher == null)
                 {
-                    if (isAzure)
+                    if (_isAzure)
                     {
-                        indexSearcher = new AzureSearchLocator(indexName);
+                        _indexSearcher = new AzureSearchLocator(_indexName);
                     }
                     else
                     {
-                        indexSearcher = new LuceneSearchLocator(indexName);
+                        _indexSearcher = new LuceneSearchLocator(_indexName);
                     }
                 }
-                return indexSearcher;            
+                return _indexSearcher;            
             }
         }
 
-        private ISearchIndexManager indexManager;
+        private ISearchIndexManager _indexManager;
         internal ISearchIndexManager IndexManager
         {
             get
             {
-                if (indexManager == null)
+                if (_indexManager == null)
                 {
-                    if (isAzure)
+                    if (_isAzure)
                     {
-                        indexManager = new AzureIndexManager(indexName);
+                        _indexManager = new AzureIndexManager(_indexName);
                     }
                     else
                     {
-                        indexManager = new LuceneIndexManager(indexName);
+                        _indexManager = new LuceneIndexManager(_indexName);
                     }
                     
                     //TODO: when the full queue is coded up, this task should be performed only be process(es) which handle the dequeue operations
-                    indexManager.RunStartupIndexMaintenanceAsync();
+                    _indexManager.RunStartupIndexMaintenanceAsync();
                 }
-                return indexManager;
+                return _indexManager;
             }
         }
 
@@ -69,10 +70,10 @@ namespace TicketDesk.Domain.Search
             return IndexSearcher.Search(searchText);
         } 
 
-        public bool QueueItemsForIndexing(IEnumerable<SearchQueueItem> items)
+        public async Task<bool> QueueItemsForIndexing(IEnumerable<SearchQueueItem> items)
         {
             //TODO: temp "poor man" solution for testing. Will be replaced by a formal queue/dequeue system
-            IndexManager.AddItemsToIndexAsync(items);
+            await IndexManager.AddItemsToIndexAsync(items);
             
             return true;
         }

@@ -72,7 +72,11 @@ namespace TicketDesk.Domain
 
         public SearchManager SearchManager
         {
-            get { return SearchManager.GetInstance(true); }
+            get
+            {
+                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+            } 
+        
         }
 
         #region utility
@@ -86,12 +90,15 @@ namespace TicketDesk.Domain
                 if (result > 0)
                 {
                     var queueItems = changes.ToSeachQueueItems();
-                    SearchManager.QueueItemsForIndexing(queueItems);
-                        //don't await, just run in background
+                    var t = SearchManager.QueueItemsForIndexing(queueItems);
+                    t.Wait();//wait so the thread doesn't exit before this finishes
                 }
             }
-            
-            catch { }//eat the exception, we NEVER want this to interfere with the save operation
+
+            catch//eat the exception, we NEVER want this to interfere with the save operation
+            {
+                //TODO: Log this somewhere
+            }
             return result;
         }
 

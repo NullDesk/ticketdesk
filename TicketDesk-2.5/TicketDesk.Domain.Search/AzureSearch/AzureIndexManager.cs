@@ -10,11 +10,11 @@ namespace TicketDesk.Domain.Search.AzureSearch
 {
     internal class AzureIndexManager : AzureSearchConector, ISearchIndexManager
     {
-        private readonly string indexName;
+        private readonly string _indexName;
 
         internal AzureIndexManager(string indexName)
         {
-            this.indexName = indexName;
+            _indexName = indexName;
         }
 
         public async Task<bool> RunStartupIndexMaintenanceAsync()
@@ -23,12 +23,12 @@ namespace TicketDesk.Domain.Search.AzureSearch
             return true;
         }
         
-        public async Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
+        public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
         {
             var ret = true;
             foreach (var item in items)
             {
-                if (!await AddItemToIndexAsync(item.ToIndexOperation()))//TODO: can we do this in parallel with Azure search?
+                if (!AddItemToIndexAsync(item.ToIndexOperation()))//TODO: can we do this in parallel with Azure search?
                 {
                     //TODO: beef this up so we return a list of failures for the caller to handle
                     if (ret)//if any item fails, return false - but go ahead and process the rest of the batch
@@ -37,17 +37,18 @@ namespace TicketDesk.Domain.Search.AzureSearch
                     }
                 }
             }
-            return ret;
+            return Task.FromResult(true);
         }
 
-        internal async Task<bool> AddItemToIndexAsync(IndexOperation itemOperation)
+        internal bool AddItemToIndexAsync(IndexOperation itemOperation)
         {
-            var result = await ManagementClient.PopulateAsync(indexName, itemOperation);
-            if (!result.IsSuccess)
+            var result = ManagementClient.PopulateAsync(_indexName, itemOperation);
+            result.Wait();
+            if (!result.Result.IsSuccess)
             {
-                Trace.Write("Error: " + result.Error.Message);
+                Trace.Write("Error: " + result.Result.Error.Message);
             }
-            return result.IsSuccess;
+            return result.Result.IsSuccess;
         }
 
         internal async Task<bool> RemoveIndexAsync()
@@ -55,7 +56,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
             var ret = true;
             if (await IndexExistsAsync())
             {
-                var result = await ManagementClient.DeleteIndexAsync(indexName);
+                var result = await ManagementClient.DeleteIndexAsync(_indexName);
                 if (!result.IsSuccess)
                 {
                     Trace.Write("Error: " + result.Error.Message);
@@ -93,7 +94,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
             var result = await ManagementClient.GetIndexesAsync();
             if (result.IsSuccess)
             {
-                ret = result.Body.Any(i => i.Name.Equals(indexName));
+                ret = result.Body.Any(i => i.Name.Equals(_indexName));
             }
             else
             {
@@ -104,7 +105,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
 
         private Index GetIndexDefinition()
         {
-            var index = new Index(indexName)
+            var index = new Index(_indexName)
                 .WithStringField("id", opt =>
                     opt.IsKey().IsRetrievable().IsSearchable().IsSortable().IsFilterable())
                 .WithStringField("title", opt =>

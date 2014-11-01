@@ -7,32 +7,32 @@ namespace TicketDesk.Domain.Search.AzureSearch
 {
     public abstract class AzureSearchConector
     {
-        private ApiConnection connection;
-        private IndexManagementClient managementClient;
-        private IndexQueryClient queryClient;
+        private ApiConnection _connection;
+        private IndexManagementClient _managementClient;
+        private IndexQueryClient _queryClient;
 
         internal IndexManagementClient ManagementClient
         {
-            get { return managementClient ?? (managementClient = new IndexManagementClient(Connection)); }
+            get { return _managementClient ?? (_managementClient = new IndexManagementClient(Connection)); }
         }
 
         internal IndexQueryClient QueryClient
         {
-            get { return queryClient ?? (queryClient = new IndexQueryClient(Connection)); }
+            get { return _queryClient ?? (_queryClient = new IndexQueryClient(Connection)); }
         }
 
         internal ApiConnection Connection
         {
             get
             {
-                if (connection == null)
+                if (_connection == null)
                 {
                     var svcInfo = TryGetInfoFromConnectionString() ??
                                   TryGetInfoFromAppSettings();
 
-                    connection = ApiConnection.Create(svcInfo.ServiceName, svcInfo.QueryKey);
+                    _connection = ApiConnection.Create(svcInfo.ServiceName, svcInfo.QueryKey);
                 }
-                return connection;
+                return _connection;
             }
         }
 
@@ -40,7 +40,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
         {
             ServiceInfo info = null;
             var service = ConfigurationManager.AppSettings["Azure.Search.ServiceName"];
-            var key = ConfigurationManager.AppSettings["Azure.Search.Admin.Key"];
+            var key = ConfigurationManager.AppSettings["Azure.Search.ApiKey"];
             if (service != null && key != null)
             {
                 info = new ServiceInfo { ServiceName = service, QueryKey = key };
@@ -62,7 +62,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
                         .Select(t => new { key = t[0], value = t[1] }).ToList();
 
                     var service = parts.FirstOrDefault(p => p.key.Equals("ServiceName"));
-                    var key = parts.FirstOrDefault(p => p.key.Equals("AdminKey"));
+                    var key = parts.FirstOrDefault(p => p.key.Equals("ApiKey"));
                     if (service != null && key != null)
                     {
                         info = new ServiceInfo

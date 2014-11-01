@@ -12,23 +12,23 @@ namespace TicketDesk.Domain.Search.Lucene
 {
     internal abstract class LuceneSearchConnector : IDisposable
     {
-        private Directory tdIndexDirectory;
-        private Analyzer tdIndexAnalyzer;
-        private IndexWriter tdIndexWriter;
+        private Directory _tdIndexDirectory;
+        private Analyzer _tdIndexAnalyzer;
+        private IndexWriter _tdIndexWriter;
 
         private string IndexLocation { get; set; }
 
         internal LuceneSearchConnector(string indexLocation)
         {
             
-            this.IndexLocation = indexLocation;
+            IndexLocation = indexLocation;
         }
 
         protected Task<IndexWriter> GetIndexWriterAsync()
         {
             return Task.Run(async () =>
             {
-                if (tdIndexWriter == null)
+                if (_tdIndexWriter == null)
                 {
                     var delayCount = 0;
                     while (IndexWriter.IsLocked(TdIndexDirectory) && delayCount++ < 4) //delay 4 times (1 min)
@@ -41,12 +41,12 @@ namespace TicketDesk.Domain.Search.Lucene
                         //  really another writer open elsewhere
                         IndexWriter.Unlock(TdIndexDirectory);
                     }
-                    tdIndexWriter = new IndexWriter(
+                    _tdIndexWriter = new IndexWriter(
                         TdIndexDirectory,
                         TdIndexAnalyzer,
                         IndexWriter.MaxFieldLength.UNLIMITED);
                 }
-                return tdIndexWriter;
+                return _tdIndexWriter;
             });
         }
 
@@ -55,35 +55,35 @@ namespace TicketDesk.Domain.Search.Lucene
         {
             get
             {
-                if (tdIndexDirectory == null)
+                if (_tdIndexDirectory == null)
                 {
                     if (string.Equals(IndexLocation, "ram", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        tdIndexDirectory = new RAMDirectory();
+                        _tdIndexDirectory = new RAMDirectory();
                     }
                     else
                     {
                         var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
                         IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), IndexLocation);
 
-                        var dirInfo = new System.IO.DirectoryInfo(IndexLocation);
-                        tdIndexDirectory = FSDirectory.Open(dirInfo);
+                        var dirInfo = new DirectoryInfo(IndexLocation);
+                        _tdIndexDirectory = FSDirectory.Open(dirInfo);
                     }
                 }
-                return tdIndexDirectory;
+                return _tdIndexDirectory;
             }
         }
         protected Analyzer TdIndexAnalyzer
         {
             get
             {
-                return tdIndexAnalyzer ?? (tdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30));
+                return _tdIndexAnalyzer ?? (_tdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30));
             }
         }
 
         public void Dispose()
         {
-            if (tdIndexWriter != null) { tdIndexWriter.Dispose(); }
+            if (_tdIndexWriter != null) { _tdIndexWriter.Dispose(); }
             if (TdIndexAnalyzer != null) { TdIndexAnalyzer.Dispose(); }
             if (TdIndexDirectory != null) { TdIndexDirectory.Dispose(); }
         }

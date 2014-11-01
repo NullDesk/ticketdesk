@@ -45,13 +45,13 @@ namespace TicketDesk.Domain.Search.Lucene
                 Field.TermVector.YES);
             var tags = new Field(
                 "tags",
-                tagList ?? string.Empty,
+                tagList,
                 Field.Store.NO,
                 Field.Index.ANALYZED,
                 Field.TermVector.NO) { Boost = 2.5F };
             var comments = new Field(
                 "comments",
-                commentText ?? string.Empty,
+                commentText,
                 Field.Store.NO,
                 Field.Index.ANALYZED,
                 Field.TermVector.YES) { Boost = 0.75F };
