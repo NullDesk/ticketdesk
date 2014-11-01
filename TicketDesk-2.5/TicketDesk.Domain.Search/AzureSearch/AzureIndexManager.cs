@@ -22,13 +22,13 @@ namespace TicketDesk.Domain.Search.AzureSearch
             await CreateIndexAsync();
             return true;
         }
-        
-        public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
+
+        public async Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
         {
             var ret = true;
             foreach (var item in items)
             {
-                if (!AddItemToIndexAsync(item.ToIndexOperation()))//TODO: can we do this in parallel with Azure search?
+                if (!await AddItemToIndexAsync(item.ToIndexOperation()))//TODO: can we do this in parallel with Azure search?
                 {
                     //TODO: beef this up so we return a list of failures for the caller to handle
                     if (ret)//if any item fails, return false - but go ahead and process the rest of the batch
@@ -37,18 +37,17 @@ namespace TicketDesk.Domain.Search.AzureSearch
                     }
                 }
             }
-            return Task.FromResult(true);
+            return ret;
         }
 
-        internal bool AddItemToIndexAsync(IndexOperation itemOperation)
+        internal async Task<bool> AddItemToIndexAsync(IndexOperation itemOperation)
         {
-            var result = ManagementClient.PopulateAsync(_indexName, itemOperation);
-            result.Wait();
-            if (!result.Result.IsSuccess)
+            var result = await ManagementClient.PopulateAsync(_indexName, itemOperation);
+            if (!result.IsSuccess)
             {
-                Trace.Write("Error: " + result.Result.Error.Message);
+                Trace.Write("Error: " + result.Error.Message);
             }
-            return result.Result.IsSuccess;
+            return result.IsSuccess;
         }
 
         internal async Task<bool> RemoveIndexAsync()

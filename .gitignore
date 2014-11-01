@@ -8,7 +8,7 @@
 *.pubxml
 *Web.ticketdesk3dev.config
 **/TdSearchIndex/*
-**/SearchIndexes/*
+**/ticketdesk-tickets/*
 **build/
 **/TD2_DB_Reference_SQL2012Compat.zip
 

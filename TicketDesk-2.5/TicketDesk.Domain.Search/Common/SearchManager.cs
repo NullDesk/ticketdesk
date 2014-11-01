@@ -38,7 +38,7 @@ namespace TicketDesk.Domain.Search
                         _indexSearcher = new LuceneSearchLocator(_indexName);
                     }
                 }
-                return _indexSearcher;            
+                return _indexSearcher;
             }
         }
 
@@ -57,7 +57,7 @@ namespace TicketDesk.Domain.Search
                     {
                         _indexManager = new LuceneIndexManager(_indexName);
                     }
-                    
+
                     //TODO: when the full queue is coded up, this task should be performed only be process(es) which handle the dequeue operations
                     _indexManager.RunStartupIndexMaintenanceAsync();
                 }
@@ -68,14 +68,13 @@ namespace TicketDesk.Domain.Search
         public IEnumerable<SearchResultItem> Search(string searchText)
         {
             return IndexSearcher.Search(searchText);
-        } 
+        }
 
-        public async Task<bool> QueueItemsForIndexing(IEnumerable<SearchQueueItem> items)
+        public async Task<bool> QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
         {
             //TODO: temp "poor man" solution for testing. Will be replaced by a formal queue/dequeue system
-            await IndexManager.AddItemsToIndexAsync(items);
+            return await IndexManager.AddItemsToIndexAsync(items);
             
-            return true;
         }
     }
 }

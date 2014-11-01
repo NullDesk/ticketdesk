@@ -74,7 +74,8 @@ namespace TicketDesk.Domain
         {
             get
             {
-                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+                return SearchManager.GetInstance(true);
+                    //!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
             } 
         
         }
@@ -90,8 +91,9 @@ namespace TicketDesk.Domain
                 if (result > 0)
                 {
                     var queueItems = changes.ToSeachQueueItems();
-                    var t = SearchManager.QueueItemsForIndexing(queueItems);
-                    t.Wait();//wait so the thread doesn't exit before this finishes
+                    //config await to resume on a new thread, not the context's thread... prevents deadlock on the UI thread
+                    SearchManager.QueueItemsForIndexingAsync(queueItems).ConfigureAwait(false);
+                    
                 }
             }
 
