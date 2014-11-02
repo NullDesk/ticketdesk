@@ -69,6 +69,11 @@ namespace TicketDesk.Domain.Search
             return await IndexManager.RunStartupIndexMaintenanceAsync();
         }
 
+        public async Task<bool> RemoveIndexAsync()
+        {
+            return await IndexManager.RemoveIndexAsync();
+        }
+
         public async Task<IEnumerable<SearchResultItem>> SearchIndexAsync(string searchText)
         {
             return await IndexSearcher.SearchAsync(searchText);

@@ -16,12 +16,15 @@ namespace TicketDesk.Domain.Search.Lucene
         private Analyzer _tdIndexAnalyzer;
         private IndexWriter _tdIndexWriter;
 
-        private string IndexLocation { get; set; }
+        protected string IndexLocation { get; private set; }
 
         internal LuceneSearchConnector(string indexLocation)
         {
-            
-            IndexLocation = indexLocation;
+
+            var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
+            IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), indexLocation);
+
+           
         }
 
         protected Task<IndexWriter> GetIndexWriterAsync()
@@ -63,8 +66,7 @@ namespace TicketDesk.Domain.Search.Lucene
                     }
                     else
                     {
-                        var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
-                        IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), IndexLocation);
+                        
 
                         var dirInfo = new DirectoryInfo(IndexLocation);
                         _tdIndexDirectory = FSDirectory.Open(dirInfo);

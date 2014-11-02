@@ -92,7 +92,6 @@ namespace TicketDesk.Domain
                     var queueItems = changes.ToSeachQueueItems();
                     //config await to resume on a new thread, not the context's thread... prevents deadlock on the UI thread
                     SearchManager.QueueItemsForIndexingAsync(queueItems).ConfigureAwait(false);
-                    
                 }
             }
 

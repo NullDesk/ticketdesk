@@ -7,6 +7,7 @@ namespace TicketDesk.Domain.Search
     {
         Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items);
         Task<bool> RunStartupIndexMaintenanceAsync();
+        Task<bool> RemoveIndexAsync();
 
     }
 }

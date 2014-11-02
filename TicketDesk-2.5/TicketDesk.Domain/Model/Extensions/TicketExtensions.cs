@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Search;
 
-namespace TicketDesk.Domain.Model.Extensions
+namespace TicketDesk.Domain.Model
 {
     public static class TicketExtensions
     {

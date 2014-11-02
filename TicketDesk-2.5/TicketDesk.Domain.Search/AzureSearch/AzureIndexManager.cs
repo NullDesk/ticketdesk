@@ -40,17 +40,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
             return ret;
         }
 
-        internal async Task<bool> AddItemToIndexAsync(IndexOperation itemOperation)
-        {
-            var result = await ManagementClient.PopulateAsync(_indexName, itemOperation);
-            if (!result.IsSuccess)
-            {
-                Trace.Write("Error: " + result.Error.Message);
-            }
-            return result.IsSuccess;
-        }
-
-        internal async Task<bool> RemoveIndexAsync()
+        public async Task<bool> RemoveIndexAsync()
         {
             var ret = true;
             if (await IndexExistsAsync())
@@ -65,6 +55,18 @@ namespace TicketDesk.Domain.Search.AzureSearch
             return ret;
         }
 
+
+        internal async Task<bool> AddItemToIndexAsync(IndexOperation itemOperation)
+        {
+            var result = await ManagementClient.PopulateAsync(_indexName, itemOperation);
+            if (!result.IsSuccess)
+            {
+                Trace.Write("Error: " + result.Error.Message);
+            }
+            return result.IsSuccess;
+        }
+
+        
 
         /// <summary>
         /// Creates the index if it doesn't exist, will not overwrite an existing index.

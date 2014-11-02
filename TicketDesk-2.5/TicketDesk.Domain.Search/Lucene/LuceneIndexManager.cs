@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using Lucene.Net.Index;
+using Microsoft.SqlServer.Server;
 
 namespace TicketDesk.Domain.Search.Lucene
 {
     internal class LuceneIndexManager : LuceneSearchConnector, ISearchIndexManager
     {
-        internal LuceneIndexManager(string indexLocation):base(indexLocation)
+        internal LuceneIndexManager(string indexLocation)
+            : base(indexLocation)
         {
         }
 
@@ -31,13 +34,27 @@ namespace TicketDesk.Domain.Search.Lucene
             });
         }
 
+        public Task<bool> RemoveIndexAsync()
+        {
+            if (IndexLocation != "ram")
+            {
+                var directoryInfo = new DirectoryInfo(IndexLocation);
+                Parallel.ForEach(directoryInfo.GetFiles(), file => file.Delete());
+            }
+            else
+            {
+                TdIndexDirectory.Dispose();
+            }
+
+            return Task.FromResult(true);
+        }
+
         private static void UpdateIndexForItem(IndexWriter indexWriter, SearchQueueItem item)
         {
             indexWriter.UpdateDocument(
                 new Term("id", item.Id.ToString(CultureInfo.InvariantCulture)),
                 item.ToLuceneDocument());
         }
-
 
         #region obsolete, keep a while for reference
 
@@ -90,10 +107,13 @@ namespace TicketDesk.Domain.Search.Lucene
         //    }
         //}
 
-       
+
 
         #endregion
 
-        
+
+
+
+
     }
 }

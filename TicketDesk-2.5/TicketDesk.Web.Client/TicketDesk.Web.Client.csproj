@@ -175,6 +175,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\SearchManagerController.cs" />
     <Compile Include="Areas\Initialization\Controllers\DataManagementController.cs" />
     <Compile Include="Areas\Initialization\InitializationAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -217,6 +219,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\SearchManager\Index.cshtml" />
     <None Include="Content\Site.css_old" />
     <Content Include="Areas\Initialization\Views\web.config" />
     <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
@@ -309,6 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Initialization\Models\" />
     <Folder Include="Areas\Initialization\Views\Shared\" />
   </ItemGroup>

@@ -16,6 +16,7 @@ using SimpleInjector;
 using SimpleInjector.Advanced;
 using SimpleInjector.Integration.Web.Mvc;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Search;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
@@ -51,6 +52,9 @@ namespace TicketDesk.Web.Client
 
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
                 new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
+
+            container.RegisterPerWebRequest<SearchManager>(() => 
+                SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))));
 
             container.RegisterPerWebRequest<IAuthenticationManager>(() =>
             {
