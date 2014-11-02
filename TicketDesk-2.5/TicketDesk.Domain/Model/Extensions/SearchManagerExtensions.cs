@@ -10,10 +10,10 @@ namespace TicketDesk.Domain.Model
 {
     public static class SearchManagerExtensions
     {
-        public static IEnumerable<Ticket> Search(this SearchManager manager, IQueryable<Ticket> ticketQuery,
+        public static async Task<IEnumerable<Ticket>> SearchAsync(this SearchManager manager, IQueryable<Ticket> ticketQuery,
             string searchText)
         {
-            var results = manager.Search(searchText);
+            var results = await manager.SearchIndexAsync(searchText);
             
             return from i in results
                    join t in ticketQuery

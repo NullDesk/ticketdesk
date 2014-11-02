@@ -11,11 +11,11 @@ namespace TicketDesk.Web.Client
             //      Actual index rebuilding and maintenance needs to be done from SearchManager so it can run in other processes (like webjob, etc.)
 
 
-            //var context = DependencyResolver.Current.GetService<TicketDeskContext>();
-            //if (DatabaseConfig.IsDatabaseReady)
-            //{
-            //    context.SearchIndexer.RebuildIndexAsync();//don't await this, it'll run in the background
-            //}
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            if (DatabaseConfig.IsDatabaseReady)
+            {
+                context.SearchManager.InitializeSearch().ConfigureAwait(false);//don't await this, it'll run in the background
+            }
         }
     }
 }

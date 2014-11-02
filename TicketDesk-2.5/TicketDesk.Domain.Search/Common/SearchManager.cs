@@ -58,16 +58,20 @@ namespace TicketDesk.Domain.Search
                         _indexManager = new LuceneIndexManager(_indexName);
                     }
 
-                    //TODO: when the full queue is coded up, this task should be performed only be process(es) which handle the dequeue operations
-                    _indexManager.RunStartupIndexMaintenanceAsync();
+                  
                 }
                 return _indexManager;
             }
         }
 
-        public IEnumerable<SearchResultItem> Search(string searchText)
+        public async Task<bool> InitializeSearch()
         {
-            return IndexSearcher.Search(searchText);
+            return await IndexManager.RunStartupIndexMaintenanceAsync();
+        }
+
+        public async Task<IEnumerable<SearchResultItem>> SearchIndexAsync(string searchText)
+        {
+            return await IndexSearcher.SearchAsync(searchText);
         }
 
         public async Task<bool> QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)

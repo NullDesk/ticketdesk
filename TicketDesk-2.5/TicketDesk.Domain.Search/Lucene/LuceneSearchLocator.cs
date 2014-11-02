@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Version = Lucene.Net.Util.Version;
@@ -16,27 +17,30 @@ namespace TicketDesk.Domain.Search.Lucene
             TdIndexSearcher = new IndexSearcher(TdIndexDirectory, true);
         }
 
-        public IEnumerable<SearchResultItem> Search(string searchText)
+        public Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
         {
-            var fields = new[] {"id", "title", "details", "tags", "comments"};
-            var parser = new MultiFieldQueryParser(Version.LUCENE_30,
-                fields,
-                TdIndexAnalyzer);
+            return Task.Run(() =>
+            {
+                var fields = new[] {"id", "title", "details", "tags", "comments"};
+                var parser = new MultiFieldQueryParser(Version.LUCENE_30,
+                    fields,
+                    TdIndexAnalyzer);
 
-            var query = parser.Parse(searchText);
-            
-            var collector = TopScoreDocCollector.Create(20, true);
+                var query = parser.Parse(searchText);
 
-            TdIndexSearcher.Search(query, collector);
+                var collector = TopScoreDocCollector.Create(20, true);
 
-            return collector.TopDocs().ScoreDocs.Select(d =>
-            { 
-                var document = TdIndexSearcher.Doc(d.Doc);
-                return new SearchResultItem
+                TdIndexSearcher.Search(query, collector);
+
+                return collector.TopDocs().ScoreDocs.Select(d =>
                 {
-                    Id = int.Parse(document.Get("id")),
-                    SearchScore = d.Score
-                };
+                    var document = TdIndexSearcher.Doc(d.Doc);
+                    return new SearchResultItem
+                    {
+                        Id = int.Parse(document.Get("id")),
+                        SearchScore = d.Score
+                    };
+                });
             });
         }
     }

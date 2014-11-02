@@ -74,8 +74,7 @@ namespace TicketDesk.Domain
         {
             get
             {
-                return SearchManager.GetInstance(true);
-                    //!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
             } 
         
         }

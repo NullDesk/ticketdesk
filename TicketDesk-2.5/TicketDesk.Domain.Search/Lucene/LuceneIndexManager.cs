@@ -13,7 +13,7 @@ namespace TicketDesk.Domain.Search.Lucene
 
         public async Task<bool> RunStartupIndexMaintenanceAsync()
         {
-            return await Task.FromResult(true);
+            return await Task.FromResult(true);//nothing to do for lucene, the indexes is built as a side-effect of adding documents
         }
 
         public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)

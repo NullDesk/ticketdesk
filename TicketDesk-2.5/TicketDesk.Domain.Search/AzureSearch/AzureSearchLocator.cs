@@ -1,20 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using RedDog.Search.Model;
 
 namespace TicketDesk.Domain.Search.AzureSearch
 {
     internal class AzureSearchLocator : AzureSearchConector, ISearchLocator
     {
-        private readonly string _indexName;
+        private string IndexName { get; set; }
 
         internal AzureSearchLocator(string indexName)
         {
-            _indexName = indexName;
+            IndexName = indexName;
         }
 
-        public IEnumerable<SearchResultItem> Search(string searchText)
+        public async Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
         {
-            throw new NotImplementedException();
+            var query = new SearchQuery(searchText)
+            {
+                SearchFields = "id,title,details,tags,comments",
+                Select = "id"
+            };
+            var result = await QueryClient.SearchAsync(IndexName, query);
+            if (result.IsSuccess)
+            {
+                return
+                    result.Body.Records.Select(
+                        r =>
+                            new SearchResultItem
+                            {
+                                Id = int.Parse((string) r.Properties["id"]),
+                                SearchScore = (float) r.Score
+                            });
+            }
+            return new SearchResultItem[0];
         }
     }
 }

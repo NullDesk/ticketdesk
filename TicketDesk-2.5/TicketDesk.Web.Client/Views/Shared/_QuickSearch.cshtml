@@ -1,6 +1,5 @@
-﻿@using (Html.BeginRouteForm("SearchResults", FormMethod.Get, new { @class = "navbar-form",style="width:150px;", role = "search" }))
+﻿@using (Html.BeginForm("Index","Search", FormMethod.Get, new { @class = "navbar-form",style="width:150px;", role = "search" }))
 {
-
     <div class="input-group">
         <label class="sr-only" for="find"> Search:</label>@Html.TextBox("find", null, new { @class = "form-control input-sm", placeholder = "Search" })
         <span class="input-group-btn">
