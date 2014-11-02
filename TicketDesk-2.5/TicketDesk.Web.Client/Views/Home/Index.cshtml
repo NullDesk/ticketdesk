@@ -4,8 +4,8 @@
 
 <main role="main" class="row">
     <article class="col-md-8">
-        
-        
+
+
         <h2>Welcome to TicketDesk 2.5</h2>
         <p>
             Currently this is just an alpha build.
@@ -20,6 +20,11 @@
             There are some very interesting changes in how list settings are managed, as well as in how ESQL queries are being generated to drive the ticket center.
         </p>
         <div class="panel">
+
+            @if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
+            {
+                <h3>Congratulations! You appear to be running in Azure.</h3>
+            }
             <h3>Logins:</h3>
             <p>
                 Login with one of the following:
@@ -29,7 +34,7 @@
                 Password is "123456" for all three users.
             </p>
             @*@Html.ActionLink("Create Search Index", "Indexer");*@
-           
+
         </div>
     </article>
     <aside class="col-md-4 right-side-box">

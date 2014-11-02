@@ -46,7 +46,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -71,11 +71,10 @@
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\SettingsExtensions.cs" />
-    <Compile Include="Model\Extensions\TicketSearchExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
-    <Compile Include="Model\SearchModel\SearchIndexer.cs" />
-    <Compile Include="Model\SearchModel\SearchLocator.cs" />
     <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
     <Compile Include="Model\Extensions\UserSettingsExtensions.cs" />
     <Compile Include="Model\UserTicketListModel\UserTicketListSettingsCollection.cs" />
@@ -106,7 +105,12 @@
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj">
+      <Project>{E7049FEA-5C7F-4C59-A101-BC44F292FA62}</Project>
+      <Name>TicketDesk.Domain.Search</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

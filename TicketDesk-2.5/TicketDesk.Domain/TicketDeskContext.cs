@@ -16,12 +16,11 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
-using TicketDesk.Domain.Conventions;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
 using TicketDesk.Domain.Model.Extensions;
-using TicketDesk.Domain.Model.Search;
-using TicketDesk.Domain.Models;
+using TicketDesk.Domain.Search;
+
 
 namespace TicketDesk.Domain
 {
@@ -71,48 +70,35 @@ namespace TicketDesk.Domain
 
         #endregion
 
-        #region custom model
-
-        private SearchLocator locator;
-        public SearchLocator SearchLocator
+        public SearchManager SearchManager
         {
             get
             {
-                if (locator == null)
-                {
-                    var indexLocation = GetSearchIndexLocation();
-                    locator = new SearchLocator(indexLocation);
-                }
-                return locator;
-            }
+                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+            } 
+        
         }
-
-        private static SearchIndexer search;
-        public SearchIndexer SearchIndexer
-        {
-            get
-            {
-                if (search == null && this.Database.Exists())
-                {
-                    var indexLocation = GetSearchIndexLocation();
-                    var batchSize = Settings.GetSettingValue("SearchIndexBatchSize", 50);
-                    search = new SearchIndexer(indexLocation, batchSize);
-
-                }
-                return search;
-            }
-        }
-
-        #endregion
 
         #region utility
         public override int SaveChanges()
         {
             var changes = ChangeTracker.Entries<Ticket>().Select(t => t.Entity);
             var result = base.SaveChanges();
-            if (result > 0)
+            // ReSharper disable once EmptyGeneralCatchClause
+            try
             {
-                SearchIndexer.UpdateIndexForTicketsAsync(changes);//don't await, just run in background
+                if (result > 0)
+                {
+                    var queueItems = changes.ToSeachQueueItems();
+                    //config await to resume on a new thread, not the context's thread... prevents deadlock on the UI thread
+                    SearchManager.QueueItemsForIndexingAsync(queueItems).ConfigureAwait(false);
+                    
+                }
+            }
+
+            catch//eat the exception, we NEVER want this to interfere with the save operation
+            {
+                //TODO: Log this somewhere
             }
             return result;
         }
