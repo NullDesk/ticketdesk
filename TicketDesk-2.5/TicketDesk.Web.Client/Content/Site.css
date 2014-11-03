@@ -73,11 +73,15 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+
+.left-side-box {
+    border-right: 1px solid #B3CBDF;
+}
 /*Home page*/
 .right-side-box {
     height: 100%;
     min-height: 300px;
-    border-left: 1px solid #B3CBDF;
+    
 }
 
 
