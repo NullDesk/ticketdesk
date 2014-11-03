@@ -18,7 +18,7 @@ using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
-    [RoutePrefix("Tickets")]
+    [RoutePrefix("tickets")]
     [Authorize]
     public class TicketCenterController : Controller
     {
@@ -45,14 +45,14 @@ namespace TicketDesk.Web.Client.Controllers
             return View(viewModel);
         }
 
-        [Route("PageList/{listName=opentickets}/{page:int?}")]
+        [Route("pageList/{listName=opentickets}/{page:int?}")]
         public async Task<ActionResult> PageList(int? page, string listName)
         {
             return await GetTicketListPartial(page, listName);
         }
 
 
-        [Route("FilterList/{listName=opentickets}/{page:int?}")]
+        [Route("filterList/{listName=opentickets}/{page:int?}")]
         public async Task<PartialViewResult> FilterList(
             int? page,
             string listName,
@@ -74,7 +74,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         }
 
-        [Route("SortList/{listName=opentickets}/{page:int?}")]
+        [Route("sortList/{listName=opentickets}/{page:int?}")]
         public async Task<PartialViewResult> SortList(
             int? page,
             string listName,

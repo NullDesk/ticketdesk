@@ -9,6 +9,7 @@ using TicketDesk.Domain;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [RoutePrefix("")]
     public class HomeController : Controller
     {
         private TicketDeskContext Context { get; set; }
@@ -20,7 +21,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             return View();
         }
-
+        [Route("about")]
         public ActionResult About()
         {
             return View();

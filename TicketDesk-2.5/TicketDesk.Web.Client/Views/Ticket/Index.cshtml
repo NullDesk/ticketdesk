@@ -1,0 +1,162 @@
+﻿@model TicketDesk.Domain.Model.Ticket
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>Ticket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TicketType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsHtml)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsHtml)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TagList)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TagList)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TicketStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentStatusDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentStatusDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentStatusSetBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentStatusSetBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AffectsCustomer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AffectsCustomer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Version)
+        </dd>
+
+    </dl>
+</div>
+<p>
+   
+    @Html.ActionLink("Back to List", "Index","TicketCenter", new {area = ""}, null)
+</p>

@@ -5,6 +5,7 @@ using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [RoutePrefix("search")]
     public class SearchController : Controller
     {
         private TicketDeskContext Context { get; set; }
@@ -15,11 +16,11 @@ namespace TicketDesk.Web.Client.Controllers
 
         // GET: Search
        
-        public async Task<ActionResult> Index(string find)
+        public async Task<ActionResult> Index(string term)
         {
-            if (!string.IsNullOrEmpty(find))
+            if (!string.IsNullOrEmpty(term))
             {
-                var model = await Context.SearchManager.SearchAsync(Context.Tickets, find);
+                var model = await Context.SearchManager.SearchAsync(Context.Tickets, term);
                 return View(model);
             }
             else

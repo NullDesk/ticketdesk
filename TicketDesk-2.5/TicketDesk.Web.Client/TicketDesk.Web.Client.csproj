@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
@@ -309,6 +310,7 @@
     </Content>
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\_QuickSearch.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

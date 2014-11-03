@@ -27,7 +27,7 @@ namespace TicketDesk.Domain.Search.Lucene
                     TdIndexAnalyzer);
 
                 var query = parser.Parse(searchText);
-
+                
                 var collector = TopScoreDocCollector.Create(20, true);
 
                 TdIndexSearcher.Search(query, collector);

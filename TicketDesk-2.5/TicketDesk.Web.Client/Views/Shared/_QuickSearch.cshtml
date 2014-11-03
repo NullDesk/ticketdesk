@@ -1,7 +1,7 @@
-﻿@using (Html.BeginForm("Index","Search", new { area = ""}, FormMethod.Get, new { @class = "navbar-form",style="width:150px;", role = "search" }))
+﻿@using (Html.BeginForm("index","search", new { area = ""}, FormMethod.Get, new { @class = "navbar-form",style="width:150px;", role = "search" }))
 {
     <div class="input-group">
-        <label class="sr-only" for="find"> Search:</label>@Html.TextBox("find", null, new { @class = "form-control input-sm", placeholder = "Search" })
+        <label class="sr-only" for="find"> Search:</label>@Html.TextBox("term", null, new { @class = "form-control input-sm", placeholder = "Search" })
         <span class="input-group-btn">
             <button type="submit" value="go" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></button>
         </span>
