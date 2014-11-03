@@ -54,7 +54,6 @@ namespace TicketDesk.Web.Client.Controllers
 
         [Route("filterList/{listName=opentickets}/{page:int?}")]
         public async Task<PartialViewResult> FilterList(
-            int? page,
             string listName,
             int pageSize,
             string currentStatus,
@@ -70,7 +69,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             await Context.SaveChangesAsync();
 
-            return await GetTicketListPartial(page, listName);
+            return await GetTicketListPartial(null, listName);
 
         }
 
