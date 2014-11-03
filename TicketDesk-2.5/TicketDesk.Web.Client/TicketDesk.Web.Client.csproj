@@ -73,27 +73,31 @@
     <Reference Include="Microsoft.Owin.Security.Cookies">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector">
-      <HintPath>..\packages\SimpleInjector.2.5.2\lib\net45\SimpleInjector.dll</HintPath>
+      <HintPath>..\packages\SimpleInjector.2.6.1\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector.Diagnostics">
-      <HintPath>..\packages\SimpleInjector.2.5.2\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
+    <Reference Include="SimpleInjector.Diagnostics, Version=2.6.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SimpleInjector.2.6.1\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector.Integration.Web">
-      <HintPath>..\packages\SimpleInjector.Integration.Web.2.5.2\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+    <Reference Include="SimpleInjector.Integration.Web, Version=2.6.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SimpleInjector.Integration.Web.2.6.1\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector.Integration.Web.Mvc">
-      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.2.5.2\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=2.6.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.2.6.1\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -171,12 +175,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\SearchManagerController.cs" />
     <Compile Include="Areas\Initialization\Controllers\DataManagementController.cs" />
     <Compile Include="Areas\Initialization\InitializationAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
@@ -210,20 +218,26 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\SearchManager\Index.cshtml" />
     <None Include="Content\Site.css_old" />
     <Content Include="Areas\Initialization\Views\web.config" />
     <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
     <Content Include="Areas\Initialization\Views\DataManagement\Create.cshtml" />
     <Compile Include="App_Start\Startup.Database.cs" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\azure.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -294,12 +308,16 @@
     <Content Include="Scripts\ticketdesk\ticketcenter.min.js.map">
       <DependentUpon>ticketcenter.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\_QuickSearch.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Initialization\Models\" />
     <Folder Include="Areas\Initialization\Views\Shared\" />
   </ItemGroup>
@@ -310,6 +328,10 @@
     <ProjectReference Include="..\TicketDesk.Domain.Legacy\TicketDesk.Domain.Legacy.csproj">
       <Project>{a85d9882-1db3-40ec-a23e-6b4562f48bcf}</Project>
       <Name>TicketDesk.Domain.Legacy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj">
+      <Project>{e7049fea-5c7f-4c59-a101-bc44f292fa62}</Project>
+      <Name>TicketDesk.Domain.Search</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Domain\TicketDesk.Domain.csproj">
       <Project>{dbd5279b-9f1c-4915-86a9-6a8f1cf0622d}</Project>

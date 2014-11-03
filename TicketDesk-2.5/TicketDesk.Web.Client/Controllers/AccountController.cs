@@ -135,12 +135,12 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new TicketDeskUser { UserName = model.Email, Email = model.Email };
+                var user = new TicketDeskUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await UserManager.AddToRoleAsync(user.Id, "TdInternalUsers");
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

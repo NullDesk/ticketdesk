@@ -120,6 +120,31 @@ namespace TicketDesk.Domain.Models
         /// <value>The disabled filter column names.</value>
         public IEnumerable<string> DisabledFilterColumnNames { get; set; }
 
+        /// <summary>
+        /// Modifies the filter settings.
+        /// </summary>
+        /// <param name="setting">The list settings which will be modified.</param>
+        /// <param name="pageSize">Number of items to display on a single page.</param>
+        /// <param name="currentStatus">The current status filter setting.</param>
+        /// <param name="owner">The owner filter setting.</param>
+        /// <param name="assignedTo">The assigned to filter setting.</param>
+        public void ModifyFilterSettings(int pageSize, string currentStatus, string owner, string assignedTo)
+        {
+            ItemsPerPage = pageSize;
+
+            if (!DisabledFilterColumnNames.Contains("CurrentStatus"))
+            {
+                FilterColumns.ChangeCurrentStatusFilter(currentStatus);
+            }
+            if (!DisabledFilterColumnNames.Contains("Owner"))
+            {
+                FilterColumns.ChangeOwnerFilter(owner);
+            }
+            if (!DisabledFilterColumnNames.Contains("AssignedTo"))
+            {
+                FilterColumns.ChangeAssignedFilter(assignedTo);
+            }
+        }
 
 
         internal static List<UserTicketListSetting> GetDefaultListSettings()

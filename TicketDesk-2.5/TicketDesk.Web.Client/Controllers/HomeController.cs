@@ -6,25 +6,22 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Model.Search;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [RoutePrefix("")]
     public class HomeController : Controller
     {
-        private SearchIndexer Searcher { get; set; }
         private TicketDeskContext Context { get; set; }
-        public HomeController(SearchIndexer searcher, TicketDeskContext context)
+        public HomeController(TicketDeskContext context)
         {
-            Searcher = searcher;
             Context = context;
         }
         public ActionResult Index()
         {
-            
             return View();
         }
-
+        [Route("about")]
         public ActionResult About()
         {
             return View();

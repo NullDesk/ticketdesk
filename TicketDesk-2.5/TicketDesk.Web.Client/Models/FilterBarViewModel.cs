@@ -52,7 +52,7 @@ namespace TicketDesk.Web.Client.Models
                 var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "CurrentStatus");
                 if (fColumn != null)
                 {
-                    if (fColumn.ColumnValue != "closed")
+                    if ((string)fColumn.ColumnValue != "closed")
                     {
                         selectedStatus = fColumn.ColumnValue.ToString();
                     }

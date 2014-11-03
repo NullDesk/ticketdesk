@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using TicketDesk.Domain.Model.Search;
+﻿using System.Web.Mvc;
+using TicketDesk.Domain;
 
 namespace TicketDesk.Web.Client
 {
@@ -11,8 +7,15 @@ namespace TicketDesk.Web.Client
     {
         public void ConfigureSearch()
         {
-            var search = DependencyResolver.Current.GetService<SearchIndexer>();
-            search.GenerateIndexAsync();//don't await this, it'll run in the background
+            //TODO: Any search setup needed (all that detecting and app settings stuff)
+            //      Actual index rebuilding and maintenance needs to be done from SearchManager so it can run in other processes (like webjob, etc.)
+
+
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            if (DatabaseConfig.IsDatabaseReady)
+            {
+                context.SearchManager.InitializeSearch().ConfigureAwait(false);//don't await this, it'll run in the background
+            }
         }
     }
 }

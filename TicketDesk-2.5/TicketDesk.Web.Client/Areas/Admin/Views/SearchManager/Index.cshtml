@@ -1,0 +1,41 @@
+﻿@using TicketDesk.Domain.Search
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section title
+{
+     Search Manager
+}
+<div class="contentContainer">
+    <h2>Manage Search</h2>
+    <p>
+        
+
+    </p>
+    <div>@Html.ActionLink("Remove Search Index", "RemoveIndex")</div>
+    <p>
+        @if (ViewBag.IndexRemoved ?? false)
+        {
+            <span>Removed</span>
+        }
+
+    </p>
+    <div>@Html.ActionLink("Recreate Search Index", "CreateIndex")</div>
+    <p>
+        @if (ViewBag.IndexCreated ?? false)
+        {
+            <span>Created</span>
+        }
+
+    </p>
+    <div>@Html.ActionLink("Populate Search Index", "PopulateIndex")</div>
+    <p>
+        @if (ViewBag.IndexPopulated ?? false)
+        {
+            <span>Populated</span>
+        }
+
+    </p>
+</div>

@@ -141,6 +141,10 @@ input[type="checkbox"].input-validation-error {
         background-color: #FFFFDD;
     }
 
+
+tr:hover.clickable  {
+    cursor: pointer;
+}
 tr.clickable:nth-child(odd) {
     /*background-color: #FBFCFD;*/
 }

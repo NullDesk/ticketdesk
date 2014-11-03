@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
@@ -21,7 +22,7 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             UserManager = userManager;
             RoleManager = roleManager;
             IdentityContext = context;
-         
+
         }
 
         public ActionResult Upgrade()
@@ -54,9 +55,12 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
         {
             using (var ctx = new TicketDeskContext())
             {
-                Database.SetInitializer<TicketDeskContext>(new MigrateDatabaseToLatestVersion<TicketDeskContext, TicketDesk.Domain.Migrations.Configuration>());
+                Database.SetInitializer<TicketDeskContext>(
+                    new MigrateDatabaseToLatestVersion
+                        <TicketDeskContext, TicketDesk.Domain.Migrations.Configuration>());
                 ctx.Database.Initialize(true);
             }
+
             ViewBag.DbCreated = true;
             var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
             if (filter != null)
@@ -66,7 +70,7 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             return View("Create");
         }
 
-        
+
         public ActionResult MigrateMembershipToIdentity()
         {
             LegacySecurityMigrator.MigrateSecurity(IdentityContext, UserManager, RoleManager);

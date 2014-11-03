@@ -54,7 +54,6 @@ namespace TicketDesk.Web.Client
 
         public static bool HasPendingMigrations()
         {
-            var result = false;
             var mgt = new DbMigrator(new Configuration());
             return mgt.GetPendingMigrations().Any();
         }
