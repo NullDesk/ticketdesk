@@ -37,12 +37,12 @@ namespace TicketDesk.Domain.Legacy.Migrations
 			");
 
             AddColumn("dbo.Tickets", "TicketStatus", c => c.Int(nullable: false));
-            Sql("Update dbo.Tickets set TicketStatus = 0 where CurrentStatus = 'Active'");
-            Sql("Update dbo.Tickets set TicketStatus = 1 where CurrentStatus = 'More Info'");
-            Sql("Update dbo.Tickets set TicketStatus = 2 where CurrentStatus = 'Resolved'");
-            Sql("Update dbo.Tickets set TicketStatus = 3 where CurrentStatus = 'Closed'");
+            Sql("Update dbo.Tickets set TicketStatus = 0 where TicketStatus = 'Active'");
+            Sql("Update dbo.Tickets set TicketStatus = 1 where TicketStatus = 'More Info'");
+            Sql("Update dbo.Tickets set TicketStatus = 2 where TicketStatus = 'Resolved'");
+            Sql("Update dbo.Tickets set TicketStatus = 3 where TicketStatus = 'Closed'");
 
-            DropColumn("dbo.Tickets", "CurrentStatus");
+            DropColumn("dbo.Tickets", "TicketStatus");
             Sql(@"UPDATE [dbo].[Settings] SET [SettingValue] = '2.5.0' WHERE [SettingName] = 'Version'");
 
         }
@@ -279,12 +279,12 @@ namespace TicketDesk.Domain.Legacy.Migrations
 				
 			");
 
-            AddColumn("dbo.Tickets", "CurrentStatus", c => c.String(nullable: false, maxLength: 50));
+            AddColumn("dbo.Tickets", "TicketStatus", c => c.String(nullable: false, maxLength: 50));
 
-            Sql("Update dbo.Tickets set CurrentStatus = 'Active' where TicketStatus = 0 ");
-            Sql("Update dbo.Tickets set CurrentStatus = 'More Info' where TicketStatus = 1 ");
-            Sql("Update dbo.Tickets set CurrentStatus = 'Resolved' where TicketStatus = 2 ");
-            Sql("Update dbo.Tickets set CurrentStatus = 'Closed' where TicketStatus = 3 ");
+            Sql("Update dbo.Tickets set TicketStatus = 'Active' where TicketStatus = 0 ");
+            Sql("Update dbo.Tickets set TicketStatus = 'More Info' where TicketStatus = 1 ");
+            Sql("Update dbo.Tickets set TicketStatus = 'Resolved' where TicketStatus = 2 ");
+            Sql("Update dbo.Tickets set TicketStatus = 'Closed' where TicketStatus = 3 ");
 
             DropColumn("dbo.Tickets", "TicketStatus");
 

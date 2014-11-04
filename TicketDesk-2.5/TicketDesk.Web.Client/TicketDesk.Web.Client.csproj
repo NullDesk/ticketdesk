@@ -311,6 +311,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\_QuickSearch.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\New.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
