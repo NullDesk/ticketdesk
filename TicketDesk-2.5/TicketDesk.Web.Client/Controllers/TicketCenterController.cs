@@ -31,9 +31,6 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
-
-
-
         // GET: TicketCenter
         [Route("{listName=opentickets}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
@@ -54,10 +51,9 @@ namespace TicketDesk.Web.Client.Controllers
 
         [Route("filterList/{listName=opentickets}/{page:int?}")]
         public async Task<PartialViewResult> FilterList(
-            int? page,
             string listName,
             int pageSize,
-            string currentStatus,
+            string TicketStatus,
             string owner,
             string assignedTo)
         {
@@ -66,11 +62,11 @@ namespace TicketDesk.Web.Client.Controllers
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
-            currentListSetting.ModifyFilterSettings(pageSize, currentStatus, owner, assignedTo);
+            currentListSetting.ModifyFilterSettings(pageSize, TicketStatus, owner, assignedTo);
 
             await Context.SaveChangesAsync();
 
-            return await GetTicketListPartial(page, listName);
+            return await GetTicketListPartial(null, listName);
 
         }
 

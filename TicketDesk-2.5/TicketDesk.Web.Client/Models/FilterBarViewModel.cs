@@ -43,18 +43,18 @@ namespace TicketDesk.Web.Client.Models
             }
         }
 
-        public SelectList CurrentStatusSelectList
+        public SelectList TicketStatusSelectList
         {
             get
             {
 
                 string selectedStatus = "any";
-                var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "CurrentStatus");
+                var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "TicketStatus");
                 if (fColumn != null)
                 {
-                    if ((string)fColumn.ColumnValue != "closed")
+                    if (!fColumn.ColumnValue.ToString().Equals("closed", StringComparison.InvariantCultureIgnoreCase)) 
                     {
-                        selectedStatus = fColumn.ColumnValue.ToString();
+                        selectedStatus = fColumn.ColumnValue.ToString().ToLowerInvariant();
                     }
                     else
                     {
@@ -67,10 +67,10 @@ namespace TicketDesk.Web.Client.Models
                     {   
                         new { Text="-- any --", Value="any"}, 
                         new { Text="-- open --", Value="open"},
-                        new { Text="Active", Value="active"},
-                        new { Text="More Info", Value="moreinfo"},
-                        new { Text="Resolved", Value="resolved"},
-                        new { Text="Closed", Value="closed"}
+                        new { Text="Active", Value="Active"},
+                        new { Text="More Info", Value="MoreInfo"},
+                        new { Text="Resolved", Value="Resolved"},
+                        new { Text="Closed", Value="Closed"}
                     },
                 "Value",
                 "Text",
@@ -157,10 +157,10 @@ namespace TicketDesk.Web.Client.Models
         {
             get
             {
-                var isCurrentStatusFilterDisabled = CurrentListSetting.DisabledFilterColumnNames.Contains("CurrentStatus");
-                var cVal = String.Format("postback{0}", (isCurrentStatusFilterDisabled) ? " disabled" : string.Empty);
+                var isTicketStatusFilterDisabled = CurrentListSetting.DisabledFilterColumnNames.Contains("TicketStatus");
+                var cVal = String.Format("postback{0}", (isTicketStatusFilterDisabled) ? " disabled" : string.Empty);
                 var statusHtmlAttributes = new Dictionary<string, object> { { "Class", cVal } };
-                if (isCurrentStatusFilterDisabled)
+                if (isTicketStatusFilterDisabled)
                 {
                     statusHtmlAttributes.Add("Disabled", true);
                 }

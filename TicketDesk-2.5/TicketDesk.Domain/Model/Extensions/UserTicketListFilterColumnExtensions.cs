@@ -103,12 +103,12 @@ namespace TicketDesk.Domain.Model
         /// </summary>
         /// <param name="filters">The filters.</param>
         /// <param name="statusValue">The status value to filter by.</param>
-        internal static void ChangeCurrentStatusFilter(this ICollection<UserTicketListFilterColumn> filters, string statusValue)
+        internal static void ChangeTicketStatusFilter(this ICollection<UserTicketListFilterColumn> filters, string statusValue)
         {
             if (!string.IsNullOrEmpty(statusValue))
             {
 
-                var fColumn = filters.SingleOrDefault(fc => fc.ColumnName == "CurrentStatus");
+                var fColumn = filters.SingleOrDefault(fc => fc.ColumnName == "TicketStatus");
 
                 if (statusValue == "any")
                 {
@@ -122,7 +122,7 @@ namespace TicketDesk.Domain.Model
                     bool equality = (statusValue != "open");
                     if (fColumn == null)
                     {
-                        fColumn = new UserTicketListFilterColumn("CurrentStatus")
+                        fColumn = new UserTicketListFilterColumn("TicketStatus")
                         {
                             //enum, doesn't matter which value we call gettype from
                             ColumnValueType = TicketStatus.Closed.GetType()

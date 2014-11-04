@@ -38,7 +38,7 @@ namespace TicketDesk.Domain.Model
         {
             var collection = new UserTicketListSettingsCollection
             {
-                UserTicketListSetting.GetDefaultListSettings()
+                UserTicketListSetting.GetDefaultListSettings(userId)
             };
 
             return new UserSetting { UserId = userId, ListSettings = collection };

@@ -62,15 +62,18 @@ namespace TicketDesk.Domain.Migrations
                 n--;
                 string cc;
                 string tt;
+                string oo;
                 if (Math.Abs(n) % 2 == 0)
                 {
                     tt = "Question";
                     cc = "Hardware";
+                    oo = "64165817-9cb5-472f-8bfb-6a35ca54be6a";
                 }
                 else
                 {
                     tt = "Problem";
                     cc = "Software";
+                    oo = "17f78f38-fa68-445f-90de-38896140db28";
                 }
 
                 
@@ -91,7 +94,7 @@ namespace TicketDesk.Domain.Migrations
                         IsHtml = false,
                         LastUpdateBy = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
                         LastUpdateDate = now.AddHours(2),
-                        Owner = "17f78f38-fa68-445f-90de-38896140db28",
+                        Owner = oo,
                         Priority = "Low",
                         TagList = "test,moretest",
                         TicketType = tt
@@ -130,7 +133,7 @@ namespace TicketDesk.Domain.Migrations
             const string id = "64165817-9cb5-472f-8bfb-6a35ca54be6a"; //the stock admin's user id
             var collection = new UserTicketListSettingsCollection
             {
-                UserTicketListSetting.GetDefaultListSettings()
+                UserTicketListSetting.GetDefaultListSettings(id)
             };
 
             context.UserSettings.AddOrUpdate(s => s.UserId, new UserSetting { UserId = id, ListSettings = collection });

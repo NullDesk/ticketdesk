@@ -3,24 +3,31 @@
 @section scripts{}
 
 <main role="main" class="row">
-    <article class="col-md-8">
-
-
+    <article class="col-md-8 left-side-box">
         <h2>Welcome to TicketDesk 2.5</h2>
         <p>
             Currently this is just an alpha build.
         </p>
         <p class="alert-danger">
-            Do not use this to upgrade a production TD 2.1 system.
-            You will NOT like the results...
+            Legacy DB Upgrades are supported. Feel free to test this, but please do not upgrade your production TD 2.1 database. 
         </p>
-        <p>
-            I'm in the process of porting in the new UI bits, and am refactoring the back-end as I go.
+        <p>I'm in the process of porting in the new UI bits, and am refactoring the back-end as I go.
             The ticket center is largely complete, though performance tweaks and back-end settings are still in progress.
             There are some very interesting changes in how list settings are managed, as well as in how ESQL queries are being generated to drive the ticket center.
         </p>
-        <div class="panel">
-
+        <p>
+            Basic search services have been re-designed. Currently TD 2.5 will auto-detect if you
+            are running in Azure. When in Azure, it will use Azure Search services. This requires
+            an Azure search connection string, or two appSettings keys. See the comments in
+            web.azure.config for more information. If not running in Azure, it will default to
+            Lucene.net search with indexes stored on the local web server's file system (similar to
+            how TD 2.1 search worked).
+        </p>
+        <p>
+            The admin settings will eventually be expanded to give full control over how search
+            behaves. For now, you can perform some crude @Html.ActionLink("index management here", "Index", "SearchManager", new { area = "admin" }, null)
+        </p>
+        <div class="well well-sm">
             @if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
             {
                 <h3>Congratulations! You appear to be running in Azure.</h3>

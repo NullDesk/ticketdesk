@@ -8,7 +8,7 @@ namespace TicketDesk.Web.Client
 {
     public static class HtmlHelperExtensions
     {
-        public static string IsActiveRoute(this HtmlHelper html, string controllerName, string actionName)
+        public static string IsActiveRoute(this HtmlHelper html,string actionName, string controllerName)
         {
             var action = html.ViewContext.RouteData.Values["action"] as string;
             var controller = html.ViewContext.RouteData.Values["controller"] as string;

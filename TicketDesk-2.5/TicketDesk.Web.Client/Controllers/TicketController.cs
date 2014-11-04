@@ -28,5 +28,10 @@ namespace TicketDesk.Web.Client.Controllers
             var model = await Context.Tickets.FindAsync(id);
             return View(model);
         }
+
+        public ActionResult New()
+        {
+            return View();
+        }
     }
 }

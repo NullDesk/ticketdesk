@@ -14,22 +14,15 @@
         
     </div>
     <div class="filter-collapse collapse navbar-collapse" id="filterbar-collapse">
-        @using (Ajax.BeginForm("FilterList", "TicketCenter", new {Page =  Model.CurrentPage, ListName = Model.CurrentListSetting.ListName}, ajaxFilterOptions, new { id = "filterForm", @class = "navbar-form navbar-left", role = "form" }))
+        @using (Ajax.BeginForm("FilterList", "TicketCenter", new {Model.CurrentListSetting.ListName}, ajaxFilterOptions, new { id = "filterForm", @class = "navbar-form navbar-left", role = "form" }))
         {
             <div class="form-group small form-horizontal">
-                <label class="control-label col-sm-1">
-                    Tickets/Page
-                </label>
-                <div class="col-sm-2">
-                    @Html.DropDownList("PageSize", Model.FilterBar.ItemsPerPageSelectList, new { @class = "postback number-select" })
-                </div>
-
-
+             
                 <label class="control-label col-sm-1">
                     Status:
                 </label>
                 <div class="col-sm-2">
-                    @Html.DropDownList("CurrentStatus", Model.FilterBar.CurrentStatusSelectList, Model.FilterBar.StatusFilterHtmlAttributes)
+                    @Html.DropDownList("TicketStatus", Model.FilterBar.TicketStatusSelectList, Model.FilterBar.StatusFilterHtmlAttributes)
                 </div>
 
                 <label class="control-label col-sm-1">
@@ -46,9 +39,14 @@
                     @Html.DropDownList("AssignedTo", Model.FilterBar.AssignedToSelectList, Model.FilterBar.AssignedFilterHtmlAttributes)
                     <input type="submit" value="filter" id="filterSubmitButton" />
                 </div>
+                <label class="control-label col-sm-1">
+                    Tickets/Page
+                </label>
+                <div class="col-sm-2">
+                    @Html.DropDownList("PageSize", Model.FilterBar.ItemsPerPageSelectList, new { @class = "postback number-select" })
+                    <span class="control-label"> of @Model.Tickets.TotalItemCount</span>
+                </div>
             </div>
-
-
         }
     </div>
 </div>

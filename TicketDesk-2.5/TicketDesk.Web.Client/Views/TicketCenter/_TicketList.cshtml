@@ -97,7 +97,6 @@
         </table>
     </div>
     <footer>
-
-        @Html.PagedListPager(Model.Tickets, page => Url.Action("PageList", new { listName = Model.CurrentListSetting.ListName, page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPagerOptions))
+            @Html.PagedListPager(Model.Tickets, page => Url.Action("PageList", new { listName = Model.CurrentListSetting.ListName, page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPagerOptions))
     </footer>
 </section>
