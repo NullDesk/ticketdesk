@@ -260,6 +260,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pagedown\Markdown.Converter.js" />
+    <Content Include="Scripts\pagedown\Markdown.Editor.js" />
+    <Content Include="Scripts\pagedown\Markdown.Sanitizer.js" />
     <Content Include="Scripts\ticketdesk\ticketcenter.js" />
     <Content Include="Scripts\ticketdesk\ticketcenter.min.js">
       <DependentUpon>ticketcenter.js</DependentUpon>

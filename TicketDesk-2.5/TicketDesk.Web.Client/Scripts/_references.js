@@ -7,3 +7,6 @@
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="modernizr-2.8.3.js" />
 /// <reference path="ticketdesk/ticketcenter.js" />
+/// <reference path="pagedown/markdown.converter.js" />
+/// <reference path="pagedown/markdown.editor.js" />
+/// <reference path="pagedown/markdown.sanitizer.js" />

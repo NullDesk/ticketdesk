@@ -13,6 +13,11 @@ namespace TicketDesk.Web.Client
                 "~/Scripts/ticketdesk/ticketcenter.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
+                        "~/Scripts/pagedown/Markdown.Converter.js",
+                        "~/Scripts/pagedown/Markdown.Sanitizer.js",
+                        "~/Scripts/pagedown/Markdown.Editor.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js",
