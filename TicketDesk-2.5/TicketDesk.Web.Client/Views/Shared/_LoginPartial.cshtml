@@ -1,22 +1,29 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
+@using TicketDesk.Web.Identity
 
-        <ul class="nav navbar-nav navbar-right">
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        @(User.Identity.IsAuthenticated ? User.Identity.GetUserDisplayName() : "Account")
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+        @if (Request.IsAuthenticated)
+        {
             <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("My Account", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
-    }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+            <li>
+                @Html.ActionLink("Log Off", "LogOff", "Account", routeValues: new { area = "" }, htmlAttributes: new { title = "LogOff" })
+            </li>
+        }
+        else
+        {
+
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Log In", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+        }
     </ul>
-}
+
+</li>
+

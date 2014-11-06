@@ -37,7 +37,7 @@ ticketCenter.filters = (function () {
     };
 
     var setupFilterForm = function () {
-        $('.filterBar select').addClass('form-control input-sm');
+        $('.filterBar select').addClass('form-control');
         $('.pagination').addClass('pagination-sm');
         $("#filterSubmitButton").hide();
         $('select.postback').change(function () {

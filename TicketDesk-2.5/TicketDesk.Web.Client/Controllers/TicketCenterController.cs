@@ -42,7 +42,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(viewModel);
         }
 
-        [Route("pageList/{listName=opentickets}/{page:int?}")]
+        [Route("pageList/{listName=mytickets}/{page:int?}")]
         public async Task<ActionResult> PageList(int? page, string listName)
         {
             return await GetTicketListPartial(page, listName);
