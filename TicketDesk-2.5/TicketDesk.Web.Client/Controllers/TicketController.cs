@@ -4,11 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Model;
+using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("ticket")]
+    [Authorize]
     public class TicketController : Controller
     {
         private TicketDeskContext Context { get; set; }
@@ -29,9 +33,11 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "TdInternalUsers")]
         public ActionResult New()
         {
-            return View();
+            var model = new TicketCreateViewModel(new Ticket(), User.Identity.GetUserId(), Context);
+            return View(model);
         }
     }
 }

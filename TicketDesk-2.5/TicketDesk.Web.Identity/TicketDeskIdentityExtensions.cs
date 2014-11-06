@@ -16,5 +16,7 @@ namespace TicketDesk.Web.Identity
             var ids = roleUsers.Select(u => u.UserId);
             return userManager.Users.Where(u => ids.Contains(u.Id));
         }
+
+        
     }
 }

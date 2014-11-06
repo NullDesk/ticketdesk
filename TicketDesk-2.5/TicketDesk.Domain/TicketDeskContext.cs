@@ -18,7 +18,6 @@ using System.IO;
 using System.Linq;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
-using TicketDesk.Domain.Model.Extensions;
 using TicketDesk.Domain.Search;
 
 

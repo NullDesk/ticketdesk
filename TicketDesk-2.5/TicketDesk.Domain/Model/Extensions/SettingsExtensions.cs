@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 
-namespace TicketDesk.Domain.Model.Extensions
+namespace TicketDesk.Domain.Model
 {
     public static class SettingsExtensions
     {

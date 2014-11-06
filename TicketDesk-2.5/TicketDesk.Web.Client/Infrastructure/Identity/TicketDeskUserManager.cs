@@ -17,6 +17,25 @@ namespace TicketDesk.Web.Client
 
         public UserDisplayInfoCache InfoCache { get { return new UserDisplayInfoCache(this); } }
 
+        public bool IsTdHelpDeskUser(string userId)
+        {
+            return this.IsInRole(userId, "TdHelpDeskUsers");
+        }
+
+        public bool IsTdInternalUser(string userId)
+        {
+            return this.IsInRole(userId, "TdInternalUsers");
+        }
+
+        public bool IsTdAdministrator(string userId)
+        {
+            return this.IsInRole(userId, "TdAdministrators");
+        }
+
+        public bool IsTdPendingUser(string userId)
+        {
+            return this.IsInRole(userId, "TdPendingUsers");
+        }
 
     }
 }

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using TicketDesk.Domain.Model;
-using TicketDesk.Web.Identity.Model;
+﻿using System.Web.Mvc;
+using TicketDesk.Web.Client;
 
-namespace TicketDesk.Web.Client.Models.Extensions
+namespace TicketDesk.Domain.Model
 {
     public static class TicketExtensions
     {
@@ -35,7 +28,6 @@ namespace TicketDesk.Web.Client.Models.Extensions
 
         private static UserDisplayInfo GetUserInfo(string userId)
         {
-           
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
             return userManager.InfoCache.GetUserInfo(userId);
         }

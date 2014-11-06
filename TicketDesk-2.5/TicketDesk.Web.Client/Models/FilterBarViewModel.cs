@@ -23,6 +23,8 @@ namespace TicketDesk.Web.Client.Models
         }
 
 
+        //TODO: Refactor all selectlists here to use the select list extensions B
+
         public SelectList ItemsPerPageSelectList
         {
             get

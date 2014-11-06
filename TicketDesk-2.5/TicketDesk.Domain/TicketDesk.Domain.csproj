@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\NonPublicColumnAttributeConvention.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
