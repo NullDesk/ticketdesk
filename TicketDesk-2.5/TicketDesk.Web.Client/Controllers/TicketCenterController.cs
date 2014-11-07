@@ -32,7 +32,7 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         // GET: TicketCenter
-        [Route("{listName=opentickets}/{page:int?}")]
+        [Route("{listName=mytickets}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
             var pageNumber = page ?? 1;
