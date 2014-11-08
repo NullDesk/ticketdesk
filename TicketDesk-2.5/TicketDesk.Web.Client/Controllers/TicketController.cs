@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Antlr.Runtime;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Client.Models;
@@ -23,7 +26,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         public RedirectToRouteResult Index()
         {
-            return RedirectToAction("Index", "TicketCenter",new {area = ""});
+            return RedirectToAction("Index", "TicketCenter", new { area = "" });
         }
 
         [Route("{id:int}")]
@@ -39,5 +42,8 @@ namespace TicketDesk.Web.Client.Controllers
             var model = new TicketCreateViewModel(new Ticket(), User.Identity.GetUserId(), Context);
             return View(model);
         }
+
+
+        
     }
 }

@@ -49,6 +49,32 @@
             //var editor2 = new Markdown.Editor(converter2, "-second", options);
 
             //editor2.run();
+
+
+            $('#ticketTags').select2({
+                tags: [],
+                multiple: true,
+                minimumInputLength: 2,
+                width: 'resolve',
+                ajax: {
+                    url: '@Url.Action("TagList", "AutoComplete")',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: function (term) {
+                        return {
+                            term: term,
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data }; 
+                    }
+                },
+                createSearchChoice: function(term, data) {
+                     if ($(data).filter(function() { return this.text.localeCompare(term) === 0;}).length === 0) {
+                          return { id: term, text: term };
+                     }
+                }
+            });
         })();
     </script>
 
@@ -103,7 +129,8 @@
                 <div class="form-group">
                     <label class="col-md-1 col-sm-1 control-label" for="tagList">Tags</label>
                     <div class="col-md-6 col-sm-6">
-                        <input type="text" class="form-control input-sm" id="tagList" data-bind="value: tagListFormatted" placeholder="tag1,tag2" />
+                        @Html.TextBoxFor(m => m.Ticket.TagList, new { id = "ticketTags", @class = "form-control input-sm" })
+
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <label class="checkbox-inline" for="affectsCustomer">
@@ -155,8 +182,8 @@
                         </div>
                     </div>
                 }
-               
-                </div>
+
+            </div>
         }
 
         <div class="panel-footer">
