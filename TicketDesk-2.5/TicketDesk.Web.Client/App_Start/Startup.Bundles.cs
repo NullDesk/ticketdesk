@@ -10,7 +10,7 @@ namespace TicketDesk.Web.Client
         public void RegisterBundles(BundleCollection bundles)
         {
 
-            bundles.Add(new StyleBundle("~/content/css").Include(
+            bundles.Add(new StyleBundle("~/content/styles").Include(
                      "~/Content/bootstrap.css",
                      "~/Content/site.css",
                      "~/Content/font-awesome.css",
