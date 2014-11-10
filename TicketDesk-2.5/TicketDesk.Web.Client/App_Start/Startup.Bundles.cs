@@ -15,12 +15,13 @@ namespace TicketDesk.Web.Client
                     "~/Content/site.css",
                     "~/Content/font-awesome.css"
                     ));
-
-            bundles.Add(new StyleBundle("~/content/ticketeditor").Include(
-                    "~/Content/css/select2.css",
-                    "~/Content/css/select2-bootstrap.css",
-                    "~/Scripts/dropzone/css/basic.css",
-                    "~/Scripts/dropzone/css/dropzone.css"));
+          
+            bundles.Add(new StyleBundle("~/content/ticketeditor")
+                    .Include(
+                        "~/Content/css/select2.css",
+                        "~/Content/css/select2-bootstrap.css")
+                    .Include("~/Scripts/dropzone/css/dropzone.css", new CssRewriteUrlTransform())
+                    .Include("~/Scripts/dropzone/css/basic.css",new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
                     "~/Scripts/ticketdesk/ticketcenter.js",
