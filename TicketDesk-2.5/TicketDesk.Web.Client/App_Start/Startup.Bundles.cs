@@ -11,32 +11,41 @@ namespace TicketDesk.Web.Client
         {
 
             bundles.Add(new StyleBundle("~/content/styles").Include(
-                     "~/Content/bootstrap.css",
-                     "~/Content/site.css",
-                     "~/Content/font-awesome.css",
-                     "~/Content/css/select2.css",
-                     "~/Content/css/select2-bootstrap.css"));
+                    "~/Content/bootstrap.css",
+                    "~/Content/site.css",
+                    "~/Content/font-awesome.css"
+                    ));
+
+            bundles.Add(new StyleBundle("~/content/ticketeditor").Include(
+                    "~/Content/css/select2.css",
+                    "~/Content/css/select2-bootstrap.css",
+                    "~/Scripts/dropzone/css/basic.css",
+                    "~/Scripts/dropzone/css/dropzone.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
-                "~/Scripts/ticketdesk/ticketcenter.js"
-                ));
+                    "~/Scripts/ticketdesk/ticketcenter.js",
+                    "~/Scripts/jquery.clickable-{version}.js"
+                    ));
+
+            bundles.Add(new ScriptBundle("~/bundles/ticketeditor").Include(
+                    "~/Scripts/dropzone/dropzone.js",
+                    "~/Scripts/select2.js"
+                    ));
 
             bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
-                        "~/Scripts/pagedown/Markdown.Converter.js",
-                        "~/Scripts/pagedown/Markdown.Sanitizer.js",
-                        "~/Scripts/pagedown/Markdown.Editor.js"));
+                    "~/Scripts/pagedown/Markdown.Converter.js",
+                    "~/Scripts/pagedown/Markdown.Sanitizer.js",
+                    "~/Scripts/pagedown/Markdown.Editor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.unobtrusive-ajax.js",
-                        "~/Scripts/jquery.clickable-{version}.js",
-                        "~/Scripts/jquery.validate*", 
-                        "~/Scripts/select2.js",
-                        "~/Scripts/bootstrap.js"));
+                    "~/Scripts/jquery-{version}.js",
+                    "~/Scripts/jquery.unobtrusive-ajax.js",
+                    "~/Scripts/jquery.validate*",
+                    "~/Scripts/bootstrap.js"));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                    "~/Scripts/modernizr-*"));
 
 
            

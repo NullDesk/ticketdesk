@@ -58,3 +58,5 @@
 /// <reference path="select2-locales/select2_locale_az.js" />
 /// <reference path="select2-locales/select2_locale_ar.js" />
 /// <reference path="select2.js" />
+/// <reference path="dropzone/dropzone-amd-module.min.js" />
+/// <reference path="dropzone/dropzone.min.js" />

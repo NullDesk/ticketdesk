@@ -14,18 +14,52 @@
 
 @section scripts
 {
+    @Styles.Render("~/content/ticketeditor")
+    @Scripts.Render("~/bundles/ticketeditor")
     @Scripts.Render("~/bundles/markdown")
     <script type="text/javascript">
-        (function () {
+        (function() {
+            Dropzone.autoDiscover = false;
+
+            $("div#attachmentsDropZone").dropzone({
+                url: "@Url.Action("Upload", "File")",
+                //prevents Dropzone from uploading dropped files immediately
+                autoProcessQueue: true,
+                addRemoveLinks: true,
+
+                createImageThumbnails: true,
+                removed: function(file) {
+
+                },
+                sending: function(file, xhr, formData) {
+                    formData.append('tempId', $('#tempId').val());
+                },
+                removedfile: function(file) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Delete", "File")',
+                        data: {
+                            "tempId": $('#tempId').val() ,
+                            "fileName": file.name
+                        },
+                        dataType: 'json'
+                    });
+                    var _ref;
+                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                }
+
+            });
+
+
             var converter1 = Markdown.getSanitizingConverter();
 
-            converter1.hooks.chain("preBlockGamut", function (text, rbg) {
-                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+            converter1.hooks.chain("preBlockGamut", function(text, rbg) {
+                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function(whole, inner) {
                     return "<blockquote>" + rbg(inner) + "</blockquote>\n";
                 });
             });
 
-            converter1.hooks.chain("postSpanGamut", function (text) {
+            converter1.hooks.chain("postSpanGamut", function(text) {
                 return text.replace(/\n/g, " <br>\n");
             });
 
@@ -60,19 +94,19 @@
                     url: '@Url.Action("TagList", "AutoComplete")',
                     type: 'POST',
                     dataType: 'json',
-                    data: function (term) {
+                    data: function(term) {
                         return {
                             term: term,
                         };
                     },
-                    results: function (data, page) {
-                        return { results: data }; 
+                    results: function(data, page) {
+                        return { results: data };
                     }
                 },
                 createSearchChoice: function(term, data) {
-                     if ($(data).filter(function() { return this.text.localeCompare(term) === 0;}).length === 0) {
-                          return { id: term, text: term };
-                     }
+                    if ($(data).filter(function() { return this.text.localeCompare(term) === 0; }).length === 0) {
+                        return { id: term, text: term };
+                    }
                 }
             });
         })();
@@ -85,109 +119,115 @@
             <h2 class="panel-title">New Ticket</h2>
         </div>
 
-        @using (Html.BeginForm("", "", new { area = "" }, FormMethod.Post, new { @class = "panel-body" }))
+        @using (Html.BeginForm("", "", new { area = "" }, FormMethod.Post, new { @class = "panel-body form-horizontal" }))
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Ticket.TicketId)
 
 
-                <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="title">Title</label>
-                    <div class="col-md-8 col-sm-11">
-                        <input type="text" class="form-control input-sm" id="title" data-bind="value: title"
-                               placeholder="Ticket title" />
-                    </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Ticket.TicketId)
+            @Html.HiddenFor(model => model.TempId,new {id = "tempId"} )
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label" for="title">Title</label>
+                <div class="col-md-8 col-sm-10">
+                    <input type="text" class="form-control input-sm" id="title" data-bind="value: title"
+                           placeholder="Ticket title" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label" for="ticketType">Type</label>
+                <div class="col-md-2 col-sm-3">
+                    @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Ticket.TicketType, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="ticketType">Type</label>
-                    <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm" })
-                        @Html.ValidationMessageFor(model => model.Ticket.TicketType, "", new { @class = "text-danger" })
-                    </div>
 
-
-                    <label class="col-md-1 col-sm-2 control-label" for="category">Category</label>
-                    <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.Category, Model.CategoryList, new { @class = "form-control input-sm" })
-                        @Html.ValidationMessageFor(model => model.Ticket.Category, "", new { @class = "text-danger" })
-                    </div>
-                    @if (Model.DisplayPriorityList)
-                    {
-                        <label class="col-md-1 col-sm-1 control-label" for="priority">Priority</label>
-                        <div class="col-md-2 col-sm-2">
-                            @Html.DropDownListFor(model => model.Ticket.Priority, Model.PriorityList, new { @class = "form-control input-sm" })
-                            @Html.ValidationMessageFor(model => model.Ticket.Priority, "", new { @class = "text-danger" })
-                        </div>
-                    }
+                <label class="col-md-1 col-sm-2 control-label" for="category">Category</label>
+                <div class="col-md-2 col-sm-3">
+                    @Html.DropDownListFor(model => model.Ticket.Category, Model.CategoryList, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Ticket.Category, "", new { @class = "text-danger" })
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label" for="tagList">Tags</label>
-                    <div class="col-md-6 col-sm-6">
-                        @Html.TextBoxFor(m => m.Ticket.TagList, new { id = "ticketTags", @class = "form-control input-sm" })
-
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <label class="checkbox-inline" for="affectsCustomer">
-                            <input class="" type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" />
-                            Affects Customer
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-1 col-sm-1 control-label text-right" for="wmd-input-ticketDetails">Details</label>
-                    <div class="col-md-8 col-sm-11 wmd-panel">
-                        <div class=" tabbable tabs-below">
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="tab1">
-                                    <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                                    @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:250px" })
-                                    @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="tab-pane fade" id="tab2">
-                                    <div class="row" style="min-height: 35px;"></div>
-
-                                    <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <ul class="nav nav-tabs navbar-right">
-                                <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
-                                <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                @if (Model.DisplayUserSelects)
+                @if (Model.DisplayPriorityList)
                 {
-                    <div class="form-group">
-
-                        <label class="col-md-1 col-sm-1 control-label" for="owner">Owner</label>
-                        <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.OwnersList, new { @class = "form-control input-sm" })
-                            @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
-                        </div>
-
-                        <label class="col-md-2 col-sm-2 control-label" for="assignedTo">Assigned To</label>
-                        <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm" })
-                            @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
-
-                        </div>
+                    <label class="col-md-1 col-sm-1 control-label" for="priority">Priority</label>
+                    <div class="col-md-2 col-sm-2">
+                        @Html.DropDownListFor(model => model.Ticket.Priority, Model.PriorityList, new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.Ticket.Priority, "", new { @class = "text-danger" })
                     </div>
                 }
-
             </div>
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label" for="tagList">Tags</label>
+                <div class="col-md-6 col-sm-6">
+                    @Html.TextBoxFor(m => m.Ticket.TagList, new { id = "ticketTags", @class = "form-control input-sm" })
+
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <label class="checkbox-inline" for="affectsCustomer">
+                        <input class="" type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" />
+                        Affects Customer
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label text-right" for="wmd-input-ticketDetails">Details</label>
+                <div class="col-md-8 col-sm-10 wmd-panel">
+                    <div class=" tabbable tabs-below">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab1">
+                                <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
+                                @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px" })
+                                @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="tab-pane fade" id="tab2">
+                                <div class="row" style="min-height: 35px;"></div>
+
+                                <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
+
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs navbar-right">
+                            <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
+                            <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            if (Model.DisplayUserSelects)
+            {
+                <div class="form-group">
+
+                    <label class="col-md-2 col-sm-2 control-label" for="owner">Owner</label>
+                    <div class="col-md-3 col-sm-4">
+                        @Html.DropDownListFor(model => model.Ticket.Owner, Model.OwnersList, new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
+                    </div>
+
+                    <label class="col-md-2 col-sm-2 control-label" for="assignedTo">Assigned To</label>
+                    <div class="col-md-3 col-sm-4">
+                        @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            }
         }
 
+        <div class="panel-body form-horizontal">
+            <div class="form-group"></div>
+            <label class="col-md-2 col-sm-2 control-label">Attachments</label>
+            <div class="col-md-8 col-sm-10 dropzone" style="min-height: 130px;" id="attachmentsDropZone">
+                <span class="dz-message" data-dz-message><i class="fa fa-download fa-3x"></i> Drop attachments here, or click to select files.</span></span>
+            </div>
+        </div>
         <div class="panel-footer">
             @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
+
 </main>

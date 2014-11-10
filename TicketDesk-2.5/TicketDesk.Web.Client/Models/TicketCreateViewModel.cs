@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
@@ -23,6 +24,7 @@ namespace TicketDesk.Web.Client.Models
             RoleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
             UserId = userId;
             Context = context;
+            TempId = Guid.NewGuid();
         }
 
         public bool DisplayUserSelects
@@ -30,7 +32,8 @@ namespace TicketDesk.Web.Client.Models
             get { return UserManager.IsTdHelpDeskUser(UserId); }
         }
 
-        
+
+        public Guid TempId { get; set; }
 
         public bool DisplayTags
         {
