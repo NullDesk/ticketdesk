@@ -22,10 +22,10 @@ body {
 
 
 #mainNav .navbar-brand {
-    width: 300px;
+    width: 100px;
     height: 50px;
     background-repeat: no-repeat;
-    background-image: url('Images/TicketDesk-2.5.png');
+    background-image: url('Images/TicketDesk-2.5-mobile.png');
 }
 
 
