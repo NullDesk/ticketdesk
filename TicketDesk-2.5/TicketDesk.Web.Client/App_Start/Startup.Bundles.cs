@@ -17,9 +17,8 @@ namespace TicketDesk.Web.Client
                     ));
           
             bundles.Add(new StyleBundle("~/content/ticketeditor")
-                    .Include(
-                        "~/Content/css/select2.css",
-                        "~/Content/css/select2-bootstrap.css")
+                    .Include("~/Content/css/select2.css", new CssRewriteUrlTransform())
+                    .Include("~/Content/css/select2-bootstrap.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/css/dropzone.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/css/basic.css",new CssRewriteUrlTransform()));
 
