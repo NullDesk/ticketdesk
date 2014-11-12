@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations.Model;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
@@ -12,24 +14,39 @@ namespace TicketDesk.Web.Client.Models
     {
 
         public Ticket Ticket { get; set; }
-        private string UserId { get; set; }
+       
         private TicketDeskUserManager UserManager { get; set; }
         private TicketDeskRoleManager RoleManager { get; set; }
         private TicketDeskContext Context { get; set; }
 
-        public TicketCreateViewModel(Ticket ticket, string userId, TicketDeskContext context)
+        public TicketCreateViewModel(Ticket ticket,  TicketDeskContext context)
         {
             Ticket = ticket;
-            UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            RoleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
-            UserId = userId;
+           
             Context = context;
             TempId = Guid.NewGuid();
+            RoleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
+            UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
+        }
+
+        public async Task<bool> CreateTicketAsync()
+        {
+            
+
+            //TODO: Scan for any pending attachments
+
+            Context.Tickets.Add(Ticket);
+            await Context.SaveChangesAsync();//savechanges will drive populating the rest of the initial set of fields
+           
+            //TODO: move attachments from pending state 
+
+            return Ticket.TicketId != default(int);
+
         }
 
         public bool DisplayUserSelects
         {
-            get { return UserManager.IsTdHelpDeskUser(UserId); }
+            get { return Context.SecurityProvider.IsTdHelpDeskUser; }
         }
 
 
@@ -39,7 +56,7 @@ namespace TicketDesk.Web.Client.Models
         {
             get
             {
-                return UserManager.IsTdHelpDeskUser(UserId) || Context.Settings.GetSettingValue("AllowSubmitterRoleToEditTags", false);
+                return Context.SecurityProvider.IsTdHelpDeskUser || Context.Settings.GetSettingValue("AllowSubmitterRoleToEditTags", false);
             }
         }
 
@@ -47,7 +64,7 @@ namespace TicketDesk.Web.Client.Models
         {
             get
             {
-                return UserManager.IsTdHelpDeskUser(UserId) || Context.Settings.GetSettingValue("AllowSubmitterRoleToEditPriority", false);
+                return Context.SecurityProvider.IsTdHelpDeskUser || Context.Settings.GetSettingValue("AllowSubmitterRoleToEditPriority", false);
             }
         }
 
@@ -68,7 +85,7 @@ namespace TicketDesk.Web.Client.Models
 
         public SelectList OwnersList
         {
-            get { return RoleManager.GetTdInternalUsers(UserManager).ToSelectList(false, UserId); }
+            get { return RoleManager.GetTdInternalUsers(UserManager).ToSelectList(false, Context.SecurityProvider.GetCurrentUserId()); }
         }
 
         public SelectList AssignedToList

@@ -69,7 +69,7 @@ namespace TicketDesk.Domain.Model
         [DisplayName("Created Date")]
         public DateTimeOffset CreatedDate { get; set; }
 
-        private string owner;
+        private string _owner;
 
 
         [Required]
@@ -79,16 +79,16 @@ namespace TicketDesk.Domain.Model
         {
             get
             {
-                return owner;
+                return _owner;
             }
             set
             {
-                PreviousOwner = owner;
-                owner = value;
+                PreviousOwner = _owner;
+                _owner = value;
             }
         }
 
-        private string assignedTo;
+        private string _assignedTo;
 
         [StringLength(100)]
         [DisplayName("Assigned To")]
@@ -96,12 +96,12 @@ namespace TicketDesk.Domain.Model
         {
             get
             {
-                return assignedTo;
+                return _assignedTo;
             }
             set
             {
-                PreviousAssignedUser = assignedTo;
-                assignedTo = value;
+                PreviousAssignedUser = _assignedTo;
+                _assignedTo = value;
             }
         }
 

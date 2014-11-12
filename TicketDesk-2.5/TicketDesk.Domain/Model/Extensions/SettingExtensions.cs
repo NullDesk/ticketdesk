@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TicketDesk.Domain.Model
 {
-    public static class SettingsExtensions
+    public static class SettingExtensions
     {
         public static T GetSettingValue<T>(this DbSet<Setting> settings, string settingName, T defaultValue) where T : struct
         {

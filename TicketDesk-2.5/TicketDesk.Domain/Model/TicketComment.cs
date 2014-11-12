@@ -23,6 +23,7 @@ namespace TicketDesk.Domain.Model
     {
         public TicketComment()
         {
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             TicketEventNotifications = new HashSet<TicketEventNotification>();
         }
 

@@ -192,6 +192,7 @@
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
+    <Compile Include="Infrastructure\Identity\TicketDeskContextSecurityProvider.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskRoleManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManager.cs" />

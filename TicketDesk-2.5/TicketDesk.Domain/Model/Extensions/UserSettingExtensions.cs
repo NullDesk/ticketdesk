@@ -20,7 +20,7 @@ using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Model
 {
-    public static class UserSettingsExtensions
+    public static class UserSettingExtensions
     {
         /// <summary>
         /// Gets the user list setting by name.

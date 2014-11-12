@@ -18,7 +18,7 @@
     @Scripts.Render("~/bundles/ticketeditor")
     @Scripts.Render("~/bundles/markdown")
     <script type="text/javascript">
-        (function() {
+        (function () {
             Dropzone.autoDiscover = false;
 
             $("div#attachmentsDropZone").dropzone({
@@ -28,18 +28,18 @@
                 addRemoveLinks: true,
 
                 createImageThumbnails: true,
-                removed: function(file) {
+                removed: function (file) {
 
                 },
-                sending: function(file, xhr, formData) {
+                sending: function (file, xhr, formData) {
                     formData.append('tempId', $('#tempId').val());
                 },
-                removedfile: function(file) {
+                removedfile: function (file) {
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("Delete", "File")',
                         data: {
-                            "tempId": $('#tempId').val() ,
+                            "tempId": $('#tempId').val(),
                             "fileName": file.name
                         },
                         dataType: 'json'
@@ -53,13 +53,13 @@
 
             var converter1 = Markdown.getSanitizingConverter();
 
-            converter1.hooks.chain("preBlockGamut", function(text, rbg) {
-                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function(whole, inner) {
+            converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
                     return "<blockquote>" + rbg(inner) + "</blockquote>\n";
                 });
             });
 
-            converter1.hooks.chain("postSpanGamut", function(text) {
+            converter1.hooks.chain("postSpanGamut", function (text) {
                 return text.replace(/\n/g, " <br>\n");
             });
 
@@ -94,17 +94,17 @@
                     url: '@Url.Action("TagList", "AutoComplete")',
                     type: 'POST',
                     dataType: 'json',
-                    data: function(term) {
+                    data: function (term) {
                         return {
                             term: term,
                         };
                     },
-                    results: function(data, page) {
+                    results: function (data, page) {
                         return { results: data };
                     }
                 },
-                createSearchChoice: function(term, data) {
-                    if ($(data).filter(function() { return this.text.localeCompare(term) === 0; }).length === 0) {
+                createSearchChoice: function (term, data) {
+                    if ($(data).filter(function () { return this.text.localeCompare(term) === 0; }).length === 0) {
                         return { id: term, text: term };
                     }
                 }
@@ -119,7 +119,7 @@
             <h2 class="panel-title">New Ticket</h2>
         </div>
 
-        @using (Html.BeginForm("", "", new { area = "" }, FormMethod.Post, new { @class = "panel-body form-horizontal" }))
+        @using (Html.BeginForm("New", "Ticket", new { area = "" }, FormMethod.Post, new { @class = "panel-body form-horizontal" }))
         {
             @Html.AntiForgeryToken()
 
@@ -127,14 +127,13 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Ticket.TicketId)
-            @Html.HiddenFor(model => model.TempId,new {id = "tempId"} )
+            @Html.HiddenFor(model => model.TempId, new { id = "tempId" })
 
             <div class="form-group">
-                <label class="col-md-2 col-sm-2 control-label" for="title">Title</label>
+                @Html.LabelFor(model => model.Ticket.Title, new { @class = "col-md-2 col-sm-2 control-label" })
                 <div class="col-md-8 col-sm-10">
-                    <input type="text" class="form-control input-sm" id="title" data-bind="value: title"
-                           placeholder="Ticket title" />
-                </div>
+                    @Html.TextBoxFor(model => model.Ticket.Title, new { @class = "form-control input-sm", placeholder = "Ticket title" })
+                </div>B
             </div>
 
             <div class="form-group">
@@ -216,15 +215,19 @@
                     </div>
                 </div>
             }
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">Attachments</label>
+                <div class="col-md-8 col-sm-10">
+                    <div class="dropzone" style="min-height: 60px;" id="attachmentsDropZone">
+                        <span class="dz-message" data-dz-message><i class="fa fa-download fa-3x"></i> Drop attachments here, or click to select files.</span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Create</button>
         }
 
-        <div class="panel-body form-horizontal">
-            <div class="form-group"></div>
-            <label class="col-md-2 col-sm-2 control-label">Attachments</label>
-            <div class="col-md-8 col-sm-10 dropzone" style="min-height: 130px;" id="attachmentsDropZone">
-                <span class="dz-message" data-dz-message><i class="fa fa-download fa-3x"></i> Drop attachments here, or click to select files.</span></span>
-            </div>
-        </div>
+
         <div class="panel-footer">
             @Html.ActionLink("Back to List", "Index")
         </div>

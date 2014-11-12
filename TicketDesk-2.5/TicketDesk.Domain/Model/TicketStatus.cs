@@ -23,7 +23,7 @@ namespace TicketDesk.Domain.Model
         MoreInfo,
         [Description("Resolved")]
         Resolved,
-        [Description("Cloased")]
+        [Description("Closed")]
         Closed
     }
 }

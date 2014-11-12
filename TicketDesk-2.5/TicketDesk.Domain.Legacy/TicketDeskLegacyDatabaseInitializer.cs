@@ -4,12 +4,12 @@ using TicketDesk.Domain.Legacy.Migrations;
 
 namespace TicketDesk.Domain.Legacy
 {
-    public class TicketDeskLegacyDatabaseInitializer<T> : IDatabaseInitializer<T> where T : DbContext, new()
+    public class TicketDeskLegacyDatabaseInitializer<T> : IDatabaseInitializer<T> where T : DbContext
     {
-        public static void InitDatabase()
+        public static void InitDatabase(T context)
         {
             Database.SetInitializer(new TicketDeskLegacyDatabaseInitializer<T>());
-            using (var legacyCtx = new T())
+            using (var legacyCtx = context)
             {
                 legacyCtx.Database.Initialize(true);
             }

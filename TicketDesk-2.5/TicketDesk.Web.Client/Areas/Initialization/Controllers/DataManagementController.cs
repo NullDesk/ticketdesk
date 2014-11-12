@@ -32,11 +32,12 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
 
         public ActionResult UpgradeNow()
         {
-            TicketDeskLegacyDatabaseInitializer<TicketDeskContext>.InitDatabase();
+            
 
-            using (var ctx = new TicketDeskContext())
+            using (var ctx = new TicketDeskContext(null))
             {
-                Database.SetInitializer<TicketDeskContext>(new MigrateDatabaseToLatestVersion<TicketDeskContext, TicketDesk.Domain.Migrations.Configuration>());
+                TicketDeskLegacyDatabaseInitializer<TicketDeskContext>.InitDatabase(ctx);
+                Database.SetInitializer<TicketDeskContext>(new MigrateDatabaseToLatestVersion<TicketDeskContext, Domain.Migrations.Configuration>(true));
                 ctx.Database.Initialize(true);
             }
             ViewBag.DbUpgraded = true;
@@ -53,11 +54,10 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
         }
         public ActionResult CreateNow()
         {
-            using (var ctx = new TicketDeskContext())
+            using (var ctx = new TicketDeskContext(null))
             {
                 Database.SetInitializer<TicketDeskContext>(
-                    new MigrateDatabaseToLatestVersion
-                        <TicketDeskContext, TicketDesk.Domain.Migrations.Configuration>());
+                    new MigrateDatabaseToLatestVersion<TicketDeskContext, Domain.Migrations.Configuration>(true));
                 ctx.Database.Initialize(true);
             }
 
