@@ -45,26 +45,26 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateOnlyIncomingValues]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {
-
-            //TODO: Fix labels in view to use @Html.LabelFor
-            //TODO: What the fuck is up with the taglist not rebining correctly?
-            //TODO: Model validation attributes for include/exclude properties
-            var vm = new TicketCreateViewModel(ticket, Context);
-            try
+            if (ModelState.IsValid)
             {
-                if (await vm.CreateTicketAsync())
+                var vm = new TicketCreateViewModel(ticket, Context);
+                try
                 {
-                    return RedirectToAction("Index", new {id = ticket.TicketId});
+                    if (await vm.CreateTicketAsync())
+                    {
+                        return RedirectToAction("Index", new { id = ticket.TicketId });
+                    }
                 }
+                catch (DbEntityValidationException ex)
+                {
+                   //TODO: catch rule exceptions? or can annotations handle this fully now?
+                }
+                
             }
-            catch (DbEntityValidationException ex)//TODO: catch these and add to modelstate
-            {
-                var d =ex;
-            }
-            //TODO: catch rule exceptions? or can annotations handle this fully now?
-
             return View(new TicketCreateViewModel(ticket, Context));
         }
     }

@@ -69,5 +69,62 @@ namespace TicketDesk.Domain.Model
         public virtual Ticket Ticket { get; set; }
 
         public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
+
+
+        /// <summary>
+        /// Creates the activity comment. Infers a comment flag.
+        /// </summary>
+        /// <param name="commentByUserId">The comment by user identifier.</param>
+        /// <param name="activity">The activity.</param>
+        /// <param name="comment">The comment content.</param>
+        /// <param name="assignedTo">The assigned to.</param>
+        /// <param name="args">Optional arguments to use as replacement values in the comment text.</param>
+        /// <returns>TicketComment.</returns>
+        private static TicketComment CreateActivityComment(
+            string commentByUserId,
+            TicketActivity activity,
+            string comment,
+            string assignedTo,
+            //string[] notificationSubscribers, 
+            params object[] args)
+        {
+            var cFlag = (string.IsNullOrEmpty(comment)) ? TicketCommentFlag.CommentNotSupplied : TicketCommentFlag.CommentSupplied;
+            return CreateActivityComment(commentByUserId, activity, cFlag, comment, assignedTo, args);
+        }
+
+        /// <summary>
+        /// Creates the activity comment.
+        /// </summary>
+        /// <param name="commentByUserId">The comment by user identifier.</param>
+        /// <param name="activity">The activity.</param>
+        /// <param name="commentFlag">The comment flag.</param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="assignedTo">The assigned to.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>TicketComment.</returns>
+        public static TicketComment CreateActivityComment(
+            string commentByUserId,
+            TicketActivity activity,
+            TicketCommentFlag commentFlag,
+            string comment,
+            string assignedTo,
+            //string[] notificationSubscribers,
+            params object[] args)
+        {
+            var c = new TicketComment
+            {
+                Comment = comment,
+                CommentedBy = commentByUserId,
+                CommentedDate = DateTime.Now,
+                CommentEvent = TicketTextUtility.GetCommentText(activity, commentFlag, args),
+                IsHtml = false
+            };
+
+
+            //var isNewOrGiveUp = (assignedTo == null) && (activity == TicketActivity.GiveUp || activity == TicketActivity.Create || activity == TicketActivity.CreateOnBehalfOf);
+            //Notification.AddTicketEventNotifications(c, isNewOrGiveUp, notificationSubscribers);
+
+            return c;
+        }
     }
 }

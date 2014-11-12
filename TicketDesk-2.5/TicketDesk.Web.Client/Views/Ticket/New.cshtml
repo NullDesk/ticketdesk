@@ -89,7 +89,15 @@
                 tags: [],
                 multiple: true,
                 minimumInputLength: 2,
+                tokenSeparators: [",", " "],
                 width: 'resolve',
+                initSelection : function (element, callback) {
+                    var data = [];
+                    $(element.val().split(",")).each(function () {
+                        data.push({id: this, text: this});
+                    });
+                    callback(data);
+                },
                 ajax: {
                     url: '@Url.Action("TagList", "AutoComplete")',
                     type: 'POST',
@@ -123,9 +131,8 @@
         {
             @Html.AntiForgeryToken()
 
-
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true,"", new { @class = "alert alert-danger" })
+            
             @Html.HiddenFor(model => model.Ticket.TicketId)
             @Html.HiddenFor(model => model.TempId, new { id = "tempId" })
 
@@ -133,34 +140,32 @@
                 @Html.LabelFor(model => model.Ticket.Title, new { @class = "col-md-2 col-sm-2 control-label" })
                 <div class="col-md-8 col-sm-10">
                     @Html.TextBoxFor(model => model.Ticket.Title, new { @class = "form-control input-sm", placeholder = "Ticket title" })
-                </div>B
+                </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-2 col-sm-2 control-label" for="ticketType">Type</label>
+                @Html.LabelFor(model => model.Ticket.TicketType, new { @class = "col-md-2 col-sm-2 control-label" })
                 <div class="col-md-2 col-sm-3">
                     @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm" })
                     @Html.ValidationMessageFor(model => model.Ticket.TicketType, "", new { @class = "text-danger" })
                 </div>
 
-
-                <label class="col-md-1 col-sm-2 control-label" for="category">Category</label>
+                @Html.LabelFor(model => model.Ticket.Category, new { @class = "col-md-1 col-sm-2 control-label" })
                 <div class="col-md-2 col-sm-3">
                     @Html.DropDownListFor(model => model.Ticket.Category, Model.CategoryList, new { @class = "form-control input-sm" })
                     @Html.ValidationMessageFor(model => model.Ticket.Category, "", new { @class = "text-danger" })
                 </div>
                 @if (Model.DisplayPriorityList)
                 {
-                    <label class="col-md-1 col-sm-1 control-label" for="priority">Priority</label>
-                    <div class="col-md-2 col-sm-2">
+                    @Html.LabelFor(model => model.Ticket.Priority, new { @class = "col-md-1 col-sm-2 control-label" })
+                     <div class="col-md-2 col-sm-2">
                         @Html.DropDownListFor(model => model.Ticket.Priority, Model.PriorityList, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.Ticket.Priority, "", new { @class = "text-danger" })
                     </div>
                 }
             </div>
-
             <div class="form-group">
-                <label class="col-md-2 col-sm-2 control-label" for="tagList">Tags</label>
+                @Html.LabelFor(model => model.Ticket.TagList, new { @class = "col-md-2 col-sm-2 control-label" })
                 <div class="col-md-6 col-sm-6">
                     @Html.TextBoxFor(m => m.Ticket.TagList, new { id = "ticketTags", @class = "form-control input-sm" })
 
@@ -200,22 +205,18 @@
             if (Model.DisplayUserSelects)
             {
                 <div class="form-group">
-
-                    <label class="col-md-2 col-sm-2 control-label" for="owner">Owner</label>
+                    @Html.LabelFor(model => model.Ticket.Owner, new { @class = "col-md-2 col-sm-2 control-label" })
                     <div class="col-md-3 col-sm-4">
                         @Html.DropDownListFor(model => model.Ticket.Owner, Model.OwnersList, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
                     </div>
-
-                    <label class="col-md-2 col-sm-2 control-label" for="assignedTo">Assigned To</label>
+                    @Html.LabelFor(model => model.Ticket.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                     <div class="col-md-3 col-sm-4">
                         @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
-
                     </div>
                 </div>
             }
-
             <div class="form-group">
                 <label class="col-md-2 col-sm-2 control-label">Attachments</label>
                 <div class="col-md-8 col-sm-10">
@@ -226,11 +227,8 @@
             </div>
             <button type="submit">Create</button>
         }
-
-
         <div class="panel-footer">
             @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
-
 </main>

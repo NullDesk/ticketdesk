@@ -12,12 +12,12 @@
 // provided to the recipient.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.IO;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using Lucene.Net.Search;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
 using TicketDesk.Domain.Search;
@@ -28,6 +28,10 @@ namespace TicketDesk.Domain
     public class TicketDeskContext : DbContext
     {
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
+        public SearchManager SearchManager
+        {
+            get { return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))); }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
@@ -104,117 +108,128 @@ namespace TicketDesk.Domain
             return oc.CreateObjectSet<T>();
         }
 
-        public SearchManager SearchManager
+
+
+        protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
         {
-            get
+            var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
+
+            //skip the custom validation if a security provider isn't supplied
+            if (SecurityProvider != null && entityEntry.Entity is Ticket && entityEntry.State == EntityState.Added)
             {
-                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+                var ticket = entityEntry.Entity as Ticket;
+                if (!SecurityProvider.IsTicketActivityValid(ticket, TicketActivity.Create))
+                {
+                    result.ValidationErrors.Add(new
+                        System.Data.Entity.Validation.DbValidationError("authorization",
+                            "User is not authorized to create new tickets"));
+                }
             }
+            return result.ValidationErrors.Count > 0 ? result : base.ValidateEntity(entityEntry, items);
         }
 
         public override async Task<int> SaveChangesAsync()
         {
-
-            //TODO: extract and consolidate with sync version of SaveChanges method
-            // ReSharper disable PossibleMultipleEnumeration
-            var ticketChanges = ChangeTracker.Entries<Ticket>().Select(t => t.Entity);
-
-            foreach (var change in ticketChanges)
-            {
-                if (change.TicketId == default(int))
-                {
-                    PrePopulateNewTicket(change);
-                }
-            }
-
+            PreProcessNewTickets();
+            var pendingTicketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State != EntityState.Unchanged).Select(t => t.Entity);
+            
             var result = await base.SaveChangesAsync();
-            // ReSharper disable once EmptyGeneralCatchClause
-            try
+            
+            if (result > 0)
             {
-                //queue up for search index update
-                if (result > 0)
-                {
-
-                    var queueItems = ticketChanges.ToSeachQueueItems();
-                    //config await to resume on a new thread, not the context's thread... prevents deadlock on the UI thread
-                    var task = SearchManager.QueueItemsForIndexingAsync(queueItems); //.ConfigureAwait(false);
-                    task.RunSynchronously();
-                }
+                PostProcessTicketChanges(pendingTicketChanges);
             }
-            catch
-            {
-                //TODO: Log this somewhere
-            }
-            // ReSharper restore PossibleMultipleEnumeration
             return result;
         }
 
         public override int SaveChanges()
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            var ticketChanges = ChangeTracker.Entries<Ticket>().Select(t => t.Entity);
-
-            foreach (var change in ticketChanges)
-            {
-                if (change.TicketId == default(int))
-                {
-                    PrePopulateNewTicket(change);
-                }
-            }
+            PreProcessNewTickets();
+            var pendingTicketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State != EntityState.Unchanged).Select(t => t.Entity);
+            
             var result = base.SaveChanges();
 
+            if (result > 0)
+            {
+                PostProcessTicketChanges(pendingTicketChanges);
+            }
+            return result;
+        }
+
+
+
+        private void PostProcessTicketChanges(IEnumerable<Ticket> ticketChanges)
+        {
             // ReSharper disable once EmptyGeneralCatchClause
             try
             {
                 //queue up for search index update
-                if (result > 0)
-                {
+                var queueItems = ticketChanges.ToSeachQueueItems();
 
-                    var queueItems = ticketChanges.ToSeachQueueItems();
-                    //config await to resume on a new thread, not the context's thread... prevents deadlock on the UI thread
-                    var task = SearchManager.QueueItemsForIndexingAsync(queueItems); //.ConfigureAwait(false);
-                    task.RunSynchronously();
-                }
+                //TODO: see if we should just un-asycn the whole queue side of this, or perhaps we can use async when the source is an asycn savechanges call?
+                var task = SearchManager.QueueItemsForIndexingAsync(queueItems); //.ConfigureAwait(false);
+                task.RunSynchronously();
             }
             catch
             {
                 //TODO: Log this somewhere
             }
-            // ReSharper restore PossibleMultipleEnumeration
-            return result;
+        }
+
+        private void PreProcessNewTickets()
+        {
+            var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Added).Select(t => t.Entity);
+            
+            foreach (var change in ticketChanges)
+            {
+                PrePopulateNewTicket(change);
+            }
         }
 
         private void PrePopulateNewTicket(Ticket newTicket)
         {
-            //TODO: Move this shit somewhere else
-
-            //TODO: CheckUserSecurityForActivity
+            //TODO: Move this somewhere else?
 
             //TODO: double check owner if populated, make sure submitter can set this field if it isn't their id already
-            
             //TODO: double check assigned if populated, make sure submitter can set this field.
 
             var now = DateTime.Now;
-            newTicket.Owner = newTicket.Owner ?? SecurityProvider.GetCurrentUserId();
-            newTicket.CreatedBy = SecurityProvider.GetCurrentUserId();
+            newTicket.Owner = newTicket.Owner ?? SecurityProvider.CurrentUserId;
+            newTicket.CreatedBy = SecurityProvider.CurrentUserId;
             newTicket.CreatedDate = now;
             newTicket.TicketStatus = TicketStatus.Active;
             newTicket.CurrentStatusDate = now;
-            newTicket.CurrentStatusSetBy = SecurityProvider.GetCurrentUserId();
-            newTicket.LastUpdateBy = SecurityProvider.GetCurrentUserId();
+            newTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
+            newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
             newTicket.LastUpdateDate = now;
 
 
             newTicket.TicketTags.AddRange(newTicket.TagList.Split(',').Select(tag =>
-                    new TicketTag()
+                    new TicketTag
                     {
                         TagName = tag.Trim()
                     }));
 
 
-            //TODO: Add opening comment
+            //comment
+            var openingComment = (newTicket.Owner != SecurityProvider.CurrentUserId) ?
+                TicketComment.CreateActivityComment(
+                    SecurityProvider.CurrentUserId,
+                    TicketActivity.CreateOnBehalfOf,
+                    TicketCommentFlag.CommentNotApplicable,
+                    null,
+                    newTicket.AssignedTo,
+                    SecurityProvider.GetUserDisplayName(newTicket.Owner)) :
+                TicketComment.CreateActivityComment(
+                    SecurityProvider.CurrentUserId,
+                    TicketActivity.Create,
+                    TicketCommentFlag.CommentNotApplicable,
+                    null,
+                    newTicket.AssignedTo);
 
-            
+            newTicket.TicketComments.Add(openingComment);
+
+            //TODO: What with attachments?
         }
     }
 }

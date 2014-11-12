@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations.Model;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Client.Models.Extensions;
-using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Models
 {
@@ -31,7 +28,6 @@ namespace TicketDesk.Web.Client.Models
 
         public async Task<bool> CreateTicketAsync()
         {
-            
 
             //TODO: Scan for any pending attachments
 
@@ -85,7 +81,7 @@ namespace TicketDesk.Web.Client.Models
 
         public SelectList OwnersList
         {
-            get { return RoleManager.GetTdInternalUsers(UserManager).ToSelectList(false, Context.SecurityProvider.GetCurrentUserId()); }
+            get { return RoleManager.GetTdInternalUsers(UserManager).ToSelectList(false, Context.SecurityProvider.CurrentUserId); }
         }
 
         public SelectList AssignedToList

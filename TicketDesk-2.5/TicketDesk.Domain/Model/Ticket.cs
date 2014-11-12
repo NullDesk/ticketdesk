@@ -171,5 +171,20 @@ namespace TicketDesk.Domain.Model
             }
             return subs.ToArray();
         }
+
+        [NotMapped]
+        public bool IsAssigned
+        {
+            get { return !string.IsNullOrEmpty(AssignedTo); }
+        }
+
+        [NotMapped]
+        public bool IsOpen
+        {
+            get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
+        }
+
+        
+        
     }
 }
