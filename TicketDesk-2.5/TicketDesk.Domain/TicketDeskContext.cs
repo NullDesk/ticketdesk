@@ -131,7 +131,8 @@ namespace TicketDesk.Domain
         public override async Task<int> SaveChangesAsync()
         {
             PreProcessNewTickets();
-            var pendingTicketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State != EntityState.Unchanged).Select(t => t.Entity);
+
+            var pendingTicketChanges = GetTicketChanges();
             
             var result = await base.SaveChangesAsync();
             
@@ -145,7 +146,7 @@ namespace TicketDesk.Domain
         public override int SaveChanges()
         {
             PreProcessNewTickets();
-            var pendingTicketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State != EntityState.Unchanged).Select(t => t.Entity);
+            var pendingTicketChanges = GetTicketChanges();
             
             var result = base.SaveChanges();
 
@@ -156,6 +157,7 @@ namespace TicketDesk.Domain
             return result;
         }
 
+        
 
 
         private void PostProcessTicketChanges(IEnumerable<Ticket> ticketChanges)
@@ -230,6 +232,15 @@ namespace TicketDesk.Domain
             newTicket.TicketComments.Add(openingComment);
 
             //TODO: What with attachments?
+        }
+
+        private IEnumerable<Ticket> GetTicketChanges()
+        {
+            var pendingTicketChanges = ChangeTracker.Entries<Ticket>()
+                .Where(t => t.State != EntityState.Unchanged)
+                .Select(t => t.Entity)
+                .ToArray(); //execute now, because after save changes this query will return no results
+            return pendingTicketChanges;
         }
     }
 }
