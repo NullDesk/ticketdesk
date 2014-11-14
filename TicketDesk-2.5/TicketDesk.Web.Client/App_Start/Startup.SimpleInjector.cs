@@ -56,9 +56,7 @@ namespace TicketDesk.Web.Client
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
                 new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
 
-            container.RegisterPerWebRequest(() => 
-                SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))));
-
+            
             container.RegisterPerWebRequest(() =>
             {
                 IOwinContext context;

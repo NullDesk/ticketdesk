@@ -136,7 +136,7 @@ namespace TicketDesk.Domain.Migrations
             };
 
             context.UserSettings.AddOrUpdate(s => s.UserId, new UserSetting { UserId = id, ListSettings = collection });
-
+            
             base.Seed(context);
         }
     }

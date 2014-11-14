@@ -12,11 +12,11 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 {
     public class SearchManagerController : Controller
     {
-        private SearchManager Search { get; set; }
+        
         private TicketDeskContext Context { get; set; }
-        public SearchManagerController(SearchManager search, TicketDeskContext context)
+        public SearchManagerController(TicketDeskContext context)
         {
-            Search = search;
+          
             Context = context;
         }
 
@@ -28,20 +28,15 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
 
         public async Task<ActionResult> RemoveIndex()
         {
-            await Search.RemoveIndexAsync();
+            await Context.SearchManager.RemoveIndexAsync();
             ViewBag.IndexRemoved = true;
             return View("Index");
         }
-        public async Task<ActionResult> CreateIndex()
-        {
-            await Search.InitializeSearch();
-            ViewBag.IndexCreated = true;
-            return View("Index");
-        }
+       
         public async Task<ActionResult> PopulateIndex()
         {
             var queueItems = Context.Tickets.Include("TicketComments").ToSeachQueueItems();
-            await Search.QueueItemsForIndexingAsync(queueItems);
+            await Context.SearchManager.QueueItemsForIndexingAsync(queueItems);
             ViewBag.IndexPopulated = true;
             return View("Index");
         }

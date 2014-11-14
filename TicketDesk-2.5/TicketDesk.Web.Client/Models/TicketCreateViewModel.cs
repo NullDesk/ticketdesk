@@ -9,9 +9,7 @@ namespace TicketDesk.Web.Client.Models
 {
     public class TicketCreateViewModel
     {
-
         public Ticket Ticket { get; set; }
-       
         private TicketDeskUserManager UserManager { get; set; }
         private TicketDeskRoleManager RoleManager { get; set; }
         private TicketDeskContext Context { get; set; }
@@ -19,7 +17,6 @@ namespace TicketDesk.Web.Client.Models
         public TicketCreateViewModel(Ticket ticket,  TicketDeskContext context)
         {
             Ticket = ticket;
-           
             Context = context;
             TempId = Guid.NewGuid();
             RoleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
@@ -28,23 +25,20 @@ namespace TicketDesk.Web.Client.Models
 
         public async Task<bool> CreateTicketAsync()
         {
-
             //TODO: Scan for any pending attachments
 
             Context.Tickets.Add(Ticket);
-            await Context.SaveChangesAsync();//savechanges will drive populating the rest of the initial set of fields
+            await Context.SaveChangesAsync();
            
             //TODO: move attachments from pending state 
 
             return Ticket.TicketId != default(int);
-
         }
 
         public bool DisplayUserSelects
         {
             get { return Context.SecurityProvider.IsTdHelpDeskUser; }
         }
-
 
         public Guid TempId { get; set; }
 

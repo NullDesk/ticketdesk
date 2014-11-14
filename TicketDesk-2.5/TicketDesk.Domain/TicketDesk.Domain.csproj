@@ -63,6 +63,7 @@
     <Compile Include="Conventions\NonPublicColumnAttributeConvention.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\AsyncHelpers.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
     <Compile Include="Infrastructure\TicketTextUtility.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />

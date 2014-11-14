@@ -30,7 +30,10 @@ namespace TicketDesk.Domain
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
         public SearchManager SearchManager
         {
-            get { return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))); }
+            get
+            {
+                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))); 
+            }
         }
 
         /// <summary>
@@ -66,7 +69,6 @@ namespace TicketDesk.Domain
         {
 
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -108,8 +110,6 @@ namespace TicketDesk.Domain
             return oc.CreateObjectSet<T>();
         }
 
-
-
         protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
         {
             var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
@@ -133,21 +133,24 @@ namespace TicketDesk.Domain
             PreProcessNewTickets();
 
             var pendingTicketChanges = GetTicketChanges();
-            
+
             var result = await base.SaveChangesAsync();
-            
+
             if (result > 0)
             {
-                PostProcessTicketChanges(pendingTicketChanges);
+               await PostProcessTicketChangesAsync(pendingTicketChanges);
             }
             return result;
         }
 
         public override int SaveChanges()
         {
-            PreProcessNewTickets();
+            if (SecurityProvider != null)
+            {
+                PreProcessNewTickets();
+            }
             var pendingTicketChanges = GetTicketChanges();
-            
+
             var result = base.SaveChanges();
 
             if (result > 0)
@@ -157,8 +160,21 @@ namespace TicketDesk.Domain
             return result;
         }
 
-        
+        private async Task PostProcessTicketChangesAsync(IEnumerable<Ticket> ticketChanges)
+        {
+            // ReSharper disable once EmptyGeneralCatchClause
+            try
+            {
+                //queue up for search index update
+                var queueItems = ticketChanges.ToSeachQueueItems();
+                await SearchManager.QueueItemsForIndexingAsync(queueItems);
 
+            }
+            catch
+            {
+                //TODO: Log this somewhere
+            }
+        }
 
         private void PostProcessTicketChanges(IEnumerable<Ticket> ticketChanges)
         {
@@ -167,10 +183,7 @@ namespace TicketDesk.Domain
             {
                 //queue up for search index update
                 var queueItems = ticketChanges.ToSeachQueueItems();
-
-                //TODO: see if we should just un-asycn the whole queue side of this, or perhaps we can use async when the source is an asycn savechanges call?
-                var task = SearchManager.QueueItemsForIndexingAsync(queueItems); //.ConfigureAwait(false);
-                task.RunSynchronously();
+                AsyncHelpers.RunSync(() => SearchManager.QueueItemsForIndexingAsync(queueItems));
             }
             catch
             {
@@ -181,7 +194,7 @@ namespace TicketDesk.Domain
         private void PreProcessNewTickets()
         {
             var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Added).Select(t => t.Entity);
-            
+
             foreach (var change in ticketChanges)
             {
                 PrePopulateNewTicket(change);

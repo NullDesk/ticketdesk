@@ -52,6 +52,7 @@ namespace TicketDesk.Web.Client.Controllers
             if (ModelState.IsValid)
             {
                 var vm = new TicketCreateViewModel(ticket, Context);
+                
                 try
                 {
                     if (await vm.CreateTicketAsync())
@@ -59,7 +60,8 @@ namespace TicketDesk.Web.Client.Controllers
                         return RedirectToAction("Index", new { id = ticket.TicketId });
                     }
                 }
-                catch (DbEntityValidationException ex)
+                // ReSharper disable once EmptyGeneralCatchClause
+                catch// (DbEntityValidationException ex)
                 {
                    //TODO: catch rule exceptions? or can annotations handle this fully now?
                 }
