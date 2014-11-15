@@ -31,3 +31,6 @@
    - which provier to use (or auto-detect like it does now)
    - index location (lucence only, fixed path or special "datadirectory" value)
   - re-iplement all ticket center and editor settings
+
+- Remove all mvc areas
+  - fix all action and url links to remove the viewdata for areas

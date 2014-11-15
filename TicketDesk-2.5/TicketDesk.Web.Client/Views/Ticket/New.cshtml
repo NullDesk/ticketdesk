@@ -26,9 +26,25 @@
                 //prevents Dropzone from uploading dropped files immediately
                 autoProcessQueue: true,
                 addRemoveLinks: true,
-
                 createImageThumbnails: true,
-                removed: function (file) {
+                init: function () {
+                    var self = this;
+                    $.get("@Url.Action("GetPendingAttachmentsInfo", "File")", { tempId: $('#tempId').val() }, function (data) {
+                        $.each(data, function (index, file) {
+
+                            var existingFile = { name: file.name, size: file.size };
+
+                            self.emit("addedfile", existingFile);
+                            self.emit("thumbnail", existingFile, file.url);
+                          
+
+                        });
+
+                    });
+                },
+                removed:
+
+                function (file) {
 
                 },
                 sending: function (file, xhr, formData) {
@@ -47,7 +63,6 @@
                     var _ref;
                     return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
                 }
-
             });
 
 

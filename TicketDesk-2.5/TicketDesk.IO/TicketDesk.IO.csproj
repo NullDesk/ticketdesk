@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AzureConnectionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketDeskFileInfo.cs" />
     <Compile Include="TicketDeskFileStorage.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,11 @@ namespace TicketDesk.Web.Client.Controllers
                         .Take(10);//limit to 10
 
             //pull data, then convert to format expected by select2
-            return Json(tags.ToArray().Select(t => new { id = t.TagName, text = t.TagName }), JsonRequestBehavior.AllowGet);
+            return new JsonCamelCaseResult
+            {
+                Data = tags.ToArray().Select(t => new {Id = t.TagName, Text = t.TagName}),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
 
         }
     }

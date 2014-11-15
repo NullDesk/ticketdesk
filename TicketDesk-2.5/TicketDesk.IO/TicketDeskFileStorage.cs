@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AzureBlobFileSystem;
 using Microsoft.WindowsAzure.Storage;
@@ -30,9 +33,24 @@ namespace TicketDesk.IO
             }
         }
 
-        public static async Task<bool> SaveAttachmentAsync(Stream inputStream, string fileName, string id, bool isPending)
+        public static IEnumerable<TicketDeskFileInfo> ListAttachmentInfo(string containerId, bool isPending)
         {
-            var path = GetFilePath(fileName, id, isPending);
+            var path = GetFileFolderPath(containerId, isPending);
+            var files = Current.ListFiles(path);
+            if (isPending)
+            {
+                files = files.Where(f => f.GetName().EndsWith(containerId));
+            }
+            return files.Select(f => new TicketDeskFileInfo
+            {
+                Name = TrimIdFromName(f.GetName(),containerId),
+                Size = f.GetSize()
+            });
+        }
+
+        public static async Task<bool> SaveAttachmentAsync(Stream inputStream, string fileName, string containerId, bool isPending)
+        {
+            var path = GetFilePath(fileName, containerId, isPending);
             using (var writer = new StreamWriter(Current.CreateFile(path).OpenWrite()))
             {
                 await inputStream.CopyToAsync(writer.BaseStream);
@@ -40,9 +58,9 @@ namespace TicketDesk.IO
             return true;
         }
 
-        public static bool DeleteAttachment(string fileName , string id, bool isPending)
+        public static bool DeleteAttachment(string fileName, string containerId, bool isPending)
         {
-            var path = GetFilePath(fileName, id, isPending);
+            var path = GetFilePath(fileName, containerId, isPending);
 
             if (Current.FileExists(path))
             {
@@ -51,14 +69,25 @@ namespace TicketDesk.IO
             return true;
         }
 
-        private static string GetFilePath(string fileName, string id, bool isPending)
+        private static string GetFilePath(string fileName, string containerId, bool isPending)
         {
             if (isPending)
             {
-                fileName = string.Format("{0}.{1}", fileName, id);
+                fileName = string.Format("{0}.{1}", fileName, containerId);
             }
-            var path = Current.Combine("ticketdesk-attachments", isPending ? "pending" : id);
+            var path = GetFileFolderPath(containerId, isPending);
             return Current.Combine(path, fileName);
+        }
+
+        private static string TrimIdFromName(string fileName, string containerId)
+        {
+            return fileName.EndsWith(containerId) ? fileName.Substring(0, fileName.Length - (containerId.Length + 1)) : fileName;
+        }
+
+        private static string GetFileFolderPath(string containerId, bool isPending)
+        {
+            var path = Current.Combine("ticketdesk-attachments", isPending ? "pending" : containerId);
+            return path;
         }
     }
 }

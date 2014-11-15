@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using Antlr.Runtime;
-using Microsoft.AspNet.Identity;
-using Newtonsoft.Json;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Client.Models;
@@ -49,6 +41,7 @@ namespace TicketDesk.Web.Client.Controllers
         [ValidateOnlyIncomingValues]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {
+            return View(new TicketCreateViewModel(ticket, Context));
             if (ModelState.IsValid)
             {
                 var vm = new TicketCreateViewModel(ticket, Context);
@@ -67,7 +60,7 @@ namespace TicketDesk.Web.Client.Controllers
                 }
                 
             }
-            return View(new TicketCreateViewModel(ticket, Context));
+           
         }
     }
 }

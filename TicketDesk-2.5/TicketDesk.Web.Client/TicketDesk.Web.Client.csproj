@@ -191,6 +191,7 @@
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\JsonCamelCaseResult.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskContextSecurityProvider.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskRoleManager.cs" />
@@ -397,8 +398,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Initialization\Models\" />
     <Folder Include="Areas\Initialization\Views\Shared\" />
-    <Folder Include="Views\AutoComplete\" />
-    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
