@@ -110,7 +110,7 @@ namespace TicketDesk.Domain.Model
 
                 var fColumn = filters.SingleOrDefault(fc => fc.ColumnName == "TicketStatus");
 
-                if (statusValue == "any")
+                if (statusValue == "Any")
                 {
                     if (fColumn != null)
                     {
@@ -119,7 +119,7 @@ namespace TicketDesk.Domain.Model
                 }
                 else
                 {
-                    bool equality = (statusValue != "open");
+                    bool equality = (statusValue != "Open");
                     if (fColumn == null)
                     {
                         fColumn = new UserTicketListFilterColumn("TicketStatus")
@@ -131,7 +131,7 @@ namespace TicketDesk.Domain.Model
                     }
 
                     fColumn.UseEqualityComparison = equality;
-                    fColumn.ColumnValue = (statusValue == "open") ? "closed" : statusValue;
+                    fColumn.ColumnValue = (statusValue == "Open") ? "Closed" : statusValue;
                 }
 
             }

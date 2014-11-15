@@ -27,8 +27,8 @@ namespace TicketDesk.Web.Client.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketCenterListViewModel" /> class.
         /// </summary>
+        /// <param name="currentPage">The current page.</param>
         /// <param name="listName">Name of the list.</param>
-        /// <param name="ticketsList">The tickets list.</param>
         /// <param name="context">The context.</param>
         /// <param name="userId">The user identifier.</param>
         private TicketCenterListViewModel(int currentPage, string listName, TicketDeskContext context, string userId)
