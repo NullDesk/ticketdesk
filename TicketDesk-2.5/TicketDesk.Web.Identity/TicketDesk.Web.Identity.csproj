@@ -54,12 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TicketDeskIdentityExtensions.cs" />
+    <Compile Include="Extensions\TicketDeskIdentityExtensions.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\TicketDeskUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketDeskIdentityContext.cs" />
-    <Compile Include="TicketDeskIdentityDbInitializer.cs" />
+    <Compile Include="Infrastructure\TicketDeskIdentityDbInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

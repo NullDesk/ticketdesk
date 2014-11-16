@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Microsoft.AspNet.Identity;
-using PagedList;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Domain.Models;
@@ -32,7 +23,7 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         // GET: TicketCenter
-        [Route("{listName=opentickets}/{page:int?}")]
+        [Route("{listName=mytickets}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
             var pageNumber = page ?? 1;
@@ -42,7 +33,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(viewModel);
         }
 
-        [Route("pageList/{listName=opentickets}/{page:int?}")]
+        [Route("pageList/{listName=mytickets}/{page:int?}")]
         public async Task<ActionResult> PageList(int? page, string listName)
         {
             return await GetTicketListPartial(page, listName);
@@ -53,7 +44,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<PartialViewResult> FilterList(
             string listName,
             int pageSize,
-            string TicketStatus,
+            string ticketStatus,
             string owner,
             string assignedTo)
         {
@@ -62,7 +53,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
-            currentListSetting.ModifyFilterSettings(pageSize, TicketStatus, owner, assignedTo);
+            currentListSetting.ModifyFilterSettings(pageSize, ticketStatus, owner, assignedTo);
 
             await Context.SaveChangesAsync();
 

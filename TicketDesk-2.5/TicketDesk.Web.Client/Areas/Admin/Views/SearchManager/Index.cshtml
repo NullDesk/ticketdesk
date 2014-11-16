@@ -22,14 +22,7 @@
         }
 
     </p>
-    <div>@Html.ActionLink("Recreate Search Index", "CreateIndex")</div>
-    <p>
-        @if (ViewBag.IndexCreated ?? false)
-        {
-            <span>Created</span>
-        }
-
-    </p>
+   
     <div>@Html.ActionLink("Populate Search Index", "PopulateIndex")</div>
     <p>
         @if (ViewBag.IndexPopulated ?? false)

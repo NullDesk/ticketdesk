@@ -11,9 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using TicketDesk.Domain.Models;
 

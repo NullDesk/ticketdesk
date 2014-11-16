@@ -12,16 +12,12 @@
             Legacy DB Upgrades are supported. Feel free to test this, but please do not upgrade your production TD 2.1 database. 
         </p>
         <p>I'm in the process of porting in the new UI bits, and am refactoring the back-end as I go.
-            The ticket center is largely complete, though performance tweaks and back-end settings are still in progress.
-            There are some very interesting changes in how list settings are managed, as well as in how ESQL queries are being generated to drive the ticket center.
+            The ticket center is largely complete. I'm working on ticket creation and editing next.
         </p>
         <p>
             Basic search services have been re-designed. Currently TD 2.5 will auto-detect if you
-            are running in Azure. When in Azure, it will use Azure Search services. This requires
-            an Azure search connection string, or two appSettings keys. See the comments in
-            web.azure.config for more information. If not running in Azure, it will default to
-            Lucene.net search with indexes stored on the local web server's file system (similar to
-            how TD 2.1 search worked).
+            are running in Azure. See the comments in web.azure.config for more information. If not running in Azure, it fallback to 
+            Lucene.net (same as TD 2.1).
         </p>
         <p>
             The admin settings will eventually be expanded to give full control over how search

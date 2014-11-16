@@ -19,7 +19,7 @@ namespace TicketDesk.Domain.Search
         internal SearchManager(bool isAzure)
         {
             _isAzure = isAzure;
-            _indexName = "ticketdesk-tickets";
+            _indexName = "ticketdesk-searchindex";
         }
 
         private ISearchLocator _indexSearcher;
@@ -78,6 +78,8 @@ namespace TicketDesk.Domain.Search
         {
             return await IndexSearcher.SearchAsync(searchText);
         }
+
+        
 
         public async Task<bool> QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
         {

@@ -11,13 +11,19 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.ComponentModel;
+
 namespace TicketDesk.Domain.Model
 {
     public enum TicketStatus
     {
+        [Description("Active")]
         Active,
+        [Description("MoreInfo")]
         MoreInfo,
+        [Description("Resolved")]
         Resolved,
+        [Description("Closed")]
         Closed
     }
 }

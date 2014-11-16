@@ -23,6 +23,8 @@ namespace TicketDesk.Web.Client.Models
         }
 
 
+        //TODO: Refactor all selectlists here to use the select list extensions B
+
         public SelectList ItemsPerPageSelectList
         {
             get
@@ -52,21 +54,21 @@ namespace TicketDesk.Web.Client.Models
                 var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "TicketStatus");
                 if (fColumn != null)
                 {
-                    if (!fColumn.ColumnValue.ToString().Equals("closed", StringComparison.InvariantCultureIgnoreCase)) 
+                    if (!fColumn.ColumnValue.ToString().Equals("Closed", StringComparison.InvariantCultureIgnoreCase)) 
                     {
                         selectedStatus = fColumn.ColumnValue.ToString().ToLowerInvariant();
                     }
                     else
                     {
-                        selectedStatus = (fColumn.UseEqualityComparison.HasValue && fColumn.UseEqualityComparison.Value) ? "closed" : "open";
+                        selectedStatus = (fColumn.UseEqualityComparison.HasValue && fColumn.UseEqualityComparison.Value) ? "Closed" : "Open";
                     }
                 }
 
                 return new SelectList(
                     new[] 
                     {   
-                        new { Text="-- any --", Value="any"}, 
-                        new { Text="-- open --", Value="open"},
+                        new { Text="-- any --", Value="Any"}, 
+                        new { Text="-- open --", Value="Open"},
                         new { Text="Active", Value="Active"},
                         new { Text="More Info", Value="MoreInfo"},
                         new { Text="Resolved", Value="Resolved"},

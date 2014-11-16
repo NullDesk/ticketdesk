@@ -17,25 +17,21 @@ namespace TicketDesk.Web.Client
             var setupEnabled = ConfigurationManager.AppSettings["ticketdesk:SetupEnabled"];
             var firstRunEnabled = !string.IsNullOrEmpty(setupEnabled) && setupEnabled.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             
-            if (firstRunEnabled && !DatabaseConfig.IsDatabaseReady)
+            if (firstRunEnabled && !IsDatabaseReady)
             {
                 //add a global filter to send requests to the database managment first run functions
                 GlobalFilters.Filters.Add(new DbSetupFilter());
             }
             else
             {
-                //database exists and isn't legacy or empty, but it could still need migration
-                if (DatabaseConfig.HasPendingMigrations())
-                {
+               
                     //run any pending migrations automatically to bring the DB up to date
-                    Database.SetInitializer<TicketDeskContext>(
-                        new MigrateDatabaseToLatestVersion
-                            <TicketDeskContext, TicketDesk.Domain.Migrations.Configuration>());
-                    using (var ctx = new TicketDeskContext())
+                    Database.SetInitializer<TicketDeskContext>(new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
+                    using (var ctx = new TicketDeskContext(null))
                     {
                         ctx.Database.Initialize(true);
                     }
-                }
+                
             }
         }
 
@@ -43,8 +39,8 @@ namespace TicketDesk.Web.Client
         {
             get
             {
-                var result = false;
-                using (var ctx = new TicketDeskContext())
+                bool result;
+                using (var ctx = new TicketDeskContext(null))
                 {
                     result = (ctx.Database.Exists() && !IsEmptyDatabase(ctx)) && !IsLegacyDatabase(ctx);
                 }
@@ -52,39 +48,34 @@ namespace TicketDesk.Web.Client
             }
         }
 
-        public static bool HasPendingMigrations()
-        {
-            var mgt = new DbMigrator(new Configuration());
-            return mgt.GetPendingMigrations().Any();
-        }
-
+        
         public static bool IsEmptyDatabase()
         {
-            using (var ctx = new TicketDeskContext())
+            using (var ctx = new TicketDeskContext(null))
             {
                 return IsEmptyDatabase(ctx);
             }
         }
+
         public static bool IsLegacyDatabase()
         {
-            using (var ctx = new TicketDeskContext())
+            using (var ctx = new TicketDeskContext(null))
             {
                 return IsLegacyDatabase(ctx);
             }
         }
 
-        private static bool IsEmptyDatabase(TicketDeskContext context)
+        private static bool IsEmptyDatabase(DbContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
-            var hasTables = false;
             var numTables = context.Database.SqlQuery<int>(
                 "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'");
-            hasTables = numTables.First() > 0;
+            bool hasTables = numTables.First() > 0;
 
             return !hasTables;
         }
 
-        private static bool IsLegacyDatabase(TicketDeskContext context)
+        private static bool IsLegacyDatabase(DbContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
             var isLegacy = false;
@@ -100,9 +91,6 @@ namespace TicketDesk.Web.Client
                 //eat any exception, we'll assume that if the db exists, but we can't read the settings, then it is an just empty new db
             }
             return isLegacy;
-
         }
-
-
     }
 }

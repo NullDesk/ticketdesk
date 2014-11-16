@@ -26,8 +26,7 @@ namespace TicketDesk.Domain.Migrations
         {
             AutomaticMigrationsEnabled = false;
             ContextKey = "TicketDeskCore";
-
-
+            
         }
 
         protected override void Seed(TicketDeskContext context)
@@ -137,7 +136,7 @@ namespace TicketDesk.Domain.Migrations
             };
 
             context.UserSettings.AddOrUpdate(s => s.UserId, new UserSetting { UserId = id, ListSettings = collection });
-
+            
             base.Seed(context);
         }
     }

@@ -61,7 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\NonPublicColumnAttributeConvention.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\AsyncHelpers.cs" />
+    <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
+    <Compile Include="Infrastructure\TicketTextUtility.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
       <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
@@ -72,11 +76,15 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
-    <Compile Include="Model\Extensions\SettingsExtensions.cs" />
+    <Compile Include="Model\Extensions\SettingExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketCommentExtensions.cs" />
     <Compile Include="Model\Extensions\TicketExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
+    <Compile Include="Model\TicketActivity.cs" />
+    <Compile Include="Model\TicketCommentFlag.cs" />
     <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
-    <Compile Include="Model\Extensions\UserSettingsExtensions.cs" />
+    <Compile Include="Model\Extensions\UserSettingExtensions.cs" />
     <Compile Include="Model\UserTicketListModel\UserTicketListSettingsCollection.cs" />
     <Compile Include="Model\UserTicketListModel\UserTicketListSetting.cs" />
     <Compile Include="Model\UserTicketListModel\UserTicketListFilterColumn.cs" />

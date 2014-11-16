@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json.Serialization;
 
 namespace TicketDesk.Web.Client
 {
@@ -8,6 +9,7 @@ namespace TicketDesk.Web.Client
         public void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            
         }
     }
 }

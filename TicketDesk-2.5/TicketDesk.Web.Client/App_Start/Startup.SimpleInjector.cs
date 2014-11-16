@@ -39,11 +39,14 @@ namespace TicketDesk.Web.Client
         {
             var container = new Container();
 
-            container.RegisterSingle<IAppBuilder>(app);
+            container.RegisterSingle(app);
 
             container.RegisterPerWebRequest<TicketDeskUserManager>();
 
-            container.RegisterPerWebRequest<TicketDeskContext>();
+            container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
+
+            container.RegisterPerWebRequest(() => 
+                new TicketDeskContext(container.GetInstance<TicketDeskContextSecurityProvider>()));
 
             container.RegisterPerWebRequest<TicketDeskIdentityContext>();
 
@@ -53,12 +56,10 @@ namespace TicketDesk.Web.Client
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
                 new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
 
-            container.RegisterPerWebRequest<SearchManager>(() => 
-                SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))));
-
-            container.RegisterPerWebRequest<IAuthenticationManager>(() =>
+            
+            container.RegisterPerWebRequest(() =>
             {
-                IOwinContext context = null;
+                IOwinContext context;
                 try
                 {
                     context = HttpContext.Current.GetOwinContext();
@@ -176,7 +177,7 @@ namespace TicketDesk.Web.Client
                 throw new NotImplementedException();
             }
 
-            public void SignIn(params System.Security.Claims.ClaimsIdentity[] identities) { }
+            public void SignIn(params ClaimsIdentity[] identities) { }
             public void SignIn(AuthenticationProperties properties, params ClaimsIdentity[] identities) { }
             public void SignOut(params string[] authenticationTypes) { }
             public void SignOut(AuthenticationProperties properties, params string[] authenticationTypes) { }

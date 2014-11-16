@@ -3,7 +3,7 @@
 @{
     var currentListSettings = (UserTicketListSetting)ViewBag.CurrentListSettings;
 }
-<div class="container">
+<div class="row menulist">
     <ul class="nav nav-tabs navbar-right" role="tablist">
         @foreach (var list in Model)
         {
@@ -12,6 +12,10 @@
 
                 @Html.ActionLink(list.ListDisplayName, "Index", new { ListName = list.ListName })
             </li>
+
         }
+        
+    
     </ul>
+    
 </div>

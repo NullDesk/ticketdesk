@@ -22,10 +22,10 @@ body {
 
 
 #mainNav .navbar-brand {
-    width: 300px;
+    width: 100px;
     height: 50px;
     background-repeat: no-repeat;
-    background-image: url('Images/TicketDesk-2.5.png');
+    background-image: url('Images/TicketDesk-2.5-mobile.png');
 }
 
 
@@ -33,7 +33,6 @@ body {
 .body-content > main {
     min-height: 300px;
     padding: 15px 8px;
-
 }
 
 .body-content > footer {
@@ -41,14 +40,33 @@ body {
     border-top: 1px solid #B3CBDF;
 }
 
-
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+/*Bootstrap Extensions*/
+.panel-info {
+    border-color: #B3CBDF;
 }
+
+    .panel-info .panel-heading {
+        background-color: #b3cbdf;
+        color: #000;
+    }
+
+.input-group-xs>.form-control,
+.input-group-xs>.input-group-addon,
+.input-group-xs>.input-group-btn>.btn {
+    height: 22px;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+
+.wmd-preview {
+    min-height: 250px;
+    overflow: auto;
+}
+/* Set width on the form input elements since they're 100% wide by default */
+
 
 /* styles for validation helpers */
 .field-validation-error {
@@ -76,20 +94,20 @@ input[type="checkbox"].input-validation-error {
 }
 
 
-.left-side-box {
-    border-right: 1px solid #B3CBDF;
-}
+
 /*Home page*/
 .right-side-box {
     height: 100%;
     min-height: 300px;
-    
+}
+
+.left-side-box {
+    border-right: 1px solid #B3CBDF;
 }
 
 p {
     padding-left: 2px;
-    padding-right: 2px
-
+    padding-right: 2px;
 }
 
 
@@ -102,20 +120,9 @@ p {
     margin-bottom: 20px;
 }
 
-    #ticketList table {
-        margin-bottom: 0;
+    #ticketList .navbar {
+        border-radius: 0;
     }
-
-    #ticketList footer {
-        border: 1px dotted #B3CBDF;
-        -ms-border-bottom-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        -ms-border-bottom-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        background-color: #E1EBF2;
-        padding: 0 20px;
-    }
-
 
     #ticketList .filterBar {
         margin: 0;
@@ -128,35 +135,170 @@ p {
         border-top-right-radius: 10px;
     }
 
-
-
-.number-select {
-    width: 75px;
-}
-
-
-
-#ticketList table {
-    font-size: 10pt;
-    /*border: 1px solid #B3CBDF;*/
-}
-
-    #ticketList table td {
-        border: 1px dotted #B3CBDF;
-        border-collapse: collapse;
-        white-space: nowrap;
+    #ticketList table {
+        margin-bottom: 0;
     }
 
-    #ticketList table th {
-        white-space: nowrap;
+    #ticketList table {
+        font-size: 10pt;
+        /*border: 1px solid #B3CBDF;*/
+    }
+
+        #ticketList table td {
+            border: 1px dotted #B3CBDF;
+            border-collapse: collapse;
+            white-space: nowrap;
+        }
+
+        #ticketList table th {
+            white-space: nowrap;
+            border: 1px dotted #B3CBDF;
+            background-color: #FFFFDD;
+        }
+
+
+
+
+    #ticketList footer {
         border: 1px dotted #B3CBDF;
-        background-color: #FFFFDD;
+        -ms-border-bottom-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        -ms-border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: #E1EBF2;
+        padding: 0 20px;
+    }
+
+        #ticketList footer .pagination {
+            margin: 10px 0;
+        }
+
+    #ticketList tr:hover.clickable {
+        cursor: pointer;
+    }
+
+    #ticketList .number-select {
+        width: 75px;
+    }
+
+.menulist{
+    margin-right: 8px;
+    margin-left: 5px;
+}
+
+    .menulist .nav-tabs {
+        border-bottom: 0;
+        margin: 0 5px;
     }
 
 
-tr:hover.clickable  {
-    cursor: pointer;
+/* custom inclusion of right, left and below tabs */
+
+
+
+.tabs-below {
+    border-top: 0;
 }
-tr.clickable:nth-child(odd) {
-    /*background-color: #FBFCFD;*/
+
+    .tabs-below > .nav-tabs,
+    .tabs-right > .nav-tabs,
+    .tabs-left > .nav-tabs {
+        border-bottom: 0;
+    }
+
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+    display: none;
 }
+
+.tab-content > .active,
+.pill-content > .active {
+    display: block;
+}
+
+
+
+.tabs-below > .nav-tabs > li {
+    margin-top: -1px;
+    margin-bottom: 0;
+}
+
+    .tabs-below > .nav-tabs > li > a {
+        -webkit-border-radius: 0 0 4px 4px;
+        -moz-border-radius: 0 0 4px 4px;
+        border-radius: 0 0 4px 4px;
+    }
+
+        .tabs-below > .nav-tabs > li > a:hover,
+        .tabs-below > .nav-tabs > li > a:focus {
+            border-top-color: #ddd;
+            border-bottom-color: transparent;
+        }
+
+.tabs-below > .nav-tabs > .active > a,
+.tabs-below > .nav-tabs > .active > a:hover,
+.tabs-below > .nav-tabs > .active > a:focus {
+    border-color: transparent #ddd #ddd #ddd;
+}
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+    float: none;
+}
+
+    .tabs-left > .nav-tabs > li > a,
+    .tabs-right > .nav-tabs > li > a {
+        min-width: 74px;
+        margin-right: 0;
+        margin-bottom: 3px;
+    }
+
+.tabs-left > .nav-tabs {
+    float: left;
+    margin-right: 19px;
+    border-right: 1px solid #ddd;
+}
+
+    .tabs-left > .nav-tabs > li > a {
+        margin-right: -1px;
+        -webkit-border-radius: 4px 0 0 4px;
+        -moz-border-radius: 4px 0 0 4px;
+        border-radius: 4px 0 0 4px;
+    }
+
+        .tabs-left > .nav-tabs > li > a:hover,
+        .tabs-left > .nav-tabs > li > a:focus {
+            border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+        }
+
+    .tabs-left > .nav-tabs .active > a,
+    .tabs-left > .nav-tabs .active > a:hover,
+    .tabs-left > .nav-tabs .active > a:focus {
+        border-color: #ddd transparent #ddd #ddd;
+        *border-right-color: #ffffff;
+    }
+
+.tabs-right > .nav-tabs {
+    float: right;
+    margin-left: 19px;
+    border-left: 1px solid #ddd;
+}
+
+    .tabs-right > .nav-tabs > li > a {
+        margin-left: -1px;
+        -webkit-border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        border-radius: 0 4px 4px 0;
+    }
+
+        .tabs-right > .nav-tabs > li > a:hover,
+        .tabs-right > .nav-tabs > li > a:focus {
+            border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+        }
+
+    .tabs-right > .nav-tabs .active > a,
+    .tabs-right > .nav-tabs .active > a:hover,
+    .tabs-right > .nav-tabs .active > a:focus {
+        border-color: #ddd #ddd #ddd transparent;
+        *border-left-color: #ffffff;
+    }
