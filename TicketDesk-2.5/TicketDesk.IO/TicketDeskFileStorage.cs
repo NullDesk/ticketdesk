@@ -33,6 +33,29 @@ namespace TicketDesk.IO
             }
         }
 
+        public static bool MoveFile(string fileName, string oldContainerId, string newContainerId, bool wasPending, bool isPending)
+        {
+            var oldPath = GetFilePath(fileName, oldContainerId, wasPending);
+            var newPath = GetFilePath(fileName, newContainerId, isPending);
+            if (Current.FileExists(oldPath))
+            {
+                if (!isPending)
+                {
+                    Current.CreateFolder(GetFileFolderPath(newContainerId, false));
+                }
+               
+                Current.RenameFile(oldPath,newPath);
+                return true;
+            }
+            return false;
+        }
+
+        public static Stream GetFile(string fileName,string containerId, bool isPending)
+        {
+            var f = Current.GetFile(GetFilePath(fileName, containerId, isPending));
+            return f.OpenRead();
+        }
+
         public static IEnumerable<TicketDeskFileInfo> ListAttachmentInfo(string containerId, bool isPending)
         {
             var path = GetFileFolderPath(containerId, isPending);

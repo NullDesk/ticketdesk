@@ -121,7 +121,7 @@ namespace TicketDesk.Domain
                 if (!SecurityProvider.IsTicketActivityValid(ticket, TicketActivity.Create))
                 {
                     result.ValidationErrors.Add(new
-                        System.Data.Entity.Validation.DbValidationError("authorization",
+                        DbValidationError("authorization",
                             "User is not authorized to create new tickets"));
                 }
             }
@@ -218,13 +218,14 @@ namespace TicketDesk.Domain
             newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
             newTicket.LastUpdateDate = now;
 
-
-            newTicket.TicketTags.AddRange(newTicket.TagList.Split(',').Select(tag =>
+            if (newTicket.TagList != null && newTicket.TagList.Any())
+            {
+                newTicket.TicketTags.AddRange(newTicket.TagList.Split(',').Select(tag =>
                     new TicketTag
                     {
                         TagName = tag.Trim()
                     }));
-
+            }
 
             //comment
             var openingComment = (newTicket.Owner != SecurityProvider.CurrentUserId) ?

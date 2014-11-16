@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.IO;
 using TicketDesk.Web.Client.Models.Extensions;
 
 namespace TicketDesk.Web.Client.Models
@@ -25,12 +27,21 @@ namespace TicketDesk.Web.Client.Models
 
         public async Task<bool> CreateTicketAsync()
         {
-            //TODO: Scan for any pending attachments
-
+            //TODO: still need to store attachment info to DB
             Context.Tickets.Add(Ticket);
             await Context.SaveChangesAsync();
-           
-            //TODO: move attachments from pending state 
+            var attachments = TicketDeskFileStore.ListAttachmentInfo(TempId.ToString(), true);
+
+            foreach (var attachment in attachments)
+            {
+                TicketDeskFileStore.MoveFile(
+                    attachment.Name, 
+                    TempId.ToString(), 
+                    Ticket.TicketId.ToString(CultureInfo.InvariantCulture), 
+                    true, 
+                    false);
+            }
+            
 
             return Ticket.TicketId != default(int);
         }

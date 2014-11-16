@@ -34,9 +34,12 @@ namespace TicketDesk.Web.Client.Controllers
             return new JsonCamelCaseResult { Data = new { Message = string.Empty } };//dropzone expects a message property back
         }
 
-        public ActionResult GetFile()
+        [HttpGet]
+        [Route("{tempId:Guid}/{fileName}")]
+        public ActionResult GetFile(Guid tempId,string fileName)
         {
-            return new EmptyResult();
+            var fstream = TicketDeskFileStore.GetFile(fileName, tempId.ToString(), true);
+            return new FileStreamResult(fstream, "text/json");
         }
 
         [HttpGet]
@@ -45,7 +48,13 @@ namespace TicketDesk.Web.Client.Controllers
             var files = TicketDeskFileStore.ListAttachmentInfo(tempId.ToString(), true);
             return new JsonCamelCaseResult()
             {
-                Data = files.Select(f => new { f.Name, f.Size, Url = Url.Action("GetFile") }),
+                Data = files.Select(f => new
+                {
+                    f.Name, 
+                    f.Size,
+                    Type = MimeTypeMap.GetMimeType(Path.GetExtension(f.Name)),
+                    Url = Url.Action("GetFile", new{FileName = f.Name, TempId = tempId})
+                }),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

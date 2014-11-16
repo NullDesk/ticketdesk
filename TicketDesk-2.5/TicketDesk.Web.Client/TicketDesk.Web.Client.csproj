@@ -192,6 +192,7 @@
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Helpers\JsonCamelCaseResult.cs" />
+    <Compile Include="Infrastructure\Helpers\MimeTypeMap.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskContextSecurityProvider.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskRoleManager.cs" />
@@ -227,6 +228,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\arrow_down.png" />
     <Content Include="Content\Images\arrow_top.png" />
+    <Content Include="Content\Images\general-file.png" />
     <Content Include="Content\Images\TicketDesk-2.5-mobile.png" />
     <Content Include="Content\Images\TicketDesk-2.5.png" />
     <Content Include="Content\PagedList.css" />

@@ -41,10 +41,10 @@ namespace TicketDesk.Web.Client.Controllers
         [ValidateOnlyIncomingValues]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {
-            return View(new TicketCreateViewModel(ticket, Context));
+            
             if (ModelState.IsValid)
             {
-                var vm = new TicketCreateViewModel(ticket, Context);
+                var vm = new TicketCreateViewModel(ticket, Context){TempId = tempId};
                 
                 try
                 {
@@ -60,7 +60,7 @@ namespace TicketDesk.Web.Client.Controllers
                 }
                 
             }
-           
+            return View(new TicketCreateViewModel(ticket, Context));
         }
     }
 }
