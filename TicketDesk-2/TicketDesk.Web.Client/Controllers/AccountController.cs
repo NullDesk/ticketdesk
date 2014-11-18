@@ -65,9 +65,9 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (MembershipService.ValidateUser(model.UserName, model.Password))
+                if (MembershipService.ValidateUser(model.UserName.Trim(), model.Password.Trim()))
                 {
-                    FormsService.SignIn(model.UserName.ToLower(), model.RememberMe);
+                    FormsService.SignIn(model.UserName.Trim().ToLower(), model.RememberMe);
                     if (!String.IsNullOrEmpty(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -114,11 +114,11 @@ namespace TicketDesk.Web.Client.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.DisplayName, model.Password, model.Email, Security, Settings.ApplicationSettings);
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName.Trim(), model.DisplayName.Trim(), model.Password.Trim(), model.Email.Trim(), Security, Settings.ApplicationSettings);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
+                    FormsService.SignIn(model.UserName.Trim(), false /* createPersistentCookie */);
                     return RedirectToAction(MVC.Home.Index());
                 }
                 else
@@ -162,8 +162,8 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                    if(MembershipService.ChangeUserPreferences(User.Identity.Name, model.DisplayName, model.EmailAddress, model.OpenEditorWithPreview, Settings))
+
+                if (MembershipService.ChangeUserPreferences(User.Identity.Name, model.DisplayName.Trim(), model.EmailAddress.Trim(), model.OpenEditorWithPreview, Settings))
                     {
                         return RedirectToAction(MVC.Account.ChangePreferencesSuccess());
                     }
@@ -193,7 +193,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword.Trim(), model.NewPassword.Trim()))
                 {
                     return RedirectToAction(MVC.Account.ChangePasswordSuccess());
                 }
