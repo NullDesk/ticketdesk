@@ -57,9 +57,15 @@ namespace TicketDesk.Domain.Model
         /// <returns>UserSetting.</returns>
         public static UserSetting GetUserSetting(this DbSet<UserSetting> settings, string userId)
         {
-            return (settings.FirstOrDefault(us => us.UserId == userId) ??
-                    UserSetting.GetDefaultSettingsForUser(userId));
+            var usetting = settings.FirstOrDefault(us => us.UserId == userId);
+            if (usetting == null)
+            {
+                usetting = UserSetting.GetDefaultSettingsForUser(userId);
+                settings.Add(usetting);//if and when saves are made to the db, these will be included  
+            }
+            return usetting;
         }
+
 
         /// <summary>
         /// Applies the current sort column settings to an esql object query dynamically.
