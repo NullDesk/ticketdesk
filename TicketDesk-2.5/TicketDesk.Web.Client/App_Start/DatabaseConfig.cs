@@ -5,6 +5,8 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Web.Identity.Infrastructure;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client
@@ -13,9 +15,15 @@ namespace TicketDesk.Web.Client
     {
         public static void RegisterDatabase()
         {
-           
+
             var setupEnabled = ConfigurationManager.AppSettings["ticketdesk:SetupEnabled"];
-            var firstRunEnabled = !string.IsNullOrEmpty(setupEnabled) && setupEnabled.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            var firstRunEnabled = !string.IsNullOrEmpty(setupEnabled) && 
+                setupEnabled.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+
+            var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
+            var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) && 
+                demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) && 
+                IsDatabaseReady;//only do this if database was ready on startup, otherwise migrator will take care of it
             
             if (firstRunEnabled && !IsDatabaseReady)
             {
@@ -24,14 +32,17 @@ namespace TicketDesk.Web.Client
             }
             else
             {
-               
-                    //run any pending migrations automatically to bring the DB up to date
-                    Database.SetInitializer<TicketDeskContext>(new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
-                    using (var ctx = new TicketDeskContext(null))
+                //run any pending migrations automatically to bring the DB up to date
+                Database.SetInitializer<TicketDeskContext>(
+                    new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
+                using (var ctx = new TicketDeskContext(null))
+                {
+                    ctx.Database.Initialize(false);
+                    if (firstRunDemoRefresh)
                     {
-                        ctx.Database.Initialize(true);
+                        DemoDataManager.SetupDemoData(ctx);
                     }
-                
+                }
             }
         }
 
@@ -48,7 +59,7 @@ namespace TicketDesk.Web.Client
             }
         }
 
-        
+
         public static bool IsEmptyDatabase()
         {
             using (var ctx = new TicketDeskContext(null))

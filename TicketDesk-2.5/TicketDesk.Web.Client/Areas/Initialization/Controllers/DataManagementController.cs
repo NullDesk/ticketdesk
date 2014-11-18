@@ -1,13 +1,16 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Infrastructure;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
+using TicketDesk.Web.Identity.Infrastructure;
 using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
@@ -32,8 +35,6 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
 
         public ActionResult UpgradeNow()
         {
-            
-
             using (var ctx = new TicketDeskContext(null))
             {
                 TicketDeskLegacyDatabaseInitializer<TicketDeskContext>.InitDatabase(ctx);
@@ -76,6 +77,36 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             LegacySecurityMigrator.MigrateSecurity(IdentityContext, UserManager, RoleManager);
             ViewBag.UsersMigrated = true;
             return View("Upgrade");
+        }
+
+        public ActionResult Demo()
+        {
+            return View();
+        }
+
+        public ActionResult RemoveDemoData()
+        {
+            using (var ctx = new TicketDeskContext(null))
+            {
+                DemoDataManager.RemoveAllData(ctx);
+
+            }
+            DemoIdentityDataManager.RemoveAllIdentity(IdentityContext);
+            ViewBag.DemoDataRemoved = true;
+            return View("Demo");
+        }
+
+        public ActionResult CreateDemoData()
+        {
+            using (var ctx = new TicketDeskContext(null))
+            {
+                DemoDataManager.SetupDemoData(ctx);
+
+            }
+            DemoIdentityDataManager.SetupDemoIdentityData(IdentityContext);
+
+            ViewBag.DemoDataCreated = true;
+            return View("Demo");
         }
     }
 }

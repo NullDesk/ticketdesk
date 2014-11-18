@@ -54,7 +54,7 @@ namespace TicketDesk.Web.Client.Controllers
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
             currentListSetting.ModifyFilterSettings(pageSize, ticketStatus, owner, assignedTo);
-
+            
             await Context.SaveChangesAsync();
 
             return await GetTicketListPartial(null, listName);

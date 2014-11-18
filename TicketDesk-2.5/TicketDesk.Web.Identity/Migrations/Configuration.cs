@@ -1,16 +1,15 @@
-using System.Collections.Generic;
+using System;
+using System.Configuration;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TicketDesk.Web.Identity.Infrastructure;
 using TicketDesk.Web.Identity.Model;
+using System.Data.Entity.Migrations;
 
 namespace TicketDesk.Web.Identity.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    public sealed class Configuration : DbMigrationsConfiguration<TicketDesk.Web.Identity.TicketDeskIdentityContext>
+    public sealed class Configuration : DbMigrationsConfiguration<TicketDeskIdentityContext>
     {
         public Configuration()
         {
@@ -18,58 +17,75 @@ namespace TicketDesk.Web.Identity.Migrations
             ContextKey = "TicketDeskIdentity";
         }
 
+        /// <summary>
+        /// Seeds the specified context.
+        /// </summary>
+        /// <remarks>
+        /// for whatever reason, the internals for identity call this each time the 
+        /// application starts (initialize with force = true). It is imporatnt that
+        /// this not do anything that might break existing identity data
+        /// </remarks>
+        /// <param name="context">The context.</param>
         protected override void Seed(TicketDeskIdentityContext context)
         {
             InitializeUsers(context);
         }
-        //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
+
+        
         public void InitializeUsers(TicketDeskIdentityContext context)
         {
-
-            var userStore = new UserStore<TicketDeskUser>(context);
-            var roleStore = new RoleStore<IdentityRole>(context);
-            //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
-            var userManager = new UserManager<TicketDeskUser>(userStore);
-
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
-          
-            var roleNames = context.DefaultRoleNames;
-            
-            foreach (var roleName in roleNames)
+            var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
+            if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
             {
-                //Create Role if it does not exist
-                var role = roleManager.FindByName(roleName);
-                if (role == null)
-                {
-                    role = new IdentityRole(roleName);
-                    roleManager.Create(role);
-                }
+                DemoIdentityDataManager.SetupDemoIdentityData(context);
             }
+            else//TODO: mode this block to the context itself, and ensure that at least one admin account exists no matter what
+            {
+                //create the standard roles and default admin account
+                var userStore = new UserStore<TicketDeskUser>(context);
+                var roleStore = new RoleStore<IdentityRole>(context);
 
-            var admin = new TicketDeskUser { Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a", UserName = "admin@example.com", Email = "admin@example.com", DisplayName = "Admin User" };
-            var staff = new TicketDeskUser { Id = "72bdddfb-805a-4883-94b9-aa494f5f52dc", UserName = "staff@example.com", Email = "staff@example.com", DisplayName = "HelpDesk User" };
-            var reguser = new TicketDeskUser { Id = "17f78f38-fa68-445f-90de-38896140db28", UserName = "user@example.com", Email = "user@example.com", DisplayName = "Regular User" };
-            var users = new[] {admin, staff, reguser};
-            var rolesNames = new Dictionary<string, string[]>
-            {
-                {"admin@example.com", new[] {"TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers"}},
-                {"staff@example.com", new[] {"TdHelpDeskUsers", "TdInternalUsers"}},
-                {"user@example.com", new[] {"TdInternalUsers"}}
-            };
-            foreach (var tdUser in users)
-            {
-                var user = userManager.FindByName(tdUser.UserName);
-                if (user == null)
+                //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
+                var userManager = new UserManager<TicketDeskUser>(userStore);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                var roleNames = context.DefaultRoleNames;
+                foreach (var roleName in roleNames)
                 {
-                    user = tdUser;
-                    var result = userManager.Create(user, "123456");
-                    userManager.SetLockoutEnabled(user.Id, false);
+                    //Create Role if it does not exist
+                    var role = roleManager.FindByName(roleName);
+                    if (role == null)
+                    {
+                        role = new IdentityRole(roleName);
+                        roleManager.Create(role);
+                    }
                 }
-                var rnames = rolesNames[user.UserName];
-                var rolesForUser = userManager.GetRoles(user.Id);
-                foreach (var rname in rnames.Where(rname => !rolesForUser.Contains(rname)))
+
+                var existingAdminRole = roleManager.FindByName("TdAdministrators");
+                //only create default admin user if no other user exists with the admin role
+                if (existingAdminRole != null &&
+                    !userManager.Users.Any(u => u.Roles.Any(r => r.RoleId == existingAdminRole.Id)))
                 {
-                    userManager.AddToRole(user.Id, rname);
+                    var admin = new TicketDeskUser
+                    {
+                        Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
+                        UserName = "admin@example.com",
+                        Email = "admin@example.com",
+                        DisplayName = "Admin User"
+                    };
+                    if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
+                    {
+                        var adminRoles = new[] {"TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers"};
+                        userManager.Create(admin, "123456");
+
+                        userManager.SetLockoutEnabled(admin.Id, false);
+
+                        foreach (var rname in adminRoles)
+                        {
+
+                            userManager.AddToRole(admin.Id, rname);
+                        }
+                    }
                 }
             }
         }

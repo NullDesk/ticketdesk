@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Lucene.Net.Index;
-using Microsoft.SqlServer.Server;
 
 namespace TicketDesk.Domain.Search.Lucene
 {

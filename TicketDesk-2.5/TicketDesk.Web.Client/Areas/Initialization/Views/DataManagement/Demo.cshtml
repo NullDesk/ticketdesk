@@ -1,0 +1,25 @@
+﻿@using TicketDesk.Web.Client.Areas.Initialization.Controllers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section title
+{
+    Manage Demo Data
+}
+<div class="contentContainer">
+    <h2>Manage Demo Data</h2>
+    
+    <div>@Html.ActionLink("Remove Demo Data", "RemoveDemoData")</div>
+    <p>
+        @if (ViewBag.DemoDataRemoved ?? false)
+        {
+            <span>Removed</span>
+        }
+        <div>@Html.ActionLink("Create Demo Data", "CreateDemoData")</div>
+        @if (ViewBag.DemoDataCreated ?? false)
+        {
+            <span>Created</span>
+        }
+    </p>
+</div>

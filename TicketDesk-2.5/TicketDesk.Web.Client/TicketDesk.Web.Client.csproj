@@ -240,6 +240,9 @@
     <Content Include="Areas\Admin\Views\SearchManager\Index.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Initialization\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Initialization\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Initialization\Views\DataManagement\Demo.cshtml" />
     <None Include="Content\Site.css_old" />
     <Content Include="Areas\Initialization\Views\web.config" />
     <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
@@ -399,7 +402,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Initialization\Models\" />
-    <Folder Include="Areas\Initialization\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
