@@ -204,6 +204,8 @@ p {
     .tabs-right > .nav-tabs,
     .tabs-left > .nav-tabs {
         border-bottom: 0;
+        margin-right: 5px;
+        margin-left: 5px;
     }
 
 .tab-content > .tab-pane,
