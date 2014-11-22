@@ -18,6 +18,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
+using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
 using TicketDesk.Domain.Search;
@@ -114,7 +115,7 @@ namespace TicketDesk.Domain
         {
             var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
 
-            //skip the custom validation if a security provider isn't supplied
+            //skip the custom validation if a security provider wasn't supplied
             if (SecurityProvider != null && entityEntry.Entity is Ticket && entityEntry.State == EntityState.Added)
             {
                 var ticket = entityEntry.Entity as Ticket;
@@ -122,7 +123,7 @@ namespace TicketDesk.Domain
                 {
                     result.ValidationErrors.Add(new
                         DbValidationError("authorization",
-                            "User is not authorized to create new tickets"));
+                        TicketDeskDomainText.ExceptionSecurityUserCannotCreateNewTicket));
                 }
             }
             return result.ValidationErrors.Count > 0 ? result : base.ValidateEntity(entityEntry, items);

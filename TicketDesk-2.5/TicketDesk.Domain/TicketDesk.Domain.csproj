@@ -67,7 +67,8 @@
     <Compile Include="Infrastructure\AsyncHelpers.cs" />
     <Compile Include="Infrastructure\DemoDataManager.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
-    <Compile Include="Infrastructure\TicketTextUtility.cs" />
+    <Compile Include="Localization\LocalizedDescrptionAttribute.cs" />
+    <Compile Include="Localization\TicketTextUtility.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
       <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
@@ -101,6 +102,11 @@
     <Compile Include="TicketDeskContext.cs" />
     <Compile Include="Model\TicketEventNotification.cs" />
     <Compile Include="Model\TicketTag.cs" />
+    <Compile Include="Localization\TicketDeskDomainText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketDeskDomainText.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -113,6 +119,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410160155270_Td2.5.001.resx">
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TicketDeskDomainText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TicketDeskDomainText.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
