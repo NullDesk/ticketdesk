@@ -18,6 +18,14 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/ticketcenter")
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+            ticketCenter.filters.setupFilterForm();
+            ticketCenter.makeClicky();
+        });
+
+    </script>
 }
 
 

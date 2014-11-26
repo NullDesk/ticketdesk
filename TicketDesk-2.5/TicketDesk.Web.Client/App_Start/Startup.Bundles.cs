@@ -22,6 +22,9 @@ namespace TicketDesk.Web.Client
                     .Include("~/Scripts/dropzone/css/dropzone.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/css/basic.css",new CssRewriteUrlTransform()));
 
+            bundles.Add(new ScriptBundle("~/bundles/newticket")
+                .Include("~/Scripts/ticketdesk/newticket.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
                     "~/Scripts/ticketdesk/ticketcenter.js",
                     "~/Scripts/jquery.clickable-{version}.js"
