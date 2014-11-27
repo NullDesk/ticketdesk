@@ -98,7 +98,7 @@ input[type="checkbox"].input-validation-error {
 /*Home page*/
 .right-side-box {
     height: 100%;
-    min-height: 300px;
+    
 }
 
 .left-side-box {
@@ -190,6 +190,48 @@ p {
         border-bottom: 0;
         margin: 0 5px;
     }
+
+
+
+.expanderButton
+{
+    cursor: pointer;
+    text-align: center;
+    background-image: url('Images/expandDown.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+    background-color: #EBEBEB;
+    border: none;
+    border-bottom-left-radius: 4px;
+
+}
+.expanderButton:hover
+{
+    background-color: #999999;
+    background-image: url('Images/expandDownActive.png');
+}
+
+.collapserButton
+{
+    cursor: pointer;
+    text-align: center;
+    background-image: url('Images/collapseUp.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+    background-color: #EBEBEB;
+     border: none;
+    border-bottom-left-radius: 4px;
+}
+
+.collapserButton:hover
+{
+    background-color: #999999;
+    background-image: url('Images/collapseUpActive.png');
+}
+
+
 
 
 /* custom inclusion of right, left and below tabs */

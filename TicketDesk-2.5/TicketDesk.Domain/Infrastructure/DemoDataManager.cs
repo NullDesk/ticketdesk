@@ -39,7 +39,7 @@ namespace TicketDesk.Domain.Infrastructure
                        CreatedBy = "17f78f38-fa68-445f-90de-38896140db28",
                        TicketStatus = TicketStatus.Active,
                        CurrentStatusDate = DateTimeOffset.Now,
-                       CurrentStatusSetBy = "otherstaffer@nowhere.com",
+                       CurrentStatusSetBy = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
                        Details =
                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",
                        IsHtml = false,
@@ -85,7 +85,7 @@ namespace TicketDesk.Domain.Infrastructure
                         CreatedBy = "17f78f38-fa68-445f-90de-38896140db28",
                         TicketStatus = (p == "L") ? TicketStatus.Closed : TicketStatus.Active,
                         CurrentStatusDate = now,
-                        CurrentStatusSetBy = "otherstaffer@nowhere.com",
+                        CurrentStatusSetBy = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
                         Details =
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.",
                         IsHtml = false,

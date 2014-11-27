@@ -1,162 +1,151 @@
-﻿@model TicketDesk.Domain.Model.Ticket
+﻿@using TicketDesk.Domain
+@using TicketDesk.Domain.Model
+@model TicketDesk.Domain.Model.Ticket
 
-@{
-    ViewBag.Title = "Index";
+@section title
+{
+    Ticekt #@Model.TicketId
 }
 
-<h2>Index</h2>
+@section customHeader
+{
+    <style type="text/css">
+    </style>
+}
 
-<div>
-    <h4 contenteditable="true">Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketType)
-        </dt>
+@section scripts
+{
+    <script type="text/javascript">
+        var detailsLastHeight = 0;
+        var detailsMinHeight = 200;
+        var hasExpander = false;
+        var isExpanded = false;
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketType)
-        </dd>
+        function CheckScrollDetails() {
+            $("#detailTextExpander").hide();
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
+            $("#detailsText").each(function () {
 
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
+                if ((this.scrollHeight > this.clientHeight)) {
+                    hasExpander = true;
+                    detailsLastHeight = this.scrollHeight;
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+                    $("#detailTextExpander").show();
+                }
+            });
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Details)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Details)
-        </dd>
+        function expandDetails() {
+            if ($("#detailTextExpander").hasClass("collapserButton")) {
+                isExpanded = false;
+                $("#detailsText").animate({ height: detailsMinHeight }, 300, function () { $("#detailsText").css('overflow', 'auto'); $("#detailTextExpander").toggleClass("collapserButton"); });
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsHtml)
-        </dt>
+            }
+            else {
+                isExpanded = true;
+                $("#detailsText").animate({ height: detailsLastHeight }, 300, function () { $("#detailsText").css('overflow', 'visible'); $("#detailTextExpander").toggleClass("collapserButton"); });
 
-        <dd>
-            @Html.DisplayFor(model => model.IsHtml)
-        </dd>
+            }
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TagList)
-        </dt>
+        $(document).ready(function () {
+            CheckScrollDetails();
+        });
+    </script>
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.TagList)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
+<main role="main">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="pull-left fa-rotate-270" style="padding:3px 0;position: relative;left: -15px;height:auto;"><span>@Model.TicketStatus.GetDescription()</span></div>
+            <div>
+                <h2 class="panel-title pull-right">Priority: @Model.Priority</h2>
+                <h2 class="panel-title">Ticket: #@Model.TicketId - @Model.Category @Model.TicketType</h2>
+                <span>@Model.Title</span>
+            </div>
+        </div>
+        <div class="bg-warning container-fluid" style="border-bottom: 1px solid #B3CBDF;">
+            <div class="pull-right">Tags: @Model.TagList</div>
+            <div class="">
+                <div>Assigned To: @Model.GetAssignedToInfo().DisplayName</div>
+                <div>Owned By: @Model.GetOwnerInfo().DisplayName</div>
+            </div>
+        </div>
+        <div class="panel-body" style="margin:0;padding:0;">
+            <div class="col-md-8 col-sm-8" style="height:100%;margin:0;padding:0; border-right: 1px solid #B3CBDF;">
+                <div class="" id="detailsText" style="height: 200px; overflow: auto; margin: 0;padding: 5px;">
+                    @Model.Details
+                </div>
+                <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;"
+                     onclick="expandDetails();">
+                    <div style="height: 20px; padding: 0; ">
+                    </div>
+                </div>
+            </div>
+            <aside class="col-md-4 col-sm-4 small hidden-xs">
+                <div class="row">
+                    @Html.LabelFor(m => m.TicketStatus, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.TicketStatus.GetDescription()
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.LastUpdateBy, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.GetLastUpdatedByInfo().DisplayName
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.LastUpdateDate, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.LastUpdateDate.Date.ToShortDateString() @Model.LastUpdateDate.Date.ToShortTimeString()
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Owner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedTo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AssignedTo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentStatusDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CurrentStatusDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentStatusSetBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CurrentStatusSetBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdateBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdateBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdateDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdateDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AffectsCustomer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AffectsCustomer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Version)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Version)
-        </dd>
-
-    </dl>
-</div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CurrentStatusSetBy, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.GetCurrentStatusSetByInfo().DisplayName
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CurrentStatusDate, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.CurrentStatusDate.Date.ToShortDateString() @Model.CurrentStatusDate.Date.ToShortTimeString()
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CreatedBy, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.GetCreatedByInfo().DisplayName
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 text-right" })
+                    <div class="col-sm-7">
+                        @Model.CreatedDate.Date.ToShortDateString() @Model.CreatedDate.Date.ToShortTimeString()
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            activity
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            log
+        </div>
+    </div>
+</main>
 <p>
-   
-    @Html.ActionLink("Back to List", "Index","TicketCenter", new {area = ""}, null)
+
+    @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
 </p>

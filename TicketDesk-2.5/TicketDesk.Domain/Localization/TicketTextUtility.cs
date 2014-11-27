@@ -20,7 +20,7 @@ namespace TicketDesk.Domain.Localization
 {
     public static class TicketTextUtility
     {
-        
+
 
         /// <summary>
         /// Gets the comment event text.
@@ -32,20 +32,17 @@ namespace TicketDesk.Domain.Localization
         public static string GetCommentText(TicketActivity ticketEvent, TicketCommentFlag commentFlag, params object[] replacements)
         {
             var n = Enum.GetName(typeof(TicketActivity), ticketEvent);
-
-            var t = typeof(TicketDeskDomainText);
-            Debug.Assert(n != null, "n != null");
-            var field = t.GetField("TicketActivity" + n, BindingFlags.Public | BindingFlags.Static);
-            Debug.Assert(field != null, "field != null");
-            var val = (string)field.GetValue(null);
+            var val = TicketDeskDomainText.ResourceManager.GetString("TicketActivity" + n);
+            if (string.IsNullOrEmpty(val))
+            {
+                throw new NullReferenceException();
+            }
             var appendCommentText = (commentFlag == TicketCommentFlag.CommentNotSupplied) ? TicketDeskDomainText.TicketActivityWithoutComment : string.Empty;
-
             if (replacements.Length > 0)
             {
                 val = string.Format(val, replacements);
             }
             return val + appendCommentText;
         }
-
     }
 }
