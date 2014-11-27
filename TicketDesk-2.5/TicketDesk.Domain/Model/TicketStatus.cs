@@ -11,19 +11,19 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.ComponentModel;
+using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
 {
     public enum TicketStatus
     {
-        [Description("Active")]
+        [LocalizedDescription(typeof(TicketDeskDomainText), "TicketStatusActive")]
         Active,
-        [Description("MoreInfo")]
+        [LocalizedDescription(typeof(TicketDeskDomainText), "TicketStatusMoreInfo")]
         MoreInfo,
-        [Description("Resolved")]
+        [LocalizedDescription(typeof(TicketDeskDomainText), "TicketStatusResolved")]
         Resolved,
-        [Description("Closed")]
+        [LocalizedDescription(typeof(TicketDeskDomainText), "TicketStatusClosed")]
         Closed
     }
 }

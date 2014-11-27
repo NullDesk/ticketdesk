@@ -7,139 +7,27 @@
 
 @section customHeader
 {
-    <style type="text/css">
-    </style>
+   
 }
 
 @section scripts
 {
-    @Styles.Render("~/content/ticketeditor")
-    @Scripts.Render("~/bundles/ticketeditor")
+    @Styles.Render("~/content/editor")
+    @Scripts.Render("~/bundles/editor")
+    @Scripts.Render("~/bundles/newticket")
     @Scripts.Render("~/bundles/markdown")
     <script type="text/javascript">
-        (function() {
-            Dropzone.autoDiscover = false;
-
-            $("div#attachmentsDropZone").dropzone({
-                url: "@Url.Action("Upload", "File")",
-                //prevents Dropzone from uploading dropped files immediately
-                autoProcessQueue: true,
-                addRemoveLinks: true,
-                createImageThumbnails: true,
-                init: function() {
-                    var self = this;
-                    $.get("@Url.Action("GetPendingAttachmentsInfo", "File")", { tempId: $('#tempId').val() }, function(data) {
-                        $.each(data, function(index, file) {
-
-                            var existingFile = { name: file.name, size: file.size };
-
-                            self.emit("addedfile", existingFile);
-                            //TODO: Not sure about all this thumbnail business, need a custom template instead, and proably just use a stock image.
-                            if (!file.type.match(/image.*/)) {
-                                // This is not an image, so Dropzone doesn't create a thumbnail.
-                                // Set a default thumbnail:
-                                self.emit("thumbnail", existingFile, "@Url.Content("~/content/images/general-file.png")");
-                            } else {
-                                self.emit("thumbnail", existingFile, file.url);
-                            }
-
-
-                        });
-
-                    });
-                },
-                removed:
-                    function(file) {
-
-                    },
-                sending: function(file, xhr, formData) {
-                    formData.append('tempId', $('#tempId').val());
-                },
-                removedfile: function(file) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("Delete", "File")',
-                        data: {
-                            "tempId": $('#tempId').val(),
-                            "fileName": file.name
-                        },
-                        dataType: 'json'
-                    });
-                    var _ref;
-                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-                }
-            });
-
-
-            var converter1 = Markdown.getSanitizingConverter();
-
-            converter1.hooks.chain("preBlockGamut", function(text, rbg) {
-                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function(whole, inner) {
-                    return "<blockquote>" + rbg(inner) + "</blockquote>\n";
-                });
-            });
-
-            converter1.hooks.chain("postSpanGamut", function(text) {
-                return text.replace(/\n/g, " <br>\n");
-            });
-
-            var editor1 = new Markdown.Editor(converter1, "-ticketDetails");
-
-            editor1.run();
-
-            //var converter2 = new Markdown.Converter();
-            //converter2.hooks.chain("preConversion", function (text) {
-            //    return text.replace(/\b(a\w*)/gi, "*$1*");
-            //});
-            //converter2.hooks.chain("plainLinkText", function (url) {
-            //    return "This is a link to " + url.replace(/^https?:\/\//, "");
-            //});
-
-            //var help = function () { alert("Do you need help?"); }
-            //var options = {
-            //    helpButton: { handler: help },
-            //    strings: { quoteexample: "whatever you're quoting, put it right here" }
-            //};
-            //var editor2 = new Markdown.Editor(converter2, "-second", options);
-
-            //editor2.run();
-
-
-            $('#ticketTags').select2({
-                tags: [],
-                multiple: true,
-                minimumInputLength: 2,
-                tokenSeparators: [",", " "],
-                width: 'resolve',
-                initSelection: function(element, callback) {
-                    var data = [];
-                    $(element.val().split(",")).each(function() {
-                        data.push({ id: this, text: this });
-                    });
-                    callback(data);
-                },
-                ajax: {
-                    url: '@Url.Action("TagList", "AutoComplete")',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: function(term) {
-                        return {
-                            term: term,
-                        };
-                    },
-                    results: function(data, page) {
-                        return { results: data };
-                    }
-                },
-                createSearchChoice: function(term, data) {
-                    if ($(data).filter(function() { return this.text.localeCompare(term) === 0; }).length === 0) {
-                        return { id: term, text: term };
-                    }
-                }
-            });
+        
+        (function () {
+            var tdConfig = {
+                dropzoneUploadUrl: "@Url.Action("Upload", "File")",
+                pendingAttachmentsUrl: "@Url.Action("GetPendingAttachmentsInfo", "File")",
+                defaultThumbnailUrl: "@Url.Content("~/content/images/general-file.png")",
+                tagAutoCompleteUrl: "@Url.Action("TagList", "AutoComplete")"
+            };
+            window.newTicket.activate(tdConfig);
         })();
     </script>
-
 }
 <main>
     @using (Html.BeginForm("New", "Ticket", new { area = "" }, FormMethod.Post, new { @class = "form-horizontal" }))
@@ -160,40 +48,40 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Ticket.Title, new { @class = "col-md-2 col-sm-1 control-label" })
                     <div class="col-md-8 col-sm-11">
-                        @Html.TextBoxFor(model => model.Ticket.Title, new { @class = "form-control input-sm", placeholder = "Ticket title" })
+                        @Html.TextBoxFor(model => model.Ticket.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1 })
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Ticket.TicketType, new { @class = "col-md-2 col-sm-1 control-label" })
                     <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm" })
+                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm", tabindex = 2  })
                         @Html.ValidationMessageFor(model => model.Ticket.TicketType, "", new { @class = "text-danger" })
                     </div>
 
                     @Html.LabelFor(model => model.Ticket.Category, new { @class = "col-md-1 col-sm-1 control-label" })
                     <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.Category, Model.CategoryList, new { @class = "form-control input-sm" })
+                        @Html.DropDownListFor(model => model.Ticket.Category, Model.CategoryList, new { @class = "form-control input-sm", tabindex = 3 })
                         @Html.ValidationMessageFor(model => model.Ticket.Category, "", new { @class = "text-danger" })
                     </div>
                     @if (Model.DisplayPriorityList)
                     {
                         @Html.LabelFor(model => model.Ticket.Priority, new { @class = "col-md-1 col-sm-1 control-label" })
                         <div class="col-md-2 col-sm-3">
-                            @Html.DropDownListFor(model => model.Ticket.Priority, Model.PriorityList, new { @class = "form-control input-sm" })
+                            @Html.DropDownListFor(model => model.Ticket.Priority, Model.PriorityList, new { @class = "form-control input-sm", tabindex = 4 })
                             @Html.ValidationMessageFor(model => model.Ticket.Priority, "", new { @class = "text-danger" })
                         </div>
                     }
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Ticket.TagList, new { @class = "col-md-2 col-sm-1 control-label" })
-                    <div class="col-md-6 col-sm-6">
-                        @Html.TextBoxFor(m => m.Ticket.TagList, new { id = "ticketTags", @class = "form-control input-sm" })
+                    <div class="col-md-4 col-sm-4">
+                        @Html.TextBoxFor(m => m.Ticket.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 5 })
 
                     </div>
-                    <div class="col-md-4 col-sm-5">
+                    <div class="col-md-3 col-md-offset-2 col-sm-5 col-sm-offset-2">
                         <label class="checkbox-inline" for="affectsCustomer">
-                            <input class="" type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" />
+                            <input class="" type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" tabindex="6" />
                             Affects Customer
                         </label>
                     </div>
@@ -205,7 +93,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                                    @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px" })
+                                    @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
                                     @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
@@ -228,12 +116,12 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Ticket.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
                         <div class="col-md-3 col-sm-5">
-                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.OwnersList, new { @class = "form-control input-sm" })
+                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.OwnersList, new { @class = "form-control input-sm", tabindex = 8 })
                             @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Ticket.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                         <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm" })
+                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm", tabindex = 9})
                             @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -250,7 +138,7 @@
             </div>
             <div class="panel-footer">
                 <div class="col-md-offset-2 col-sm-offset-1">
-                    <button type="submit" class="btn btn-success">Create</button>&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-success" tabindex="10">Create</button>&nbsp;&nbsp;
                     @Html.ActionLink("Back to List", "Index")
                 </div>
             </div>

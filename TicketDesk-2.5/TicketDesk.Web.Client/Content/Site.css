@@ -98,7 +98,7 @@ input[type="checkbox"].input-validation-error {
 /*Home page*/
 .right-side-box {
     height: 100%;
-    min-height: 300px;
+    
 }
 
 .left-side-box {
@@ -192,6 +192,28 @@ p {
     }
 
 
+
+.expanderButton
+{
+    cursor: pointer;
+    text-align: center;
+   
+    color: #333;
+    background-color: #EBEBEB;
+    border: none;
+    border-bottom-left-radius: 4px;
+
+}
+.expanderButton:hover
+{
+    background-color: #999999;
+    
+}
+
+
+
+
+
 /* custom inclusion of right, left and below tabs */
 
 
@@ -204,6 +226,8 @@ p {
     .tabs-right > .nav-tabs,
     .tabs-left > .nav-tabs {
         border-bottom: 0;
+        margin-right: 5px;
+        margin-left: 5px;
     }
 
 .tab-content > .tab-pane,

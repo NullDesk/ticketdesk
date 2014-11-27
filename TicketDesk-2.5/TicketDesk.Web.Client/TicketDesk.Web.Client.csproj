@@ -228,6 +228,10 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\arrow_down.png" />
     <Content Include="Content\Images\arrow_top.png" />
+    <Content Include="Content\Images\collapseUp.png" />
+    <Content Include="Content\Images\collapseUpActive.png" />
+    <Content Include="Content\Images\expandDown.png" />
+    <Content Include="Content\Images\expandDownActive.png" />
     <Content Include="Content\Images\general-file.png" />
     <Content Include="Content\Images\TicketDesk-2.5-mobile.png" />
     <Content Include="Content\Images\TicketDesk-2.5.png" />
@@ -240,6 +244,9 @@
     <Content Include="Areas\Admin\Views\SearchManager\Index.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Initialization\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Initialization\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Initialization\Views\DataManagement\Demo.cshtml" />
     <None Include="Content\Site.css_old" />
     <Content Include="Areas\Initialization\Views\web.config" />
     <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
@@ -337,10 +344,12 @@
     <Content Include="Scripts\Select2-locales\select2_locale_zh-CN.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
     <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\ticketdesk\newticket.js" />
     <Content Include="Scripts\ticketdesk\ticketcenter.js" />
     <Content Include="Scripts\ticketdesk\ticketcenter.min.js">
       <DependentUpon>ticketcenter.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\ticketdesk\editticket.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -399,7 +408,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Initialization\Models\" />
-    <Folder Include="Areas\Initialization\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

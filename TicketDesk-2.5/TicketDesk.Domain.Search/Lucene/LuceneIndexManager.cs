@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Lucene.Net.Index;
-using Microsoft.SqlServer.Server;
 
 namespace TicketDesk.Domain.Search.Lucene
 {
@@ -23,29 +22,42 @@ namespace TicketDesk.Domain.Search.Lucene
         {
             return Task.Run(async () =>
             {
-                var indexWriter = await GetIndexWriterAsync();
-                foreach (var item in items)
+                try
                 {
-                    UpdateIndexForItem(indexWriter, item);
+                    var indexWriter = await GetIndexWriterAsync();
+                    foreach (var item in items)
+                    {
+                        UpdateIndexForItem(indexWriter, item);
+                    }
+                    indexWriter.Optimize();
+                    indexWriter.Dispose();
+                } // ReSharper disable once EmptyGeneralCatchClause
+                catch 
+                { 
+                    //TODO: log this somewhere
                 }
-                indexWriter.Optimize();
-                indexWriter.Dispose();
                 return true;
             });
         }
 
         public Task<bool> RemoveIndexAsync()
         {
-            if (IndexLocation != "ram")
+            try
             {
-                var directoryInfo = new DirectoryInfo(IndexLocation);
-                Parallel.ForEach(directoryInfo.GetFiles(), file => file.Delete());
-            }
-            else
+                if (IndexLocation != "ram")
+                {
+                    var directoryInfo = new DirectoryInfo(IndexLocation);
+                    Parallel.ForEach(directoryInfo.GetFiles(), file => file.Delete());
+                }
+                else
+                {
+                    TdIndexDirectory.Dispose();
+                }
+            } // ReSharper disable once EmptyGeneralCatchClause
+            catch
             {
-                TdIndexDirectory.Dispose();
+                //TODO: log this somewhere
             }
-
             return Task.FromResult(true);
         }
 

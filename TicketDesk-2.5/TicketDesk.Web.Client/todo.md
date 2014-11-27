@@ -1,6 +1,9 @@
-﻿- Setup demo mode
-  - Reset function should: re-seeds the database, rebuilds search indexes, clears file storage
-  - Run reset on startup, or manually from admin
+﻿- (partially complete) Setup demo mode
+  - (partially complete) Reset function should: re-seeds the database, rebuilds search indexes, clears file storage
+  - (partially complete) Run reset on startup, or manually from admin
+
+- setting to disable file uploads in demo mode
+- move demo settings to database, with application settings as overrides
 
 - Refactor ticketstatus filtering to use the enum
 > consider if we need to add any and open to the enum, or how best to handle that case

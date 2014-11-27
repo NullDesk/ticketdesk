@@ -300,7 +300,7 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
-            var markActiveText = (markActive) ? "and reactivated the ticket." : "without reactivating the ticket";
+            var markActiveText = (markActive) ? "and reactivated the ticket." : "without reactivating the ticket.";
             ticket.TicketComments.Add(GetActivityComment(TicketActivity.SupplyMoreInfo, TicketCommentFlag.CommentNotApplicable, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), markActiveText));
 
             var now = DateTime.Now;

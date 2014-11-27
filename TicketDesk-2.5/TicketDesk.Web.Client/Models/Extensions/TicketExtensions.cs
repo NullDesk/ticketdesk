@@ -29,7 +29,7 @@ namespace TicketDesk.Domain.Model
         private static UserDisplayInfo GetUserInfo(string userId)
         {
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return userManager.InfoCache.GetUserInfo(userId);
+            return userManager.InfoCache.GetUserInfo(userId)?? new UserDisplayInfo();
         }
     }
 }

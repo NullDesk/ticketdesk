@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -6,6 +7,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using SimpleInjector;
 using TicketDesk.Web.Identity;
+using TicketDesk.Web.Identity.Infrastructure;
 using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client
@@ -15,6 +17,9 @@ namespace TicketDesk.Web.Client
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app, Container container)
         {
+
+
+           
             //non-IoC stuff... no longer needed, but here for reference.
             //app.CreatePerOwinContext(TicketDeskIdentityContext.Create);
             //app.CreatePerOwinContext<TicketDeskUserManager>(TicketDeskUserManager.Create);
@@ -68,6 +73,17 @@ namespace TicketDesk.Web.Client
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
+            var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) &&
+                demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) &&
+                DatabaseConfig.IsDatabaseReady;//only do this if database was ready on startup, otherwise migrator will take care of it
+
+            if (firstRunDemoRefresh)
+            {
+                DemoIdentityDataManager.SetupDemoIdentityData(container.GetInstance<TicketDeskIdentityContext>());
+            }
+
         }
     }
 }

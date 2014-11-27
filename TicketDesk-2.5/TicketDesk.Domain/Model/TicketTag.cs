@@ -19,15 +19,13 @@ namespace TicketDesk.Domain.Model
 
     public class TicketTag
     {
-        [DisplayName("Tag Id")]
+        
         public int TicketTagId { get; set; }
 
         [Required]
         [StringLength(100)]
-        [DisplayName("Tag Name")]
         public string TagName { get; set; }
 
-        [DisplayName("Ticket Id")]
         public int TicketId { get; set; }
 
         public virtual Ticket Ticket { get; set; }

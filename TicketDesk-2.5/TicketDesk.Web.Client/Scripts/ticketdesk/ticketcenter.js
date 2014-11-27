@@ -1,79 +1,90 @@
-﻿$(document).ready(function () {
-    ticketCenter.filters.setupFilterForm();
-    ticketCenter.makeClicky();
-});
+﻿(function(window) {
+    window.ticketCenter = function() {
+        var makeClicky = function() {
+            $(".clickable").clickable();
+        };
 
-var ticketCenter = (function (tc) {
-    tc.makeClicky = function () {
-        $(".clickable").clickable();
-    }
+        var completeChangeList = function() {
+            $('#ticketList').fadeIn(100);
+            makeClicky();
+            filters.setupFilterForm();
+        };
 
-    tc.completeChangeList = function () {
-        // Animate
-        $('#ticketList').fadeIn(100);
-        tc.makeClicky();
-        tc.filters.setupFilterForm();
-    }
+        var paging = function() {
+            var beginChangePage = function(args) {
 
-    return tc;
+                $('#ticketList').fadeOut(100);
+            };
 
-})(ticketCenter || {});
+            return { beginChangePage: beginChangePage }
+        }();
 
+        var filters = function() {
+            var beginChangeFilter = function(args) {
 
-ticketCenter.paging = (function () {
-    var beginChangePage = function (args) {
+                $('#ticketList').fadeOut(100);
+            };
 
-        $('#ticketList').fadeOut(100);
-    };
+            var setupFilterForm = function() {
+                $('.filterBar select').addClass('form-control');
+                $('.pagination').addClass('pagination-sm');
+                $("#filterSubmitButton").hide();
+                $('select.postback').change(function() {
+                    $('#filterSubmitButton').trigger('click');
+                });
+            };
 
-    return { beginChangePage: beginChangePage }
-})();
+            return {
+                beginChangeFilter: beginChangeFilter,
+                setupFilterForm: setupFilterForm
+            }
+        }();
 
-//sub-module for filterbar features
-ticketCenter.filters = (function () {
-    var beginChangeFilter = function (args) {
+        var sorts = function() {
+            var shiftstatus = false;
 
-        $('#ticketList').fadeOut(100);
-    };
+            var setShiftStatus = function(e) {
+                if (e) {
+                    shiftstatus = e.shiftKey;
+                }
+            };
 
-    var setupFilterForm = function () {
-        $('.filterBar select').addClass('form-control');
-        $('.pagination').addClass('pagination-sm');
-        $("#filterSubmitButton").hide();
-        $('select.postback').change(function () {
-            $('#filterSubmitButton').trigger('click');
-        });
-    };
+            var beginChangeSort = function(event, args) {
 
-    return {
-        beginChangeFilter: beginChangeFilter,
-        setupFilterForm: setupFilterForm
-    }
-})();
+                if (shiftstatus) {
+                    args.url = args.url + "&isMultiSort=true";
+                }
+                $('#ticketList').fadeOut(100);
+            };
 
-
-//sub-module for sort features
-ticketCenter.sorts = (function () {
-    var shiftstatus = false;
-
-
-    var setShiftStatus = function (e) {
-        if (e) {
-            shiftstatus = e.shiftKey;
-        }
-    };
-
-    var beginChangeSort = function (event, args) {
-
-        if (shiftstatus) {
-            args.url = args.url + "&isMultiSort=true";
-        }
-        $('#ticketList').fadeOut(100);
-    };
+            return {
+                setShiftStatus: setShiftStatus,
+                beginChangeSort: beginChangeSort,
+            }
+        }();
 
 
-    return {
-        setShiftStatus: setShiftStatus,
-        beginChangeSort: beginChangeSort,
-    }
-})();
+        return {
+            makeClicky: makeClicky,
+            completeChangeList: completeChangeList,
+            paging: paging,
+            sorts: sorts,
+            filters: filters
+        };
+
+    }();
+    window.ticketCenter = ticketCenter;
+})(window);
+
+
+
+
+
+
+
+
+
+
+
+
+

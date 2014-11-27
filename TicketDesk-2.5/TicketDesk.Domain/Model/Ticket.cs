@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 using System.ComponentModel;
+using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -30,43 +31,43 @@ namespace TicketDesk.Domain.Model
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-        [DisplayName("Ticket Id")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTicketId", ShortName = "TicketTicketIdShort")]
         public int TicketId { get; set; }
 
         [Required]
         [StringLength(50)]
-        [DisplayName("Type")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTicketType", ShortName = "TicketTicketTypeShort")]
         public string TicketType { get; set; }
 
         [Required]
         [StringLength(50)]
-        [DisplayName("Category")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCategory", ShortName = "TicketCategoryShort")]
         public string Category { get; set; }
 
         [Required]
         [StringLength(500)]
-        [DisplayName("Title")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTitle", ShortName = "TicketTitleShort")]
         public string Title { get; set; }
 
         [Column(TypeName = "ntext")]
         [Required]
-        [DisplayName("Details")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketDetails", ShortName = "TicketDetailsShort")]
         public string Details { get; set; }
 
-        [DisplayName("Is Html")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketIsHtml", ShortName = "TicketIsHtmlShort")]
         public bool IsHtml { get; set; }
 
         [StringLength(100)]
-        [DisplayName("Tags")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTagList", ShortName = "TicketTagListShort")]
         public string TagList { get; set; }
 
         [Required]
         [StringLength(100)]
-        [DisplayName("Created By")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCreatedBy", ShortName = "TicketCreatedByShort")]
         public string CreatedBy { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DisplayName("Created Date")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCreatedDate", ShortName = "TicketCreatedDateShort")]
         public DateTimeOffset CreatedDate { get; set; }
 
         private string _owner;
@@ -74,7 +75,7 @@ namespace TicketDesk.Domain.Model
 
         [Required]
         [StringLength(100)]
-        [DisplayName("Owner")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketOwner", ShortName = "TicketOwnerShort")]
         public string Owner
         {
             get
@@ -91,7 +92,7 @@ namespace TicketDesk.Domain.Model
         private string _assignedTo;
 
         [StringLength(100)]
-        [DisplayName("Assigned To")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketAssignedTo", ShortName = "TicketAssignedToShort")]
         public string AssignedTo
         {
             get
@@ -106,30 +107,30 @@ namespace TicketDesk.Domain.Model
         }
 
         [Required]
-        [DisplayName("Status")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTicketStatus", ShortName = "TicketTicketStatusShort")]
         public TicketStatus TicketStatus { get; set; }
 
-        [DisplayName("Status Date")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCurrentStatusDate", ShortName = "TicketCurrentStatusDateShort")]
         public DateTimeOffset CurrentStatusDate { get; set; }
 
         [Required]
         [StringLength(100)]
-        [DisplayName("Status By")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCurrentStatusSetBy", ShortName = "TicketCurrentStatusSetByShort")]
         public string CurrentStatusSetBy { get; set; }
 
         [Required]
         [StringLength(100)]
-        [DisplayName("Updated By")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateBy", ShortName = "TicketLastUpdateByShort")]
         public string LastUpdateBy { get; set; }
         
-        [DisplayName("Updated Date")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateDate", ShortName = "TicketLastUpdateDateShort")]
         public DateTimeOffset LastUpdateDate { get; set; }
 
         [StringLength(25)]
-        [DisplayName("Priority")]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketPriority", ShortName = "TicketPriorityShort")]
         public string Priority { get; set; }
 
-        
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketAffectsCustomer", ShortName = "TicketAffectsCustomerShort")]
         public bool AffectsCustomer { get; set; }
 
         [Column(TypeName = "timestamp")]

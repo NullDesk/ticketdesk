@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -82,7 +83,7 @@ namespace TicketDesk.Domain.Model
 
         private static void ThrowSettingTypeException(string settingName, string settingType)
         {
-            throw new SettingTypeException(string.Format("Setting type conversion error: unable to convert SettingName [{0}] to specified SettingType [{1}]", settingName, settingType));
+            throw new SettingTypeException(string.Format(TicketDeskDomainText.ExceptionSettingsTypeConversionError, settingName, settingType));
         }
     }
 

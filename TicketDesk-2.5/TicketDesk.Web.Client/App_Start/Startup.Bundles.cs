@@ -16,18 +16,24 @@ namespace TicketDesk.Web.Client
                     "~/Content/font-awesome.css"
                     ));
           
-            bundles.Add(new StyleBundle("~/content/ticketeditor")
+            bundles.Add(new StyleBundle("~/content/editor")
                     .Include("~/Content/css/select2.css", new CssRewriteUrlTransform())
                     .Include("~/Content/css/select2-bootstrap.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/css/dropzone.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/css/basic.css",new CssRewriteUrlTransform()));
+
+            bundles.Add(new ScriptBundle("~/bundles/editticket")
+                .Include("~/Scripts/ticketdesk/editticket.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/newticket")
+                .Include("~/Scripts/ticketdesk/newticket.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
                     "~/Scripts/ticketdesk/ticketcenter.js",
                     "~/Scripts/jquery.clickable-{version}.js"
                     ));
 
-            bundles.Add(new ScriptBundle("~/bundles/ticketeditor").Include(
+            bundles.Add(new ScriptBundle("~/bundles/editor").Include(
                     "~/Scripts/dropzone/dropzone.js",
                     "~/Scripts/select2.js"
                     ));
