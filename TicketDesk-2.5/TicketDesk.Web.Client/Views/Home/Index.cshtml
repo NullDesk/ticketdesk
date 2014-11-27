@@ -4,25 +4,16 @@
 
 <main role="main" class="row">
     <article class="col-md-8 left-side-box">
-        <h2>Welcome to TicketDesk 2.5</h2>
-        <p>
-            Currently this is just an alpha build.
+        <h2>Welcome to TicketDesk 2.5 <span class="small">(alpha)</span></h2>
+
+        <p class="alert alert-danger">
+            Legacy DB Upgrades are supported. Feel free to test this, but please do not upgrade your production TD 2.1 database without a backup.
         </p>
-        <p class="alert-danger">
-            Legacy DB Upgrades are supported. Feel free to test this, but please do not upgrade your production TD 2.1 database. 
+        <p class="alert alert-info">
+            I'm in the process of porting in the new UI bits, and am refactoring the back-end as I go.
+            The ticket center and new tickets are largely complete. I'm working on the main ticket viewer/editor now. <br /><br />Admin tools have not been implemented yet.
         </p>
-        <p>I'm in the process of porting in the new UI bits, and am refactoring the back-end as I go.
-            The ticket center is largely complete. I'm working on ticket creation and editing next.
-        </p>
-        <p>
-            Basic search services have been re-designed. Currently TD 2.5 will auto-detect if you
-            are running in Azure. See the comments in web.azure.config for more information. If not running in Azure, it fallback to 
-            Lucene.net (same as TD 2.1).
-        </p>
-        <p>
-            The admin settings will eventually be expanded to give full control over how search
-            behaves. For now, you can perform some crude @Html.ActionLink("index management here", "Index", "SearchManager", new { area = "admin" }, null)
-        </p>
+
         <div class="well well-sm">
             @if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
             {
@@ -49,7 +40,21 @@
             <li>Bootstrap 3</li>
             <li>Simple Injector (IoC / DI)</li>
             <li>Aspnet.Identity 2.x</li>
-            <li>Deployable to Azure Websites</li>
+            <li>
+                Deployable to Azure
+                <ul>
+                    <li>Azure WebSite</li>
+                    <li>Azure Storage</li>
+                    <li>Azure Search Services</li>
+                    <li>Azure SQL</li>
+                </ul>
+            </li>
+        </ul>
+        <strong>Ad-Hoc Admin Tools</strong>
+        <p class="small">These will be replaced with real admin tools soon</p>
+        <ul>
+            <li>@Html.ActionLink("Demo Data Manager Page", "Demo", "DataManagement", new { area = "Initialization" }, null) </li>
+            <li>@Html.ActionLink("Search Index Manager Page", "Index", "SearchManager", new { area = "Admin" }, null)</li>
         </ul>
     </aside>
 </main>
