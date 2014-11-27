@@ -62,3 +62,4 @@
 /// <reference path="bootstrap.min.js" />
 /// <reference path="jquery.validate.js" />
 /// <reference path="ticketdesk/newticket.js" />
+/// <reference path="ticketdesk/editticket.js" />

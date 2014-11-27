@@ -349,6 +349,7 @@
     <Content Include="Scripts\ticketdesk\ticketcenter.min.js">
       <DependentUpon>ticketcenter.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\ticketdesk\editticket.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

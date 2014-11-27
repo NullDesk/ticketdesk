@@ -12,8 +12,8 @@
 
 @section scripts
 {
-    @Styles.Render("~/content/ticketeditor")
-    @Scripts.Render("~/bundles/ticketeditor")
+    @Styles.Render("~/content/editor")
+    @Scripts.Render("~/bundles/editor")
     @Scripts.Render("~/bundles/newticket")
     @Scripts.Render("~/bundles/markdown")
     <script type="text/javascript">
@@ -25,7 +25,7 @@
                 defaultThumbnailUrl: "@Url.Content("~/content/images/general-file.png")",
                 tagAutoCompleteUrl: "@Url.Action("TagList", "AutoComplete")"
             };
-            window.newTicketEditor.activate(tdConfig);
+            window.newTicket.activate(tdConfig);
         })();
     </script>
 }

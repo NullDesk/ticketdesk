@@ -1,5 +1,5 @@
 ﻿(function (window) {
-    var newTicketEditor = (function () {
+    var newTicket = (function () {
 
         var tdConfig = {};
         var acivate = function(config) {
@@ -116,6 +116,6 @@
         }
     })();
 
-    window.newTicketEditor = newTicketEditor;
+    window.newTicket = newTicket;
 
 })(window);

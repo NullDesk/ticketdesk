@@ -15,43 +15,11 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/editticket")
     <script type="text/javascript">
-        var detailsLastHeight = 0;
-        var detailsMinHeight = 200;
-        var hasExpander = false;
-        var isExpanded = false;
-
-        function CheckScrollDetails() {
-            $("#detailTextExpander").hide();
-
-            $("#detailsText").each(function () {
-
-                if ((this.scrollHeight > this.clientHeight)) {
-                    hasExpander = true;
-                    detailsLastHeight = this.scrollHeight;
-
-                    $("#detailTextExpander").show();
-                }
-            });
-        }
-
-
-
-        function expandDetails() {
-            if ($("#detailTextExpander").hasClass("collapserButton")) {
-                isExpanded = false;
-                $("#detailsText").animate({ height: detailsMinHeight }, 300, function () { $("#detailsText").css('overflow', 'auto'); $("#detailTextExpander").toggleClass("collapserButton"); });
-
-            }
-            else {
-                isExpanded = true;
-                $("#detailsText").animate({ height: detailsLastHeight }, 300, function () { $("#detailsText").css('overflow', 'visible'); $("#detailTextExpander").toggleClass("collapserButton"); });
-
-            }
-        }
-
+      
         $(document).ready(function () {
-            CheckScrollDetails();
+            window.editTicket.activate();
         });
     </script>
 }
@@ -81,10 +49,8 @@
                 <div class="" id="detailsText" style="height: 200px; overflow: auto; margin: 0;padding: 5px;">
                     @Model.Details
                 </div>
-                <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;"
-                     onclick="expandDetails();">
-                    <div style="height: 20px; padding: 0; ">
-                    </div>
+                <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;">
+                    <i id="expandersymbol" class="fa fa-chevron-down text-center"></i>
                 </div>
             </div>
             <aside class="col-md-4 col-sm-4 small hidden-xs">

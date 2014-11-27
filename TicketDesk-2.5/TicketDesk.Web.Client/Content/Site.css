@@ -197,9 +197,7 @@ p {
 {
     cursor: pointer;
     text-align: center;
-    background-image: url('Images/expandDown.png');
-    background-position: center;
-    background-repeat: no-repeat;
+   
     color: #333;
     background-color: #EBEBEB;
     border: none;
@@ -209,27 +207,9 @@ p {
 .expanderButton:hover
 {
     background-color: #999999;
-    background-image: url('Images/expandDownActive.png');
+    
 }
 
-.collapserButton
-{
-    cursor: pointer;
-    text-align: center;
-    background-image: url('Images/collapseUp.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #333;
-    background-color: #EBEBEB;
-     border: none;
-    border-bottom-left-radius: 4px;
-}
-
-.collapserButton:hover
-{
-    background-color: #999999;
-    background-image: url('Images/collapseUpActive.png');
-}
 
 
 
