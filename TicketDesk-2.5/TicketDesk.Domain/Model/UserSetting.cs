@@ -13,7 +13,6 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Model
 {

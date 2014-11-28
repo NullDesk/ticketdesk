@@ -1,6 +1,6 @@
 ﻿@using TicketDesk.Domain
 @using TicketDesk.Domain.Model
-@model TicketDesk.Domain.Model.Ticket
+@model Ticket
 
 @section title
 {
@@ -15,16 +15,20 @@
 
 @section scripts
 {
+    @Styles.Render("~/content/editor")
+    @Scripts.Render("~/bundles/markdown")
     @Scripts.Render("~/bundles/editticket")
+
     <script type="text/javascript">
-      
+
         $(document).ready(function () {
-            window.editTicket.activate();
+            var tdConfig = {
+                commentActivityUrl: '@Url.Action("AddComment","TicketActivity", new {area = ""})'
+            };
+            window.editTicket.activate(tdConfig);
         });
     </script>
 }
-
-
 
 
 <main role="main">
@@ -102,7 +106,14 @@
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            activity
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="window.editTicket.loadCommentActivity();">Comment</button>
+                    <button type="button" class="btn btn-default">Resolve</button>
+                </div>
+            </div>
+        </div>
+        <div class="" id="activityPanel">
         </div>
     </div>
     <div class="panel panel-success">

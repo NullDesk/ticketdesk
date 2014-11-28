@@ -13,9 +13,7 @@
 
 using System.Configuration;
 using TicketDesk.Domain.Infrastructure;
-using TicketDesk.Domain.Model;
-using TicketDesk.Domain.Models;
-using System;
+
 
 namespace TicketDesk.Domain.Migrations
 {

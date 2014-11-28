@@ -185,6 +185,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
@@ -399,6 +400,7 @@
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\New.cshtml" />
     <Content Include="todo.md" />
+    <Content Include="Views\TicketActivity\_AddComment.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

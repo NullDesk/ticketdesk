@@ -1,9 +1,47 @@
 ﻿(function (window) {
     var editTicket = (function () {
-
-        var activate = function () {
-
+        var config;
+        var activate = function (tdConfig) {
+            config = tdConfig;
             initDetails();
+            //configureEditor();
+        };
+
+
+        var loadCommentActivity = function () {
+            $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
+            $.get(config.commentActivityUrl, function (data) {
+                $('#activityPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
+                configureEditor();
+            });
+        };
+
+        var beginActivity = function () {
+            
+            $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
+        };
+
+        var completeActivity = function () {
+            $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
+        };
+
+
+        var configureEditor = function () {
+            var converter1 = Markdown.getSanitizingConverter();
+
+            converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                    return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                });
+            });
+
+            converter1.hooks.chain("postSpanGamut", function (text) {
+                return text.replace(/\n/g, " <br>\n");
+            });
+
+            var editor1 = new Markdown.Editor(converter1, "-activity");
+
+            editor1.run();
         };
         
         var initDetails = function () {
@@ -60,7 +98,10 @@
         }
 
         return {
-            activate: activate
+            activate: activate,
+            loadCommentActivity: loadCommentActivity,
+            beginActivity: beginActivity,
+            completeActivity: completeActivity
         };
 
         

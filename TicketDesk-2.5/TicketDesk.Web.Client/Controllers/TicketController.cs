@@ -62,5 +62,11 @@ namespace TicketDesk.Web.Client.Controllers
             }
             return View(new TicketCreateViewModel(ticket, Context));
         }
+
+
+        public ActionResult AddComment()
+        {
+            return PartialView("_AddComment",new TicketComment());
+        }
     }
 }
