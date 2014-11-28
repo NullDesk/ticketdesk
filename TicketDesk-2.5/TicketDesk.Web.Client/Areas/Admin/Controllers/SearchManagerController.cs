@@ -35,6 +35,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
        
         public async Task<ActionResult> PopulateIndex()
         {
+            await Context.SearchManager.InitializeSearch();
             var queueItems = Context.Tickets.Include("TicketComments").ToSeachQueueItems();
             await Context.SearchManager.QueueItemsForIndexingAsync(queueItems);
             ViewBag.IndexPopulated = true;
