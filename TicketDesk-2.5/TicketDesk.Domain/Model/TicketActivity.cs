@@ -11,103 +11,109 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+
 namespace TicketDesk.Domain.Model
 {
 
+
+    [Flags]
     public enum TicketActivity
     {
+
+
         /// <summary>
         /// No change made
         /// </summary>
-        NoChange,
+        NoChange = 0,
         /// <summary>
         /// Get ticket information
         /// </summary>
-        GetTicketInfo,
+        GetTicketInfo = 1,
         /// <summary>
         /// Add one or more attachments
         /// </summary>
-        ModifyAttachments,
+        ModifyAttachments = 2,
         /// <summary>
         /// Edit ticket information
         /// </summary>
-        EditTicketInfo,
+        EditTicketInfo = 4,
         /// <summary>
         /// Answer request for more information
         /// </summary>
-        SupplyMoreInfo,
+        SupplyMoreInfo = 8,
         /// <summary>
         /// Request more information
         /// </summary>
-        RequestMoreInfo,
+        RequestMoreInfo = 16,
         /// <summary>
         /// Cancel request for more information
         /// </summary>
-        CancelMoreInfo,
+        CancelMoreInfo = 32,
         /// <summary>
         /// Re-Open a closed or resoled ticket
         /// </summary>
-        ReOpen,
+        ReOpen = 64,
         /// <summary>
         /// New Ticket that is to be owned by the submitting user
         /// </summary>
-        Create,
+        Create = 128,
         /// <summary>
         /// Create A New ticket with a different user as the owner.
         /// </summary>
-        CreateOnBehalfOf,
+        CreateOnBehalfOf = 256,
         /// <summary>
         /// Add a comment to the ticket
         /// </summary>
-        AddComment,
+        AddComment = 512,
         /// <summary>
         /// Take over a ticket without changing prioirty
         /// </summary>
-        TakeOver,
+        TakeOver = 1024,
         /// <summary>
         /// Take over ticket with a change or assignment of a priority
         /// </summary>
-        TakeOverWithPriority,
+        TakeOverWithPriority = 2048,
         /// <summary>
         /// Assign the ticket to a help-desk staff member
         /// </summary>
-        Assign,
+        Assign = 4096,
         /// <summary>
         /// Assign the ticket to a help-desk staff member with a change or assignment of a priority
         /// </summary>
-        AssignWithPriority,
+        AssignWithPriority = 8192,
         /// <summary>
         /// Reassign the ticket to a help-desk staff member
         /// </summary>
-        ReAssign,
+        ReAssign = 16384,
         /// <summary>
         /// Reassign the ticket to a help-desk staff member with a change or assignment of a priority
         /// </summary>
-        ReAssignWithPriority,
+        ReAssignWithPriority = 32768,
         /// <summary>
         /// Pass the ticket to a help-desk staff member
         /// </summary>
-        Pass,
+        Pass = 65536,
         /// <summary>
         /// Pass the ticket to a help-desk staff member with a change or assignment of a priority
         /// </summary>
-        PassWithPriority,
+        PassWithPriority = 131072,
         /// <summary>
         /// Give up a ticket (mark ticket unassigned)
         /// </summary>
-        GiveUp,
+        GiveUp = 262144,
         /// <summary>
         /// Resolved a ticket
         /// </summary>
-        Resolve,
+        Resolve = 524288,
         /// <summary>
         /// Close a resolved ticket normally
         /// </summary>
-        Close,
+        Close = 1048576,
         /// <summary>
         /// Close a ticket immediately without going through the normal active,resolve,close process
         /// </summary>
-        ForceClose
+        ForceClose = 2097152
     }
 
 }

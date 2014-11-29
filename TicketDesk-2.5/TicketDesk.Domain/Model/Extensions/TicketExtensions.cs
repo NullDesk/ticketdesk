@@ -23,5 +23,91 @@ namespace TicketDesk.Domain.Model
                 Comments = t.TicketComments.Where(c => !string.IsNullOrEmpty(c.Comment)).Select(c => c.Comment).ToArray()
             });
         }
+
+        public static TicketActivity GetValidActivitesForTicket(this Ticket ticket, string userId)
+        {
+            var isOwnedByMe = (ticket.Owner == userId);
+            var isMoreInfo = (ticket.TicketStatus == TicketStatus.MoreInfo);
+            var isAssignedToMe = (!string.IsNullOrEmpty(ticket.AssignedTo) &&
+                                       ticket.AssignedTo == userId);
+            var isResolved = ticket.TicketStatus == TicketStatus.Resolved;
+
+            var validActivities = TicketActivity.NoChange |
+                                 TicketActivity.GetTicketInfo;
+
+            if (ticket.TicketId == default(int))
+            {
+                validActivities |= TicketActivity.Create | TicketActivity.CreateOnBehalfOf;
+            }
+
+            if (ticket.IsOpen)
+            {
+                validActivities |= TicketActivity.ModifyAttachments;
+            }
+
+            if (ticket.IsOpen)
+            {
+                if (isOwnedByMe)
+                {
+                    validActivities |= TicketActivity.EditTicketInfo;
+                }
+                if (isMoreInfo)
+                {
+                    validActivities |= TicketActivity.SupplyMoreInfo;
+                    if (isAssignedToMe)
+                    {
+                        validActivities |= TicketActivity.CancelMoreInfo;
+                    }
+                }
+                else //!moreInfo
+                {
+                    validActivities |= TicketActivity.AddComment;
+                    if (isAssignedToMe)
+                    {
+                        validActivities |= TicketActivity.Resolve | TicketActivity.RequestMoreInfo;
+                    }
+                }
+            }
+            else //not open (resolved or closed)
+            {
+                validActivities |= TicketActivity.ReOpen;
+            }
+            if (isResolved)
+            {
+                if (isOwnedByMe)
+                {
+                    validActivities |= TicketActivity.Close;
+                }
+            }
+            if (ticket.IsOpen || isResolved)
+            {
+                if (ticket.IsAssigned)
+                {
+                    if (!isAssignedToMe)
+                    {
+                        validActivities |= TicketActivity.ReAssign | TicketActivity.ReAssignWithPriority;
+                    }
+                }
+                else//!assigned
+                {
+                    validActivities |= TicketActivity.Assign | TicketActivity.AssignWithPriority;
+                }
+
+                if ((isAssignedToMe || isOwnedByMe) && !(isResolved && isOwnedByMe))
+                {
+                    validActivities |= TicketActivity.ForceClose;
+                }
+
+                if (isAssignedToMe)
+                {
+                    validActivities |= TicketActivity.Pass | TicketActivity.PassWithPriority | TicketActivity.GiveUp;
+                }
+                else//!isAssignedToMe
+                {
+                    validActivities |= TicketActivity.TakeOver | TicketActivity.TakeOverWithPriority;
+                }
+            }
+            return validActivities;
+        }
     }
 }

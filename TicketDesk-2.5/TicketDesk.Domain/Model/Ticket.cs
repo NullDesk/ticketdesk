@@ -10,7 +10,7 @@
 // For any distribution that contains code from this file, this notice of 
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
-using System.ComponentModel;
+
 using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
@@ -151,27 +151,27 @@ namespace TicketDesk.Domain.Model
         [NotMapped]
         internal string PreviousAssignedUser { get; set; }
 
-        internal string[] GetNotificationSubscribers()
-        {
-            var subs = new List<string>();
-            if (!string.IsNullOrEmpty(PreviousOwner) && PreviousOwner != Owner)
-            {
-                subs.Add(PreviousOwner);
-            }
-            if (!string.IsNullOrEmpty(PreviousAssignedUser) && PreviousAssignedUser != AssignedTo)
-            {
-                subs.Add(PreviousAssignedUser);
-            }
-            if (!string.IsNullOrEmpty(Owner))
-            {
-                subs.Add(Owner);
-            }
-            if (!string.IsNullOrEmpty(AssignedTo))
-            {
-                subs.Add(AssignedTo);
-            }
-            return subs.ToArray();
-        }
+        //internal string[] GetNotificationSubscribers()
+        //{
+        //    var subs = new List<string>();
+        //    if (!string.IsNullOrEmpty(PreviousOwner) && PreviousOwner != Owner)
+        //    {
+        //        subs.Add(PreviousOwner);
+        //    }
+        //    if (!string.IsNullOrEmpty(PreviousAssignedUser) && PreviousAssignedUser != AssignedTo)
+        //    {
+        //        subs.Add(PreviousAssignedUser);
+        //    }
+        //    if (!string.IsNullOrEmpty(Owner))
+        //    {
+        //        subs.Add(Owner);
+        //    }
+        //    if (!string.IsNullOrEmpty(AssignedTo))
+        //    {
+        //        subs.Add(AssignedTo);
+        //    }
+        //    return subs.ToArray();
+        //}
 
         [NotMapped]
         public bool IsAssigned
