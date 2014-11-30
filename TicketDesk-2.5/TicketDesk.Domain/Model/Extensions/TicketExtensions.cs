@@ -32,8 +32,7 @@ namespace TicketDesk.Domain.Model
                                        ticket.AssignedTo == userId);
             var isResolved = ticket.TicketStatus == TicketStatus.Resolved;
 
-            var validActivities = TicketActivity.NoChange |
-                                 TicketActivity.GetTicketInfo;
+            var validActivities = TicketActivity.None;
 
             if (ticket.TicketId == default(int))
             {
@@ -85,12 +84,12 @@ namespace TicketDesk.Domain.Model
                 {
                     if (!isAssignedToMe)
                     {
-                        validActivities |= TicketActivity.ReAssign | TicketActivity.ReAssignWithPriority;
+                        validActivities |= TicketActivity.ReAssign;
                     }
                 }
                 else//!assigned
                 {
-                    validActivities |= TicketActivity.Assign | TicketActivity.AssignWithPriority;
+                    validActivities |= TicketActivity.Assign;
                 }
 
                 if ((isAssignedToMe || isOwnedByMe) && !(isResolved && isOwnedByMe))
@@ -100,11 +99,11 @@ namespace TicketDesk.Domain.Model
 
                 if (isAssignedToMe)
                 {
-                    validActivities |= TicketActivity.Pass | TicketActivity.PassWithPriority | TicketActivity.GiveUp;
+                    validActivities |= TicketActivity.Pass | TicketActivity.GiveUp;
                 }
                 else//!isAssignedToMe
                 {
-                    validActivities |= TicketActivity.TakeOver | TicketActivity.TakeOverWithPriority;
+                    validActivities |= TicketActivity.TakeOver ;
                 }
             }
             return validActivities;

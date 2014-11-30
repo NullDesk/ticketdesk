@@ -4,13 +4,19 @@
         var activate = function (tdConfig) {
             config = tdConfig;
             initDetails();
-            //configureEditor();
+            loadActivityButtons();
         };
 
 
-        var loadCommentActivity = function () {
+        var loadActivityButtons = function() {
+            $.get(config.activityButtonsUrl, function(data) {
+                $('#activityButtonsPanel').empty().append(data);
+            });
+        }
+
+        var loadActivity = function (activityName) {
             $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
-            $.get(config.commentActivityUrl, function (data) {
+            $.get(config.loadActivityUrl, {"activity" : activityName }, function (data) {
                 $('#activityPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
                 configureEditor();
             });
@@ -99,7 +105,7 @@
 
         return {
             activate: activate,
-            loadCommentActivity: loadCommentActivity,
+            loadActivity: loadActivity,
             beginActivity: beginActivity,
             completeActivity: completeActivity
         };

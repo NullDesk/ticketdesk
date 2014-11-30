@@ -23,7 +23,8 @@
 
         $(document).ready(function () {
             var tdConfig = {
-                commentActivityUrl: '@Url.Action("AddComment","TicketActivity", new {area = ""})'
+                loadActivityUrl: '@Url.Action("LoadActivity","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                activityButtonsUrl: '@Url.Action("ActivityButtons","TicketActivity", new {ticketId = Model.TicketId, area = ""})'
             };
             window.editTicket.activate(tdConfig);
         });
@@ -107,9 +108,12 @@
     <div class="panel panel-success">
         <div class="panel-heading">
             <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" onclick="window.editTicket.loadCommentActivity();">Comment</button>
-                    <button type="button" class="btn btn-default">Resolve</button>
+                <div id="activityButtonsPanel" class="btn-group" role="group">
+
+
+
+                    @*<button type="button" class="btn btn-default" onclick="window.editTicket.loadCommentActivity();">Comment</button>
+                        <button type="button" class="btn btn-default">Resolve</button>*@
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
  - individual keys/values as json value column
  - strongly typed EF model (similar to user settings)  
 
-- Search decide if/how to automate full-index rebuilds (on startup, after elapsed time, whatever). 
+- Search : decide if/how to automate full-index rebuilds (on startup, after elapsed time, whatever). 
 
 - Settings:
   - account for search settings

@@ -233,16 +233,15 @@ namespace TicketDesk.Domain
                 TicketComment.CreateActivityComment(
                     SecurityProvider.CurrentUserId,
                     TicketActivity.CreateOnBehalfOf,
-                    TicketCommentFlag.CommentNotApplicable,
                     null,
-                    newTicket.AssignedTo,
+                    null,
                     SecurityProvider.GetUserDisplayName(newTicket.Owner)) :
                 TicketComment.CreateActivityComment(
                     SecurityProvider.CurrentUserId,
                     TicketActivity.Create,
-                    TicketCommentFlag.CommentNotApplicable,
                     null,
-                    newTicket.AssignedTo);
+                    null,
+                    null);
 
             newTicket.TicketComments.Add(openingComment);
 

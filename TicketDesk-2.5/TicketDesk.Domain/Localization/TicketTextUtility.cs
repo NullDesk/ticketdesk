@@ -11,38 +11,39 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 using System;
-using System.Diagnostics;
-using System.Reflection;
-using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain.Localization
 {
     public static class TicketTextUtility
     {
-
-
         /// <summary>
         /// Gets the comment event text.
         /// </summary>
         /// <param name="ticketEvent">The ticket event of which to fetch the comment event.</param>
-        /// <param name="commentFlag">The comment flag.</param>
-        /// <param name="replacements">Any replacements values that should be passed to the string.</param>
+        /// <param name="newPriority">The new priority, leave null if priority change isn't applicable for the activity.</param>
+        /// <param name="userName">Name of the user, leave null if a user name isn't applicable for the actiity</param>
         /// <returns>System.String.</returns>
-        public static string GetCommentText(TicketActivity ticketEvent, TicketCommentFlag commentFlag, params object[] replacements)
+        /// <exception cref="System.NullReferenceException"></exception>
+        public static string GetCommentEventText(TicketActivity ticketEvent, string newPriority, string userName)
         {
+            //no real perf advantage to a stringbuilder here
             var n = Enum.GetName(typeof(TicketActivity), ticketEvent);
             var val = TicketDeskDomainText.ResourceManager.GetString("TicketActivity" + n);
-            if (string.IsNullOrEmpty(val))
+            var pval = TicketDeskDomainText.ResourceManager.GetString("TicketActivityPriority");
+            if (string.IsNullOrEmpty(val) || string.IsNullOrEmpty(pval))
             {
                 throw new NullReferenceException();
             }
-            var appendCommentText = (commentFlag == TicketCommentFlag.CommentNotSupplied) ? TicketDeskDomainText.TicketActivityWithoutComment : string.Empty;
-            if (replacements.Length > 0)
+            if (!string.IsNullOrEmpty(userName))
             {
-                val = string.Format(val, replacements);
+                val = string.Format(val, userName);
             }
-            return val + appendCommentText;
+            if (!string.IsNullOrEmpty(newPriority))
+            {
+                val += string.Format(pval, newPriority);
+            }
+            return val;
         }
     }
 }

@@ -12,108 +12,102 @@
 // provided to the recipient.
 
 using System;
+using System.ComponentModel;
 
 namespace TicketDesk.Domain.Model
 {
 
-
     [Flags]
     public enum TicketActivity
     {
+        /// <summary>
+        /// No activity
+        /// </summary>
+        None = 0,
 
-
-        /// <summary>
-        /// No change made
-        /// </summary>
-        NoChange = 0,
-        /// <summary>
-        /// Get ticket information
-        /// </summary>
-        GetTicketInfo = 1,
-        /// <summary>
-        /// Add one or more attachments
-        /// </summary>
-        ModifyAttachments = 2,
+        //TODO: add a display-order attribute so we can sort these in the UI when we generate buttons
+        [Description("Attachments")]
+        ModifyAttachments = 1,
         /// <summary>
         /// Edit ticket information
         /// </summary>
-        EditTicketInfo = 4,
+        [Description("Edit")]
+        EditTicketInfo = 2,
         /// <summary>
         /// Answer request for more information
         /// </summary>
-        SupplyMoreInfo = 8,
+        [Description("Provide Info")]
+        SupplyMoreInfo = 4,
         /// <summary>
         /// Request more information
         /// </summary>
-        RequestMoreInfo = 16,
+        [Description("Request More Info")]
+        RequestMoreInfo = 8,
         /// <summary>
         /// Cancel request for more information
         /// </summary>
-        CancelMoreInfo = 32,
+        [Description("Cancel More Info")]
+        CancelMoreInfo = 16,
         /// <summary>
         /// Re-Open a closed or resoled ticket
         /// </summary>
-        ReOpen = 64,
+        [Description("Re-open")]
+        ReOpen = 32,
         /// <summary>
         /// New Ticket that is to be owned by the submitting user
         /// </summary>
-        Create = 128,
+        [Description("Create")]
+        Create = 64,
         /// <summary>
         /// Create A New ticket with a different user as the owner.
         /// </summary>
-        CreateOnBehalfOf = 256,
+        [Description("Create")]
+        CreateOnBehalfOf = 128,
         /// <summary>
         /// Add a comment to the ticket
         /// </summary>
-        AddComment = 512,
+        [Description("Comment")]
+        AddComment = 256,
         /// <summary>
         /// Take over a ticket without changing prioirty
         /// </summary>
-        TakeOver = 1024,
-        /// <summary>
-        /// Take over ticket with a change or assignment of a priority
-        /// </summary>
-        TakeOverWithPriority = 2048,
+        [Description("Take Over")]
+        TakeOver = 512,
+        
         /// <summary>
         /// Assign the ticket to a help-desk staff member
         /// </summary>
-        Assign = 4096,
-        /// <summary>
-        /// Assign the ticket to a help-desk staff member with a change or assignment of a priority
-        /// </summary>
-        AssignWithPriority = 8192,
+        [Description("Assign")]
+        Assign = 1024,
         /// <summary>
         /// Reassign the ticket to a help-desk staff member
         /// </summary>
-        ReAssign = 16384,
-        /// <summary>
-        /// Reassign the ticket to a help-desk staff member with a change or assignment of a priority
-        /// </summary>
-        ReAssignWithPriority = 32768,
+        [Description("Re-assign")]
+        ReAssign = 2048,
         /// <summary>
         /// Pass the ticket to a help-desk staff member
         /// </summary>
-        Pass = 65536,
-        /// <summary>
-        /// Pass the ticket to a help-desk staff member with a change or assignment of a priority
-        /// </summary>
-        PassWithPriority = 131072,
+        [Description("Pass")]
+        Pass = 4096,
         /// <summary>
         /// Give up a ticket (mark ticket unassigned)
         /// </summary>
-        GiveUp = 262144,
+        [Description("Give Up")]
+        GiveUp = 8192,
         /// <summary>
         /// Resolved a ticket
         /// </summary>
-        Resolve = 524288,
+        [Description("Resolve")]
+        Resolve = 16384,
         /// <summary>
         /// Close a resolved ticket normally
         /// </summary>
-        Close = 1048576,
+        [Description("Close")]
+        Close = 32768,
         /// <summary>
         /// Close a ticket immediately without going through the normal active,resolve,close process
         /// </summary>
-        ForceClose = 2097152
+        [Description("Force Close")]
+        ForceClose = 65536 
     }
-
 }

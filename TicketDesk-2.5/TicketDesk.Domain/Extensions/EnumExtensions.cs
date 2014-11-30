@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -63,89 +64,9 @@ namespace TicketDesk.Domain
             return default(T);
         }
 
-
-        /// <summary>
-        /// Determines whether flags enum contains the specified value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        /// <returns><c>true</c> flags enum contains the specified value; otherwise, <c>false</c>.</returns>
-        public static bool Has<T>(this Enum type, T value)
+        public static IEnumerable<Enum> GetFlags(this Enum input)
         {
-            try
-            {
-                return (((int)(object)type & (int)(object)value) == (int)(object)value);
-            }
-            catch
-            {
-                return false;
-            }
+            return Enum.GetValues(input.GetType()).Cast<Enum>().Where(input.HasFlag);
         }
-
-
-        /// <summary>
-        /// Determines whether flags enum contains only the one specified value(s).
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        /// <returns><c>true</c> if flags enum contains only the one specified value(s); otherwise, <c>false</c>.</returns>
-        public static bool Is<T>(this Enum type, T value)
-        {
-            try
-            {
-                return (int)(object)type == (int)(object)value;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-
-        /// <summary>
-        /// Adds the specified flag value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The flag value.</param>
-        /// <returns>T.</returns>
-        /// <exception cref="System.ArgumentException"></exception>
-        public static T Add<T>(this Enum type, T value)
-        {
-            try
-            {
-                return (T)(object)(((int)(object)type | (int)(object)value));
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(
-                    string.Format("Could not add flag for the type '{0}'.", typeof(T).Name), ex);
-            }
-        }
-
-
-        /// <summary>
-        /// Removes the specified flag value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="type">The type.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>T.</returns>
-        /// <exception cref="System.ArgumentException"></exception>
-        public static T Remove<T>(this Enum type, T value)
-        {
-            try
-            {
-                return (T)(object)(((int)(object)type & ~(int)(object)value));
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(
-                    string.Format("Could not remove flag from the type '{0}'.", typeof(T).Name), ex);
-            }
-        }
-
     }
 }

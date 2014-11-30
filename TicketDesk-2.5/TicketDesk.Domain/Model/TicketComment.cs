@@ -65,59 +65,46 @@ namespace TicketDesk.Domain.Model
 
 
         /// <summary>
-        /// Creates the activity comment. Infers a comment flag.
+        /// Creates an activity comment where no priority or user name is applicable to the activity.
         /// </summary>
         /// <param name="commentByUserId">The comment by user identifier.</param>
         /// <param name="activity">The activity.</param>
         /// <param name="comment">The comment content.</param>
-        /// <param name="assignedTo">The assigned to.</param>
-        /// <param name="args">Optional arguments to use as replacement values in the comment text.</param>
         /// <returns>TicketComment.</returns>
         private static TicketComment CreateActivityComment(
             string commentByUserId,
             TicketActivity activity,
-            string comment,
-            string assignedTo,
-            //string[] notificationSubscribers, 
-            params object[] args)
+            string comment)
         {
-            var cFlag = (string.IsNullOrEmpty(comment)) ? TicketCommentFlag.CommentNotSupplied : TicketCommentFlag.CommentSupplied;
-            return CreateActivityComment(commentByUserId, activity, cFlag, comment, assignedTo, args);
+            return CreateActivityComment(commentByUserId, activity, comment, null, null);
         }
 
         /// <summary>
-        /// Creates the activity comment.
+        /// Creates the activity comment including a change in priority or a user name is applcable to the comment.
         /// </summary>
         /// <param name="commentByUserId">The comment by user identifier.</param>
         /// <param name="activity">The activity.</param>
-        /// <param name="commentFlag">The comment flag.</param>
+        /// <param name="newPriority">The new priority.</param>
         /// <param name="comment">The comment.</param>
-        /// <param name="assignedTo">The assigned to.</param>
-        /// <param name="args">The arguments.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <returns>TicketComment.</returns>
         public static TicketComment CreateActivityComment(
             string commentByUserId,
             TicketActivity activity,
-            TicketCommentFlag commentFlag,
+            string newPriority,
             string comment,
-            string assignedTo,
-            //string[] notificationSubscribers,
-            params object[] args)
+            string userName)
         {
-            var c = new TicketComment
+            var tc = new TicketComment
             {
                 Comment = comment,
                 CommentedBy = commentByUserId,
                 CommentedDate = DateTime.Now,
-                CommentEvent = TicketTextUtility.GetCommentText(activity, commentFlag, args),
+                CommentEvent = TicketTextUtility.GetCommentEventText(activity, newPriority, userName),
                 IsHtml = false
             };
 
-
-            //var isNewOrGiveUp = (assignedTo == null) && (activity == TicketActivity.GiveUp || activity == TicketActivity.Create || activity == TicketActivity.CreateOnBehalfOf);
-            //Notification.AddTicketEventNotifications(c, isNewOrGiveUp, notificationSubscribers);
-
-            return c;
+            return tc;
         }
     }
 }

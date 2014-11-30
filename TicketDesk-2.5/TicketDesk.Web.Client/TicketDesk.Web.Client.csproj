@@ -397,6 +397,21 @@
     <Content Include="Views\Ticket\New.cshtml" />
     <Content Include="todo.md" />
     <Content Include="Views\TicketActivity\_AddComment.cshtml" />
+    <Content Include="Views\TicketActivity\_ActivityButtons.cshtml" />
+    <Content Include="Views\TicketActivity\_ModifyAttachments.cshtml" />
+    <Content Include="Views\TicketActivity\_ReOpen.cshtml" />
+    <Content Include="Views\TicketActivity\_EditTicketInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_SupplyMoreInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_RequestMoreInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_CancelMoreInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_GiveUp.cshtml" />
+    <Content Include="Views\TicketActivity\_TakeOver.cshtml" />
+    <Content Include="Views\TicketActivity\_Assign.cshtml" />
+    <Content Include="Views\TicketActivity\_ReAssign.cshtml" />
+    <Content Include="Views\TicketActivity\_Pass.cshtml" />
+    <Content Include="Views\TicketActivity\_ForceClose.cshtml" />
+    <Content Include="Views\TicketActivity\_Resolve.cshtml" />
+    <Content Include="Views\TicketActivity\_Close.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
