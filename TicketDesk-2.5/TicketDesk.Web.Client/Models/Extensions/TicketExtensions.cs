@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
+using MarkdownSharp;
+using StackExchange.DataExplorer.Helpers;
 using TicketDesk.Web.Client;
 
 namespace TicketDesk.Domain.Model
@@ -29,7 +32,17 @@ namespace TicketDesk.Domain.Model
         private static UserDisplayInfo GetUserInfo(string userId)
         {
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return userManager.InfoCache.GetUserInfo(userId)?? new UserDisplayInfo();
+            return userManager.InfoCache.GetUserInfo(userId) ?? new UserDisplayInfo();
         }
+
+        public static HtmlString HtmlDetails(this Ticket ticket)
+        {
+            var content = (ticket.IsHtml) ? ticket.Details : ticket.Details.HtmlFromMarkdown();
+            return new HtmlString(HtmlUtilities.Safe(content));
+        }
+
+
+
+
     }
 }

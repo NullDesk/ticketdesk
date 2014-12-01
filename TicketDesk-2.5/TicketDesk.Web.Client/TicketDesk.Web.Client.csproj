@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -157,6 +160,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WebHelpers">
+      <HintPath>..\packages\WebHelpers.4.0.2\lib\net45\WebHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="X.PagedList, Version=1.20.1.21688, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
@@ -204,6 +210,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\SettingsExtensions.cs" />
+    <Compile Include="Models\Extensions\StringExtensions.cs" />
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />

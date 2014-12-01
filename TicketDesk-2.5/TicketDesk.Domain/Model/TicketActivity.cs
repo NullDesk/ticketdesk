@@ -25,7 +25,8 @@ namespace TicketDesk.Domain.Model
         /// </summary>
         None = 0,
 
-        //TODO: add a display-order attribute so we can sort these in the UI when we generate buttons
+        //TODO: add a display-order attribute so we can sort these in the UI when we generate the buttons, or we can just sort these in place by magnitude
+        //TODO: might be a good idea to add attributes indicating if comments are required or not
         [Description("Attachments")]
         ModifyAttachments = 1,
         /// <summary>
