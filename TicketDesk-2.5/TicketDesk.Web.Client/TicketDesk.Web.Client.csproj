@@ -211,6 +211,7 @@
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\SettingsExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketCommentExtensions.cs" />
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
@@ -419,6 +420,7 @@
     <Content Include="Views\TicketActivity\_ForceClose.cshtml" />
     <Content Include="Views\TicketActivity\_Resolve.cshtml" />
     <Content Include="Views\TicketActivity\_Close.cshtml" />
+    <Content Include="Views\TicketActivity\_ActivityComment.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

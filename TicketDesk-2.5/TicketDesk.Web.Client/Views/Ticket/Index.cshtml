@@ -1,5 +1,6 @@
 ﻿@using TicketDesk.Domain
 @using TicketDesk.Domain.Model
+@using TicketDesk.Web.Client.Models.Extensions
 @model Ticket
 
 @section title
@@ -111,9 +112,6 @@
                 <div id="activityButtonsPanel" class="btn-group" role="group">
 
 
-
-                    @*<button type="button" class="btn btn-default" onclick="window.editTicket.loadCommentActivity();">Comment</button>
-                        <button type="button" class="btn btn-default">Resolve</button>*@
                 </div>
             </div>
         </div>
@@ -122,7 +120,12 @@
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            log
+            @foreach (var comment in Model.TicketComments.OrderByDescending(c => c.CommentedDate))
+            {
+                <div>@comment.GetCommentByInfo().DisplayName @comment.CommentEvent</div>
+                <div>@comment.Comment</div>
+                <hr />
+            }
         </div>
     </div>
 </main>

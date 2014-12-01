@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Web.Identity.Model;
 
@@ -54,5 +55,12 @@ namespace TicketDesk.Web.Client
         public string Id { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
+
+        public static UserDisplayInfo GetUserInfo(string userId)
+        {
+            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
+            return userManager.InfoCache.GetUserInfo(userId) ?? new UserDisplayInfo();
+        }
+
     }
 }

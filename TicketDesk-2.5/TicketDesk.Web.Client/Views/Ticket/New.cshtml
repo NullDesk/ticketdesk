@@ -94,7 +94,7 @@
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
                                     @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
-                                    @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
+                                   
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <div class="row" style="min-height: 35px;"></div>
@@ -109,6 +109,7 @@
                                 <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
                             </ul>
                         </div>
+                        @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 @if (Model.DisplayUserSelects)

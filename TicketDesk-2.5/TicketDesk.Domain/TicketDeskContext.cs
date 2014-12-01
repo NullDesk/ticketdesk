@@ -149,6 +149,7 @@ namespace TicketDesk.Domain
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();
+                PreProcessModifiedTickets();
             }
             var pendingTicketChanges = GetTicketChanges();
 
@@ -192,6 +193,16 @@ namespace TicketDesk.Domain
             }
         }
 
+        private void PreProcessModifiedTickets()
+        {
+            var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Modified).Select(t => t.Entity);
+            foreach (var change in ticketChanges)
+            {
+                PrePopulateModifiedTicket(change);
+            }
+        }
+
+
         private void PreProcessNewTickets()
         {
             var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Added).Select(t => t.Entity);
@@ -200,6 +211,13 @@ namespace TicketDesk.Domain
             {
                 PrePopulateNewTicket(change);
             }
+        }
+
+        private void PrePopulateModifiedTicket(Ticket modifiedTicket)
+        {
+            var now = DateTime.Now;
+            modifiedTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
+            modifiedTicket.LastUpdateDate = now;
         }
 
         private void PrePopulateNewTicket(Ticket newTicket)

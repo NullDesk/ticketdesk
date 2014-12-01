@@ -10,31 +10,26 @@ namespace TicketDesk.Domain.Model
     {
         public static UserDisplayInfo GetAssignedToInfo(this Ticket ticket)
         {
-            return GetUserInfo(ticket.AssignedTo);
+            return UserDisplayInfo.GetUserInfo(ticket.AssignedTo);
         }
         public static UserDisplayInfo GetCreatedByInfo(this Ticket ticket)
         {
-            return GetUserInfo(ticket.CreatedBy);
+            return UserDisplayInfo.GetUserInfo(ticket.CreatedBy);
         }
         public static UserDisplayInfo GetOwnerInfo(this Ticket ticket)
         {
-            return GetUserInfo(ticket.Owner);
+            return UserDisplayInfo.GetUserInfo(ticket.Owner);
         }
         public static UserDisplayInfo GetLastUpdatedByInfo(this Ticket ticket)
         {
-            return GetUserInfo(ticket.LastUpdateBy);
+            return UserDisplayInfo.GetUserInfo(ticket.LastUpdateBy);
         }
         public static UserDisplayInfo GetCurrentStatusSetByInfo(this Ticket ticket)
         {
-            return GetUserInfo(ticket.CurrentStatusSetBy);
+            return UserDisplayInfo.GetUserInfo(ticket.CurrentStatusSetBy);
         }
 
-        private static UserDisplayInfo GetUserInfo(string userId)
-        {
-            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return userManager.InfoCache.GetUserInfo(userId) ?? new UserDisplayInfo();
-        }
-
+        
         public static HtmlString HtmlDetails(this Ticket ticket)
         {
             var content = (ticket.IsHtml) ? ticket.Details : ticket.Details.HtmlFromMarkdown();

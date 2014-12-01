@@ -71,7 +71,7 @@ namespace TicketDesk.Domain.Model
         /// <param name="activity">The activity.</param>
         /// <param name="comment">The comment content.</param>
         /// <returns>TicketComment.</returns>
-        private static TicketComment CreateActivityComment(
+        public static TicketComment CreateActivityComment(
             string commentByUserId,
             TicketActivity activity,
             string comment)
@@ -91,8 +91,8 @@ namespace TicketDesk.Domain.Model
         public static TicketComment CreateActivityComment(
             string commentByUserId,
             TicketActivity activity,
-            string newPriority,
             string comment,
+            string newPriority,
             string userName)
         {
             var tc = new TicketComment
