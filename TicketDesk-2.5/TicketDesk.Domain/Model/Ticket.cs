@@ -26,7 +26,7 @@ namespace TicketDesk.Domain.Model
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             TicketAttachments = new HashSet<TicketAttachment>();
-            TicketComments = new HashSet<TicketComment>();
+            TicketEvents = new HashSet<TicketEvent>();
             TicketTags = new HashSet<TicketTag>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
@@ -140,7 +140,7 @@ namespace TicketDesk.Domain.Model
 
         public virtual ICollection<TicketAttachment> TicketAttachments { get; set; }
 
-        public virtual ICollection<TicketComment> TicketComments { get; set; }
+        public virtual ICollection<TicketEvent> TicketEvents { get; set; }
 
         public virtual ICollection<TicketTag> TicketTags { get; set; }
 
@@ -151,27 +151,6 @@ namespace TicketDesk.Domain.Model
         [NotMapped]
         internal string PreviousAssignedUser { get; set; }
 
-        //internal string[] GetNotificationSubscribers()
-        //{
-        //    var subs = new List<string>();
-        //    if (!string.IsNullOrEmpty(PreviousOwner) && PreviousOwner != Owner)
-        //    {
-        //        subs.Add(PreviousOwner);
-        //    }
-        //    if (!string.IsNullOrEmpty(PreviousAssignedUser) && PreviousAssignedUser != AssignedTo)
-        //    {
-        //        subs.Add(PreviousAssignedUser);
-        //    }
-        //    if (!string.IsNullOrEmpty(Owner))
-        //    {
-        //        subs.Add(Owner);
-        //    }
-        //    if (!string.IsNullOrEmpty(AssignedTo))
-        //    {
-        //        subs.Add(AssignedTo);
-        //    }
-        //    return subs.ToArray();
-        //}
 
         [NotMapped]
         public bool IsAssigned

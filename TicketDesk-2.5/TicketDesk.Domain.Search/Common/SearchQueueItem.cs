@@ -10,7 +10,7 @@ namespace TicketDesk.Domain.Search
         public string Status { get; set; }
         public DateTimeOffset LastUpdateDate { get; set; }
         public string[] Tags { get; set; }
-        public string[] Comments { get; set; }
+        public string[] Events { get; set; }
     }
 }
 

@@ -25,7 +25,7 @@ namespace TicketDesk.Domain.Localization
         /// <param name="userName">Name of the user, leave null if a user name isn't applicable for the actiity</param>
         /// <returns>System.String.</returns>
         /// <exception cref="System.NullReferenceException"></exception>
-        public static string GetCommentEventText(TicketActivity ticketEvent, string newPriority, string userName)
+        public static string GetTicketEventDescription(TicketActivity ticketEvent, string newPriority, string userName)
         {
             //no real perf advantage to a stringbuilder here
             var n = Enum.GetName(typeof(TicketActivity), ticketEvent);

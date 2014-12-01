@@ -120,10 +120,10 @@
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            @foreach (var comment in Model.TicketComments.OrderByDescending(c => c.CommentedDate))
+            @foreach (var evt in Model.TicketEvents.OrderByDescending(c => c.EventDate))
             {
-                <div>@comment.GetCommentByInfo().DisplayName @comment.CommentEvent</div>
-                <div>@comment.Comment</div>
+                <div>@evt.GetCommentByInfo().DisplayName @evt.EventDescription</div>
+                <div>@evt.Comment</div>
                 <hr />
             }
         </div>

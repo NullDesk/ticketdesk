@@ -211,7 +211,7 @@
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\SettingsExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />
-    <Compile Include="Models\Extensions\TicketCommentExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />

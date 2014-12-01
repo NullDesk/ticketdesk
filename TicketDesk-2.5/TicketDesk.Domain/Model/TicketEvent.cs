@@ -20,9 +20,9 @@ namespace TicketDesk.Domain.Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class TicketComment
+    public class TicketEvent
     {
-        public TicketComment()
+        public TicketEvent()
         {
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             TicketEventNotifications = new HashSet<TicketEventNotification>();
@@ -36,10 +36,10 @@ namespace TicketDesk.Domain.Model
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CommentId { get; set; }
+        public int EventId { get; set; }
 
         [StringLength(500)]
-        public string CommentEvent { get; set; }
+        public string EventDescription { get; set; }
 
         [Column(TypeName = "ntext")]
         public string Comment { get; set; }
@@ -48,11 +48,11 @@ namespace TicketDesk.Domain.Model
 
         [Required]
         [StringLength(100)]
-        public string CommentedBy { get; set; }
+        public string EventBy { get; set; }
 
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTimeOffset CommentedDate { get; set; }
+        public DateTimeOffset EventDate { get; set; }
 
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]
@@ -64,6 +64,31 @@ namespace TicketDesk.Domain.Model
         public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
 
 
-       
+        /// <summary>
+        /// Creates the activity event.
+        /// </summary>
+        /// <param name="eventByUserId">The event by user identifier.</param>
+        /// <param name="activity">The activity.</param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="newPriority">The new priority.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>TicketEvent.</returns>
+        public static TicketEvent CreateActivityEvent(
+        string eventByUserId,
+        TicketActivity activity,
+        string comment,
+        string newPriority,
+        string userName)
+        {
+            var tc = new TicketEvent
+            {
+                Comment = comment,
+                EventBy = eventByUserId,
+                EventDate = DateTime.Now,
+                EventDescription = TicketTextUtility.GetTicketEventDescription(activity, newPriority, userName),
+                IsHtml = false
+            };
+            return tc;
+        }
     }
 }

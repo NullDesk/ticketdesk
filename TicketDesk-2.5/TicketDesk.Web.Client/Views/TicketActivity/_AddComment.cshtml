@@ -5,7 +5,7 @@
 }
 @using (Ajax.BeginForm("AddComment", "TicketActivity", new {ticketId = Model.TicketId, area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
 {
-    @Html.Partial("_ActivityComment", new TicketComment())
+    @Html.Partial("_ActivityComment", new TicketEvent())
     <div class="form-group-sm col-sm-12">
         <button type="submit" class="btn btn-success">Add Coment</button>
     </div>

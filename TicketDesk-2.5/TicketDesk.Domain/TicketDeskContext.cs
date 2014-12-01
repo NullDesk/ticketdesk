@@ -66,7 +66,7 @@ namespace TicketDesk.Domain
         /// instance internally, but a few obscure bits were not similarly updates (e.g. 
         /// DbMigrator.GetPendingMigrations). 
         /// </remarks>
-        internal TicketDeskContext()
+        public TicketDeskContext()
             : base("name=TicketDesk")
         {
 
@@ -77,13 +77,13 @@ namespace TicketDesk.Domain
             //TODO: Remove along with supoprting class if unneeded
             //modelBuilder.Conventions.Add(new NonPublicColumnAttributeConvention());
 
-            modelBuilder.Entity<TicketComment>()
+            modelBuilder.Entity<TicketEvent>()
                 .Property(e => e.Version)
                 .IsFixedLength();
 
-            modelBuilder.Entity<TicketComment>()
+            modelBuilder.Entity<TicketEvent>()
                 .HasMany(e => e.TicketEventNotifications)
-                .WithRequired(e => e.TicketComment)
+                .WithRequired(e => e.TicketEvent)
                 .HasForeignKey(e => new { e.TicketId, e.CommentId })
                 .WillCascadeOnDelete(false);
 
@@ -99,7 +99,7 @@ namespace TicketDesk.Domain
 
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
-        public virtual DbSet<TicketComment> TicketComments { get; set; }
+        public virtual DbSet<TicketEvent> TicketEvents { get; set; }
         public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketTag> TicketTags { get; set; }
@@ -132,7 +132,11 @@ namespace TicketDesk.Domain
 
         public override async Task<int> SaveChangesAsync()
         {
-            PreProcessNewTickets();
+            if (SecurityProvider != null)
+            {
+                PreProcessNewTickets();
+                PreProcessModifiedTickets();
+            }
 
             var pendingTicketChanges = GetTicketChanges();
 
@@ -250,7 +254,7 @@ namespace TicketDesk.Domain
                 ? TicketActivity.CreateOnBehalfOf
                 : TicketActivity.Create;
 
-            newTicket.TicketComments.AddActivityComment(
+            newTicket.TicketEvents.AddActivityEvent(
                 SecurityProvider.CurrentUserId,
                 act,
                 null,

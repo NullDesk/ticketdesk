@@ -38,10 +38,10 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 Context.SecurityProvider.IsTicketActivityValid(ticket, TicketActivity.AddComment);
 
-                var activityComment = ticket.TicketComments.AddActivityComment(Context.SecurityProvider.CurrentUserId,
+                var activityComment = ticket.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId,
                     TicketActivity.AddComment, comment);
 
-                ticket.TicketComments.Add(activityComment);
+                ticket.TicketEvents.Add(activityComment);
 
                 var result = await Context.SaveChangesAsync();//save changes catches lastupdatedby and date automatically
                 if (result > 0)

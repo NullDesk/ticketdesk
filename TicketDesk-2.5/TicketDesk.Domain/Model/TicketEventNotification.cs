@@ -61,6 +61,6 @@ namespace TicketDesk.Domain.Model
         [StringLength(100)]
         public string EventGeneratedByUser { get; set; }
 
-        public virtual TicketComment TicketComment { get; set; }
+        public virtual TicketEvent TicketEvent { get; set; }
     }
 }

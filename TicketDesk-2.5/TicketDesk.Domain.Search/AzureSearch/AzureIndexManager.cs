@@ -119,7 +119,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
                     opt.IsSearchable())
                 .WithStringCollectionField("tags", opt =>
                     opt.IsRetrievable().IsSearchable().IsFilterable())
-                .WithStringCollectionField("comments", opt =>
+                .WithStringCollectionField("events", opt =>
                     opt.IsSearchable());
 
 
@@ -135,7 +135,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
                             {"id", 3D},
                             {"tags", 2.5D},
                             {"title", 2D},
-                            {"comments", 0.75D}
+                            {"events", 0.75D}
                         }
                     },
                     Functions =
