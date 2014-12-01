@@ -267,8 +267,12 @@ namespace TicketDesk.Domain
 
         private IEnumerable<Ticket> GetTicketChanges()
         {
+            var pendingCommentChanges =
+                ChangeTracker.Entries<TicketEvent>().Where(t => t.State != EntityState.Unchanged)
+                    .Select(t => t.Entity.TicketId).ToArray();
+
             var pendingTicketChanges = ChangeTracker.Entries<Ticket>()
-                .Where(t => t.State != EntityState.Unchanged)
+                .Where(t => t.State != EntityState.Unchanged || pendingCommentChanges.Contains(t.Entity.TicketId))
                 .Select(t => t.Entity)
                 .ToArray(); //execute now, because after save changes this query will return no results
             return pendingTicketChanges;

@@ -21,7 +21,7 @@ namespace TicketDesk.Domain.Search.Lucene
         {
             return Task.Run(() =>
             {
-                var fields = new[] {"id", "title", "details", "tags", "comments"};
+                var fields = new[] {"id", "title", "details", "tags", "events"};
                 var parser = new MultiFieldQueryParser(Version.LUCENE_30,
                     fields,
                     TdIndexAnalyzer);

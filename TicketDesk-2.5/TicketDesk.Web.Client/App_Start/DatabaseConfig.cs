@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Infrastructure;
-using TicketDesk.Web.Identity.Infrastructure;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client
@@ -33,11 +31,18 @@ namespace TicketDesk.Web.Client
             else
             {
                 //run any pending migrations automatically to bring the DB up to date
-                Database.SetInitializer<TicketDeskContext>(
+                Database.SetInitializer(
                     new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
                 using (var ctx = new TicketDeskContext(null))
                 {
-                    ctx.Database.Initialize(false);
+                    try
+                    {
+                        ctx.Database.Initialize(!ctx.Database.CompatibleWithModel(true));
+                    }
+                    catch (Exception)//no metadata in DB, force run initializer anyway
+                    {
+                        ctx.Database.Initialize(true);
+                    }
                     if (firstRunDemoRefresh)
                     {
                         DemoDataManager.SetupDemoData(ctx);
