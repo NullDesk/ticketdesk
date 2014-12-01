@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
+using TicketDesk.Domain.Model.Extensions;
 using TicketDesk.Domain.Search;
 
 
@@ -33,7 +34,7 @@ namespace TicketDesk.Domain
         {
             get
             {
-                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))); 
+                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
             }
         }
 
@@ -139,7 +140,7 @@ namespace TicketDesk.Domain
 
             if (result > 0)
             {
-               await PostProcessTicketChangesAsync(pendingTicketChanges);
+                await PostProcessTicketChangesAsync(pendingTicketChanges);
             }
             return result;
         }
@@ -202,7 +203,6 @@ namespace TicketDesk.Domain
             }
         }
 
-
         private void PreProcessNewTickets()
         {
             var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Added).Select(t => t.Entity);
@@ -246,22 +246,17 @@ namespace TicketDesk.Domain
                     }));
             }
 
-            //comment
-            var openingComment = (newTicket.Owner != SecurityProvider.CurrentUserId) ?
-                TicketComment.CreateActivityComment(
-                    SecurityProvider.CurrentUserId,
-                    TicketActivity.CreateOnBehalfOf,
-                    null,
-                    null,
-                    SecurityProvider.GetUserDisplayName(newTicket.Owner)) :
-                TicketComment.CreateActivityComment(
-                    SecurityProvider.CurrentUserId,
-                    TicketActivity.Create,
-                    null,
-                    null,
-                    null);
+            var act = (newTicket.Owner != SecurityProvider.CurrentUserId)
+                ? TicketActivity.CreateOnBehalfOf
+                : TicketActivity.Create;
 
-            newTicket.TicketComments.Add(openingComment);
+            newTicket.TicketComments.AddActivityComment(
+                SecurityProvider.CurrentUserId,
+                act,
+                null,
+                null,
+                SecurityProvider.GetUserDisplayName(newTicket.Owner));
+
 
             //TODO: What with attachments?
         }

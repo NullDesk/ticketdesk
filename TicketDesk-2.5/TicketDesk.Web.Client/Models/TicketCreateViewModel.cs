@@ -27,7 +27,7 @@ namespace TicketDesk.Web.Client.Models
 
         public async Task<bool> CreateTicketAsync()
         {
-            //TODO: still need to store attachment info to DB
+            //TODO: still need to store attachment info to DB?
             Context.Tickets.Add(Ticket);
             await Context.SaveChangesAsync();
             var attachments = TicketDeskFileStore.ListAttachmentInfo(TempId.ToString(), true);

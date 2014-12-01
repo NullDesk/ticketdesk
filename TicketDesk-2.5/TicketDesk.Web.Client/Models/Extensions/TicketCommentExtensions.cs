@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TicketDesk.Domain.Model;
+﻿using TicketDesk.Domain.Model;
 
-namespace TicketDesk.Web.Client.Models.Extensions
+namespace TicketDesk.Web.Client.Models
 {
     public static class TicketCommentExtensions
     {

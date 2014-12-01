@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain
 {
     public static class EnumExtensions
     {
+
         /// <summary>
         /// Gets the description for an enum.
         /// </summary>

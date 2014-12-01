@@ -64,47 +64,6 @@ namespace TicketDesk.Domain.Model
         public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
 
 
-        /// <summary>
-        /// Creates an activity comment where no priority or user name is applicable to the activity.
-        /// </summary>
-        /// <param name="commentByUserId">The comment by user identifier.</param>
-        /// <param name="activity">The activity.</param>
-        /// <param name="comment">The comment content.</param>
-        /// <returns>TicketComment.</returns>
-        public static TicketComment CreateActivityComment(
-            string commentByUserId,
-            TicketActivity activity,
-            string comment)
-        {
-            return CreateActivityComment(commentByUserId, activity, comment, null, null);
-        }
-
-        /// <summary>
-        /// Creates the activity comment including a change in priority or a user name is applcable to the comment.
-        /// </summary>
-        /// <param name="commentByUserId">The comment by user identifier.</param>
-        /// <param name="activity">The activity.</param>
-        /// <param name="newPriority">The new priority.</param>
-        /// <param name="comment">The comment.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns>TicketComment.</returns>
-        public static TicketComment CreateActivityComment(
-            string commentByUserId,
-            TicketActivity activity,
-            string comment,
-            string newPriority,
-            string userName)
-        {
-            var tc = new TicketComment
-            {
-                Comment = comment,
-                CommentedBy = commentByUserId,
-                CommentedDate = DateTime.Now,
-                CommentEvent = TicketTextUtility.GetCommentEventText(activity, newPriority, userName),
-                IsHtml = false
-            };
-
-            return tc;
-        }
+       
     }
 }
