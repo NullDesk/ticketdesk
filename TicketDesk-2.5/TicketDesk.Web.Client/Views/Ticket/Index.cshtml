@@ -25,7 +25,8 @@
         $(document).ready(function () {
             var tdConfig = {
                 loadActivityUrl: '@Url.Action("LoadActivity","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                activityButtonsUrl: '@Url.Action("ActivityButtons","TicketActivity", new {ticketId = Model.TicketId, area = ""})'
+                activityButtonsUrl: '@Url.Action("ActivityButtons","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                eventPanelUrl: '@Url.Action("TicketEvents","Ticket", new {ticketId = Model.TicketId, area = ""})'
             };
             window.editTicket.activate(tdConfig);
         });
@@ -110,8 +111,7 @@
         <div class="panel-heading">
             <div class="btn-toolbar" role="toolbar">
                 <div id="activityButtonsPanel" class="btn-group" role="group">
-
-
+                    @Html.Action("ActivityButtons", "TicketActivity", new { ticketId = Model.TicketId, area = "" })
                 </div>
             </div>
         </div>
@@ -120,16 +120,14 @@
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            @foreach (var evt in Model.TicketEvents.OrderByDescending(c => c.EventDate))
-            {
-                <div>@evt.GetCommentByInfo().DisplayName @evt.EventDescription</div>
-                <div>@evt.Comment</div>
-                <hr />
-            }
+            Activity
+        </div>
+        <div id="eventPanel" class="panel-body">
+            @Html.Action("TicketEvents", new { ticketId = Model.TicketId, area = "" })
         </div>
     </div>
-</main>
-<p>
 
-    @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
-</p>
+    <p>
+        @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
+    </p>
+</main>

@@ -64,9 +64,10 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
 
-        public ActionResult AddComment()
+        public async Task<ActionResult> TicketEvents(int ticketId)
         {
-            return PartialView("_AddComment",new TicketEvent());
+            var ticket = await Context.Tickets.FindAsync(ticketId);
+            return PartialView("_TicketEvents", ticket.TicketEvents);
         }
     }
 }

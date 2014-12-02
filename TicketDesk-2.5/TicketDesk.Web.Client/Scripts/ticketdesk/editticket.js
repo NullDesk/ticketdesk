@@ -17,12 +17,23 @@
             $('#activityPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
             configureEditor();
         };
-
+        var renderEventPanel = function(data) {
+            $('#eventPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
+        }
 
         var loadActivity = function (activityName) {
             $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
             $.get(config.loadActivityUrl, { "activity": activityName }, renderActivityPanel);
         };
+
+        var loadEventPanel = function () {
+            $('#eventPanel').parent().animate({ opacity: 0.5 }, 200);
+            $.get(config.eventPanelUrl, renderEventPanel);
+        }
+
+        var cancelActivity = function() {
+            $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
+        }
 
         var beginActivity = function () {
 
@@ -33,6 +44,8 @@
             if (data.length > 0) {
                 renderActivityPanel(data);
             } else {
+                loadEventPanel();
+                loadActivityButtons();
                 $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
             }
         };
@@ -127,6 +140,7 @@
         return {
             activate: activate,
             loadActivity: loadActivity,
+            cancelActivity: cancelActivity,
             beginActivity: beginActivity,
             completeActivity: completeActivity,
             failActivity: failActivity

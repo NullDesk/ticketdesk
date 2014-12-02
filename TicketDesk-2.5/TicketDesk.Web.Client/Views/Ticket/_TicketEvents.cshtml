@@ -1,0 +1,9 @@
+﻿@using TicketDesk.Web.Client.Models
+@model IEnumerable<TicketDesk.Domain.Model.TicketEvent>
+
+@foreach (var evt in Model.OrderByDescending(c => c.EventDate))
+{
+    <div>@evt.GetEventByInfo().DisplayName @evt.EventDescription</div>
+    <div>@evt.HtmlComment()</div>
+    <hr />
+}

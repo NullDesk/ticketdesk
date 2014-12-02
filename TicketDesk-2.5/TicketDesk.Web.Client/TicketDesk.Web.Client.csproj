@@ -421,6 +421,7 @@
     <Content Include="Views\TicketActivity\_Resolve.cshtml" />
     <Content Include="Views\TicketActivity\_Close.cshtml" />
     <Content Include="Views\TicketActivity\_ActivityComment.cshtml" />
+    <Content Include="Views\Ticket\_TicketEvents.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

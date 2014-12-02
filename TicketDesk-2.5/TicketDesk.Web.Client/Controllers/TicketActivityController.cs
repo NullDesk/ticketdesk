@@ -52,6 +52,7 @@ namespace TicketDesk.Web.Client.Controllers
             return PartialView(string.Format("_{0}", TicketActivity.AddComment), ticket);
         }
 
+       
         public async Task<ActionResult> ActivityButtons(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
