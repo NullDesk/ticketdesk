@@ -132,13 +132,12 @@ namespace TicketDesk.Domain
 
         public override async Task<int> SaveChangesAsync()
         {
+            var pendingTicketChanges = GetTicketChanges();
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();
-                PreProcessModifiedTickets();
+                PreProcessModifiedTickets(pendingTicketChanges);
             }
-
-            var pendingTicketChanges = GetTicketChanges();
 
             var result = await base.SaveChangesAsync();
 
@@ -151,12 +150,12 @@ namespace TicketDesk.Domain
 
         public override int SaveChanges()
         {
+            var pendingTicketChanges = GetTicketChanges();
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();
-                PreProcessModifiedTickets();
+                PreProcessModifiedTickets(pendingTicketChanges);
             }
-            var pendingTicketChanges = GetTicketChanges();
 
             var result = base.SaveChanges();
 
@@ -198,9 +197,8 @@ namespace TicketDesk.Domain
             }
         }
 
-        private void PreProcessModifiedTickets()
+        private void PreProcessModifiedTickets(IEnumerable<Ticket> ticketChanges )
         {
-            var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Modified).Select(t => t.Entity);
             foreach (var change in ticketChanges)
             {
                 PrePopulateModifiedTicket(change);
@@ -238,8 +236,10 @@ namespace TicketDesk.Domain
             newTicket.TicketStatus = TicketStatus.Active;
             newTicket.CurrentStatusDate = now;
             newTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
-            newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
-            newTicket.LastUpdateDate = now;
+
+            //last update info will be set by PrePopulateModifiedTicket method, no need to set it here too
+            //newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
+            //newTicket.LastUpdateDate = now;
 
             if (newTicket.TagList != null && newTicket.TagList.Any())
             {

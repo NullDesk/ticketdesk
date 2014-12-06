@@ -3,42 +3,18 @@
         var config;
         var activate = function (tdConfig) {
             config = tdConfig;
-            initDetails();
+            configureDetails();
             loadActivityButtons();
         };
-
-
-        var loadActivityButtons = function () {
-            $.get(config.activityButtonsUrl, function (data) {
-                $('#activityButtonsPanel').empty().append(data);
-            });
-        }
-        var renderActivityPanel = function (data) {
-            $('#activityPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
-            configureEditor();
-        };
-        var renderEventPanel = function(data) {
-            $('#eventPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
-        }
-
-        var loadActivity = function (activityName) {
-            $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
-            $.get(config.loadActivityUrl, { "activity": activityName }, renderActivityPanel);
-        };
-
-        var loadEventPanel = function () {
-            $('#eventPanel').parent().animate({ opacity: 0.5 }, 200);
-            $.get(config.eventPanelUrl, renderEventPanel);
-        }
-
-        var cancelActivity = function() {
-            $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
-        }
-
+      
         var beginActivity = function () {
 
             $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
         };
+
+        var cancelActivity = function () {
+            $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
+        }
 
         var completeActivity = function (data) {
             if (data.length > 0) {
@@ -46,52 +22,18 @@
             } else {
                 loadEventPanel();
                 loadActivityButtons();
+                loadDetails();
                 $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
             }
         };
-
-        var failActivity = function (data) {
-            $('#activityPanel').animate({ opacity: 1 }, 200);
-        }
-
-
-        var configureEditor = function () {
-            var jelem = $('#wmd-input-activity');
-            if (jelem.length > 0) {
-
-
-                if (jelem.data('is-required')) {
-                    jelem.attr('data-val', "true").attr('data-val-required', "");
-                    $.validator.unobtrusive.parseElement(jelem.get(0));
-                }
-
-
-                var converter1 = Markdown.getSanitizingConverter();
-
-                converter1.hooks.chain("preBlockGamut", function (text, rbg) {
-                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
-                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
-                    });
-                });
-
-                converter1.hooks.chain("postSpanGamut", function (text) {
-                    return text.replace(/\n/g, " <br>\n");
-                });
-
-                var editor1 = new Markdown.Editor(converter1, "-activity");
-
-                editor1.run();
-            }
-        };
-
-        var initDetails = function () {
+        var configureDetails = function () {
 
             var detailsLastHeight = 0;
             var detailsMinHeight = 200;
 
             setupDetails();
 
-            //#region internal details area functions
+            //#region internal details configuration functions
             function setupDetails() {
                 $("#detailTextExpander").each(function (idx, elem) {
                     $(elem).hide();
@@ -136,9 +78,77 @@
             //#endregion
 
         }
+        var configureEditor = function () {
+            var jelem = $('#wmd-input-activity');
+            if (jelem.length > 0) {
+
+
+                if (jelem.data('is-required')) {
+                    jelem.attr('data-val', "true").attr('data-val-required', "");
+                    $.validator.unobtrusive.parseElement(jelem.get(0));
+                }
+
+
+                var converter1 = Markdown.getSanitizingConverter();
+
+                converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                    });
+                });
+
+                converter1.hooks.chain("postSpanGamut", function (text) {
+                    return text.replace(/\n/g, " <br>\n");
+                });
+
+                var editor1 = new Markdown.Editor(converter1, "-activity");
+
+                editor1.run();
+            }
+        };
+
+        var failActivity = function (data) {
+            $('#activityPanel').animate({ opacity: 1 }, 200);
+        }
+
+        var loadActivityButtons = function () {
+            $.get(config.activityButtonsUrl, function (data) {
+                $('#activityButtonsPanel').empty().append(data);
+            });
+        };
+
+        var loadActivity = function (activityName) {
+            $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
+            $.get(config.loadActivityUrl, { "activity": activityName }, renderActivityPanel);
+        };
+
+        var loadDetails = function () {
+            $('#ticketDetailPanel').parent().animate({ opacity: 0.5 }, 200);
+            $.get(config.loadDetailsUrl, renderDetailsPanel);
+        };
+
+        var loadEventPanel = function () {
+            $('#eventPanel').parent().animate({ opacity: 0.5 }, 200);
+            $.get(config.eventPanelUrl, renderEventPanel);
+        }
+
+        var renderActivityPanel = function (data) {
+            $('#activityPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
+            configureEditor();
+        };
+
+        var renderDetailsPanel = function (data) {
+            $('#ticketDetailPanel').empty().append(data).parent().animate({ opacity: 1 }, 200);
+            configureDetails();
+        };
+
+        var renderEventPanel = function (data) {
+            $('#eventPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
+        }
 
         return {
             activate: activate,
+            loadDetails: loadDetails,
             loadActivity: loadActivity,
             cancelActivity: cancelActivity,
             beginActivity: beginActivity,

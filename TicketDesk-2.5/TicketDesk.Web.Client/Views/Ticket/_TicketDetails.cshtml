@@ -1,0 +1,74 @@
+﻿@using TicketDesk.Domain
+@using TicketDesk.Domain.Model
+@model Ticket
+
+<div class="panel-heading">
+    <div class="pull-left fa-rotate-270" style="padding:3px 0;position: relative;left: -15px;height:auto;"><span>@Model.TicketStatus.GetDescription()</span></div>
+    <div>
+        <h2 class="panel-title pull-right">Priority: @Model.Priority</h2>
+        <h2 class="panel-title">Ticket: #@Model.TicketId - @Model.Category @Model.TicketType</h2>
+        <span>@Model.Title</span>
+    </div>
+</div>
+<div class="bg-warning container-fluid" style="border-bottom: 1px solid #B3CBDF;">
+    <div class="pull-right">Tags: @Model.TagList</div>
+    <div class="">
+        <div>Assigned To: @Model.GetAssignedToInfo().DisplayName</div>
+        <div>Owned By: @Model.GetOwnerInfo().DisplayName</div>
+    </div>
+</div>
+<div class="panel-body" style="margin:0;padding:0;">
+    <div class="col-md-8 col-sm-8" style="height:100%;margin:0;padding:0; border-right: 1px solid #B3CBDF;">
+        <div class="" id="detailsText" style="height: 200px; overflow: auto; margin: 0;padding: 5px;">
+            @Model.HtmlDetails()
+        </div>
+        <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;">
+            <i id="expandersymbol" class="fa fa-chevron-down text-center"></i>
+        </div>
+    </div>
+    <aside class="col-md-4 col-sm-4 small hidden-xs">
+        <div class="row">
+            @Html.LabelFor(m => m.TicketStatus, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.TicketStatus.GetDescription()
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.LastUpdateBy, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.GetLastUpdatedByInfo().DisplayName
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.LastUpdateDate, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.LastUpdateDate.Date.ToShortDateString() @Model.LastUpdateDate.Date.ToShortTimeString()
+            </div>
+        </div>
+
+        <div class="row">
+            @Html.LabelFor(m => m.CurrentStatusSetBy, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.GetCurrentStatusSetByInfo().DisplayName
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.CurrentStatusDate, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.CurrentStatusDate.Date.ToShortDateString() @Model.CurrentStatusDate.Date.ToShortTimeString()
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.CreatedBy, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.GetCreatedByInfo().DisplayName
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 text-right" })
+            <div class="col-sm-7">
+                @Model.CreatedDate.Date.ToShortDateString() @Model.CreatedDate.Date.ToShortTimeString()
+            </div>
+        </div>
+    </aside>
+</div>

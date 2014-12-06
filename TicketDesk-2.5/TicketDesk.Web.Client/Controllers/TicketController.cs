@@ -7,6 +7,9 @@ using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    /// <summary>
+    /// Class TicketController.
+    /// </summary>
     [RoutePrefix("ticket")]
     [Authorize]
     public class TicketController : Controller
@@ -26,13 +29,6 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> Index(int id)
         {
             var model = await Context.Tickets.FindAsync(id);
-            return View(model);
-        }
-
-        [Authorize(Roles = "TdInternalUsers")]
-        public ActionResult New()
-        {
-            var model = new TicketCreateViewModel(new Ticket(), Context);
             return View(model);
         }
 
@@ -68,6 +64,20 @@ namespace TicketDesk.Web.Client.Controllers
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
             return PartialView("_TicketEvents", ticket.TicketEvents);
+        }
+
+        public async Task<ActionResult> TicketDetails(int ticketId)
+        {
+            var ticket = await Context.Tickets.FindAsync(ticketId);
+            return PartialView("_TicketDetails", ticket);
+        }
+
+
+        [Authorize(Roles = "TdInternalUsers")]
+        public ActionResult New()
+        {
+            var model = new TicketCreateViewModel(new Ticket(), Context);
+            return View(model);
         }
     }
 }
