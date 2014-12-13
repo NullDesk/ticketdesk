@@ -7,7 +7,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1">
                     <div id="wmd-button-bar-activity" class="" style="display: inline-block"></div>
-                    @Html.TextAreaFor(model => model.Comment, new { id = "wmd-input-activity", @class = "wmd-input form-control", style = "height:150px", data_is_required = ViewBag.CommentRequired })
+                    @Html.TextAreaFor(model => model.Comment, new { id = "wmd-input-activity", @class = "wmd-input form-control", tabindex="15" ,style = "height:150px", data_is_required = ViewBag.CommentRequired })
                     
                 </div>
                 <div class="tab-pane fade" id="tab2">

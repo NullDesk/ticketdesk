@@ -6,12 +6,6 @@
     Ticekt #@Model.TicketId
 }
 
-@section customHeader
-{
-    <style type="text/css">
-    </style>
-}
-
 @section scripts
 {
     @Styles.Render("~/content/editor")
@@ -39,7 +33,7 @@
     <div class="panel panel-success">
         <div class="panel-heading">
             <div class="btn-toolbar" role="toolbar">
-                <div id="activityButtonsPanel" class="btn-group" role="group">
+                <div id="activityButtonsPanel">
                     @Html.Action("ActivityButtons", "TicketActivity", new { ticketId = Model.TicketId, area = "" })
                 </div>
             </div>
@@ -55,7 +49,6 @@
             @Html.Action("TicketEvents", new { ticketId = Model.TicketId, area = "" })
         </div>
     </div>
-
     <p>
         @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
     </p>

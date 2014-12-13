@@ -1,14 +1,6 @@
 ﻿@model TicketDesk.Web.Client.Models.TicketCreateViewModel
 
-@section title
-{
-    New Ticekt
-}
-
-@section customHeader
-{
-   
-}
+@section title { New Ticekt }
 
 @section scripts
 {
@@ -17,7 +9,7 @@
     @Scripts.Render("~/bundles/newticket")
     @Scripts.Render("~/bundles/markdown")
     <script type="text/javascript">
-        
+
         (function () {
             var tdConfig = {
                 dropzoneUploadUrl: "@Url.Action("Upload", "File")",
@@ -55,7 +47,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Ticket.TicketType, new { @class = "col-md-2 col-sm-1 control-label" })
                     <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm", tabindex = 2  })
+                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm", tabindex = 2 })
                         @Html.ValidationMessageFor(model => model.Ticket.TicketType, "", new { @class = "text-danger" })
                     </div>
 
@@ -94,7 +86,7 @@
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
                                     @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
-                                   
+
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <div class="row" style="min-height: 35px;"></div>
@@ -122,7 +114,7 @@
                         </div>
                         @Html.LabelFor(model => model.Ticket.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                         <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm", tabindex = 9})
+                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm", tabindex = 9 })
                             @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -143,7 +135,6 @@
                     @Html.ActionLink("Back to List", "Index")
                 </div>
             </div>
-
         </div>
     }
 </main>
