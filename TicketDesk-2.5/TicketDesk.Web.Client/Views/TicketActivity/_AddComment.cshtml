@@ -1,12 +1,14 @@
 ﻿@using TicketDesk.Domain.Model
 @model  Ticket
 @{
-    var ajaxOptions = new AjaxOptions {UpdateTargetId = "activityPanel", OnBegin = "editTicket.beginActivity", OnSuccess = "editTicket.completeActivity", OnFailure = "editTicket.failActivity"};
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "activityPanel", OnBegin = "editTicket.beginActivity", OnSuccess = "editTicket.completeActivity", OnFailure = "editTicket.failActivity" };
 }
-@using (Ajax.BeginForm("AddComment", "TicketActivity", new {ticketId = Model.TicketId, area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
+@using (Ajax.BeginForm("AddComment", "TicketActivity", new { ticketId = Model.TicketId, area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
 {
     @Html.Partial("_ActivityComment", new TicketEvent())
-    <div class="form-group-sm col-sm-12">
-        <button type="submit" class="btn btn-success" tabindex="25">Add Coment</button>&nbsp;<a href="#" onclick="editTicket.cancelActivity();">Cancel</a>
+
+
+    <div class="form-group col-md-7 col-sm-11 col-md-offset-0 col-sm-offset-0">
+        <button type="submit" class="btn btn-success" tabindex="25">Add Coment</button>&nbsp;&nbsp;<a href="#" onclick="editTicket.cancelActivity();">Cancel</a>
     </div>
 }

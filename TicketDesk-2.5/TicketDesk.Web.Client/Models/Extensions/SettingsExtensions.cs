@@ -24,6 +24,5 @@ namespace TicketDesk.Web.Client.Models
         {
             return settings.GetSettingValue("TicketTypesList", new string[0]).ToSelectList(p => p, p => p, selectedType, includeEmpty);
         }
-        
     }
 }

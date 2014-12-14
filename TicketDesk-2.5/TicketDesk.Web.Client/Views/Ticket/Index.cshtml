@@ -31,15 +31,7 @@
         @Html.Action("TicketDetails", new { ticketId = Model.TicketId, area = "" })
     </div>
     <div class="panel panel-success">
-        <div class="panel-heading">
-            <div class="btn-toolbar" role="toolbar">
-                <div id="activityButtonsPanel">
-                    @Html.Action("ActivityButtons", "TicketActivity", new { ticketId = Model.TicketId, area = "" })
-                </div>
-            </div>
-        </div>
-        <div class="" id="activityPanel">
-        </div>
+        @Html.Action("ActivityPanel", "TicketActivity", new { ticketId = Model.TicketId, area = "" })
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">

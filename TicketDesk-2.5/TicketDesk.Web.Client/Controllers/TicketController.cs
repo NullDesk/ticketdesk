@@ -32,6 +32,13 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "TdInternalUsers")]
+        public ActionResult New()
+        {
+            var model = new TicketCreateViewModel(new Ticket{Owner = Context.SecurityProvider.CurrentUserId}, Context);
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateOnlyIncomingValues]
@@ -73,11 +80,6 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
 
-        [Authorize(Roles = "TdInternalUsers")]
-        public ActionResult New()
-        {
-            var model = new TicketCreateViewModel(new Ticket(), Context);
-            return View(model);
-        }
+       
     }
 }

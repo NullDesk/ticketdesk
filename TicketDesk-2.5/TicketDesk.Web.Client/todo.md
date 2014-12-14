@@ -5,6 +5,12 @@
 - setting to disable file uploads in demo mode
 - move demo settings to database, with application settings as overrides
 
+- Ticket event descriptions:
+    The way we use string concats and user names for a few of the events presents a tiny problem.
+    If/when the user's display name changes, ticket events will not adjust to reflect the new name.
+    Probably should refactor this so that the user and priority parts are actually recorded in the DB, 
+    and re-generate the text to display when the property is read back. Low priority issue though. 
+
 - Refactor ticketstatus filtering to use the enum
 > consider if we need to add any and open to the enum, or how best to handle that case
 

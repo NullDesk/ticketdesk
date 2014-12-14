@@ -1,1 +1,30 @@
-﻿
+﻿@using TicketDesk.Domain.Model
+@model  Ticket
+@{
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "activityPanel", OnBegin = "editTicket.beginActivity", OnSuccess = "editTicket.completeActivity", OnFailure = "editTicket.failActivity" };
+}
+@using (Ajax.BeginForm("Assign", "TicketActivity", new { ticketId = Model.TicketId, area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
+{
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
+        <div class="col-md-6 col-sm-9">
+            @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 8 })
+            @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(model => model.Priority, new { @class = "col-md-2 col-sm-2  control-label" })
+        <div class="col-md-6 col-sm-9">
+            @Html.DropDownListFor(model => model.Priority, Model.GetPriorityList(), new { @class = "form-control input-sm", tabindex = 4 })
+            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    @Html.Partial("_ActivityComment", new TicketEvent())
+
+
+    <div class="form-group-sm col-md-7 col-sm-11 col-md-offset-0 col-sm-offset-0">
+        <button type="submit" class="btn btn-success" tabindex="25">Assign</button>&nbsp;&nbsp;<a href="#" onclick="editTicket.cancelActivity();">Cancel</a>
+    </div>
+}
