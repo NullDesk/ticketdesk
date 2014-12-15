@@ -13,7 +13,7 @@
         };
 
         var cancelActivity = function () {
-            $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
+            $('#activityPanel').empty().parent().animate({ opacity: 1 }, 200);
         }
 
         var completeActivity = function (data) {
@@ -23,7 +23,7 @@
                 loadEventPanel();
                 loadActivityButtons();
                 loadDetails();
-                $('#activityPanel').empty().removeClass('panel-body').parent().animate({ opacity: 1 }, 200);
+                $('#activityPanel').empty().parent().animate({ opacity: 1 }, 200);
             }
         };
         var configureDetails = function () {
@@ -133,7 +133,9 @@
         }
 
         var renderActivityPanel = function (data) {
-            $('#activityPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
+            $('#activityPanel').empty().append(data).parent().animate({ opacity: 1 }, 200);;
+            $('#activityPanel #activityBody').addClass('panel-body');
+            
             configureEditor();
         };
 

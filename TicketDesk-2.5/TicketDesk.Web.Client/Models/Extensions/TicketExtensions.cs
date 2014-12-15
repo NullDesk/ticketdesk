@@ -1,8 +1,12 @@
-﻿using System.Web;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using StackExchange.DataExplorer.Helpers;
 using TicketDesk.Web.Client;
 using TicketDesk.Web.Client.Models;
+using TicketDesk.Web.Identity.Model;
 
 
 namespace TicketDesk.Domain.Model
@@ -58,19 +62,39 @@ namespace TicketDesk.Domain.Model
             return context.Settings.GetTicketTypeList(true, ticket.TicketType);
         }
 
-        public static SelectList GetOwnersList(this Ticket ticket)
+        public static SelectList GetOwnersList(this Ticket ticket, bool excludeCurrentUser = false, bool excludeCurrentOwner = false)
         {
             var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return roleManager.GetTdInternalUsers(userManager).ToUserSelectList(false, ticket.Owner);
+            var sec = DependencyResolver.Current.GetService<TicketDeskContextSecurityProvider>();
+            IEnumerable<TicketDeskUser> all = roleManager.GetTdInternalUsers(userManager);
+            if (excludeCurrentUser)
+            {
+                all = all.Where(u => u.Id != sec.CurrentUserId);
+            }
+            if (excludeCurrentOwner)
+            {
+                all = all.Where(u => u.Id != ticket.Owner);
+            }
+            return all.ToUserSelectList(false, ticket.Owner);
         }
 
 
-        public static SelectList GetAssignedToList(this Ticket ticket)
+        public static SelectList GetAssignedToList(this Ticket ticket, bool excludeCurrentUser = false, bool excludeCurrentAssignedTo = false, bool includeEmptyText = true)
         {
             var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return roleManager.GetTdHelpDeskUsers(userManager).ToUserSelectList(ticket.AssignedTo, "-- unassigned --");
+            var sec = DependencyResolver.Current.GetService<TicketDeskContextSecurityProvider>();
+            IEnumerable<TicketDeskUser> all = roleManager.GetTdHelpDeskUsers(userManager);
+            if (excludeCurrentUser)
+            {
+                all = all.Where(u => u.Id != sec.CurrentUserId);
+            }
+            if (excludeCurrentAssignedTo)
+            {
+                all = all.Where(u => u.Id != ticket.AssignedTo);
+            }
+            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, "-- unassigned --"): all.ToUserSelectList(false, ticket.AssignedTo);
         }
     }
 

@@ -90,7 +90,7 @@ namespace TicketDesk.Domain
             {
                 throw new SecurityException("User is not authorized to read ticket data.");
             }
-            var validTicketActivities = ticket.GetValidActivitesForTicket(GetCurrentUserId());
+            var validTicketActivities = ticket.GetAvailableActivites(GetCurrentUserId());
             var allowedActivities = IsTdAdministrator
                 ? GetAdministratorUserPermissions()
                 : IsTdHelpDeskUser

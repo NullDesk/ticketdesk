@@ -1,0 +1,16 @@
+﻿@using TicketDesk.Domain.Model
+@model  Ticket
+ <div class="form-group form-group-sm">
+    @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
+    <div class="col-md-6 col-sm-9">
+        @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(false, true, false), new { @class = "form-control input-sm", tabindex = 8 })
+        @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(model => model.Priority, new { @class = "col-md-2 col-sm-2  control-label" })
+    <div class="col-md-6 col-sm-9">
+        @Html.DropDownListFor(model => model.Priority, Model.GetPriorityList(), new { @class = "form-control input-sm", tabindex = 4 })
+        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+    </div>
+</div>

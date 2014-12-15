@@ -164,7 +164,89 @@ namespace TicketDesk.Domain.Model
             get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
         }
 
-        
-        
+
+        public TicketActivity GetAvailableActivites(string userId)
+        {
+            var isOwnedByMe = (Owner == userId);
+            var isMoreInfo = (TicketStatus == TicketStatus.MoreInfo);
+            var isAssignedToMe = (!string.IsNullOrEmpty(AssignedTo) && AssignedTo == userId);
+            var isResolved = TicketStatus == TicketStatus.Resolved;
+
+            var validActivities = TicketActivity.None;
+
+            if (TicketId == default(int))
+            {
+                validActivities |= TicketActivity.Create | TicketActivity.CreateOnBehalfOf;
+            }
+
+            if (IsOpen)
+            {
+                validActivities |= TicketActivity.ModifyAttachments;
+            }
+
+            if (IsOpen)
+            {
+                if (isOwnedByMe)
+                {
+                    validActivities |= TicketActivity.EditTicketInfo;
+                }
+                if (isMoreInfo)
+                {
+                    validActivities |= TicketActivity.SupplyMoreInfo;
+                    if (isAssignedToMe)
+                    {
+                        validActivities |= TicketActivity.CancelMoreInfo;
+                    }
+                }
+                else //!moreInfo
+                {
+                    validActivities |= TicketActivity.AddComment;
+                    if (isAssignedToMe)
+                    {
+                        validActivities |= TicketActivity.Resolve | TicketActivity.RequestMoreInfo;
+                    }
+                }
+            }
+            else //not open (resolved or closed)
+            {
+                validActivities |= TicketActivity.ReOpen;
+            }
+            if (isResolved)
+            {
+                if (isOwnedByMe)
+                {
+                    validActivities |= TicketActivity.Close;
+                }
+            }
+            if (IsOpen || isResolved)
+            {
+                if (IsAssigned)
+                {
+                    if (!isAssignedToMe)
+                    {
+                        validActivities |= TicketActivity.ReAssign;
+                    }
+                }
+                else//!assigned
+                {
+                    validActivities |= TicketActivity.Assign;
+                }
+
+                if ((isAssignedToMe || isOwnedByMe) && !(isResolved && isOwnedByMe))
+                {
+                    validActivities |= TicketActivity.ForceClose;
+                }
+
+                if (isAssignedToMe)
+                {
+                    validActivities |= TicketActivity.Pass | TicketActivity.GiveUp;
+                }
+                else//!isAssignedToMe
+                {
+                    validActivities |= TicketActivity.TakeOver;
+                }
+            }
+            return validActivities;
+        }
     }
 }

@@ -205,7 +205,7 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to at a priority of {0}.
+        ///   Looks up a localized string similar to  at a priority of {0}.
         /// </summary>
         public static string TicketActivityPriority {
             get {

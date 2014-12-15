@@ -1,8 +1,6 @@
 ﻿@using TicketDesk.Domain
 @using TicketDesk.Domain.Model
 @model TicketActivity
-
-
     @{
         var activities = Model.GetFlags().Where(f => ((TicketActivity)f) != TicketActivity.None);//exclude the none actiity
         foreach (var activity in activities)

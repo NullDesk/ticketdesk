@@ -311,6 +311,7 @@
     <value>Title</value>
   </data>
   <data name="TicketActivityPriority" xml:space="preserve">
-    <value>at a priority of {0}</value>
+    <value> at a priority of {0}</value>
+    <comment>leading space</comment>
   </data>
 </root>

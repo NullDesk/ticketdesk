@@ -110,12 +110,12 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Ticket.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
                         <div class="col-md-3 col-sm-5">
-                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.Ticket.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 8 })
+                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.Ticket.GetOwnersList(false,false), new { @class = "form-control input-sm", tabindex = 8 })
                             @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Ticket.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                         <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.Ticket.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 9 })
+                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.Ticket.GetAssignedToList(false,false), new { @class = "form-control input-sm", tabindex = 9 })
                             @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -131,7 +131,7 @@
 
             </div>
             <div class="panel-footer">
-                <div class="col-md-offset-2 col-sm-offset-1">
+                <div class="">
                     <button type="submit" class="btn btn-success" tabindex="10">Create</button>&nbsp;&nbsp;
                     @Html.ActionLink("Back to List", "Index")
                 </div>

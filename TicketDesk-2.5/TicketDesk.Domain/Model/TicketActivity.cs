@@ -21,7 +21,6 @@ namespace TicketDesk.Domain.Model
     [Flags]
     public enum TicketActivity
     {
-
         None = 0,
 
         [CommentRequired]

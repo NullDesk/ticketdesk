@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Domain.Model.Extensions;
 
 namespace TicketDesk.Domain.Model
 {
     public static class TicketActivityExtensions
     {
-        public static bool CommentRequired(this TicketActivity enumeration)
+        public static bool IsCommentRequired(this TicketActivity enumeration)
         {
             var req = false;
             var type = enumeration.GetType();
