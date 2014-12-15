@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Domain.Model.Extensions;
-using TicketDesk.Web.Identity;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -28,7 +23,7 @@ namespace TicketDesk.Web.Client.Controllers
             Context.SecurityProvider.IsTicketActivityValid(ticket, activity);
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
-            return PartialView("_ActivityForm", ticket); //PartialView(string.Format("_{0}", activity), ticket);
+            return PartialView("_ActivityForm", ticket); 
         }
 
         public async Task<ActionResult> ActivityButtons(int ticketId)

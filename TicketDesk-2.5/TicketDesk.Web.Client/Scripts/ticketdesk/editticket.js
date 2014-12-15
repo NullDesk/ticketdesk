@@ -107,6 +107,7 @@
             }
         };
 
+        // ReSharper disable once UnusedParameter
         var failActivity = function (data) {
             $('#activityPanel').animate({ opacity: 1 }, 200);
         }
