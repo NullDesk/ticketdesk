@@ -23,7 +23,7 @@ namespace TicketDesk.Web.Client.Controllers
             Context.SecurityProvider.IsTicketActivityValid(ticket, activity);
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
-            return PartialView("_ActivityForm", ticket); 
+            return PartialView("_ActivityForm", ticket);
         }
 
         public async Task<ActionResult> ActivityButtons(int ticketId)
@@ -49,6 +49,44 @@ namespace TicketDesk.Web.Client.Controllers
         {
             const TicketActivity activity = TicketActivity.Assign;
             return await ChangeAssignment(ticketId, comment, assignedTo, priority, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CancelMoreInfo(int ticketId, string comment)
+        {
+            const TicketActivity activity = TicketActivity.CancelMoreInfo;
+            Action<Ticket> activityFn = t =>
+            {
+                t.TicketStatus = TicketStatus.Active;
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+            return await PerformActivity(ticketId, activityFn, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Close(int ticketId, string comment)
+        {
+            const TicketActivity activity = TicketActivity.Close;
+            Action<Ticket> activityFn = t =>
+            {
+                t.TicketStatus = TicketStatus.Closed;
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+
+            return await PerformActivity(ticketId, activityFn, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ForceClose(int ticketId, string comment)
+        {
+            const TicketActivity activity = TicketActivity.ForceClose;
+            Action<Ticket> activityFn =  t =>
+            {
+                t.TicketStatus = TicketStatus.Closed;
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+
+            return await PerformActivity(ticketId, activityFn, activity);
         }
 
         [HttpPost]
@@ -81,11 +119,67 @@ namespace TicketDesk.Web.Client.Controllers
             return await ChangeAssignment(ticketId, comment, assignedTo, priority, activity);
         }
 
+       
+
+
         [HttpPost]
         public async Task<ActionResult> ReAssign(int ticketId, string comment, string assignedTo, string priority)
         {
             const TicketActivity activity = TicketActivity.ReAssign;
             return await ChangeAssignment(ticketId, comment, assignedTo, priority, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RequestMoreInfo(int ticketId, string comment)
+        {
+            const TicketActivity activity = TicketActivity.RequestMoreInfo;
+            Action<Ticket> activityFn = t =>
+            {
+                t.TicketStatus = TicketStatus.MoreInfo;
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+            return await PerformActivity(ticketId, activityFn, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ReOpen(int ticketId, string comment, bool assignTome = false)
+        {
+            const TicketActivity activity = TicketActivity.ReOpen;
+            Action<Ticket> activityFn = t =>
+            {
+                t.AssignedTo = assignTome ? Context.SecurityProvider.CurrentUserId : null;
+                t.TicketStatus = TicketStatus.Active;
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+            return await PerformActivity(ticketId, activityFn, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Resolve(int ticketId, string comment)
+        {
+            const TicketActivity activity = TicketActivity.Resolve;
+            Action<Ticket> activityFn = t =>
+            {
+                t.TicketStatus = TicketStatus.Resolved;
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+
+            return await PerformActivity(ticketId, activityFn, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SupplyMoreInfo(int ticketId, string comment, bool reactivate = false)
+        {
+            const TicketActivity activity = TicketActivity.SupplyMoreInfo;
+            Action<Ticket> activityFn = t =>
+            {
+                if (reactivate)
+                {
+                    t.TicketStatus = TicketStatus.Active;
+                }
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
+            };
+            return await PerformActivity(ticketId, activityFn, activity);
         }
 
         [HttpPost]
@@ -110,7 +204,7 @@ namespace TicketDesk.Web.Client.Controllers
             };
             return await PerformActivity(ticketId, activityFn, activity);
         }
-       
+
 
         private async Task<ActionResult> ChangeAssignment(int ticketId, string comment, string assignedTo, string priority, TicketActivity activity)
         {
@@ -150,9 +244,10 @@ namespace TicketDesk.Web.Client.Controllers
                 var result = await Context.SaveChangesAsync(); //save changes catches lastupdatedby and date automatically
                 if (result > 0)
                 {
-                    return new EmptyResult();
+                    return new EmptyResult();//standard success case
                 }
             }
+            //fail case, return the view and let the client/view sort out the errors
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
             return PartialView("_ActivityForm", ticket);

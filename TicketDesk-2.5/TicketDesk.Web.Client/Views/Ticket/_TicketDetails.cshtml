@@ -42,7 +42,7 @@
         <div class="row">
             @Html.LabelFor(m => m.LastUpdateDate, new { @class = "col-sm-5 text-right" })
             <div class="col-sm-7">
-                @Model.LastUpdateDate.Date.ToShortDateString() @Model.LastUpdateDate.Date.ToShortTimeString()
+                @Model.LastUpdateDate.DateTime.ToShortDateString() @Model.LastUpdateDate.DateTime.ToShortTimeString()
             </div>
         </div>
 
@@ -55,7 +55,7 @@
         <div class="row">
             @Html.LabelFor(m => m.CurrentStatusDate, new { @class = "col-sm-5 text-right" })
             <div class="col-sm-7">
-                @Model.CurrentStatusDate.Date.ToShortDateString() @Model.CurrentStatusDate.Date.ToShortTimeString()
+                @Model.CurrentStatusDate.DateTime.ToShortDateString() @Model.CurrentStatusDate.DateTime.ToShortTimeString()
             </div>
         </div>
         <div class="row">
@@ -67,7 +67,7 @@
         <div class="row">
             @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 text-right" })
             <div class="col-sm-7">
-                @Model.CreatedDate.Date.ToShortDateString() @Model.CreatedDate.Date.ToShortTimeString()
+                @Model.CreatedDate.DateTime.ToShortDateString() @Model.CreatedDate.DateTime.ToShortTimeString()
             </div>
         </div>
     </aside>

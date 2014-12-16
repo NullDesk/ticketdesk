@@ -1,1 +1,17 @@
-﻿
+﻿@using TicketDesk.Domain.Model
+@model  Ticket
+<div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label">Status</label>
+    <div class="col-sm-9">
+        <label class="checkbox-inline" for="reactivate">
+            <input class="" name="reactivate" type="checkbox" id="assignToMe" tabindex="1" value="true" />
+            Assign to me?
+        </label>
+        <div class="small" style="text-indent: 2em;">
+            <em>
+                Check this box to assign the ticket to yourself now. If unchecked the ticket will be re-opened as unassigned.
+            </em>
+        </div>
+    </div>
+</div>
+

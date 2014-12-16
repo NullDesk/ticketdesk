@@ -12,7 +12,8 @@
             $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
         };
 
-        var cancelActivity = function () {
+        var cancelActivity = function (e) {
+            e.preventDefault();
             $('#activityPanel').empty().parent().animate({ opacity: 1 }, 200);
         }
 

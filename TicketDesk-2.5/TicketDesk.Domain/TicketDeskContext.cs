@@ -217,9 +217,18 @@ namespace TicketDesk.Domain
 
         private void PrePopulateModifiedTicket(Ticket modifiedTicket)
         {
+            var o = ChangeTracker.Entries<Ticket>().Single(e => e.Entity.TicketId == modifiedTicket.TicketId);
+            var origTicket = (Ticket)o.OriginalValues.ToObject();
             var now = DateTime.Now;
+            
             modifiedTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
             modifiedTicket.LastUpdateDate = now;
+
+            if (modifiedTicket.TicketStatus != origTicket.TicketStatus)//if status change, force update to status by/date
+            {
+                modifiedTicket.CurrentStatusDate = now;
+                modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
+            }
         }
 
         private void PrePopulateNewTicket(Ticket newTicket)
