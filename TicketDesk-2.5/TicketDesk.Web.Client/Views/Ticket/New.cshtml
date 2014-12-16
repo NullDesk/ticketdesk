@@ -1,14 +1,7 @@
-﻿@model TicketDesk.Web.Client.Models.TicketCreateViewModel
+﻿@using TicketDesk.Domain.Model
+@model TicketDesk.Web.Client.Models.TicketCreateViewModel
 
-@section title
-{
-    New Ticekt
-}
-
-@section customHeader
-{
-   
-}
+@section title { New Ticekt }
 
 @section scripts
 {
@@ -17,7 +10,7 @@
     @Scripts.Render("~/bundles/newticket")
     @Scripts.Render("~/bundles/markdown")
     <script type="text/javascript">
-        
+
         (function () {
             var tdConfig = {
                 dropzoneUploadUrl: "@Url.Action("Upload", "File")",
@@ -55,20 +48,20 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Ticket.TicketType, new { @class = "col-md-2 col-sm-1 control-label" })
                     <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.TicketTypeList, new { @class = "form-control input-sm", tabindex = 2  })
+                        @Html.DropDownListFor(model => model.Ticket.TicketType, Model.Ticket.GetTicketTypeList(), new { @class = "form-control input-sm", tabindex = 2 })
                         @Html.ValidationMessageFor(model => model.Ticket.TicketType, "", new { @class = "text-danger" })
                     </div>
 
                     @Html.LabelFor(model => model.Ticket.Category, new { @class = "col-md-1 col-sm-1 control-label" })
                     <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Ticket.Category, Model.CategoryList, new { @class = "form-control input-sm", tabindex = 3 })
+                        @Html.DropDownListFor(model => model.Ticket.Category, Model.Ticket.GetCategoryList(), new { @class = "form-control input-sm", tabindex = 3 })
                         @Html.ValidationMessageFor(model => model.Ticket.Category, "", new { @class = "text-danger" })
                     </div>
                     @if (Model.DisplayPriorityList)
                     {
                         @Html.LabelFor(model => model.Ticket.Priority, new { @class = "col-md-1 col-sm-1 control-label" })
                         <div class="col-md-2 col-sm-3">
-                            @Html.DropDownListFor(model => model.Ticket.Priority, Model.PriorityList, new { @class = "form-control input-sm", tabindex = 4 })
+                            @Html.DropDownListFor(model => model.Ticket.Priority, Model.Ticket.GetPriorityList(), new { @class = "form-control input-sm", tabindex = 4 })
                             @Html.ValidationMessageFor(model => model.Ticket.Priority, "", new { @class = "text-danger" })
                         </div>
                     }
@@ -81,7 +74,7 @@
                     </div>
                     <div class="col-md-3 col-md-offset-2 col-sm-5 col-sm-offset-2">
                         <label class="checkbox-inline" for="affectsCustomer">
-                            <input class="" type="checkbox" id="affectsCustomer" data-bind="checked: affectsCustomer" tabindex="6" />
+                            <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="6" />
                             Affects Customer
                         </label>
                     </div>
@@ -94,7 +87,7 @@
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
                                     @Html.TextAreaFor(model => model.Ticket.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
-                                    @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
+
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <div class="row" style="min-height: 35px;"></div>
@@ -109,6 +102,7 @@
                                 <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
                             </ul>
                         </div>
+                        @Html.ValidationMessageFor(model => model.Ticket.Details, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 @if (Model.DisplayUserSelects)
@@ -116,12 +110,12 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Ticket.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
                         <div class="col-md-3 col-sm-5">
-                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.OwnersList, new { @class = "form-control input-sm", tabindex = 8 })
+                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.Ticket.GetOwnersList(false,false), new { @class = "form-control input-sm", tabindex = 8 })
                             @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Ticket.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                         <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.AssignedToList, new { @class = "form-control input-sm", tabindex = 9})
+                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.Ticket.GetAssignedToList(false,false), new { @class = "form-control input-sm", tabindex = 9 })
                             @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -137,12 +131,11 @@
 
             </div>
             <div class="panel-footer">
-                <div class="col-md-offset-2 col-sm-offset-1">
+                <div class="">
                     <button type="submit" class="btn btn-success" tabindex="10">Create</button>&nbsp;&nbsp;
                     @Html.ActionLink("Back to List", "Index")
                 </div>
             </div>
-
         </div>
     }
 </main>

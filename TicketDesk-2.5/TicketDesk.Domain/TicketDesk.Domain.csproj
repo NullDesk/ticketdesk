@@ -65,6 +65,7 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\AsyncHelpers.cs" />
+    <Compile Include="Infrastructure\CommentRequiredAttribute.cs" />
     <Compile Include="Infrastructure\DemoDataManager.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
     <Compile Include="Localization\LocalizedDescrptionAttribute.cs" />
@@ -77,15 +78,19 @@
     <Compile Include="Migrations\201410160155270_Td2.5.001.Designer.cs">
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412012200330_Td2.5.002.cs" />
+    <Compile Include="Migrations\201412012200330_Td2.5.002.Designer.cs">
+      <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\SettingExtensions.cs" />
-    <Compile Include="Model\Extensions\TicketCommentExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Model\Extensions\TicketExtensions.cs" />
     <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
     <Compile Include="Model\TicketActivity.cs" />
-    <Compile Include="Model\TicketCommentFlag.cs" />
     <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
     <Compile Include="Model\Extensions\UserSettingExtensions.cs" />
     <Compile Include="Model\UserTicketListModel\UserTicketListSettingsCollection.cs" />
@@ -98,7 +103,7 @@
     <Compile Include="Model\Setting.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Model\TicketAttachment.cs" />
-    <Compile Include="Model\TicketComment.cs" />
+    <Compile Include="Model\TicketEvent.cs" />
     <Compile Include="TicketDeskContext.cs" />
     <Compile Include="Model\TicketEventNotification.cs" />
     <Compile Include="Model\TicketTag.cs" />
@@ -123,6 +128,9 @@
     <EmbeddedResource Include="Localization\TicketDeskDomainText.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TicketDeskDomainText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412012200330_Td2.5.002.resx">
+      <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

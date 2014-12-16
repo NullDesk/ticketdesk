@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain
 {
     public static class EnumExtensions
     {
-
 
         /// <summary>
         /// Gets the description for an enum.
@@ -15,23 +17,23 @@ namespace TicketDesk.Domain
         /// <returns>The text of the DescriptionAttribute if applicable, otherwise returns the value as a string.</returns>
         /// <remarks>If used on a sepcifc value from the enumeration, will return the description for that value.
         /// If used on an enum as a whole, will return the description of the enum itself.</remarks>
-		public static string GetDescription(this Enum enumeration)
-		{
-			var type = enumeration.GetType();
-			var memberInfo = type.GetMember(enumeration.ToString());
+        public static string GetDescription(this Enum enumeration)
+        {
+            var type = enumeration.GetType();
+            var memberInfo = type.GetMember(enumeration.ToString());
 
-			//if there is member information
-			if (memberInfo.Length > 0)
-			{
-				var attributes = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+            //if there is member information
+            if (memberInfo.Length > 0)
+            {
+                var attributes = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-				if (attributes.Length > 0)
-				{
-					return ((DescriptionAttribute)attributes.First()).Description;
-				}
-			}
-			return enumeration.ToString();
-		}
+                if (attributes.Length > 0)
+                {
+                    return ((DescriptionAttribute)attributes.First()).Description;
+                }
+            }
+            return enumeration.ToString();
+        }
 
 
         /// <summary>
@@ -65,5 +67,9 @@ namespace TicketDesk.Domain
             return default(T);
         }
 
+        public static IEnumerable<Enum> GetFlags(this Enum input)
+        {
+            return Enum.GetValues(input.GetType()).Cast<Enum>().Where(input.HasFlag);
+        }
     }
 }

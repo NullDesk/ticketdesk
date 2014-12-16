@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.Domain.Models;
 using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
@@ -13,9 +12,6 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class TicketCenterController : Controller
     {
-
-
-
         private TicketDeskContext Context { get; set; }
         public TicketCenterController(TicketDeskContext context)
         {

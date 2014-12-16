@@ -13,9 +13,7 @@
 
 using System.Configuration;
 using TicketDesk.Domain.Infrastructure;
-using TicketDesk.Domain.Model;
-using TicketDesk.Domain.Models;
-using System;
+
 
 namespace TicketDesk.Domain.Migrations
 {
@@ -28,7 +26,7 @@ namespace TicketDesk.Domain.Migrations
         {
             AutomaticMigrationsEnabled = false;
             ContextKey = "TicketDeskCore";
-            
+
         }
 
         protected override void Seed(TicketDeskContext context)
@@ -37,11 +35,11 @@ namespace TicketDesk.Domain.Migrations
             if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
             {
                 DemoDataManager.SetupDemoData(context);
-            } 
-          
+            }
+
             base.Seed(context);
         }
 
-       
+
     }
 }

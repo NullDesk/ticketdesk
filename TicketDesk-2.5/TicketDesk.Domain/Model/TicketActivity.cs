@@ -11,103 +11,76 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+using System.ComponentModel;
+using TicketDesk.Domain.Infrastructure;
+
 namespace TicketDesk.Domain.Model
 {
 
+    [Flags]
     public enum TicketActivity
     {
-        /// <summary>
-        /// No change made
-        /// </summary>
-        NoChange,
-        /// <summary>
-        /// Get ticket information
-        /// </summary>
-        GetTicketInfo,
-        /// <summary>
-        /// Add one or more attachments
-        /// </summary>
-        ModifyAttachments,
-        /// <summary>
-        /// Edit ticket information
-        /// </summary>
-        EditTicketInfo,
-        /// <summary>
-        /// Answer request for more information
-        /// </summary>
-        SupplyMoreInfo,
-        /// <summary>
-        /// Request more information
-        /// </summary>
-        RequestMoreInfo,
-        /// <summary>
-        /// Cancel request for more information
-        /// </summary>
-        CancelMoreInfo,
-        /// <summary>
-        /// Re-Open a closed or resoled ticket
-        /// </summary>
-        ReOpen,
-        /// <summary>
-        /// New Ticket that is to be owned by the submitting user
-        /// </summary>
-        Create,
-        /// <summary>
-        /// Create A New ticket with a different user as the owner.
-        /// </summary>
-        CreateOnBehalfOf,
-        /// <summary>
-        /// Add a comment to the ticket
-        /// </summary>
-        AddComment,
-        /// <summary>
-        /// Take over a ticket without changing prioirty
-        /// </summary>
-        TakeOver,
-        /// <summary>
-        /// Take over ticket with a change or assignment of a priority
-        /// </summary>
-        TakeOverWithPriority,
-        /// <summary>
-        /// Assign the ticket to a help-desk staff member
-        /// </summary>
-        Assign,
-        /// <summary>
-        /// Assign the ticket to a help-desk staff member with a change or assignment of a priority
-        /// </summary>
-        AssignWithPriority,
-        /// <summary>
-        /// Reassign the ticket to a help-desk staff member
-        /// </summary>
-        ReAssign,
-        /// <summary>
-        /// Reassign the ticket to a help-desk staff member with a change or assignment of a priority
-        /// </summary>
-        ReAssignWithPriority,
-        /// <summary>
-        /// Pass the ticket to a help-desk staff member
-        /// </summary>
-        Pass,
-        /// <summary>
-        /// Pass the ticket to a help-desk staff member with a change or assignment of a priority
-        /// </summary>
-        PassWithPriority,
-        /// <summary>
-        /// Give up a ticket (mark ticket unassigned)
-        /// </summary>
-        GiveUp,
-        /// <summary>
-        /// Resolved a ticket
-        /// </summary>
-        Resolve,
-        /// <summary>
-        /// Close a resolved ticket normally
-        /// </summary>
-        Close,
-        /// <summary>
-        /// Close a ticket immediately without going through the normal active,resolve,close process
-        /// </summary>
-        ForceClose
+        None = 0,
+
+        [CommentRequired]
+        [Description("Comment")]
+        AddComment = 1,
+
+        [CommentRequired]
+        [Description("Provide Info")]
+        SupplyMoreInfo = 2,
+
+        [Description("Cancel More Info")]
+        CancelMoreInfo = 4,
+
+        [CommentRequired]
+        [Description("Request More Info")]
+        RequestMoreInfo = 8,
+
+        [Description("Take Over")]
+        TakeOver = 16,
+
+        [CommentRequired]
+        [Description("Resolve")]
+        Resolve = 32,
+
+        [Description("Assign")]
+        Assign = 64,
+
+        [Description("Re-assign")]
+        ReAssign = 128,
+
+        [Description("Pass")]
+        Pass = 256,
+
+        [Description("Close")]
+        Close = 512,
+
+        [CommentRequired]
+        [Description("Re-open")]
+        ReOpen = 1024,
+
+        [Description("Give Up")]
+        [CommentRequired]
+        GiveUp = 2048,
+
+        [CommentRequired]
+        [Description("Force Close")]
+        ForceClose = 4096,
+
+        [Description("Attachments")]
+        ModifyAttachments = 8192,
+
+        [Description("Edit")]
+        EditTicketInfo = 16384,
+
+        [Description("Create")]
+        Create = 32768,
+
+        [Description("Create")]
+        CreateOnBehalfOf = 65536
     }
+
 
 }

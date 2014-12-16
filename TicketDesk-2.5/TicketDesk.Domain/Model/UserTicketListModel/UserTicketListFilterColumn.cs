@@ -13,7 +13,7 @@
 
 using System;
 
-namespace TicketDesk.Domain.Models
+namespace TicketDesk.Domain.Model
 {
     public class UserTicketListFilterColumn
     {

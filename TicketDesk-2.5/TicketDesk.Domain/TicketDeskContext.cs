@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
+using TicketDesk.Domain.Model.Extensions;
 using TicketDesk.Domain.Search;
 
 
@@ -33,7 +34,7 @@ namespace TicketDesk.Domain
         {
             get
             {
-                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"))); 
+                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
             }
         }
 
@@ -65,7 +66,7 @@ namespace TicketDesk.Domain
         /// instance internally, but a few obscure bits were not similarly updates (e.g. 
         /// DbMigrator.GetPendingMigrations). 
         /// </remarks>
-        internal TicketDeskContext()
+        public TicketDeskContext()
             : base("name=TicketDesk")
         {
 
@@ -76,13 +77,13 @@ namespace TicketDesk.Domain
             //TODO: Remove along with supoprting class if unneeded
             //modelBuilder.Conventions.Add(new NonPublicColumnAttributeConvention());
 
-            modelBuilder.Entity<TicketComment>()
+            modelBuilder.Entity<TicketEvent>()
                 .Property(e => e.Version)
                 .IsFixedLength();
 
-            modelBuilder.Entity<TicketComment>()
+            modelBuilder.Entity<TicketEvent>()
                 .HasMany(e => e.TicketEventNotifications)
-                .WithRequired(e => e.TicketComment)
+                .WithRequired(e => e.TicketEvent)
                 .HasForeignKey(e => new { e.TicketId, e.CommentId })
                 .WillCascadeOnDelete(false);
 
@@ -98,7 +99,7 @@ namespace TicketDesk.Domain
 
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
-        public virtual DbSet<TicketComment> TicketComments { get; set; }
+        public virtual DbSet<TicketEvent> TicketEvents { get; set; }
         public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketTag> TicketTags { get; set; }
@@ -131,26 +132,30 @@ namespace TicketDesk.Domain
 
         public override async Task<int> SaveChangesAsync()
         {
-            PreProcessNewTickets();
-
             var pendingTicketChanges = GetTicketChanges();
+            if (SecurityProvider != null)
+            {
+                PreProcessNewTickets();
+                PreProcessModifiedTickets(pendingTicketChanges);
+            }
 
             var result = await base.SaveChangesAsync();
 
             if (result > 0)
             {
-               await PostProcessTicketChangesAsync(pendingTicketChanges);
+                await PostProcessTicketChangesAsync(pendingTicketChanges);
             }
             return result;
         }
 
         public override int SaveChanges()
         {
+            var pendingTicketChanges = GetTicketChanges();
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();
+                PreProcessModifiedTickets(pendingTicketChanges);
             }
-            var pendingTicketChanges = GetTicketChanges();
 
             var result = base.SaveChanges();
 
@@ -192,6 +197,14 @@ namespace TicketDesk.Domain
             }
         }
 
+        private void PreProcessModifiedTickets(IEnumerable<Ticket> ticketChanges )
+        {
+            foreach (var change in ticketChanges)
+            {
+                PrePopulateModifiedTicket(change);
+            }
+        }
+
         private void PreProcessNewTickets()
         {
             var ticketChanges = ChangeTracker.Entries<Ticket>().Where(t => t.State == EntityState.Added).Select(t => t.Entity);
@@ -199,6 +212,22 @@ namespace TicketDesk.Domain
             foreach (var change in ticketChanges)
             {
                 PrePopulateNewTicket(change);
+            }
+        }
+
+        private void PrePopulateModifiedTicket(Ticket modifiedTicket)
+        {
+            var o = ChangeTracker.Entries<Ticket>().Single(e => e.Entity.TicketId == modifiedTicket.TicketId);
+            var origTicket = (Ticket)o.OriginalValues.ToObject();
+            var now = DateTime.Now;
+            
+            modifiedTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
+            modifiedTicket.LastUpdateDate = now;
+
+            if (modifiedTicket.TicketStatus != origTicket.TicketStatus)//if status change, force update to status by/date
+            {
+                modifiedTicket.CurrentStatusDate = now;
+                modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
             }
         }
 
@@ -216,8 +245,10 @@ namespace TicketDesk.Domain
             newTicket.TicketStatus = TicketStatus.Active;
             newTicket.CurrentStatusDate = now;
             newTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
-            newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
-            newTicket.LastUpdateDate = now;
+
+            //last update info will be set by PrePopulateModifiedTicket method, no need to set it here too
+            //newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
+            //newTicket.LastUpdateDate = now;
 
             if (newTicket.TagList != null && newTicket.TagList.Any())
             {
@@ -228,31 +259,29 @@ namespace TicketDesk.Domain
                     }));
             }
 
-            //comment
-            var openingComment = (newTicket.Owner != SecurityProvider.CurrentUserId) ?
-                TicketComment.CreateActivityComment(
-                    SecurityProvider.CurrentUserId,
-                    TicketActivity.CreateOnBehalfOf,
-                    TicketCommentFlag.CommentNotApplicable,
-                    null,
-                    newTicket.AssignedTo,
-                    SecurityProvider.GetUserDisplayName(newTicket.Owner)) :
-                TicketComment.CreateActivityComment(
-                    SecurityProvider.CurrentUserId,
-                    TicketActivity.Create,
-                    TicketCommentFlag.CommentNotApplicable,
-                    null,
-                    newTicket.AssignedTo);
+            var act = (newTicket.Owner != SecurityProvider.CurrentUserId)
+                ? TicketActivity.CreateOnBehalfOf
+                : TicketActivity.Create;
 
-            newTicket.TicketComments.Add(openingComment);
+            newTicket.TicketEvents.AddActivityEvent(
+                SecurityProvider.CurrentUserId,
+                act,
+                null,
+                null,
+                SecurityProvider.GetUserDisplayName(newTicket.Owner));
+
 
             //TODO: What with attachments?
         }
 
         private IEnumerable<Ticket> GetTicketChanges()
         {
+            var pendingCommentChanges =
+                ChangeTracker.Entries<TicketEvent>().Where(t => t.State != EntityState.Unchanged)
+                    .Select(t => t.Entity.TicketId).ToArray();
+
             var pendingTicketChanges = ChangeTracker.Entries<Ticket>()
-                .Where(t => t.State != EntityState.Unchanged)
+                .Where(t => t.State != EntityState.Unchanged || pendingCommentChanges.Contains(t.Entity.TicketId))
                 .Select(t => t.Entity)
                 .ToArray(); //execute now, because after save changes this query will return no results
             return pendingTicketChanges;

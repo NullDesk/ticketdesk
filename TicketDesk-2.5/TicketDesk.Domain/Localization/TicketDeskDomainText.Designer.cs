@@ -115,20 +115,11 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assigned the ticket to {1}.
+        ///   Looks up a localized string similar to assigned the ticket to {0}.
         /// </summary>
         public static string TicketActivityAssign {
             get {
                 return ResourceManager.GetString("TicketActivityAssign", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to assigned the ticket to {1} at a priority of {2}.
-        /// </summary>
-        public static string TicketActivityAssignWithPriority {
-            get {
-                return ResourceManager.GetString("TicketActivityAssignWithPriority", resourceCulture);
             }
         }
         
@@ -205,7 +196,7 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to passed the ticket to {1}.
+        ///   Looks up a localized string similar to passed the ticket to {0}.
         /// </summary>
         public static string TicketActivityPass {
             get {
@@ -214,11 +205,11 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to passed the ticket to {1} at a priority of {2}.
+        ///   Looks up a localized string similar to  at a priority of {0}.
         /// </summary>
-        public static string TicketActivityPassWithPriority {
+        public static string TicketActivityPriority {
             get {
-                return ResourceManager.GetString("TicketActivityPassWithPriority", resourceCulture);
+                return ResourceManager.GetString("TicketActivityPriority", resourceCulture);
             }
         }
         
@@ -232,7 +223,7 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to reassigned the ticket from {0} to {1}.
+        ///   Looks up a localized string similar to reassigned the ticket to {0}.
         /// </summary>
         public static string TicketActivityReAssign {
             get {
@@ -241,16 +232,7 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to reassigned the ticket from {0} to {1} at a priority of {2}.
-        /// </summary>
-        public static string TicketActivityReAssignWithPriority {
-            get {
-                return ResourceManager.GetString("TicketActivityReAssignWithPriority", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to re-opened the ticket{0}{1}.
+        ///   Looks up a localized string similar to re-opened the ticket.
         /// </summary>
         public static string TicketActivityReOpen {
             get {
@@ -277,7 +259,7 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to has provided more information {0}.
+        ///   Looks up a localized string similar to has provided more information.
         /// </summary>
         public static string TicketActivitySupplyMoreInfo {
             get {
@@ -286,38 +268,11 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to has taken over the ticket{0}.
+        ///   Looks up a localized string similar to has taken over the ticket.
         /// </summary>
         public static string TicketActivityTakeOver {
             get {
                 return ResourceManager.GetString("TicketActivityTakeOver", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to has taken over the ticket{0} with a priority of {1}.
-        /// </summary>
-        public static string TicketActivityTakeOverWithPriority {
-            get {
-                return ResourceManager.GetString("TicketActivityTakeOverWithPriority", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  without comment.
-        /// </summary>
-        public static string TicketActivityWithoutComment {
-            get {
-                return ResourceManager.GetString("TicketActivityWithoutComment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to without reactivating the ticket..
-        /// </summary>
-        public static string TicketActivityWithoutReactivate {
-            get {
-                return ResourceManager.GetString("TicketActivityWithoutReactivate", resourceCulture);
             }
         }
         

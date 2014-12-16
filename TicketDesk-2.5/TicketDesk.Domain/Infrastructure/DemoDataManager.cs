@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace TicketDesk.Domain.Infrastructure
             context.UserSettings.RemoveRange(context.UserSettings);
             context.TicketAttachments.RemoveRange(context.TicketAttachments);
             context.TicketTags.RemoveRange(context.TicketTags);
-            context.TicketComments.RemoveRange(context.TicketComments);
+            context.TicketEvents.RemoveRange(context.TicketEvents);
             context.Tickets.RemoveRange(context.Tickets);
             foreach (var setting in context.Settings)
             {
@@ -29,6 +30,10 @@ namespace TicketDesk.Domain.Infrastructure
         {
             RemoveAllData(context);
             context.SaveChanges();
+
+          
+          
+
 
             context.Tickets.AddOrUpdate(t => t.Title,
                    new Ticket
@@ -48,7 +53,8 @@ namespace TicketDesk.Domain.Infrastructure
                        Owner = "17f78f38-fa68-445f-90de-38896140db28",
                        Priority = "Low",
                        TagList = "test,moretest",
-                       TicketType = "Problem"
+                       TicketType = "Problem",
+                       TicketEvents = new[] {TicketEvent.CreateActivityEvent("17f78f38-fa68-445f-90de-38896140db28",TicketActivity.Create, null,null,null)}
 
                    });
 
@@ -82,7 +88,7 @@ namespace TicketDesk.Domain.Infrastructure
                         AffectsCustomer = false,
                         AssignedTo = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                         Category = cc,
-                        CreatedBy = "17f78f38-fa68-445f-90de-38896140db28",
+                        CreatedBy = oo,
                         TicketStatus = (p == "L") ? TicketStatus.Closed : TicketStatus.Active,
                         CurrentStatusDate = now,
                         CurrentStatusSetBy = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
@@ -94,8 +100,8 @@ namespace TicketDesk.Domain.Infrastructure
                         Owner = oo,
                         Priority = "Low",
                         TagList = "test,moretest",
-                        TicketType = tt
-
+                        TicketType = tt,
+                        TicketEvents = new[] { TicketEvent.CreateActivityEvent(oo, TicketActivity.Create, null, null, null) }
                     });
             }
             context.SaveChanges();

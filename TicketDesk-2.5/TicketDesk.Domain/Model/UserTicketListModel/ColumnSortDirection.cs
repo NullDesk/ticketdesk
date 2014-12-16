@@ -11,7 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-namespace TicketDesk.Domain.Models
+namespace TicketDesk.Domain.Model
 {
     /// <summary>
     /// A sort direction for columns in a list view

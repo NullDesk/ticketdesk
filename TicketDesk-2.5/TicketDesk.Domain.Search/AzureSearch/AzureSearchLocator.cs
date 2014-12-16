@@ -19,7 +19,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
         {
             var query = new SearchQuery(searchText)
             {
-                SearchFields = "id,title,details,tags,comments",
+                SearchFields = "id,title,details,tags,events",
                 Select = "id"
             };
             var result = await QueryClient.SearchAsync(IndexName, query);

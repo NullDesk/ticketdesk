@@ -7,7 +7,7 @@ namespace TicketDesk.Domain.Search.Lucene
     {
         public static Document ToLuceneDocument(this SearchQueueItem item)
         {
-            var commentText = string.Join(" ", item.Comments);
+            var eventText = string.Join(" ", item.Events);
             var tagList = string.Join(" ", item.Tags);
 
             var id = new Field(
@@ -49,9 +49,9 @@ namespace TicketDesk.Domain.Search.Lucene
                 Field.Store.NO,
                 Field.Index.ANALYZED,
                 Field.TermVector.NO) { Boost = 2.5F };
-            var comments = new Field(
-                "comments",
-                commentText,
+            var events = new Field(
+                "events",
+                eventText,
                 Field.Store.NO,
                 Field.Index.ANALYZED,
                 Field.TermVector.YES) { Boost = 0.75F };
@@ -63,7 +63,7 @@ namespace TicketDesk.Domain.Search.Lucene
             doc.Add(lastupdatedate);
             doc.Add(details);
             doc.Add(tags);
-            doc.Add(comments);
+            doc.Add(events);
             return doc;
         }
     }

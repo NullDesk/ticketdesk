@@ -13,7 +13,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
                 .WithProperty("lastupdatedate", item.LastUpdateDate)
                 .WithProperty("details", item.Details)
                 .WithProperty("tags", item.Tags)
-                .WithProperty("comments", item.Comments);
+                .WithProperty("events", item.Events);
             return op;
         }
     }

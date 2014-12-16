@@ -65,6 +65,11 @@ body {
     min-height: 250px;
     overflow: auto;
 }
+#wmd-preview-activity.wmd-preview {
+    min-height: 100px;
+    overflow: auto;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 
 

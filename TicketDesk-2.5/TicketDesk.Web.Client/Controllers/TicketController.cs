@@ -7,6 +7,9 @@ using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    /// <summary>
+    /// Class TicketController.
+    /// </summary>
     [RoutePrefix("ticket")]
     [Authorize]
     public class TicketController : Controller
@@ -32,7 +35,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Authorize(Roles = "TdInternalUsers")]
         public ActionResult New()
         {
-            var model = new TicketCreateViewModel(new Ticket(), Context);
+            var model = new TicketCreateViewModel(new Ticket{Owner = Context.SecurityProvider.CurrentUserId}, Context);
             return View(model);
         }
 
@@ -62,5 +65,21 @@ namespace TicketDesk.Web.Client.Controllers
             }
             return View(new TicketCreateViewModel(ticket, Context));
         }
+
+
+        public async Task<ActionResult> TicketEvents(int ticketId)
+        {
+            var ticket = await Context.Tickets.FindAsync(ticketId);
+            return PartialView("_TicketEvents", ticket.TicketEvents);
+        }
+
+        public async Task<ActionResult> TicketDetails(int ticketId)
+        {
+            var ticket = await Context.Tickets.FindAsync(ticketId);
+            return PartialView("_TicketDetails", ticket);
+        }
+
+
+       
     }
 }

@@ -121,12 +121,8 @@
     <value>added comment</value>
   </data>
   <data name="TicketActivityAssign" xml:space="preserve">
-    <value>assigned the ticket to {1}</value>
-    <comment>{1} = user</comment>
-  </data>
-  <data name="TicketActivityAssignWithPriority" xml:space="preserve">
-    <value>assigned the ticket to {1} at a priority of {2}</value>
-    <comment>{1} = user, {2} = priority</comment>
+    <value>assigned the ticket to {0}</value>
+    <comment>{0} = user</comment>
   </data>
   <data name="TicketActivityCancelMoreInfo" xml:space="preserve">
     <value>has cancelled the request for more information</value>
@@ -154,27 +150,18 @@
     <value>modified ticket attachments</value>
   </data>
   <data name="TicketActivityPass" xml:space="preserve">
-    <value>passed the ticket to {1}</value>
-    <comment>{1} = user</comment>
-  </data>
-  <data name="TicketActivityPassWithPriority" xml:space="preserve">
-    <value>passed the ticket to {1} at a priority of {2}</value>
-    <comment>{1} = user, {2} = priority</comment>
+    <value>passed the ticket to {0}</value>
+    <comment>{0} = user</comment>
   </data>
   <data name="TicketActivityReactivate" xml:space="preserve">
     <value>and reactivated the ticket.</value>
   </data>
   <data name="TicketActivityReAssign" xml:space="preserve">
-    <value>reassigned the ticket from {0} to {1}</value>
-    <comment>{0} = user, {1} = user</comment>
-  </data>
-  <data name="TicketActivityReAssignWithPriority" xml:space="preserve">
-    <value>reassigned the ticket from {0} to {1} at a priority of {2}</value>
-    <comment>{0} = user, {1} = user, {2} = priority</comment>
+    <value>reassigned the ticket to {0}</value>
+    <comment>{0} = user</comment>
   </data>
   <data name="TicketActivityReOpen" xml:space="preserve">
-    <value>re-opened the ticket{0}{1}</value>
-    <comment>{0} = without comment, {1} = without comment</comment>
+    <value>re-opened the ticket</value>
   </data>
   <data name="TicketActivityRequestMoreInfo" xml:space="preserve">
     <value>has requested more information</value>
@@ -183,23 +170,10 @@
     <value>resolved the ticket</value>
   </data>
   <data name="TicketActivitySupplyMoreInfo" xml:space="preserve">
-    <value>has provided more information {0}</value>
-    <comment>{0} = reactivate/without reactivate</comment>
+    <value>has provided more information</value>
   </data>
   <data name="TicketActivityTakeOver" xml:space="preserve">
-    <value>has taken over the ticket{0}</value>
-    <comment>{0} = without comment</comment>
-  </data>
-  <data name="TicketActivityTakeOverWithPriority" xml:space="preserve">
-    <value>has taken over the ticket{0} with a priority of {1}</value>
-    <comment>{0} = without comment, {1} = priority</comment>
-  </data>
-  <data name="TicketActivityWithoutComment" xml:space="preserve">
-    <value> without comment</value>
-    <comment>leading space</comment>
-  </data>
-  <data name="TicketActivityWithoutReactivate" xml:space="preserve">
-    <value>without reactivating the ticket.</value>
+    <value>has taken over the ticket</value>
   </data>
   <data name="DefaultListNameHistoryTickets" xml:space="preserve">
     <value>Ticket History</value>
@@ -335,5 +309,9 @@
   </data>
   <data name="TicketTitleShort" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="TicketActivityPriority" xml:space="preserve">
+    <value> at a priority of {0}</value>
+    <comment>leading space</comment>
   </data>
 </root>

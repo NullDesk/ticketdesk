@@ -1,117 +1,56 @@
-﻿@using TicketDesk.Domain
-@using TicketDesk.Domain.Model
-@model TicketDesk.Domain.Model.Ticket
+﻿@using TicketDesk.Domain.Model
+@model Ticket
 
 @section title
 {
     Ticekt #@Model.TicketId
 }
 
-@section customHeader
-{
-    <style type="text/css">
-    </style>
-}
-
 @section scripts
 {
+    @Styles.Render("~/content/editor")
+    @Scripts.Render("~/bundles/markdown")
     @Scripts.Render("~/bundles/editticket")
+
     <script type="text/javascript">
-      
+
         $(document).ready(function () {
-            window.editTicket.activate();
+            var tdConfig = {
+                loadActivityUrl: '@Url.Action("LoadActivity","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                activityButtonsUrl: '@Url.Action("ActivityButtons","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                eventPanelUrl: '@Url.Action("TicketEvents","Ticket", new {ticketId = Model.TicketId, area = ""})',
+                loadDetailsUrl: '@Url.Action("TicketDetails","Ticket", new {ticketId = Model.TicketId, area = ""})'
+            };
+            window.editTicket.activate(tdConfig);
         });
     </script>
 }
 
-
-
-
 <main role="main">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="pull-left fa-rotate-270" style="padding:3px 0;position: relative;left: -15px;height:auto;"><span>@Model.TicketStatus.GetDescription()</span></div>
-            <div>
-                <h2 class="panel-title pull-right">Priority: @Model.Priority</h2>
-                <h2 class="panel-title">Ticket: #@Model.TicketId - @Model.Category @Model.TicketType</h2>
-                <span>@Model.Title</span>
-            </div>
-        </div>
-        <div class="bg-warning container-fluid" style="border-bottom: 1px solid #B3CBDF;">
-            <div class="pull-right">Tags: @Model.TagList</div>
-            <div class="">
-                <div>Assigned To: @Model.GetAssignedToInfo().DisplayName</div>
-                <div>Owned By: @Model.GetOwnerInfo().DisplayName</div>
-            </div>
-        </div>
-        <div class="panel-body" style="margin:0;padding:0;">
-            <div class="col-md-8 col-sm-8" style="height:100%;margin:0;padding:0; border-right: 1px solid #B3CBDF;">
-                <div class="" id="detailsText" style="height: 200px; overflow: auto; margin: 0;padding: 5px;">
-                    @Model.Details
-                </div>
-                <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;">
-                    <i id="expandersymbol" class="fa fa-chevron-down text-center"></i>
-                </div>
-            </div>
-            <aside class="col-md-4 col-sm-4 small hidden-xs">
-                <div class="row">
-                    @Html.LabelFor(m => m.TicketStatus, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.TicketStatus.GetDescription()
-                    </div>
-                </div>
-                <div class="row">
-                    @Html.LabelFor(m => m.LastUpdateBy, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.GetLastUpdatedByInfo().DisplayName
-                    </div>
-                </div>
-                <div class="row">
-                    @Html.LabelFor(m => m.LastUpdateDate, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.LastUpdateDate.Date.ToShortDateString() @Model.LastUpdateDate.Date.ToShortTimeString()
-                    </div>
-                </div>
-
-                <div class="row">
-                    @Html.LabelFor(m => m.CurrentStatusSetBy, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.GetCurrentStatusSetByInfo().DisplayName
-                    </div>
-                </div>
-                <div class="row">
-                    @Html.LabelFor(m => m.CurrentStatusDate, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.CurrentStatusDate.Date.ToShortDateString() @Model.CurrentStatusDate.Date.ToShortTimeString()
-                    </div>
-                </div>
-                <div class="row">
-                    @Html.LabelFor(m => m.CreatedBy, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.GetCreatedByInfo().DisplayName
-                    </div>
-                </div>
-                <div class="row">
-                    @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 text-right" })
-                    <div class="col-sm-7">
-                        @Model.CreatedDate.Date.ToShortDateString() @Model.CreatedDate.Date.ToShortTimeString()
-                    </div>
-                </div>
-            </aside>
-        </div>
+    <div id="ticketDetailPanel" class="panel panel-primary">
+        @Html.Action("TicketDetails", new { ticketId = Model.TicketId, area = "" })
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            activity
+            <div class="btn-toolbar" role="toolbar">
+                <div id="activityButtonsPanel">
+                    @Html.Action("ActivityButtons", "TicketActivity", new { ticketId = Model.TicketId, area = "" })
+                </div>
+            </div>
         </div>
+        <section id="activityPanel">
+            
+        </section>
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            log
+            Activity
+        </div>
+        <div id="eventPanel" class="panel-body">
+            @Html.Action("TicketEvents", new { ticketId = Model.TicketId, area = "" })
         </div>
     </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
+    </p>
 </main>
-<p>
-
-    @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
-</p>

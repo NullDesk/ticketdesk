@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -157,13 +160,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="X.PagedList, Version=1.20.1.21688, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    <Reference Include="WebHelpers">
+      <HintPath>..\packages\WebHelpers.4.0.2\lib\net45\WebHelpers.dll</HintPath>
     </Reference>
-    <Reference Include="X.PagedList.Mvc, Version=4.7.0.21689, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+    <Reference Include="X.PagedList, Version=1.22.5.37966, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\X.PagedList.Mvc.4.7.0.2\lib\net40\X.PagedList.Mvc.dll</HintPath>
+      <HintPath>..\packages\X.PagedList.1.22.5.150\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="X.PagedList.Mvc, Version=4.8.0.38135, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\X.PagedList.Mvc.4.8.0.100\lib\net45\X.PagedList.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +191,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
@@ -203,6 +210,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\SettingsExtensions.cs" />
+    <Compile Include="Models\Extensions\StringExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
@@ -228,10 +237,6 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\arrow_down.png" />
     <Content Include="Content\Images\arrow_top.png" />
-    <Content Include="Content\Images\collapseUp.png" />
-    <Content Include="Content\Images\collapseUpActive.png" />
-    <Content Include="Content\Images\expandDown.png" />
-    <Content Include="Content\Images\expandDownActive.png" />
     <Content Include="Content\Images\general-file.png" />
     <Content Include="Content\Images\TicketDesk-2.5-mobile.png" />
     <Content Include="Content\Images\TicketDesk-2.5.png" />
@@ -242,11 +247,11 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\SearchManager\Index.cshtml" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\Initialization\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Initialization\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Initialization\Views\DataManagement\Demo.cshtml" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Content\Site.css_old" />
     <Content Include="Areas\Initialization\Views\web.config" />
     <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
@@ -399,6 +404,27 @@
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\New.cshtml" />
     <Content Include="todo.md" />
+    <Content Include="Views\TicketActivity\_AddComment.cshtml" />
+    <Content Include="Views\TicketActivity\_ActivityButtons.cshtml" />
+    <Content Include="Views\TicketActivity\_ModifyAttachments.cshtml" />
+    <Content Include="Views\TicketActivity\_ReOpen.cshtml" />
+    <Content Include="Views\TicketActivity\_EditTicketInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_SupplyMoreInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_RequestMoreInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_CancelMoreInfo.cshtml" />
+    <Content Include="Views\TicketActivity\_GiveUp.cshtml" />
+    <Content Include="Views\TicketActivity\_TakeOver.cshtml" />
+    <Content Include="Views\TicketActivity\_Assign.cshtml" />
+    <Content Include="Views\TicketActivity\_ReAssign.cshtml" />
+    <Content Include="Views\TicketActivity\_Pass.cshtml" />
+    <Content Include="Views\TicketActivity\_ForceClose.cshtml" />
+    <Content Include="Views\TicketActivity\_Resolve.cshtml" />
+    <Content Include="Views\TicketActivity\_Close.cshtml" />
+    <Content Include="Views\TicketActivity\_ActivityComment.cshtml" />
+    <Content Include="Views\Ticket\_TicketEvents.cshtml" />
+    <Content Include="Views\Ticket\_TicketDetails.cshtml" />
+    <Content Include="Views\TicketActivity\_ActivityForm.cshtml" />
+    <Content Include="Views\TicketActivity\_ChangeAssignment.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
