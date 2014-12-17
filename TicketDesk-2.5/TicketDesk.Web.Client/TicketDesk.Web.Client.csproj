@@ -355,6 +355,7 @@
       <DependentUpon>ticketcenter.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ticketdesk\editticket.js" />
+    <Content Include="Scripts\ticketdesk\ticketDeskUploader.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -13,10 +13,11 @@
 
         (function () {
             var tdConfig = {
-                dropzoneUploadUrl: "@Url.Action("Upload", "File")",
-                pendingAttachmentsUrl: "@Url.Action("GetPendingAttachmentsInfo", "File")",
-                defaultThumbnailUrl: "@Url.Content("~/content/images/general-file.png")",
-                tagAutoCompleteUrl: "@Url.Action("TagList", "AutoComplete")"
+                dropzoneUploadUrl: '@Url.Action("Upload", "File")',
+                pendingAttachmentsUrl: '@Url.Action("GetPendingAttachmentsInfo", "File")',
+                deleteFileUrl: '@Url.Action("Delete", "File")',
+                defaultThumbnailUrl: '@Url.Content("~/content/images/general-file.png")',
+                tagAutoCompleteUrl: '@Url.Action("TagList", "AutoComplete")"
             };
             window.newTicket.activate(tdConfig);
         })();
@@ -110,12 +111,12 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Ticket.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
                         <div class="col-md-3 col-sm-5">
-                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.Ticket.GetOwnersList(false,false), new { @class = "form-control input-sm", tabindex = 8 })
+                            @Html.DropDownListFor(model => model.Ticket.Owner, Model.Ticket.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 8 })
                             @Html.ValidationMessageFor(model => model.Ticket.Owner, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Ticket.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                         <div class="col-md-3 col-sm-4">
-                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.Ticket.GetAssignedToList(false,false), new { @class = "form-control input-sm", tabindex = 9 })
+                            @Html.DropDownListFor(model => model.Ticket.AssignedTo, Model.Ticket.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 9 })
                             @Html.ValidationMessageFor(model => model.Ticket.AssignedTo, "", new { @class = "text-danger" })
                         </div>
                     </div>

@@ -1,9 +1,9 @@
 ﻿(function (window) {
     var newTicket = (function () {
 
-        var tdConfig = {};
-        var acivate = function(config) {
-            tdConfig = config;
+        var config = {};
+        var acivate = function (tdConfig) {
+            config = tdConfig;
             cofigureTags();
             configureEditor();
             configureDropzone();
@@ -25,7 +25,7 @@
                     callback(data);
                 },
                 ajax: {
-                    url: tdConfig.tagAutoCompleteUrl,
+                    url: config.tagAutoCompleteUrl,
                     type: 'POST',
                     dataType: 'json',
                     data: function (term) {
@@ -67,14 +67,14 @@
             Dropzone.autoDiscover = false;
 
             $("div#attachmentsDropZone").dropzone({
-                url: tdConfig.dropzoneUploadUrl,
+                url: config.dropzoneUploadUrl,
                 //prevents Dropzone from uploading dropped files immediately
                 autoProcessQueue: true,
                 addRemoveLinks: true,
                 createImageThumbnails: true,
                 init: function () {
                     var self = this;
-                    $.get(tdConfig.pendingAttachmentsUrl, { tempId: $('#tempId').val() }, function (data) {
+                    $.get(config.pendingAttachmentsUrl, { tempId: $('#tempId').val() }, function (data) {
                         $.each(data, function (index, file) {
 
                             var existingFile = { name: file.name, size: file.size };
@@ -84,7 +84,7 @@
                             if (!file.type.match(/image.*/)) {
                                 // This is not an image, so Dropzone doesn't create a thumbnail.
                                 // Set a default thumbnail:
-                                self.emit("thumbnail", existingFile, tdConfig.defaultThumbnailUrl);
+                                self.emit("thumbnail", existingFile, config.defaultThumbnailUrl);
                             } else {
                                 self.emit("thumbnail", existingFile, file.url);
                             }

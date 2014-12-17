@@ -17,12 +17,13 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
-        public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId)
+        public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId, Guid? tempId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
             Context.SecurityProvider.IsTicketActivityValid(ticket, activity);
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
+            ViewBag.TempId = tempId ?? Guid.NewGuid();
             return PartialView("_ActivityForm", ticket);
         }
 
@@ -110,6 +111,19 @@ namespace TicketDesk.Web.Client.Controllers
                 t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment, priority, null);
             };
             return await PerformActivity(ticketId, activityFn, activity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ModifyAttachments(int ticketId, string comment, Guid tempId)
+        {
+            const TicketActivity activity = TicketActivity.ModifyAttachments;
+            Action<Ticket> activityFn = t =>
+            {
+                //what with pending attachments?
+            };
+
+            return await PerformActivity(ticketId, activityFn, activity);
+
         }
 
         [HttpPost]
@@ -264,7 +278,5 @@ namespace TicketDesk.Web.Client.Controllers
             return ticket;
 
         }
-
-
     }
 }
