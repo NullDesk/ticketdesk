@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using TicketDesk.IO;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [RoutePrefix("file")]
     public class FileController : Controller
     {
         [HttpPost]
@@ -26,39 +28,63 @@ namespace TicketDesk.Web.Client.Controllers
             }
             return Json(new { Message = string.Empty });//dropzone expects a message property back
         }
-
+       
         [HttpPost]
-        public ActionResult Delete(Guid tempId, string fileName)
+        public ActionResult Delete(Guid id, string fileName)
         {
-            TicketDeskFileStore.DeleteAttachment(fileName, tempId.ToString(), true);
+            //ticketdesk never lets the UI directly delete a file attachment unless it is a pending. 
+            TicketDeskFileStore.DeleteAttachment(fileName, id.ToString(), true);
             return new JsonCamelCaseResult { Data = new { Message = string.Empty } };//dropzone expects a message property back
         }
 
         [HttpGet]
-        [Route("{tempId:Guid}/{fileName}")]
-        public ActionResult GetFile(Guid tempId,string fileName)
+        [Route("{id}/{fileName}", Name = "GetAttachedFile")]
+        public ActionResult GetFile(string id, string fileName)
         {
-            var fstream = TicketDeskFileStore.GetFile(fileName, tempId.ToString(), true);
-            return new FileStreamResult(fstream, "text/json");
+            return FetchFile(fileName, id, IsFilePending(id));
         }
 
         [HttpGet]
-        public ActionResult GetPendingAttachmentsInfo(Guid tempId)
+        public ActionResult GetAttachmentsInfo(int? id, Guid? tempId)
         {
-            var files = TicketDeskFileStore.ListAttachmentInfo(tempId.ToString(), true);
+            var pending = tempId.HasValue ? TicketDeskFileStore.ListAttachmentInfo(tempId.Value.ToString(), true) : new TicketDeskFileInfo[0];
+            var attached = id.HasValue ? TicketDeskFileStore.ListAttachmentInfo(id.Value.ToString(CultureInfo.InvariantCulture), false) : new TicketDeskFileInfo[0];
+
+            var files = pending.Select(f => tempId != null ? new
+            {
+                f.Name,
+                f.Size,
+                isAttached = false,
+                Type = MimeTypeMap.GetMimeType(Path.GetExtension(f.Name)),
+                Url = Url.RouteUrl("GetPendingFile", new { Id = tempId.Value, FileName = f.Name, })
+            } : null)
+            .Union(attached.Select(f => id != null ? new
+            {
+                f.Name,
+                f.Size,
+                isAttached = true,
+                Type = MimeTypeMap.GetMimeType(Path.GetExtension(f.Name)),
+                Url = Url.RouteUrl("GetAttachedFile", new { Id = id.Value, FileName = f.Name })
+            } : null));
+
+
             return new JsonCamelCaseResult()
             {
-                Data = files.Select(f => new
-                {
-                    f.Name, 
-                    f.Size,
-                    Type = MimeTypeMap.GetMimeType(Path.GetExtension(f.Name)),
-                    Url = Url.Action("GetFile", new{FileName = f.Name, TempId = tempId})
-                }),
+                Data = files,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
+        private bool IsFilePending(string containerId)
+        {
+            Guid tId;
+            return Guid.TryParse(containerId, out tId);
+        }
 
+        private ActionResult FetchFile(string fileName, string container, bool isPending)
+        {
+            var fstream = TicketDeskFileStore.GetFile(fileName, container, isPending);
+            return new FileStreamResult(fstream, "application/octet-stream");//always send it back as octet-stream so client browser actually downloads it, instead of displaying it on-screen
+        }
     }
 }

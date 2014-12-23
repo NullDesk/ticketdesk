@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Domain.Model.Extensions;
+using TicketDesk.IO;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -81,7 +86,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> ForceClose(int ticketId, string comment)
         {
             const TicketActivity activity = TicketActivity.ForceClose;
-            Action<Ticket> activityFn =  t =>
+            Action<Ticket> activityFn = t =>
             {
                 t.TicketStatus = TicketStatus.Closed;
                 t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
@@ -114,16 +119,42 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ModifyAttachments(int ticketId, string comment, Guid tempId)
+        public async Task<ActionResult> ModifyAttachments(int ticketId, string comment, Guid tempId, string deleteFiles)
         {
             const TicketActivity activity = TicketActivity.ModifyAttachments;
             Action<Ticket> activityFn = t =>
             {
-                //what with pending attachments?
+                var sb = new StringBuilder(comment);
+                if (!string.IsNullOrEmpty(deleteFiles))
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("<pre>");
+                    sb.AppendLine("Removed Files:");
+                    var files = deleteFiles.Split(',');
+                    foreach (var file in files)
+                    {
+                        TicketDeskFileStore.DeleteAttachment(file, ticketId.ToString(CultureInfo.InvariantCulture), false);
+                        sb.AppendLine(string.Format("    {0}", file));
+                    }
+                    sb.AppendLine("</pre>");
+                }
+                var filesAdded = t.CommitPendingAttachments(tempId).ToArray();
+                if (filesAdded.Any())
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("<pre>");
+                    sb.AppendLine("New files:");
+                    foreach (var file in filesAdded)
+                    {
+                        sb.AppendLine(string.Format("    {0}", file));
+                    }
+                    sb.AppendLine("</pre>");
+                }
+                comment = sb.ToString();
+                t.TicketEvents.AddActivityEvent(Context.SecurityProvider.CurrentUserId, activity, comment);
             };
 
             return await PerformActivity(ticketId, activityFn, activity);
-
         }
 
         [HttpPost]
@@ -132,9 +163,6 @@ namespace TicketDesk.Web.Client.Controllers
             const TicketActivity activity = TicketActivity.Pass;
             return await ChangeAssignment(ticketId, comment, assignedTo, priority, activity);
         }
-
-       
-
 
         [HttpPost]
         public async Task<ActionResult> ReAssign(int ticketId, string comment, string assignedTo, string priority)

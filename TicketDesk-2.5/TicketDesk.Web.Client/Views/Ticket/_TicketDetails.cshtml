@@ -1,5 +1,6 @@
 ﻿@using TicketDesk.Domain
 @using TicketDesk.Domain.Model
+@using TicketDesk.IO
 @model Ticket
 
 <div class="panel-heading">
@@ -68,6 +69,19 @@
             @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 text-right" })
             <div class="col-sm-7">
                 @Model.CreatedDate.DateTime.ToShortDateString() @Model.CreatedDate.DateTime.ToShortTimeString()
+            </div>
+        </div>
+        <div id="attachments-list" class="row">
+            <label class="col-sm-5 text-right">Files:</label>
+            <div class="col-sm-7">
+                <ul class="list-unstyled">
+                    @foreach (TicketDeskFileInfo file in ViewBag.Attachments)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("GetAttachedFile", new { Id = Model.TicketId, FileName = file.Name })"><i class="fa fa-file fa-align-left"></i> @file.Name</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </aside>

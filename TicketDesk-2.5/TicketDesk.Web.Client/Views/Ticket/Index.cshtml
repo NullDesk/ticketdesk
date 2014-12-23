@@ -23,9 +23,10 @@
                 eventPanelUrl: '@Url.Action("TicketEvents","Ticket", new {ticketId = Model.TicketId, area = ""})',
                 loadDetailsUrl: '@Url.Action("TicketDetails","Ticket", new {ticketId = Model.TicketId, area = ""})',
                 dropzoneUploadUrl: '@Url.Action("Upload", "File")',
-                pendingAttachmentsUrl: '@Url.Action("GetPendingAttachmentsInfo", "File")',
+                getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
                 defaultThumbnailUrl: '@Url.Content("~/content/images/general-file.png")',
-                deleteFileUrl: '@Url.Action("Delete", "File")'
+                deleteFileUrl: '@Url.Action("Delete", "File")',
+                ticketId: @Model.TicketId
             };
             window.editTicket.activate(tdConfig);
         });

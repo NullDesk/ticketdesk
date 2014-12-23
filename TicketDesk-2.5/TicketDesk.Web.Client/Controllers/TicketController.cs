@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.IO;
 using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
@@ -76,6 +78,9 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> TicketDetails(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
+
+            ViewBag.Attachments = TicketDeskFileStore.ListAttachmentInfo(ticketId.ToString(CultureInfo.InvariantCulture), false);
+
             return PartialView("_TicketDetails", ticket);
         }
 

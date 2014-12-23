@@ -10,34 +10,21 @@ namespace TicketDesk.Web.Client.Models
     public class TicketCreateViewModel
     {
         public Ticket Ticket { get; set; }
- 
+
         private TicketDeskContext Context { get; set; }
 
-        public TicketCreateViewModel(Ticket ticket,  TicketDeskContext context)
+        public TicketCreateViewModel(Ticket ticket, TicketDeskContext context)
         {
             Ticket = ticket;
             Context = context;
             TempId = Guid.NewGuid();
-           
         }
 
         public async Task<bool> CreateTicketAsync()
         {
-            //TODO: still need to store attachment info to DB?
             Context.Tickets.Add(Ticket);
             await Context.SaveChangesAsync();
-            var attachments = TicketDeskFileStore.ListAttachmentInfo(TempId.ToString(), true);
-
-            foreach (var attachment in attachments)
-            {
-                TicketDeskFileStore.MoveFile(
-                    attachment.Name, 
-                    TempId.ToString(), 
-                    Ticket.TicketId.ToString(CultureInfo.InvariantCulture), 
-                    true, 
-                    false);
-            }
-            
+            Ticket.CommitPendingAttachments(TempId);
 
             return Ticket.TicketId != default(int);
         }
