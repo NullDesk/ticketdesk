@@ -254,9 +254,9 @@ namespace TicketDesk.Domain.Model
         /// </summary>
         /// <param name="securityProvider">The security provider.</param>
         /// <param name="ticketAction">The ticket action to perform.</param>
-        public void PerformActivity(TicketDeskContextSecurityProviderBase securityProvider, Action<TicketDeskContextSecurityProviderBase, Ticket> ticketAction)
+        public void PerformAction(Action<Ticket> ticketAction)
         {
-            ticketAction(securityProvider, this);
+            ticketAction(this);
         }
     }
 }

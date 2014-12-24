@@ -66,7 +66,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\AsyncHelpers.cs" />
     <Compile Include="Infrastructure\CommentRequiredAttribute.cs" />
-    <Compile Include="Infrastructure\DemoDataManager.cs" />
+    <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
     <Compile Include="Localization\LocalizedDescrptionAttribute.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Model\Extensions\TicketExtensions.cs" />
     <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
-    <Compile Include="Model\TicketAction.cs" />
+    <Compile Include="TicketActionManager.cs" />
     <Compile Include="Model\TicketActivity.cs" />
     <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
     <Compile Include="Model\Extensions\UserSettingExtensions.cs" />

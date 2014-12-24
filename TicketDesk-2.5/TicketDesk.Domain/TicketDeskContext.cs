@@ -29,6 +29,7 @@ namespace TicketDesk.Domain
     public class TicketDeskContext : DbContext
     {
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
+        public TicketActionManager TicketActions { get; set; }
         public SearchManager SearchManager
         {
             get
@@ -50,6 +51,7 @@ namespace TicketDesk.Domain
             : this()
         {
             SecurityProvider = securityProvider;
+            TicketActions = TicketActionManager.GetInstance(SecurityProvider);
         }
 
 
@@ -62,7 +64,7 @@ namespace TicketDesk.Domain
         /// 
         /// Initializers were fixed in EF 6.1 so they
         /// can be use the context from which they were called instead of constructing a new
-        /// instance internally, but a few obscure bits were not similarly updates (e.g. 
+        /// instance internally, but a few obscure bits were not similarly updated (e.g. 
         /// DbMigrator.GetPendingMigrations). 
         /// </remarks>
         public TicketDeskContext()
@@ -96,6 +98,7 @@ namespace TicketDesk.Domain
 
         }
 
+        
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
         public virtual DbSet<TicketEvent> TicketEvents { get; set; }
@@ -119,7 +122,7 @@ namespace TicketDesk.Domain
             if (SecurityProvider != null && entityEntry.Entity is Ticket && entityEntry.State == EntityState.Added)
             {
                 var ticket = entityEntry.Entity as Ticket;
-                if (!SecurityProvider.IsTicketActivityValid(ticket, TicketActivity.Create))
+                if (!TicketActions.IsTicketActivityValid(ticket, TicketActivity.Create))
                 {
                     result.ValidationErrors.Add(new
                         DbValidationError("authorization",

@@ -24,7 +24,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId, Guid? tempId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
-            Context.SecurityProvider.IsTicketActivityValid(ticket, activity);
+            Context.TicketActions.IsTicketActivityValid(ticket, activity);
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
             ViewBag.TempId = tempId ?? Guid.NewGuid();
@@ -34,7 +34,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> ActivityButtons(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
-            var activities = Context.SecurityProvider.GetValidTicketActivities(ticket);
+            var activities = Context.TicketActions.GetValidTicketActivities(ticket);
             return PartialView("_ActivityButtons", activities);
         }
 
@@ -43,32 +43,32 @@ namespace TicketDesk.Web.Client.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddComment(int ticketId, string comment)
         {
-            var activityFn = TicketAction.AddComment(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.AddComment);
+            var activityFn = Context.TicketActions.AddComment(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.AddComment);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Assign(int ticketId, string comment, string assignedTo, string priority)
         {
-            var activityFn = TicketAction.Assign(comment, assignedTo, UserDisplayInfo.GetUserInfo(assignedTo).DisplayName , priority);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.Assign);
+            var activityFn = Context.TicketActions.Assign(comment, assignedTo, priority);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.Assign);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CancelMoreInfo(int ticketId, string comment)
         {
-            var activityFn = TicketAction.CancelMoreInfo(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.CancelMoreInfo);
+            var activityFn = Context.TicketActions.CancelMoreInfo(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.CancelMoreInfo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Close(int ticketId, string comment)
         {
-            var activityFn = TicketAction.Close(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.Close);
+            var activityFn = Context.TicketActions.Close(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.Close);
         }
 
         [HttpPost]
@@ -84,25 +84,24 @@ namespace TicketDesk.Web.Client.Controllers
             string owner,
             string tagList)
         {
-            Func<string, string> userNameFromId= uId => UserDisplayInfo.GetUserInfo(uId).DisplayName;
-            var activityFn = TicketAction.EditTicketInfo(comment, title, details, priority, ticketType, category, owner, userNameFromId, tagList, Context.Settings);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.EditTicketInfo);
+            var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, owner, tagList, Context.Settings);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForceClose(int ticketId, string comment)
         {
-            var activityFn = TicketAction.ForceClose(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.ForceClose);
+            var activityFn = Context.TicketActions.ForceClose(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.ForceClose);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GiveUp(int ticketId, string comment)
         {
-            var activityFn = TicketAction.GiveUp(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.GiveUp);
+            var activityFn = Context.TicketActions.GiveUp(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.GiveUp);
         }
 
         [HttpPost]
@@ -111,8 +110,9 @@ namespace TicketDesk.Web.Client.Controllers
         {
             //most of this action is performed directly against the storage provider, outside the business domain's control. 
             //  All the business domain has to do is record the activity log and comments
-            Action<TicketDeskContextSecurityProviderBase,Ticket> activityFn = (security, ticket) =>
+            Action<Ticket> activityFn =  ticket =>
             {
+                
                 //TODO: it might make sense to move the string building part of this over to the TicketDeskFileStore too?
                 var sb = new StringBuilder(comment);
                 if (!string.IsNullOrEmpty(deleteFiles))
@@ -143,78 +143,78 @@ namespace TicketDesk.Web.Client.Controllers
                 comment = sb.ToString();
 
                 //perform the simple business domain functions
-                var domainActivityFn = TicketAction.ModifyAttachments(comment);
-                domainActivityFn(security, ticket);
+                var domainActivityFn = Context.TicketActions.ModifyAttachments(comment);
+                domainActivityFn(ticket);
             };
 
-            return await PerformActivity(ticketId, activityFn, TicketActivity.ModifyAttachments);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.ModifyAttachments);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Pass(int ticketId, string comment, string assignedTo, string priority)
         {
-            var activityFn = TicketAction.Pass(comment, assignedTo, UserDisplayInfo.GetUserInfo(assignedTo).DisplayName, priority);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.Pass);
+            var activityFn = Context.TicketActions.Pass(comment, assignedTo, priority);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.Pass);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReAssign(int ticketId, string comment, string assignedTo, string priority)
         {
-            var activityFn = TicketAction.ReAssign(comment, assignedTo, UserDisplayInfo.GetUserInfo(assignedTo).DisplayName, priority);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.ReAssign);
+            var activityFn = Context.TicketActions.ReAssign(comment, assignedTo, priority);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReAssign);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RequestMoreInfo(int ticketId, string comment)
         {
-            var activityFn = TicketAction.RequestMoreInfo(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.RequestMoreInfo);
+            var activityFn = Context.TicketActions.RequestMoreInfo(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.RequestMoreInfo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReOpen(int ticketId, string comment, bool assignToMe = false)
         {
-            var activityFn = TicketAction.ReOpen(comment, assignToMe);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.ReOpen);
+            var activityFn = Context.TicketActions.ReOpen(comment, assignToMe);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReOpen);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Resolve(int ticketId, string comment)
         {
-            var activityFn = TicketAction.Resolve(comment);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.ReOpen);
+            var activityFn = Context.TicketActions.Resolve(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReOpen);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SupplyMoreInfo(int ticketId, string comment, bool reactivate = false)
         {
-            var activityFn = TicketAction.SupplyMoreInfo(comment, reactivate);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.SupplyMoreInfo);
+            var activityFn = Context.TicketActions.SupplyMoreInfo(comment, reactivate);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.SupplyMoreInfo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> TakeOver(int ticketId, string comment, string priority)
         {
-            var activityFn = TicketAction.TakeOver(comment, priority);
-            return await PerformActivity(ticketId, activityFn, TicketActivity.TakeOver);
+            var activityFn = Context.TicketActions.TakeOver(comment, priority);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.TakeOver);
         }
 
 
-        private async Task<ActionResult> PerformActivity(int ticketId, Action<TicketDeskContextSecurityProviderBase, Ticket> activityFn, TicketActivity activity)
+        private async Task<ActionResult> PerformTicketAction(int ticketId, Action<Ticket> activityFn, TicketActivity activity)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    ticket.PerformActivity(Context.SecurityProvider, activityFn);
+                    ticket.PerformAction(activityFn);
                 }
                 catch (SecurityException ex)
                 {
