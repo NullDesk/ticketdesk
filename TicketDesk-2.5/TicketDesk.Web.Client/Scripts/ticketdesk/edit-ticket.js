@@ -12,7 +12,7 @@
             $('#activityPanel').parent().animate({ opacity: 0.5 }, 200);
         };
 
-        var cancelActivity = function(e) {
+        var cancelActivity = function (e) {
             e.preventDefault();
             $('#activityPanel').empty().parent().animate({ opacity: 1 }, 200);
         };
@@ -80,7 +80,7 @@
             //#endregion
 
         };
-        var configureEditor = function () {
+        var configureCommentEditor = function () {
             var jelem = $('#wmd-input-activity');
             if (jelem.length > 0) {
 
@@ -135,11 +135,22 @@
         };
 
         var renderActivityPanel = function (data) {
-            $('#activityPanel').empty().append(data).parent().animate({ opacity: 1 }, 200);;
+            $('#activityPanel').empty().append(data).parent().animate({ opacity: 1 }, 200);
             $('#activityPanel #activityBody').addClass('panel-body');
-            window.ticketDeskUploader.activate(config);
 
-            configureEditor();
+            
+            if ($('div#attachmentsDropZone').length) {
+                window.ticketFileUploader.activate(config.uploaderConfig);
+            }
+            if ($('#ticketTags').length) {
+                window.ticketTags.activate(config.tagsConfig);
+            }
+            if ($('#wmd-input-ticketDetails').length) {
+                window.ticketDetails.activate();
+            }
+            if ($('#wmd-input-activity').length) {
+                configureCommentEditor();
+            }
         };
 
         var renderDetailsPanel = function (data) {

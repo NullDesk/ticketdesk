@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using TicketDesk.IO;
 
 namespace TicketDesk.Web.Client.Controllers
@@ -68,7 +64,7 @@ namespace TicketDesk.Web.Client.Controllers
             } : null));
 
 
-            return new JsonCamelCaseResult()
+            return new JsonCamelCaseResult
             {
                 Data = files,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet

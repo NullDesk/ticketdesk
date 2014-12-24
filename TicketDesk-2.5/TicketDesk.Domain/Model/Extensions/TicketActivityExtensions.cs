@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Infrastructure;
-using TicketDesk.Domain.Model.Extensions;
 
 namespace TicketDesk.Domain.Model
 {
@@ -24,5 +23,10 @@ namespace TicketDesk.Domain.Model
 
             return req;
         }
+
+
+        
+
+       
     }
 }

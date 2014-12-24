@@ -16,17 +16,21 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var tdConfig = {
-                loadActivityUrl: '@Url.Action("LoadActivity","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                activityButtonsUrl: '@Url.Action("ActivityButtons","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                eventPanelUrl: '@Url.Action("TicketEvents","Ticket", new {ticketId = Model.TicketId, area = ""})',
-                loadDetailsUrl: '@Url.Action("TicketDetails","Ticket", new {ticketId = Model.TicketId, area = ""})',
-                dropzoneUploadUrl: '@Url.Action("Upload", "File")',
-                getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
-                defaultThumbnailUrl: '@Url.Content("~/content/images/general-file.png")',
-                deleteFileUrl: '@Url.Action("Delete", "File")',
-                ticketId: @Model.TicketId
+                loadActivityUrl: '@Url.Action("LoadActivity", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                activityButtonsUrl: '@Url.Action("ActivityButtons", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                eventPanelUrl: '@Url.Action("TicketEvents", "Ticket", new {ticketId = Model.TicketId, area = ""})',
+                loadDetailsUrl: '@Url.Action("TicketDetails", "Ticket", new {ticketId = Model.TicketId, area = ""})',
+                uploaderConfig: {
+                    dropzoneUploadUrl: '@Url.Action("Upload", "File")',
+                    getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
+                    defaultThumbnailUrl: '@Url.Content("~/content/images/general-file.png")',
+                    deleteFileUrl: '@Url.Action("Delete", "File")',
+                    ticketId: @Model.TicketId},
+                tagsConfig: {
+                    tagAutoCompleteUrl: '@Url.Action("TagList", "AutoComplete")',
+                }
             };
             window.editTicket.activate(tdConfig);
         });

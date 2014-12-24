@@ -21,7 +21,6 @@ using System.Threading.Tasks;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
-using TicketDesk.Domain.Model.Extensions;
 using TicketDesk.Domain.Search;
 
 
@@ -132,7 +131,7 @@ namespace TicketDesk.Domain
 
         public override async Task<int> SaveChangesAsync()
         {
-            var pendingTicketChanges = GetTicketChanges();
+            var pendingTicketChanges = GetTicketChanges().ToArray();
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();
@@ -150,7 +149,7 @@ namespace TicketDesk.Domain
 
         public override int SaveChanges()
         {
-            var pendingTicketChanges = GetTicketChanges();
+            var pendingTicketChanges = GetTicketChanges().ToArray();
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();

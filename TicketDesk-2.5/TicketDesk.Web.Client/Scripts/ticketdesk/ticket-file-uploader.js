@@ -1,7 +1,7 @@
 ﻿
 
 (function (window) {
-    var ticketDeskUploader = (function () {
+    var ticketFileUploader = (function () {
         var activate = function (config) {
             Dropzone.autoDiscover = false;
 
@@ -15,7 +15,7 @@
                 previewsContainer: "#dz-preview",
                 init: function () {
                     var self = this;
-                    $.get(config.getAttachmentsUrl, { tempId: $('#tempId').val(), id: config.ticketId }, function (data) {
+                    $.get(config.getAttachmentsUrl, { tempId: $('input[name="tempId"]').val(), id: config.ticketId }, function (data) {
                         $.each(data, function (index, file) {
 
                             var existingFile = { name: file.name, size: file.size, isAttached: file.isAttached, };
@@ -43,7 +43,7 @@
 
                 },
                 sending: function (file, xhr, formData) {
-                    formData.append('tempId', $('#tempId').val());
+                    formData.append('tempId', $('input[name="tempId"]').val());
                 },
                 removedfile: function (file) {
                     if (file.isAttached) {
@@ -59,7 +59,7 @@
                             type: 'POST',
                             url: config.deleteFileUrl,
                             data: {
-                                "id": $('#tempId').val(),
+                                "id": $('input[name="tempId"]').val(),
                                 "fileName": file.name
                             },
                             success: killPreview,
@@ -78,7 +78,7 @@
         }
     })();
 
-    window.ticketDeskUploader = ticketDeskUploader;
+    window.ticketFileUploader = ticketFileUploader;
 
 })(window);
 

@@ -1,1 +1,85 @@
-﻿<h1>Not implemented</h1>
+﻿@using TicketDesk.Domain.Model
+@model  Ticket
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1 })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.TicketType, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-2">
+        @Html.DropDownListFor(model => model.TicketType, Model.GetTicketTypeList(), new { @class = "form-control input-sm", tabindex = 2 })
+        @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(model => model.Category, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.DropDownListFor(model => model.Category, Model.GetCategoryList(), new { @class = "form-control input-sm", tabindex = 3 })
+        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+    </div>
+    @if (Model.AllowEditPriorityList())
+    {
+        @Html.LabelFor(model => model.Priority, new { @class = "col-sm-1 control-label" })
+        <div class="col-sm-2">
+            @Html.DropDownListFor(model => model.Priority, Model.GetPriorityList(), new { @class = "form-control input-sm", tabindex = 4 })
+            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    @if (Model.AllowEditTags())
+    {
+        @Html.LabelFor(model => model.TagList, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 5 })
+
+        </div>
+    }
+    <div class="col-sm-4 col-sm-offset-1">
+        <label class="checkbox-inline" for="affectsCustomer">
+            <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="6" />
+            Affects Customer
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label text-right" for="wmd-input-ticketDetails">Details</label>
+    <div class="col-sm-9 wmd-panel">
+        <div class="tabbable tabs-below">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1">
+                    <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
+                    @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
+
+                </div>
+                <div class="tab-pane fade" id="tab2">
+                    <div class="row" style="min-height: 35px;"></div>
+
+                    <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
+
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-tabs navbar-right">
+                <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
+                <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
+            </ul>
+        </div>
+        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+    </div>
+</div>
+@if (Model.AllowSetOwner())
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Owner, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-5">
+            @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 8 })
+            @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
+        </div>
+    </div>
+}

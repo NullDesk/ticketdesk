@@ -23,10 +23,8 @@ namespace TicketDesk.Web.Client
                     .Include("~/Scripts/dropzone/css/basic.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/editticket")
-                .Include("~/Scripts/ticketdesk/editticket.js"));
+                .Include("~/Scripts/ticketdesk/edit-ticket.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/newticket")
-                .Include("~/Scripts/ticketdesk/newticket.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
                     "~/Scripts/ticketdesk/ticketcenter.js",
@@ -35,7 +33,9 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(
                     "~/Scripts/dropzone/dropzone.js",
-                    "~/Scripts/ticketdesk/ticketDeskUploader.js",
+                    "~/Scripts/ticketdesk/ticket-file-uploader.js",
+                    "~/Scripts/ticketdesk/ticket-details.js",
+                    "~/Scripts/ticketdesk/ticket-tags.js",
                     "~/Scripts/select2.js"
                     ));
 

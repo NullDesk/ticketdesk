@@ -96,7 +96,28 @@ namespace TicketDesk.Domain.Model
             {
                 all = all.Where(u => u.Id != ticket.AssignedTo);
             }
-            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, "-- unassigned --"): all.ToUserSelectList(false, ticket.AssignedTo);
+            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, "-- unassigned --") : all.ToUserSelectList(false, ticket.AssignedTo);
+        }
+
+        public static bool AllowEditTags(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check?
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            return context.SecurityProvider.IsTdHelpDeskUser || context.Settings.GetSettingValue("AllowSubmitterRoleToEditTags", false);
+        }
+
+        public static bool AllowSetOwner(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check? Is this one even worth the extension?
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            return context.SecurityProvider.IsTdHelpDeskUser;
+        }
+
+        public static bool AllowEditPriorityList(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check?
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            return context.SecurityProvider.IsTdHelpDeskUser || context.Settings.GetSettingValue("AllowSubmitterRoleToEditPriority", false);
         }
 
         /// <summary>
