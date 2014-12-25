@@ -17,6 +17,7 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+            $.ajaxSetup({ cache: false });
             var tdConfig = {
                 loadActivityUrl: '@Url.Action("LoadActivity", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
                 activityButtonsUrl: '@Url.Action("ActivityButtons", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
