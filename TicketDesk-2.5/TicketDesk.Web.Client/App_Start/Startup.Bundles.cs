@@ -15,18 +15,16 @@ namespace TicketDesk.Web.Client
                     "~/Content/site.css",
                     "~/Content/font-awesome.css"
                     ));
-          
+
             bundles.Add(new StyleBundle("~/content/editor")
                     .Include("~/Content/css/select2.css", new CssRewriteUrlTransform())
                     .Include("~/Content/css/select2-bootstrap.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/css/dropzone.css", new CssRewriteUrlTransform())
-                    .Include("~/Scripts/dropzone/css/basic.css",new CssRewriteUrlTransform()));
+                    .Include("~/Scripts/dropzone/css/basic.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/editticket")
-                .Include("~/Scripts/ticketdesk/editticket.js"));
+                .Include("~/Scripts/ticketdesk/edit-ticket.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/newticket")
-                .Include("~/Scripts/ticketdesk/newticket.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
                     "~/Scripts/ticketdesk/ticketcenter.js",
@@ -35,6 +33,9 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(
                     "~/Scripts/dropzone/dropzone.js",
+                    "~/Scripts/ticketdesk/ticket-file-uploader.js",
+                    "~/Scripts/ticketdesk/ticket-details.js",
+                    "~/Scripts/ticketdesk/ticket-tags.js",
                     "~/Scripts/select2.js"
                     ));
 
@@ -54,7 +55,7 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/modernizr-*"));
 
 
-           
+
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

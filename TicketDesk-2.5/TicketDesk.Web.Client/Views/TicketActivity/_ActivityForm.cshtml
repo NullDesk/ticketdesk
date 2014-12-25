@@ -7,6 +7,8 @@
 }
 @using (Ajax.BeginForm(activity.ToString(), "TicketActivity", new { ticketId = Model.TicketId, area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
 {
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="tempId" value="@ViewBag.TempId" />
     <div id="activityBody">
         
         @Html.Partial(string.Format("_{0}", activity), Model)

@@ -186,7 +186,7 @@ namespace TicketDesk.Domain.Model
 
             if (IsOpen)
             {
-                if (isOwnedByMe)
+                if (isOwnedByMe || isAssignedToMe)
                 {
                     validActivities |= TicketActivity.EditTicketInfo;
                 }
@@ -247,6 +247,16 @@ namespace TicketDesk.Domain.Model
                 }
             }
             return validActivities;
+        }
+
+        /// <summary>
+        /// Performs an activity function on the ticket.
+        /// </summary>
+        /// <param name="securityProvider">The security provider.</param>
+        /// <param name="ticketAction">The ticket action to perform.</param>
+        public void PerformAction(Action<Ticket> ticketAction)
+        {
+            ticketAction(this);
         }
     }
 }

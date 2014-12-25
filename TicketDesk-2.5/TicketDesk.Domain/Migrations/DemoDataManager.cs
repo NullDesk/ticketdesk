@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketDesk.Domain.Model;
 
-namespace TicketDesk.Domain.Infrastructure
+namespace TicketDesk.Domain.Migrations
 {
     public static class DemoDataManager
     {

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.IO;
 using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
@@ -35,7 +37,8 @@ namespace TicketDesk.Web.Client.Controllers
         [Authorize(Roles = "TdInternalUsers")]
         public ActionResult New()
         {
-            var model = new TicketCreateViewModel(new Ticket{Owner = Context.SecurityProvider.CurrentUserId}, Context);
+            var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId };
+            ViewBag.TempId = Guid.NewGuid();
             return View(model);
         }
 
@@ -44,14 +47,11 @@ namespace TicketDesk.Web.Client.Controllers
         [ValidateOnlyIncomingValues]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {
-            
             if (ModelState.IsValid)
             {
-                var vm = new TicketCreateViewModel(ticket, Context){TempId = tempId};
-                
                 try
                 {
-                    if (await vm.CreateTicketAsync())
+                    if (await CreateTicketAsync(ticket, tempId))
                     {
                         return RedirectToAction("Index", new { id = ticket.TicketId });
                     }
@@ -59,13 +59,22 @@ namespace TicketDesk.Web.Client.Controllers
                 // ReSharper disable once EmptyGeneralCatchClause
                 catch// (DbEntityValidationException ex)
                 {
-                   //TODO: catch rule exceptions? or can annotations handle this fully now?
+                    //TODO: catch rule exceptions? or can annotations handle this fully now?
                 }
-                
+
             }
-            return View(new TicketCreateViewModel(ticket, Context));
+            ViewBag.TempId = tempId;
+            return View(ticket);
         }
 
+        private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)
+        {
+            Context.Tickets.Add(ticket);
+            await Context.SaveChangesAsync();
+            ticket.CommitPendingAttachments(tempId);
+
+            return ticket.TicketId != default(int);
+        }
 
         public async Task<ActionResult> TicketEvents(int ticketId)
         {
@@ -76,10 +85,13 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> TicketDetails(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
+
+            ViewBag.Attachments = TicketDeskFileStore.ListAttachmentInfo(ticketId.ToString(CultureInfo.InvariantCulture), false);
+
             return PartialView("_TicketDetails", ticket);
         }
 
 
-       
+
     }
 }

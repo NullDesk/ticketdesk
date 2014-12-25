@@ -41,7 +41,7 @@ namespace TicketDesk.IO
             {
                 if (!isPending)
                 {
-                    Current.CreateFolder(GetFileFolderPath(newContainerId, false));
+                    Current.TryCreateFolder(GetFileFolderPath(newContainerId, false));//don't care about return value
                 }
                
                 Current.RenameFile(oldPath,newPath);

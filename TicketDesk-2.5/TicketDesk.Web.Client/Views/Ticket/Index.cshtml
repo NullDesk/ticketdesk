@@ -9,17 +9,29 @@
 @section scripts
 {
     @Styles.Render("~/content/editor")
+    @Scripts.Render("~/bundles/editor")
     @Scripts.Render("~/bundles/markdown")
     @Scripts.Render("~/bundles/editticket")
 
+
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(document).ready(function() {
+            $.ajaxSetup({ cache: false });
             var tdConfig = {
-                loadActivityUrl: '@Url.Action("LoadActivity","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                activityButtonsUrl: '@Url.Action("ActivityButtons","TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                eventPanelUrl: '@Url.Action("TicketEvents","Ticket", new {ticketId = Model.TicketId, area = ""})',
-                loadDetailsUrl: '@Url.Action("TicketDetails","Ticket", new {ticketId = Model.TicketId, area = ""})'
+                loadActivityUrl: '@Url.Action("LoadActivity", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                activityButtonsUrl: '@Url.Action("ActivityButtons", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
+                eventPanelUrl: '@Url.Action("TicketEvents", "Ticket", new {ticketId = Model.TicketId, area = ""})',
+                loadDetailsUrl: '@Url.Action("TicketDetails", "Ticket", new {ticketId = Model.TicketId, area = ""})',
+                uploaderConfig: {
+                    dropzoneUploadUrl: '@Url.Action("Upload", "File")',
+                    getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
+                    defaultThumbnailUrl: '@Url.Content("~/content/images/general-file.png")',
+                    deleteFileUrl: '@Url.Action("Delete", "File")',
+                    ticketId: @Model.TicketId},
+                tagsConfig: {
+                    tagAutoCompleteUrl: '@Url.Action("TagList", "AutoComplete")',
+                }
             };
             window.editTicket.activate(tdConfig);
         });
@@ -38,9 +50,7 @@
                 </div>
             </div>
         </div>
-        <section id="activityPanel">
-            
-        </section>
+        <section id="activityPanel"></section>
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">

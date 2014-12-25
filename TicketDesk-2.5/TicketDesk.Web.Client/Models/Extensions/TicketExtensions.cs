@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StackExchange.DataExplorer.Helpers;
+using TicketDesk.IO;
 using TicketDesk.Web.Client;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity.Model;
@@ -93,7 +96,49 @@ namespace TicketDesk.Domain.Model
             {
                 all = all.Where(u => u.Id != ticket.AssignedTo);
             }
-            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, "-- unassigned --"): all.ToUserSelectList(false, ticket.AssignedTo);
+            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, "-- unassigned --") : all.ToUserSelectList(false, ticket.AssignedTo);
+        }
+
+        public static bool AllowEditTags(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check?
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            return context.SecurityProvider.IsTdHelpDeskUser || context.Settings.GetSettingValue("AllowSubmitterRoleToEditTags", false);
+        }
+
+        public static bool AllowSetOwner(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check? Is this one even worth the extension?
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            return context.SecurityProvider.IsTdHelpDeskUser;
+        }
+
+        public static bool AllowEditPriorityList(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check?
+            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            return context.SecurityProvider.IsTdHelpDeskUser || context.Settings.GetSettingValue("AllowSubmitterRoleToEditPriority", false);
+        }
+
+        /// <summary>
+        /// Commits any pending attachments for the ticket in the file store.
+        /// </summary>
+        /// <param name="ticket">The ticket.</param>
+        /// <param name="tempId">The temporary identifier for pending attachments.</param>
+        /// <returns>IEnumerable&lt;System.String&gt;. The list of filenames for all attachments saved</returns>
+        public static IEnumerable<string> CommitPendingAttachments(this Ticket ticket, Guid tempId)
+        {
+            var attachments = TicketDeskFileStore.ListAttachmentInfo(tempId.ToString(), true).ToArray();
+            foreach (var attachment in attachments)
+            {
+                TicketDeskFileStore.MoveFile(
+                    attachment.Name,
+                    tempId.ToString(),
+                    ticket.TicketId.ToString(CultureInfo.InvariantCulture),
+                    true,
+                    false);
+            }
+            return attachments.Select(a => a.Name);
         }
     }
 

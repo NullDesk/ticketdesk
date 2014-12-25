@@ -69,7 +69,7 @@ namespace TicketDesk.Domain.Model
         [Description("Force Close")]
         ForceClose = 4096,
 
-        [Description("Attachments")]
+        [Description("Edit Attachments")]
         ModifyAttachments = 8192,
 
         [Description("Edit")]

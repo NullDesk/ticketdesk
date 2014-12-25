@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TicketDesk.Domain.Localization;
 
-namespace TicketDesk.Domain.Model.Extensions
+namespace TicketDesk.Domain.Model
 {
     public static class TicketEventExtensions
     {

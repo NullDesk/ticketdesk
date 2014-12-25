@@ -217,7 +217,6 @@
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\TicketCreateViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -349,12 +348,14 @@
     <Content Include="Scripts\Select2-locales\select2_locale_zh-CN.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\ticketdesk\newticket.js" />
+    <Content Include="Scripts\ticketdesk\ticket-details.js" />
+    <Content Include="Scripts\ticketdesk\ticket-tags.js" />
     <Content Include="Scripts\ticketdesk\ticketcenter.js" />
     <Content Include="Scripts\ticketdesk\ticketcenter.min.js">
       <DependentUpon>ticketcenter.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\ticketdesk\editticket.js" />
+    <Content Include="Scripts\ticketdesk\edit-ticket.js" />
+    <Content Include="Scripts\ticketdesk\ticket-file-uploader.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,17 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity.Owin;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Infrastructure;
 using TicketDesk.Domain.Legacy;
-using TicketDesk.Web.Client.Models;
+using TicketDesk.Domain.Migrations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Infrastructure;
-using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
 {

@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Domain.Migrations;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client
