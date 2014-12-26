@@ -5,18 +5,18 @@ using TicketDesk.Domain.Search.Lucene;
 
 namespace TicketDesk.Domain.Search
 {
-    public class SearchManager
+    public class TicketDeskSearchProvider
     {
-        private static SearchManager _instance;
-        public static SearchManager GetInstance(bool isAzure)
+        private static TicketDeskSearchProvider _instance;
+        public static TicketDeskSearchProvider GetInstance(bool isAzure)
         {
-            return _instance ?? (_instance = new SearchManager(isAzure));
+            return _instance ?? (_instance = new TicketDeskSearchProvider(isAzure));
         }
 
         private readonly bool _isAzure;
         private readonly string _indexName;
 
-        internal SearchManager(bool isAzure)
+        internal TicketDeskSearchProvider(bool isAzure)
         {
             _isAzure = isAzure;
             _indexName = "ticketdesk-searchindex";

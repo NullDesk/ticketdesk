@@ -8,9 +8,9 @@
 <main>
 
     @Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
-{
-    { "CurrentListSettings", Model.CurrentListSetting }
-})
+    {
+        { "CurrentListSettings", Model.CurrentListSetting }
+    })
 
 
     @Html.Partial("_TicketList", Model)
@@ -19,7 +19,7 @@
 @section scripts{
     @Scripts.Render("~/bundles/ticketcenter")
     <script type="text/javascript">
-       
+
         $(document).ready(function () {
             $.ajaxSetup({ cache: false });
             ticketCenter.filters.setupFilterForm();

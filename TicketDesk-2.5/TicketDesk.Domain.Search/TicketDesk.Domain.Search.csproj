@@ -67,7 +67,7 @@
     <Compile Include="AzureSearch\AzureSearchQueueItemExtensions.cs" />
     <Compile Include="Common\ISearchIndexManager.cs" />
     <Compile Include="Common\ISearchLocator.cs" />
-    <Compile Include="Common\SearchManager.cs" />
+    <Compile Include="Common\TicketDeskSearchProvider.cs" />
     <Compile Include="Common\SearchResultItem.cs" />
     <Compile Include="Lucene\LuceneIndexManager.cs" />
     <Compile Include="Lucene\LuceneSearchConnector.cs" />

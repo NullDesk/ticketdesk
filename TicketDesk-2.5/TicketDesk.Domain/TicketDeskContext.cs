@@ -30,11 +30,11 @@ namespace TicketDesk.Domain
     {
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
         public TicketActionManager TicketActions { get; set; }
-        public SearchManager SearchManager
+        public TicketDeskSearchProvider SearchProvider
         {
             get
             {
-                return SearchManager.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+                return TicketDeskSearchProvider.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
             }
         }
 
@@ -70,7 +70,7 @@ namespace TicketDesk.Domain
         public TicketDeskContext()
             : base("name=TicketDesk")
         {
-
+            //TODO: still looking for a way to remove the public parameterless ctor without degrading migrations and startup ops
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -175,7 +175,7 @@ namespace TicketDesk.Domain
             {
                 //queue up for search index update
                 var queueItems = ticketChanges.ToSeachQueueItems();
-                await SearchManager.QueueItemsForIndexingAsync(queueItems);
+                await SearchProvider.QueueItemsForIndexingAsync(queueItems);
 
             }
             catch
@@ -191,7 +191,7 @@ namespace TicketDesk.Domain
             {
                 //queue up for search index update
                 var queueItems = ticketChanges.ToSeachQueueItems();
-                AsyncHelpers.RunSync(() => SearchManager.QueueItemsForIndexingAsync(queueItems));
+                AsyncHelpers.RunSync(() => SearchProvider.QueueItemsForIndexingAsync(queueItems));
             }
             catch
             {

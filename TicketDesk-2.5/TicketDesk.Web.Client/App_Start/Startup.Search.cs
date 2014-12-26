@@ -10,7 +10,7 @@ namespace TicketDesk.Web.Client
 
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
 
-            context.SearchManager.InitializeSearch().ConfigureAwait(false);//don't await this, it'll run in the background
+            context.SearchProvider.InitializeSearch().ConfigureAwait(false);//don't await this, it'll run in the background
 
         }
     }
