@@ -209,7 +209,7 @@
     <Compile Include="Infrastructure\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
-    <Compile Include="Models\Extensions\SettingsExtensions.cs" />
+    <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />
     <Compile Include="Models\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
@@ -404,7 +404,6 @@
     <Content Include="Views\Shared\_QuickSearch.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\New.cshtml" />
-    <Content Include="todo.md" />
     <Content Include="Views\TicketActivity\_AddComment.cshtml" />
     <Content Include="Views\TicketActivity\_ActivityButtons.cshtml" />
     <Content Include="Views\TicketActivity\_ModifyAttachments.cshtml" />

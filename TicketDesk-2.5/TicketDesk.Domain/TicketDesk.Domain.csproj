@@ -66,6 +66,14 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\AsyncHelpers.cs" />
     <Compile Include="Infrastructure\CommentRequiredAttribute.cs" />
+    <Compile Include="Migrations\201412302236209_Td2.5.003.cs" />
+    <Compile Include="Migrations\201412302236209_Td2.5.003.Designer.cs">
+      <DependentUpon>201412302236209_Td2.5.003.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412310713312_Td2.5.004.cs" />
+    <Compile Include="Migrations\201412310713312_Td2.5.004.Designer.cs">
+      <DependentUpon>201412310713312_Td2.5.004.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
@@ -84,8 +92,11 @@
       <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationPermissionsSetting.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSelectListSetting.cs" />
+    <Compile Include="Model\ApplicationSettings.cs" />
+    <Compile Include="Model\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
-    <Compile Include="Model\Extensions\SettingExtensions.cs" />
     <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />
     <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Model\Extensions\TicketExtensions.cs" />
@@ -102,7 +113,6 @@
     <Compile Include="Model\TicketStatus.cs" />
     <Compile Include="Model\UserSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Setting.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Model\TicketAttachment.cs" />
     <Compile Include="Model\TicketEvent.cs" />
@@ -133,6 +143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412012200330_Td2.5.002.resx">
       <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412302236209_Td2.5.003.resx">
+      <DependentUpon>201412302236209_Td2.5.003.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412310713312_Td2.5.004.resx">
+      <DependentUpon>201412310713312_Td2.5.004.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

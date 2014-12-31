@@ -96,16 +96,45 @@ namespace TicketDesk.Domain
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
 
+            modelBuilder.ComplexType<ApplicationSelectListSetting>()
+                .Property(p => p.Serialized)
+                .HasColumnName("SelectListSettingsJson");
+
+            modelBuilder.ComplexType<ApplicationPermissionsSetting>()
+                .Property(p => p.Serialized)
+                .HasColumnName("PermissionsSettingsJson");
+
         }
 
-        
-        public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
         public virtual DbSet<TicketEvent> TicketEvents { get; set; }
         public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketTag> TicketTags { get; set; }
         public virtual DbSet<UserSetting> UserSettings { get; set; }
+        /// <summary>
+        /// Use TicketDeskSettings for more convienient access to settings instead. Gets or sets the application settings.
+        /// </summary>
+        /// <value>The application settings.</value>
+        public virtual DbSet<ApplicationSetting> ApplicationSettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application settings specific to ticketdesk.
+        /// </summary>
+        /// <value>The application settings.</value>
+        public ApplicationSetting TicketDeskSettings
+        {
+            get { return ApplicationSettings.GetTicketDeskSettings(); }
+            set
+            {
+                var oldSettings = ApplicationSettings.GetTicketDeskSettings();
+                if (oldSettings != null)
+                {
+                    ApplicationSettings.Remove(oldSettings);
+                }
+                ApplicationSettings.Add(value);
+            }
+        }
 
 
         public ObjectQuery<T> GetObjectQueryFor<T>(IDbSet<T> entity) where T : class
@@ -199,7 +228,7 @@ namespace TicketDesk.Domain
             }
         }
 
-        private void PreProcessModifiedTickets(IEnumerable<Ticket> ticketChanges )
+        private void PreProcessModifiedTickets(IEnumerable<Ticket> ticketChanges)
         {
             foreach (var change in ticketChanges)
             {
@@ -220,16 +249,16 @@ namespace TicketDesk.Domain
         private void PrePopulateModifiedTicket(Ticket modifiedTicket)
         {
             var o = ChangeTracker.Entries<Ticket>().Single(e => e.Entity.TicketId == modifiedTicket.TicketId);
-             var now = DateTime.Now;
-            
+            var now = DateTime.Now;
+
             modifiedTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
             modifiedTicket.LastUpdateDate = now;
 
             if (o.State != EntityState.Added)//can't access orig values for new entities
             {
-                var origTicket = (Ticket) o.OriginalValues.ToObject();
+                var origTicket = (Ticket)o.OriginalValues.ToObject();
                 if (modifiedTicket.TicketStatus != origTicket.TicketStatus)
-                    //if status change, force update to status by/date
+                //if status change, force update to status by/date
                 {
                     modifiedTicket.CurrentStatusDate = now;
                     modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;

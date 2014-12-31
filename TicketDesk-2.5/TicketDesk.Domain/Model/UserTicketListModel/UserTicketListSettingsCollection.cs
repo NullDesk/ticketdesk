@@ -13,6 +13,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 
 namespace TicketDesk.Domain.Model
@@ -34,7 +35,7 @@ namespace TicketDesk.Domain.Model
         {
             foreach (var listSetting in settings)
             {
-                this.Add(listSetting);
+                Add(listSetting);
             }
         }
 
@@ -46,9 +47,10 @@ namespace TicketDesk.Domain.Model
         /// settings that will be stored by EF to the physical database.
         /// </remarks>
         /// <value>The serialized json settings collection.</value>
+        [JsonIgnore] 
         public string Serialized
         {
-            get { return Newtonsoft.Json.JsonConvert.SerializeObject(this); }
+            get { return JsonConvert.SerializeObject(this); }
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -56,9 +58,9 @@ namespace TicketDesk.Domain.Model
                     return;
                 }
 
-                var jData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UserTicketListSetting>>(value);
-                this.Items.Clear();
-                this.Add(jData);
+                var jData = JsonConvert.DeserializeObject<List<UserTicketListSetting>>(value);
+                Items.Clear();
+                Add(jData);
                 
             }
         }

@@ -11,8 +11,11 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Domain.Model;
 
 
 namespace TicketDesk.Domain.Migrations

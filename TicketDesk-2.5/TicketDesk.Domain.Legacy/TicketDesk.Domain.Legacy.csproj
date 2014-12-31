@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrations\201410100421345_InitialCreate.cs_old" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
       <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>

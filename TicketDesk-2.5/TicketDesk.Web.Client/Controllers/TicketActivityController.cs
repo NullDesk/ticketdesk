@@ -84,7 +84,7 @@ namespace TicketDesk.Web.Client.Controllers
             string owner,
             string tagList)
         {
-            var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, owner, tagList, Context.Settings);
+            var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
 

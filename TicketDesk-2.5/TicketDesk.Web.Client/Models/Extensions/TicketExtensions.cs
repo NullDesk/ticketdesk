@@ -49,19 +49,19 @@ namespace TicketDesk.Domain.Model
         public static SelectList GetPriorityList(this Ticket ticket)
         {
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
-            return context.Settings.GetPriorityList(true, ticket.Priority);
+            return context.TicketDeskSettings.GetPriorityList(true, ticket.Priority);
         }
 
         public static SelectList GetCategoryList(this Ticket ticket)
         {
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
-            return context.Settings.GetCategoryList(true, ticket.Category);
+            return context.TicketDeskSettings.GetCategoryList(true, ticket.Category);
         }
 
         public static SelectList GetTicketTypeList(this Ticket ticket)
         {
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
-            return context.Settings.GetTicketTypeList(true, ticket.TicketType);
+            return context.TicketDeskSettings.GetTicketTypeList(true, ticket.TicketType);
         }
 
         public static SelectList GetOwnersList(this Ticket ticket, bool excludeCurrentUser = false, bool excludeCurrentOwner = false)
@@ -103,7 +103,7 @@ namespace TicketDesk.Domain.Model
         {
             //TODO: is this the best place to put this check?
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
-            return context.SecurityProvider.IsTdHelpDeskUser || context.Settings.GetSettingValue("AllowSubmitterRoleToEditTags", false);
+            return context.SecurityProvider.IsTdHelpDeskUser || context.TicketDeskSettings.Permissions.AllowInternalUsersToEditTags;
         }
 
         public static bool AllowSetOwner(this Ticket ticket)
@@ -117,7 +117,7 @@ namespace TicketDesk.Domain.Model
         {
             //TODO: is this the best place to put this check?
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
-            return context.SecurityProvider.IsTdHelpDeskUser || context.Settings.GetSettingValue("AllowSubmitterRoleToEditPriority", false);
+            return context.SecurityProvider.IsTdHelpDeskUser || context.TicketDeskSettings.Permissions.AllowInternalUsersToEditPriority;
         }
 
         /// <summary>

@@ -106,7 +106,7 @@ namespace TicketDesk.Domain
             string category,
             string owner,
             string tagList,
-            DbSet<Setting> settings)
+            ApplicationSetting settings)
         {
             const TicketActivity activity = TicketActivity.EditTicketInfo;
             return ticket =>
@@ -130,12 +130,12 @@ namespace TicketDesk.Domain
                         sb.AppendLine(string.Format("    {0}", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Details)));
                         ticket.Details = details;
                     }
-                    if ((SecurityProvider.IsTdHelpDeskUser || settings.GetSettingValue("AllowSubmitterRoleToEditTags", false)) && ticket.TagList != tagList)
+                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditTags ) && ticket.TagList != tagList)
                     {
                         sb.AppendLine(string.Format("    {0}", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TagList)));
                         ticket.TagList = tagList;
                     }
-                    if ((SecurityProvider.IsTdHelpDeskUser || settings.GetSettingValue("AllowSubmitterRoleToEditPriority", false)) && ticket.Priority != priority)
+                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority)
                     {
                         sb.AppendLine(string.Format("    {0}: from \"{1}\" to \"{2}\"", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
                         ticket.Priority = priority;
