@@ -15,7 +15,7 @@ You can read more about ongoing TicketDesk development [on my site](http://www.r
 Source Notes:
 ===========
 
-The current shipping version is [TicektDesk 2.1]("https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.1.2"). 
+The current shipping version is [TicektDesk 2.1](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.1.2). 
 
 TicketDesk 2.5 is in development and should be ready for beta releases in January 2015.
 
@@ -26,7 +26,7 @@ TicketDesk 2.5 is in development and should be ready for beta releases in Januar
 Current Development Information
 ===========
 
-A [demo of TicketDesk 2.5]("http://ticketdesk2.azurewebsites.net/") is available. It is just an alpha, so expect rough-edges
+A [demo of TicketDesk 2.5](http://ticketdesk2.azurewebsites.net/) is available. It is just an alpha, so expect rough-edges
 
 TicketDesk 2.5 is a full technology platfrom update. 
 
