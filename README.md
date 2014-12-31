@@ -26,7 +26,7 @@ TicketDesk 2.5 is in development and should be ready for beta releases in Januar
 Current Development Information
 ===========
 
-A [demo of TicketDesk 2.5 (alpha)]("http://ticketdesk2.azurewebsites.net/") is available. It is just an alpha, so expect rough-edges
+A [demo of TicketDesk 2.5]("http://ticketdesk2.azurewebsites.net/") is available. It is just an alpha, so expect rough-edges
 
 TicketDesk 2.5 is a full technology platfrom update. 
 
