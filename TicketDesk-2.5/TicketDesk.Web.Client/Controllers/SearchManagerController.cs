@@ -8,8 +8,12 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Domain.Search;
 
-namespace TicketDesk.Web.Client.Areas.Admin.Controllers
+namespace TicketDesk.Web.Client.Controllers
 {
+    [RouteArea("admin")]
+    [RoutePrefix("search-manager")]
+    [Route("{action=index}")]
+    [Authorize(Roles = "TdAdministrators")]
     public class SearchManagerController : Controller
     {
         
@@ -20,12 +24,13 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             Context = context;
         }
 
-        // GET: Admin/SearchManager
+        [Route("")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Route("remove-index")]
         public async Task<ActionResult> RemoveIndex()
         {
             await Context.SearchProvider.RemoveIndexAsync();
@@ -33,6 +38,7 @@ namespace TicketDesk.Web.Client.Areas.Admin.Controllers
             return View("Index");
         }
        
+        [Route("populate-index")]
         public async Task<ActionResult> PopulateIndex()
         {
             await Context.SearchProvider.InitializeSearch();

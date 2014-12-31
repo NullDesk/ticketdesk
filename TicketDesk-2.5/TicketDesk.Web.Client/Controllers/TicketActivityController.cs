@@ -12,6 +12,8 @@ using TicketDesk.IO;
 namespace TicketDesk.Web.Client.Controllers
 {
     [Authorize]
+    [RoutePrefix("ticket-activity")]
+    [Route("{action}")]
     public class TicketActivityController : Controller
     {
 
@@ -21,6 +23,7 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
+        [Route("load-actiity")]
         public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId, Guid? tempId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
@@ -31,6 +34,7 @@ namespace TicketDesk.Web.Client.Controllers
             return PartialView("_ActivityForm", ticket);
         }
 
+        [Route("activity-buttons")]
         public async Task<ActionResult> ActivityButtons(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
@@ -41,6 +45,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("add-comment")]
         public async Task<ActionResult> AddComment(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.AddComment(comment);
@@ -49,6 +54,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("assign")]
         public async Task<ActionResult> Assign(int ticketId, string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.Assign(comment, assignedTo, priority);
@@ -57,6 +63,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("cancel-more-info")]
         public async Task<ActionResult> CancelMoreInfo(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.CancelMoreInfo(comment);
@@ -65,6 +72,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("close")]
         public async Task<ActionResult> Close(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.Close(comment);
@@ -73,6 +81,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("edit-ticket-info")]
         public async Task<ActionResult> EditTicketInfo(
             int ticketId,
             string comment,
@@ -90,6 +99,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("force-close")]
         public async Task<ActionResult> ForceClose(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.ForceClose(comment);
@@ -98,6 +108,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("give-up")]
         public async Task<ActionResult> GiveUp(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.GiveUp(comment);
@@ -106,6 +117,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("modify-attachments")]
         public async Task<ActionResult> ModifyAttachments(int ticketId, string comment, Guid tempId, string deleteFiles)
         {
             //most of this action is performed directly against the storage provider, outside the business domain's control. 
@@ -152,6 +164,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("pass")]
         public async Task<ActionResult> Pass(int ticketId, string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.Pass(comment, assignedTo, priority);
@@ -160,6 +173,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("reassign")]
         public async Task<ActionResult> ReAssign(int ticketId, string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.ReAssign(comment, assignedTo, priority);
@@ -168,6 +182,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("request-more-info")]
         public async Task<ActionResult> RequestMoreInfo(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.RequestMoreInfo(comment);
@@ -176,6 +191,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("reopen")]
         public async Task<ActionResult> ReOpen(int ticketId, string comment, bool assignToMe = false)
         {
             var activityFn = Context.TicketActions.ReOpen(comment, assignToMe);
@@ -184,6 +200,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("resolve")]
         public async Task<ActionResult> Resolve(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.Resolve(comment);
@@ -192,6 +209,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("supply-more-info")]
         public async Task<ActionResult> SupplyMoreInfo(int ticketId, string comment, bool reactivate = false)
         {
             var activityFn = Context.TicketActions.SupplyMoreInfo(comment, reactivate);
@@ -200,6 +218,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("take-over")]
         public async Task<ActionResult> TakeOver(int ticketId, string comment, string priority)
         {
             var activityFn = Context.TicketActions.TakeOver(comment, priority);

@@ -16,6 +16,8 @@ namespace TicketDesk.Web.Client.Controllers
     //TODO: clear user and role caches when changes are made
 
     [Authorize]
+    [RoutePrefix("account")]
+    [Route("{action}")]
     public class AccountController : Controller
     {
         private TicketDeskUserManager UserManager { get; set; }
@@ -31,6 +33,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [Route("login")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -45,6 +48,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("login")]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -73,6 +77,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
+        [Route("verify-code")]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
@@ -93,6 +98,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("verify-code")]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             if (!ModelState.IsValid)
@@ -121,6 +127,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        [Route("register")]
         public ActionResult Register()
         {
             return View();
@@ -131,6 +138,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("register")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -159,6 +167,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
+        [Route("confirm-email")]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -172,6 +181,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
+        [Route("forgot-password")]
         public ActionResult ForgotPassword()
         {
             return View();
@@ -182,6 +192,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("forgot-password")]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -208,6 +219,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
+        [Route("forgot-password-confirmation")]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
@@ -216,6 +228,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
+        [Route("reset-password")]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
@@ -226,6 +239,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("reset-password")]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -250,6 +264,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
+        [Route("reset-password-confirmation")]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
@@ -260,6 +275,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("external-login")]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
@@ -269,6 +285,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
+        [Route("send-code")]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
@@ -286,6 +303,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("send-code")]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
             if (!ModelState.IsValid)
@@ -304,6 +322,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
+        [Route("external-login-callback")]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -336,6 +355,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("external-login-confirmation")]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -369,7 +389,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-
+        [Route("logoff")]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -379,6 +399,7 @@ namespace TicketDesk.Web.Client.Controllers
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
+        [Route("external-login-failure")]
         public ActionResult ExternalLoginFailure()
         {
             return View();

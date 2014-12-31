@@ -7,6 +7,8 @@ using TicketDesk.Domain;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+    [RoutePrefix("auto-complete")]
+    [Authorize]
     public class AutoCompleteController : Controller
     {
 
@@ -16,7 +18,8 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
-
+        [Route("tag-list")]
+        [HttpGet]
         public ActionResult TagList(string term)
         {
             //TODO: cache a complete distinct taglist on app start to improve performance, keep this action synchronous

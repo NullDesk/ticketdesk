@@ -24,8 +24,8 @@ namespace TicketDesk.Domain.Model
                 {
                     return;
                 }
-
-                var jData = JsonConvert.DeserializeObject<ApplicationPermissionsSetting>(value);
+                var jsettings = new JsonSerializerSettings() { ObjectCreationHandling = ObjectCreationHandling.Replace };
+                var jData = JsonConvert.DeserializeObject<ApplicationPermissionsSetting>(value, jsettings);
                 AllowInternalUsersToEditPriority = jData.AllowInternalUsersToEditPriority;
                 AllowInternalUsersToEditTags = jData.AllowInternalUsersToEditTags;
             }

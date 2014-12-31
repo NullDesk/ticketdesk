@@ -7,8 +7,11 @@ using TicketDesk.Domain.Migrations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Infrastructure;
 
-namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
+namespace TicketDesk.Web.Client.Controllers
 {
+    [RouteArea("admin")]
+    [RoutePrefix("data-management")]
+    [Route("{action}")]
     public class DataManagementController : Controller
     {
         private TicketDeskUserManager UserManager { get; set; }
@@ -21,12 +24,12 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             IdentityContext = context;
 
         }
-
+        [Route("upgrade")]
         public ActionResult Upgrade()
         {
             return View();
         }
-
+        [Route("upgrade-now")]
         public ActionResult UpgradeNow()
         {
             using (var ctx = new TicketDeskContext(null))
@@ -43,10 +46,13 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             }
             return View("Upgrade");
         }
+        [Route("create")]
         public ActionResult Create()
         {
             return View();
         }
+        
+        [Route("create-now")]
         public ActionResult CreateNow()
         {
             using (var ctx = new TicketDeskContext(null))
@@ -65,7 +71,7 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             return View("Create");
         }
 
-
+        [Route("migrate-membership")]
         public ActionResult MigrateMembershipToIdentity()
         {
             LegacySecurityMigrator.MigrateSecurity(IdentityContext, UserManager, RoleManager);
@@ -73,11 +79,13 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             return View("Upgrade");
         }
 
+        [Route("demo")]
         public ActionResult Demo()
         {
             return View();
         }
 
+        [Route("remove-demo-data")]
         public ActionResult RemoveDemoData()
         {
             using (var ctx = new TicketDeskContext(null))
@@ -89,7 +97,7 @@ namespace TicketDesk.Web.Client.Areas.Initialization.Controllers
             ViewBag.DemoDataRemoved = true;
             return View("Demo");
         }
-
+        [Route("create-demo-data")]
         public ActionResult CreateDemoData()
         {
             using (var ctx = new TicketDeskContext(null))

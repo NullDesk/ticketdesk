@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
-using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -13,6 +12,7 @@ namespace TicketDesk.Web.Client.Controllers
     /// Class TicketController.
     /// </summary>
     [RoutePrefix("ticket")]
+    [Route("{action=index}")]
     [Authorize]
     public class TicketController : Controller
     {
@@ -24,7 +24,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         public RedirectToRouteResult Index()
         {
-            return RedirectToAction("Index", "TicketCenter", new { area = "" });
+            return RedirectToAction("Index", "TicketCenter");
         }
 
         [Route("{id:int}")]
@@ -35,6 +35,7 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Authorize(Roles = "TdInternalUsers")]
+        [Route("new")]
         public ActionResult New()
         {
             var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId };
@@ -45,6 +46,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateOnlyIncomingValues]
+        [Route("new")]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {
             if (ModelState.IsValid)
@@ -67,21 +69,16 @@ namespace TicketDesk.Web.Client.Controllers
             return View(ticket);
         }
 
-        private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)
-        {
-            Context.Tickets.Add(ticket);
-            await Context.SaveChangesAsync();
-            ticket.CommitPendingAttachments(tempId);
+        
 
-            return ticket.TicketId != default(int);
-        }
-
+        [Route("ticket-events")]
         public async Task<ActionResult> TicketEvents(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
             return PartialView("_TicketEvents", ticket.TicketEvents);
         }
 
+        [Route("ticket-details")]
         public async Task<ActionResult> TicketDetails(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
@@ -91,7 +88,14 @@ namespace TicketDesk.Web.Client.Controllers
             return PartialView("_TicketDetails", ticket);
         }
 
+        private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)
+        {
+            Context.Tickets.Add(ticket);
+            await Context.SaveChangesAsync();
+            ticket.CommitPendingAttachments(tempId);
 
+            return ticket.TicketId != default(int);
+        }
 
     }
 }

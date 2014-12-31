@@ -13,9 +13,11 @@ namespace TicketDesk.Web.Client.Controllers
 {
     //TODO: clear user and role caches when changes are made
     [Authorize]
+    [RoutePrefix("manage")]
+    [Route("{action=index}")]
     public class ManageController : Controller
     {
-        
+
 
         public ManageController(TicketDeskUserManager userManager)
         {
@@ -35,8 +37,7 @@ namespace TicketDesk.Web.Client.Controllers
             }
         }
 
-        //
-        // GET: /Manage/Index
+        [Route("index")]
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -59,8 +60,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/RemoveLogin
+        [Route("remove-login")]
         public ActionResult RemoveLogin()
         {
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
@@ -68,10 +68,9 @@ namespace TicketDesk.Web.Client.Controllers
             return View(linkedAccounts);
         }
 
-        //
-        // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("remove-login")]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
             ManageMessageId? message;
@@ -92,17 +91,16 @@ namespace TicketDesk.Web.Client.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/AddPhoneNumber
+
+        [Route("add-phone-number")]
         public ActionResult AddPhoneNumber()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("add-phone-number")]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -123,9 +121,8 @@ namespace TicketDesk.Web.Client.Controllers
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
-        //
-        // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
+        [Route("enable-two-factor")]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
@@ -137,9 +134,8 @@ namespace TicketDesk.Web.Client.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
+        [Route("disable-two-factor")]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
@@ -151,8 +147,7 @@ namespace TicketDesk.Web.Client.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // GET: /Manage/VerifyPhoneNumber
+        [Route("verify-phone-number")]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -160,10 +155,9 @@ namespace TicketDesk.Web.Client.Controllers
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
-        //
-        // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("verify-phone-number")]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -185,8 +179,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/RemovePhoneNumber
+        [Route("remove-phoe-number")]
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -202,17 +195,15 @@ namespace TicketDesk.Web.Client.Controllers
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
-        //
-        // GET: /Manage/ChangePassword
+        [Route("change-password")]
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("change-password")]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -233,17 +224,15 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/SetPassword
+        [Route("set-password")]
         public ActionResult SetPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("set-password")]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -265,8 +254,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/ManageLogins
+        [Route("manage-logins")]
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -288,18 +276,16 @@ namespace TicketDesk.Web.Client.Controllers
             });
         }
 
-        //
-        // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("link-logins")]
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
 
-        //
-        // GET: /Manage/LinkLoginCallback
+        [Route("link-login-callback")]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -311,7 +297,7 @@ namespace TicketDesk.Web.Client.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -368,6 +354,6 @@ namespace TicketDesk.Web.Client.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

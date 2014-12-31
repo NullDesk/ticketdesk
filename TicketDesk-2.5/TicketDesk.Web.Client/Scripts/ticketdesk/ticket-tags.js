@@ -24,7 +24,7 @@
                 },
                 ajax: {
                     url: config.tagAutoCompleteUrl,
-                    type: 'POST',
+                    type: 'GET',
                     dataType: 'json',
                     data: function (term) {
                         return {

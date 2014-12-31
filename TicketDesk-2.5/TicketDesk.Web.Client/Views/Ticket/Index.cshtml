@@ -19,10 +19,10 @@
         $(document).ready(function() {
             $.ajaxSetup({ cache: false });
             var tdConfig = {
-                loadActivityUrl: '@Url.Action("LoadActivity", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                activityButtonsUrl: '@Url.Action("ActivityButtons", "TicketActivity", new {ticketId = Model.TicketId, area = ""})',
-                eventPanelUrl: '@Url.Action("TicketEvents", "Ticket", new {ticketId = Model.TicketId, area = ""})',
-                loadDetailsUrl: '@Url.Action("TicketDetails", "Ticket", new {ticketId = Model.TicketId, area = ""})',
+                loadActivityUrl: '@Url.Action("LoadActivity", "TicketActivity", new {ticketId = Model.TicketId})',
+                activityButtonsUrl: '@Url.Action("ActivityButtons", "TicketActivity", new {ticketId = Model.TicketId})',
+                eventPanelUrl: '@Url.Action("TicketEvents", "Ticket", new {ticketId = Model.TicketId})',
+                loadDetailsUrl: '@Url.Action("TicketDetails", "Ticket", new {ticketId = Model.TicketId})',
                 uploaderConfig: {
                     dropzoneUploadUrl: '@Url.Action("Upload", "File")',
                     getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
@@ -40,13 +40,13 @@
 
 <main role="main">
     <div id="ticketDetailPanel" class="panel panel-primary">
-        @Html.Action("TicketDetails", new { ticketId = Model.TicketId, area = "" })
+        @Html.Action("TicketDetails", new { ticketId = Model.TicketId})
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
             <div class="btn-toolbar" role="toolbar">
                 <div id="activityButtonsPanel">
-                    @Html.Action("ActivityButtons", "TicketActivity", new { ticketId = Model.TicketId, area = "" })
+                    @Html.Action("ActivityButtons", "TicketActivity", new { ticketId = Model.TicketId})
                 </div>
             </div>
         </div>
@@ -57,10 +57,10 @@
             Activity
         </div>
         <div id="eventPanel" class="panel-body">
-            @Html.Action("TicketEvents", new { ticketId = Model.TicketId, area = "" })
+            @Html.Action("TicketEvents", new { ticketId = Model.TicketId})
         </div>
     </div>
     <p>
-        @Html.ActionLink("Back to List", "Index", "TicketCenter", new { area = "" }, null)
+        @Html.ActionLink("Back to List", "Index", "TicketCenter")
     </p>
 </main>

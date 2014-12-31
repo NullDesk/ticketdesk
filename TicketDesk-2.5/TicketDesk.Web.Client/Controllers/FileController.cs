@@ -10,9 +10,11 @@ using TicketDesk.IO;
 namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("file")]
+    [Authorize]
     public class FileController : Controller
     {
         [HttpPost]
+        [Route("upload")]
         public async Task<ActionResult> Upload(Guid tempId)
         {
             //TODO: doesn't necessarily play well with large files, cap file upload size to something reasonable (define in settings) or use upload chunking
@@ -26,6 +28,7 @@ namespace TicketDesk.Web.Client.Controllers
         }
        
         [HttpPost]
+        [Route("delete")]
         public ActionResult Delete(Guid id, string fileName)
         {
             //ticketdesk never lets the UI directly delete a file attachment unless it is a pending. 
@@ -41,6 +44,7 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [HttpGet]
+        [Route("get-attachments-info")]
         public ActionResult GetAttachmentsInfo(int? id, Guid? tempId)
         {
             var pending = tempId.HasValue ? TicketDeskFileStore.ListAttachmentInfo(tempId.Value.ToString(), true) : new TicketDeskFileInfo[0];

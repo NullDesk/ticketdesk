@@ -181,10 +181,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\SearchManagerController.cs" />
-    <Compile Include="Areas\Initialization\Controllers\DataManagementController.cs" />
-    <Compile Include="Areas\Initialization\InitializationAreaRegistration.cs" />
+    <Compile Include="Controllers\SearchManagerController.cs" />
+    <Compile Include="Controllers\DataManagementController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -242,19 +240,13 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\SearchManager\Index.cshtml" />
-    <Content Include="Areas\Initialization\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Initialization\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Initialization\Views\DataManagement\Demo.cshtml" />
+    <Content Include="Views\SearchManager\Index.cshtml" />
+    <Content Include="Views\DataManagement\Demo.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Content\Site.css_old" />
-    <Content Include="Areas\Initialization\Views\web.config" />
-    <Content Include="Areas\Initialization\Views\DataManagement\Upgrade.cshtml" />
-    <Content Include="Areas\Initialization\Views\DataManagement\Create.cshtml" />
+    <Content Include="Views\DataManagement\Upgrade.cshtml" />
+    <Content Include="Views\DataManagement\Create.cshtml" />
     <Compile Include="App_Start\Startup.Database.cs" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -432,8 +424,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Initialization\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

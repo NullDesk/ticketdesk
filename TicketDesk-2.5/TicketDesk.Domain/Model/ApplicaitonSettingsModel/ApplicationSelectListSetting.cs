@@ -26,8 +26,8 @@ namespace TicketDesk.Domain.Model
                 {
                     return;
                 }
-
-                var jData = JsonConvert.DeserializeObject<ApplicationSelectListSetting>(value);
+                var jsettings = new JsonSerializerSettings() {ObjectCreationHandling = ObjectCreationHandling.Replace};
+                var jData = JsonConvert.DeserializeObject<ApplicationSelectListSetting>(value, jsettings);
                 CategoryList = jData.CategoryList;
                 PriorityList = jData.PriorityList;
                 TicketTypesList = jData.TicketTypesList;

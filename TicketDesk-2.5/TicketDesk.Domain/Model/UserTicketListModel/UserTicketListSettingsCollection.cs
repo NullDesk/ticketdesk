@@ -57,8 +57,9 @@ namespace TicketDesk.Domain.Model
                 {
                     return;
                 }
-
-                var jData = JsonConvert.DeserializeObject<List<UserTicketListSetting>>(value);
+                
+                var jsettings = new JsonSerializerSettings() {ObjectCreationHandling = ObjectCreationHandling.Replace};
+                var jData = JsonConvert.DeserializeObject<List<UserTicketListSetting>>(value, jsettings);
                 Items.Clear();
                 Add(jData);
                 

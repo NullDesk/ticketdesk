@@ -6,6 +6,8 @@ using TicketDesk.Domain.Model;
 namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("search")]
+    [Route("{action=index")]
+    [Authorize]
     public class SearchController : Controller
     {
         private TicketDeskContext Context { get; set; }
@@ -14,8 +16,9 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
-        // GET: Search
-       
+        [Route("")]
+        [Route("{term}")]
+        [HttpGet]
         public async Task<ActionResult> Index(string term)
         {
             if (!string.IsNullOrEmpty(term))

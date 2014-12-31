@@ -5,7 +5,7 @@
     var activity = (TicketActivity)ViewBag.Activity;
     var ajaxOptions = new AjaxOptions { UpdateTargetId = "activityPanel", OnBegin = "editTicket.beginActivity", OnSuccess = "editTicket.completeActivity", OnFailure = "editTicket.failActivity" };
 }
-@using (Ajax.BeginForm(activity.ToString(), "TicketActivity", new { ticketId = Model.TicketId, area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
+@using (Ajax.BeginForm(activity.ToString(), "TicketActivity", new { ticketId = Model.TicketId }, ajaxOptions, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     <input type="hidden" id="tempId" value="@ViewBag.TempId" />

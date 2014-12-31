@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
-using TicketDesk.Web.Client.Areas.Initialization.Controllers;
 
 namespace TicketDesk.Web.Client
 {
@@ -27,7 +26,7 @@ namespace TicketDesk.Web.Client
                         {
                             action,
                             controller = "DataManagement",
-                            area = "Initialization"
+                            area = "Admin"
                         }));
             }
             base.OnActionExecuting(filterContext);
