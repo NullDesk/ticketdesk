@@ -1,4 +1,17 @@
-﻿using System;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +97,7 @@ namespace TicketDesk.Web.Client
          ) where TValue : class
         {
             var list = items.Select(i => new SelectListQueryItem<TValue> { Id = valueField(i), Name = textField(i) }).ToList();
-            list.Insert(0, new SelectListQueryItem<TValue>{Name = emptyText, Id = emptyValue});
+            list.Insert(0, new SelectListQueryItem<TValue> { Name = emptyText, Id = emptyValue });
             return new SelectList(list, "ID", "Name", selectedValue);
         }
 
@@ -97,13 +110,11 @@ namespace TicketDesk.Web.Client
             if (includeDefaultItem)
             {
                 var items = new List<SelectListQueryItem<T>>();
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 AddDefaultItem(items, includeDefaultItem);
                 return new SelectList(items, "ID", "Name");
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         private static SelectListQueryItem<T> GetDefaultSelectListItem<T>()
@@ -134,6 +145,7 @@ namespace TicketDesk.Web.Client
             var list = from Enum e in Enum.GetValues(enumeration.GetType())
                        select new
                        {
+                           // ReSharper disable once AssignNullToNotNullAttribute
                            ID = Enum.Parse(enumeration.GetType(), Enum.GetName(enumeration.GetType(), e)),
                            Name = e.GetDescription()
                        };
@@ -145,6 +157,7 @@ namespace TicketDesk.Web.Client
             var list = from Enum e in Enum.GetValues(enumeration.GetType())
                        select new
                        {
+                           // ReSharper disable once AssignNullToNotNullAttribute
                            ID = Enum.Parse(enumeration.GetType(), Enum.GetName(enumeration.GetType(), e)),
                            Name = e.GetDescription()
                        };

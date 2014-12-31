@@ -4,7 +4,7 @@
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
 //
 // This file is distributed under the terms of the Microsoft Public 
-// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
 // for the complete terms of use. 
 //
 // For any distribution that contains code from this file, this notice of 
@@ -124,18 +124,17 @@ namespace TicketDesk.Domain.Model
         /// <summary>
         /// Modifies the filter settings.
         /// </summary>
-        /// <param name="setting">The list settings which will be modified.</param>
         /// <param name="pageSize">Number of items to display on a single page.</param>
-        /// <param name="TicketStatus">The current status filter setting.</param>
+        /// <param name="ticketStatus">The current status filter setting.</param>
         /// <param name="owner">The owner filter setting.</param>
         /// <param name="assignedTo">The assigned to filter setting.</param>
-        public void ModifyFilterSettings(int pageSize, string TicketStatus, string owner, string assignedTo)
+        public void ModifyFilterSettings(int pageSize, string ticketStatus, string owner, string assignedTo)
         {
             ItemsPerPage = pageSize;
 
             if (!DisabledFilterColumnNames.Contains("TicketStatus"))
             {
-                FilterColumns.ChangeTicketStatusFilter(TicketStatus);
+                FilterColumns.ChangeTicketStatusFilter(ticketStatus);
             }
             if (!DisabledFilterColumnNames.Contains("Owner"))
             {
@@ -179,7 +178,7 @@ namespace TicketDesk.Domain.Model
             historyticketsSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             historyticketsFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", true, TicketStatus.Closed));
 
-            settings.Add(new UserTicketListSetting("historytickets", TicketDeskDomainText.DefaultListNameHistoryTickets, disOrder++, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn));
+            settings.Add(new UserTicketListSetting("historytickets", TicketDeskDomainText.DefaultListNameHistoryTickets, disOrder, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn));
 
             return settings;
         }

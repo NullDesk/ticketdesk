@@ -244,7 +244,6 @@
     <Content Include="Views\DataManagement\Demo.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Content\Site.css_old" />
     <Content Include="Views\DataManagement\Upgrade.cshtml" />
     <Content Include="Views\DataManagement\Create.cshtml" />
     <Compile Include="App_Start\Startup.Database.cs" />

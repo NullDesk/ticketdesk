@@ -1,4 +1,17 @@
-﻿using System;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,11 +32,14 @@ namespace TicketDesk.Web.Client
         [UsedImplicitly]
         private class LegacyUser
         {
+            // ReSharper disable UnusedAutoPropertyAccessor.Local
             internal Guid UserId { get; set; }
             internal string Email { get; set; }
             internal string Password { get; set; }
             internal string Comment { get; set; }
             internal int PasswordFormat { get; set; }
+            // ReSharper restore UnusedAutoPropertyAccessor.Local
+
         }
 
         /// <summary>
@@ -52,8 +68,7 @@ namespace TicketDesk.Web.Client
                     DisplayName = user.Comment,
                 };
 
-                IdentityResult result = null;
-                result = user.PasswordFormat == 0 ?
+                var result = user.PasswordFormat == 0 ?
                     userManager.Create(newUser, user.Password) :
                     userManager.Create(newUser);
 

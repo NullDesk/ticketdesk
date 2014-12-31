@@ -4,7 +4,7 @@
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
 //
 // This file is distributed under the terms of the Microsoft Public 
-// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
 // for the complete terms of use. 
 //
 // For any distribution that contains code from this file, this notice of 
@@ -76,7 +76,6 @@ namespace TicketDesk.Domain.Model
         public static ObjectQuery<Ticket> ApplyToQuery(this ICollection<UserTicketListSortColumn> sorts, ObjectQuery<Ticket> baseQuery)
         {
             var sortColumns = sorts.ToList();
-            string kString = null;
             if (sortColumns.Count > 0)
             {
                 var skeys = new string[sortColumns.Count];
@@ -87,8 +86,8 @@ namespace TicketDesk.Domain.Model
                     skeys[i] = string.Format("it.{0} {1}", sortColumn.ColumnName, appd);
                 }
 
-                kString = string.Join(",", skeys);
-                baseQuery = baseQuery.OrderBy(kString ?? "it.TicketId DESC");
+                var kString = string.Join(",", skeys);
+                baseQuery = baseQuery.OrderBy(kString);
 
             }
             return baseQuery;
@@ -103,7 +102,6 @@ namespace TicketDesk.Domain.Model
         public static ObjectQuery<Ticket> ApplyToQuery(this ICollection<UserTicketListFilterColumn> filters, ObjectQuery<Ticket> baseQuery)
         {
             var filterColumns = filters.ToList();
-            string wString = null;
             if (filterColumns.Count > 0)
             {
                 var fkeys = new string[filterColumns.Count];
@@ -132,7 +130,7 @@ namespace TicketDesk.Domain.Model
                     };
                 }
 
-                wString = string.Join(" and ", fkeys);
+                var wString = string.Join(" and ", fkeys);
                 baseQuery = baseQuery.Where(wString, fParams);
             }
             return baseQuery;

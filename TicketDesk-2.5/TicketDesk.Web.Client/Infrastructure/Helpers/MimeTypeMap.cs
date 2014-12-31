@@ -7,7 +7,7 @@
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
 //
 // This file is distributed under the terms of the Microsoft Public 
-// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
 // for the complete terms of use. 
 //
 // For any distribution that contains code from this file, this notice of 
@@ -22,7 +22,7 @@ namespace TicketDesk.Web.Client
 
     public static class MimeTypeMap
     {
-        private static readonly IDictionary<string, string> _mappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {
+        private static readonly IDictionary<string, string> Mappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {
 
         #region Big freaking list of mime types
         // combination of values from Windows 7 Registry and 
@@ -606,7 +606,7 @@ namespace TicketDesk.Web.Client
 
             string mime;
 
-            return _mappings.TryGetValue(extension, out mime) ? mime : "application/octet-stream";
+            return Mappings.TryGetValue(extension, out mime) ? mime : "application/octet-stream";
         }
     }
 }

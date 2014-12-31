@@ -1,4 +1,20 @@
-﻿html {
+﻿/*
+ TicketDesk - Attribution notice
+ Contributor(s):
+
+      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+
+ This file is distributed under the terms of the Microsoft Public 
+ License (Ms-PL). See http://opensource.org/licenses/MS-PL
+ for the complete terms of use. 
+
+ For any distribution that contains code from this file, this notice of 
+ attribution must remain intact, and a copy of the license must be 
+ provided to the recipient.
+
+*/
+
+html {
     height: 100%;
 }
 
@@ -277,6 +293,10 @@ p {
 
     .tabs-left > .nav-tabs > li > a,
     .tabs-right > .nav-tabs > li > a {
+        -moz-min-width: 74px;
+        -ms-min-width: 74px;
+        -o-min-width: 74px;
+        -webkit-min-width: 74px;
         min-width: 74px;
         margin-right: 0;
         margin-bottom: 3px;

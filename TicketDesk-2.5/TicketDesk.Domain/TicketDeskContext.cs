@@ -4,7 +4,7 @@
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
 //
 // This file is distributed under the terms of the Microsoft Public 
-// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
 // for the complete terms of use. 
 //
 // For any distribution that contains code from this file, this notice of 
@@ -75,9 +75,7 @@ namespace TicketDesk.Domain
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //TODO: Remove along with supoprting class if unneeded
-            //modelBuilder.Conventions.Add(new NonPublicColumnAttributeConvention());
-
+           
             modelBuilder.Entity<TicketEvent>()
                 .Property(e => e.Version)
                 .IsFixedLength();

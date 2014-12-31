@@ -1,4 +1,17 @@
-﻿using System;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+
+using System;
 using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -27,7 +40,7 @@ namespace TicketDesk.Web.Client
             //app.CreatePerOwinContext<TicketDeskSignInManager>(TicketDeskSignInManager.Create);
             
             
-            app.CreatePerOwinContext<TicketDeskUserManager>(container.GetInstance<TicketDeskUserManager>);
+            app.CreatePerOwinContext(container.GetInstance<TicketDeskUserManager>);
             
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

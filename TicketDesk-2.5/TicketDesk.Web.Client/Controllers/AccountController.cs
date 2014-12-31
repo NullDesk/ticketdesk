@@ -1,7 +1,17 @@
-﻿using System;
-using System.Globalization;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -66,7 +76,8 @@ namespace TicketDesk.Web.Client.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
+                // ReSharper disable once RedundantCaseLabel
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -88,6 +99,7 @@ namespace TicketDesk.Web.Client.Controllers
             var user = await UserManager.FindByIdAsync(await SignInManager.GetVerifiedUserIdAsync());
             if (user != null)
             {
+                // ReSharper disable once UnusedVariable
                 var code = await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
@@ -117,6 +129,7 @@ namespace TicketDesk.Web.Client.Controllers
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+                // ReSharper disable once RedundantCaseLabel
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid code.");
@@ -316,7 +329,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         //
@@ -341,6 +354,7 @@ namespace TicketDesk.Web.Client.Controllers
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                // ReSharper disable once RedundantCaseLabel
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account

@@ -4,7 +4,7 @@
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
 //
 // This file is distributed under the terms of the Microsoft Public 
-// License (Ms-PL). See http://ticketdesk.codeplex.com/license
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
 // for the complete terms of use. 
 //
 // For any distribution that contains code from this file, this notice of 
@@ -58,7 +58,7 @@ namespace TicketDesk.Domain.Model
                     return;
                 }
                 
-                var jsettings = new JsonSerializerSettings() {ObjectCreationHandling = ObjectCreationHandling.Replace};
+                var jsettings = new JsonSerializerSettings {ObjectCreationHandling = ObjectCreationHandling.Replace};
                 var jData = JsonConvert.DeserializeObject<List<UserTicketListSetting>>(value, jsettings);
                 Items.Clear();
                 Add(jData);
