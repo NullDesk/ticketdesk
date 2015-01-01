@@ -48,6 +48,10 @@ namespace TicketDesk.Web.Client.Controllers
             using (var ctx = new TicketDeskContext(null))
             {
                 TicketDeskLegacyDatabaseInitializer<TicketDeskContext>.InitDatabase(ctx);
+                
+            }
+            using (var ctx = new TicketDeskContext(null))
+            {
                 Database.SetInitializer(new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
                 ctx.Database.Initialize(true);
             }

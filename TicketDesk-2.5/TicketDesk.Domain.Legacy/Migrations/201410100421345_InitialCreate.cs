@@ -50,12 +50,12 @@ namespace TicketDesk.Domain.Legacy.Migrations
 			");
 
 			AddColumn("dbo.Tickets", "TicketStatus", c => c.Int(nullable: false));
-			Sql("Update dbo.Tickets set TicketStatus = 0 where TicketStatus = 'Active'");
-			Sql("Update dbo.Tickets set TicketStatus = 1 where TicketStatus = 'More Info'");
-			Sql("Update dbo.Tickets set TicketStatus = 2 where TicketStatus = 'Resolved'");
-			Sql("Update dbo.Tickets set TicketStatus = 3 where TicketStatus = 'Closed'");
+			Sql("Update dbo.Tickets set TicketStatus = 0 where CurrentStatus = 'Active'");
+			Sql("Update dbo.Tickets set TicketStatus = 1 where CurrentStatus = 'More Info'");
+			Sql("Update dbo.Tickets set TicketStatus = 2 where CurrentStatus = 'Resolved'");
+			Sql("Update dbo.Tickets set TicketStatus = 3 where CurrentStatus = 'Closed'");
 
-			DropColumn("dbo.Tickets", "TicketStatus");
+			DropColumn("dbo.Tickets", "CurrentStatus");
 			Sql(@"UPDATE [dbo].[Settings] SET [SettingValue] = '2.5.0' WHERE [SettingName] = 'Version'");
 
 
