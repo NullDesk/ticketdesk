@@ -40,7 +40,7 @@ namespace TicketDesk.Web.Client
         {
             var container = GetInitializedContainer(app);
 
-            container.Verify();
+            //container.Verify();
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 

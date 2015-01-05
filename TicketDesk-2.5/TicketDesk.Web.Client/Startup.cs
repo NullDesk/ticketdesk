@@ -30,7 +30,8 @@ namespace TicketDesk.Web.Client
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
             ConfigureAuth(app, container);
-            ConfigureSearch();//dependant on dependency resolver
+            ConfigureSearch(); 
+            
         }
     }
 }

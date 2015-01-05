@@ -1,4 +1,8 @@
 ﻿// TicketDesk - Attribution notice
+//
+// Membership object delete scripts from: 
+//      dmorrison : https://gist.github.com/dmorrison/942148
+//
 // Contributor(s):
 //
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
@@ -13,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using Microsoft.AspNet.Identity;
@@ -120,6 +125,119 @@ namespace TicketDesk.Web.Client
                     roleManager.Create(role);
                 }
             }
+        }
+
+        public static void RemoveLegacyMembershipObjects(TicketDeskIdentityContext context)
+        {
+            const string script = @"
+                drop table aspnet_PersonalizationAllUsers
+                drop table aspnet_PersonalizationPerUser
+                drop table aspnet_Profile
+                drop table aspnet_SchemaVersions
+                drop table aspnet_UsersInRoles
+                drop table aspnet_WebEvent_Events
+                drop table aspnet_Paths
+                drop table aspnet_Membership
+                drop table aspnet_Roles
+                drop table aspnet_Users
+                drop table aspnet_Applications
+
+                drop view vw_aspnet_Applications
+                drop view vw_aspnet_MembershipUsers
+                drop view vw_aspnet_Profiles
+                drop view vw_aspnet_Roles
+                drop view vw_aspnet_Users
+                drop view vw_aspnet_UsersInRoles
+                drop view vw_aspnet_WebPartState_Paths
+                drop view vw_aspnet_WebPartState_Shared
+                drop view vw_aspnet_WebPartState_User
+
+                drop procedure aspnet_AnyDataInTables
+                drop procedure aspnet_Applications_CreateApplication
+                drop procedure aspnet_CheckSchemaVersion
+                drop procedure aspnet_Membership_ChangePasswordQuestionAndAnswer
+                drop procedure aspnet_Membership_CreateUser
+                drop procedure aspnet_Membership_FindUsersByEmail
+                drop procedure aspnet_Membership_FindUsersByName
+                drop procedure aspnet_Membership_GetAllUsers
+                drop procedure aspnet_Membership_GetNumberOfUsersOnline
+                drop procedure aspnet_Membership_GetPassword
+                drop procedure aspnet_Membership_GetPasswordWithFormat
+                drop procedure aspnet_Membership_GetUserByEmail
+                drop procedure aspnet_Membership_GetUserByName
+                drop procedure aspnet_Membership_GetUserByUserId
+                drop procedure aspnet_Membership_ResetPassword
+                drop procedure aspnet_Membership_SetPassword
+                drop procedure aspnet_Membership_UnlockUser
+                drop procedure aspnet_Membership_UpdateUser
+                drop procedure aspnet_Membership_UpdateUserInfo
+                drop procedure aspnet_Paths_CreatePath
+                drop procedure aspnet_Personalization_GetApplicationId
+                drop procedure aspnet_PersonalizationAdministration_DeleteAllState
+                drop procedure aspnet_PersonalizationAdministration_FindState
+                drop procedure aspnet_PersonalizationAdministration_GetCountOfState
+                drop procedure aspnet_PersonalizationAdministration_ResetSharedState
+                drop procedure aspnet_PersonalizationAdministration_ResetUserState
+                drop procedure aspnet_PersonalizationAllUsers_GetPageSettings
+                drop procedure aspnet_PersonalizationAllUsers_ResetPageSettings
+                drop procedure aspnet_PersonalizationAllUsers_SetPageSettings
+                drop procedure aspnet_PersonalizationPerUser_GetPageSettings
+                drop procedure aspnet_PersonalizationPerUser_ResetPageSettings
+                drop procedure aspnet_PersonalizationPerUser_SetPageSettings
+                drop procedure aspnet_Profile_DeleteInactiveProfiles
+                drop procedure aspnet_Profile_DeleteProfiles
+                drop procedure aspnet_Profile_GetNumberOfInactiveProfiles
+                drop procedure aspnet_Profile_GetProfiles
+                drop procedure aspnet_Profile_GetProperties
+                drop procedure aspnet_Profile_SetProperties
+                drop procedure aspnet_RegisterSchemaVersion
+                drop procedure aspnet_Roles_CreateRole
+                drop procedure aspnet_Roles_DeleteRole
+                drop procedure aspnet_Roles_GetAllRoles
+                drop procedure aspnet_Roles_RoleExists
+                drop procedure aspnet_Setup_RemoveAllRoleMembers
+                drop procedure aspnet_Setup_RestorePermissions
+                drop procedure aspnet_UnRegisterSchemaVersion
+                drop procedure aspnet_Users_CreateUser
+                drop procedure aspnet_Users_DeleteUser
+                drop procedure aspnet_UsersInRoles_AddUsersToRoles
+                drop procedure aspnet_UsersInRoles_FindUsersInRole
+                drop procedure aspnet_UsersInRoles_GetRolesForUser
+                drop procedure aspnet_UsersInRoles_GetUsersInRoles
+                drop procedure aspnet_UsersInRoles_IsUserInRole
+                drop procedure aspnet_UsersInRoles_RemoveUsersFromRoles
+                drop procedure aspnet_WebEvent_LogEvent
+
+                drop schema aspnet_Membership_FullAccess
+                drop schema aspnet_Membership_BasicAccess
+                drop schema aspnet_Membership_ReportingAccess
+                drop schema aspnet_Personalization_BasicAccess
+                drop schema aspnet_Personalization_FullAccess
+                drop schema aspnet_Personalization_ReportingAccess
+                drop schema aspnet_Profile_BasicAccess
+                drop schema aspnet_Profile_FullAccess
+                drop schema aspnet_Profile_ReportingAccess
+                drop schema aspnet_Roles_BasicAccess
+                drop schema aspnet_Roles_FullAccess
+                drop schema aspnet_Roles_ReportingAccess
+                drop schema aspnet_WebEvent_FullAccess
+
+                drop role aspnet_Membership_FullAccess
+                drop role aspnet_Membership_BasicAccess
+                drop role aspnet_Membership_ReportingAccess
+                drop role aspnet_Personalization_FullAccess
+                drop role aspnet_Personalization_BasicAccess
+                drop role aspnet_Personalization_ReportingAccess
+                drop role aspnet_Profile_FullAccess
+                drop role aspnet_Profile_BasicAccess
+                drop role aspnet_Profile_ReportingAccess
+                drop role aspnet_Roles_FullAccess
+                drop role aspnet_Roles_BasicAccess
+                drop role aspnet_Roles_ReportingAccess
+                drop role aspnet_WebEvent_FullAccess
+            ";
+
+            context.Database.ExecuteSqlCommand(TransactionalBehavior.EnsureTransaction, script);
         }
     }
 }

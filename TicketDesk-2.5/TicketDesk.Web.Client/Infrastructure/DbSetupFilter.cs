@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -24,18 +25,14 @@ namespace TicketDesk.Web.Client
 
             var ctlr = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             //only allowed to go to data management or login
-            if (ctlr != "DataManagement")
+            if (ctlr != "FirstRunSetup")
             {
-
-                var action = DatabaseConfig.IsLegacyDatabase() ? "Upgrade" : "Create";
-
-                filterContext.Result = new RedirectToRouteResult(
+                filterContext.Result = new RedirectToRouteResult("first-run-setup",
                     new RouteValueDictionary(
                         new
                         {
-                            action,
-                            controller = "DataManagement",
-                            area = "Admin"
+                            Action = "Index",
+                            Controller = "FirstRunSetup",
                         }));
             }
             base.OnActionExecuting(filterContext);

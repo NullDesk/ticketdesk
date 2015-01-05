@@ -1,0 +1,60 @@
+﻿@using System.Web.UI.WebControls
+@section title { TicketDesk Setup }
+
+@section scripts
+{
+    @Styles.Render("~/content/wizard")
+}
+
+<main>
+
+
+    <div class="row td-wizard" style="border-bottom:0;">
+        <div class="col-xs-2 td-wizard-step complete">
+            <div class="text-center td-wizard-stepnum">Step 1</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="td-wizard-dot"></a>
+            <div class="td-wizard-info text-center"></div>
+        </div>
+
+        <div class="col-xs-2 td-wizard-step complete">
+            <!-- complete -->
+            <div class="text-center td-wizard-stepnum">Step 2</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="td-wizard-dot"></a>
+            <div class="td-wizard-info text-center"></div>
+        </div>
+
+        <div class="col-xs-2 td-wizard-step active">
+            <!-- complete -->
+            <div class="text-center td-wizard-stepnum">Step 3</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="td-wizard-dot"></a>
+            <div class="td-wizard-info text-center"></div>
+        </div>
+
+        <div class="col-xs-2 td-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center td-wizard-stepnum">Step 4</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="td-wizard-dot"></a>
+            <div class="td-wizard-info text-center"></div>
+        </div>
+        <div class="col-xs-2 td-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center td-wizard-stepnum">Step 5</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="td-wizard-dot"></a>
+            <div class="td-wizard-info text-center"></div>
+        </div>
+        <div class="col-xs-2 td-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center td-wizard-stepnum">Step 6</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="td-wizard-dot"></a>
+            <div class="td-wizard-info text-center"></div>
+        </div>
+    </div>
+
+</main>
+

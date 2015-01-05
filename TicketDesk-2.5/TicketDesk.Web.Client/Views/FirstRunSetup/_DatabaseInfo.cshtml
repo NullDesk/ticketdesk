@@ -1,0 +1,51 @@
+﻿@{
+    var pnl = ((ViewBag.DatabaseReady ?? false)) ? "panel-success" : "panel-default";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">Database Configuration</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2 text-right">Server Type</div>
+            <div class="col-md-8">
+                @if (ViewBag.ServerIsLocalDb ?? false)
+                {
+                    @:LocalDb -
+                }
+                @ViewBag.ServerVersion
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">Server Name</div>
+            <div class="col-md-8">@ViewBag.ServerName</div>
+        </div>
+        @if (!String.IsNullOrEmpty((string)ViewBag.SqlInstance))
+        {
+            <div class="row">
+                <div class="col-md-2 text-right">Instance Name</div>
+                <div class="col-md-8">@ViewBag.SqlInstance</div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-2 text-right">
+                Database @(ViewBag.IsFileDatabase ?? false ? "Location" : "Name")
+            </div>
+            <div class="col-md-8">@ViewBag.Database</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">Database Type</div>
+            <div class="col-md-8 ">
+                @((bool)ViewBag.IsFileDatabase ? "File Database" : "SQL Catalog")
+
+            </div>
+        </div>
+       
+    </div>
+    @if (ViewBag.DatabaseReady ?? false)
+    {
+        <div class="panel-footer text-center text-success">
+           
+                Your database is configured and ready to use!
+        </div>
+    }
+</div>

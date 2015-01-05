@@ -37,7 +37,7 @@ namespace TicketDesk.Domain
                 return TicketDeskSearchProvider.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
             }
         }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
         /// </summary>

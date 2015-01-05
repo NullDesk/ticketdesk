@@ -1,0 +1,18 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">Migrate Legacy Security</div>
+    <div class="panel-body">
+        <p>
+            TicketDesk has detected legacy membership objects. TicketDesk can attempt to migrate the user accounts for use with TicketDesk 2.5.
+        </p>
+        <p class="alert alert-danger">
+            This cannot be undone! Please make sure you have a database backup.
+        </p>
+        <p class="alert alert-info">
+            After the migration, users will login using the email address associated with their accounts.
+        </p>
+        <p>
+            Would you like to migrate users to the new identity system for TicketDesk 2.5?
+        </p>
+        @Html.ActionLink("Migrate Users", "LegacyMigration", null, new { @class = "btn btn-primary" })
+    </div>
+</div>

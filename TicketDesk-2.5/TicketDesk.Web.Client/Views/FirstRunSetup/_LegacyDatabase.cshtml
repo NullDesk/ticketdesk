@@ -1,0 +1,18 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">Upgrade Legacy Database</div>
+    <div class="panel-body">
+
+        <p>
+            TicketDesk has detected an existing database for TicketDesk version 2.1x.
+        </p>
+        <p class="alert alert-danger">
+            This cannot be undone! Please make sure you have a database backup.
+        </p>
+        <p>
+            Would you like to Upgrade this database for use with TicketDesk 2.5?
+        </p>
+        @Html.ActionLink("Upgrade Database", "UpgradeDatabase", null, new { @class = "btn btn-primary" })
+
+    </div>
+</div>
+

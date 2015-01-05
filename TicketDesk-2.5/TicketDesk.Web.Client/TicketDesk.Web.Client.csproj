@@ -181,6 +181,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\FirstRunSetupController.cs" />
     <Compile Include="Controllers\SearchManagerController.cs" />
     <Compile Include="Controllers\DataManagementController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManager.cs" />
     <Compile Include="Infrastructure\Identity\UserDisplayInfoCache.cs" />
+    <Compile Include="Infrastructure\WhenSetupEnabledAttribute.cs" />
     <Compile Include="Infrastructure\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
@@ -239,6 +242,7 @@
     <Content Include="Content\Images\TicketDesk-2.5.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Content\wizard.css" />
     <Content Include="favicon.ico" />
     <Content Include="Views\SearchManager\Index.cshtml" />
     <Content Include="Views\DataManagement\Demo.cshtml" />
@@ -256,7 +260,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Properties\PublishProfiles\azure.pubxml" />
+    <None Include="Properties\PublishProfiles\azure.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dropzone\css\basic.css" />
@@ -416,6 +422,16 @@
     <Content Include="Views\Ticket\_TicketDetails.cshtml" />
     <Content Include="Views\TicketActivity\_ActivityForm.cshtml" />
     <Content Include="Views\TicketActivity\_ChangeAssignment.cshtml" />
+    <Content Include="Views\Setup\Index.cshtml" />
+    <Content Include="Views\DataManagement\Index.cshtml" />
+    <Content Include="Views\FirstRunSetup\Index.cshtml" />
+    <Content Include="Views\FirstRunSetup\_DatabaseInfo.cshtml" />
+    <Content Include="Views\FirstRunSetup\_NewDatabase.cshtml" />
+    <Content Include="Views\FirstRunSetup\_ViewStart.cshtml" />
+    <Content Include="Views\FirstRunSetup\_LegacyDatabase.cshtml" />
+    <Content Include="Views\FirstRunSetup\_AzureInfo.cshtml" />
+    <Content Include="Views\FirstRunSetup\_LegacySecurity.cshtml" />
+    <Content Include="Views\FirstRunSetup\_SetupCompleteInfo.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -423,6 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DataManagement\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

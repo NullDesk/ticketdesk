@@ -14,10 +14,13 @@
 using System;
 using System.Configuration;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
+using TicketDesk.Web.Identity;
+using WebGrease;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client
@@ -28,14 +31,10 @@ namespace TicketDesk.Web.Client
         {
 
             var setupEnabled = ConfigurationManager.AppSettings["ticketdesk:SetupEnabled"];
-            var firstRunEnabled = !string.IsNullOrEmpty(setupEnabled) && 
+            var firstRunEnabled = !string.IsNullOrEmpty(setupEnabled) &&
                 setupEnabled.Equals("true", StringComparison.InvariantCultureIgnoreCase);
 
-            var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
-            var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) && 
-                demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) && 
-                IsDatabaseReady;//only do this if database was ready on startup, otherwise migrator will take care of it
-            
+
             if (firstRunEnabled && !IsDatabaseReady)
             {
                 //add a global filter to send requests to the database managment first run functions
@@ -43,6 +42,11 @@ namespace TicketDesk.Web.Client
             }
             else
             {
+                var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
+                var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) &&
+                    demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) &&
+                    IsDatabaseReady;//only do this if database was ready on startup, otherwise migrator will take care of it
+
                 //run any pending migrations automatically to bring the DB up to date
                 Database.SetInitializer(
                     new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
@@ -64,6 +68,8 @@ namespace TicketDesk.Web.Client
             }
         }
 
+        
+
         public static bool IsDatabaseReady
         {
             get
@@ -71,6 +77,7 @@ namespace TicketDesk.Web.Client
                 bool result;
                 using (var ctx = new TicketDeskContext(null))
                 {
+
                     result = (ctx.Database.Exists() && !IsEmptyDatabase(ctx)) && !IsLegacyDatabase(ctx);
                 }
                 return result;
@@ -94,6 +101,14 @@ namespace TicketDesk.Web.Client
             }
         }
 
+        public static bool HasLegacySecurity()
+        {
+            using (var ctx = new TicketDeskContext(null))
+            {
+                return HasLegacySecurity(ctx);
+            }
+        }
+
         private static bool IsEmptyDatabase(DbContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
@@ -102,6 +117,23 @@ namespace TicketDesk.Web.Client
             bool hasTables = numTables.First() > 0;
 
             return !hasTables;
+        }
+
+        private static bool HasLegacySecurity(DbContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+            var hasLegacy = false;
+            try
+            {
+                var numMembers = context.Database.SqlQuery<int>("select count(*) from aspnet_Membership").First();
+                hasLegacy = numMembers > 0;
+            }
+            // ReSharper disable once EmptyGeneralCatchClause
+            catch
+            {
+                //eat any exception
+            }
+            return hasLegacy;
         }
 
         private static bool IsLegacyDatabase(DbContext context)

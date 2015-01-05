@@ -1,0 +1,23 @@
+﻿@section title
+{
+    Database Configuration
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Current Status:</h2>
+@Html.Partial("Shared/_ConnectionInfo")
+
+<ul>
+
+    <li>
+        Db Empty = @ViewBag.IsDatabaseEmpty
+    </li>
+    <li>
+        Db Is Legacy TicketDesk 2.1x database = @ViewBag.IsLegacyDatabase
+    </li>
+    <li>
+        DB Is Ready = @ViewBag.IsDatabaseReady
+    </li>
+</ul>

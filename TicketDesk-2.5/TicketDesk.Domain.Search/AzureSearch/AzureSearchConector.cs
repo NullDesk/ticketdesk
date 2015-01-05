@@ -49,7 +49,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
             }
         }
 
-        private ServiceInfo TryGetInfoFromAppSettings()
+        public static ServiceInfo TryGetInfoFromAppSettings()
         {
             ServiceInfo info = null;
             var service = ConfigurationManager.AppSettings["Azure.Search.ServiceName"];
@@ -61,7 +61,7 @@ namespace TicketDesk.Domain.Search.AzureSearch
             return info;
         }
 
-        private ServiceInfo TryGetInfoFromConnectionString()
+        public static ServiceInfo TryGetInfoFromConnectionString()
         {
             ServiceInfo info = null;
             var conn = ConfigurationManager.ConnectionStrings["AzureSearch"];
@@ -97,9 +97,9 @@ namespace TicketDesk.Domain.Search.AzureSearch
             return info;
         }
 
-        private class ServiceInfo
+        public class ServiceInfo
         {
-            internal string ServiceName { get; set; }
+            public string ServiceName { get; set; }
             internal string QueryKey { get; set; }
         }
     }

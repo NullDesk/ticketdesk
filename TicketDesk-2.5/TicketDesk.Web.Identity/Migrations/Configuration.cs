@@ -52,7 +52,7 @@ namespace TicketDesk.Web.Identity.Migrations
             {
                 DemoIdentityDataManager.SetupDemoIdentityData(context);
             }
-            else//TODO: mode this block to the context itself, and ensure that at least one admin account exists no matter what
+            else//TODO: move this block to the context itself, and ensure that at least one admin account exists no matter what
             {
                 //create the standard roles and default admin account
                 var userStore = new UserStore<TicketDeskUser>(context);
@@ -84,7 +84,7 @@ namespace TicketDesk.Web.Identity.Migrations
                         Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                         UserName = "admin@example.com",
                         Email = "admin@example.com",
-                        DisplayName = "Admin User"
+                        DisplayName = "Admin User", 
                     };
                     if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
                     {
@@ -95,7 +95,6 @@ namespace TicketDesk.Web.Identity.Migrations
 
                         foreach (var rname in adminRoles)
                         {
-
                             userManager.AddToRole(admin.Id, rname);
                         }
                     }

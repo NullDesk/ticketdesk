@@ -1,0 +1,26 @@
+﻿@using System.Web.UI.WebControls
+@if (ViewBag.HasAzureServices ?? false)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">Azure Info</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2 text-right">Azure WebSite</div>
+                <div class="col-md-8">@ViewBag.AzureWebSiteName</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 text-right">Azure Search</div>
+                <div class="col-md-8">@ViewBag.AzureSearchService</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 text-right">Azure Storage</div>
+                <div class="col-md-8">@ViewBag.AzureStorageService</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 text-right">Azure SQL</div>
+                <div class="col-md-8">@ViewBag.Database</div>
+            </div>
+        </div>
+    </div>
+    
+}

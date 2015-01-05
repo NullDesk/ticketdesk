@@ -13,9 +13,7 @@
     provided to the recipient.
 *@
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 @section title
 {
     Create Database
@@ -26,7 +24,7 @@
         No database detected. Would you like to create a new TicketDesk 2.5 Database now?
 
     </p>
-    <div>@Html.ActionLink("Create Now", "CreateNow")</div>
+    <div>@Html.ActionLink("Create Database", "CreateDatabase")</div>
     <p>
         @if (ViewBag.DbCreated ?? false)
         {

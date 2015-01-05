@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>First Run Setup</title>
+    @Styles.Render("~/content/styles")
+</head>
+<body>
+    <div>
+        <h1 class="text-center">TicketDesk - First-Run Setup</h1>
+
+
+        <ul class="container list-unstyled"></ul>
+
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @{ Html.RenderAction("AzureInfo"); }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                @{ Html.RenderAction("DatabaseInfo"); }
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @{ Html.RenderAction("NewDatabase"); }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @{ Html.RenderAction("LegacyDatabase"); }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @{ Html.RenderAction("LegacySecurity"); }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @{ Html.RenderAction("SetupCompleteInfo"); }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

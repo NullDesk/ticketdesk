@@ -28,6 +28,8 @@ namespace TicketDesk.Web.Client
                     "~/Content/font-awesome.css"
                     ));
 
+            bundles.Add(new StyleBundle("~/content/wizard").Include("~/Content/wizard.css"));
+
             bundles.Add(new StyleBundle("~/content/editor")
                     .Include("~/Content/css/select2.css", new CssRewriteUrlTransform())
                     .Include("~/Content/css/select2-bootstrap.css", new CssRewriteUrlTransform())

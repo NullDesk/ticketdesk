@@ -30,8 +30,6 @@ namespace TicketDesk.Web.Client
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app, Container container)
         {
-
-
            
             //non-IoC stuff... no longer needed, but here for reference.
             //app.CreatePerOwinContext(TicketDeskIdentityContext.Create);
@@ -87,6 +85,7 @@ namespace TicketDesk.Web.Client
             //    ClientSecret = ""
             //});
 
+            
             var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
             var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) &&
                 demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) &&

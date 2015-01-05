@@ -20,11 +20,11 @@ namespace TicketDesk.Web.Client
     {
         public void ConfigureSearch()
         {
-
             var context = DependencyResolver.Current.GetService<TicketDeskContext>();
 
-            context.SearchProvider.InitializeSearch().ConfigureAwait(false);//don't await this, it'll run in the background
-
+                context.SearchProvider.InitializeSearch().ConfigureAwait(false);
+                    //don't await this, it'll run in the background
+            
         }
     }
 }

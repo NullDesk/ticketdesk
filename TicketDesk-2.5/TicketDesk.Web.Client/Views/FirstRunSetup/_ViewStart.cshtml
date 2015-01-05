@@ -13,24 +13,6 @@
     provided to the recipient.
 *@
 
-
-@section title
-{
-    Manage Demo Data
+@{
+    Layout = null;
 }
-<div class="contentContainer">
-    <h2>Manage Demo Data</h2>
-    
-    <div>@Html.ActionLink("Remove Demo Data", "RemoveDemoData")</div>
-    <p>
-        @if (ViewBag.DemoDataRemoved ?? false)
-        {
-            <span>Removed</span>
-        }
-        <div>@Html.ActionLink("Create Demo Data", "CreateDemoData")</div>
-        @if (ViewBag.DemoDataCreated ?? false)
-        {
-            <span>Created</span>
-        }
-    </p>
-</div>

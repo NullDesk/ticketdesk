@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -19,12 +20,13 @@ using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Infrastructure;
+using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client.Controllers
 {
     [RouteArea("admin")]
     [RoutePrefix("data-management")]
-    [Route("{action}")]
+    [Route("{action=index}")]
     public class DataManagementController : Controller
     {
         private TicketDeskUserManager UserManager { get; set; }
@@ -37,6 +39,28 @@ namespace TicketDesk.Web.Client.Controllers
             IdentityContext = context;
 
         }
+
+        [Route("")]
+        [Route("index")]
+        public ActionResult Index()
+        {
+            var connstring = ConfigurationManager.ConnectionStrings["TicketDesk"].ConnectionString;
+            var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(connstring);
+            var dsource = builder.DataSource.Split('\\');
+            ViewBag.ServerName = dsource[0];
+            ViewBag.SqlInstance = dsource.Length > 0?  dsource[1]: string.Empty;
+            //note: localdb doesn't show as a user instance!
+            ViewBag.IsFileDatabase = !string.IsNullOrEmpty(builder.AttachDBFilename);
+            ViewBag.Database = builder.AttachDBFilename ?? builder.InitialCatalog;
+            
+            ViewBag.IsDatabaseEmpty = DatabaseConfig.IsEmptyDatabase();
+            ViewBag.IsDatabaseReady = DatabaseConfig.IsDatabaseReady;
+            ViewBag.IsLegacyDatabase = DatabaseConfig.IsLegacyDatabase();
+            return View();
+        }
+
+
+
         [Route("upgrade")]
         public ActionResult Upgrade()
         {

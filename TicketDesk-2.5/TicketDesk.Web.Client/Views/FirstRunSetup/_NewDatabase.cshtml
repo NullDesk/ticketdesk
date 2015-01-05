@@ -1,0 +1,32 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">Create Database</div>
+    <div class="panel-body">
+        @if (ViewBag.WarnNotAnAzureDb ?? false)
+        {
+            <div class="bg-warning">
+                TicketDesk appears to be running as a Microsoft Azure WebSite, but the database is not
+                configured for Azure SQL Server. Azure SQL is not required, but please make sure the configured SQL Server
+                connection information is correct and accessible from your Azure WebSite before continuing.
+            </div>
+        }
+        @if (ViewBag.ErrorAzureDbDoesNotExist ?? false)
+        {
+            <div class="bg-danger">
+                TicketDesk appears to be running as a Microsoft Azure WebSite and the database appears
+                to be configured for Azure SQL Server, but the configured database does not appear to have been provisioned in Azure SQL yet.
+                <br /><br />
+                For security reasons, TicketDesk cannot provision Azure SQL databases automatically. You must provision the Azure SQL
+                Database using Azure Powershell or through the online Azure Management Portal. <br /><br />
+                Once the database has been provisioned, this utility can create the TicketDesk objects in the database for you automatically.
+            </div>
+        }
+        @if (!(ViewBag.ErrorAzureDbDoesNotExist ?? false))
+        {
+            <div>
+                Would you like to create a new TicketDesk database now?
+                <br /><br />
+                @Html.ActionLink("Create Database", "CreateDatabase", null, new {@class = "btn btn-primary"})
+            </div>
+        }
+    </div>
+</div>
