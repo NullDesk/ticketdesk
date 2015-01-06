@@ -42,7 +42,7 @@ namespace TicketDesk.Web.Client.Models
                
                 var builder = new SqlConnectionStringBuilder(connectionString);
                 var dsource = builder.DataSource.Split('\\');
-                ServerName = dsource.Length > 1 ? dsource[0] : null;
+                ServerName = dsource.Length > 0 ? dsource[0] : null;
                 SqlInstance = dsource.Length > 1 ? dsource[1] : null;
 
                 IsFileDatabase = !string.IsNullOrEmpty(builder.AttachDBFilename);

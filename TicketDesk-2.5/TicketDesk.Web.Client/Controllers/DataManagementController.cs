@@ -16,11 +16,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Infrastructure;
-using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client.Controllers
 {
