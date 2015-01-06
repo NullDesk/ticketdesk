@@ -121,7 +121,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             if (Model.AzureInfo.IsAzureWebSite)
             {
-                    ViewBag.ErrorAzureDbDoesNotExist = Model.DatabaseStatus.DatabaseExists;
+                    ViewBag.ErrorAzureDbDoesNotExist = !Model.DatabaseStatus.DatabaseExists;
                     ViewBag.WarnNotAnAzureDb = !Model.AzureInfo.IsSqlAzure;
             }
             return View("_NewDatabase",Model);
