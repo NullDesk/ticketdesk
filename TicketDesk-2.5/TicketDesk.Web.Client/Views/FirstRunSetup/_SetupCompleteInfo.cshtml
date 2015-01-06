@@ -1,18 +1,24 @@
-﻿<div class="panel panel-success">
+﻿@model TicketDesk.Web.Client.Models.SystemInfoViewModel
+<div class="panel panel-success">
     <div class="panel-heading">Setup Complete</div>
     <div class="panel-body">
         <p>
             Your TicketDesk instance appears to be all setup and ready to use.
         </p>
         <p class="alert alert-danger">
-            For your security, please disable this first-run-setup utility.<br/><br/>
+            For your security, please disable this first-run-setup utility.<br /><br />
             <span class="text-info">
                 Open web.config from the root of the application in a text editor. Locate the &lt;appSettings&gt; section, then change the value of ticketdesk:SetupEnabled to false. If runing as an Azure WebSite, you can also set this value in your website settings with the online Azure Management Portal.
             </span>
         </p>
         <p class="alert alert-info">
-            You should be able to login to TicketDesk using the email address "admin@example.com" with a password of "123456". Please remember to change the password.
+            Login to TicketDesk using the email address "admin@example.com" with password "123456". <br /><br />
+            Please remember to change the password.
         </p>
+        @Html.ActionLink("Go to TicketDesk", "Index", "Home")
+
+
     </div>
+
 </div>
 

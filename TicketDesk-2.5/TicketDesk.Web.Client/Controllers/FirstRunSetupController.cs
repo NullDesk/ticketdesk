@@ -10,6 +10,7 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Search.AzureSearch;
 using TicketDesk.IO;
+using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
@@ -21,47 +22,11 @@ namespace TicketDesk.Web.Client.Controllers
     [WhenSetupEnabled]
     public class FirstRunSetupController : Controller
     {
+        private SystemInfoViewModel Model { get; set; }
         public FirstRunSetupController()
         {
-            //TODO: what about demo mode?
-
-            IsAzureWebSite = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-            ConnectionString = ConfigurationManager.ConnectionStrings["TicketDesk"].ConnectionString;
-
-            var conn = GetMasterCatalogConnection();
-            var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT SERVERPROPERTY('Edition')";
-            conn.Open();
-            var edition = cmd.ExecuteScalar() as string;
-            cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT SERVERPROPERTY('IsLocalDB')";
-            var ldb = cmd.ExecuteScalar() as int?;
-            conn.Close();
-            if (edition != null)
-            {
-                DbEdition = edition;
-                IsSqlAzure = edition.IndexOf("azure", StringComparison.InvariantCultureIgnoreCase) >= 0;
-            }
-            IsLocalDb = ldb.HasValue;
-
+            Model = new SystemInfoViewModel();
         }
-
-        private string DbEdition { get; set; }
-        private bool IsLocalDb { get; set; }
-        private bool IsSqlAzure { get; set; }
-        private bool IsAzureWebSite { get; set; }
-        private string ConnectionString { get; set; }
-
-        private SqlConnection GetMasterCatalogConnection()
-        {
-
-            var builder = new SqlConnectionStringBuilder(ConnectionString);
-            builder.AttachDBFilename = "";
-            builder.InitialCatalog = "Master";
-            return new SqlConnection(builder.ToString());
-
-        }
-
 
         // GET: FirstRunSetup
         [Route("", Name = "first-run-setup")]
@@ -127,126 +92,66 @@ namespace TicketDesk.Web.Client.Controllers
         [ChildActionOnly]
         public ActionResult AzureInfo()
         {
-            var hasAzureServices = false;
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
+            if (!Model.AzureInfo.HasAzureServices)
             {
-                ViewBag.AzureWebSiteName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
-                ViewBag.IsAzureWebSite = IsAzureWebSite;
-                hasAzureServices = true;
+                return new EmptyResult();
             }
-            var azSearchInfo = AzureSearchConector.TryGetInfoFromConnectionString() ??
-                                   AzureSearchConector.TryGetInfoFromAppSettings();
-
-            if (azSearchInfo != null)
-            {
-                hasAzureServices = true;
-                ViewBag.AzureSearchService = azSearchInfo.ServiceName;
-            }
-            var azStore = !string.IsNullOrEmpty(AzureConnectionHelper.ConfigManagerConnString) ? AzureConnectionHelper.ConfigManagerConnString : AzureConnectionHelper.CloudConfigConnString;
-
-            if (!string.IsNullOrEmpty(azStore))
-            {
-                try
-                {
-                    var parts = azStore
-                        .Split(';')
-                        .Select(p => p.Split('='))
-                        .Select(t => new { key = t[0], value = t[1] }).ToList();
-
-                    var service = parts.FirstOrDefault(p => p.key.Equals("AccountName", StringComparison.InvariantCultureIgnoreCase));
-                    if (service != null)
-                    {
-                        ViewBag.AzureStorageService = service.value;
-                        hasAzureServices = true;
-                    }
-                }
-                catch { }
-
-            }
-            if (IsSqlAzure)
-            {
-                var builder = new SqlConnectionStringBuilder(ConnectionString);
-                ViewBag.Database = builder.InitialCatalog;
-                hasAzureServices = true;
-            }
-            ViewBag.HasAzureServices = hasAzureServices;
-            return PartialView("_AzureInfo");
+            return PartialView("_AzureInfo", Model);
+            
         }
 
         [ChildActionOnly]
         public ActionResult DatabaseInfo()
         {
-            var builder = new SqlConnectionStringBuilder(ConnectionString);
-            var dsource = builder.DataSource.Split('\\');
-            ViewBag.ServerName = dsource[0];
-            ViewBag.SqlInstance = dsource.Length > 1 ? dsource[1] : string.Empty;
-            //note: localdb doesn't show as a user instance!
-            ViewBag.IsFileDatabase = !string.IsNullOrEmpty(builder.AttachDBFilename);
-            ViewBag.Database = ViewBag.IsFileDatabase ? builder.AttachDBFilename : builder.InitialCatalog;
-
-            if (DbEdition != null)
-            {
-                ViewBag.ServerVersion = DbEdition;
-                ViewBag.IsAzureSql = IsSqlAzure;
-            }
-            ViewBag.ServerIsLocalDb = IsLocalDb;
-            ViewBag.DatabaseReady = DatabaseConfig.IsDatabaseReady;
-            return PartialView("_DatabaseInfo");
+            return PartialView("_DatabaseInfo", Model);
         }
 
         [ChildActionOnly]
         public ActionResult NewDatabase()
         {
-            if (DatabaseConfig.IsDatabaseReady || DatabaseConfig.IsLegacyDatabase())
+            if (Model.DatabaseStatus.IsDatabaseReady || Model.DatabaseStatus.IsLegacyDatabase)
             {
                 return new EmptyResult();
             }
 
-            if (IsAzureWebSite)
+            if (Model.AzureInfo.IsAzureWebSite)
             {
-                using (var ctx = new TicketDeskContext(null))
-                {
-                    ViewBag.ErrorAzureDbDoesNotExist = !ctx.Database.Exists();
-                    ViewBag.WarnNotAnAzureDb = !IsSqlAzure;
-                }
+                    ViewBag.ErrorAzureDbDoesNotExist = Model.DatabaseStatus.DatabaseExists;
+                    ViewBag.WarnNotAnAzureDb = !Model.AzureInfo.IsSqlAzure;
             }
-            return View("_NewDatabase");
+            return View("_NewDatabase",Model);
 
         }
 
         [ChildActionOnly]
         public ActionResult LegacyDatabase()
         {
-            if (DatabaseConfig.IsDatabaseReady || !DatabaseConfig.IsLegacyDatabase())
+            if (Model.DatabaseStatus.IsDatabaseReady || !Model.DatabaseStatus.IsLegacyDatabase)
             {
                 return new EmptyResult();
             }
-             return View("_LegacyDatabase");
+             return View("_LegacyDatabase", Model);
         }
 
         [ChildActionOnly]
         public ActionResult LegacySecurity()
         {
-            if (!DatabaseConfig.IsDatabaseReady || !DatabaseConfig.HasLegacySecurity())
+            if (!Model.DatabaseStatus.IsDatabaseReady || !Model.DatabaseStatus.HasLegacySecurityObjects)
             {
                 return new EmptyResult();
             }
-            return View("_LegacySecurity");
+            return View("_LegacySecurity",Model);
         }
 
         [ChildActionOnly]
         public ActionResult SetupCompleteInfo()
         {
-            var compatible = false;
-            using (var ctx = new TicketDeskContext(null))
-            {
-               compatible = ctx.Database.CompatibleWithModel(false);
-            }
-            if (!DatabaseConfig.IsDatabaseReady || !compatible || DatabaseConfig.HasLegacySecurity())
+
+            if (!Model.DatabaseStatus.IsDatabaseReady || !Model.DatabaseStatus.IsCompatibleWithEfModel || Model.DatabaseStatus.HasLegacySecurityObjects)
             {
                 return new EmptyResult();
             }
-            return View("_SetupCompleteInfo");
+            return View("_SetupCompleteInfo", Model);
         }
     }
     

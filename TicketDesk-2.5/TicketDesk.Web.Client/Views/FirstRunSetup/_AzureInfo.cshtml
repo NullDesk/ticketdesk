@@ -1,26 +1,24 @@
-﻿@using System.Web.UI.WebControls
-@if (ViewBag.HasAzureServices ?? false)
-{
-    <div class="panel panel-default">
-        <div class="panel-heading">Azure Info</div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2 text-right">Azure WebSite</div>
-                <div class="col-md-8">@ViewBag.AzureWebSiteName</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 text-right">Azure Search</div>
-                <div class="col-md-8">@ViewBag.AzureSearchService</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 text-right">Azure Storage</div>
-                <div class="col-md-8">@ViewBag.AzureStorageService</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 text-right">Azure SQL</div>
-                <div class="col-md-8">@ViewBag.Database</div>
-            </div>
+﻿@model TicketDesk.Web.Client.Models.SystemInfoViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">Azure Info</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2 text-right">Azure WebSite</div>
+            <div class="col-md-8">@Model.AzureInfo.AzureWebSiteName</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">Azure Search</div>
+            <div class="col-md-8">@Model.AzureInfo.AzureSearchService</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">Azure Storage</div>
+            <div class="col-md-8">@Model.AzureInfo.AzureStorageService</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">Azure SQL</div>
+            <div class="col-md-8">@Model.AzureInfo.AzureSqlService</div>
         </div>
     </div>
-    
-}
+</div>
+

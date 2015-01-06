@@ -190,7 +190,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\SetupController.cs" />
     <Compile Include="Controllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -218,6 +217,7 @@
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SystemInfoViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,14 +242,11 @@
     <Content Include="Content\Images\TicketDesk-2.5.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
-    <Content Include="Content\wizard.css" />
     <Content Include="favicon.ico" />
     <Content Include="Views\SearchManager\Index.cshtml" />
     <Content Include="Views\DataManagement\Demo.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Views\DataManagement\Upgrade.cshtml" />
-    <Content Include="Views\DataManagement\Create.cshtml" />
     <Compile Include="App_Start\Startup.Database.cs" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -354,7 +351,9 @@
     <Content Include="Scripts\ticketdesk\edit-ticket.js" />
     <Content Include="Scripts\ticketdesk\ticket-file-uploader.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -422,7 +421,6 @@
     <Content Include="Views\Ticket\_TicketDetails.cshtml" />
     <Content Include="Views\TicketActivity\_ActivityForm.cshtml" />
     <Content Include="Views\TicketActivity\_ChangeAssignment.cshtml" />
-    <Content Include="Views\Setup\Index.cshtml" />
     <Content Include="Views\DataManagement\Index.cshtml" />
     <Content Include="Views\FirstRunSetup\Index.cshtml" />
     <Content Include="Views\FirstRunSetup\_DatabaseInfo.cshtml" />
@@ -439,7 +437,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\DataManagement\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -29,95 +29,10 @@ namespace TicketDesk.Web.Client.Controllers
     [Route("{action=index}")]
     public class DataManagementController : Controller
     {
-        private TicketDeskUserManager UserManager { get; set; }
-        private TicketDeskRoleManager RoleManager { get; set; }
         private TicketDeskIdentityContext IdentityContext { get; set; }
-        public DataManagementController(TicketDeskUserManager userManager, TicketDeskRoleManager roleManager, TicketDeskIdentityContext context)
+        public DataManagementController(TicketDeskIdentityContext identityContext)
         {
-            UserManager = userManager;
-            RoleManager = roleManager;
-            IdentityContext = context;
-
-        }
-
-        [Route("")]
-        [Route("index")]
-        public ActionResult Index()
-        {
-            var connstring = ConfigurationManager.ConnectionStrings["TicketDesk"].ConnectionString;
-            var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(connstring);
-            var dsource = builder.DataSource.Split('\\');
-            ViewBag.ServerName = dsource[0];
-            ViewBag.SqlInstance = dsource.Length > 0?  dsource[1]: string.Empty;
-            //note: localdb doesn't show as a user instance!
-            ViewBag.IsFileDatabase = !string.IsNullOrEmpty(builder.AttachDBFilename);
-            ViewBag.Database = builder.AttachDBFilename ?? builder.InitialCatalog;
-            
-            ViewBag.IsDatabaseEmpty = DatabaseConfig.IsEmptyDatabase();
-            ViewBag.IsDatabaseReady = DatabaseConfig.IsDatabaseReady;
-            ViewBag.IsLegacyDatabase = DatabaseConfig.IsLegacyDatabase();
-            return View();
-        }
-
-
-
-        [Route("upgrade")]
-        public ActionResult Upgrade()
-        {
-            return View();
-        }
-        [Route("upgrade-now")]
-        public ActionResult UpgradeNow()
-        {
-            using (var ctx = new TicketDeskContext(null))
-            {
-                TicketDeskLegacyDatabaseInitializer<TicketDeskContext>.InitDatabase(ctx);
-                
-            }
-            using (var ctx = new TicketDeskContext(null))
-            {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
-                ctx.Database.Initialize(true);
-            }
-            ViewBag.DbUpgraded = true;
-            var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
-            if (filter != null)
-            {
-                GlobalFilters.Filters.Remove(filter.Instance);
-            }
-            return View("Upgrade");
-        }
-        [Route("create")]
-        public ActionResult Create()
-        {
-            return View();
-        }
-        
-        [Route("create-now")]
-        public ActionResult CreateNow()
-        {
-            using (var ctx = new TicketDeskContext(null))
-            {
-                Database.SetInitializer(
-                    new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
-                ctx.Database.Initialize(true);
-            }
-
-            ViewBag.DbCreated = true;
-            var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
-            if (filter != null)
-            {
-                GlobalFilters.Filters.Remove(filter.Instance);
-            }
-            return View("Create");
-        }
-
-        [Route("migrate-membership")]
-        public ActionResult MigrateMembershipToIdentity()
-        {
-            LegacySecurityMigrator.MigrateSecurity(IdentityContext, UserManager, RoleManager);
-            ViewBag.UsersMigrated = true;
-            return View("Upgrade");
+            IdentityContext = identityContext;
         }
 
         [Route("demo")]
@@ -138,6 +53,7 @@ namespace TicketDesk.Web.Client.Controllers
             ViewBag.DemoDataRemoved = true;
             return View("Demo");
         }
+
         [Route("create-demo-data")]
         public ActionResult CreateDemoData()
         {
