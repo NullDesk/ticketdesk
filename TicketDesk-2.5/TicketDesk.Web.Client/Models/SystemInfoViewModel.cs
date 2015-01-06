@@ -143,7 +143,18 @@ namespace TicketDesk.Web.Client.Models
             public string AzureStorageService { get; private set; }
 
 
-            public bool HasAzureServices { get; private set; }
+            public bool HasAzureServices
+            {
+                get
+                {
+                    return
+                        IsAzureWebSite ||
+                        IsSqlAzure ||
+                        !string.IsNullOrEmpty(AzureSearchService) ||
+                        !string.IsNullOrEmpty(AzureStorageService);
+
+                }
+            }
 
             private string GetAzureSearchServiceName()
             {
