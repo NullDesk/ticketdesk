@@ -24,14 +24,14 @@ namespace TicketDesk.Web.Client
     {
         public void Configuration(IAppBuilder app)
         {
+           
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             RegisterBundles(BundleTable.Bundles);
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
             ConfigureAuth(app, container);
-            ConfigureSearch(); 
-            
+            ConfigureSearch();
         }
     }
 }
