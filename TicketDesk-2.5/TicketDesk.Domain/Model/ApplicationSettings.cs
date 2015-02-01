@@ -29,6 +29,7 @@ namespace TicketDesk.Domain.Model
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(AutoGenerateField = false)]
         public string ApplicationName { get; set; }
 
         public ApplicationPermissionsSetting Permissions { get; set; }

@@ -52,7 +52,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink(" ", "Index", "Home", new {area = ""}, new { @class = "navbar-brand pull-left" })
+            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand pull-left" })
         </div>
         <div id="main-menu-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -69,11 +69,12 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_UserMenu")
+                @Html.Partial("_AdminMenu")
+              
                 <li class="@Html.IsActiveRoute("About", "Home" )">
                     <a href="@Url.Action("About", "Home", new { area = "" })"><i class="fa fa-info-circle fa-lg"></i></a>
                 </li>
-
             </ul>
             <div class="pull-right">
                 @Html.Partial("_QuickSearch")

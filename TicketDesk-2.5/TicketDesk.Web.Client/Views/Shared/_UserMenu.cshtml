@@ -26,17 +26,17 @@
         @if (Request.IsAuthenticated)
         {
             <li>
-                @Html.ActionLink("My Account", "Index", "Manage", new { area = "" }, new { title = "Manage" })
+                @Html.ActionLink("My Account", "Index", "Manage")
             </li>
             <li>
-                @Html.ActionLink("Log Off", "LogOff", "Account", new { area = "" }, new { title = "LogOff" })
+                @Html.ActionLink("Log Off", "LogOff", "Account")
             </li>
         }
         else
         {
 
-            <li>@Html.ActionLink("Register", "Register", "Account", new {area = ""}, new { id = "registerLink" })</li>
-            <li>@Html.ActionLink("Log In", "Login", "Account", new {area = ""}, new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Log In", "Login", "Account", null, new { id = "loginLink" })</li>
         }
     </ul>
 

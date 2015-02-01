@@ -181,6 +181,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\FirstRunSetupController.cs" />
     <Compile Include="Controllers\SearchManagerController.cs" />
     <Compile Include="Controllers\DataManagementController.cs" />
@@ -386,7 +387,7 @@
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_UserMenu.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\TicketCenter\Index.cshtml" />
@@ -430,6 +431,8 @@
     <Content Include="Views\FirstRunSetup\_AzureInfo.cshtml" />
     <Content Include="Views\FirstRunSetup\_LegacySecurity.cshtml" />
     <Content Include="Views\FirstRunSetup\_SetupCompleteInfo.cshtml" />
+    <Content Include="Views\ApplicationSettings\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
