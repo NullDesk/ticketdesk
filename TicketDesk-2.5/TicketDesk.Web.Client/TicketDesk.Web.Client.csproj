@@ -206,6 +206,7 @@
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManager.cs" />
     <Compile Include="Infrastructure\Identity\UserDisplayInfoCache.cs" />
+    <Compile Include="Infrastructure\ModelBinders\CommaSeparatedValuesModelBinder.cs" />
     <Compile Include="Infrastructure\WhenSetupEnabledAttribute.cs" />
     <Compile Include="Infrastructure\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -244,6 +245,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\ticketdesk\application-settings.js" />
     <Content Include="Views\SearchManager\Index.cshtml" />
     <Content Include="Views\DataManagement\Demo.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />

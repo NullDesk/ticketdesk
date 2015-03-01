@@ -28,14 +28,23 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(ApplicationSetting settings)
+        public ActionResult Index(
+            ApplicationSetting settings,
+            [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] categories,
+            [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] tickettypes,
+            [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] priorities
+            
+            )
         {
             var dbSetting = Context.ApplicationSettings.First(s => s.ApplicationName == "TicketDesk");
             if (ModelState.IsValid && TryUpdateModel(dbSetting))
             {
+                dbSetting.SelectLists.CategoryList = categories.ToList();
+                dbSetting.SelectLists.PriorityList = priorities.ToList();
+                dbSetting.SelectLists.TicketTypesList = tickettypes.ToList();
                 Context.SaveChanges();
             }
-            return View(settings);
+            return View(dbSetting);
         }
     }
 }

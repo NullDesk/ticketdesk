@@ -12,12 +12,11 @@
 // provided to the recipient.
 
 (function (window) {
-    var ticketTags = (function () {
+    var applicationSettings = (function () {
+        var config;
 
-        var config = {};
-       
-        var cofigureTags = function () {
-            $('#ticketTags').select2({
+        var cofigureSettings = function (elementId) {
+            $('#' + elementId).select2({
                 tags: [],
                 multiple: true,
                 minimumInputLength: 2,
@@ -30,19 +29,19 @@
                     });
                     callback(data);
                 },
-                ajax: {
-                    url: config.tagAutoCompleteUrl,
-                    type: 'GET',
-                    dataType: 'json',
-                    data: function (term) {
-                        return {
-                            term: term
-                        };
-                    },
-                    results: function (data, page) {
-                        return { results: data };
-                    }
-                },
+                //ajax: {
+                //    url: config.tagAutoCompleteUrl,
+                //    type: 'GET',
+                //    dataType: 'json',
+                //    data: function (term) {
+                //        return {
+                //            term: term
+                //        };
+                //    },
+                //    results: function (data, page) {
+                //        return { results: data };
+                //    }
+                //},
                 createSearchChoice: function (term, data) {
                     if ($(data).filter(function () { return this.text.localeCompare(term) === 0; }).length === 0) {
                         return { id: term, text: term };
@@ -52,16 +51,16 @@
             });
         };
 
-        var acivate = function (tdConfig) {
+        var activate = function (tdConfig) {
             config = tdConfig;
-            cofigureTags();
+            cofigureSettings('categories');
+            cofigureSettings('priorities');
+            cofigureSettings('tickettypes');
         };
 
         return {
-            activate: acivate
+            activate: activate
         }
     })();
-
-    window.ticketTags = ticketTags;
-
+    window.applicationSettings = applicationSettings;
 })(window);
