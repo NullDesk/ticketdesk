@@ -245,6 +245,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\jquery.ui.sortable\jquery-ui.js" />
     <Content Include="Scripts\ticketdesk\application-settings.js" />
     <Content Include="Views\SearchManager\Index.cshtml" />
     <Content Include="Views\DataManagement\Demo.cshtml" />

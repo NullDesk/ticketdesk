@@ -66,3 +66,4 @@
 /// <reference path="ticketdesk/ticket-tags.js" />
 /// <reference path="ticketdesk/edit-ticket.js" />
 /// <reference path="ticketdesk/application-settings.js" />
+/// <reference path="jquery.ui.sortable/jquery-ui.js" />

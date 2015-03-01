@@ -49,6 +49,11 @@
                     return null;
                 }
             });
+            $('#' + elementId).select2('container').find('ul.select2-choices').sortable({
+                containment: 'parent',
+                start: function () { $('#' + elementId).select2('onSortStart'); },
+                update: function () { $('#' + elementId).select2('onSortEnd'); }
+            });
         };
 
         var activate = function (tdConfig) {

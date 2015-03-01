@@ -50,6 +50,11 @@
                     return null;
                 }
             });
+            $('#ticketTags').select2('container').find('ul.select2-choices').sortable({
+                containment: 'parent',
+                start: function () { $('#ticketTags').select2('onSortStart'); },
+                update: function () { $('#ticketTags').select2('onSortEnd'); }
+            });
         };
 
         var acivate = function (tdConfig) {
