@@ -92,12 +92,15 @@ namespace TicketDesk.Domain.Search
             return await IndexSearcher.SearchAsync(searchText);
         }
 
-        
+        public async Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
+        {
+            return await IndexManager.AddItemsToIndexAsync(items);
+        }
 
         public async Task<bool> QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
         {
             //TODO: temp "poor man" solution for testing. Will be replaced by a formal queue/dequeue system
-            return await IndexManager.AddItemsToIndexAsync(items);
+            return await AddItemsToIndexAsync(items);
             
         }
     }
