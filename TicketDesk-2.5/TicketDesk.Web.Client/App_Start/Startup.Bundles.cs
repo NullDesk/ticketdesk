@@ -15,7 +15,7 @@ using System.Web.Optimization;
 
 namespace TicketDesk.Web.Client
 {
-    //TODO: This may not be OWIN compliant if OWIN hosts other than Microsoft.Owin.Host.SystemWeb are used
+    //TODO: This may not be OWIN compliant in OWIN hosts other than Microsoft.Owin.Host.SystemWeb
     public partial class Startup
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
@@ -60,7 +60,7 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                     "~/Scripts/select2.js",
-                    "~/Scripts/jquery.ui.sortable/jquery-ui.js"
+                    "~/Scripts/jquery.ui.sortable/jquery-ui-custom.js"
                     ));
 
             bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
@@ -73,6 +73,8 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/jquery.unobtrusive-ajax.js",
                     "~/Scripts/jquery.validate*",
                     "~/Scripts/bootstrap.js"));
+
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
