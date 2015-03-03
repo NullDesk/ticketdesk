@@ -67,6 +67,7 @@
     <Compile Include="AzureSearch\AzureSearchQueueItemExtensions.cs" />
     <Compile Include="Common\ISearchIndexManager.cs" />
     <Compile Include="Common\ISearchLocator.cs" />
+    <Compile Include="Common\ApplicationSearchMode.cs" />
     <Compile Include="Common\TicketDeskSearchProvider.cs" />
     <Compile Include="Common\SearchResultItem.cs" />
     <Compile Include="Lucene\LuceneIndexManager.cs" />
@@ -79,6 +80,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.IO\TicketDesk.IO.csproj">
+      <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
+      <Name>TicketDesk.IO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

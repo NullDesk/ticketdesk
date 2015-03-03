@@ -35,6 +35,8 @@ namespace TicketDesk.Domain.Model
         public ApplicationPermissionsSetting Permissions { get; set; }
 
         public ApplicationSelectListSetting SelectLists { get; set; }
+
+        public ApplicationSearchSetting SearchSettings { get; set; }
     }
 
 }

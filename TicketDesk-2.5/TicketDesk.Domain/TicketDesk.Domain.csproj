@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationPermissionsSetting.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSearchSetting.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSelectListSetting.cs" />
     <Compile Include="Model\ApplicationSettings.cs" />
     <Compile Include="Model\Extensions\ApplicationSettingExtensions.cs" />

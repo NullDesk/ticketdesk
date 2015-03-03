@@ -11,28 +11,28 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Search.AzureSearch;
 using TicketDesk.Domain.Search.Lucene;
+using TicketDesk.IO;
 
 namespace TicketDesk.Domain.Search
 {
     public class TicketDeskSearchProvider
     {
-        private static TicketDeskSearchProvider _instance;
-        public static TicketDeskSearchProvider GetInstance(bool isAzure)
-        {
-            return _instance ?? (_instance = new TicketDeskSearchProvider(isAzure));
-        }
-
         private readonly bool _isAzure;
         private readonly string _indexName;
 
-        internal TicketDeskSearchProvider(bool isAzure)
+        public TicketDeskSearchProvider(ApplicationSearchMode mode, string indexName)
         {
-            _isAzure = isAzure;
-            _indexName = "ticketdesk-searchindex";
+
+            _isAzure =
+                (mode == ApplicationSearchMode.AzureSearch) ||
+                (mode == ApplicationSearchMode.Auto && !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+
+            _indexName = indexName;
         }
 
         private ISearchLocator _indexSearcher;
@@ -71,7 +71,7 @@ namespace TicketDesk.Domain.Search
                         _indexManager = new LuceneIndexManager(_indexName);
                     }
 
-                  
+
                 }
                 return _indexManager;
             }
@@ -97,11 +97,10 @@ namespace TicketDesk.Domain.Search
             return await IndexManager.AddItemsToIndexAsync(items);
         }
 
-        public async Task<bool> QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
+        public async Task QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
         {
-            //TODO: temp "poor man" solution for testing. Will be replaced by a formal queue/dequeue system
-            return await AddItemsToIndexAsync(items);
-            
+            var queue = TicketDeskQueueStorage.CurrentSearchQueue;
+            await queue.QueueItemsAsync(items);
         }
     }
 }

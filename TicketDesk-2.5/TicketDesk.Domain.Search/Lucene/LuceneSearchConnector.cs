@@ -33,11 +33,17 @@ namespace TicketDesk.Domain.Search.Lucene
 
         internal LuceneSearchConnector(string indexLocation)
         {
+            var fi = new DirectoryInfo(indexLocation);
+            if (!fi.Exists)
+            {
+                var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
+                IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), indexLocation);
+            }
+            else
+            {
+                IndexLocation = indexLocation;
+            }
 
-            var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
-            IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), indexLocation);
-
-           
         }
 
         protected Task<IndexWriter> GetIndexWriterAsync()
