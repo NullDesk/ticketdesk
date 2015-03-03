@@ -13,6 +13,7 @@
 
 using System.Web.Mvc;
 using TicketDesk.Domain.Model;
+using TicketDesk.Domain.Search;
 
 namespace TicketDesk.Web.Client.Models
 {
@@ -31,6 +32,12 @@ namespace TicketDesk.Web.Client.Models
         public static SelectList GetTicketTypeList(this ApplicationSetting settings, bool includeEmpty, string selectedType)
         {
             return settings.SelectLists.TicketTypesList.ToSelectList(p => p, p => p, selectedType, includeEmpty);
+        }
+
+        public static SelectList GetSearchModeList(this ApplicationSetting settings)
+        {
+            return (new ApplicationSearchMode()).ToSelectList(includeDefaultItem: false);
+           
         }
 
         public static string GetPriorities(this ApplicationSetting settings)
