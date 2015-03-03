@@ -25,6 +25,7 @@ namespace TicketDesk.Domain.Model
             ApplicationName = "TicketDesk";
             Permissions = new ApplicationPermissionsSetting();
             SelectLists = new ApplicationSelectListSetting();
+            SearchSettings = new ApplicationSearchSetting();
         }
 
         [Key]

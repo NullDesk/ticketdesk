@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201412310713312_Td2.5.004.Designer.cs">
       <DependentUpon>201412310713312_Td2.5.004.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503030345107_Td2.5.005.cs" />
+    <Compile Include="Migrations\201503030345107_Td2.5.005.Designer.cs">
+      <DependentUpon>201503030345107_Td2.5.005.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412310713312_Td2.5.004.resx">
       <DependentUpon>201412310713312_Td2.5.004.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503030345107_Td2.5.005.resx">
+      <DependentUpon>201503030345107_Td2.5.005.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
