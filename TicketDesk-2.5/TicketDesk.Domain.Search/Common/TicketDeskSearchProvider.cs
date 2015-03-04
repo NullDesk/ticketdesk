@@ -22,6 +22,15 @@ namespace TicketDesk.Domain.Search
 {
     public class TicketDeskSearchProvider
     {
+        private static IQueueProvider _searchQueue;
+        public static IQueueProvider SearchQueue
+        {
+            get
+            {
+                return _searchQueue ?? (_searchQueue = TicketDeskQueueStorage.GetQueue("ticketdesk-search-queue"));
+            }
+        }
+
         private readonly bool _isAzure;
         private readonly string _indexName;
 
@@ -99,8 +108,7 @@ namespace TicketDesk.Domain.Search
 
         public async Task QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
         {
-            var queue = TicketDeskQueueStorage.CurrentSearchQueue;
-            await queue.QueueItemsAsync(items);
+            await SearchQueue.QueueItemsAsync(items);
         }
     }
 }

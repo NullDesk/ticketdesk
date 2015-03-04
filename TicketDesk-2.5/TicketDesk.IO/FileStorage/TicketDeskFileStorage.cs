@@ -17,7 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AzureBlobFileSystem;
-using Microsoft.WindowsAzure.Storage;
 
 namespace TicketDesk.IO
 {

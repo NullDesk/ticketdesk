@@ -13,7 +13,7 @@ namespace TicketDesk.Domain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201503030345107_Td2.5.005"; }
+            get { return "201503040717327_Td2.5.005"; }
         }
         
         string IMigrationMetadata.Source

@@ -29,6 +29,7 @@ namespace TicketDesk.Domain
     public class TicketDeskContext : DbContext
     {
         private static TicketDeskSearchProvider ApplicationSearchManager { get; set; }
+
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
 
         public TicketActionManager TicketActions { get; set; }
@@ -110,6 +111,10 @@ namespace TicketDesk.Domain
             modelBuilder.ComplexType<ApplicationPermissionsSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
+
+            modelBuilder.ComplexType<ApplicationSearchSetting>()
+                .Property(p => p.Serialized)
+                .HasColumnName("SearchSettingsJson");
 
         }
 

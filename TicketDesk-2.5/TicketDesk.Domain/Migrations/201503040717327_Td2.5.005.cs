@@ -7,12 +7,12 @@ namespace TicketDesk.Domain.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.ApplicationSettings", "SearchSettings_Serialized", c => c.String());
+            AddColumn("dbo.ApplicationSettings", "SearchSettingsJson", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.ApplicationSettings", "SearchSettings_Serialized");
+            DropColumn("dbo.ApplicationSettings", "SearchSettingsJson");
         }
     }
 }

@@ -14,11 +14,10 @@
 using System.Configuration;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace TicketDesk.IO
 {
-    public class AzureConnectionHelper
+    public static class AzureConnectionHelper
     {
         private static CloudStorageAccount _cloudStorageAccount;
 
@@ -28,8 +27,8 @@ namespace TicketDesk.IO
             {
                 if (_cloudStorageAccount == null)
                 {
-                     var connectionString = AzureConnectionHelper.CloudConfigConnString ??
-                                           AzureConnectionHelper.ConfigManagerConnString;
+                     var connectionString = CloudConfigConnString ??
+                                           ConfigManagerConnString;
                     CloudStorageAccount cloudStorageAccount;
                     if (CloudStorageAccount.TryParse(connectionString, out cloudStorageAccount))
                     {
@@ -39,8 +38,6 @@ namespace TicketDesk.IO
                 return _cloudStorageAccount;;
             }
         }
-
-
 
         /// <summary>
         /// Gets the connection string from cloud configuration manager if it can see it.

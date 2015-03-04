@@ -11,13 +11,8 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TicketDesk.Domain.Search;
 
