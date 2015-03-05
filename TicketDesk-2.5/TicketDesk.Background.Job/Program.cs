@@ -1,6 +1,10 @@
-﻿using Microsoft.Azure.WebJobs;
+﻿using System;
+using System.Data.Entity;
+using Microsoft.Azure.WebJobs;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Migrations;
 using TicketDesk.Domain.Search;
+using TicketDesk.IO;
 
 namespace TicketDesk.Background.Job
 {
@@ -9,19 +13,18 @@ namespace TicketDesk.Background.Job
     {
         internal static TicketDeskSearchProvider SearchProvider;
 
-        // Please set the following connection strings in app.config for this WebJob to run:
-        // AzureWebJobsDashboard and AzureWebJobsStorage
         static void Main()
         {
             Initialize();
-            var host = new JobHost();
+            var storageConnectionString = AzureConnectionHelper.CloudConfigConnString ?? AzureConnectionHelper.ConfigManagerConnString;
+            var host = new JobHost(new JobHostConfiguration(storageConnectionString));
             host.RunAndBlock();
         }
 
         private static void Initialize()
         {
             var context = new TicketDeskContext();
-            SearchProvider = context.SearchProvider; 
+            SearchProvider = context.SearchProvider;
         }
     }
 }

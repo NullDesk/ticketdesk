@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
+﻿using Microsoft.Azure.WebJobs;
 using TicketDesk.Domain.Search;
 
 namespace TicketDesk.Background.Job

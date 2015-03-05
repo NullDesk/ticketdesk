@@ -19,6 +19,8 @@ namespace TicketDesk.IO
 
     public interface IQueueProvider
     {
-        Task QueueItemsAsync(IEnumerable<object> items);
+        Task EnqueueItemsAsync(IEnumerable<object> items);
+
+        Task<T> DequeueItem<T>() where T: class ;
     }
 }

@@ -30,13 +30,19 @@ namespace TicketDesk.IO
             get { return _queue ?? (_queue = new Queue<string>()); }
         }
 
-        public async Task QueueItemsAsync(IEnumerable<object> items)
+        public async Task EnqueueItemsAsync(IEnumerable<object> items)
         {
             foreach (var item in items.Select(JsonConvert.SerializeObject))
             {
                 Queue.Enqueue(item);
             }
             await Task.FromResult<object>(null);
+        }
+
+        public Task<T> DequeueItem<T>() where T: class 
+        {
+            var message = Queue.Dequeue();
+            return Task.FromResult(JsonConvert.DeserializeObject<T>(message));
         }
     }
 }

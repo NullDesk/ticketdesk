@@ -34,12 +34,15 @@ namespace TicketDesk.Domain.Search
         private readonly bool _isAzure;
         private readonly string _indexName;
 
+        private bool hasValidAzureSearchConnection()
+        {
+            return (AzureSearchConector.TryGetInfoFromConnectionString() ?? AzureSearchConector.TryGetInfoFromAppSettings()) != null;
+        }
         public TicketDeskSearchProvider(ApplicationSearchMode mode, string indexName)
         {
-
             _isAzure =
                 (mode == ApplicationSearchMode.AzureSearch) ||
-                (mode == ApplicationSearchMode.Auto && !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
+                (mode == ApplicationSearchMode.Auto && hasValidAzureSearchConnection());
 
             _indexName = indexName;
         }
@@ -108,7 +111,7 @@ namespace TicketDesk.Domain.Search
 
         public async Task QueueItemsForIndexingAsync(IEnumerable<SearchQueueItem> items)
         {
-            await SearchQueue.QueueItemsAsync(items);
+            await SearchQueue.EnqueueItemsAsync(items);
         }
     }
 }

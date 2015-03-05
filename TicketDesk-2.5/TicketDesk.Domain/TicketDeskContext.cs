@@ -64,7 +64,6 @@ namespace TicketDesk.Domain
             TicketActions = TicketActionManager.GetInstance(SecurityProvider);
         }
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
         /// </summary>

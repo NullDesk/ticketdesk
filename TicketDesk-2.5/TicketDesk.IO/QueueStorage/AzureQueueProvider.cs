@@ -30,7 +30,7 @@ namespace TicketDesk.IO
             Queue = queue;
         }
 
-        public async Task QueueItemsAsync(IEnumerable<object> items)
+        public async Task EnqueueItemsAsync(IEnumerable<object> items)
         {
             var tasks = items.Select(QueueItemAsyc).ToList();
             await Task.WhenAll(tasks);
@@ -41,6 +41,12 @@ namespace TicketDesk.IO
             var jItem = JsonConvert.SerializeObject(item);
             var message = new CloudQueueMessage(jItem);
             await Queue.AddMessageAsync(message);
+        }
+
+        public async Task<T> DequeueItem<T>() where T: class
+        {
+            var message = await Queue.GetMessageAsync();
+            return JsonConvert.DeserializeObject<T>(message.AsString);
         }
     }
 }
