@@ -21,6 +21,6 @@ namespace TicketDesk.IO
     {
         Task EnqueueItemsAsync(IEnumerable<object> items);
 
-        Task<T> DequeueItem<T>() where T: class ;
+        Task<T> DequeueItemAsync<T>() where T: class ;
     }
 }

@@ -46,12 +46,20 @@ namespace TicketDesk.Domain.Search.Lucene
 
         }
 
+        protected void FlushIndexWriter()
+        {
+            _tdIndexWriter.Optimize();
+            _tdIndexWriter.Dispose();
+            _tdIndexWriter = null;
+        }
+
         protected Task<IndexWriter> GetIndexWriterAsync()
         {
             return Task.Run(async () =>
             {
                 if (_tdIndexWriter == null)
                 {
+                    
                     var delayCount = 0;
                     while (IndexWriter.IsLocked(TdIndexDirectory) && delayCount++ < 4) //delay 4 times (1 min)
                     {

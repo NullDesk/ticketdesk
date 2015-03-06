@@ -39,10 +39,18 @@ namespace TicketDesk.IO
             await Task.FromResult<object>(null);
         }
 
-        public Task<T> DequeueItem<T>() where T: class 
+        public async Task<T> DequeueItemAsync<T>() where T : class
         {
-            var message = Queue.Dequeue();
-            return Task.FromResult(JsonConvert.DeserializeObject<T>(message));
+            T result = null;
+            if (Queue.Count > 0)
+            {
+                var message = Queue.Dequeue();
+                if (message != null)
+                {
+                    result = JsonConvert.DeserializeObject<T>(message);
+                }
+            }
+            return await Task.FromResult(result);
         }
     }
 }

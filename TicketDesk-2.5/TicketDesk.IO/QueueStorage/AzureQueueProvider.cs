@@ -43,9 +43,13 @@ namespace TicketDesk.IO
             await Queue.AddMessageAsync(message);
         }
 
-        public async Task<T> DequeueItem<T>() where T: class
+        public async Task<T> DequeueItemAsync<T>() where T: class
         {
             var message = await Queue.GetMessageAsync();
+            if (message == null)
+            {
+                return null;
+            }
             return JsonConvert.DeserializeObject<T>(message.AsString);
         }
     }

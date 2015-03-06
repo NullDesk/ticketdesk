@@ -42,8 +42,7 @@ namespace TicketDesk.Domain.Search.Lucene
                     {
                         UpdateIndexForItem(indexWriter, item);
                     }
-                    indexWriter.Optimize();
-                    indexWriter.Dispose();
+                    FlushIndexWriter();
                 } // ReSharper disable once EmptyGeneralCatchClause
                 catch 
                 { 
@@ -57,6 +56,11 @@ namespace TicketDesk.Domain.Search.Lucene
         {
             try
             {
+                var t = GetIndexWriterAsync();
+                t.RunSynchronously();
+                var writer = t.Result;
+                writer.Dispose();
+
                 if (IndexLocation != "ram")
                 {
                     var directoryInfo = new DirectoryInfo(IndexLocation);

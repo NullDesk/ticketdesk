@@ -89,7 +89,7 @@ namespace TicketDesk.Domain.Search
             }
         }
 
-        public async Task<bool> InitializeSearch()
+        public async Task<bool> InitializeSearchAsync()
         {
             return await IndexManager.RunStartupIndexMaintenanceAsync();
         }
