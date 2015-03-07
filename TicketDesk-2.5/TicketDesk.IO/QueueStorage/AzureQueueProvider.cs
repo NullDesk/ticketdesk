@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,7 +51,39 @@ namespace TicketDesk.IO
             {
                 return null;
             }
+            Queue.DeleteMessage(message);
             return JsonConvert.DeserializeObject<T>(message.AsString);
+        }
+
+
+        public IEnumerable<T> DequeueAllItems<T>() where T : class
+        {
+            var messages = new List<T>();
+            var currentCount = 0;
+            var lastCount = -1;
+            while (lastCount < currentCount)
+            {
+                lastCount = messages.Count;
+                messages.AddRange(GetQueueMessageBatch<T>());
+                currentCount = messages.Count;
+            }
+            return messages;
+        }
+
+        private IEnumerable<T> GetQueueMessageBatch<T>() where T : class
+        {
+            IEnumerable<T> result = null;
+            var messages = Queue.GetMessages(32);
+            var cloudQueueMessages = messages as CloudQueueMessage[] ?? messages.ToArray();
+            if (cloudQueueMessages.Any())
+            {
+                result = cloudQueueMessages.Select(m => JsonConvert.DeserializeObject<T>(m.AsString));
+                foreach (var message in cloudQueueMessages)
+                {
+                    Queue.DeleteMessage(message);
+                }
+            }
+            return result;
         }
     }
 }

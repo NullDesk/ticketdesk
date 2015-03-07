@@ -20,10 +20,25 @@ using TicketDesk.IO;
 
 namespace TicketDesk.Domain.Search
 {
-    public class TicketDeskSearchProvider
+    public class TicketDeskSearchManager
     {
-        private static IQueueProvider _searchQueue;
-        public static IQueueProvider SearchQueue
+        public static TicketDeskSearchManager GetInstance(string indexName)
+        {
+            return new TicketDeskSearchManager(indexName);
+        }
+
+        private readonly string _indexName;
+        private IQueueProvider _searchQueue;
+        private ISearchLocator _indexSearcher;
+        private ISearchIndexManager _indexManager;
+
+        internal TicketDeskSearchManager(string indexName)
+        {
+            IsAzure = (hasValidAzureSearchConnection());
+            _indexName = indexName;
+        }
+
+        public IQueueProvider SearchQueue
         {
             get
             {
@@ -31,62 +46,9 @@ namespace TicketDesk.Domain.Search
             }
         }
 
-        private readonly bool _isAzure;
-        private readonly string _indexName;
-
-        private bool hasValidAzureSearchConnection()
+        public Type GetConnectorType()
         {
-            return (AzureSearchConector.TryGetInfoFromConnectionString() ?? AzureSearchConector.TryGetInfoFromAppSettings()) != null;
-        }
-        public TicketDeskSearchProvider(ApplicationSearchMode mode, string indexName)
-        {
-            _isAzure =
-                (mode == ApplicationSearchMode.AzureSearch) ||
-                (mode == ApplicationSearchMode.Auto && hasValidAzureSearchConnection());
-
-            _indexName = indexName;
-        }
-
-        private ISearchLocator _indexSearcher;
-        internal ISearchLocator IndexSearcher
-        {
-            get
-            {
-                if (_indexSearcher == null)
-                {
-                    if (_isAzure)
-                    {
-                        _indexSearcher = new AzureSearchLocator(_indexName);
-                    }
-                    else
-                    {
-                        _indexSearcher = new LuceneSearchLocator(_indexName);
-                    }
-                }
-                return _indexSearcher;
-            }
-        }
-
-        private ISearchIndexManager _indexManager;
-        internal ISearchIndexManager IndexManager
-        {
-            get
-            {
-                if (_indexManager == null)
-                {
-                    if (_isAzure)
-                    {
-                        _indexManager = new AzureIndexManager(_indexName);
-                    }
-                    else
-                    {
-                        _indexManager = new LuceneIndexManager(_indexName);
-                    }
-
-
-                }
-                return _indexManager;
-            }
+            return IndexManager.GetType();
         }
 
         public async Task<bool> InitializeSearchAsync()
@@ -113,5 +75,53 @@ namespace TicketDesk.Domain.Search
         {
             await SearchQueue.EnqueueItemsAsync(items);
         }
+
+        private bool hasValidAzureSearchConnection()
+        {
+            return (AzureSearchConector.TryGetInfoFromConnectionString() ?? AzureSearchConector.TryGetInfoFromAppSettings()) != null;
+        }
+
+        internal ISearchLocator IndexSearcher
+        {
+            get
+            {
+                if (_indexSearcher == null)
+                {
+                    if (IsAzure)
+                    {
+                        _indexSearcher = new AzureSearchLocator(_indexName);
+                    }
+                    else
+                    {
+                        _indexSearcher = new LuceneSearchLocator(_indexName);
+                    }
+                }
+                return _indexSearcher;
+            }
+        }
+
+        internal ISearchIndexManager IndexManager
+        {
+            get
+            {
+                if (_indexManager == null)
+                {
+                    if (IsAzure)
+                    {
+                        _indexManager = new AzureIndexManager(_indexName);
+                    }
+                    else
+                    {
+                        _indexManager = new LuceneIndexManager(_indexName);
+                    }
+
+
+                }
+                return _indexManager;
+            }
+        }
+
+        private bool IsAzure { get; set; }
+
     }
 }

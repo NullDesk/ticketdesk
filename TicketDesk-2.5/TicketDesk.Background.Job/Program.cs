@@ -11,7 +11,7 @@ namespace TicketDesk.Background.Job
     // To learn more about Microsoft Azure WebJobs SDK, please see http://go.microsoft.com/fwlink/?LinkID=320976
     class Program
     {
-        internal static TicketDeskSearchProvider SearchProvider;
+        internal static TicketDeskSearchManager SearchProvider;
 
         static void Main()
         {
@@ -24,7 +24,7 @@ namespace TicketDesk.Background.Job
         private static void Initialize()
         {
             var context = new TicketDeskContext();
-            SearchProvider = context.SearchProvider;
+            SearchProvider = context.SearchManager;
         }
     }
 }

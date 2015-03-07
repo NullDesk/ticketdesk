@@ -28,23 +28,21 @@ namespace TicketDesk.Domain
 {
     public class TicketDeskContext : DbContext
     {
-        private static TicketDeskSearchProvider ApplicationSearchManager { get; set; }
+        private static TicketDeskSearchManager ApplicationSearchProvider { get; set; }
 
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
 
         public TicketActionManager TicketActions { get; set; }
-        public TicketDeskSearchProvider SearchProvider
+        public TicketDeskSearchManager SearchManager
         {
             get
             {
-                if (ApplicationSearchManager == null)
+                if (ApplicationSearchProvider == null)
                 {
                     var settings = TicketDeskSettings.SearchSettings;
-                    ApplicationSearchManager = new TicketDeskSearchProvider(
-                        settings.SearchMode,
-                        settings.SearchIndexName);
+                    ApplicationSearchProvider = TicketDeskSearchManager.GetInstance(settings.SearchIndexName);
                 }
-                return ApplicationSearchManager;
+                return ApplicationSearchProvider;
             }
         }
 
@@ -218,7 +216,7 @@ namespace TicketDesk.Domain
                 {
                     //queue up for search index update
                     var queueItems = changes.ToSeachQueueItems();
-                    await SearchProvider.QueueItemsForIndexingAsync(queueItems);
+                    await SearchManager.QueueItemsForIndexingAsync(queueItems);
                 }
             }
             catch
@@ -237,7 +235,7 @@ namespace TicketDesk.Domain
                 {
                     //queue up for search index update
                     var queueItems = changes.ToSeachQueueItems();
-                    AsyncHelpers.RunSync(() => SearchProvider.QueueItemsForIndexingAsync(queueItems));
+                    AsyncHelpers.RunSync(() => SearchManager.QueueItemsForIndexingAsync(queueItems));
                 }
             }
             catch

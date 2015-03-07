@@ -20,7 +20,7 @@ namespace TicketDesk.Web.Client.Controllers
         public ApplicationSettingsController(TicketDeskContext context)
         {
             Context = context;
-            IsAzureSearchDetected = (AzureSearchConector.TryGetInfoFromConnectionString() ?? AzureSearchConector.TryGetInfoFromAppSettings()) != null;
+            IsAzureSearchDetected = context.SearchManager.GetConnectorType() == typeof(AzureSearchConector) ;
 
         }
 

@@ -21,7 +21,7 @@ namespace TicketDesk.IO
     /// <summary>
     /// Provides services for adding simple string messages to an in-memory queue
     /// </summary>
-    public class MemoryQueueProvider: IQueueProvider
+    public class MemoryQueueProvider : IQueueProvider
     {
         private static Queue<string> _queue;
 
@@ -51,6 +51,17 @@ namespace TicketDesk.IO
                 }
             }
             return await Task.FromResult(result);
+        }
+
+
+        public IEnumerable<T> DequeueAllItems<T>() where T : class
+        {
+            var result = new List<T>();
+            for (var i = Queue.Count; i > 0; i--)
+            {
+                result.Add(JsonConvert.DeserializeObject<T>(Queue.Dequeue()));
+            }
+            return result;
         }
     }
 }

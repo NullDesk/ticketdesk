@@ -22,7 +22,6 @@ namespace TicketDesk.Domain.Model
     {
         public ApplicationSearchSetting()
         {
-            SearchMode = ApplicationSearchMode.Auto;
             SearchIndexName = "ticketdesk-searchindex";
         }
 
@@ -40,15 +39,10 @@ namespace TicketDesk.Domain.Model
                 }
                 var jsettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
                 var jData = JsonConvert.DeserializeObject<ApplicationSearchSetting>(value, jsettings);
-                SearchMode = jData.SearchMode;
                 SearchIndexName = jData.SearchIndexName;
                 
             }
         }
-
-        [NotMapped]
-        [Display(Name = "Search Mode")]
-        public ApplicationSearchMode SearchMode { get; set; }
 
         [NotMapped]
         [Display(Name = "Search Index Name")]

@@ -41,8 +41,6 @@ namespace TicketDesk.Web.Client
         {
             var container = GetInitializedContainer(app);
 
-            //container.Verify();
-
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
             return container;
@@ -55,11 +53,9 @@ namespace TicketDesk.Web.Client
             container.RegisterSingle(app);
 
 
-
+            //allows objects to be reused when inside web request, or created fresh when used on background threads or outside a request context
             var hybridLifestyle = Lifestyle.CreateHybrid(
                 () => HttpContext.Current != null, new WebRequestLifestyle(), Lifestyle.Transient);
-
-
 
             container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
 

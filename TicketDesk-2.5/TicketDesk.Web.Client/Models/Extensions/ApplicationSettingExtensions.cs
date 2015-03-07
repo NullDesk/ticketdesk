@@ -34,12 +34,6 @@ namespace TicketDesk.Web.Client.Models
             return settings.SelectLists.TicketTypesList.ToSelectList(p => p, p => p, selectedType, includeEmpty);
         }
 
-        public static SelectList GetSearchModeList(this ApplicationSetting settings)
-        {
-            return (new ApplicationSearchMode()).ToSelectList(includeDefaultItem: false);
-           
-        }
-
         public static string GetPriorities(this ApplicationSetting settings)
         {
             return string.Join(",", settings.SelectLists.PriorityList);

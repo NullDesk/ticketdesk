@@ -81,13 +81,9 @@
             </div>
             <div class="panel-body ">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SearchSettings.SearchMode, new { @class = "col-md-3 col-sm-3 control-label" })
-                    <div class="col-md-2 col-sm-2">
-                        @Html.DropDownListFor(model => model.SearchSettings.SearchMode, Model.GetSearchModeList(), new { @class = "form-control input-sm"})
-                    </div>
-                    <div class="col-md-3 col-sm-3">
-                        <div class="small label label-info">@(ViewBag.IsAzureSearchEnabled ? "Azure search is configured." : "Azure search not configured.")</div>
-
+                    <label class="col-md-3 col-sm-3 control-label">Search Mode</label>
+                    <div class="col-md-5 col-sm-7">
+                        <div class="small label label-info">@(ViewBag.IsAzureSearchEnabled ? "Azure search is configured." : "Azure search not configured, using local Lucene.Net.")</div>
                     </div>
                 </div>
                 <div class="form-group">

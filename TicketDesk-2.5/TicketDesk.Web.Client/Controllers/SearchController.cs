@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (!string.IsNullOrEmpty(term))
             {
-                var model = await Context.SearchProvider.SearchAsync(Context.Tickets, term);
+                var model = await Context.SearchManager.SearchAsync(Context.Tickets, term);
                 return View(model);
             }
             return View(new Ticket[0]);
