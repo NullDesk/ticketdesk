@@ -13,7 +13,6 @@
 
 using System.Web.Mvc;
 using TicketDesk.Domain.Model;
-using TicketDesk.Domain.Search;
 
 namespace TicketDesk.Web.Client.Models
 {
