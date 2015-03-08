@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Domain.Search;
 using TicketDesk.Domain.Search.AzureSearch;
 
 namespace TicketDesk.Web.Client.Controllers
@@ -29,7 +30,7 @@ namespace TicketDesk.Web.Client.Controllers
         public ApplicationSettingsController(TicketDeskContext context)
         {
             Context = context;
-            IsAzureSearchDetected = context.SearchManager.GetConnectorType() == typeof(AzureSearchConector) ;
+            IsAzureSearchDetected = TicketDeskSearchManager.Current.GetConnectorType() == typeof(AzureSearchConector) ;
 
         }
 

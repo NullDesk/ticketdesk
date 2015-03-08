@@ -30,10 +30,7 @@ namespace TicketDesk.Web.Client
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
             ConfigureAuth(app, container);
-            if (DatabaseConfig.IsDatabaseReady)//can only be run if the DB already exists
-            {
-                SearchInitializer.ConfigureSearch();
-            }
+            ConfigureSearch();
         }
     }
 }

@@ -22,9 +22,10 @@ namespace TicketDesk.Domain.Search
 {
     public class TicketDeskSearchManager
     {
-        public static TicketDeskSearchManager GetInstance(string indexName)
+        private static TicketDeskSearchManager _current;
+        public static TicketDeskSearchManager Current
         {
-            return new TicketDeskSearchManager(indexName);
+            get { return _current ?? (_current = new TicketDeskSearchManager("ticketdesk-searchindex")); }
         }
 
         private readonly string _indexName;
@@ -42,7 +43,7 @@ namespace TicketDesk.Domain.Search
         {
             get
             {
-                return _searchQueue ?? (_searchQueue = TicketDeskQueueStorage.GetQueue("ticketdesk-search-queue"));
+                return _searchQueue ?? (_searchQueue = TicketDeskQueueStorage.GetQueue("ticket-search-queue"));
             }
         }
 
@@ -51,9 +52,14 @@ namespace TicketDesk.Domain.Search
             return IndexManager.GetType();
         }
 
+        public async Task<bool> RunIndexMaintenanceAsync()
+        {
+            return await IndexManager.RunIndexMaintenanceAsync();
+        }
+
         public async Task<bool> InitializeSearchAsync()
         {
-            return await IndexManager.RunStartupIndexMaintenanceAsync();
+            return await IndexManager.RunIndexMaintenanceAsync();
         }
 
         public async Task<bool> RemoveIndexAsync()

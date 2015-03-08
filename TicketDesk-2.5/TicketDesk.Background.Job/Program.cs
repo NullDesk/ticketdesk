@@ -28,16 +28,16 @@ namespace TicketDesk.Background.Job
         {
             Initialize();
             var storageConnectionString = AzureConnectionHelper.CloudConfigConnString ?? AzureConnectionHelper.ConfigManagerConnString;
-            Console.Out.WriteLine("connection string is: " + storageConnectionString);
             var host = new JobHost(new JobHostConfiguration(storageConnectionString));
             host.RunAndBlock();
         }
 
         private static void Initialize()
         {
-            var context = new TicketDeskContext();
-            SearchProvider = context.SearchManager;
-            Console.Out.WriteLine("SearchProvider Connector: " + SearchProvider.GetConnectorType() + " ## Queue: " + SearchProvider.SearchQueue.GetType().ToString() );
+            
+            SearchProvider = TicketDeskSearchManager.Current;
+            Console.Out.WriteLine("SearchProvider Connector Type: " + SearchProvider.GetConnectorType());
+            Console.Out.WriteLine("Search Queue Type: " + SearchProvider.SearchQueue.GetType());
         }
     }
 }

@@ -33,18 +33,7 @@ namespace TicketDesk.Domain
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
 
         public TicketActionManager TicketActions { get; set; }
-        public TicketDeskSearchManager SearchManager
-        {
-            get
-            {
-                if (ApplicationSearchProvider == null)
-                {
-                    var settings = TicketDeskSettings.SearchSettings;
-                    ApplicationSearchProvider = TicketDeskSearchManager.GetInstance(settings.SearchIndexName);
-                }
-                return ApplicationSearchProvider;
-            }
-        }
+       
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
@@ -108,11 +97,6 @@ namespace TicketDesk.Domain
             modelBuilder.ComplexType<ApplicationPermissionsSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
-
-            modelBuilder.ComplexType<ApplicationSearchSetting>()
-                .Property(p => p.Serialized)
-                .HasColumnName("SearchSettingsJson");
-
         }
 
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
@@ -216,7 +200,7 @@ namespace TicketDesk.Domain
                 {
                     //queue up for search index update
                     var queueItems = changes.ToSeachQueueItems();
-                    await SearchManager.QueueItemsForIndexingAsync(queueItems);
+                    await TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems);
                 }
             }
             catch
@@ -235,7 +219,7 @@ namespace TicketDesk.Domain
                 {
                     //queue up for search index update
                     var queueItems = changes.ToSeachQueueItems();
-                    AsyncHelpers.RunSync(() => SearchManager.QueueItemsForIndexingAsync(queueItems));
+                    AsyncHelpers.RunSync(() => TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems));
                 }
             }
             catch

@@ -22,18 +22,22 @@ namespace TicketDesk.Domain.Search.Lucene
 {
     internal class LuceneSearchLocator: LuceneSearchConnector, ISearchLocator
     {
-        private IndexSearcher TdIndexSearcher { get; set; }
-
         internal LuceneSearchLocator(string indexLocation)
-            : base(indexLocation)
-        {
-            TdIndexSearcher = new IndexSearcher(TdIndexDirectory, true);
-        }
+            : base(indexLocation){}
 
         public Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
         {
             return Task.Run(() =>
             {
+                //new searcher each time, 
+                //  because they don't see commits from any writer after being opened.
+                //  even in huge deployments though, TD's number of concurrent searches
+                //  would be tiny... not worth coding a mechanism to detect updates and
+                //  reuse a searcher until the index is updated. In actuality, index
+                //  updates would certainly be more frequent than index searches.
+                
+                var searcher = new IndexSearcher(TdIndexDirectory, true);
+                
                 var fields = new[] {"id", "title", "details", "tags", "events"};
                 var parser = new MultiFieldQueryParser(Version.LUCENE_30,
                     fields,
@@ -43,11 +47,11 @@ namespace TicketDesk.Domain.Search.Lucene
                 
                 var collector = TopScoreDocCollector.Create(20, true);
 
-                TdIndexSearcher.Search(query, collector);
+                searcher.Search(query, collector);
 
                 return collector.TopDocs().ScoreDocs.Select(d =>
                 {
-                    var document = TdIndexSearcher.Doc(d.Doc);
+                    var document = searcher.Doc(d.Doc);
                     return new SearchResultItem
                     {
                         Id = int.Parse(document.Get("id")),
