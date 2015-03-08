@@ -15,13 +15,13 @@ You can read more about ongoing TicketDesk development [on my site](http://www.r
 Source Notes:
 ===========
 
-The current shipping version is [TicektDesk 2.1](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.1.2). 
+The current shipping version is [TicektDesk 2.1](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.1.3). 
 
-TicketDesk 2.5 is in development and should be ready for beta releases in January 2015.
+TicketDesk 2.5 is in development and should be ready for beta releases in late March 2015.
 
 - TicketDesk 2.1 requires Visual Studio 2012 or higher with .Net Framework 4.5 
 - TicketDesk 2.5 requires Visual Studio 2012 or 2013 with .Net Framework 4.5 or higher.
-  - Visual Studio 2013 with Update 3 recommended for Azure publishing
+  - Visual Studio 2013 with Update 4 required for Azure publishing
 
 Current Development Information
 ===========
