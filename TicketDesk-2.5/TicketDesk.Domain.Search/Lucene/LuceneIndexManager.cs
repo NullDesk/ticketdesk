@@ -24,26 +24,29 @@ namespace TicketDesk.Domain.Search.Lucene
         internal LuceneIndexManager(string indexLocation)
             : base(indexLocation)
         {
+            InitWriter();
         }
 
-        public async Task<bool> RunStartupIndexMaintenanceAsync()
+        public async Task<bool> RunIndexMaintenanceAsync()
         {
-            return await Task.FromResult(true);//nothing to do for lucene, the indexes is built as a side-effect of adding documents
+            //optimize on startup
+            TdIndexWriter.Optimize();
+            TdIndexWriter.Commit();
+            return await Task.FromResult(true);
         }
 
+        
         public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
         {
-            return Task.Run(async () =>
+            return Task.Run(() =>
             {
                 try
                 {
-                    var indexWriter = await GetIndexWriterAsync();
                     foreach (var item in items)
                     {
-                        UpdateIndexForItem(indexWriter, item);
+                        UpdateIndexForItem(item);
                     }
-                    indexWriter.Optimize();
-                    indexWriter.Dispose();
+                    TdIndexWriter.Commit();
                 } // ReSharper disable once EmptyGeneralCatchClause
                 catch 
                 { 
@@ -62,10 +65,8 @@ namespace TicketDesk.Domain.Search.Lucene
                     var directoryInfo = new DirectoryInfo(IndexLocation);
                     Parallel.ForEach(directoryInfo.GetFiles(), file => file.Delete());
                 }
-                else
-                {
-                    TdIndexDirectory.Dispose();
-                }
+                ShutDownWriter();
+                
             } // ReSharper disable once EmptyGeneralCatchClause
             catch
             {
@@ -74,11 +75,14 @@ namespace TicketDesk.Domain.Search.Lucene
             return Task.FromResult(true);
         }
 
-        private static void UpdateIndexForItem(IndexWriter indexWriter, SearchQueueItem item)
+       
+        private void UpdateIndexForItem(SearchQueueItem item)
         {
-            indexWriter.UpdateDocument(
+            TdIndexWriter.UpdateDocument(
                 new Term("id", item.Id.ToString(CultureInfo.InvariantCulture)),
                 item.ToLuceneDocument());
+
+            
         }
 
     }

@@ -1,5 +1,4 @@
-﻿@using TicketDesk.Web.Client.Models
-@model TicketDesk.Domain.Model.ApplicationSetting
+﻿@model TicketDesk.Domain.Model.ApplicationSetting
 
 @section title
 {
@@ -26,7 +25,7 @@
         @Html.AntiForgeryToken()
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h2 class="panel-title">Application Settings</h2>
+                <h2 class="panel-title">Global Permissions</h2>
             </div>
             <div class="panel-body ">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -34,7 +33,7 @@
                 @Html.HiddenFor(model => model.ApplicationName)
 
                 <div class="form-group">
-                    <div class="col-md-3 col-sm-offset-2 col-sm-5">
+                    <div class="col-md-3 col-sm-offset-3 col-sm-5">
                         <label class="checkbox-inline">
                             @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditPriority, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             @Html.DisplayNameFor(model => model.Permissions.AllowInternalUsersToEditPriority)
@@ -42,33 +41,59 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-3 col-sm-offset-2 col-sm-5">
+                    <div class="col-md-3 col-sm-offset-3 col-sm-5">
                         <label class="checkbox-inline">
-                            @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditTags, new {htmlAttributes = new {@class = "form-control input-sm"}})
+                            @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditTags, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             @Html.DisplayNameFor(model => model.Permissions.AllowInternalUsersToEditTags)
                         </label>
                     </div>
                 </div>
+            </div>
+            <div class="panel-heading">
+                <h2 class="panel-title">List Settings</h2>
+            </div>
+            <div class="panel-body ">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SelectLists.TicketTypesList, new { @class = "col-md-2 col-sm-2 control-label" })
-                    <div class="col-md-6 col-sm-8">
+                    @Html.LabelFor(model => model.SelectLists.TicketTypesList, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
                         <input id="tickettypes" name="tickettypes" class="form-control input-sm" value="@Model.GetTicketTypes()" />
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SelectLists.CategoryList, new { @class = "col-md-2 col-sm-2 control-label" })
-                    <div class="col-md-6 col-sm-8">
-                        <input id="categories" name="categories" class="form-control input-sm" value="@Model.GetCategories()"/>
+                    @Html.LabelFor(model => model.SelectLists.CategoryList, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
+                        <input id="categories" name="categories" class="form-control input-sm" value="@Model.GetCategories()" />
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SelectLists.PriorityList, new { @class = "col-md-2 col-sm-2 control-label" })
-                    <div class="col-md-6 col-sm-8">
+                    @Html.LabelFor(model => model.SelectLists.PriorityList, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
                         <input id="priorities" name="priorities" class="form-control input-sm" value="@Model.GetPriorities()" />
                     </div>
                 </div>
-                
 
+
+            </div>
+            <div class="panel-heading">
+                <h2 class="panel-title">Search Settings</h2>
+            </div>
+            <div class="panel-body ">
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-3 control-label">Search Mode</label>
+                    <div class="col-md-5 col-sm-7">
+                        <div class="small label label-info">@(ViewBag.IsAzureSearchEnabled ? "Azure search is configured." : "Azure search not configured, using local Lucene.Net.")</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SearchSettings.SearchIndexName, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
+                        @Html.TextBoxFor(model => model.SearchSettings.SearchIndexName, new { @class = "form-control input-sm" })
+                        <div class="small text-muted well well-sm">
+                            <p>If using a Local Lucene index, specify a folder name or a full path. Use a folder name to place the index under the /app_data folder on the web server. Use a full UNC or local path to write the index to a custom location. <br />You can specify "ram" if you want to keep the index in memory (not recommended!)</p>
+                            <p>For Azure Search, please follow the index naming guidelines as specified in the <a href="https://msdn.microsoft.com/en-us/library/azure/dn857353.aspx">Azure Search Documentation here.</a></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="panel-footer">
                 <div class="">

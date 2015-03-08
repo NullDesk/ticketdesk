@@ -19,7 +19,7 @@ namespace TicketDesk.Domain.Search
     internal interface ISearchIndexManager
     {
         Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items);
-        Task<bool> RunStartupIndexMaintenanceAsync();
+        Task<bool> RunIndexMaintenanceAsync();
         Task<bool> RemoveIndexAsync();
 
     }

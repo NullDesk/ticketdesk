@@ -17,7 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AzureBlobFileSystem;
-using Microsoft.WindowsAzure.Storage;
 
 namespace TicketDesk.IO
 {
@@ -30,16 +29,16 @@ namespace TicketDesk.IO
             {
                 if (_currentProvider == null)
                 {
-                    var connectionString = AzureConnectionHelper.CloudConfigConnString ??
-                                           AzureConnectionHelper.ConfigManagerConnString;
-                    CloudStorageAccount cloudStorageAccount;
-                    if (CloudStorageAccount.TryParse(connectionString, out cloudStorageAccount))
+                    var accout = AzureConnectionHelper.CloudStorageAccount;
+                    if (accout != null)
                     {
-                        return new AzureBlobStorageProvider(cloudStorageAccount);
+                        _currentProvider = new AzureBlobStorageProvider(accout);
                     }
-
-                    var dir = Path.Combine(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(), "filestore");
-                    _currentProvider = new FileSystemStorageProvider(dir);
+                    else
+                    {
+                        var dir = Path.Combine(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(), "filestore");
+                        _currentProvider = new FileSystemStorageProvider(dir);
+                    }
                 }
                 return _currentProvider;
             }
@@ -48,6 +47,7 @@ namespace TicketDesk.IO
         public static bool MoveFile(string fileName, string oldContainerId, string newContainerId, bool wasPending, bool isPending)
         {
             var oldPath = GetFilePath(fileName, oldContainerId, wasPending);
+            var oldFolder = GetFileFolderPath(oldContainerId, wasPending);
             var newPath = GetFilePath(fileName, newContainerId, isPending);
             if (Current.FileExists(oldPath))
             {
@@ -57,6 +57,7 @@ namespace TicketDesk.IO
                 }
                
                 Current.RenameFile(oldPath,newPath);
+               
                 return true;
             }
             return false;
@@ -80,6 +81,7 @@ namespace TicketDesk.IO
             {
                 Name = TrimIdFromName(f.GetName(),containerId),
                 Size = f.GetSize()
+                
             });
         }
 

@@ -28,16 +28,13 @@ namespace TicketDesk.Domain
 {
     public class TicketDeskContext : DbContext
     {
+        private static TicketDeskSearchManager ApplicationSearchProvider { get; set; }
+
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
+
         public TicketActionManager TicketActions { get; set; }
-        public TicketDeskSearchProvider SearchProvider
-        {
-            get
-            {
-                return TicketDeskSearchProvider.GetInstance(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")));
-            }
-        }
-        
+       
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
         /// </summary>
@@ -53,7 +50,6 @@ namespace TicketDesk.Domain
             SecurityProvider = securityProvider;
             TicketActions = TicketActionManager.GetInstance(SecurityProvider);
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
@@ -75,7 +71,7 @@ namespace TicketDesk.Domain
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           
+
             modelBuilder.Entity<TicketEvent>()
                 .Property(e => e.Version)
                 .IsFixedLength();
@@ -101,7 +97,6 @@ namespace TicketDesk.Domain
             modelBuilder.ComplexType<ApplicationPermissionsSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
-
         }
 
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
@@ -200,10 +195,13 @@ namespace TicketDesk.Domain
             // ReSharper disable once EmptyGeneralCatchClause
             try
             {
-                //queue up for search index update
-                var queueItems = ticketChanges.ToSeachQueueItems();
-                await SearchProvider.QueueItemsForIndexingAsync(queueItems);
-
+                var changes = ticketChanges as Ticket[] ?? ticketChanges.ToArray();
+                if (changes.Any())//deletes (such as the demo data manager removing everything) fire this, but ticketChanges is empty
+                {
+                    //queue up for search index update
+                    var queueItems = changes.ToSeachQueueItems();
+                    await TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems);
+                }
             }
             catch
             {
@@ -216,9 +214,13 @@ namespace TicketDesk.Domain
             // ReSharper disable once EmptyGeneralCatchClause
             try
             {
-                //queue up for search index update
-                var queueItems = ticketChanges.ToSeachQueueItems();
-                AsyncHelpers.RunSync(() => SearchProvider.QueueItemsForIndexingAsync(queueItems));
+                var changes = ticketChanges as Ticket[] ?? ticketChanges.ToArray();
+                if (changes.Any())//deletes (such as the demo data manager removing everything) fire this, but ticketChanges is empty
+                {
+                    //queue up for search index update
+                    var queueItems = changes.ToSeachQueueItems();
+                    AsyncHelpers.RunSync(() => TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems));
+                }
             }
             catch
             {

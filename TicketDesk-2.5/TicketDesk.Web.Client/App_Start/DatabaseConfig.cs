@@ -14,13 +14,10 @@
 using System;
 using System.Configuration;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
-using TicketDesk.Web.Identity;
-using WebGrease;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client

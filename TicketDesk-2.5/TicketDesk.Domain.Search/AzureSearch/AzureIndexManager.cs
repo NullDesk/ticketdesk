@@ -28,12 +28,13 @@ namespace TicketDesk.Domain.Search.AzureSearch
         internal AzureIndexManager(string indexName)
         {
             _indexName = indexName;
+            CreateIndexAsync().ConfigureAwait(false);
         }
 
-        public async Task<bool> RunStartupIndexMaintenanceAsync()
+        public async Task<bool> RunIndexMaintenanceAsync()
         {
-            await CreateIndexAsync();
-            return true;
+            //there are no maintenance tasks for azure search
+            return await Task.FromResult(true);
         }
 
         public async Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)

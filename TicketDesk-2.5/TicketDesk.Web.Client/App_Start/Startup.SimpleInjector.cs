@@ -27,6 +27,7 @@ using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using SimpleInjector;
 using SimpleInjector.Advanced;
+using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Web.Identity;
@@ -40,8 +41,6 @@ namespace TicketDesk.Web.Client
         {
             var container = GetInitializedContainer(app);
 
-            //container.Verify();
-
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
             return container;
@@ -53,12 +52,17 @@ namespace TicketDesk.Web.Client
 
             container.RegisterSingle(app);
 
-            container.RegisterPerWebRequest<TicketDeskUserManager>();
+
+            //allows objects to be reused when inside web request, or created fresh when used on background threads or outside a request context
+            var hybridLifestyle = Lifestyle.CreateHybrid(
+                () => HttpContext.Current != null, new WebRequestLifestyle(), Lifestyle.Transient);
 
             container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
 
-            container.RegisterPerWebRequest(() => 
-                new TicketDeskContext(container.GetInstance<TicketDeskContextSecurityProvider>()));
+            container.Register(() => HttpContext.Current != null ?
+                    new TicketDeskContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
+                    new TicketDeskContext(),
+                hybridLifestyle);
 
             container.RegisterPerWebRequest<TicketDeskIdentityContext>();
 
@@ -68,7 +72,7 @@ namespace TicketDesk.Web.Client
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
                 new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
 
-            
+
             container.RegisterPerWebRequest(() =>
             {
                 IOwinContext context;

@@ -1,240 +1,4 @@
 
-;(function(){
-
-/**
- * Require the module at `name`.
- *
- * @param {String} name
- * @return {Object} exports
- * @api public
- */
-
-function require(name) {
-  var module = require.modules[name];
-  if (!module) throw new Error('failed to require "' + name + '"');
-
-  if (!('exports' in module) && typeof module.definition === 'function') {
-    module.client = module.component = true;
-    module.definition.call(this, module.exports = {}, module);
-    delete module.definition;
-  }
-
-  return module.exports;
-}
-
-/**
- * Registered modules.
- */
-
-require.modules = {};
-
-/**
- * Register module at `name` with callback `definition`.
- *
- * @param {String} name
- * @param {Function} definition
- * @api private
- */
-
-require.register = function (name, definition) {
-  require.modules[name] = {
-    definition: definition
-  };
-};
-
-/**
- * Define a module's exports immediately with `exports`.
- *
- * @param {String} name
- * @param {Generic} exports
- * @api private
- */
-
-require.define = function (name, exports) {
-  require.modules[name] = {
-    exports: exports
-  };
-};
-require.register("component~emitter@1.1.2", function (exports, module) {
-
-/**
- * Expose `Emitter`.
- */
-
-module.exports = Emitter;
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks[event] = this._callbacks[event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  var self = this;
-  this._callbacks = this._callbacks || {};
-
-  function on() {
-    self.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks[event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks[event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks[event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks[event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-});
-
-require.register("dropzone", function (exports, module) {
-
-
-/**
- * Exposing dropzone
- */
-module.exports = require("dropzone/lib/dropzone.js");
-
-});
-
-require.register("dropzone/lib/dropzone.js", function (exports, module) {
-
 /*
  *
  * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
@@ -262,19 +26,81 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
  */
 
 (function() {
-  var Dropzone, Em, camelize, contentLoaded, detectVerticalSquash, drawImageIOSFix, noop, without,
+  var Dropzone, Emitter, camelize, contentLoaded, detectVerticalSquash, drawImageIOSFix, noop, without,
+    __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __slice = [].slice;
-
-  Em = typeof Emitter !== "undefined" && Emitter !== null ? Emitter : require("component~emitter@1.1.2");
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   noop = function() {};
 
+  Emitter = (function() {
+    function Emitter() {}
+
+    Emitter.prototype.addEventListener = Emitter.prototype.on;
+
+    Emitter.prototype.on = function(event, fn) {
+      this._callbacks = this._callbacks || {};
+      if (!this._callbacks[event]) {
+        this._callbacks[event] = [];
+      }
+      this._callbacks[event].push(fn);
+      return this;
+    };
+
+    Emitter.prototype.emit = function() {
+      var args, callback, callbacks, event, _i, _len;
+      event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      this._callbacks = this._callbacks || {};
+      callbacks = this._callbacks[event];
+      if (callbacks) {
+        for (_i = 0, _len = callbacks.length; _i < _len; _i++) {
+          callback = callbacks[_i];
+          callback.apply(this, args);
+        }
+      }
+      return this;
+    };
+
+    Emitter.prototype.removeListener = Emitter.prototype.off;
+
+    Emitter.prototype.removeAllListeners = Emitter.prototype.off;
+
+    Emitter.prototype.removeEventListener = Emitter.prototype.off;
+
+    Emitter.prototype.off = function(event, fn) {
+      var callback, callbacks, i, _i, _len;
+      if (!this._callbacks || arguments.length === 0) {
+        this._callbacks = {};
+        return this;
+      }
+      callbacks = this._callbacks[event];
+      if (!callbacks) {
+        return this;
+      }
+      if (arguments.length === 1) {
+        delete this._callbacks[event];
+        return this;
+      }
+      for (i = _i = 0, _len = callbacks.length; _i < _len; i = ++_i) {
+        callback = callbacks[i];
+        if (callback === fn) {
+          callbacks.splice(i, 1);
+          break;
+        }
+      }
+      return this;
+    };
+
+    return Emitter;
+
+  })();
+
   Dropzone = (function(_super) {
-    var extend;
+    var extend, resolveOption;
 
     __extends(Dropzone, _super);
+
+    Dropzone.prototype.Emitter = Emitter;
 
 
     /*
@@ -285,7 +111,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
         dropzone.on("dragEnter", function() { });
      */
 
-    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached"];
+    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
 
     Dropzone.prototype.defaultOptions = {
       url: null,
@@ -297,9 +123,11 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       paramName: "file",
       createImageThumbnails: true,
       maxThumbnailFilesize: 10,
-      thumbnailWidth: 100,
-      thumbnailHeight: 100,
+      thumbnailWidth: 120,
+      thumbnailHeight: 120,
+      filesizeBase: 1000,
       maxFiles: null,
+      filesizeBase: 1000,
       params: {},
       clickable: true,
       ignoreHiddenFiles: true,
@@ -309,6 +137,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       autoQueue: true,
       addRemoveLinks: false,
       previewsContainer: null,
+      capture: null,
       dictDefaultMessage: "Drop files here to upload",
       dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
       dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
@@ -475,18 +304,20 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
         return this._updateMaxFilesReachedClass();
       },
       thumbnail: function(file, dataUrl) {
-        var thumbnailElement, _i, _len, _ref, _results;
+        var thumbnailElement, _i, _len, _ref;
         if (file.previewElement) {
           file.previewElement.classList.remove("dz-file-preview");
-          file.previewElement.classList.add("dz-image-preview");
           _ref = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
-          _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             thumbnailElement = _ref[_i];
             thumbnailElement.alt = file.name;
-            _results.push(thumbnailElement.src = dataUrl);
+            thumbnailElement.src = dataUrl;
           }
-          return _results;
+          return setTimeout(((function(_this) {
+            return function() {
+              return file.previewElement.classList.add("dz-image-preview");
+            };
+          })(this)), 1);
         }
       },
       error: function(file, message) {
@@ -522,7 +353,11 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             node = _ref[_i];
-            _results.push(node.style.width = "" + progress + "%");
+            if (node.nodeName === 'PROGRESS') {
+              _results.push(node.value = progress);
+            } else {
+              _results.push(node.style.width = "" + progress + "%");
+            }
           }
           return _results;
         }
@@ -542,13 +377,17 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       canceledmultiple: noop,
       complete: function(file) {
         if (file._removeLink) {
-          return file._removeLink.textContent = this.options.dictRemoveFile;
+          file._removeLink.textContent = this.options.dictRemoveFile;
+        }
+        if (file.previewElement) {
+          return file.previewElement.classList.add("dz-complete");
         }
       },
       completemultiple: noop,
       maxfilesexceeded: noop,
       maxfilesreached: noop,
-      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\"><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
+      queuecomplete: noop,
+      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>"
     };
 
     extend = function() {
@@ -704,6 +543,9 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
             _this.hiddenFileInput.className = "dz-hidden-input";
             if (_this.options.acceptedFiles != null) {
               _this.hiddenFileInput.setAttribute("accept", _this.options.acceptedFiles);
+            }
+            if (_this.options.capture != null) {
+              _this.hiddenFileInput.setAttribute("capture", _this.options.capture);
             }
             _this.hiddenFileInput.style.visibility = "hidden";
             _this.hiddenFileInput.style.position = "absolute";
@@ -971,24 +813,20 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
     };
 
     Dropzone.prototype.filesize = function(size) {
-      var string;
-      if (size >= 1024 * 1024 * 1024 * 1024 / 10) {
-        size = size / (1024 * 1024 * 1024 * 1024 / 10);
-        string = "TiB";
-      } else if (size >= 1024 * 1024 * 1024 / 10) {
-        size = size / (1024 * 1024 * 1024 / 10);
-        string = "GiB";
-      } else if (size >= 1024 * 1024 / 10) {
-        size = size / (1024 * 1024 / 10);
-        string = "MiB";
-      } else if (size >= 1024 / 10) {
-        size = size / (1024 / 10);
-        string = "KiB";
-      } else {
-        size = size * 10;
-        string = "b";
+      var cutoff, i, selectedSize, selectedUnit, unit, units, _i, _len;
+      units = ['TB', 'GB', 'MB', 'KB', 'b'];
+      selectedSize = selectedUnit = null;
+      for (i = _i = 0, _len = units.length; _i < _len; i = ++_i) {
+        unit = units[i];
+        cutoff = Math.pow(this.options.filesizeBase, 4 - i) / 10;
+        if (size >= cutoff) {
+          selectedSize = size / Math.pow(this.options.filesizeBase, 4 - i);
+          selectedUnit = unit;
+          break;
+        }
       }
-      return "<strong>" + (Math.round(size) / 10) + "</strong> " + string;
+      selectedSize = Math.round(10 * selectedSize) / 10;
+      return "<strong>" + selectedSize + "</strong> " + selectedUnit;
     };
 
     Dropzone.prototype._updateMaxFilesReachedClass = function() {
@@ -1217,6 +1055,13 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       fileReader.onload = (function(_this) {
         return function() {
           var img;
+          if (file.type === "image/svg+xml") {
+            _this.emit("thumbnail", file, fileReader.result);
+            if (callback != null) {
+              callback();
+            }
+            return;
+          }
           img = document.createElement("img");
           img.onload = function() {
             var canvas, ctx, resizeInfo, thumbnail, _ref, _ref1, _ref2, _ref3;
@@ -1240,6 +1085,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
               return callback();
             }
           };
+          img.onerror = callback;
           return img.src = fileReader.result;
         };
       })(this);
@@ -1333,18 +1179,29 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       }
     };
 
+    resolveOption = function() {
+      var args, option;
+      option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      if (typeof option === 'function') {
+        return option.apply(this, args);
+      }
+      return option;
+    };
+
     Dropzone.prototype.uploadFile = function(file) {
       return this.uploadFiles([file]);
     };
 
     Dropzone.prototype.uploadFiles = function(files) {
-      var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, option, progressObj, response, updateProgress, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+      var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
       xhr = new XMLHttpRequest();
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
         file.xhr = xhr;
       }
-      xhr.open(this.options.method, this.options.url, true);
+      method = resolveOption(this.options.method, files);
+      url = resolveOption(this.options.url, files);
+      xhr.open(method, url, true);
       xhr.withCredentials = !!this.options.withCredentials;
       response = null;
       handleError = (function(_this) {
@@ -1518,9 +1375,9 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
 
     return Dropzone;
 
-  })(Em);
+  })(Emitter);
 
-  Dropzone.version = "3.10.2";
+  Dropzone.version = "4.0.0";
 
   Dropzone.options = {};
 
@@ -1861,14 +1718,3 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
   contentLoaded(window, Dropzone._autoDiscoverFunction);
 
 }).call(this);
-
-});
-
-if (typeof exports == "object") {
-  module.exports = require("dropzone");
-} else if (typeof define == "function" && define.amd) {
-  define([], function(){ return require("dropzone"); });
-} else {
-  this["Dropzone"] = require("dropzone");
-}
-})()

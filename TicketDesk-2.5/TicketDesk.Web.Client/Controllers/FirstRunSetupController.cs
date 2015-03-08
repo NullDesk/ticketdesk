@@ -74,6 +74,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
+            
             return RedirectToAction("Index");
         }
 
@@ -91,6 +92,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
+            
             return RedirectToAction("Index");
         }
 

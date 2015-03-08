@@ -13,6 +13,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
@@ -23,7 +24,7 @@ using Version = Lucene.Net.Util.Version;
 
 namespace TicketDesk.Domain.Search.Lucene
 {
-    internal abstract class LuceneSearchConnector : IDisposable
+    public abstract class LuceneSearchConnector : IDisposable
     {
         private Directory _tdIndexDirectory;
         private Analyzer _tdIndexAnalyzer;
@@ -33,66 +34,96 @@ namespace TicketDesk.Domain.Search.Lucene
 
         internal LuceneSearchConnector(string indexLocation)
         {
+            var fi = new DirectoryInfo(indexLocation);
+            if (!fi.Exists)
+            {
+                var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
+                IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), indexLocation);
+            }
+            else
+            {
+                IndexLocation = indexLocation;
+            }
 
-            var datadir = AppDomain.CurrentDomain.GetData("DataDirectory");
-            IndexLocation = datadir == null ? "ram" : Path.Combine(datadir.ToString(), indexLocation);
-
-           
         }
-
-        protected Task<IndexWriter> GetIndexWriterAsync()
+       
+        public IndexWriter TdIndexWriter
         {
-            return Task.Run(async () =>
+            get
             {
                 if (_tdIndexWriter == null)
                 {
-                    var delayCount = 0;
-                    while (IndexWriter.IsLocked(TdIndexDirectory) && delayCount++ < 4) //delay 4 times (1 min)
-                    {
-                        await Task.Delay(15000); //hyperspace for 15sec
-                    }
-                    if (IndexWriter.IsLocked(TdIndexDirectory))
-                    {
-                        //directory still locked, blow away the other lock and hope there isn't 
-                        //  really another writer open elsewhere
-                        IndexWriter.Unlock(TdIndexDirectory);
-                    }
-                    _tdIndexWriter = new IndexWriter(
-                        TdIndexDirectory,
-                        TdIndexAnalyzer,
-                        IndexWriter.MaxFieldLength.UNLIMITED);
+                    InitWriter();
                 }
                 return _tdIndexWriter;
-            });
+            }
+            
+        }
+
+        public void ShutDownWriter()
+        {
+           _tdIndexWriter.Optimize();
+            _tdIndexWriter.Dispose();
+            _tdIndexDirectory.Dispose();
+            _tdIndexWriter = null;
+            _tdIndexDirectory = null;
+        }
+
+        private readonly object _getWriterLock = new object();
+        public void InitWriter()
+        {
+            lock (_getWriterLock)
+            {
+                if (IndexWriter.IsLocked(TdIndexDirectory))
+                {
+                    //directory locked, blow away the lock and hope there isn't 
+                    //  really another writer open elsewhere
+                    IndexWriter.Unlock(TdIndexDirectory);
+                }
+                _tdIndexWriter = new IndexWriter(
+                    TdIndexDirectory,
+                    TdIndexAnalyzer,
+                    IndexWriter.MaxFieldLength.UNLIMITED);
+            }
         }
 
 
+        private readonly object _getDirectoryLock = new object();
         protected Directory TdIndexDirectory
         {
             get
             {
-                if (_tdIndexDirectory == null)
+                lock (_getDirectoryLock)
                 {
-                    if (string.Equals(IndexLocation, "ram", StringComparison.InvariantCultureIgnoreCase))
+                    if (_tdIndexDirectory == null)
                     {
-                        _tdIndexDirectory = new RAMDirectory();
-                    }
-                    else
-                    {
-                        
+                        if (string.Equals(IndexLocation, "ram", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            _tdIndexDirectory = new RAMDirectory();
+                        }
+                        else
+                        {
 
-                        var dirInfo = new DirectoryInfo(IndexLocation);
-                        _tdIndexDirectory = FSDirectory.Open(dirInfo);
+
+                            var dirInfo = new DirectoryInfo(IndexLocation);
+                            _tdIndexDirectory = FSDirectory.Open(dirInfo);
+                        }
                     }
+                    return _tdIndexDirectory;
                 }
-                return _tdIndexDirectory;
             }
+            
         }
+        private readonly object _getAnalyzerLock = new object();
         protected Analyzer TdIndexAnalyzer
         {
+
             get
             {
-                return _tdIndexAnalyzer ?? (_tdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30));
+                lock (_getAnalyzerLock)
+                {
+                    return _tdIndexAnalyzer ?? (_tdIndexAnalyzer = new StandardAnalyzer(Version.LUCENE_30));
+                }
             }
         }
 

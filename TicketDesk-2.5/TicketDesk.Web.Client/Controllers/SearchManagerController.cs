@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Domain.Search;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -40,7 +41,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("remove-index")]
         public async Task<ActionResult> RemoveIndex()
         {
-            await Context.SearchProvider.RemoveIndexAsync();
+            await TicketDeskSearchManager.Current.RemoveIndexAsync();
             ViewBag.IndexRemoved = true;
             return View("Index");
         }
@@ -48,9 +49,9 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("populate-index")]
         public async Task<ActionResult> PopulateIndex()
         {
-            await Context.SearchProvider.InitializeSearch();
+            await TicketDeskSearchManager.Current.InitializeSearchAsync();
             var queueItems = Context.Tickets.Include("TicketEvents").ToSeachQueueItems();
-            await Context.SearchProvider.QueueItemsForIndexingAsync(queueItems);
+            await TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems);
             ViewBag.IndexPopulated = true;
             return View("Index");
         }
