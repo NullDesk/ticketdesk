@@ -17,7 +17,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using TicketDesk.Domain.Models.DataAnnotations;
 using TicketDesk.Domain.Utilities;
-using System.Linq;
 
 namespace TicketDesk.Domain.Models
 {
@@ -26,7 +25,7 @@ namespace TicketDesk.Domain.Models
     {
         internal string[] GetNotificationSubscribers()
         {
-            List<string> subs = new List<string>();
+            var subs = new List<string>();
             if (!string.IsNullOrEmpty(PreviousOwner) && !PreviousOwner.Equals(Owner, StringComparison.InvariantCultureIgnoreCase))
             {
                 subs.Add(PreviousOwner);
@@ -54,11 +53,11 @@ namespace TicketDesk.Domain.Models
         {
             if (property == "AssignedTo")
             {
-                PreviousAssignedUser = this.AssignedTo;
+                PreviousAssignedUser = AssignedTo;
             }
             if (property == "Owner")
             {
-                PreviousOwner = this.Owner;
+                PreviousOwner = Owner;
             }
             base.OnPropertyChanging(property);
         }
@@ -69,7 +68,7 @@ namespace TicketDesk.Domain.Models
             get
             {
                 var md = new Markdown();
-                return (this.IsHtml) ? this.Details : md.Transform(this.Details, false);
+                return (IsHtml) ? Details : md.Transform(Details, false);
             }
         }
 
