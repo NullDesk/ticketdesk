@@ -27,16 +27,19 @@ namespace TicketDesk.Domain.Services
 {
 
     [Export(typeof(ITicketService))]
-    [PartCreationPolicy(System.ComponentModel.Composition.CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class TicketService : ITicketService
     {
         //TODO: Many of these methods take user names, display names, etc. as parameters... 
         //       but we have a reference to security here, so we could probably get that info from there instead
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TdTicketService"/> class.
+        /// Initializes a new instance of the <see cref="TicketService" /> class.
         /// </summary>
+        /// <param name="securityService">The security service.</param>
         /// <param name="ticketRepository">The ticket repository.</param>
+        /// <param name="notificationService">The notification service.</param>
+        /// <param name="search">The search.</param>
         [ImportingConstructor]
         public TicketService
         (
@@ -50,7 +53,7 @@ namespace TicketDesk.Domain.Services
             Repository = ticketRepository;
             Notification = notificationService;
             Search = search;
-            Repository.Saving += new EventHandler<TicketEventArgs>(TicketSaving);
+            Repository.Saving += TicketSaving;
         }
 
         private void TicketSaving(object sender, TicketEventArgs e)
@@ -106,10 +109,11 @@ namespace TicketDesk.Domain.Services
         /// <summary>
         /// Lists a paged list of tickets.
         /// </summary>
-        /// <remarks>used by search</remarks>
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
-        /// <returns></returns>
+        /// <param name="includeComments">if set to <c>true</c> [include comments].</param>
+        /// <returns>IPagination&lt;Ticket&gt;.</returns>
+        /// <remarks>used by search</remarks>
         public IPagination<Ticket> ListTickets(int pageIndex, int pageSize, bool includeComments)
         {
             return Repository.ListTickets(pageIndex, pageSize, null, null, includeComments);
@@ -118,12 +122,11 @@ namespace TicketDesk.Domain.Services
         /// <summary>
         /// Gets a list of tickets from an ordered list of ticket IDs.
         /// </summary>
-        /// <remarks>used by search</remarks>        
         /// <param name="orderedTicketList">The ordered ticket list.</param>
-        /// <returns>
-        /// Tickets in the same order as the supplied ticket IDs
-        /// </returns>
-        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList, bool  includeComments)
+        /// <param name="includeComments">if set to <c>true</c> [include comments].</param>
+        /// <returns>Tickets in the same order as the supplied ticket IDs</returns>
+        /// <remarks>used by search</remarks>
+        public IEnumerable<Ticket> ListTickets(SortedList<int, int> orderedTicketList, bool includeComments)
         {
             return Repository.ListTickets(orderedTicketList, includeComments);
         }
@@ -132,11 +135,8 @@ namespace TicketDesk.Domain.Services
         /// Creates the new ticket.
         /// </summary>
         /// <param name="newTicket">The new ticket.</param>
-        /// <param name="filesToAttach">The files to attach.</param>
-        /// <param name="creatorUserName">User name of the creator.</param>
-        /// <param name="creatorDisplayName">Display name of the creator.</param>
-        /// <param name="ownerDisplayName">Display name of the owner.</param>
-        /// <returns></returns>
+        /// <returns>System.Nullable&lt;System.Int32&gt;.</returns>
+        /// <exception cref="RuleException"></exception>
         public int? CreateNewTicket(Ticket newTicket)
         {
             var rnv = new NameValueCollection();
@@ -171,14 +171,14 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
+
+            AddAttachmentsToNewTicket(newTicket);
             //comment
             TicketComment openingComment = (!newTicket.Owner.Equals(Security.CurrentUserName, StringComparison.InvariantCultureIgnoreCase)) ?
                 GetActivityComment(TicketActivity.CreateOnBehalfOf, TicketCommentFlag.CommentNotApplicable, null, newTicket.AssignedTo, newTicket.GetNotificationSubscribers(), Security.GetUserDisplayName(newTicket.Owner)) :
                 GetActivityComment(TicketActivity.Create, TicketCommentFlag.CommentNotApplicable, null, newTicket.AssignedTo, newTicket.GetNotificationSubscribers());
 
             newTicket.TicketComments.Add(openingComment);
-
-            AddAttachmentsToNewTicket(newTicket, Security.CurrentUserName);
 
             int? newTicketId = null;
             if (Repository.CreateTicket(newTicket, true))
@@ -188,7 +188,7 @@ namespace TicketDesk.Domain.Services
             return newTicketId;
         }
 
-        private void AddAttachmentsToNewTicket(Ticket ticket, string creatorUserName)
+        private void AddAttachmentsToNewTicket(Ticket ticket)
         {
             //files
             if (ticket.TicketAttachments != null && ticket.TicketAttachments.Count > 0)
@@ -214,9 +214,9 @@ namespace TicketDesk.Domain.Services
         /// Adds the comment to ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="commentBy">The user making the comment.</param>
         /// <param name="comment">The comment content.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if commet added, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool AddCommentToTicket(Ticket ticket, string comment)
         {
             var rnv = new NameValueCollection();
@@ -244,9 +244,9 @@ namespace TicketDesk.Domain.Services
         /// Requests the more information from the owner about the ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user requesting more information.</param>
         /// <param name="comment">The comment.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool RequestMoreInfoForTicket(Ticket ticket, string comment)
         {
             var rnv = new NameValueCollection();
@@ -263,7 +263,6 @@ namespace TicketDesk.Domain.Services
             {
                 throw new RuleException(rnv);
             }
-            ticket.TicketComments.Add(GetActivityComment(TicketActivity.RequestMoreInfo, TicketCommentFlag.CommentNotApplicable, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
 
             var now = DateTime.Now;
             ticket.CurrentStatus = "More Info";
@@ -271,6 +270,7 @@ namespace TicketDesk.Domain.Services
             ticket.CurrentStatusSetBy = Security.CurrentUserName;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = now;
+            ticket.TicketComments.Add(GetActivityComment(TicketActivity.RequestMoreInfo, TicketCommentFlag.CommentNotApplicable, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
 
             return Repository.UpdateTicket(ticket);
         }
@@ -279,10 +279,10 @@ namespace TicketDesk.Domain.Services
         /// Supplies more information for the ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user supplying more information.</param>
         /// <param name="comment">The comment.</param>
         /// <param name="markActive">if set to <c>true</c> marks ticket active again.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool SupplyMoreInfoForTicket(Ticket ticket, string comment, bool markActive)
         {
             var rnv = new NameValueCollection();
@@ -301,7 +301,6 @@ namespace TicketDesk.Domain.Services
             }
 
             var markActiveText = (markActive) ? "and reactivated the ticket." : "without reactivating the ticket.";
-            ticket.TicketComments.Add(GetActivityComment(TicketActivity.SupplyMoreInfo, TicketCommentFlag.CommentNotApplicable, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), markActiveText));
 
             var now = DateTime.Now;
             if (markActive)
@@ -314,6 +313,7 @@ namespace TicketDesk.Domain.Services
 
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = now;
+            ticket.TicketComments.Add(GetActivityComment(TicketActivity.SupplyMoreInfo, TicketCommentFlag.CommentNotApplicable, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), markActiveText));
 
             return Repository.UpdateTicket(ticket);
         }
@@ -322,9 +322,9 @@ namespace TicketDesk.Domain.Services
         /// Cancels the request for more information for ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user cancelling the request for more information.</param>
-        /// <param name="comments">The comments.</param>
-        /// <returns></returns>
+        /// <param name="comment">The comment.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool CancelMoreInfoForTicket(Ticket ticket, string comment)
         {
             var rnv = new NameValueCollection();
@@ -339,7 +339,6 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
-            ticket.TicketComments.Add(GetActivityComment(TicketActivity.CancelMoreInfo, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
 
             var now = DateTime.Now;
             ticket.CurrentStatus = "Active";
@@ -347,7 +346,7 @@ namespace TicketDesk.Domain.Services
             ticket.CurrentStatusSetBy = Security.CurrentUserName;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = now;
-
+            ticket.TicketComments.Add(GetActivityComment(TicketActivity.CancelMoreInfo, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
             return Repository.UpdateTicket(ticket);
         }
 
@@ -355,10 +354,10 @@ namespace TicketDesk.Domain.Services
         /// Takes the over ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user taking over.</param>
         /// <param name="comment">optional comment contents.</param>
         /// <param name="priority">a priority or null if no change to priority.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException">noAuth;User is not authorized to take over a ticket</exception>
         public bool TakeOverTicket(Ticket ticket, string comment, string priority)
         {
             if (!CheckSecurityForTicketActivity(ticket, TicketActivity.TakeOver))//no need to check TakeOverWithPriority seperately
@@ -373,15 +372,14 @@ namespace TicketDesk.Domain.Services
 
             var fromUser = (string.IsNullOrEmpty(ticket.AssignedTo)) ? string.Empty : " from " + Security.GetUserDisplayName(ticket.AssignedTo);
 
-            TicketComment c = (string.IsNullOrEmpty(priority)) ?
-                GetActivityComment(TicketActivity.TakeOver, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), fromUser) :
-                GetActivityComment(TicketActivity.TakeOverWithPriority, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), fromUser, priority);
-
-            ticket.TicketComments.Add(c);
             ticket.AssignedTo = Security.CurrentUserName;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = DateTime.Now;
+            TicketComment c = (string.IsNullOrEmpty(priority)) ?
+               GetActivityComment(TicketActivity.TakeOver, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), fromUser) :
+               GetActivityComment(TicketActivity.TakeOverWithPriority, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), fromUser, priority);
 
+            ticket.TicketComments.Add(c);
             return Repository.UpdateTicket(ticket);
         }
 
@@ -418,8 +416,6 @@ namespace TicketDesk.Domain.Services
             {
                 throw new RuleException(rnv);
             }
-            ticket.TicketComments.Add(GetActivityComment(activityEn, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), Security.GetUserDisplayName(ticket.AssignedTo), Security.GetUserDisplayName(assignTo), priority));
-
             ticket.AssignedTo = assignTo;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = DateTime.Now;
@@ -428,6 +424,7 @@ namespace TicketDesk.Domain.Services
             {
                 ticket.Priority = priority;
             }
+            ticket.TicketComments.Add(GetActivityComment(activityEn, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), Security.GetUserDisplayName(ticket.AssignedTo), Security.GetUserDisplayName(assignTo), priority));
 
             return Repository.UpdateTicket(ticket);
         }
@@ -436,9 +433,9 @@ namespace TicketDesk.Domain.Services
         /// Resolves the ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user resolving the ticket.</param>
         /// <param name="comment">The comment.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool ResolveTicket(Ticket ticket, string comment)
         {
             var rnv = new NameValueCollection();
@@ -458,13 +455,14 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
-            ticket.TicketComments.Add(GetActivityComment(TicketActivity.Resolve, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
 
             ticket.CurrentStatus = "Resolved";
             ticket.CurrentStatusSetBy = Security.CurrentUserName;
             ticket.CurrentStatusDate = DateTime.Now;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = ticket.CurrentStatusDate;
+            ticket.TicketComments.Add(GetActivityComment(TicketActivity.Resolve, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
+
             return Repository.UpdateTicket(ticket);
         }
 
@@ -472,21 +470,14 @@ namespace TicketDesk.Domain.Services
         /// Closes the ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user closing the ticket.</param>
-        /// <param name="comment"></param>
-        /// <returns></returns>
+        /// <param name="comment">The comment.</param>
+        /// <param name="force">if set to <c>true</c> force closes ticket regardless of status.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool CloseTicket(Ticket ticket, string comment, bool force)
         {
             var rnv = new NameValueCollection();
-            bool secCheck = false;
-            if (force)
-            {
-                secCheck = CheckSecurityForTicketActivity(ticket, TicketActivity.ForceClose);
-            }
-            else
-            {
-                secCheck = CheckSecurityForTicketActivity(ticket, TicketActivity.Close);
-            }
+            bool secCheck = CheckSecurityForTicketActivity(ticket, force ? TicketActivity.ForceClose : TicketActivity.Close);
 
             if (!secCheck)
             {
@@ -502,18 +493,18 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
-            TicketComment c = (force) ?
-                GetActivityComment(TicketActivity.ForceClose, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()) :
-                GetActivityComment(TicketActivity.Close, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers());
 
-            ticket.TicketComments.Add(c);
 
             ticket.CurrentStatus = "Closed";
             ticket.CurrentStatusSetBy = Security.CurrentUserName;
             ticket.CurrentStatusDate = DateTime.Now;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = ticket.CurrentStatusDate;
+            TicketComment c = (force) ?
+              GetActivityComment(TicketActivity.ForceClose, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()) :
+              GetActivityComment(TicketActivity.Close, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers());
 
+            ticket.TicketComments.Add(c);
             return Repository.UpdateTicket(ticket);
         }
 
@@ -521,9 +512,13 @@ namespace TicketDesk.Domain.Services
         /// Gives up a ticket and marks it unassigned again.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user giving up the ticket.</param>
-        /// <param name="comments">The comments.</param>
-        /// <returns></returns>
+        /// <param name="comment">The comments.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException">
+        /// noAuth;User is not authorized to modify ticket information
+        /// or
+        /// comment;A comment is required
+        /// </exception>
         public bool GiveUpTicket(Ticket ticket, string comment)
         {
             if (!CheckSecurityForTicketActivity(ticket, TicketActivity.GiveUp))
@@ -535,11 +530,11 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException("comment", "A comment is required");
             }
 
-            ticket.TicketComments.Add(GetActivityComment(TicketActivity.GiveUp, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
 
             ticket.AssignedTo = null;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = DateTime.Now;
+            ticket.TicketComments.Add(GetActivityComment(TicketActivity.GiveUp, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers()));
 
             return Repository.UpdateTicket(ticket);
         }
@@ -548,11 +543,11 @@ namespace TicketDesk.Domain.Services
         /// Reopen ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user re-opening the ticket.</param>
         /// <param name="comment">The comment.</param>
         /// <param name="reopenAssignedToUser">if set to <c>true</c> reopen and assign to the reopening user.</param>
         /// <param name="reopenOwnedByUser">if set to <c>true</c> reopen and set owner to the reopening user.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool ReOpenTicket(Ticket ticket, string comment, bool reopenAssignedToUser, bool reopenOwnedByUser)
         {
             var rnv = new NameValueCollection();
@@ -583,7 +578,6 @@ namespace TicketDesk.Domain.Services
             //TODO: if reopened by a user that is not help desk, and re-opener is not 
             //          the previous owner reopen with this user as the owner
 
-            ticket.TicketComments.Add(GetActivityComment(TicketActivity.ReOpen, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), reopenOwnedByUserText, reopenAssignedToUserText));
 
             ticket.AssignedTo = (reopenAssignedToUser) ? Security.CurrentUserName : null;
             if (reopenOwnedByUser)
@@ -596,6 +590,7 @@ namespace TicketDesk.Domain.Services
             ticket.CurrentStatusDate = DateTime.Now;
             ticket.LastUpdateBy = Security.CurrentUserName;
             ticket.LastUpdateDate = ticket.CurrentStatusDate;
+            ticket.TicketComments.Add(GetActivityComment(TicketActivity.ReOpen, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers(), reopenOwnedByUserText, reopenAssignedToUserText));
 
             return Repository.UpdateTicket(ticket);
         }
@@ -604,10 +599,10 @@ namespace TicketDesk.Domain.Services
         /// Modifies the attachments for a ticket.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        /// <param name="userName">Name of the user modifying attachments.</param>
         /// <param name="comment">The comment.</param>
         /// <param name="attachments">The list attachment files with the desired state of the attachments</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="RuleException"></exception>
         public bool ModifyAttachmentsForTicket(Ticket ticket, string comment, List<TicketAttachment> attachments)
         {
             List<string> changeComments = new List<string>();
@@ -638,7 +633,7 @@ namespace TicketDesk.Domain.Services
                         attachmentsChanged = true;
                         if (!ticketAttachment.IsPending)//add comment about changed attachment only of !IsPending
                         {
-                            
+
                             changeComments.Add(string.Format("changed file name from {0} to {1}", ticketAttachment.FileName, attMod.FileName));
                         }
                         ticketAttachment.FileName = attMod.FileName;
@@ -678,6 +673,10 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
+
+
+            ticket.LastUpdateBy = Security.CurrentUserName;
+            ticket.LastUpdateDate = DateTime.Now;
             var ticketComment = GetActivityComment(TicketActivity.ModifyAttachments, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers());
             StringBuilder sb = new StringBuilder();
             foreach (string s in changeComments)
@@ -694,10 +693,6 @@ namespace TicketDesk.Domain.Services
 
             //TODO: add comment content for each change made
             ticket.TicketComments.Add(ticketComment);
-
-            ticket.LastUpdateBy = Security.CurrentUserName;
-            ticket.LastUpdateDate = DateTime.Now;
-
             return Repository.UpdateTicket(ticket);
         }
 
@@ -757,6 +752,9 @@ namespace TicketDesk.Domain.Services
                 throw new RuleException(rnv);
             }
 
+
+            ticket.LastUpdateBy = Security.CurrentUserName;
+            ticket.LastUpdateDate = DateTime.Now;
             var ticketComment = GetActivityComment(TicketActivity.EditTicketInfo, comment, ticket.AssignedTo, ticket.GetNotificationSubscribers());
 
             StringBuilder sb = new StringBuilder();
@@ -789,9 +787,6 @@ namespace TicketDesk.Domain.Services
             ticketComment.Comment = sb.ToString();
 
             ticket.TicketComments.Add(ticketComment);
-
-            ticket.LastUpdateBy = Security.CurrentUserName;
-            ticket.LastUpdateDate = DateTime.Now;
 
             return Repository.UpdateTicket(ticket);
         }
@@ -891,10 +886,10 @@ namespace TicketDesk.Domain.Services
                         isAllowed = (isOpen || isResolved) && Security.IsTdStaff() && !isAssigned;
                         break;
                     case TicketActivity.ReAssign:
-                        isAllowed = (isOpen || isResolved) && Security.IsTdStaff() && isAssigned && !isAssignedToMe; ;
+                        isAllowed = (isOpen || isResolved) && Security.IsTdStaff() && isAssigned && !isAssignedToMe; 
                         break;
                     case TicketActivity.ReAssignWithPriority:
-                        isAllowed = (isOpen || isResolved) && Security.IsTdStaff() && isAssigned && !isAssignedToMe; ;
+                        isAllowed = (isOpen || isResolved) && Security.IsTdStaff() && isAssigned && !isAssignedToMe; 
                         break;
                     case TicketActivity.Pass:
                         isAllowed = (isOpen || isResolved) && Security.IsTdStaff() && isAssignedToMe;
@@ -917,10 +912,11 @@ namespace TicketDesk.Domain.Services
         /// Gets the activity comment. Infers a comment flag.
         /// </summary>
         /// <param name="activity">The activity.</param>
-        /// <param name="commentBy">The user making the comment.</param>
         /// <param name="comment">The comment content.</param>
+        /// <param name="assignedTo">The assigned to.</param>
+        /// <param name="notificationSubscribers">The notification subscribers.</param>
         /// <param name="args">Optional arguments to use as replacement values in the comment text.</param>
-        /// <returns></returns>
+        /// <returns>TicketComment.</returns>
         private TicketComment GetActivityComment(TicketActivity activity, string comment, string assignedTo, string[] notificationSubscribers, params string[] args)
         {
             var cFlag = (string.IsNullOrEmpty(comment)) ? TicketCommentFlag.CommentNotSupplied : TicketCommentFlag.CommentSupplied;
@@ -932,10 +928,11 @@ namespace TicketDesk.Domain.Services
         /// </summary>
         /// <param name="activity">The activity.</param>
         /// <param name="commentFlag">The comment flag.</param>
-        /// <param name="commentBy">The user making the comment.</param>
         /// <param name="comment">The comment content.</param>
+        /// <param name="assignedTo">The assigned to.</param>
+        /// <param name="notificationSubscribers">The notification subscribers.</param>
         /// <param name="args">Optional arguments to use as replacement values in the comment text.</param>
-        /// <returns></returns>
+        /// <returns>TicketComment.</returns>
         private TicketComment GetActivityComment(TicketActivity activity, TicketCommentFlag commentFlag, string comment, string assignedTo, string[] notificationSubscribers, params string[] args)
         {
             TicketComment c = new TicketComment();
@@ -989,7 +986,7 @@ namespace TicketDesk.Domain.Services
         {
             var rnv = new NameValueCollection();
 
-            List<RuleException> brokenRules = new List<RuleException>();
+            
             if (string.IsNullOrEmpty(ticket.Title))
             {
                 rnv.Add("title", "A title is required");
