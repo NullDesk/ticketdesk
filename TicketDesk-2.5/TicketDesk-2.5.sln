@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Legacy", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Identity", "TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj", "{BD3617C2-A91E-40F3-A441-B085D2491399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Search", "TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj", "{E7049FEA-5C7F-4C59-A101-BC44F292FA62}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{302374B4-125F-4C34-936B-3BCECF93EB71}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
@@ -28,6 +26,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.IO", "TicketDesk.IO\TicketDesk.IO.csproj", "{D9477C13-68C4-43E0-A30B-F06F444C5358}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Background.Job", "TicketDesk.Background.Job\TicketDesk.Background.Job.csproj", "{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{399C20E8-85AC-494A-8226-A411528940D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Search.Common", "TicketDesk.Search.Common\TicketDesk.Search.Common.csproj", "{F8C97321-F0CC-4AF9-86E6-95E0E4840430}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Search.Azure", "TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj", "{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Search.Lucene", "TicketDesk.Search.Lucene\TicketDesk.Search.Lucene.csproj", "{54390F7F-A440-40F7-8B1A-28AB599A5213}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +57,6 @@ Global
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,8 +65,25 @@ Global
 		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430} = {399C20E8-85AC-494A-8226-A411528940D2}
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02} = {399C20E8-85AC-494A-8226-A411528940D2}
+		{54390F7F-A440-40F7-8B1A-28AB599A5213} = {399C20E8-85AC-494A-8226-A411528940D2}
 	EndGlobalSection
 EndGlobal

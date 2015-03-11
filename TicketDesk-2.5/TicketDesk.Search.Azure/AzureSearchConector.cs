@@ -16,7 +16,7 @@ using System.Linq;
 using RedDog.Search;
 using RedDog.Search.Http;
 
-namespace TicketDesk.Domain.Search.AzureSearch
+namespace TicketDesk.Search.Azure
 {
     public abstract class AzureSearchConector
     {

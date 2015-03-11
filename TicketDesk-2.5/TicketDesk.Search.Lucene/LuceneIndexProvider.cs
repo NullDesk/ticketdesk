@@ -16,15 +16,29 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Lucene.Net.Index;
+using TicketDesk.Search.Common;
 
-namespace TicketDesk.Domain.Search.Lucene
+namespace TicketDesk.Search.Lucene
 {
-    internal class LuceneIndexManager : LuceneSearchConnector, ISearchIndexManager
+    public class LuceneIndexProvider : LuceneSearchConnector, ISearchIndexProvider
     {
-        internal LuceneIndexManager(string indexLocation)
-            : base(indexLocation)
+        public LuceneIndexProvider()
+            : base("ticketdesk-searchindex")
         {
             InitWriter();
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this provider is correctly configured and available for use.
+        /// </summary>
+        /// <value><c>true</c> if this provider is available; otherwise, <c>false</c>.</value>
+        public bool IsConfigured
+        {
+            get
+            {
+                //there are no configuration requriments for local lucene indexes
+                return true;
+            }
         }
 
         public async Task<bool> RunIndexMaintenanceAsync()
@@ -36,7 +50,7 @@ namespace TicketDesk.Domain.Search.Lucene
         }
 
         
-        public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items)
+        public Task<bool> AddItemsToIndexAsync(IEnumerable<SearchIndexItem> items)
         {
             return Task.Run(() =>
             {
@@ -76,7 +90,7 @@ namespace TicketDesk.Domain.Search.Lucene
         }
 
        
-        private void UpdateIndexForItem(SearchQueueItem item)
+        private void UpdateIndexForItem(SearchIndexItem item)
         {
             TdIndexWriter.UpdateDocument(
                 new Term("id", item.Id.ToString(CultureInfo.InvariantCulture)),

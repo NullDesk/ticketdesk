@@ -15,17 +15,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RedDog.Search.Model;
+using TicketDesk.Search.Common;
 
-namespace TicketDesk.Domain.Search.AzureSearch
+namespace TicketDesk.Search.Azure
 {
-    internal class AzureSearchLocator : AzureSearchConector, ISearchLocator
+    public class AzureSearchLocatorProvider : AzureSearchConector, ISearchLocatorProvider
     {
-        private string IndexName { get; set; }
+        private const string IndexName = "ticketdesk-searchindex";
 
-        internal AzureSearchLocator(string indexName)
-        {
-            IndexName = indexName;
-        }
 
         public async Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
         {

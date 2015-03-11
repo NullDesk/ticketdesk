@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Mvc;
 using StackExchange.DataExplorer.Helpers;
 using TicketDesk.IO;
+using TicketDesk.Search.Common;
 using TicketDesk.Web.Client;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity.Model;
@@ -28,6 +29,21 @@ namespace TicketDesk.Domain.Model
 {
     public static class TicketExtensions
     {
+        public static IEnumerable<SearchIndexItem> ToSeachIndexItems(this IEnumerable<Ticket> tickets)
+        {
+            return tickets.Select(t => new SearchIndexItem
+            {
+                Id = t.TicketId,
+                Title = t.Title,
+                Details = t.Details,
+                Status = t.TicketStatus.ToString(),
+                LastUpdateDate = t.LastUpdateDate,
+                Tags = t.TagList.Split(','),
+                //not null comments only, otherwise we end up indexing empty array item, or blowing up azure required field
+                Events = t.TicketEvents.Where(c => !string.IsNullOrEmpty(c.Comment)).Select(c => c.Comment).ToArray()
+            });
+        }
+
         public static UserDisplayInfo GetAssignedToInfo(this Ticket ticket)
         {
             return UserDisplayInfo.GetUserInfo(ticket.AssignedTo);

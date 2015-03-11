@@ -13,16 +13,16 @@
 
 using System;
 using Microsoft.Azure.WebJobs;
-using TicketDesk.Domain;
-using TicketDesk.Domain.Search;
 using TicketDesk.IO;
+using TicketDesk.Search.Azure;
+
 
 namespace TicketDesk.Background.Job
 {
     // To learn more about Microsoft Azure WebJobs SDK, please see http://go.microsoft.com/fwlink/?LinkID=320976
     public class Program
     {
-        internal static TicketDeskSearchManager SearchProvider;
+        internal static AzureIndexProvider SearchProvider;
 
         static void Main()
         {
@@ -34,10 +34,7 @@ namespace TicketDesk.Background.Job
 
         private static void Initialize()
         {
-            
-            SearchProvider = TicketDeskSearchManager.Current;
-            Console.Out.WriteLine("SearchProvider Connector Type: " + SearchProvider.GetConnectorType());
-            Console.Out.WriteLine("Search Queue Type: " + SearchProvider.SearchQueue.GetType());
+            SearchProvider = new AzureIndexProvider();
         }
     }
 }

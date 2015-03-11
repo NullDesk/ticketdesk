@@ -12,72 +12,84 @@
 // provided to the recipient.
 
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Hosting;
-using TicketDesk.Domain.Search;
-using TicketDesk.IO;
+using TicketDesk.Domain;
+using TicketDesk.Domain.Model;
+using TicketDesk.Search.Azure;
+using TicketDesk.Search.Common;
+using TicketDesk.Search.Lucene;
 
 namespace TicketDesk.Web.Client
 {
-	public partial class Startup
-	{
+    public partial class Startup
+    {
+
         public void ConfigureSearch()
         {
+            TicketDeskSearchContext.Configure(GetSearchConfiguration);
 
-            HostingEnvironment.QueueBackgroundWorkItem(async ct =>
+            TicketDeskSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
+
+            //register for static ticket changed event handler 
+            TicketDeskContext.TicketsChanged += (sender, ticketChanges) =>
             {
-                //TODO: decide if we want to rebuild lucene on start or not, 
-                //  currently doesn't rebuild automatically.
-                //  does call optimize on start
-                await TicketDeskSearchManager.Current.InitializeSearchAsync();
-            });
+                // ReSharper disable once EmptyGeneralCatchClause
+                try
+                {
+                    var changes = ticketChanges as Ticket[] ?? ticketChanges.ToArray();
+                    //deletes (such as the demo data manager removing everything) will fire 
+                    //  this, but ticketChanges will be empty in those cases
+                    if (changes.Any())
+                    {
+                        //add to search index
+                        var searchItems = changes.ToSeachIndexItems();
 
-            HostingEnvironment.QueueBackgroundWorkItem(ct => PerformIndexMaintenance(ct));
+                        HostingEnvironment.QueueBackgroundWorkItem(
+                            async (ct) =>
+                                await
+                                    TicketDeskSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems)
+                                        .ConfigureAwait(false));
 
-            if (TicketDeskSearchManager.Current.SearchQueue is MemoryQueueProvider)
-            {
-                HostingEnvironment.QueueBackgroundWorkItem(ct => MonitorQueue(ct));
-            }
+
+                    }
+                }
+                catch
+                {
+                    //TODO: Log this somewhere
+                }
+            };
         }
 
-        private async void PerformIndexMaintenance(CancellationToken ct)
-        {
-            while (!ct.IsCancellationRequested)
-            {
-                await Task.Delay(900000, ct);//wait 15 minutes
-                await TicketDeskSearchManager.Current.RunIndexMaintenanceAsync();
-            }
-        }
 
         /// <summary>
-        /// Monitors the in-memory search queue and processes pending search items foud there.
+        /// Gets a search configuration by scanning available index providers in order of preference 
+        /// and taking the first available one found.
         /// </summary>
         /// <remarks>
-        /// This should be run on a background thread, and only if the search queue is an in-memory implementation.
+        /// This is supplied to the search system as a func and invoked when needed.
         /// </remarks>
-        /// <param name="ct"></param>
-        private async void MonitorQueue(CancellationToken ct)
+        /// <returns>SearchContextConfiguration.</returns>
+        private SearchContextConfiguration GetSearchConfiguration()
         {
-            while (!ct.IsCancellationRequested)
-            {
-                await Task.Delay(5000, ct); //wait 5 seconds between checks
-                var searchQueueItems = GetAllSearchQueueItems();
-                if (searchQueueItems.Any())
-                {
-                    await TicketDeskSearchManager.Current.AddItemsToIndexAsync(searchQueueItems);
-                }
+            //TODO: when we move to a plug-in model, this should be refactored to use an applicaiton setting.
+            //  Application settings will determine the order of preference for providers
+            //  Func will cheack each in order, returing the first match found.
+            //  By default, the system will assume that any custom plug-ins installed are 
+            //  preferred (in alphabetical order if more than one), then Azure, and finally 
+            //  Lucene as a last resort provider.
+            //
+            //  It would be nice if there were a way to detect if a provider was configured 
+            //  and ready for use without fully instantiating the provider, but this may be
+            //  cumbersome since interfaces can't specify static members, and any other 
+            //  mechanism seems like it would be somewhat convoluted for would-be plug-in 
+            //  autors to implement.
 
-            }
-            //cancellation requested, flush the queue now and hope it finishes within 90 seconds (which is certainly should)
-            await TicketDeskSearchManager.Current.AddItemsToIndexAsync(GetAllSearchQueueItems());
+            var azProvider = new AzureIndexProvider();
+            var config = azProvider.IsConfigured ?
+                new SearchContextConfiguration(azProvider, new AzureSearchLocatorProvider()) :
+                new SearchContextConfiguration(new LuceneIndexProvider(), new LuceneSearchLocatorProvider());
+            return config;
         }
 
-        private SearchQueueItem[] GetAllSearchQueueItems()
-        {
-            var items = TicketDeskSearchManager.Current.SearchQueue.DequeueAllItems<SearchQueueItem>();
-            var searchQueueItems = items as SearchQueueItem[] ?? items.ToArray();
-            return searchQueueItems;
-        }
-	}
+    }
 }

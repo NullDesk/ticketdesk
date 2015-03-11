@@ -15,8 +15,8 @@ using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.Domain.Search;
-using TicketDesk.Domain.Search.AzureSearch;
+using TicketDesk.Search.Azure;
+using TicketDesk.Search.Common;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -30,8 +30,7 @@ namespace TicketDesk.Web.Client.Controllers
         public ApplicationSettingsController(TicketDeskContext context)
         {
             Context = context;
-            IsAzureSearchDetected = TicketDeskSearchManager.Current.GetConnectorType() == typeof(AzureSearchConector) ;
-
+            IsAzureSearchDetected = TicketDeskSearchContext.Current.IndexManager.GetType() == typeof(AzureIndexProvider);
         }
 
         public ActionResult Index()

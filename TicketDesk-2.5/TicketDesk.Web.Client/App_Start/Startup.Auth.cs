@@ -30,13 +30,11 @@ namespace TicketDesk.Web.Client
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app, Container container)
         {
-           
             //non-IoC stuff... no longer needed, but here for reference.
             //app.CreatePerOwinContext(TicketDeskIdentityContext.Create);
             //app.CreatePerOwinContext<TicketDeskUserManager>(TicketDeskUserManager.Create);
             //app.CreatePerOwinContext<TicketDeskRoleManager>(TicketDeskRoleManager.Create);
             //app.CreatePerOwinContext<TicketDeskSignInManager>(TicketDeskSignInManager.Create);
-            
             
             app.CreatePerOwinContext(container.GetInstance<TicketDeskUserManager>);
             
@@ -55,7 +53,8 @@ namespace TicketDesk.Web.Client
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });       
+     
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.

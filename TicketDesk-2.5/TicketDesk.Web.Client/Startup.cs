@@ -29,8 +29,9 @@ namespace TicketDesk.Web.Client
             RegisterBundles(BundleTable.Bundles);
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
-            ConfigureAuth(app, container);
             ConfigureSearch();
+            ConfigureAuth(app, container);
+            
         }
     }
 }

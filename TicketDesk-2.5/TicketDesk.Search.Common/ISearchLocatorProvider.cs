@@ -14,13 +14,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TicketDesk.Domain.Search
+namespace TicketDesk.Search.Common
 {
-    internal interface ISearchIndexManager
+    public interface ISearchLocatorProvider
     {
-        Task<bool> AddItemsToIndexAsync(IEnumerable<SearchQueueItem> items);
-        Task<bool> RunIndexMaintenanceAsync();
-        Task<bool> RemoveIndexAsync();
-
+        Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText);
     }
 }

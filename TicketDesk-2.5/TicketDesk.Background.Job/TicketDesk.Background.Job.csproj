@@ -113,16 +113,6 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj">
-      <Project>{e7049fea-5c7f-4c59-a101-bc44f292fa62}</Project>
-      <Name>TicketDesk.Domain.Search</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.IO\TicketDesk.IO.csproj">
-      <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
-      <Name>TicketDesk.IO</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -138,6 +128,20 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.IO\TicketDesk.IO.csproj">
+      <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
+      <Name>TicketDesk.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj">
+      <Project>{be284cb5-bf8b-4b51-a865-f2ab7bea2d02}</Project>
+      <Name>TicketDesk.Search.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Common\TicketDesk.Search.Common.csproj">
+      <Project>{f8c97321-f0cc-4af9-86e6-95e0e4840430}</Project>
+      <Name>TicketDesk.Search.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

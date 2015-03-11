@@ -13,12 +13,13 @@
 
 using System.Globalization;
 using Lucene.Net.Documents;
+using TicketDesk.Search.Common;
 
-namespace TicketDesk.Domain.Search.Lucene
+namespace TicketDesk.Search.Lucene
 {
-    public static class LuceneSearchQueueItemExtensions
+    public static class LuceneSearchIndexItemExtensions
     {
-        public static Document ToLuceneDocument(this SearchQueueItem item)
+        public static Document ToLuceneDocument(this SearchIndexItem item)
         {
             var eventText = string.Join(" ", item.Events);
             var tagList = string.Join(" ", item.Tags);

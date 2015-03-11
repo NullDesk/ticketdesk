@@ -11,20 +11,16 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace TicketDesk.Domain.Search
+namespace TicketDesk.Search.Common
 {
-    public class SearchQueueItem
+    public interface ISearchIndexProvider
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Details { get; set; }
-        public string Status { get; set; }
-        public DateTimeOffset LastUpdateDate { get; set; }
-        public string[] Tags { get; set; }
-        public string[] Events { get; set; }
+        Task<bool> AddItemsToIndexAsync(IEnumerable<SearchIndexItem> items);
+        Task<bool> RunIndexMaintenanceAsync();
+        Task<bool> RemoveIndexAsync();
+        bool IsConfigured { get; }
     }
 }
-
-

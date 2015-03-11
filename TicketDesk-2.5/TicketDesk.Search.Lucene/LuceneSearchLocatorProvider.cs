@@ -16,14 +16,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
+using TicketDesk.Search.Common;
 using Version = Lucene.Net.Util.Version;
 
-namespace TicketDesk.Domain.Search.Lucene
+namespace TicketDesk.Search.Lucene
 {
-    internal class LuceneSearchLocator: LuceneSearchConnector, ISearchLocator
+    public class LuceneSearchLocatorProvider: LuceneSearchConnector, ISearchLocatorProvider
     {
-        internal LuceneSearchLocator(string indexLocation)
-            : base(indexLocation){}
+        public LuceneSearchLocatorProvider()
+            : base("ticketdesk-searchindex") { }
 
         public Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
         {

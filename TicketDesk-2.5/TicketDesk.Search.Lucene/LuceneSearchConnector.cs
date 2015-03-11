@@ -22,7 +22,7 @@ using Lucene.Net.Store;
 using Directory = Lucene.Net.Store.Directory;
 using Version = Lucene.Net.Util.Version;
 
-namespace TicketDesk.Domain.Search.Lucene
+namespace TicketDesk.Search.Lucene
 {
     public abstract class LuceneSearchConnector : IDisposable
     {

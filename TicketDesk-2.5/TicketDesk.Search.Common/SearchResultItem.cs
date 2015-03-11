@@ -11,13 +11,11 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace TicketDesk.Domain.Search
+namespace TicketDesk.Search.Common
 {
-    internal interface ISearchLocator
+    public class SearchResultItem
     {
-        Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText);
+        public int Id { get; set; }
+        public float SearchScore { get; set; }
     }
 }

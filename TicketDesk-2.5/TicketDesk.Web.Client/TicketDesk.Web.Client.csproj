@@ -462,10 +462,6 @@
       <Project>{a85d9882-1db3-40ec-a23e-6b4562f48bcf}</Project>
       <Name>TicketDesk.Domain.Legacy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj">
-      <Project>{e7049fea-5c7f-4c59-a101-bc44f292fa62}</Project>
-      <Name>TicketDesk.Domain.Search</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Domain\TicketDesk.Domain.csproj">
       <Project>{dbd5279b-9f1c-4915-86a9-6a8f1cf0622d}</Project>
       <Name>TicketDesk.Domain</Name>
@@ -473,6 +469,18 @@
     <ProjectReference Include="..\TicketDesk.IO\TicketDesk.IO.csproj">
       <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
       <Name>TicketDesk.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj">
+      <Project>{be284cb5-bf8b-4b51-a865-f2ab7bea2d02}</Project>
+      <Name>TicketDesk.Search.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Common\TicketDesk.Search.Common.csproj">
+      <Project>{f8c97321-f0cc-4af9-86e6-95e0e4840430}</Project>
+      <Name>TicketDesk.Search.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Lucene\TicketDesk.Search.Lucene.csproj">
+      <Project>{54390f7f-a440-40f7-8b1a-28ab599a5213}</Project>
+      <Name>TicketDesk.Search.Lucene</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj">
       <Project>{bd3617c2-a91e-40f3-a441-b085d2491399}</Project>

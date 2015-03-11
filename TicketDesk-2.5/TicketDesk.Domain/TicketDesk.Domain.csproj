@@ -101,7 +101,6 @@
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />
     <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
-    <Compile Include="Model\Extensions\TicketExtensions.cs" />
     <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
     <Compile Include="TicketActionManager.cs" />
@@ -154,9 +153,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj">
-      <Project>{E7049FEA-5C7F-4C59-A101-BC44F292FA62}</Project>
-      <Name>TicketDesk.Domain.Search</Name>
+    <ProjectReference Include="..\TicketDesk.Search.Common\TicketDesk.Search.Common.csproj">
+      <Project>{F8C97321-F0CC-4AF9-86E6-95E0E4840430}</Project>
+      <Name>TicketDesk.Search.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

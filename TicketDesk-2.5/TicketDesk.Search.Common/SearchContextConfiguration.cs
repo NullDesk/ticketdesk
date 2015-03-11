@@ -11,11 +11,18 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-namespace TicketDesk.Domain.Search
+
+namespace TicketDesk.Search.Common
 {
-    public class SearchResultItem
+    public class SearchContextConfiguration
     {
-        public int Id { get; set; }
-        public float SearchScore { get; set; }
+        public SearchContextConfiguration(ISearchIndexProvider indexProvider, ISearchLocatorProvider locatorProvider)
+        {
+            SearchIndexProvider = indexProvider;
+            SearchLocatorProvider = locatorProvider;
+        }
+
+        public ISearchIndexProvider SearchIndexProvider { get; set; }
+        public ISearchLocatorProvider SearchLocatorProvider { get; set; }
     }
 }

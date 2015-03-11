@@ -16,8 +16,8 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Search.AzureSearch;
 using TicketDesk.IO;
+using TicketDesk.Search.Azure;
 
 namespace TicketDesk.Web.Client.Models
 {

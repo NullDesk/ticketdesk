@@ -1,30 +1,16 @@
-﻿// TicketDesk - Attribution notice
-// Contributor(s):
-//
-//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
-//
-// This file is distributed under the terms of the Microsoft Public 
-// License (Ms-PL). See http://opensource.org/licenses/MS-PL
-// for the complete terms of use. 
-//
-// For any distribution that contains code from this file, this notice of 
-// attribution must remain intact, and a copy of the license must be 
-// provided to the recipient.
-
-
-
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TicketDesk.Domain.Search")]
+[assembly: AssemblyTitle("TicketDesk.Search.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TicketDesk.Domain.Search")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyProduct("TicketDesk.Search.Common")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("26be50d9-b4a9-42d4-a537-23e9ddb780d0")]
+[assembly: Guid("41f95d5e-94b2-4131-bec8-859cacfe3a84")]
 
 // Version information for an assembly consists of the following four values:
 //

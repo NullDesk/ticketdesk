@@ -22,67 +22,32 @@ namespace TicketDesk.IO
     /// <summary>
     /// Provides services for adding simple messages to an azure storage queue
     /// </summary>
-    public class AzureQueueProvider : IQueueProvider
+    public class AzureQueueProvider
     {
         private CloudQueue Queue { get; set; }
-        public AzureQueueProvider(CloudQueue queue)
+        public AzureQueueProvider()
         {
-            Queue = queue;
+            var account = AzureConnectionHelper.CloudStorageAccount;
+            if (account != null)
+            {
+                var queueClient = account.CreateCloudQueueClient();
+                Queue = queueClient.GetQueueReference("ticket-search-queue");
+                var t = Queue.CreateIfNotExistsAsync();
+                t.Wait();
+            }
         }
 
         public async Task EnqueueItemsAsync(IEnumerable<object> items)
         {
-            var tasks = items.Select(QueueItemAsyc).ToList();
+            var tasks = items.Select(EnqueueItemAsyc).ToList();
             await Task.WhenAll(tasks);
         }
 
-        private async Task QueueItemAsyc(object item)
+        private async Task EnqueueItemAsyc(object item)
         {
             var jItem = JsonConvert.SerializeObject(item);
             var message = new CloudQueueMessage(jItem);
             await Queue.AddMessageAsync(message);
-        }
-
-        public async Task<T> DequeueItemAsync<T>() where T: class
-        {
-            var message = await Queue.GetMessageAsync();
-            if (message == null)
-            {
-                return null;
-            }
-            Queue.DeleteMessage(message);
-            return JsonConvert.DeserializeObject<T>(message.AsString);
-        }
-
-
-        public IEnumerable<T> DequeueAllItems<T>() where T : class
-        {
-            var messages = new List<T>();
-            var currentCount = 0;
-            var lastCount = -1;
-            while (lastCount < currentCount)
-            {
-                lastCount = messages.Count;
-                messages.AddRange(GetQueueMessageBatch<T>());
-                currentCount = messages.Count;
-            }
-            return messages;
-        }
-
-        private IEnumerable<T> GetQueueMessageBatch<T>() where T : class
-        {
-            IEnumerable<T> result = null;
-            var messages = Queue.GetMessages(32);
-            var cloudQueueMessages = messages as CloudQueueMessage[] ?? messages.ToArray();
-            if (cloudQueueMessages.Any())
-            {
-                result = cloudQueueMessages.Select(m => JsonConvert.DeserializeObject<T>(m.AsString));
-                foreach (var message in cloudQueueMessages)
-                {
-                    Queue.DeleteMessage(message);
-                }
-            }
-            return result;
         }
     }
 }

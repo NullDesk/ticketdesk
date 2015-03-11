@@ -13,12 +13,13 @@
 
 using System.Globalization;
 using RedDog.Search.Model;
+using TicketDesk.Search.Common;
 
-namespace TicketDesk.Domain.Search.AzureSearch
+namespace TicketDesk.Search.Azure
 {
-    public static class AzureSearchQueueItemExtensions
+    public static class AzureSearchIndexItemExtensions
     {
-        public static IndexOperation ToIndexOperation(this SearchQueueItem item)
+        public static IndexOperation ToIndexOperation(this SearchIndexItem item)
         {
             var op = new IndexOperation(IndexOperationType.Upload, "id", item.Id.ToString(CultureInfo.InvariantCulture))
                 .WithProperty("title", item.Title)

@@ -13,7 +13,9 @@
 
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Web.Client.Models;
@@ -67,6 +69,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 Database.SetInitializer(new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
                 ctx.Database.Initialize(true);
+                
             }
 
             var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
@@ -74,7 +77,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
-            
+            Database.SetInitializer(new TicketDeskIdentityDbInitializer());
             return RedirectToAction("Index");
         }
 
@@ -92,7 +95,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
-            
+            Database.SetInitializer(new TicketDeskIdentityDbInitializer());
             return RedirectToAction("Index");
         }
 

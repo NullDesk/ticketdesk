@@ -21,19 +21,38 @@ using System.Threading.Tasks;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
-using TicketDesk.Domain.Search;
 
 
 namespace TicketDesk.Domain
 {
     public class TicketDeskContext : DbContext
     {
-        private static TicketDeskSearchManager ApplicationSearchProvider { get; set; }
+
+        /// <summary>
+        /// Occurs when tickets have been changed and persisted to the database. 
+        /// </summary>
+        /// <remarks>
+        /// WARNING: Do not to register events from instance objects unless you 
+        /// are sure they will de-register when they go out of scope. The 
+        /// registered delegate will keep a reference to the isntance that that 
+        /// registered. You can cause memory leaks if you aren't careful with 
+        /// static events.
+        ///</remarks>
+        public static event EventHandler<IEnumerable<Ticket>> TicketsChanged;
+
+        private static void RaiseTicketsChanged(TicketDeskContext sender, IEnumerable<Ticket> tickets)
+        {
+            //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
+            if (TicketsChanged != null)
+            {
+                TicketsChanged(sender, tickets);
+            }
+        }
 
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
 
         public TicketActionManager TicketActions { get; set; }
-       
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
@@ -66,7 +85,7 @@ namespace TicketDesk.Domain
         public TicketDeskContext()
             : base("name=TicketDesk")
         {
-            //TODO: still looking for a way to remove the public parameterless ctor without degrading migrations and startup ops
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -162,12 +181,10 @@ namespace TicketDesk.Domain
                 PreProcessNewTickets();
                 PreProcessModifiedTickets(pendingTicketChanges);
             }
-
             var result = await base.SaveChangesAsync();
-
             if (result > 0)
             {
-                await PostProcessTicketChangesAsync(pendingTicketChanges);
+                RaiseTicketsChanged(this, pendingTicketChanges);
             }
             return result;
         }
@@ -180,52 +197,12 @@ namespace TicketDesk.Domain
                 PreProcessNewTickets();
                 PreProcessModifiedTickets(pendingTicketChanges);
             }
-
             var result = base.SaveChanges();
-
             if (result > 0)
             {
-                PostProcessTicketChanges(pendingTicketChanges);
+               RaiseTicketsChanged(this, pendingTicketChanges);
             }
             return result;
-        }
-
-        private async Task PostProcessTicketChangesAsync(IEnumerable<Ticket> ticketChanges)
-        {
-            // ReSharper disable once EmptyGeneralCatchClause
-            try
-            {
-                var changes = ticketChanges as Ticket[] ?? ticketChanges.ToArray();
-                if (changes.Any())//deletes (such as the demo data manager removing everything) fire this, but ticketChanges is empty
-                {
-                    //queue up for search index update
-                    var queueItems = changes.ToSeachQueueItems();
-                    await TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems);
-                }
-            }
-            catch
-            {
-                //TODO: Log this somewhere
-            }
-        }
-
-        private void PostProcessTicketChanges(IEnumerable<Ticket> ticketChanges)
-        {
-            // ReSharper disable once EmptyGeneralCatchClause
-            try
-            {
-                var changes = ticketChanges as Ticket[] ?? ticketChanges.ToArray();
-                if (changes.Any())//deletes (such as the demo data manager removing everything) fire this, but ticketChanges is empty
-                {
-                    //queue up for search index update
-                    var queueItems = changes.ToSeachQueueItems();
-                    AsyncHelpers.RunSync(() => TicketDeskSearchManager.Current.QueueItemsForIndexingAsync(queueItems));
-                }
-            }
-            catch
-            {
-                //TODO: Log this somewhere
-            }
         }
 
         private void PreProcessModifiedTickets(IEnumerable<Ticket> ticketChanges)
