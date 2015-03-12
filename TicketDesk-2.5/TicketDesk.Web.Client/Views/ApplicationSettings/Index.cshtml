@@ -1,4 +1,5 @@
-﻿@model TicketDesk.Domain.Model.ApplicationSetting
+﻿@using TicketDesk.Web.Client.Models
+@model TicketDesk.Domain.Model.ApplicationSetting
 
 @section title
 {
@@ -74,27 +75,7 @@
 
 
             </div>
-            <div class="panel-heading">
-                <h2 class="panel-title">Search Settings</h2>
-            </div>
-            <div class="panel-body ">
-                <div class="form-group">
-                    <label class="col-md-3 col-sm-3 control-label">Search Mode</label>
-                    <div class="col-md-5 col-sm-7">
-                        <div class="small label label-info">@(ViewBag.IsAzureSearchEnabled ? "Azure search is configured." : "Azure search not configured, using local Lucene.Net.")</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SearchSettings.SearchIndexName, new { @class = "col-md-3 col-sm-3 control-label" })
-                    <div class="col-md-5 col-sm-7">
-                        @Html.TextBoxFor(model => model.SearchSettings.SearchIndexName, new { @class = "form-control input-sm" })
-                        <div class="small text-muted well well-sm">
-                            <p>If using a Local Lucene index, specify a folder name or a full path. Use a folder name to place the index under the /app_data folder on the web server. Use a full UNC or local path to write the index to a custom location. <br />You can specify "ram" if you want to keep the index in memory (not recommended!)</p>
-                            <p>For Azure Search, please follow the index naming guidelines as specified in the <a href="https://msdn.microsoft.com/en-us/library/azure/dn857353.aspx">Azure Search Documentation here.</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
             <div class="panel-footer">
                 <div class="">
                     <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
