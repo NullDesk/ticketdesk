@@ -18,6 +18,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
+using TicketDesk.Domain.Annotations;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
@@ -91,14 +92,6 @@ namespace TicketDesk.Domain
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<TicketEvent>()
-                .Property(e => e.Version)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Ticket>()
-                .Property(e => e.Version)
-                .IsFixedLength();
-
             modelBuilder.ComplexType<UserTicketListSettingsCollection>()
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
@@ -112,16 +105,16 @@ namespace TicketDesk.Domain
                 .HasColumnName("PermissionsSettingsJson");
         }
 
-        public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
-        public virtual DbSet<TicketEvent> TicketEvents { get; set; }
-        public virtual DbSet<Ticket> Tickets { get; set; }
-        public virtual DbSet<TicketTag> TicketTags { get; set; }
-        public virtual DbSet<UserSetting> UserSettings { get; set; }
+        public virtual DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
+        public virtual DbSet<Ticket> Tickets { get; [UsedImplicitly] set; }
+        public virtual DbSet<TicketTag> TicketTags { get; [UsedImplicitly] set; }
+        public virtual DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
+        public virtual DbSet<TicketSubscriber> TicketSubscribers { get; set; }
         /// <summary>
         /// Use TicketDeskSettings for more convienient access to settings instead. Gets or sets the application settings.
         /// </summary>
         /// <value>The application settings.</value>
-        public virtual DbSet<ApplicationSetting> ApplicationSettings { get; set; }
+        public virtual DbSet<ApplicationSetting> ApplicationSettings { get; [UsedImplicitly]set; }
 
         /// <summary>
         /// Gets or sets the application settings specific to ticketdesk.
@@ -193,7 +186,7 @@ namespace TicketDesk.Domain
             var result = base.SaveChanges();
             if (result > 0)
             {
-               RaiseTicketsChanged(this, pendingTicketChanges);
+                RaiseTicketsChanged(this, pendingTicketChanges);
             }
             return result;
         }

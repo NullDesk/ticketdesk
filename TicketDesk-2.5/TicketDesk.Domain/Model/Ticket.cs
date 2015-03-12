@@ -25,8 +25,8 @@ namespace TicketDesk.Domain.Model
         public Ticket()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            TicketAttachments = new HashSet<TicketAttachment>();
             TicketEvents = new HashSet<TicketEvent>();
+            TicketSubscribers = new HashSet<TicketSubscriber>();
             TicketTags = new HashSet<TicketTag>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
@@ -138,13 +138,12 @@ namespace TicketDesk.Domain.Model
         [Timestamp]
         public byte[] Version { get; set; }
 
-        public virtual ICollection<TicketAttachment> TicketAttachments { get; set; }
-
         public virtual ICollection<TicketEvent> TicketEvents { get; set; }
 
         public virtual ICollection<TicketTag> TicketTags { get; set; }
 
-
+        public virtual ICollection<TicketSubscriber> TicketSubscribers { get; set; }
+            
         [NotMapped]
         internal string PreviousOwner { get; set; }
 

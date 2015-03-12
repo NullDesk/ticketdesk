@@ -22,7 +22,6 @@ namespace TicketDesk.Domain.Migrations
         public static void RemoveAllData(TicketDeskContext context)
         {
             context.UserSettings.RemoveRange(context.UserSettings);
-            context.TicketAttachments.RemoveRange(context.TicketAttachments);
             context.TicketTags.RemoveRange(context.TicketTags);
             context.TicketEvents.RemoveRange(context.TicketEvents);
             context.Tickets.RemoveRange(context.Tickets);
