@@ -11,27 +11,21 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using TicketDesk.Domain.Annotations;
 using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class TicketEvent
     {
-        public TicketEvent()
-        {
-            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
-            TicketEventNotifications = new HashSet<TicketEventNotification>();
-        }
-
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int TicketId { get; set; }
+        public int TicketId { get; [UsedImplicitly] set; }
 
         [Key]
         [Column(Order = 1)]
@@ -54,14 +48,14 @@ namespace TicketDesk.Domain.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTimeOffset EventDate { get; set; }
 
+        public bool? NotificationsSent { get; set; }
+
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]
         [Timestamp]
-        public byte[] Version { get; set; }
+        public byte[] Version { get; [UsedImplicitly] set; }
 
         public virtual Ticket Ticket { get; set; }
-
-        public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
 
 
         /// <summary>

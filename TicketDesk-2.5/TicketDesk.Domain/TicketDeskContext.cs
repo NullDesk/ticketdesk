@@ -95,12 +95,6 @@ namespace TicketDesk.Domain
                 .Property(e => e.Version)
                 .IsFixedLength();
 
-            modelBuilder.Entity<TicketEvent>()
-                .HasMany(e => e.TicketEventNotifications)
-                .WithRequired(e => e.TicketEvent)
-                .HasForeignKey(e => new { e.TicketId, e.CommentId })
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Ticket>()
                 .Property(e => e.Version)
                 .IsFixedLength();
@@ -120,7 +114,6 @@ namespace TicketDesk.Domain
 
         public virtual DbSet<TicketAttachment> TicketAttachments { get; set; }
         public virtual DbSet<TicketEvent> TicketEvents { get; set; }
-        public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketTag> TicketTags { get; set; }
         public virtual DbSet<UserSetting> UserSettings { get; set; }
