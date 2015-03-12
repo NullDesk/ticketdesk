@@ -20,6 +20,7 @@ namespace TicketDesk.Domain.Model
     public class UserSetting
     {
         [Key]
+        [StringLength(256)]
         public string UserId { get; set; }
 
 

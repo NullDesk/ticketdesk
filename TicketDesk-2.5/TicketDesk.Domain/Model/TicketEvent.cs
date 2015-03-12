@@ -41,7 +41,7 @@ namespace TicketDesk.Domain.Model
         public bool IsHtml { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         public string EventBy { get; set; }
 
         [Required]

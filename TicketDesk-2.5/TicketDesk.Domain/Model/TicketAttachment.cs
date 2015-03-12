@@ -42,7 +42,7 @@ namespace TicketDesk.Domain.Model
         public string FileType { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [DisplayName("Uploaded By")]
         public string UploadedBy { get; set; }
 

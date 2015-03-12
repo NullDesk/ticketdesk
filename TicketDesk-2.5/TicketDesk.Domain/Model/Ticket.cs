@@ -62,7 +62,7 @@ namespace TicketDesk.Domain.Model
         public string TagList { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCreatedBy", ShortName = "TicketCreatedByShort")]
         public string CreatedBy { get; set; }
 
@@ -74,7 +74,7 @@ namespace TicketDesk.Domain.Model
 
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketOwner", ShortName = "TicketOwnerShort")]
         public string Owner
         {
@@ -91,7 +91,7 @@ namespace TicketDesk.Domain.Model
 
         private string _assignedTo;
 
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketAssignedTo", ShortName = "TicketAssignedToShort")]
         public string AssignedTo
         {
@@ -114,12 +114,12 @@ namespace TicketDesk.Domain.Model
         public DateTimeOffset CurrentStatusDate { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCurrentStatusSetBy", ShortName = "TicketCurrentStatusSetByShort")]
         public string CurrentStatusSetBy { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateBy", ShortName = "TicketLastUpdateByShort")]
         public string LastUpdateBy { get; set; }
         
