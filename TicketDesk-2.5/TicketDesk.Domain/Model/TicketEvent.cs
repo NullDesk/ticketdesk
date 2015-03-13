@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using TicketDesk.Domain.Annotations;
 using TicketDesk.Domain.Localization;
 
@@ -48,14 +49,14 @@ namespace TicketDesk.Domain.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTimeOffset EventDate { get; set; }
 
-        public bool? NotificationsSent { get; set; }
-
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]
         [Timestamp]
         public byte[] Version { get; [UsedImplicitly] set; }
 
         public virtual Ticket Ticket { get; set; }
+
+        public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; } 
 
 
         /// <summary>

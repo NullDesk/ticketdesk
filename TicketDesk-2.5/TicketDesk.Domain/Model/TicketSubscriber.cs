@@ -17,8 +17,10 @@ namespace TicketDesk.Domain.Model
         [Key]
         [Column(Order = 1)]
         [StringLength(256)]
-        public string Subscriber { get; set; }
+        public string SubscriberUserName { get; set; }
 
+        
         public virtual Ticket Ticket { get; set; }
+
     }
 }

@@ -103,6 +103,11 @@ namespace TicketDesk.Domain
             modelBuilder.ComplexType<ApplicationPermissionsSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
+
+            modelBuilder.Entity<TicketEventNotification>()
+                .HasRequired(c => c.TicketSubscriber)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
 
         public virtual DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
@@ -110,6 +115,7 @@ namespace TicketDesk.Domain
         public virtual DbSet<TicketTag> TicketTags { get; [UsedImplicitly] set; }
         public virtual DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
         public virtual DbSet<TicketSubscriber> TicketSubscribers { get; set; }
+        public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
         /// <summary>
         /// Use TicketDeskSettings for more convienient access to settings instead. Gets or sets the application settings.
         /// </summary>
