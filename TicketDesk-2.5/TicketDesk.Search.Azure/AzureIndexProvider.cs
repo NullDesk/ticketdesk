@@ -30,7 +30,7 @@ namespace TicketDesk.Search.Azure
         public AzureIndexProvider()
         {
             Queue = new AzureQueueProvider();
-            CreateIndexAsync().ConfigureAwait(false);
+            
         }
 
         /// <summary>
@@ -51,8 +51,7 @@ namespace TicketDesk.Search.Azure
 
         public async Task<bool> RunIndexMaintenanceAsync()
         {
-            //there are no maintenance tasks for azure search
-            return await Task.FromResult(true);
+            return await CreateIndexAsync();
         }
 
         public async Task<bool> AddItemsToIndexAsync(IEnumerable<SearchIndexItem> items)
@@ -197,6 +196,5 @@ namespace TicketDesk.Search.Azure
         }
 
 
-        
     }
 }

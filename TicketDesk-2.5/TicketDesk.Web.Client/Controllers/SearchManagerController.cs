@@ -49,6 +49,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("populate-index")]
         public async Task<ActionResult> PopulateIndex()
         {
+            
             await TicketDeskSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
             var searchItems = Context.Tickets.Include("TicketEvents").ToSeachIndexItems();
             await TicketDeskSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems);
