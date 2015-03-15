@@ -11,24 +11,17 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Azure.WebJobs;
+using TicketDesk.Search.Common;
 
-namespace TicketDesk.Domain.Model
+namespace TicketDesk.SearchMonitor.Job
 {
-    public class TicketSubscriber
+    public class SearchMonitor
     {
-        [Key]
-        [Column(Order = 0)]
-        public int TicketId { get; set; }
-
-        [Key]
-        [Column(Order = 1)]
-        [StringLength(256)]
-        public string SubscriberId { get; set; }
-
-        
-        public virtual Ticket Ticket { get; set; }
-
+        public static void IndexDocument([QueueTrigger("ticket-search-queue")] SearchIndexItem document)
+        {
+            var task = Program.SearchProvider.SendItemsToIndexAsync(new[] { document });
+            task.Wait();
+        }
     }
 }

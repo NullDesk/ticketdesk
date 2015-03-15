@@ -7,8 +7,8 @@
     <ProjectGuid>{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TicketDesk.Background.Job</RootNamespace>
-    <AssemblyName>TicketDesk.Background.Job</AssemblyName>
+    <RootNamespace>TicketDesk.SearchMonitor.Job</RootNamespace>
+    <AssemblyName>TicketDesk.SearchMonitor.Job</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchIndexerJob.cs" />
   </ItemGroup>

@@ -2,7 +2,7 @@
   "$schema": "http://schemastore.org/schemas/json/webjobs-list.json",
   "WebJobs": [
     {
-      "filePath": "../TicketDesk.Background.Job/TicketDesk.Background.Job.csproj"
+      "filePath": "../TicketDesk.SearchMonitor.Job/TicketDesk.SearchMonitor.Job.csproj"
     }
   ]
 }

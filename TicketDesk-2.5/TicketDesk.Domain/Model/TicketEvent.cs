@@ -23,6 +23,11 @@ namespace TicketDesk.Domain.Model
 
     public class TicketEvent
     {
+        public TicketEvent()
+        {
+            TicketEventNotifications = new HashSet<TicketEventNotification>();
+        }
+
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

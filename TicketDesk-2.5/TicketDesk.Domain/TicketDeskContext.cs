@@ -140,7 +140,6 @@ namespace TicketDesk.Domain
             }
         }
 
-
         public ObjectQuery<T> GetObjectQueryFor<T>(IDbSet<T> entity) where T : class
         {
             var oc = ((IObjectContextAdapter)this).ObjectContext;
@@ -167,15 +166,11 @@ namespace TicketDesk.Domain
 
         public override async Task<int> SaveChangesAsync()
         {
-            var pendingTicketChanges = GetTicketChanges().ToArray();
-            if (SecurityProvider != null)
-            {
-                PreProcessNewTickets();
-                PreProcessModifiedTickets(pendingTicketChanges);
-            }
+            var pendingTicketChanges = OnSaving();
             var result = await base.SaveChangesAsync();
             if (result > 0)
             {
+                
                 RaiseTicketsChanged(this, pendingTicketChanges);
             }
             return result;
@@ -183,12 +178,7 @@ namespace TicketDesk.Domain
 
         public override int SaveChanges()
         {
-            var pendingTicketChanges = GetTicketChanges().ToArray();
-            if (SecurityProvider != null)
-            {
-                PreProcessNewTickets();
-                PreProcessModifiedTickets(pendingTicketChanges);
-            }
+            var pendingTicketChanges = OnSaving();
             var result = base.SaveChanges();
             if (result > 0)
             {
@@ -197,11 +187,35 @@ namespace TicketDesk.Domain
             return result;
         }
 
+        private IEnumerable<Ticket> OnSaving()
+        {
+            var pendingTicketChanges = GetTicketChanges().ToArray();
+           
+            if (SecurityProvider != null)
+            {
+                PreProcessNewTickets();
+                PreProcessModifiedTickets(pendingTicketChanges);
+                //IMPORTANT! ticket event changes may not exist until after preprocess methods above are called. Order dependent operations!
+                var pendingEventChanges = GetTicketEventChanges().ToArray();
+                CreateEventNotifications(pendingEventChanges);
+            }
+            return pendingTicketChanges;
+        }
+
+        private void CreateEventNotifications(IEnumerable<TicketEvent> pendingEventChanges)
+        {
+            foreach (var change in pendingEventChanges)
+            {
+                TicketEventNotifications.AddNotificaitonsForEvent(change);
+            }
+        }
+
         private void PreProcessModifiedTickets(IEnumerable<Ticket> ticketChanges)
         {
             foreach (var change in ticketChanges)
             {
                 PrePopulateModifiedTicket(change);
+                
             }
         }
 
@@ -233,6 +247,7 @@ namespace TicketDesk.Domain
                     modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
                 }
             }
+            modifiedTicket.EnsureSubscribers();
         }
 
         private void PrePopulateNewTicket(Ticket newTicket)
@@ -273,22 +288,27 @@ namespace TicketDesk.Domain
                 null,
                 null,
                 SecurityProvider.GetUserDisplayName(newTicket.Owner));
-
-
-            //TODO: What with attachments?
+            newTicket.EnsureSubscribers();
         }
 
         private IEnumerable<Ticket> GetTicketChanges()
         {
-            var pendingCommentChanges =
-                ChangeTracker.Entries<TicketEvent>().Where(t => t.State != EntityState.Unchanged)
-                    .Select(t => t.Entity.TicketId).ToArray();
+            var pendingEventChanges = GetTicketEventChanges();
 
             var pendingTicketChanges = ChangeTracker.Entries<Ticket>()
-                .Where(t => t.State != EntityState.Unchanged || pendingCommentChanges.Contains(t.Entity.TicketId))
+                .Where(t => t.State != EntityState.Unchanged || pendingEventChanges.Select(c => c.TicketId).Contains(t.Entity.TicketId))
                 .Select(t => t.Entity)
                 .ToArray(); //execute now, because after save changes this query will return no results
             return pendingTicketChanges;
+        }
+
+        private IEnumerable<TicketEvent> GetTicketEventChanges()
+        {
+            var pendingEventChanges =
+                ChangeTracker.Entries<TicketEvent>().Where(t => t.State != EntityState.Unchanged)
+                .Select(t => t.Entity);
+
+            return pendingEventChanges;
         }
     }
 }

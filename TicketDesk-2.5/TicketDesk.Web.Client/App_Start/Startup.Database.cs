@@ -22,6 +22,7 @@ namespace TicketDesk.Web.Client
         public void ConfigureDatabase()
         {   //kill initializer - features that may need one will reset this later
             Database.SetInitializer<TicketDeskContext>(null);
+            Database.SetInitializer<TicketDeskIdentityContext>(null);
             //set the std migrator for identity
             if (DatabaseConfig.IsDatabaseReady)
             {

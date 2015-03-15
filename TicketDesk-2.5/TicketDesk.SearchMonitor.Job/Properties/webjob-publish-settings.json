@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "http://schemastore.org/schemas/json/webjob-publish-settings.json",
-  "webJobName": "TicketDesk-Background-Job",
+  "webJobName": "TicketDesk-SearchMonitor-Job",
   "startTime": null,
   "endTime": null,
   "jobRecurrenceFrequency": null,

@@ -11,15 +11,16 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
 using Microsoft.Azure.WebJobs;
+using TicketDesk.SearchMonitor.Job.Annotations;
 using TicketDesk.IO;
 using TicketDesk.Search.Azure;
 
 
-namespace TicketDesk.Background.Job
+namespace TicketDesk.SearchMonitor.Job
 {
     // To learn more about Microsoft Azure WebJobs SDK, please see http://go.microsoft.com/fwlink/?LinkID=320976
+    [UsedImplicitly]
     public class Program
     {
         internal static AzureIndexProvider SearchProvider;

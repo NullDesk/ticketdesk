@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201503130334543_Td2.5.009.Designer.cs">
       <DependentUpon>201503130334543_Td2.5.009.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503150440288_Td2.5.010.cs" />
+    <Compile Include="Migrations\201503150440288_Td2.5.010.Designer.cs">
+      <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />
     <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketEventNotificationExtensions.cs" />
     <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
     <Compile Include="Model\TicketEventNotification.cs" />
@@ -186,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503130334543_Td2.5.009.resx">
       <DependentUpon>201503130334543_Td2.5.009.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503150440288_Td2.5.010.resx">
+      <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

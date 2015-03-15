@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Linq;
 using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
@@ -122,7 +123,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateBy", ShortName = "TicketLastUpdateByShort")]
         public string LastUpdateBy { get; set; }
-        
+
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateDate", ShortName = "TicketLastUpdateDateShort")]
         public DateTimeOffset LastUpdateDate { get; set; }
 
@@ -143,7 +144,7 @@ namespace TicketDesk.Domain.Model
         public virtual ICollection<TicketTag> TicketTags { get; set; }
 
         public virtual ICollection<TicketSubscriber> TicketSubscribers { get; set; }
-            
+
         [NotMapped]
         internal string PreviousOwner { get; set; }
 
@@ -163,6 +164,21 @@ namespace TicketDesk.Domain.Model
             get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
         }
 
+        public void EnsureSubscribers()
+        {
+            EnsureSubscriber(Owner);
+            EnsureSubscriber(AssignedTo);
+            EnsureSubscriber(PreviousOwner);
+            EnsureSubscriber(PreviousAssignedUser);
+        }
+
+        private void EnsureSubscriber(string user)
+        {
+            if (user != null && TicketSubscribers.All(s => s.SubscriberId != user))
+            {
+                TicketSubscribers.Add(new TicketSubscriber() { SubscriberId = user });
+            }
+        }
 
         public TicketActivity GetAvailableActivites(string userId)
         {
