@@ -66,7 +66,7 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Infrastructure\AsyncHelpers.cs" />
+    <Compile Include="Infrastructure\AsyncHelper.cs" />
     <Compile Include="Infrastructure\CommentRequiredAttribute.cs" />
     <Compile Include="Migrations\201412302236209_Td2.5.003.cs" />
     <Compile Include="Migrations\201412302236209_Td2.5.003.Designer.cs">
