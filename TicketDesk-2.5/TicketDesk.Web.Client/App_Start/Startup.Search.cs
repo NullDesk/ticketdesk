@@ -45,7 +45,7 @@ namespace TicketDesk.Web.Client
                         var searchItems = changes.ToSeachIndexItems();
 
                         HostingEnvironment.QueueBackgroundWorkItem(
-                            async (ct) =>
+                            async ct =>
                                 await
                                     TicketDeskSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems)
                                         .ConfigureAwait(false));

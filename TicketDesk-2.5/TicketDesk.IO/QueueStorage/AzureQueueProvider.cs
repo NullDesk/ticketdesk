@@ -25,17 +25,19 @@ namespace TicketDesk.IO
     public class AzureQueueProvider
     {
         private CloudQueue Queue { get; set; }
-        public AzureQueueProvider()
+        public AzureQueueProvider(string indexName)
         {
             var account = AzureConnectionHelper.CloudStorageAccount;
             if (account != null)
             {
                 var queueClient = account.CreateCloudQueueClient();
-                Queue = queueClient.GetQueueReference("ticket-search-queue");
+                Queue = queueClient.GetQueueReference(indexName);
                 var t = Queue.CreateIfNotExistsAsync();
                 t.Wait();
             }
         }
+
+        public bool IsConfigured { get { return Queue != null; } }
 
         public async Task EnqueueItemsAsync(IEnumerable<object> items)
         {

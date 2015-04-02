@@ -183,6 +183,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Startup.Notifications.cs" />
     <Compile Include="App_Start\Startup.SimpleInjector.cs" />
     <Compile Include="App_Start\Startup.Bundles.cs" />
     <Compile Include="App_Start\DatabaseConfig.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Models\Extensions\StringExtensions.cs" />
     <Compile Include="Models\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketEventNotificationExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
@@ -469,6 +471,14 @@
     <ProjectReference Include="..\TicketDesk.IO\TicketDesk.IO.csproj">
       <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
       <Name>TicketDesk.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Notifications.Azure\TicketDesk.Notifications.Azure.csproj">
+      <Project>{1c8ec3e6-f29a-4b7d-8c36-039933dabaee}</Project>
+      <Name>TicketDesk.Notifications.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Notifications.Common\TicketDesk.Notifications.Common.csproj">
+      <Project>{6e3b1af8-762d-4b69-84c3-c79e74aa9c82}</Project>
+      <Name>TicketDesk.Notifications.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj">
       <Project>{be284cb5-bf8b-4b51-a865-f2ab7bea2d02}</Project>

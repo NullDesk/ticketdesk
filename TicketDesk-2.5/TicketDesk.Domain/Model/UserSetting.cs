@@ -13,6 +13,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using TicketDesk.Domain.Model.UserSettingsModel;
 
 namespace TicketDesk.Domain.Model
 {
@@ -23,8 +24,9 @@ namespace TicketDesk.Domain.Model
         [StringLength(256)]
         public string UserId { get; set; }
 
+        public virtual UserPushNotificationSetting PushNotificationSettings { get; set; }
 
-        public virtual UserTicketListSettingsCollection ListSettings { get; set; }
+        public virtual UserTicketListSettingsCollection ListSettings { get; protected set; }
        
 
         public UserTicketListSetting GetUserListSettingByName(string listName)
@@ -32,7 +34,7 @@ namespace TicketDesk.Domain.Model
             return ListSettings.FirstOrDefault(us => us.ListName == listName);
         }
 
-        public static UserSetting GetDefaultSettingsForUser(string userId)
+        public static UserSetting GetDefaultListSettingsForUser(string userId)
         {
             var collection = new UserTicketListSettingsCollection
             {

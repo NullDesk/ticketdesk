@@ -13,8 +13,9 @@
 
 using System.Web.Mvc;
 using TicketDesk.Domain.Model;
+using TicketDesk.Web.Client;
 
-namespace TicketDesk.Web.Client.Models
+namespace TicketDesk.Domain.Model
 {
     public static class ApplicationSettingExtensions
     {

@@ -22,6 +22,7 @@ using TicketDesk.Domain.Annotations;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
+using TicketDesk.Domain.Model.UserSettingsModel;
 
 
 namespace TicketDesk.Domain
@@ -50,9 +51,20 @@ namespace TicketDesk.Domain
             }
         }
 
+        public static event EventHandler<IEnumerable<TicketEventNotification>>  NotificationsCreated;
+        private static void RaiseNotificationsCreated(TicketDeskContext sender, IEnumerable<TicketEventNotification> notifications)
+        {
+            //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
+            if (NotificationsCreated != null)
+            {
+                NotificationsCreated(sender, notifications);
+            }
+        }
+
+
         public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
 
-        public TicketActionManager TicketActions { get; set; }
+        public TicketActionManager TicketActions { get; private set; }
 
 
         /// <summary>
@@ -92,9 +104,14 @@ namespace TicketDesk.Domain
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
+
             modelBuilder.ComplexType<UserTicketListSettingsCollection>()
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
+
+            modelBuilder.ComplexType<UserPushNotificationSetting>()
+                .Property(p => p.Serialized)
+                .HasColumnName("PushNotificationSettingsJson");
 
             modelBuilder.ComplexType<ApplicationSelectListSetting>()
                 .Property(p => p.Serialized)
@@ -103,6 +120,10 @@ namespace TicketDesk.Domain
             modelBuilder.ComplexType<ApplicationPermissionsSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
+
+            modelBuilder.ComplexType<ApplicationPushNotificationSetting>()
+               .Property(p => p.Serialized)
+               .HasColumnName("PushNotificationSettingsJson");
 
             modelBuilder.Entity<TicketEventNotification>()
                 .HasRequired(c => c.TicketSubscriber)
@@ -206,7 +227,7 @@ namespace TicketDesk.Domain
         {
             foreach (var change in pendingEventChanges)
             {
-                TicketEventNotifications.AddNotificaitonsForEvent(change);
+                TicketEventNotifications.AddNotificationsForEvent(change);
             }
         }
 

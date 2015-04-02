@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201503150440288_Td2.5.010.Designer.cs">
       <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504020337366_Td2.5.0.11.cs" />
+    <Compile Include="Migrations\201504020337366_Td2.5.0.11.Designer.cs">
+      <DependentUpon>201504020337366_Td2.5.0.11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TicketDeskContextSecurityProviderBase.cs" />
@@ -118,6 +122,7 @@
       <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationPushNotificationSetting.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationPermissionsSetting.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSelectListSetting.cs" />
     <Compile Include="Model\ApplicationSettings.cs" />
@@ -130,15 +135,16 @@
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
     <Compile Include="Model\TicketEventNotification.cs" />
     <Compile Include="Model\TicketSubscriber.cs" />
+    <Compile Include="Model\UserSettingsModel\UserPushNotificationSetting.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TicketActionManager.cs" />
     <Compile Include="Model\TicketActivity.cs" />
-    <Compile Include="Model\UserTicketListModel\ColumnSortDirection.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\ColumnSortDirection.cs" />
     <Compile Include="Model\Extensions\UserSettingExtensions.cs" />
-    <Compile Include="Model\UserTicketListModel\UserTicketListSettingsCollection.cs" />
-    <Compile Include="Model\UserTicketListModel\UserTicketListSetting.cs" />
-    <Compile Include="Model\UserTicketListModel\UserTicketListFilterColumn.cs" />
-    <Compile Include="Model\UserTicketListModel\UserTicketListSortColumn.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListSettingsCollection.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListSetting.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListFilterColumn.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListSortColumn.cs" />
     <Compile Include="Model\TicketStatus.cs" />
     <Compile Include="Model\UserSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503150440288_Td2.5.010.resx">
       <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504020337366_Td2.5.0.11.resx">
+      <DependentUpon>201504020337366_Td2.5.0.11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

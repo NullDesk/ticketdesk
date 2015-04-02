@@ -13,7 +13,7 @@
     provided to the recipient.
 *@
 
-@using TicketDesk.Web.Client.Models
+@using TicketDesk.Domain.Model
 @model IEnumerable<TicketDesk.Domain.Model.TicketEvent>
 
 @foreach (var evt in Model.OrderByDescending(c => c.EventDate))

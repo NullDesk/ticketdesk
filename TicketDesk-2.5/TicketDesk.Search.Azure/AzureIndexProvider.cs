@@ -26,11 +26,11 @@ namespace TicketDesk.Search.Azure
     public class AzureIndexProvider : AzureSearchConector, ISearchIndexProvider
     {
         private const string IndexName = "ticketdesk-searchindex";
+        private const string QueueName = "ticket-search-queue";
         private AzureQueueProvider Queue { get; set; }
         public AzureIndexProvider()
         {
-            Queue = new AzureQueueProvider();
-            
+            Queue = new AzureQueueProvider(QueueName);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace TicketDesk.Search.Azure
                 var svcInfo = TryGetInfoFromConnectionString() ??
                                  TryGetInfoFromAppSettings();
 
-                return svcInfo != null && !string.IsNullOrEmpty(svcInfo.ServiceName) &&
+                return Queue != null && Queue.IsConfigured && svcInfo != null && !string.IsNullOrEmpty(svcInfo.ServiceName) &&
                        !string.IsNullOrEmpty(svcInfo.QueryKey);
             }
         }

@@ -11,18 +11,17 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TicketDesk.Search.Common
+namespace TicketDesk.Notifications.Common
 {
-    public class SearchContextConfiguration
+    public interface INotifcationProvider
     {
-        public SearchContextConfiguration(ISearchIndexProvider indexProvider, ISearchLocatorProvider locatorProvider)
-        {
-            SearchIndexProvider = indexProvider;
-            SearchLocatorProvider = locatorProvider;
-        }
-
-        public ISearchIndexProvider SearchIndexProvider { get; private set; }
-        public ISearchLocatorProvider SearchLocatorProvider { get; private set; }
+        Task<bool> AddPendingNotifications(IEnumerable<NotificationItem> items);
+        bool IsConfigured { get; }
     }
 }

@@ -17,14 +17,14 @@ namespace TicketDesk.Domain.Model
 {
     public static class TicketEventNotificationExtensions
     {
-        public static void AddNotificaitonsForEvent(this IDbSet<TicketEventNotification> set,
+        public static void AddNotificationsForEvent(this IDbSet<TicketEventNotification> set,
             TicketEvent ticketEvent)
         {
             //PushNotificationPending could be set baed on subscriber's preferences in settings
             //  In this case though, I'm somewhat concerned about the number of queries required to setup
             //  notifications. Adding more lazy loads to pull in subscriber preferences from json serialized
             //  settings could be quite cumbersome. Instead, we'll assume that the push notifier will decide 
-            //  if it should actually send the notificaitons or not.
+            //  if it should actually send the notifications or not.
             foreach (var subscriber in ticketEvent.Ticket.TicketSubscribers)
             {
                 if (ticketEvent.EventBy != subscriber.SubscriberId)

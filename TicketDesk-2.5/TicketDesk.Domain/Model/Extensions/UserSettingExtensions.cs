@@ -60,7 +60,7 @@ namespace TicketDesk.Domain.Model
             var usetting = settings.FirstOrDefault(us => us.UserId == userId);
             if (usetting == null)
             {
-                usetting = UserSetting.GetDefaultSettingsForUser(userId);
+                usetting = UserSetting.GetDefaultListSettingsForUser(userId);
                 settings.Add(usetting);//if and when saves are made to the db, these will be included  
             }
             return usetting;
