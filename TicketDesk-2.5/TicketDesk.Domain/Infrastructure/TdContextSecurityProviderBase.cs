@@ -20,7 +20,7 @@ namespace TicketDesk.Domain
     /// <summary>
     /// Provides the minimal set of security services to support business logic 
     /// </summary>
-    public abstract class TicketDeskContextSecurityProviderBase
+    public abstract class TdContextSecurityProviderBase
     {
         protected abstract Func<string> GetCurrentUserId { get; }
 

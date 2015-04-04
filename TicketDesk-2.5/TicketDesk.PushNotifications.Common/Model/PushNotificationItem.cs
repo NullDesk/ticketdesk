@@ -12,10 +12,14 @@
 // provided to the recipient.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
-namespace TicketDesk.Notifications.Common
+namespace TicketDesk.PushNotifications.Common.Model
 {
-    public enum NotificationItemStatus
+    public enum PushNotificationItemStatus
     {
         Scheduled,
         Sending,
@@ -26,15 +30,40 @@ namespace TicketDesk.Notifications.Common
         Disabled
 
     }
-    public class NotificationItem
+    public class PushNotificationItem
     {
+        [Key]
+        [Column(Order = 0)]
         public int TicketId { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
         public string SubscriberId { get; set; }
+
         public DateTimeOffset CreatedDate { get; set; }
+
         public DateTimeOffset? ScheduledSendDate { get; set; }
-        public NotificationItemStatus DeliveryStatus { get; set; }
-        public int RetryCount { get; set; }
-        public int[] IncludedTicketEvents { get; set; }
         
+        public PushNotificationItemStatus DeliveryStatus { get; set; }
+        
+        public int RetryCount { get; set; }
+        
+        public string TicketEventsList { get; set; }
+
+        [NotMapped]
+        public int[] TicketEvents
+        {
+            get
+            {
+                return Array.ConvertAll(TicketEventsList.Split(';'), int.Parse);
+            }
+            set
+            {
+                TicketEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
+            }
+        }
+       
     }
+
+  
 }

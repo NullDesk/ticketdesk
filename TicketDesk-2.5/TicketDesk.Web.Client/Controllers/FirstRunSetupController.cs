@@ -18,6 +18,7 @@ using System.Web.Mvc;
 using Microsoft.Owin;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
+using TicketDesk.PushNotifications.Common;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
@@ -47,7 +48,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("legacy-migration")]
         public ActionResult LegacyMigration()
         {
-            var identityCtx = DependencyResolver.Current.GetService<TicketDeskIdentityContext>();
+            var identityCtx = DependencyResolver.Current.GetService<TdIdentityContext>();
             var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
             var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
             if (LegacySecurityMigrator.MigrateSecurity(identityCtx, userManager, roleManager))
@@ -60,14 +61,14 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("upgrade-database")]
         public ActionResult UpgradeDatabase()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdContext(null))
             {
-                TicketDeskLegacyDatabaseInitializer<TicketDeskContext>.InitDatabase(ctx);
+                TdLegacyDatabaseInitializer<TdContext>.InitDatabase(ctx);
 
             }
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdContext(null))
             {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TdContext, Configuration>(true));
                 ctx.Database.Initialize(true);
                 
             }
@@ -77,17 +78,18 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
-            Database.SetInitializer(new TicketDeskIdentityDbInitializer());
+            Database.SetInitializer(new TdIdentityDbInitializer());
+            Database.SetInitializer(new TdPushNotificationDbInitializer());
             return RedirectToAction("Index");
         }
 
         [Route("create-database")]
         public ActionResult CreateDatabase()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdContext(null))
             {
                 Database.SetInitializer(
-                    new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
+                    new MigrateDatabaseToLatestVersion<TdContext, Configuration>(true));
                 ctx.Database.Initialize(true);
             }
             var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
@@ -95,7 +97,8 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
-            Database.SetInitializer(new TicketDeskIdentityDbInitializer());
+            Database.SetInitializer(new TdIdentityDbInitializer());
+            Database.SetInitializer(new TdPushNotificationDbInitializer());
             return RedirectToAction("Index");
         }
 

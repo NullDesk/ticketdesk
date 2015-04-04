@@ -27,7 +27,7 @@ using TicketDesk.Domain.Model.UserSettingsModel;
 
 namespace TicketDesk.Domain
 {
-    public class TicketDeskContext : DbContext
+    public class TdContext : DbContext
     {
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace TicketDesk.Domain
         ///</remarks>
         public static event EventHandler<IEnumerable<Ticket>> TicketsChanged;
 
-        private static void RaiseTicketsChanged(TicketDeskContext sender, IEnumerable<Ticket> tickets)
+        private static void RaiseTicketsChanged(TdContext sender, IEnumerable<Ticket> tickets)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
             if (TicketsChanged != null)
@@ -52,7 +52,7 @@ namespace TicketDesk.Domain
         }
 
         public static event EventHandler<IEnumerable<TicketEventNotification>>  NotificationsCreated;
-        private static void RaiseNotificationsCreated(TicketDeskContext sender, IEnumerable<TicketEventNotification> notifications)
+        private static void RaiseNotificationsCreated(TdContext sender, IEnumerable<TicketEventNotification> notifications)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
             if (NotificationsCreated != null)
@@ -62,13 +62,13 @@ namespace TicketDesk.Domain
         }
 
 
-        public TicketDeskContextSecurityProviderBase SecurityProvider { get; private set; }
+        public TdContextSecurityProviderBase SecurityProvider { get; private set; }
 
         public TicketActionManager TicketActions { get; private set; }
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
+        /// Initializes a new instance of the <see cref="TdContext"/> class.
         /// </summary>
         /// <remarks>
         /// The securityProvider parameter can be left null; however, this should 
@@ -76,29 +76,21 @@ namespace TicketDesk.Domain
         /// outside of a user's context (e.g. migrations)
         /// </remarks>
         /// <param name="securityProvider">The security provider.</param>
-        public TicketDeskContext(TicketDeskContextSecurityProviderBase securityProvider)
+        public TdContext(TdContextSecurityProviderBase securityProvider)
             : this()
         {
             SecurityProvider = securityProvider;
             TicketActions = TicketActionManager.GetInstance(SecurityProvider);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TicketDeskContext"/> class.
-        /// </summary>
-        /// <remarks>
-        /// Some functions related to migrations still expect to be able to construct the
-        /// DbContext from a parameterless ctor. 
-        /// 
-        /// Initializers were fixed in EF 6.1 so they
-        /// can be use the context from which they were called instead of constructing a new
-        /// instance internally, but a few obscure bits were not similarly updated (e.g. 
-        /// DbMigrator.GetPendingMigrations). 
-        /// </remarks>
-        public TicketDeskContext()
+
+        public TdContext()
             : base("name=TicketDesk")
         {
-
+            //TODO: This is only used by migrations and related functions
+            //  This can be removed by creating a class that implements IDbContextFactory<TicketDeskContext>
+            //      As I understand it, if the factory exists EF will use it instead of looking for a public ctor with no params
+            
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

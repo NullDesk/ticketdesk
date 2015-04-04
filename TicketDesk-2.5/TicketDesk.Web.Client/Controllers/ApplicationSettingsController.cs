@@ -25,12 +25,12 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize(Roles = "TdAdministrators")]
     public class ApplicationSettingsController : Controller
     {
-        private TicketDeskContext Context { get; set; }
+        private TdContext Context { get; set; }
         private bool IsAzureSearchDetected { get; set; }
-        public ApplicationSettingsController(TicketDeskContext context)
+        public ApplicationSettingsController(TdContext context)
         {
             Context = context;
-            IsAzureSearchDetected = TicketDeskSearchContext.Current.IndexManager.GetType() == typeof(AzureIndexProvider);
+            IsAzureSearchDetected = TdSearchContext.Current.IndexManager.GetType() == typeof(AzureIndexProvider);
         }
 
         public ActionResult Index()

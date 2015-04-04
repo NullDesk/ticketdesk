@@ -26,12 +26,12 @@ namespace TicketDesk.Web.Client
 
         public void ConfigureSearch()
         {
-            TicketDeskSearchContext.Configure(GetSearchConfiguration);
+            TdSearchContext.Configure(GetSearchConfiguration);
 
-            TicketDeskSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
+            TdSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
 
             //register for static ticket changed event handler 
-            TicketDeskContext.TicketsChanged += (sender, ticketChanges) =>
+            TdContext.TicketsChanged += (sender, ticketChanges) =>
             {
                 // ReSharper disable once EmptyGeneralCatchClause
                 try
@@ -47,7 +47,7 @@ namespace TicketDesk.Web.Client
                         HostingEnvironment.QueueBackgroundWorkItem(
                             async ct =>
                                 await
-                                    TicketDeskSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems)
+                                    TdSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems)
                                         .ConfigureAwait(false));
 
 
@@ -69,7 +69,7 @@ namespace TicketDesk.Web.Client
         /// This is supplied to the search system as a func and invoked when needed.
         /// </remarks>
         /// <returns>SearchContextConfiguration.</returns>
-        private SearchContextConfiguration GetSearchConfiguration()
+        private TdSearchContextConfiguration GetSearchConfiguration()
         {
             //TODO: when we move to a plug-in model, this should be refactored to use an applicaiton setting.
             //  Application settings will determine the order of preference for providers
@@ -86,8 +86,8 @@ namespace TicketDesk.Web.Client
 
             var azProvider = new AzureIndexProvider();
             var config = azProvider.IsConfigured ?
-                new SearchContextConfiguration(azProvider, new AzureSearchLocatorProvider()) :
-                new SearchContextConfiguration(new LuceneIndexProvider(), new LuceneSearchLocatorProvider());
+                new TdSearchContextConfiguration(azProvider, new AzureSearchLocatorProvider()) :
+                new TdSearchContextConfiguration(new LuceneIndexProvider(), new LuceneSearchLocatorProvider());
             return config;
         }
 

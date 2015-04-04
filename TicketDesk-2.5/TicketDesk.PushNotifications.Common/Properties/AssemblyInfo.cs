@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TicketDesk.Notifications.Azure")]
+[assembly: AssemblyTitle("TicketDesk.PushNotifications.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TicketDesk.Notifications.Azure")]
+[assembly: AssemblyProduct("TicketDesk.PushNotifications.Common")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5b4a8b32-4103-440a-8331-bf862e560c59")]
+[assembly: Guid("43b1b8d1-6063-4065-90da-670008311a41")]
 
 // Version information for an assembly consists of the following four values:
 //

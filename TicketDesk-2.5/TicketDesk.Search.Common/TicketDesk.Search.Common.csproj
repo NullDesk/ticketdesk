@@ -43,10 +43,10 @@
     <Compile Include="ISearchIndexProvider.cs" />
     <Compile Include="ISearchLocatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchContextConfiguration.cs" />
+    <Compile Include="TdSearchContextConfiguration.cs" />
     <Compile Include="SearchIndexItem.cs" />
     <Compile Include="SearchResultItem.cs" />
-    <Compile Include="TicketDeskSearchContext.cs" />
+    <Compile Include="TdSearchContext.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

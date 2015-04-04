@@ -16,12 +16,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketDesk.PushNotifications.Common.Model;
 
-namespace TicketDesk.Notifications.Common
+namespace TicketDesk.PushNotifications.Common
 {
-    public interface INotifcationProvider
+    public interface IPushNotificationProvider
     {
-        Task<bool> AddPendingNotifications(IEnumerable<NotificationItem> items);
+        Task<bool> SendNotification(IEnumerable<PushNotificationItem> items);
         bool IsConfigured { get; }
     }
 }

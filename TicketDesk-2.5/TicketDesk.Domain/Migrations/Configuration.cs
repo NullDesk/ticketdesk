@@ -19,7 +19,7 @@ namespace TicketDesk.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
 
-    public sealed class Configuration : DbMigrationsConfiguration<TicketDeskContext>
+    public sealed class Configuration : DbMigrationsConfiguration<TdContext>
     {
         public Configuration()
         {
@@ -28,7 +28,7 @@ namespace TicketDesk.Domain.Migrations
 
         }
 
-        protected override void Seed(TicketDeskContext context)
+        protected override void Seed(TdContext context)
         {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
             if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))

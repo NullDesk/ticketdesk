@@ -37,13 +37,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJobs", "WebJobs", "{E274
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.SearchMonitor.Job", "TicketDesk.SearchMonitor.Job\TicketDesk.SearchMonitor.Job.csproj", "{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PushNotificaitons", "PushNotificaitons", "{8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Notifications.Common", "TicketDesk.Notifications.Common\TicketDesk.Notifications.Common.csproj", "{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PushNotifications", "PushNotifications", "{8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{48534875-FDAA-4BDC-ABE7-B58596D785C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Notifications.Azure", "TicketDesk.Notifications.Azure\TicketDesk.Notifications.Azure.csproj", "{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotifications.Common", "TicketDesk.PushNotifications.Common\TicketDesk.PushNotifications.Common.csproj", "{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotifications.Azure", "TicketDesk.PushNotifications.Azure\TicketDesk.PushNotifications.Azure.csproj", "{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,13 +11,8 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TicketDesk.Domain.Annotations;
 
@@ -100,7 +95,7 @@ namespace TicketDesk.Domain.Model
             public int MaxConsolidationDelayMinutes { get; set; }
 
             [NotMapped]
-            [Display(Name = "Suppress notificaitons for events created by subscriber?")]
+            [Display(Name = "Suppress notifications for events created by subscriber?")]
             public bool ExcludeSubscriberEvents { get; set; }
         }
     }

@@ -24,8 +24,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class SearchController : Controller
     {
-        private TicketDeskContext Context { get; set; }
-        public SearchController(TicketDeskContext context)
+        private TdContext Context { get; set; }
+        public SearchController(TdContext context)
         {
             Context = context;
         }
@@ -37,7 +37,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (!string.IsNullOrEmpty(term))
             {
-                var model = await TicketDeskSearchContext.Current.SearchAsync(Context.Tickets, term);
+                var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term);
                 return View(model);
             }
             return View(new Ticket[0]);

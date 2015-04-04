@@ -14,9 +14,9 @@
 
 namespace TicketDesk.Search.Common
 {
-    public class SearchContextConfiguration
+    public class TdSearchContextConfiguration
     {
-        public SearchContextConfiguration(ISearchIndexProvider indexProvider, ISearchLocatorProvider locatorProvider)
+        public TdSearchContextConfiguration(ISearchIndexProvider indexProvider, ISearchLocatorProvider locatorProvider)
         {
             SearchIndexProvider = indexProvider;
             SearchLocatorProvider = locatorProvider;

@@ -30,6 +30,7 @@ using SimpleInjector.Advanced;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using TicketDesk.Domain;
+using TicketDesk.PushNotifications.Common;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
@@ -59,18 +60,20 @@ namespace TicketDesk.Web.Client
 
             container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
 
+            container.Register(() => new TdPushNotificationContext(), hybridLifestyle);
+
             container.Register(() => HttpContext.Current != null ?
-                    new TicketDeskContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
-                    new TicketDeskContext(),
+                    new TdContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
+                    new TdContext(),
                 hybridLifestyle);
 
-            container.RegisterPerWebRequest<TicketDeskIdentityContext>();
+            container.RegisterPerWebRequest<TdIdentityContext>();
 
             container.RegisterPerWebRequest<IUserStore<TicketDeskUser>>(() =>
-                new UserStore<TicketDeskUser>(container.GetInstance<TicketDeskIdentityContext>()));
+                new UserStore<TicketDeskUser>(container.GetInstance<TdIdentityContext>()));
 
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
-                new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
+                new RoleStore<IdentityRole>(container.GetInstance<TdIdentityContext>()));
 
 
             container.RegisterPerWebRequest(() =>

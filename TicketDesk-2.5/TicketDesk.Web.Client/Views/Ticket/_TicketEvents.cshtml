@@ -14,7 +14,7 @@
 *@
 
 @using TicketDesk.Domain.Model
-@model IEnumerable<TicketDesk.Domain.Model.TicketEvent>
+@model IEnumerable<TicketEvent>
 
 @foreach (var evt in Model.OrderByDescending(c => c.EventDate))
 {

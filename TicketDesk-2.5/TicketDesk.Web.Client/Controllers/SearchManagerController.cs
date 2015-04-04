@@ -25,8 +25,8 @@ namespace TicketDesk.Web.Client.Controllers
     public class SearchManagerController : Controller
     {
         
-        private TicketDeskContext Context { get; set; }
-        public SearchManagerController(TicketDeskContext context)
+        private TdContext Context { get; set; }
+        public SearchManagerController(TdContext context)
         {
           
             Context = context;
@@ -41,7 +41,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("remove-index")]
         public async Task<ActionResult> RemoveIndex()
         {
-            await TicketDeskSearchContext.Current.IndexManager.RemoveIndexAsync();
+            await TdSearchContext.Current.IndexManager.RemoveIndexAsync();
             ViewBag.IndexRemoved = true;
             return View("Index");
         }
@@ -50,9 +50,9 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> PopulateIndex()
         {
             
-            await TicketDeskSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
+            await TdSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
             var searchItems = Context.Tickets.Include("TicketEvents").ToSeachIndexItems();
-            await TicketDeskSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems);
+            await TdSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems);
             ViewBag.IndexPopulated = true;
             return View("Index");
         }

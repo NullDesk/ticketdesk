@@ -17,9 +17,9 @@ using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Identity
 {
-    public class TicketDeskIdentityContext : IdentityDbContext<TicketDeskUser>
+    public class TdIdentityContext : IdentityDbContext<TicketDeskUser>
     {
-        public TicketDeskIdentityContext()
+        public TdIdentityContext()
             : base("TicketDesk", true)
         {
         }

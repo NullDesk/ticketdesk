@@ -17,8 +17,8 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.Notifications.Azure;
-using TicketDesk.Notifications.Common;
+using TicketDesk.PushNotifications.Azure;
+using TicketDesk.PushNotifications.Common;
 
 namespace TicketDesk.Web.Client
 {
@@ -27,13 +27,12 @@ namespace TicketDesk.Web.Client
 
         public void ConfigureNotifications()
         {
-            return;//TODO: Enable when providers are complete
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdContext>();
             if (context.TicketDeskSettings.PushNotificationSettings.IsEnabled)
             {
-                TicketDeskNotificationContext.Configure(GetNotificationConfiguration);
+                TdPushNotificationContext.Configure(GetNotificationConfiguration);
                 //register for static notifications created event handler 
-                TicketDeskContext.NotificationsCreated += (sender, notifications) =>
+                TdContext.NotificationsCreated += (sender, notifications) =>
                 {
                     // ReSharper disable once EmptyGeneralCatchClause
                     try
@@ -44,12 +43,10 @@ namespace TicketDesk.Web.Client
                             HostingEnvironment.QueueBackgroundWorkItem(
                                 async ct =>
                                 {
-                                    foreach (var p in TicketDeskNotificationContext.Current.NotifcationProviders)
-                                    {
-                                        await
-                                            p.AddPendingNotifications(notes.ToNotificationItemItems())
-                                                .ConfigureAwait(false);
-                                    }
+                                    var noteContext = DependencyResolver.Current.GetService<TdPushNotificationContext>();
+                                    await
+                                        noteContext.AddPendingNotifications(notes.ToNotificationItemItems())
+                                            .ConfigureAwait(false);
                                 });
                         }
                     }
@@ -62,24 +59,21 @@ namespace TicketDesk.Web.Client
         }
 
 
+
         /// <summary>
-        /// Gets a notification configuration by scanning available providers in order of preference
-        /// and taking all available.
+        /// Gets the notification configuration.
         /// </summary>
-        /// <returns>SearchContextConfiguration.</returns>
-        /// <remarks>This is supplied to the search system as a func and invoked when needed.</remarks>
-        private NotificaitonContextConfiguration GetNotificationConfiguration()
+        /// <returns>IEnumerable&lt;IPushNotifcationProvider&gt;.</returns>
+        private IEnumerable<IPushNotificationProvider> GetNotificationConfiguration()
         {
             //TODO: when we move to a plug-in model, this should be refactored to use an application setting.
-            var potentialProviders = new List<INotifcationProvider>()
+            var potentialProviders = new List<IPushNotificationProvider>()
             {
                 //TODO: for now, just new up one of each possible provider type and we'll pick all that are correctly configured
-                new AzureNotificationProvider()
+                new AzurePushNotificationProvider()
             };
 
-            var config = new NotificaitonContextConfiguration(potentialProviders.Where(p => p.IsConfigured).ToArray());
-                
-            return config;
+            return potentialProviders.Where(p => p.IsConfigured);
         }
 
     }

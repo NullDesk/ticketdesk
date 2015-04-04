@@ -92,7 +92,7 @@ namespace TicketDesk.Web.Client
 
             if (firstRunDemoRefresh)
             {
-                DemoIdentityDataManager.SetupDemoIdentityData(container.GetInstance<TicketDeskIdentityContext>());
+                DemoIdentityDataManager.SetupDemoIdentityData(container.GetInstance<TdIdentityContext>());
             }
 
         }

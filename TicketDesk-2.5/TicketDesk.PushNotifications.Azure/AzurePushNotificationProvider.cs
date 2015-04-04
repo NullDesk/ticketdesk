@@ -14,16 +14,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketDesk.IO;
-using TicketDesk.Notifications.Common;
+using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications.Common.Model;
 
-namespace TicketDesk.Notifications.Azure
+namespace TicketDesk.PushNotifications.Azure
 {
-    public class AzureNotificationProvider: INotifcationProvider
+    public class AzurePushNotificationProvider: IPushNotificationProvider
     {
         private const string QueueName = "ticket-notifications-queue";
 
         private AzureQueueProvider Queue { get; set; }
-        public AzureNotificationProvider()
+        public AzurePushNotificationProvider()
         {
             Queue = new AzureQueueProvider(QueueName);
         }
@@ -40,7 +41,7 @@ namespace TicketDesk.Notifications.Azure
             }
         }
 
-        public async Task<bool> AddPendingNotifications(IEnumerable<NotificationItem> items)
+        public async Task<bool> SendNotification(IEnumerable<PushNotificationItem> items)
         {
             await Queue.EnqueueItemsAsync(items);
             return true;

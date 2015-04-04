@@ -24,8 +24,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize(Roles = "TdAdministrators")]
     public class DataManagementController : Controller
     {
-        private TicketDeskIdentityContext IdentityContext { get; set; }
-        public DataManagementController(TicketDeskIdentityContext identityContext)
+        private TdIdentityContext IdentityContext { get; set; }
+        public DataManagementController(TdIdentityContext identityContext)
         {
             IdentityContext = identityContext;
         }
@@ -39,7 +39,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("remove-demo-data")]
         public ActionResult RemoveDemoData()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdContext(null))
             {
                 DemoDataManager.RemoveAllData(ctx);
             }
@@ -51,7 +51,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("create-demo-data")]
         public ActionResult CreateDemoData()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdContext(null))
             {
                 DemoDataManager.SetupDemoData(ctx);
             }

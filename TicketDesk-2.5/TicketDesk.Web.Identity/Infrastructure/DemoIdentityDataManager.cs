@@ -21,7 +21,7 @@ namespace TicketDesk.Web.Identity.Infrastructure
 {
     public static class DemoIdentityDataManager
     {
-        public static void RemoveAllIdentity(TicketDeskIdentityContext context)
+        public static void RemoveAllIdentity(TdIdentityContext context)
         {
             foreach (var user in context.Users)
             {
@@ -37,7 +37,7 @@ namespace TicketDesk.Web.Identity.Infrastructure
             context.SaveChanges();
         }
 
-        public static void SetupDemoIdentityData(TicketDeskIdentityContext context)
+        public static void SetupDemoIdentityData(TdIdentityContext context)
         {
             var userStore = new UserStore<TicketDeskUser>(context);
             var roleStore = new RoleStore<IdentityRole>(context);

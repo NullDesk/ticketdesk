@@ -17,11 +17,11 @@ using TicketDesk.Domain.Legacy.Migrations;
 
 namespace TicketDesk.Domain.Legacy
 {
-    public class TicketDeskLegacyDatabaseInitializer<T> : IDatabaseInitializer<T> where T : DbContext
+    public class TdLegacyDatabaseInitializer<T> : IDatabaseInitializer<T> where T : DbContext
     {
         public static void InitDatabase(T context)
         {
-            Database.SetInitializer(new TicketDeskLegacyDatabaseInitializer<T>());
+            Database.SetInitializer(new TdLegacyDatabaseInitializer<T>());
             using (var legacyCtx = context)
             {
                 legacyCtx.Database.Initialize(true);

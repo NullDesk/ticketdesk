@@ -21,7 +21,7 @@ namespace TicketDesk.Domain.Model
 {
     public static class SearchManagerExtensions
     {
-        public static async Task<IEnumerable<Ticket>> SearchAsync(this TicketDeskSearchContext manager, IQueryable<Ticket> ticketQuery,
+        public static async Task<IEnumerable<Ticket>> SearchAsync(this TdSearchContext manager, IQueryable<Ticket> ticketQuery,
             string searchText)
         {
             var results = await manager.IndexSearcher.SearchAsync(searchText);

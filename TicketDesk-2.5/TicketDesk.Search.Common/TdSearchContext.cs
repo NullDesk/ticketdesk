@@ -17,19 +17,19 @@ using System.Configuration;
 
 namespace TicketDesk.Search.Common
 {
-    public class TicketDeskSearchContext
+    public class TdSearchContext
     {
 
-        private static TicketDeskSearchContext _current;
+        private static TdSearchContext _current;
 
-        private static Func<SearchContextConfiguration> GetConfigurationFunc { get; set; }
+        private static Func<TdSearchContextConfiguration> GetConfigurationFunc { get; set; }
 
-        public static void Configure(Func<SearchContextConfiguration> getConfigurationFunc)
+        public static void Configure(Func<TdSearchContextConfiguration> getConfigurationFunc)
         {
             GetConfigurationFunc = getConfigurationFunc;
         }
 
-        public static TicketDeskSearchContext Current
+        public static TdSearchContext Current
         {
             get
             {
@@ -37,11 +37,11 @@ namespace TicketDesk.Search.Common
                 {
                     throw new ConfigurationErrorsException("Attempt to access search system before TicketDeskSearchContext has been configured");
                 }
-                return _current ?? (_current = new TicketDeskSearchContext(GetConfigurationFunc()));
+                return _current ?? (_current = new TdSearchContext(GetConfigurationFunc()));
             }
         }
         
-        internal TicketDeskSearchContext(SearchContextConfiguration configuration)
+        internal TdSearchContext(TdSearchContextConfiguration configuration)
         {
             IndexSearcher = configuration.SearchLocatorProvider;
             IndexManager = configuration.SearchIndexProvider;

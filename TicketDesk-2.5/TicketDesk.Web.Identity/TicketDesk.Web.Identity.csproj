@@ -65,8 +65,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\TicketDeskUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TicketDeskIdentityContext.cs" />
-    <Compile Include="Infrastructure\TicketDeskIdentityDbInitializer.cs" />
+    <Compile Include="TdIdentityContext.cs" />
+    <Compile Include="Infrastructure\TdIdentityDbInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
