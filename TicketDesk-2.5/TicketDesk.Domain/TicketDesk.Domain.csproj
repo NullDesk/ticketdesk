@@ -100,9 +100,13 @@
     <Compile Include="Migrations\201503150440288_Td2.5.010.Designer.cs">
       <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504020337366_Td2.5.0.11.cs" />
-    <Compile Include="Migrations\201504020337366_Td2.5.0.11.Designer.cs">
-      <DependentUpon>201504020337366_Td2.5.0.11.cs</DependentUpon>
+    <Compile Include="Migrations\201504020337366_Td2.5.011.cs" />
+    <Compile Include="Migrations\201504020337366_Td2.5.011.Designer.cs">
+      <DependentUpon>201504020337366_Td2.5.011.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504042002335_Td2.5.012.cs" />
+    <Compile Include="Migrations\201504042002335_Td2.5.012.Designer.cs">
+      <DependentUpon>201504042002335_Td2.5.012.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
@@ -200,8 +204,12 @@
     <EmbeddedResource Include="Migrations\201503150440288_Td2.5.010.resx">
       <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504020337366_Td2.5.0.11.resx">
-      <DependentUpon>201504020337366_Td2.5.0.11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504020337366_Td2.5.011.resx">
+      <DependentUpon>201504020337366_Td2.5.011.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504042002335_Td2.5.012.resx">
+      <DependentUpon>201504042002335_Td2.5.012.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

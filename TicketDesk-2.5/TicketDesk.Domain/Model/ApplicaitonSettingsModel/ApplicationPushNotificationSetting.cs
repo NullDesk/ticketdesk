@@ -76,7 +76,7 @@ namespace TicketDesk.Domain.Model
         {
             public AntiNoiseSetting()
             {
-                IsConsoldationEnabled = true;
+                IsConsolidationEnabled = true;
                 InitialConsolidationDelayMinutes = 6;
                 MaxConsolidationDelayMinutes = 16;
                 ExcludeSubscriberEvents = true;
@@ -84,7 +84,7 @@ namespace TicketDesk.Domain.Model
 
             [NotMapped]
             [Display(Name = "Consolidate multple notifications for subscriber into one message?")]
-            public bool IsConsoldationEnabled { get; set; }
+            public bool IsConsolidationEnabled { get; set; }
 
             [NotMapped]
             [Display(Name = "Initial consolidation delay interval (minutes)")]

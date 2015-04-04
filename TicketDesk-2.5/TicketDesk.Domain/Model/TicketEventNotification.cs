@@ -85,17 +85,6 @@ namespace TicketDesk.Domain.Model
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether a push notification is pending.
-        /// </summary>
-        /// <remarks>
-        /// Typically would be used to indicate if a push notificaiton is pending. 
-        /// This can be used by email or sms systems to indicate that this 
-        /// notificaiton is ready to go to the user.
-        /// </remarks>
-        /// <value><c>true</c> if [push notification pending]; otherwise, <c>false</c>.</value>
-        public bool PushNotificationPending { get; set; }
-
         public virtual TicketEvent TicketEvent { get; set; }
 
         public virtual TicketSubscriber TicketSubscriber { get; set; }

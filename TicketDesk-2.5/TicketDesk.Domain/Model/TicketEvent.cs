@@ -96,25 +96,18 @@ namespace TicketDesk.Domain.Model
         /// </summary>
         public void CreateSubscriberEventNotifications()
         {
-            //PushNotificationPending could be set baed on subscriber's preferences in settings
-            //  In this case though, I'm somewhat concerned about the number of queries required to setup
-            //  notifications. Adding more lazy loads to pull in subscriber preferences from json serialized
-            //  settings could be quite cumbersome. Instead, we'll assume that the push notifier will decide 
-            //  if it should actually send the notifications or not.
             foreach (var subscriber in Ticket.TicketSubscribers)
             {
-                //TODO: need to base this if exclusion on the ExcludeSubscriberEvents setting in application anti-noise settings
-                if (EventBy != subscriber.SubscriberId)
-                {
-                    TicketEventNotifications.Add(
-                        new TicketEventNotification
-                        {
-                            IsNew = true,
-                            IsRead = false,
-                            PushNotificationPending = true,
-                            SubscriberId = subscriber.SubscriberId,
-                        });
-                }
+                var isSubscriberEvent = EventBy == subscriber.SubscriberId;
+
+                TicketEventNotifications.Add(
+                    new TicketEventNotification
+                    {
+                        IsNew = !isSubscriberEvent,
+                        IsRead = isSubscriberEvent,
+                        SubscriberId = subscriber.SubscriberId,
+                    });
+
             }
         }
     }
