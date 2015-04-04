@@ -183,7 +183,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\Startup.Notifications.cs" />
+    <Compile Include="App_Start\Startup.PushNotifications.cs" />
     <Compile Include="App_Start\Startup.SimpleInjector.cs" />
     <Compile Include="App_Start\Startup.Bundles.cs" />
     <Compile Include="App_Start\DatabaseConfig.cs" />
@@ -479,6 +479,10 @@
     <ProjectReference Include="..\TicketDesk.PushNotifications.Common\TicketDesk.PushNotifications.Common.csproj">
       <Project>{6e3b1af8-762d-4b69-84c3-c79e74aa9c82}</Project>
       <Name>TicketDesk.PushNotifications.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.PushNotifications.WebLocal\TicketDesk.PushNotifications.WebLocal.csproj">
+      <Project>{73c2a7c4-67d4-4f43-9455-43ae100ebda8}</Project>
+      <Name>TicketDesk.PushNotifications.WebLocal</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj">
       <Project>{be284cb5-bf8b-4b51-a865-f2ab7bea2d02}</Project>

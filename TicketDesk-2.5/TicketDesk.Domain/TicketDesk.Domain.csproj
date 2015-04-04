@@ -106,7 +106,7 @@
     </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
-    <Compile Include="Infrastructure\TdContextSecurityProviderBase.cs" />
+    <Compile Include="Infrastructure\TdDomainSecurityProviderBase.cs" />
     <Compile Include="Localization\LocalizedDescrptionAttribute.cs" />
     <Compile Include="Localization\TicketTextUtility.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
@@ -130,7 +130,6 @@
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />
     <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
-    <Compile Include="Model\Extensions\TicketEventNotificationExtensions.cs" />
     <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
     <Compile Include="Model\TicketEventNotification.cs" />
@@ -150,7 +149,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Model\TicketEvent.cs" />
-    <Compile Include="TdContext.cs" />
+    <Compile Include="TdDomainContext.cs" />
     <Compile Include="Model\TicketTag.cs" />
     <Compile Include="Localization\TicketDeskDomainText.Designer.cs">
       <AutoGen>True</AutoGen>

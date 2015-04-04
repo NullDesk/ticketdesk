@@ -61,14 +61,14 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("upgrade-database")]
         public ActionResult UpgradeDatabase()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
-                TdLegacyDatabaseInitializer<TdContext>.InitDatabase(ctx);
+                TdLegacyDatabaseInitializer<TdDomainContext>.InitDatabase(ctx);
 
             }
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TdContext, Configuration>(true));
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
                 ctx.Database.Initialize(true);
                 
             }
@@ -80,16 +80,17 @@ namespace TicketDesk.Web.Client.Controllers
             }
             Database.SetInitializer(new TdIdentityDbInitializer());
             Database.SetInitializer(new TdPushNotificationDbInitializer());
+            Startup.ConfigurePushNotifications();
             return RedirectToAction("Index");
         }
 
         [Route("create-database")]
         public ActionResult CreateDatabase()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 Database.SetInitializer(
-                    new MigrateDatabaseToLatestVersion<TdContext, Configuration>(true));
+                    new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
                 ctx.Database.Initialize(true);
             }
             var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
@@ -99,6 +100,7 @@ namespace TicketDesk.Web.Client.Controllers
             }
             Database.SetInitializer(new TdIdentityDbInitializer());
             Database.SetInitializer(new TdPushNotificationDbInitializer());
+            Startup.ConfigurePushNotifications();
             return RedirectToAction("Index");
         }
 

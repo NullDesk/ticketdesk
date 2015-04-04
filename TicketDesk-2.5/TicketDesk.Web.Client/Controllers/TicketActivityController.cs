@@ -30,8 +30,8 @@ namespace TicketDesk.Web.Client.Controllers
     public class TicketActivityController : Controller
     {
 
-        private TdContext Context { get; set; }
-        public TicketActivityController(TdContext context)
+        private TdDomainContext Context { get; set; }
+        public TicketActivityController(TdDomainContext context)
         {
             Context = context;
         }

@@ -63,8 +63,8 @@ namespace TicketDesk.Web.Client
             container.Register(() => new TdPushNotificationContext(), hybridLifestyle);
 
             container.Register(() => HttpContext.Current != null ?
-                    new TdContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
-                    new TdContext(),
+                    new TdDomainContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
+                    new TdDomainContext(),
                 hybridLifestyle);
 
             container.RegisterPerWebRequest<TdIdentityContext>();

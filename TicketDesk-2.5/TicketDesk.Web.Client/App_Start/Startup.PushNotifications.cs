@@ -19,20 +19,25 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications.Azure;
 using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications.WebLocal;
 
 namespace TicketDesk.Web.Client
 {
     public partial class Startup
     {
-
-        public void ConfigureNotifications()
+        public static void ConfigurePushNotifications()
         {
-            var context = DependencyResolver.Current.GetService<TdContext>();
+            if (!DatabaseConfig.IsDatabaseReady)
+            {
+                //cannot configure without reading application settings from the DB
+                return;
+            }
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             if (context.TicketDeskSettings.PushNotificationSettings.IsEnabled)
             {
-                TdPushNotificationContext.Configure(GetNotificationConfiguration);
+                TdPushNotificationContext.Configure(GetPushNotificationProviders);
                 //register for static notifications created event handler 
-                TdContext.NotificationsCreated += (sender, notifications) =>
+                TdDomainContext.NotificationsCreated += (sender, notifications) =>
                 {
                     // ReSharper disable once EmptyGeneralCatchClause
                     try
@@ -45,8 +50,8 @@ namespace TicketDesk.Web.Client
                                 {
                                     var noteContext = DependencyResolver.Current.GetService<TdPushNotificationContext>();
                                     await
-                                        noteContext.AddPendingNotifications(notes.ToNotificationItemItems())
-                                            .ConfigureAwait(false);
+                                        noteContext.AddPendingNotifications(notes.ToNotificationItemItems());
+                                    await noteContext.SaveChangesAsync(ct);
                                 });
                         }
                     }
@@ -64,16 +69,18 @@ namespace TicketDesk.Web.Client
         /// Gets the notification configuration.
         /// </summary>
         /// <returns>IEnumerable&lt;IPushNotifcationProvider&gt;.</returns>
-        private IEnumerable<IPushNotificationProvider> GetNotificationConfiguration()
+        private static IEnumerable<IPushNotificationProvider> GetPushNotificationProviders()
         {
             //TODO: when we move to a plug-in model, this should be refactored to use an application setting.
             var potentialProviders = new List<IPushNotificationProvider>()
             {
-                //TODO: for now, just new up one of each possible provider type and we'll pick all that are correctly configured
-                new AzurePushNotificationProvider()
+                //TODO: for now, just new up one of each possible provider type and we'll pick what is correctly configured
+                new AzurePushNotificationProvider(),
             };
 
-            return potentialProviders.Where(p => p.IsConfigured);
+            var pot = potentialProviders.Where(p => p.IsConfigured).ToArray();
+            //web local is the last-ditch fallback provider, only use if/when no other providers are available
+            return pot.Any() ? pot : new[] { new WebLocalPushNotificationProvider() };
         }
 
     }

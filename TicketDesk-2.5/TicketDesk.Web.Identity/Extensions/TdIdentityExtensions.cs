@@ -22,7 +22,7 @@ using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Identity
 {
-    public static class TicketDeskIdentityExtensions
+    public static class TdIdentityExtensions
     {
         public static IEnumerable<TicketDeskUser> GetUsersInRole(this ICollection<IdentityUserRole> roleUsers, UserManager<TicketDeskUser> userManager)
         {

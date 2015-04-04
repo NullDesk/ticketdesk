@@ -46,8 +46,8 @@ namespace TicketDesk.Web.Client
 
                 //run any pending migrations automatically to bring the DB up to date
                 Database.SetInitializer(
-                    new MigrateDatabaseToLatestVersion<TdContext, Configuration>(true));
-                using (var ctx = new TdContext(null))
+                    new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
+                using (var ctx = new TdDomainContext(null))
                 {
                     try
                     {
@@ -72,7 +72,7 @@ namespace TicketDesk.Web.Client
             get
             {
                 bool result;
-                using (var ctx = new TdContext(null))
+                using (var ctx = new TdDomainContext(null))
                 {
 
                     result = (ctx.Database.Exists() && !IsEmptyDatabase(ctx)) && !IsLegacyDatabase(ctx);
@@ -84,7 +84,7 @@ namespace TicketDesk.Web.Client
 
         public static bool IsEmptyDatabase()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 return IsEmptyDatabase(ctx);
             }
@@ -92,7 +92,7 @@ namespace TicketDesk.Web.Client
 
         public static bool IsLegacyDatabase()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 return IsLegacyDatabase(ctx);
             }
@@ -100,7 +100,7 @@ namespace TicketDesk.Web.Client
 
         public static bool HasLegacySecurity()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 return HasLegacySecurity(ctx);
             }

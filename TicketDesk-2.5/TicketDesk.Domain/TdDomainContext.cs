@@ -27,7 +27,7 @@ using TicketDesk.Domain.Model.UserSettingsModel;
 
 namespace TicketDesk.Domain
 {
-    public class TdContext : DbContext
+    public sealed class TdDomainContext : DbContext
     {
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace TicketDesk.Domain
         ///</remarks>
         public static event EventHandler<IEnumerable<Ticket>> TicketsChanged;
 
-        private static void RaiseTicketsChanged(TdContext sender, IEnumerable<Ticket> tickets)
+        private static void RaiseTicketsChanged(TdDomainContext sender, IEnumerable<Ticket> tickets)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
             if (TicketsChanged != null)
@@ -52,7 +52,7 @@ namespace TicketDesk.Domain
         }
 
         public static event EventHandler<IEnumerable<TicketEventNotification>>  NotificationsCreated;
-        private static void RaiseNotificationsCreated(TdContext sender, IEnumerable<TicketEventNotification> notifications)
+        private static void RaiseNotificationsCreated(TdDomainContext sender, IEnumerable<TicketEventNotification> notifications)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
             if (NotificationsCreated != null)
@@ -62,13 +62,12 @@ namespace TicketDesk.Domain
         }
 
 
-        public TdContextSecurityProviderBase SecurityProvider { get; private set; }
-
+        public TdDomainSecurityProviderBase SecurityProvider { get; private set; }
         public TicketActionManager TicketActions { get; private set; }
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TdContext"/> class.
+        /// Initializes a new instance of the <see cref="TdDomainContext"/> class.
         /// </summary>
         /// <remarks>
         /// The securityProvider parameter can be left null; however, this should 
@@ -76,7 +75,7 @@ namespace TicketDesk.Domain
         /// outside of a user's context (e.g. migrations)
         /// </remarks>
         /// <param name="securityProvider">The security provider.</param>
-        public TdContext(TdContextSecurityProviderBase securityProvider)
+        public TdDomainContext(TdDomainSecurityProviderBase securityProvider)
             : this()
         {
             SecurityProvider = securityProvider;
@@ -84,11 +83,14 @@ namespace TicketDesk.Domain
         }
 
 
-        public TdContext()
+        public TdDomainContext()
             : base("name=TicketDesk")
         {
+
+            ApplicationSettings = Set<ApplicationSetting>();// dbset is internal, must manually initialize it for use by EF
+
             //TODO: This is only used by migrations and related functions
-            //  This can be removed by creating a class that implements IDbContextFactory<TicketDeskContext>
+            //  This can be removed or made internal by creating a class that implements IDbContextFactory<TicketDeskContext>
             //      As I understand it, if the factory exists EF will use it instead of looking for a public ctor with no params
             
         }
@@ -96,7 +98,12 @@ namespace TicketDesk.Domain
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
+            modelBuilder.Entity<TicketEventNotification>()
+                .HasRequired(c => c.TicketSubscriber)
+                .WithMany()
+                .WillCascadeOnDelete(false);
 
+            //json flattening: see this for more info: http://www.reddnet.net/entity-framework-json-column/
             modelBuilder.ComplexType<UserTicketListSettingsCollection>()
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
@@ -117,23 +124,21 @@ namespace TicketDesk.Domain
                .Property(p => p.Serialized)
                .HasColumnName("PushNotificationSettingsJson");
 
-            modelBuilder.Entity<TicketEventNotification>()
-                .HasRequired(c => c.TicketSubscriber)
-                .WithMany()
-                .WillCascadeOnDelete(false);
+            
         }
 
-        public virtual DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
-        public virtual DbSet<Ticket> Tickets { get; [UsedImplicitly] set; }
-        public virtual DbSet<TicketTag> TicketTags { get; [UsedImplicitly] set; }
-        public virtual DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
-        public virtual DbSet<TicketSubscriber> TicketSubscribers { get; set; }
-        public virtual DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
+        public DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
+        public DbSet<Ticket> Tickets { get; [UsedImplicitly] set; }
+        public DbSet<TicketTag> TicketTags { get; [UsedImplicitly] set; }
+        public DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
+        public DbSet<TicketSubscriber> TicketSubscribers { get; set; }
+        public DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
+
         /// <summary>
-        /// Use TicketDeskSettings for more convienient access to settings instead. Gets or sets the application settings.
+        /// Use TicketDeskSettings for more convenient access to settings instead. Gets or sets the application settings.
         /// </summary>
         /// <value>The application settings.</value>
-        public virtual DbSet<ApplicationSetting> ApplicationSettings { get; [UsedImplicitly]set; }
+        internal DbSet<ApplicationSetting> ApplicationSettings { get; [UsedImplicitly]set; }
 
         /// <summary>
         /// Gets or sets the application settings specific to ticketdesk.
@@ -153,6 +158,16 @@ namespace TicketDesk.Domain
             }
         }
 
+        /// <summary>
+        /// Gets an object query for the specified type
+        /// </summary>
+        /// <remarks>
+        /// This is used for applying filter and sort using ESQL. This may present some challenges 
+        /// when EF 7 is finalized, as it will no longer support ESQL nor be backed by ObjectContext
+        /// </remarks>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">The entity for which an object query is needed.</param>
+        /// <returns>ObjectQuery&lt;T&gt;.</returns>
         public ObjectQuery<T> GetObjectQueryFor<T>(IDbSet<T> entity) where T : class
         {
             var oc = ((IObjectContextAdapter)this).ObjectContext;
@@ -179,47 +194,56 @@ namespace TicketDesk.Domain
 
         public override async Task<int> SaveChangesAsync()
         {
-            var pendingTicketChanges = OnSaving();
+            var pendingEntityChanges = OnSaving();
             var result = await base.SaveChangesAsync();
             if (result > 0)
             {
-                
-                RaiseTicketsChanged(this, pendingTicketChanges);
+                RaiseEntityChangeEvents(pendingEntityChanges);
             }
             return result;
         }
 
+      
         public override int SaveChanges()
         {
-            var pendingTicketChanges = OnSaving();
+            var pendingEntityChanges = OnSaving();
             var result = base.SaveChanges();
             if (result > 0)
             {
-                RaiseTicketsChanged(this, pendingTicketChanges);
+                RaiseEntityChangeEvents(pendingEntityChanges);
             }
             return result;
         }
 
-        private IEnumerable<Ticket> OnSaving()
+        private void RaiseEntityChangeEvents(PendingEventEntities pendingEntityChanges)
         {
-            var pendingTicketChanges = GetTicketChanges().ToArray();
+            RaiseTicketsChanged(this, pendingEntityChanges.PendingTicketChanges);
+            RaiseNotificationsCreated(this, pendingEntityChanges.PendingEventNotificationChanges);
+        }
+
+        private PendingEventEntities OnSaving()
+        {
+            var pending = new PendingEventEntities();
+            pending.PendingTicketChanges = GetTicketChanges().ToArray();
            
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();
-                PreProcessModifiedTickets(pendingTicketChanges);
-                //IMPORTANT! ticket event changes may not exist until after preprocess methods above are called. Order dependent operations!
-                var pendingEventChanges = GetTicketEventChanges().ToArray();
-                CreateEventNotifications(pendingEventChanges);
+                PreProcessModifiedTickets(pending.PendingTicketChanges);
+                //IMPORTANT! ticket event changes may not exist until after preprocess methods above 
+                //  are called. Order dependent operations!
+                CreateEventNotifications();
+                pending.PendingEventNotificationChanges = GetTicketEventNotificationChanges().ToArray();
             }
-            return pendingTicketChanges;
+            return pending;
         }
 
-        private void CreateEventNotifications(IEnumerable<TicketEvent> pendingEventChanges)
+        private void CreateEventNotifications()
         {
+            var pendingEventChanges = GetTicketEventChanges().ToArray();
             foreach (var change in pendingEventChanges)
             {
-                TicketEventNotifications.AddNotificationsForEvent(change);
+                change.CreateSubscriberEventNotifications();
             }
         }
 
@@ -228,7 +252,6 @@ namespace TicketDesk.Domain
             foreach (var change in ticketChanges)
             {
                 PrePopulateModifiedTicket(change);
-                
             }
         }
 
@@ -279,8 +302,6 @@ namespace TicketDesk.Domain
             newTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
 
             //last update info will be set by PrePopulateModifiedTicket method, no need to set it here too
-            //newTicket.LastUpdateBy = SecurityProvider.CurrentUserId;
-            //newTicket.LastUpdateDate = now;
 
             if (newTicket.TagList != null && newTicket.TagList.Any())
             {
@@ -322,6 +343,22 @@ namespace TicketDesk.Domain
                 .Select(t => t.Entity);
 
             return pendingEventChanges;
+        }
+
+        private IEnumerable<TicketEventNotification> GetTicketEventNotificationChanges()
+        {
+            var pendingEventNotificationChanges =
+                ChangeTracker.Entries<TicketEventNotification>().Where(t => t.State != EntityState.Unchanged)
+                .Select(t => t.Entity);
+
+            return pendingEventNotificationChanges;
+        }
+
+
+        private class PendingEventEntities
+        {
+            public IEnumerable<Ticket> PendingTicketChanges { get; set; }
+            public IEnumerable<TicketEventNotification> PendingEventNotificationChanges { get; set; }
         }
     }
 }

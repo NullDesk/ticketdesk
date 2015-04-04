@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using TicketDesk.Domain.Model.UserSettingsModel;
 
@@ -20,6 +21,11 @@ namespace TicketDesk.Domain.Model
     
     public class UserSetting
     {
+        public UserSetting()
+        {
+            PushNotificationSettings = new UserPushNotificationSetting();
+        }
+
         [Key]
         [StringLength(256)]
         public string UserId { get; set; }

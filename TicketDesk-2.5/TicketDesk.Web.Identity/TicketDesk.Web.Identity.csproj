@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\TicketDeskIdentityExtensions.cs" />
+    <Compile Include="Extensions\TdIdentityExtensions.cs" />
     <Compile Include="Infrastructure\DemoIdentityDataManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\TicketDeskUser.cs" />

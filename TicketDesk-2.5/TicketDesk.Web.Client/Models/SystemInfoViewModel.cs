@@ -117,7 +117,7 @@ namespace TicketDesk.Web.Client.Models
         {
             public DatabaseStatusViewModel()
             {
-                using (var ctx = new TdContext(null))
+                using (var ctx = new TdDomainContext(null))
                 {
                     DatabaseExists = ctx.Database.Exists();
                     IsCompatibleWithEfModel = DatabaseExists && !IsEmptyDatabase && ctx.Database.CompatibleWithModel(false);

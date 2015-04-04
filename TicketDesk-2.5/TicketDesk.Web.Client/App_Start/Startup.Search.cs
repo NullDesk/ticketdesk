@@ -31,7 +31,7 @@ namespace TicketDesk.Web.Client
             TdSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
 
             //register for static ticket changed event handler 
-            TdContext.TicketsChanged += (sender, ticketChanges) =>
+            TdDomainContext.TicketsChanged += (sender, ticketChanges) =>
             {
                 // ReSharper disable once EmptyGeneralCatchClause
                 try

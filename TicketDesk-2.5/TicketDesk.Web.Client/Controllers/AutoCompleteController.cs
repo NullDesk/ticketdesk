@@ -22,8 +22,8 @@ namespace TicketDesk.Web.Client.Controllers
     public class AutoCompleteController : Controller
     {
 
-        private TdContext Context { get; set; }
-        public AutoCompleteController(TdContext context)
+        private TdDomainContext Context { get; set; }
+        public AutoCompleteController(TdDomainContext context)
         {
             Context = context;
         }

@@ -19,7 +19,7 @@ namespace TicketDesk.Domain.Migrations
 {
     public static class DemoDataManager
     {
-        public static void RemoveAllData(TdContext context)
+        public static void RemoveAllData(TdDomainContext context)
         {
             context.UserSettings.RemoveRange(context.UserSettings);
             context.TicketTags.RemoveRange(context.TicketTags);
@@ -31,7 +31,7 @@ namespace TicketDesk.Domain.Migrations
             context.SaveChanges();
         }
 
-        public static void SetupDemoData(TdContext context)
+        public static void SetupDemoData(TdDomainContext context)
         {
             RemoveAllData(context);
             context.SaveChanges();

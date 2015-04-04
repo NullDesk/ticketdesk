@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotification
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotifications.Azure", "TicketDesk.PushNotifications.Azure\TicketDesk.PushNotifications.Azure.csproj", "{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotifications.WebLocal", "TicketDesk.PushNotifications.WebLocal\TicketDesk.PushNotifications.WebLocal.csproj", "{73C2A7C4-67D4-4F43-9455-43AE100EBDA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73C2A7C4-67D4-4F43-9455-43AE100EBDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C2A7C4-67D4-4F43-9455-43AE100EBDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C2A7C4-67D4-4F43-9455-43AE100EBDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C2A7C4-67D4-4F43-9455-43AE100EBDA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,5 +113,6 @@ Global
 		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48} = {E274BBA5-344B-4EF3-9085-7DA12E2C24EB}
 		{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82} = {8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}
 		{1C8EC3E6-F29A-4B7D-8C36-039933DABAEE} = {8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}
+		{73C2A7C4-67D4-4F43-9455-43AE100EBDA8} = {8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}
 	EndGlobalSection
 EndGlobal

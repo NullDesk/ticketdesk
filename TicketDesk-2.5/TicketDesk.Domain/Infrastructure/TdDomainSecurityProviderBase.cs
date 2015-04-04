@@ -20,7 +20,7 @@ namespace TicketDesk.Domain
     /// <summary>
     /// Provides the minimal set of security services to support business logic 
     /// </summary>
-    public abstract class TdContextSecurityProviderBase
+    public abstract class TdDomainSecurityProviderBase
     {
         protected abstract Func<string> GetCurrentUserId { get; }
 
@@ -96,7 +96,7 @@ namespace TicketDesk.Domain
             return GetInternalUserPermissions() | GetHelpDeskUserPermissions();
         }
 
-        public virtual TicketActivity GetValidTicketActivities(Ticket ticket)
+        public TicketActivity GetValidTicketActivities(Ticket ticket)
         {
             if (!(IsTdAdministrator || IsTdHelpDeskUser || IsTdInternalUser))
             {
@@ -111,7 +111,7 @@ namespace TicketDesk.Domain
             return (validTicketActivities & allowedActivities);
         }
 
-        public virtual bool IsTicketActivityValid(Ticket ticket, TicketActivity activity)
+        public bool IsTicketActivityValid(Ticket ticket, TicketActivity activity)
         {
             return GetValidTicketActivities(ticket).HasFlag(activity);
         }

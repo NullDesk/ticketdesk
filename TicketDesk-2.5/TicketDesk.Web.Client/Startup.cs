@@ -33,7 +33,7 @@ namespace TicketDesk.Web.Client
             ConfigureDatabase();
             ConfigureSearch();
             ConfigureAuth(app, container);
-            ConfigureNotifications();
+            ConfigurePushNotifications();
 
         }
     }

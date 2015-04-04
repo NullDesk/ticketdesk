@@ -26,8 +26,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class TicketCenterController : Controller
     {
-        private TdContext Context { get; set; }
-        public TicketCenterController(TdContext context)
+        private TdDomainContext Context { get; set; }
+        public TicketCenterController(TdDomainContext context)
         {
             Context = context;
         }

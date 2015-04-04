@@ -23,7 +23,7 @@ namespace TicketDesk.Domain.Model
     {
         public static IEnumerable<PushNotificationItem> ToNotificationItemItems(this IEnumerable<TicketEventNotification> notifications)
         {
-            var context = DependencyResolver.Current.GetService<TdContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             if (context.TicketDeskSettings.PushNotificationSettings.IsEnabled)
             {
                 return notifications.Select(note =>

@@ -43,7 +43,7 @@ namespace TicketDesk.PushNotifications.Azure
 
         public async Task<bool> SendNotification(IEnumerable<PushNotificationItem> items)
         {
-            await Queue.EnqueueItemsAsync(items);
+            //await Queue.EnqueueItemsAsync(items);
             return true;
         }
     }

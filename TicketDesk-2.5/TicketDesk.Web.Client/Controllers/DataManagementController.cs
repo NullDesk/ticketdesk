@@ -39,7 +39,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("remove-demo-data")]
         public ActionResult RemoveDemoData()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 DemoDataManager.RemoveAllData(ctx);
             }
@@ -51,7 +51,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("create-demo-data")]
         public ActionResult CreateDemoData()
         {
-            using (var ctx = new TdContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 DemoDataManager.SetupDemoData(ctx);
             }

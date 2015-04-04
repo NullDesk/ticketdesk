@@ -61,7 +61,7 @@ namespace TicketDesk.Domain.Model
 
         public virtual Ticket Ticket { get; set; }
 
-        public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; } 
+        public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
 
 
         /// <summary>
@@ -89,6 +89,33 @@ namespace TicketDesk.Domain.Model
                 IsHtml = false
             };
             return tc;
+        }
+
+        /// <summary>
+        /// Creates the event notifications for each ticket subscriber and adds them to the TicketEventNotifications collection.
+        /// </summary>
+        public void CreateSubscriberEventNotifications()
+        {
+            //PushNotificationPending could be set baed on subscriber's preferences in settings
+            //  In this case though, I'm somewhat concerned about the number of queries required to setup
+            //  notifications. Adding more lazy loads to pull in subscriber preferences from json serialized
+            //  settings could be quite cumbersome. Instead, we'll assume that the push notifier will decide 
+            //  if it should actually send the notifications or not.
+            foreach (var subscriber in Ticket.TicketSubscribers)
+            {
+                //TODO: need to base this if exclusion on the ExcludeSubscriberEvents setting in application anti-noise settings
+                if (EventBy != subscriber.SubscriberId)
+                {
+                    TicketEventNotifications.Add(
+                        new TicketEventNotification
+                        {
+                            IsNew = true,
+                            IsRead = false,
+                            PushNotificationPending = true,
+                            SubscriberId = subscriber.SubscriberId,
+                        });
+                }
+            }
         }
     }
 }

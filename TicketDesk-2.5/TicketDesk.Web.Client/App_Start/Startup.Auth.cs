@@ -30,13 +30,18 @@ namespace TicketDesk.Web.Client
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app, Container container)
         {
-            //non-IoC stuff... no longer needed, but here for reference.
-            //app.CreatePerOwinContext(TicketDeskIdentityContext.Create);
-            //app.CreatePerOwinContext<TicketDeskUserManager>(TicketDeskUserManager.Create);
-            //app.CreatePerOwinContext<TicketDeskRoleManager>(TicketDeskRoleManager.Create);
-            //app.CreatePerOwinContext<TicketDeskSignInManager>(TicketDeskSignInManager.Create);
-            
-            app.CreatePerOwinContext(container.GetInstance<TicketDeskUserManager>);
+            //app.createperowincontext stuff is now done by simpleinjector instead.
+            //  It is worth noting that CreatePerOwinContext has one fatal down-side... it WILL 
+            //  create an instance for each owin context, even if nothing ever attempts to get
+            //  that instance... in TD's case, this causes things like the user manager to try
+            //  to instantiate, even if we're in first-run-setup mode and don't have a database
+            //  available yet. 
+
+                //app.CreatePerOwinContext(TicketDeskIdentityContext.Create);
+                //app.CreatePerOwinContext<TicketDeskUserManager>(TicketDeskUserManager.Create);
+                //app.CreatePerOwinContext<TicketDeskRoleManager>(TicketDeskRoleManager.Create);
+                //app.CreatePerOwinContext<TicketDeskSignInManager>(TicketDeskSignInManager.Create);
+                //app.CreatePerOwinContext(container.GetInstance<TicketDeskUserManager>);
             
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

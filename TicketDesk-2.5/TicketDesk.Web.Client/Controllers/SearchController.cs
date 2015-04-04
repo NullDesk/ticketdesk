@@ -24,8 +24,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class SearchController : Controller
     {
-        private TdContext Context { get; set; }
-        public SearchController(TdContext context)
+        private TdDomainContext Context { get; set; }
+        public SearchController(TdDomainContext context)
         {
             Context = context;
         }

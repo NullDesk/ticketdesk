@@ -30,10 +30,10 @@ namespace TicketDesk.PushNotifications.Common
             GetProvidersFunc = getProvidersFunc;
         }
 
-        private static IEnumerable<IPushNotificationProvider> _pushNotifcationProviders;
+        private static IEnumerable<IPushNotificationProvider> _pushNotificationProviders;
         private static IEnumerable<IPushNotificationProvider> PushNotificationProviders
         {
-            get { return _pushNotifcationProviders ?? (_pushNotifcationProviders = GetProvidersFunc()); }
+            get { return _pushNotificationProviders ?? (_pushNotificationProviders = GetProvidersFunc()); }
         }
 
 
@@ -55,7 +55,7 @@ namespace TicketDesk.PushNotifications.Common
             
             foreach (var item in items)
             {
-                var citem = item;//closure foreach workaround
+                var citem = item;//foreach closure workaround
                 var existingItem =
                     await
                         PushNotificationItems.SingleOrDefaultAsync( n =>
