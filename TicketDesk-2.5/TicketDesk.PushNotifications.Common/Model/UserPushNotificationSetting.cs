@@ -14,17 +14,21 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
-using TicketDesk.Domain.Annotations;
 
-namespace TicketDesk.Domain.Model.UserSettingsModel
+
+namespace TicketDesk.PushNotifications.Common.Model
 {
+     [Table("UserPushNotificationSettings", Schema = "notifications")]
     public class UserPushNotificationSetting
     {
         public UserPushNotificationSetting()
         {
             IsEnabled = true;
-          
         }
+
+        [Key]
+        [StringLength(256)]
+        public string UserId { get; set; }
 
         [JsonIgnore]
         [Display(AutoGenerateField = false)]
@@ -32,7 +36,6 @@ namespace TicketDesk.Domain.Model.UserSettingsModel
         public string Serialized
         {
             get { return JsonConvert.SerializeObject(this); }
-            [UsedImplicitly]
             set
             {
                 if (string.IsNullOrEmpty(value))

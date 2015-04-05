@@ -32,10 +32,11 @@ namespace TicketDesk.Web.Client
                 //cannot configure without reading application settings from the DB
                 return;
             }
-            var context = DependencyResolver.Current.GetService<TdDomainContext>();
-            if (context.TicketDeskSettings.PushNotificationSettings.IsEnabled)
+            //configure first!
+            TdPushNotificationContext.Configure(GetPushNotificationProviders);
+            var context = DependencyResolver.Current.GetService<TdPushNotificationContext>();
+            if (context.PushNotificationSettings.IsEnabled)
             {
-                TdPushNotificationContext.Configure(GetPushNotificationProviders);
                 //register for static notifications created event handler 
                 TdDomainContext.NotificationsCreated += (sender, notifications) =>
                 {
@@ -49,8 +50,7 @@ namespace TicketDesk.Web.Client
                                 async ct =>
                                 {
                                     var noteContext = DependencyResolver.Current.GetService<TdPushNotificationContext>();
-                                    await
-                                        noteContext.AddPendingNotifications(notes.ToNotificationItemItems());
+                                    await noteContext.AddNotifications(notes.ToNotificationEventInfoCollection());
                                     await noteContext.SaveChangesAsync(ct);
                                 });
                         }

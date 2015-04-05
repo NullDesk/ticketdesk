@@ -25,7 +25,7 @@ namespace TicketDesk.Domain.Model
             ApplicationName = "TicketDesk";
             Permissions = new ApplicationPermissionsSetting();
             SelectLists = new ApplicationSelectListSetting();
-            PushNotificationSettings = new ApplicationPushNotificationSetting();
+            
           
         }
 
@@ -37,8 +37,6 @@ namespace TicketDesk.Domain.Model
         public ApplicationPermissionsSetting Permissions { get; set; }
 
         public ApplicationSelectListSetting SelectLists { get; set; }
-
-        public ApplicationPushNotificationSetting PushNotificationSettings { get; set; }
 
       
     }

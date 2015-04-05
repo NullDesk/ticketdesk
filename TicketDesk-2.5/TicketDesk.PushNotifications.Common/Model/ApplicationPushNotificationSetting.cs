@@ -14,15 +14,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
-using TicketDesk.Domain.Annotations;
 
-namespace TicketDesk.Domain.Model
+
+namespace TicketDesk.PushNotifications.Common.Model
 {
+     [Table("ApplicationPushNotificationSettings", Schema = "notifications")]
     public class ApplicationPushNotificationSetting
     {
 
         public ApplicationPushNotificationSetting()
         {
+            ApplicationName = "TicketDesk";
             IsEnabled = true;
             DeliveryIntervalMinutes = 2;
             AntiNoiseSettings = new AntiNoiseSetting();
@@ -30,13 +32,17 @@ namespace TicketDesk.Domain.Model
             RetryIntervalMinutes = 5;
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(AutoGenerateField = false)]
+        public string ApplicationName { get; set; }
+
         [JsonIgnore]
         [Display(AutoGenerateField = false)]
         [ScaffoldColumn(false)]
         public string Serialized
         {
             get { return JsonConvert.SerializeObject(this); }
-            [UsedImplicitly]
             set
             {
                 if (string.IsNullOrEmpty(value))

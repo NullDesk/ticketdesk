@@ -18,6 +18,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Common.Model.Extensions;
 
 namespace TicketDesk.PushNotifications.Common
 {
@@ -44,48 +45,75 @@ namespace TicketDesk.PushNotifications.Common
             {
                 throw new ConfigurationErrorsException("Cannot create TicketDeskNotificationContext, at least one push notification provider must be configured");
             }
-            PushNotificationItems = Set<PushNotificationItem>();// dbset is internal, must manually initialize it for use by EF
+            // dbsets are internal, must manually initialize it for use by EF
+            PushNotificationItems = Set<PushNotificationItem>();
+            ApplicationPushNotificationSettings = Set<ApplicationPushNotificationSetting>();
         }
 
-        
-        internal DbSet<PushNotificationItem> PushNotificationItems { get; set; }
-
-        public async Task<bool> AddPendingNotifications(IEnumerable<PushNotificationItem> items)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
-            foreach (var item in items)
+
+            modelBuilder.Entity<ApplicationPushNotificationSetting>()
+             .Property(p => p.Serialized)
+             .HasColumnName("PushNotificationSettingsJson");
+
+            modelBuilder.Entity<UserPushNotificationSetting>()
+             .Property(p => p.Serialized)
+             .HasColumnName("PushNotificationSettingsJson");
+        }
+
+        internal DbSet<PushNotificationItem> PushNotificationItems { get; set; }
+        internal DbSet<ApplicationPushNotificationSetting> ApplicationPushNotificationSettings { get; set; }
+        public DbSet<UserPushNotificationSetting> UserPushNotificationSettings { get; set; }
+
+
+        public ApplicationPushNotificationSetting PushNotificationSettings
+        {
+            //TODO: these change infrequently, cache these
+            get { return ApplicationPushNotificationSettings.GetTicketDeskSettings(); }
+            set
+            {
+                var oldSettings = ApplicationPushNotificationSettings.GetTicketDeskSettings();
+                if (oldSettings != null)
+                {
+                    ApplicationPushNotificationSettings.Remove(oldSettings);
+                }
+                ApplicationPushNotificationSettings.Add(value);
+            }
+        }
+
+        public async Task<bool> AddNotifications(IEnumerable<PushNotificationEventInfo> infoItems)
+        {
+
+            foreach (var item in infoItems)
             {
                 var citem = item;//foreach closure workaround
+                var userSettings = UserPushNotificationSettings.GetSettingsForUser(citem.SubscriberId);
+                var appSettings = PushNotificationSettings;
                 var existingItem =
                     await
-                        PushNotificationItems.SingleOrDefaultAsync( n =>
+                        PushNotificationItems.SingleOrDefaultAsync(n =>
                                 n.TicketId == citem.TicketId &&
                                 n.SubscriberId == citem.SubscriberId &&
-                                citem.DeliveryStatus == PushNotificationItemStatus.Scheduled);
+                                n.DeliveryStatus == PushNotificationItemStatus.Scheduled);
 
                 if (existingItem != null)
                 {
-                    //entry already exists, add the new item's event id(s) to the existing item's list of events
-                    existingItem.TicketEvents = existingItem.TicketEvents.Union(item.TicketEvents).ToArray();
-
-
-                    //TODO: check logic for anti-noise system and reset the delivery time. 
-                    //  Since we have to inspect the main domain's ticketevent before sending (for read 
-                    //      flags and such), no reason not to query domain for subscriber's settings too, but
-                    //      it may be more effective to store those settings for faster lookup with the notification item anyway...
-                
-                
+                    existingItem.AddNewEvent(citem, appSettings, userSettings);
                 }
                 else
                 {
                     //doesn't exist, so add it now
-                    PushNotificationItems.Add(item);
+                    PushNotificationItems.Add(
+                        citem.ToPushNotificationItem(appSettings, userSettings));
                 }
             }
-            
-           
+
+
             return true;
         }
+
+
 
     }
 }

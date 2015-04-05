@@ -22,7 +22,6 @@ using TicketDesk.Domain.Annotations;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using System.Data.Entity;
-using TicketDesk.Domain.Model.UserSettingsModel;
 
 
 namespace TicketDesk.Domain
@@ -108,10 +107,7 @@ namespace TicketDesk.Domain
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
 
-            modelBuilder.ComplexType<UserPushNotificationSetting>()
-                .Property(p => p.Serialized)
-                .HasColumnName("PushNotificationSettingsJson");
-
+         
             modelBuilder.ComplexType<ApplicationSelectListSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("SelectListSettingsJson");
@@ -120,11 +116,8 @@ namespace TicketDesk.Domain
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
 
-            modelBuilder.ComplexType<ApplicationPushNotificationSetting>()
-               .Property(p => p.Serialized)
-               .HasColumnName("PushNotificationSettingsJson");
+         
 
-            
         }
 
         public DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
@@ -146,6 +139,7 @@ namespace TicketDesk.Domain
         /// <value>The application settings.</value>
         public ApplicationSetting TicketDeskSettings
         {
+            //TODO: these change infrequently, cache these
             get { return ApplicationSettings.GetTicketDeskSettings(); }
             set
             {

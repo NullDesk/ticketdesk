@@ -38,6 +38,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -51,8 +54,13 @@
   <ItemGroup>
     <Compile Include="Infrastructure\IPushNotifcationProvider.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\List.cs" />
+    <Compile Include="Model\ApplicationPushNotificationSetting.cs" />
+    <Compile Include="Model\Extensions\ApplicationPushNotificationSettingsExtensions.cs" />
+    <Compile Include="Model\Extensions\UserPushNotificationSettingsExtensions.cs" />
+    <Compile Include="Model\PushNotificationEventInfo.cs" />
     <Compile Include="Model\PushNotificationItem.cs" />
+    <Compile Include="Model\PushNotificationItemStatus.cs" />
+    <Compile Include="Model\UserPushNotificationSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TdPushNotificationContext.cs" />
     <Compile Include="Infrastructure\TdPushNotificationDbInitializer.cs" />

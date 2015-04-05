@@ -12,24 +12,14 @@
 // provided to the recipient.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace TicketDesk.PushNotifications.Common.Model
 {
-    public enum PushNotificationItemStatus
-    {
-        Scheduled,
-        Sending,
-        Sent,
-        Retrying,
-        Failed,
-        Canceled,
-        Disabled
-
-    }
+    [Table("PushNotificationItems", Schema = "notifications")]
     public class PushNotificationItem
     {
         [Key]
@@ -43,27 +33,88 @@ namespace TicketDesk.PushNotifications.Common.Model
         public DateTimeOffset CreatedDate { get; set; }
 
         public DateTimeOffset? ScheduledSendDate { get; set; }
-        
+
         public PushNotificationItemStatus DeliveryStatus { get; set; }
-        
+
         public int RetryCount { get; set; }
-        
+
         public string TicketEventsList { get; set; }
 
+        public string CanceledEventsList { get; set; }
+
         [NotMapped]
-        public int[] TicketEvents
+        public Collection<int> TicketEvents
         {
             get
             {
-                return Array.ConvertAll(TicketEventsList.Split(';'), int.Parse);
+                return new Collection<int>(Array.ConvertAll(TicketEventsList.Split(';'), int.Parse));
             }
             set
             {
                 TicketEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
             }
         }
-       
+
+        [NotMapped]
+        public Collection<int> CanceledEvents
+        {
+            get
+            {
+                return new Collection<int>(Array.ConvertAll(CanceledEventsList.Split(';'), int.Parse));
+            }
+            set
+            {
+                CanceledEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
+            }
+        }
+
+        public void AddNewEvent(PushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, UserPushNotificationSetting userSetting)
+        {
+            if (eventInfo.CancelNotification)
+            {
+                TicketEvents.Remove(eventInfo.EventId);
+                CanceledEvents.Add(eventInfo.EventId);
+                if (!TicketEvents.Any())
+                {
+                    DeliveryStatus = PushNotificationItemStatus.Canceled;
+                    ScheduledSendDate = null;
+                }
+            }
+            else
+            {
+                //add this event
+                TicketEvents.Add(eventInfo.EventId);
+                //kick the schedule out if consolidation enabled
+                ScheduledSendDate = GetSendDate(appSettings, userSetting);
+            }
+        }
+
+        private DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, UserPushNotificationSetting userNoteSettings)
+        {
+            DateTimeOffset? send = ScheduledSendDate;//we'll leave this alone if consolidation isn't usedS
+
+            if (userNoteSettings.IsEnabled && appSettings.AntiNoiseSettings.IsConsolidationEnabled && ScheduledSendDate.HasValue)
+            {
+                var now = DateTime.Now;
+
+                var currentDelayMinutes = (now - CreatedDate).Minutes;
+
+                var maxDelayMinutes = appSettings.AntiNoiseSettings.MaxConsolidationDelayMinutes;
+
+                var delay = appSettings.AntiNoiseSettings.InitialConsolidationDelayMinutes;
+
+                //ensure we don't bump thing over the max wait
+                if (delay + currentDelayMinutes > maxDelayMinutes)
+                {
+                    delay = maxDelayMinutes - currentDelayMinutes;
+                }
+
+                send = now.AddMinutes(delay);
+            }
+            return send;
+
+        }
     }
 
-  
+
 }

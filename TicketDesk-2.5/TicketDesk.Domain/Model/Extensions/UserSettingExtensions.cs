@@ -57,12 +57,8 @@ namespace TicketDesk.Domain.Model
         /// <returns>UserSetting.</returns>
         public static UserSetting GetUserSetting(this DbSet<UserSetting> settings, string userId)
         {
-            var usetting = settings.FirstOrDefault(us => us.UserId == userId);
-            if (usetting == null)
-            {
-                usetting = UserSetting.GetDefaultListSettingsForUser(userId);
-                settings.Add(usetting);//if and when saves are made to the db, these will be included  
-            }
+            var usetting = settings.FirstOrDefault(us => us.UserId == userId) ??
+                           UserSetting.GetDefaultListSettingsForUser(userId);
             return usetting;
         }
 
