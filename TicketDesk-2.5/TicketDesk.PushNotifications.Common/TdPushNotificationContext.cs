@@ -103,9 +103,16 @@ namespace TicketDesk.PushNotifications.Common
                 }
                 else
                 {
-                    //doesn't exist, so add it now
-                    PushNotificationItems.Add(
-                        citem.ToPushNotificationItem(appSettings, userSettings));
+                    var newNote = citem.ToPushNotificationItem(appSettings, userSettings);
+                    if (newNote.TicketEventsList.Any())
+                    {
+                        //only add the new note if it contains an event... if only CanceledEvents exist 
+                        //  for new note, then the note came in pre-canceled by the sender. This happens 
+                        //  when the ticket event is marked as read from the start --usually when a 
+                        //  subscriber has initiated the event in the first place and anti-noise is set
+                        //  to exclude suscriber's own events
+                        PushNotificationItems.Add(newNote);
+                    }
                 }
             }
 

@@ -50,7 +50,9 @@ namespace TicketDesk.Web.Client
                                 async ct =>
                                 {
                                     var noteContext = DependencyResolver.Current.GetService<TdPushNotificationContext>();
-                                    await noteContext.AddNotifications(notes.ToNotificationEventInfoCollection());
+                                    var subscriberExclude =
+                                        noteContext.PushNotificationSettings.AntiNoiseSettings.ExcludeSubscriberEvents;
+                                    await noteContext.AddNotifications(notes.ToNotificationEventInfoCollection(subscriberExclude));
                                     await noteContext.SaveChangesAsync(ct);
                                 });
                         }
