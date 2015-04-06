@@ -70,7 +70,23 @@ namespace TicketDesk.PushNotifications.Common
         public ApplicationPushNotificationSetting PushNotificationSettings
         {
             //TODO: these change infrequently, cache these
-            get { return ApplicationPushNotificationSettings.GetTicketDeskSettings(); }
+            get
+            {
+                var apn = ApplicationPushNotificationSettings.GetTicketDeskSettings();
+                //this should only ever happen once, but if no settings are in DB, make default set
+                if (apn == null)
+                {
+                    apn = new ApplicationPushNotificationSetting();
+                    //do this on another instance, because we don't want to commit other things that may be tracking on this instance
+                    using (var tempContext = new TdPushNotificationContext())//this feels like cheating :)
+                    {
+                        ApplicationPushNotificationSettings.Add(apn);
+                        tempContext.SaveChanges();
+                    }
+                    
+                }
+                return apn;
+            }
             set
             {
                 var oldSettings = ApplicationPushNotificationSettings.GetTicketDeskSettings();

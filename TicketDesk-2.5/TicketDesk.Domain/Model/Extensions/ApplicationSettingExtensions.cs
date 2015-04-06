@@ -20,8 +20,8 @@ namespace TicketDesk.Domain.Model
     {
         public static ApplicationSetting GetTicketDeskSettings(this DbSet<ApplicationSetting> settings)
         {
-            //if no settings, return new with default settings
-            return settings.FirstOrDefault(s => s.ApplicationName == "TicketDesk")?? new ApplicationSetting();
+         
+            return settings.FirstOrDefault(s => s.ApplicationName == "TicketDesk");
         }
     }
 }

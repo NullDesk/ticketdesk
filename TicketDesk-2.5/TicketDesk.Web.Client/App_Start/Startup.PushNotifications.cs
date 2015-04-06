@@ -11,7 +11,9 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -27,14 +29,17 @@ namespace TicketDesk.Web.Client
     {
         public static void ConfigurePushNotifications()
         {
-            if (!DatabaseConfig.IsDatabaseReady)
+            var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
+
+            if (!DatabaseConfig.IsDatabaseReady || demoMode.Equals("false", StringComparison.InvariantCultureIgnoreCase))
             {
-                //cannot configure without reading application settings from the DB
+                //disable if database hasn't been created, of if running in demo mode
                 return;
             }
-            //configure first!
+            //configure providers first!
             TdPushNotificationContext.Configure(GetPushNotificationProviders);
             var context = DependencyResolver.Current.GetService<TdPushNotificationContext>();
+           
             if (context.PushNotificationSettings.IsEnabled)
             {
                 //register for static notifications created event handler 

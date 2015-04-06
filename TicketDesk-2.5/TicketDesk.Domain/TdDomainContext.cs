@@ -140,7 +140,22 @@ namespace TicketDesk.Domain
         public ApplicationSetting TicketDeskSettings
         {
             //TODO: these change infrequently, cache these
-            get { return ApplicationSettings.GetTicketDeskSettings(); }
+            get
+            {
+                var aps = ApplicationSettings.GetTicketDeskSettings();
+                //this should only ever happen once, but if no settings are in DB, make default set
+                if (aps == null)
+                {
+                    aps = new ApplicationSetting();
+                    //do this on another instance, because we don't want to commit other things that may be tracking on this instance
+                    using (var tempContext = new TdDomainContext()) //this feels like cheating :)
+                    {
+                        ApplicationSettings.Add(aps);
+                        tempContext.SaveChanges();
+                    }
+                }
+                return aps;
+            }
             set
             {
                 var oldSettings = ApplicationSettings.GetTicketDeskSettings();

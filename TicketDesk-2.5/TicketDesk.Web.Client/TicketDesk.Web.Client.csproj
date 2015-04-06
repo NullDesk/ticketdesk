@@ -191,6 +191,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\PushNotificationSettingsController.cs" />
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\FirstRunSetupController.cs" />
     <Compile Include="Controllers\SearchManagerController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\DescriptionForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\JsonCamelCaseResult.cs" />
     <Compile Include="Infrastructure\Helpers\MimeTypeMap.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
@@ -448,6 +450,7 @@
     <Content Include="Views\FirstRunSetup\_SetupCompleteInfo.cshtml" />
     <Content Include="Views\ApplicationSettings\Index.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Views\PushNotificationSettings\Index.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

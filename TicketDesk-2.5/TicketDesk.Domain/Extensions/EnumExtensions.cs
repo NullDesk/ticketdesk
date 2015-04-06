@@ -20,6 +20,8 @@ namespace TicketDesk.Domain
 {
     public static class EnumExtensions
     {
+        //TODO: consider changing this to use Display(description="") instead? Keep same as mvc helper in web client
+          
 
         /// <summary>
         /// Gets the description for an enum.
@@ -30,7 +32,7 @@ namespace TicketDesk.Domain
         /// If used on an enum as a whole, will return the description of the enum itself.</remarks>
         public static string GetDescription(this Enum enumeration)
         {
-            var type = enumeration.GetType();
+             var type = enumeration.GetType();
             var memberInfo = type.GetMember(enumeration.ToString());
 
             //if there is member information
