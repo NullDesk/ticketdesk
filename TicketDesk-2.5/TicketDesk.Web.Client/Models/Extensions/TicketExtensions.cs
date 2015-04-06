@@ -38,7 +38,7 @@ namespace TicketDesk.Domain.Model
                 Details = t.Details,
                 Status = t.TicketStatus.ToString(),
                 LastUpdateDate = t.LastUpdateDate,
-                Tags = t.TagList.Split(','),
+                Tags = string.IsNullOrEmpty(t.TagList) ? new string[] { } : t.TagList.Split(','),
                 //not null comments only, otherwise we end up indexing empty array item, or blowing up azure required field
                 Events = t.TicketEvents.Where(c => !string.IsNullOrEmpty(c.Comment)).Select(c => c.Comment).ToArray()
             });

@@ -42,7 +42,7 @@ namespace TicketDesk.Web.Client
                     if (changes.Any())
                     {
                         //add to search index
-                        var searchItems = changes.ToSeachIndexItems();
+                        var searchItems = changes.ToSeachIndexItems().ToArray();
 
                         HostingEnvironment.QueueBackgroundWorkItem(
                             async ct =>

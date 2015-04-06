@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.Globalization;
+using System.Linq;
 using Lucene.Net.Documents;
 using TicketDesk.Search.Common;
 
@@ -21,8 +22,8 @@ namespace TicketDesk.Search.Lucene
     {
         public static Document ToLuceneDocument(this SearchIndexItem item)
         {
-            var eventText = string.Join(" ", item.Events);
-            var tagList = string.Join(" ", item.Tags);
+            var eventText = item.Events != null && item.Events.Any() ? string.Join(" ", item.Events) : string.Empty;
+            var tagList = item.Tags != null && item.Tags.Any() ? string.Join(" ", item.Tags) : string.Empty;
 
             var id = new Field(
                 "id",

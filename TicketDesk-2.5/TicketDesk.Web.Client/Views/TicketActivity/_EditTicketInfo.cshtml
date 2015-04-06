@@ -46,20 +46,21 @@
 </div>
 
 <div class="form-group">
+    <div class="col-sm-3 col-sm-offset-2">
+        <label class="checkbox-inline" for="affectsCustomer">
+            <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="5" />
+            Affects Customer
+        </label>
+    </div>
     @if (Model.AllowEditTags())
     {
         @Html.LabelFor(model => model.TagList, new { @class = "col-sm-2 control-label" })
         <div class="col-sm-4">
-            @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 5 })
+            @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 6 })
 
         </div>
     }
-    <div class="col-sm-4 col-sm-offset-1">
-        <label class="checkbox-inline" for="affectsCustomer">
-            <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="6" />
-            Affects Customer
-        </label>
-    </div>
+   
 </div>
 
 <div class="form-group">
