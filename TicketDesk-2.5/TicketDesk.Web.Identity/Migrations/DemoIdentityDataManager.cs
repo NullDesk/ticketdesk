@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TicketDesk.Web.Identity.Model;
 
-namespace TicketDesk.Web.Identity.Infrastructure
+namespace TicketDesk.Web.Identity.Migrations
 {
     public static class DemoIdentityDataManager
     {
@@ -32,7 +32,7 @@ namespace TicketDesk.Web.Identity.Infrastructure
                 context.Roles.Remove(role);
             }
 
-            //the context itself will ensure that at least one valid admin user accout remains
+            //the context itself will ensure that at least one valid admin user account remains
 
             context.SaveChanges();
         }

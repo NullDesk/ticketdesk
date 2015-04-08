@@ -20,7 +20,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using SimpleInjector;
 using TicketDesk.Web.Identity;
-using TicketDesk.Web.Identity.Infrastructure;
+using TicketDesk.Web.Identity.Migrations;
 using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client
@@ -89,13 +89,9 @@ namespace TicketDesk.Web.Client
             //    ClientSecret = ""
             //});
 
-            
-            var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
-            var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) &&
-                demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) &&
-                DatabaseConfig.IsDatabaseReady;//only do this if database was ready on startup, otherwise migrator will take care of it
 
-            if (firstRunDemoRefresh)
+
+            if (DatabaseConfig.IsFirstRunDemoRefreshEnabled())
             {
                 DemoIdentityDataManager.SetupDemoIdentityData(container.GetInstance<TdIdentityContext>());
             }

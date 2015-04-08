@@ -1,3 +1,6 @@
+using System.Configuration;
+using TicketDesk.PushNotifications.Common.Model;
+
 namespace TicketDesk.PushNotifications.Common.Migrations
 {
     using System;
@@ -15,18 +18,32 @@ namespace TicketDesk.PushNotifications.Common.Migrations
 
         protected override void Seed(TicketDesk.PushNotifications.Common.TdPushNotificationContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
+            if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+            {
+                DemoPushNotificationDataManager.SetupDemoPushNotificationData(context);
+            }
+            else
+            {
+                if (!context.SubscriberPushNotificationSettings.Any(s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
+                {
+                    context.SubscriberPushNotificationSettings.Add(new SubscriberPushNotificationSetting()
+                    {
+                        SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
+                        IsEnabled = true,
+                        PushNotificationDestinations = new PushNotificationDestinationCollection()
+                        {
+                            new PushNotificationDestination()
+                            {
+                                SubscriberName = "Admin User",
+                                DestinationAddress = "admin@example.com",
+                                DestinationType = "email"
+                            }
+                        }
+                    });
+                }
+            }
+            base.Seed(context);
         }
     }
 }

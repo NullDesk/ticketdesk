@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\DemoPushNotificationDataManager.cs" />
     <Compile Include="Infrastructure\IPushNotifcationProvider.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationPushNotificationSetting.cs" />
@@ -59,8 +60,10 @@
     <Compile Include="Model\Extensions\UserPushNotificationSettingsExtensions.cs" />
     <Compile Include="Model\PushNotificationEventInfo.cs" />
     <Compile Include="Model\PushNotificationItem.cs" />
+    <Compile Include="Model\PushNotificationDestination.cs" />
+    <Compile Include="Model\PushNotificationDestinationCollection.cs" />
     <Compile Include="Model\PushNotificationItemStatus.cs" />
-    <Compile Include="Model\UserPushNotificationSetting.cs" />
+    <Compile Include="Model\SubscriberPushNotificationSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TdPushNotificationContext.cs" />
     <Compile Include="Infrastructure\TdPushNotificationDbInitializer.cs" />

@@ -19,7 +19,7 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         public bool CancelNotification { get; set; }
 
-        internal PushNotificationItem ToPushNotificationItem(ApplicationPushNotificationSetting appSettings, UserPushNotificationSetting userSettings)
+        internal PushNotificationItem ToPushNotificationItem(ApplicationPushNotificationSetting appSettings, SubscriberPushNotificationSetting userSettings)
         {
             return new PushNotificationItem()
             {
@@ -38,7 +38,7 @@ namespace TicketDesk.PushNotifications.Common.Model
         }
 
 
-        private static DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, UserPushNotificationSetting userNoteSettings)
+        private static DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberPushNotificationSetting userNoteSettings)
         {
             DateTimeOffset? send = null;
             if (userNoteSettings.IsEnabled)

@@ -15,10 +15,10 @@ namespace TicketDesk.PushNotifications.Common.Model.Extensions
         /// <param name="settings">The settings.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns>UserSetting.</returns>
-        public static UserPushNotificationSetting GetSettingsForUser(this DbSet<UserPushNotificationSetting> settings, string userId)
+        public static SubscriberPushNotificationSetting GetSettingsForUser(this DbSet<SubscriberPushNotificationSetting> settings, string userId)
         {
-            var usetting = settings.FirstOrDefault(us => us.UserId == userId) ?? 
-                new UserPushNotificationSetting();//when no settings for user in db, return default settings
+            var usetting = settings.FirstOrDefault(us => us.SubscriberId == userId) ?? 
+                new SubscriberPushNotificationSetting();//when no settings for user in db, return default settings
             return usetting;
         }
     }

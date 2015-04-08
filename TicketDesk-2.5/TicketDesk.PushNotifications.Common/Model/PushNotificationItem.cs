@@ -12,13 +12,16 @@
 // provided to the recipient.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace TicketDesk.PushNotifications.Common.Model
 {
+
     [Table("PushNotificationItems", Schema = "notifications")]
     public class PushNotificationItem
     {
@@ -68,7 +71,7 @@ namespace TicketDesk.PushNotifications.Common.Model
             }
         }
 
-        public void AddNewEvent(PushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, UserPushNotificationSetting userSetting)
+        public void AddNewEvent(PushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, SubscriberPushNotificationSetting userSetting)
         {
             if (eventInfo.CancelNotification)
             {
@@ -89,7 +92,7 @@ namespace TicketDesk.PushNotifications.Common.Model
             }
         }
 
-        private DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, UserPushNotificationSetting userNoteSettings)
+        private DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberPushNotificationSetting userNoteSettings)
         {
             DateTimeOffset? send = ScheduledSendDate;//we'll leave this alone if consolidation isn't usedS
 

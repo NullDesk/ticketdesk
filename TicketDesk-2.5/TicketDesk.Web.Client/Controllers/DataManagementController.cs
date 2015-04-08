@@ -15,7 +15,7 @@ using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.Web.Identity;
-using TicketDesk.Web.Identity.Infrastructure;
+using TicketDesk.Web.Identity.Migrations;
 
 namespace TicketDesk.Web.Client.Controllers
 {

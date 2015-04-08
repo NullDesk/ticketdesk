@@ -16,7 +16,6 @@ using System.Configuration;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using TicketDesk.Web.Identity.Infrastructure;
 using TicketDesk.Web.Identity.Model;
 using System.Data.Entity.Migrations;
 

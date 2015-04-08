@@ -34,6 +34,7 @@ namespace TicketDesk.PushNotifications.Common.Model
         }
 
         [Key]
+        [JsonIgnore]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(AutoGenerateField = false)]
         public string ApplicationName { get; set; }

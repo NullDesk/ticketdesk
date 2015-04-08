@@ -23,9 +23,10 @@ namespace TicketDesk.Domain.Migrations
         {
             context.UserSettings.RemoveRange(context.UserSettings);
             context.TicketTags.RemoveRange(context.TicketTags);
+            context.TicketEventNotifications.RemoveRange(context.TicketEventNotifications);
+            context.TicketSubscribers.RemoveRange(context.TicketSubscribers);
             context.TicketEvents.RemoveRange(context.TicketEvents);
             context.Tickets.RemoveRange(context.Tickets);
-            
             context.TicketDeskSettings = new ApplicationSetting();
           
             context.SaveChanges();

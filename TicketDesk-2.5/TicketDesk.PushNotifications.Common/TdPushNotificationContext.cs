@@ -57,14 +57,15 @@ namespace TicketDesk.PushNotifications.Common
              .Property(p => p.Serialized)
              .HasColumnName("PushNotificationSettingsJson");
 
-            modelBuilder.Entity<UserPushNotificationSetting>()
+            modelBuilder.ComplexType<PushNotificationDestinationCollection>()
              .Property(p => p.Serialized)
-             .HasColumnName("PushNotificationSettingsJson");
+             .HasColumnName("PushNotificationDestinationsJson");
+
         }
 
         internal DbSet<PushNotificationItem> PushNotificationItems { get; set; }
         internal DbSet<ApplicationPushNotificationSetting> ApplicationPushNotificationSettings { get; set; }
-        public DbSet<UserPushNotificationSetting> UserPushNotificationSettings { get; set; }
+        public DbSet<SubscriberPushNotificationSetting> SubscriberPushNotificationSettings { get; set; }
 
 
         public ApplicationPushNotificationSetting PushNotificationSettings
@@ -104,7 +105,7 @@ namespace TicketDesk.PushNotifications.Common
             foreach (var item in infoItems)
             {
                 var citem = item;//foreach closure workaround
-                var userSettings = UserPushNotificationSettings.GetSettingsForUser(citem.SubscriberId);
+                var userSettings = SubscriberPushNotificationSettings.GetSettingsForUser(citem.SubscriberId);
                 var appSettings = PushNotificationSettings;
                 var existingItem =
                     await

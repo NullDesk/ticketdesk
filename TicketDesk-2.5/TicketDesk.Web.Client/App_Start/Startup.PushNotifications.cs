@@ -14,13 +14,17 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications.Azure;
 using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications.Common.Migrations;
+using TicketDesk.PushNotifications.Common.Model;
 using TicketDesk.PushNotifications.WebLocal;
 
 namespace TicketDesk.Web.Client
@@ -31,7 +35,7 @@ namespace TicketDesk.Web.Client
         {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
 
-            if (!DatabaseConfig.IsDatabaseReady || demoMode.Equals("false", StringComparison.InvariantCultureIgnoreCase))
+            if (!DatabaseConfig.IsDatabaseReady || demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
             {
                 //disable if database hasn't been created, of if running in demo mode
                 return;
@@ -39,9 +43,16 @@ namespace TicketDesk.Web.Client
             //configure providers first!
             TdPushNotificationContext.Configure(GetPushNotificationProviders);
             var context = DependencyResolver.Current.GetService<TdPushNotificationContext>();
-           
+
+            if (DatabaseConfig.IsFirstRunDemoRefreshEnabled())
+            {
+                DemoPushNotificationDataManager.SetupDemoPushNotificationData(context);
+            }
+            
             if (context.PushNotificationSettings.IsEnabled)
             {
+                context.Dispose();//ensure that no one accidentally holds a reference to this in closure
+                
                 //register for static notifications created event handler 
                 TdDomainContext.NotificationsCreated += (sender, notifications) =>
                 {
