@@ -45,6 +45,10 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> Index(int id)
         {
             var model = await Context.Tickets.FindAsync(id);
+            if (model == null)
+            {
+                return RedirectToAction("Index", "TicketCenter");
+            }
             return View(model);
         }
 
