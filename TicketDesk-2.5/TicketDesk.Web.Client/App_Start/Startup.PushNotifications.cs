@@ -49,7 +49,7 @@ namespace TicketDesk.Web.Client
                 DemoPushNotificationDataManager.SetupDemoPushNotificationData(context);
             }
             
-            if (context.PushNotificationSettings.IsEnabled)
+            if (context.TicketDeskPushNotificationSettings.IsEnabled)
             {
                 context.Dispose();//ensure that no one accidentally holds a reference to this in closure
                 
@@ -67,7 +67,7 @@ namespace TicketDesk.Web.Client
                                 {
                                     var noteContext = DependencyResolver.Current.GetService<TdPushNotificationContext>();
                                     var subscriberExclude =
-                                        noteContext.PushNotificationSettings.AntiNoiseSettings.ExcludeSubscriberEvents;
+                                        noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings.ExcludeSubscriberEvents;
                                     await noteContext.AddNotifications(notes.ToNotificationEventInfoCollection(subscriberExclude));
                                     await noteContext.SaveChangesAsync(ct);
                                 });

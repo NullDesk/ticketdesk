@@ -162,6 +162,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketDeskDomainText.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserSettingsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

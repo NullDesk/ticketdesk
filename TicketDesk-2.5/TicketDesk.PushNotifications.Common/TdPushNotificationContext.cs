@@ -45,9 +45,10 @@ namespace TicketDesk.PushNotifications.Common
             {
                 throw new ConfigurationErrorsException("Cannot create TicketDeskNotificationContext, at least one push notification provider must be configured");
             }
-            // dbsets are internal, must manually initialize it for use by EF
+            // dbsets are internal, must manually initialize for use by EF
             PushNotificationItems = Set<PushNotificationItem>();
             ApplicationPushNotificationSettings = Set<ApplicationPushNotificationSetting>();
+            SubscriberPushNotificationSettings = Set<SubscriberPushNotificationSetting>();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -63,12 +64,25 @@ namespace TicketDesk.PushNotifications.Common
 
         }
 
+        //This DbSet is managed entirely within this assembly, marking internal
         internal DbSet<PushNotificationItem> PushNotificationItems { get; set; }
+
+        //These DbSets contain json serialized content. Callers cannot use standard LINQ to Entities 
+        //  expressions with these safely. Marking internal to prevent callers having direct access
+        //  We'll provide a thin layer of abstraction for safely handling external interactions instead. 
         internal DbSet<ApplicationPushNotificationSetting> ApplicationPushNotificationSettings { get; set; }
-        public DbSet<SubscriberPushNotificationSetting> SubscriberPushNotificationSettings { get; set; }
+        internal DbSet<SubscriberPushNotificationSetting> SubscriberPushNotificationSettings { get; set; }
 
+        private SubscriberPushNotificationSettingsManager _subscriberPushNotificationSettingsManager;
+        public SubscriberPushNotificationSettingsManager SubscriberPushNotificationSettingsManager
+        {
+            get {
+                return _subscriberPushNotificationSettingsManager ??
+                       (_subscriberPushNotificationSettingsManager = new SubscriberPushNotificationSettingsManager(this));
+            }
+        }
 
-        public ApplicationPushNotificationSetting PushNotificationSettings
+        public ApplicationPushNotificationSetting TicketDeskPushNotificationSettings
         {
             //TODO: these change infrequently, cache these
             get
@@ -106,7 +120,7 @@ namespace TicketDesk.PushNotifications.Common
             {
                 var citem = item;//foreach closure workaround
                 var userSettings = SubscriberPushNotificationSettings.GetSettingsForUser(citem.SubscriberId);
-                var appSettings = PushNotificationSettings;
+                var appSettings = TicketDeskPushNotificationSettings;
                 var existingItem =
                     await
                         PushNotificationItems.SingleOrDefaultAsync(n =>
@@ -127,7 +141,7 @@ namespace TicketDesk.PushNotifications.Common
                         //  for new note, then the note came in pre-canceled by the sender. This happens 
                         //  when the ticket event is marked as read from the start --usually when a 
                         //  subscriber has initiated the event in the first place and anti-noise is set
-                        //  to exclude suscriber's own events
+                        //  to exclude subscriber's own events
                         PushNotificationItems.Add(newNote);
                     }
                 }

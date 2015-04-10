@@ -35,7 +35,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         public ActionResult Index()
         {
-            var dbSetting = Context.PushNotificationSettings;
+            var dbSetting = Context.TicketDeskPushNotificationSettings;
             
             return View(dbSetting);
         }
@@ -43,7 +43,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         public ActionResult Index(ApplicationPushNotificationSetting settings)
         {
-            var dbSetting = Context.PushNotificationSettings;
+            var dbSetting = Context.TicketDeskPushNotificationSettings;
             if (ModelState.IsValid && TryUpdateModel(dbSetting))
             {
             

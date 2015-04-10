@@ -85,13 +85,14 @@ namespace TicketDesk.Domain
         public TdDomainContext()
             : base("name=TicketDesk")
         {
+            // some dbsets are internal, manually initialize for use by EF
+            ApplicationSettings = Set<ApplicationSetting>();
+            UserSettings = Set<UserSetting>();
 
-            ApplicationSettings = Set<ApplicationSetting>();// dbset is internal, must manually initialize it for use by EF
-
-            //TODO: This is only used by migrations and related functions
-            //  This can be removed or made internal by creating a class that implements IDbContextFactory<TicketDeskContext>
+            //TODO: This is only public because it is used by migrations and related functions
+            //  This ctor can be removed or made internal by creating a class that implements IDbContextFactory<TicketDeskContext>
             //      As I understand it, if the factory exists EF will use it instead of looking for a public ctor with no params
-            
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -123,15 +124,26 @@ namespace TicketDesk.Domain
         public DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
         public DbSet<Ticket> Tickets { get; [UsedImplicitly] set; }
         public DbSet<TicketTag> TicketTags { get; [UsedImplicitly] set; }
-        public DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
         public DbSet<TicketSubscriber> TicketSubscribers { get; set; }
         public DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
 
-        /// <summary>
-        /// Use TicketDeskSettings for more convenient access to settings instead. Gets or sets the application settings.
-        /// </summary>
-        /// <value>The application settings.</value>
+
+        //These DbSets contain json serialized content. Callers cannot use standard LINQ to Entities 
+        //  expressions with these safely. Marking internal to prevent callers having direct access
+        //  We'll provide a thin layer of abstraction for safely handling external interactions instead. 
         internal DbSet<ApplicationSetting> ApplicationSettings { get; [UsedImplicitly]set; }
+        internal DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
+
+        private UserSettingsManager _userSettingsManager;
+        public UserSettingsManager UserSettingsManager
+        {
+            get
+            {
+                return _userSettingsManager ??
+                       (_userSettingsManager = new UserSettingsManager(this));
+            }
+        }
+
 
         /// <summary>
         /// Gets or sets the application settings specific to ticketdesk.

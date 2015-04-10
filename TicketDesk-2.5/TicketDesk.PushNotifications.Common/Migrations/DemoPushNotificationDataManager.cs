@@ -13,7 +13,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
         {
             context.SubscriberPushNotificationSettings.RemoveRange(context.SubscriberPushNotificationSettings);
             context.PushNotificationItems.RemoveRange(context.PushNotificationItems);
-            context.PushNotificationSettings = new ApplicationPushNotificationSetting();
+            context.TicketDeskPushNotificationSettings = new ApplicationPushNotificationSetting();
             context.SaveChanges();
         }
         public static void SetupDemoPushNotificationData(TdPushNotificationContext context)

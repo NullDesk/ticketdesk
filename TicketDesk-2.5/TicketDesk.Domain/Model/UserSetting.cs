@@ -33,7 +33,7 @@ namespace TicketDesk.Domain.Model
             return ListSettings.FirstOrDefault(us => us.ListName == listName);
         }
 
-        public static UserSetting GetDefaultListSettingsForUser(string userId)
+        public static UserSetting GetDefaultSettingsForUser(string userId)
         {
             var collection = new UserTicketListSettingsCollection
             {

@@ -169,7 +169,7 @@ namespace TicketDesk.Web.Client.Controllers
                     await UserManager.AddToRoleAsync(user.Id, "TdInternalUsers");
                     HostingEnvironment.QueueBackgroundWorkItem(ct =>
                     {
-                        NotificationContext.SubscriberPushNotificationSettings.Add(
+                        NotificationContext.SubscriberPushNotificationSettingsManager.AddSettingsForSubscriber(
                             new SubscriberPushNotificationSetting()
                             {
                                 SubscriberId = user.Id,

@@ -38,13 +38,16 @@ namespace TicketDesk.Web.Client.Models
         /// <param name="userId">The user identifier.</param>
         private TicketCenterListViewModel(int currentPage, string listName, TdDomainContext context, string userId)
         {
-            UserListSettings = context.UserSettings.GetUserListSettings(userId).OrderBy(lp => lp.ListMenuDisplayOrder);
+            // ReSharper disable once ImplicitlyCapturedClosure
+            UserListSettings = AsyncHelper
+                                .RunSync(() => context.UserSettingsManager.GetUserListSettings(userId))
+                                .OrderBy(lp => lp.ListMenuDisplayOrder);
             CurrentPage = currentPage;
             if (string.IsNullOrEmpty(listName))
             {
                 listName = UserListSettings.First().ListName;
             }
-            CurrentListSetting = context.UserSettings.GetUserListSettingByName(listName, userId);
+            CurrentListSetting = AsyncHelper.RunSync(() => context.UserSettingsManager.GetUserListSettingByName(listName, userId));
 
             FilterBar = new FilterBarViewModel(CurrentListSetting);
 
