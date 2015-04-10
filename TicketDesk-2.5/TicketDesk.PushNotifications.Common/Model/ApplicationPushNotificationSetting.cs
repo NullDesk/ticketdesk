@@ -71,7 +71,7 @@ namespace TicketDesk.PushNotifications.Common.Model
         public int DeliveryIntervalMinutes { get; set; }
 
         [NotMapped]
-        [Display(Name = "Number of Rety Attempts")]
+        [Display(Name = "Number of Retry Attempts")]
         [Description("When things go wrong, this determines the number of attempts to make before marking a message as failed.")]
         public int RetryAttempts { get; set; }
 
@@ -95,7 +95,7 @@ namespace TicketDesk.PushNotifications.Common.Model
 
             [NotMapped]
             [Display(Name = "Consolidate notifications")]
-            [Description("Consilidation allows push notifications for an event to be delayed for a short time. If additional events occur for the same subscriber and ticket, they will be grouped into a single message instead of being sent separately. This reduces spam in cases where many chages are made to a ticket in rapid succession.")]
+            [Description("Consolidation allows push notifications for an event to be delayed for a short time. If additional events occur for the same subscriber and ticket, they will be grouped into a single message instead of being sent separately. This reduces spam in cases where many chages are made to a ticket in rapid succession.")]
             public bool IsConsolidationEnabled { get; set; }
 
             [NotMapped]

@@ -11,9 +11,11 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
+using TicketDesk.PushNotifications.Common;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Migrations;
 
