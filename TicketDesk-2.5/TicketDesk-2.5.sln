@@ -3,6 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{CD3BD9F4-D543-45F1-87EF-A5EC32597202}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{BD4049A9-28B0-4327-A870-FB7926D41A10}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\InsightsTesting-WAWS-dev.json = PublishScripts\Configurations\InsightsTesting-WAWS-dev.json
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1AB88EFD-7870-4CC0-A79D-91653E6B1553}"
@@ -10,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1AB88E
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}"
@@ -112,6 +124,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BD4049A9-28B0-4327-A870-FB7926D41A10} = {CD3BD9F4-D543-45F1-87EF-A5EC32597202}
 		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF} = {48534875-FDAA-4BDC-ABE7-B58596D785C5}
 		{F8C97321-F0CC-4AF9-86E6-95E0E4840430} = {399C20E8-85AC-494A-8226-A411528940D2}
 		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02} = {399C20E8-85AC-494A-8226-A411528940D2}
