@@ -489,6 +489,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+   <None Include="..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\lib\net40\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.ApplicationInsights.PerformanceCollector.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.ApplicationInsights.RuntimeTelemetry.0.14.0-build20632\lib\net45\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.ApplicationInsights.Web.0.14.0-build20632\lib\net45\Microsoft.ApplicationInsights.Extensibility.Web.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.Extensibility.Web.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Threading.Tasks.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Threading.Tasks.Extensions.Desktop.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Threading.Tasks.Extensions.dll</Link>
+    </None>
+    <None Include="..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\lib\net45\Microsoft.Diagnostics.Tracing.EventSource.dll">
+      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Diagnostics.Tracing.EventSource.dll</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -586,4 +615,22 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+
+    <Target Name="AppInsightsAzureDeployReferences">
+    <ItemGroup>
+      <FilesForPackagingFromProject Include="%(None.Identity)" Condition="'%(None.Link)' != ''">
+        <DestinationRelativePath>$(OutputPath)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <CopyAllFilesToSingleFolderForPackageDependsOn>
+      AppInsightsAzureDeployReferences;
+      $(CopyAllFilesToSingleFolderForPackageDependsOn);
+    </CopyAllFilesToSingleFolderForPackageDependsOn>
+    <CopyAllFilesToSingleFolderForMsdeployDependsOn>
+      AppInsightsAzureDeployReferences;
+      $(CopyAllFilesToSingleFolderForMsdeployDependsOn);
+    </CopyAllFilesToSingleFolderForMsdeployDependsOn>
+  </PropertyGroup>
 </Project>
