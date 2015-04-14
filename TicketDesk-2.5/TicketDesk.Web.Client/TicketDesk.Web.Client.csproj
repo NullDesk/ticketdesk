@@ -616,7 +616,14 @@
   </Target>
   -->
 
-    <Target Name="AppInsightsAzureDeployReferences">
+  <!-- This copies the application insights files into the bin folder before a build, which prevents the build from failing in Azure CI deployments  -->
+  <Target Name="BeforeBuild">
+    <Message Text="== Copy AppInsightsAzureDeployReferences Files ==" Importance="normal" />
+    <Copy SourceFiles="%(None.Identity)" DestinationFiles="$(OutputPath)%(Filename)%(Extension)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition="'%(None.Link)' != ''" />
+  </Target>
+
+  <!-- This includes the application insights files in the final copy from the build folder into the running website folder during Azure CI deployments  -->
+  <Target Name="AppInsightsAzureDeployReferences">
     <ItemGroup>
       <FilesForPackagingFromProject Include="%(None.Identity)" Condition="'%(None.Link)' != ''">
         <DestinationRelativePath>$(OutputPath)%(Filename)%(Extension)</DestinationRelativePath>
