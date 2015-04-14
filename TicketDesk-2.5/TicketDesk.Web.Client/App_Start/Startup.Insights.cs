@@ -8,6 +8,7 @@ namespace TicketDesk.Web.Client
 
         public void ConfigureApplicationInsights()
         {
+            
             var ikey = ConfigurationManager.AppSettings["ticketdesk:InsightsInstrumentationKey"];
             if (ikey == null)
             {
