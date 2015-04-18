@@ -77,9 +77,9 @@ namespace TicketDesk.Web.Client.Controllers
                     }
                 }
                 // ReSharper disable once EmptyGeneralCatchClause
-                catch (DbEntityValidationException ex)
+                catch (DbEntityValidationException)
                 {
-                    var test = false;
+                    
                     //TODO: catch rule exceptions? or can annotations handle this fully now?
                 }
 

@@ -13,13 +13,11 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
-
 
 namespace TicketDesk.PushNotifications.Common.Model
 {
     [Table("SubscriberPushNotificationSettings", Schema = "notifications")]
-    public class SubscriberPushNotificationSetting
+    public sealed class SubscriberPushNotificationSetting
     {
         public SubscriberPushNotificationSetting()
         {
@@ -35,7 +33,7 @@ namespace TicketDesk.PushNotifications.Common.Model
         public bool IsEnabled { get; set; }
 
 
-        public virtual PushNotificationDestinationCollection PushNotificationDestinations { get; set; }
+        public PushNotificationDestinationCollection PushNotificationDestinations { get; set; }
 
     }
 }

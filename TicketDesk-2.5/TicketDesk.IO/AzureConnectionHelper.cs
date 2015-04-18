@@ -12,7 +12,7 @@
 // provided to the recipient.
 
 using System.Configuration;
-using Microsoft.WindowsAzure;
+using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 
 namespace TicketDesk.IO
@@ -35,7 +35,7 @@ namespace TicketDesk.IO
                         _cloudStorageAccount = cloudStorageAccount;
                     }
                 }
-                return _cloudStorageAccount;;
+                return _cloudStorageAccount;
             }
         }
 
