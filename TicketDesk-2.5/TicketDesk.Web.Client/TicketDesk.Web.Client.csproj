@@ -489,35 +489,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-   <None Include="..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\lib\net40\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.ApplicationInsights.PerformanceCollector.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.ApplicationInsights.RuntimeTelemetry.0.14.0-build20632\lib\net45\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.ApplicationInsights.Web.0.14.0-build20632\lib\net45\Microsoft.ApplicationInsights.Extensibility.Web.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.ApplicationInsights.Extensibility.Web.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Threading.Tasks.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Threading.Tasks.Extensions.Desktop.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Threading.Tasks.Extensions.dll</Link>
-    </None>
-    <None Include="..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\lib\net45\Microsoft.Diagnostics.Tracing.EventSource.dll">
-      <Link>Deployment\AppInsightsAzureDeployReferences\Microsoft.Diagnostics.Tracing.EventSource.dll</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -600,14 +571,12 @@
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <Import Project="..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\build\portable-net45+win8+wpa81\Microsoft.Diagnostics.Tracing.EventSource.Redist.targets" Condition="Exists('..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\build\portable-net45+win8+wpa81\Microsoft.Diagnostics.Tracing.EventSource.Redist.targets')" />
-
   <Import Project="..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets')" />
   <Target Name="EnsureApplicationInsightsImported" BeforeTargets="BeforeBuild" Condition="'$(ApplicationInsightsImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
     <Error Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
   </Target>
   <Import Project="..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\build\Microsoft.ApplicationInsights.Agent.Intercept.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\build\Microsoft.ApplicationInsights.Agent.Intercept.targets')" />
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -616,13 +585,20 @@
   </Target>
   -->
 
+
   <!-- This copies the application insights files into the bin folder before a build, which prevents the build from failing in Azure CI deployments  -->
+  <!-- This almost worked, but turns out this is a bug in kudu that we can't easily solve with custom build configurations
+        Reference kudu issue here: https://github.com/projectkudu/kudu/issues/1485
+        Leaving this here for future reference (some of these techniques are handy, even they don't help here)
+  -->
+  <!--
   <Target Name="BeforeBuild">
     <Message Text="== Copy AppInsightsAzureDeployReferences Files ==" Importance="normal" />
     <Copy SourceFiles="%(None.Identity)" DestinationFiles="$(OutputPath)%(Filename)%(Extension)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition="'%(None.Link)' != ''" />
   </Target>
-
+  -->
   <!-- This includes the application insights files in the final copy from the build folder into the running website folder during Azure CI deployments  -->
+  <!--
   <Target Name="AppInsightsAzureDeployReferences">
     <ItemGroup>
       <FilesForPackagingFromProject Include="%(None.Identity)" Condition="'%(None.Link)' != ''">
@@ -640,4 +616,5 @@
       $(CopyAllFilesToSingleFolderForMsdeployDependsOn);
     </CopyAllFilesToSingleFolderForMsdeployDependsOn>
   </PropertyGroup>
+-->
 </Project>
