@@ -25,6 +25,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "TicketDeskPushNotifications";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(TdPushNotificationContext context)

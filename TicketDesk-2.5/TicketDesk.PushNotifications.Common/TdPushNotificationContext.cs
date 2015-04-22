@@ -22,12 +22,9 @@ using TicketDesk.PushNotifications.Common.Model.Extensions;
 
 namespace TicketDesk.PushNotifications.Common
 {
-
     public sealed class TdPushNotificationContext : DbContext
     {
-
         public static bool IsConfigured { get; private set; }
-        
 
         private static Func<IEnumerable<IPushNotificationProvider>> GetProvidersFunc { get; set; }
         public static void Configure(Func<IEnumerable<IPushNotificationProvider>> getProvidersFunc)
@@ -37,13 +34,11 @@ namespace TicketDesk.PushNotifications.Common
         }
 
         private static IEnumerable<IPushNotificationProvider> _pushNotificationProviders;
-        
 
         private static IEnumerable<IPushNotificationProvider> PushNotificationProviders
         {
             get { return _pushNotificationProviders ?? (_pushNotificationProviders = GetProvidersFunc()); }
         }
-
 
         public TdPushNotificationContext()
             : base("name=TicketDesk")
@@ -60,7 +55,6 @@ namespace TicketDesk.PushNotifications.Common
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<ApplicationPushNotificationSetting>()
              .Property(p => p.Serialized)
              .HasColumnName("PushNotificationSettingsJson");
@@ -68,7 +62,6 @@ namespace TicketDesk.PushNotifications.Common
             modelBuilder.ComplexType<PushNotificationDestinationCollection>()
              .Property(p => p.Serialized)
              .HasColumnName("PushNotificationDestinationsJson");
-
         }
 
         //This DbSet is managed entirely within this assembly, marking internal
@@ -83,7 +76,8 @@ namespace TicketDesk.PushNotifications.Common
         private SubscriberPushNotificationSettingsManager _subscriberPushNotificationSettingsManager;
         public SubscriberPushNotificationSettingsManager SubscriberPushNotificationSettingsManager
         {
-            get {
+            get
+            {
                 return _subscriberPushNotificationSettingsManager ??
                        (_subscriberPushNotificationSettingsManager = new SubscriberPushNotificationSettingsManager(this));
             }
@@ -105,7 +99,6 @@ namespace TicketDesk.PushNotifications.Common
                         ApplicationPushNotificationSettings.Add(apn);
                         tempContext.SaveChanges();
                     }
-                    
                 }
                 return apn;
             }
@@ -122,7 +115,6 @@ namespace TicketDesk.PushNotifications.Common
 
         public async Task<bool> AddNotifications(IEnumerable<PushNotificationEventInfo> infoItems)
         {
-
             foreach (var item in infoItems)
             {
                 var citem = item;//foreach closure workaround
@@ -153,12 +145,7 @@ namespace TicketDesk.PushNotifications.Common
                     }
                 }
             }
-
-
             return true;
         }
-
-
-
     }
 }

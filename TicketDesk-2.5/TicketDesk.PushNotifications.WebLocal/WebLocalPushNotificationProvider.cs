@@ -20,7 +20,6 @@ namespace TicketDesk.PushNotifications.WebLocal
 {
     public class WebLocalPushNotificationProvider : IPushNotificationProvider
     {
-
         public Task<bool> SendNotification(IEnumerable<PushNotificationItem> items)
         {
             return Task.FromResult(true);
