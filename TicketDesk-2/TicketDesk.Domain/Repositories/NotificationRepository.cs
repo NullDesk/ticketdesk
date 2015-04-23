@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
+using System.Data.Entity.Core.Objects;
 using TicketDesk.Domain.Models;
 
 namespace TicketDesk.Domain.Repositories
@@ -45,7 +46,7 @@ namespace TicketDesk.Domain.Repositories
         {
             //In the L2S implementation we don't have to save the notes passed in, we just commit the context.
             //  other implemenations may need to do it differently.
-            ctx.SaveChanges(System.Data.Objects.SaveOptions.AcceptAllChangesAfterSave);
+            ctx.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
             
             return true;
         }

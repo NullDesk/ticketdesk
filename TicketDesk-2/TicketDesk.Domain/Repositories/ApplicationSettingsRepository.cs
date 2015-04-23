@@ -18,6 +18,7 @@ using System.Text;
 using TicketDesk.Domain.Services;
 using TicketDesk.Domain.Models;
 using System.ComponentModel.Composition;
+using System.Data.Entity;
 
 namespace TicketDesk.Domain.Repositories
 {
@@ -88,7 +89,7 @@ namespace TicketDesk.Domain.Repositories
         {
             foreach (var s in settingsToSave)
             {
-                if (s.EntityState == System.Data.EntityState.Detached)
+                if (s.EntityState == EntityState.Detached)
                 {
                     ctx.Settings.AddObject(s);
                 }
