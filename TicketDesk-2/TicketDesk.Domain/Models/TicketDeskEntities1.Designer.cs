@@ -9,20 +9,21 @@
 
 using System;
 using System.ComponentModel;
-using System.Data.EntityClient;
-using System.Data.Objects;
-using System.Data.Objects.DataClasses;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-[assembly: EdmSchemaAttribute()]
+[assembly: EdmSchema()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketAttachments_Tickets", "Tickets", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TicketDesk.Domain.Models.Ticket), "TicketAttachments", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketAttachment), true)]
-[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketComments_Tickets", "Tickets", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TicketDesk.Domain.Models.Ticket), "TicketComments", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketComment), true)]
-[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketEventNotifications_TicketComments", "TicketComments", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TicketDesk.Domain.Models.TicketComment), "TicketEventNotifications", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketEventNotification), true)]
-[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketTags_Tickets", "Tickets", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TicketDesk.Domain.Models.Ticket), "TicketTags", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketTag), true)]
+[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketAttachments_Tickets", "Tickets", RelationshipMultiplicity.ZeroOrOne, typeof(TicketDesk.Domain.Models.Ticket), "TicketAttachments", RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketAttachment), true)]
+[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketComments_Tickets", "Tickets", RelationshipMultiplicity.One, typeof(TicketDesk.Domain.Models.Ticket), "TicketComments", RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketComment), true)]
+[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketEventNotifications_TicketComments", "TicketComments", RelationshipMultiplicity.One, typeof(TicketDesk.Domain.Models.TicketComment), "TicketEventNotifications", RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketEventNotification), true)]
+[assembly: EdmRelationshipAttribute("TicketDeskModel", "FK_TicketTags_Tickets", "Tickets", RelationshipMultiplicity.One, typeof(TicketDesk.Domain.Models.Ticket), "TicketTags", RelationshipMultiplicity.Many, typeof(TicketDesk.Domain.Models.TicketTag), true)]
 
 #endregion
 

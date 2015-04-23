@@ -14,11 +14,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Reflection;
 using TicketDesk.Domain.Utilities.Pagination;
 using TicketDesk.Domain.Models;
-using System.Data.Objects;
 
 namespace TicketDesk.Domain.Repositories
 {

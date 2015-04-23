@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TicketDesk.Domain.Models;
-using System.Data.Objects;
 using TicketDesk.Domain.Services;
 using System.ComponentModel.Composition;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
-using System.Data.EntityClient;
 
 namespace TicketDesk.Domain.Repositories
 {
