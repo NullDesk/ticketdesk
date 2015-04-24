@@ -24,29 +24,10 @@ namespace TicketDesk.PushNotifications.Common
 {
     public sealed class TdPushNotificationContext : DbContext
     {
-        public static bool IsConfigured { get; private set; }
-
-        private static Func<IEnumerable<IPushNotificationProvider>> GetProvidersFunc { get; set; }
-        public static void Configure(Func<IEnumerable<IPushNotificationProvider>> getProvidersFunc)
-        {
-            GetProvidersFunc = getProvidersFunc;
-            IsConfigured = true;
-        }
-
-        private static IEnumerable<IPushNotificationProvider> _pushNotificationProviders;
-
-        private static IEnumerable<IPushNotificationProvider> PushNotificationProviders
-        {
-            get { return _pushNotificationProviders ?? (_pushNotificationProviders = GetProvidersFunc()); }
-        }
-
         public TdPushNotificationContext()
             : base("name=TicketDesk")
         {
-            if (!PushNotificationProviders.Any())
-            {
-                throw new ConfigurationErrorsException("Cannot create TicketDeskNotificationContext, at least one push notification provider must be configured");
-            }
+         
             // dbsets are internal, must manually initialize for use by EF
             PushNotificationItems = Set<PushNotificationItem>();
             ApplicationPushNotificationSettings = Set<ApplicationPushNotificationSetting>();

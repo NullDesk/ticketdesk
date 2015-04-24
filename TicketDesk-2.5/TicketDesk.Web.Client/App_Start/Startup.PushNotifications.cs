@@ -21,11 +21,8 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.PushNotifications.Azure;
 using TicketDesk.PushNotifications.Common;
 using TicketDesk.PushNotifications.Common.Migrations;
-using TicketDesk.PushNotifications.Common.Model;
-using TicketDesk.PushNotifications.WebLocal;
 
 namespace TicketDesk.Web.Client
 {
@@ -81,23 +78,23 @@ namespace TicketDesk.Web.Client
             }
         }
 
-        /// <summary>
-        /// Gets the notification configuration.
-        /// </summary>
-        /// <returns>IEnumerable&lt;IPushNotifcationProvider&gt;.</returns>
-        private static IEnumerable<IPushNotificationProvider> GetPushNotificationProviders()
-        {
-            //TODO: when we move to a plug-in model, this should be refactored to use an application setting.
-            var potentialProviders = new List<IPushNotificationProvider>()
-            {
-                //TODO: for now, just new up one of each possible provider type and we'll pick what is correctly configured
-                new AzurePushNotificationProvider(),
-            };
+        ///// <summary>
+        ///// Gets the notification configuration.
+        ///// </summary>
+        ///// <returns>IEnumerable&lt;IPushNotifcationProvider&gt;.</returns>
+        //private static IEnumerable<IPushNotificationProvider> GetPushNotificationProviders()
+        //{
+        //    //TODO: when we move to a plug-in model, this should be refactored to use an application setting.
+        //    var potentialProviders = new List<IPushNotificationProvider>()
+        //    {
+        //        //TODO: for now, just new up one of each possible provider type and we'll pick what is correctly configured
+        //        new AzurePushNotificationProvider(),
+        //    };
 
-            var pot = potentialProviders.Where(p => p.IsConfigured).ToArray();
-            //web local is the last-ditch fallback provider, only use if/when no other providers are available
-            return pot.Any() ? pot : new[] { new WebLocalPushNotificationProvider() };
-        }
+        //    var pot = potentialProviders.Where(p => p.IsConfigured).ToArray();
+        //    //web local is the last-ditch fallback provider, only use if/when no other providers are available
+        //    return pot.Any() ? pot : new[] { new WebLocalPushNotificationProvider() };
+        //}
 
     }
 }

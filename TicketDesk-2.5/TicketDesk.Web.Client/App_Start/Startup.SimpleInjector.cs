@@ -60,15 +60,7 @@ namespace TicketDesk.Web.Client
 
             container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
 
-            container.Register(() =>
-            {
-                //ensure configuration function is set
-                if (!TdPushNotificationContext.IsConfigured)
-                {
-                    TdPushNotificationContext.Configure(GetPushNotificationProviders);
-                }
-                return new TdPushNotificationContext();
-            }, hybridLifestyle);
+            container.Register(() => new TdPushNotificationContext(), hybridLifestyle);
 
             container.Register(() => HttpContext.Current != null ?
                     new TdDomainContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
