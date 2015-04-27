@@ -485,6 +485,8 @@
     <Content Include="Views\ApplicationSettings\Index.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Views\PushNotificationSettings\Index.cshtml" />
+    <Content Include="Views\PushNotificationSettings\ListDeliveryProviderSettings.cshtml" />
+    <Content Include="Views\PushNotificationSettings\ConfigureDeliveryProvider.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

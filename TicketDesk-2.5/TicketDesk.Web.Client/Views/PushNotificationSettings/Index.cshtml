@@ -9,7 +9,7 @@
 
 @section scripts
 {
-   
+
 }
 
 <main>
@@ -40,7 +40,10 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.IsEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
                             <div class="col-md-2 col-sm-2">
-                                @Html.EditorFor(model => model.IsEnabled, new { htmlAttributes = new { @class = "input-sm" } })
+                                <label class="checkbox-inline">
+                                    @Html.EditorFor(model => model.IsEnabled)
+                                    Enabled
+                                </label>
                                 @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-sm-6 hidden-xs">
@@ -88,7 +91,10 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, new { @class = "col-md-4 col-sm-4 control-label" })
                             <div class="col-md-2 col-sm-2">
-                                @Html.EditorFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, new { htmlAttributes = new { @class = "input-sm" } })
+                                <label class="checkbox-inline">
+                                    @Html.EditorFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents)
+                                    Exclude
+                                </label>
                                 @Html.ValidationMessageFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-sm-6 hidden-xs">
@@ -98,7 +104,10 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
                             <div class="col-md-2 col-sm-2">
-                                @Html.EditorFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, new { htmlAttributes = new { @class = "input-sm" } })
+                                <label class="checkbox-inline">
+                                    @Html.EditorFor(model => model.AntiNoiseSettings.IsConsolidationEnabled)
+                                    Enabled
+                                </label>
                                 @Html.ValidationMessageFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-sm-6 hidden-xs">
@@ -126,7 +135,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Delivery Providers</h2>
+                    </div>
+                    <div class="panel-body">
+                        @Html.Action("ListDeliveryProviderSettings")
+                    </div>
 
                 </div>
                 <div class="panel-footer">

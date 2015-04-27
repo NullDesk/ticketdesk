@@ -1,0 +1,20 @@
+﻿@using System.Reflection
+@using TicketDesk.PushNotifications.Common
+@model TicketDesk.PushNotifications.Common.Model.ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting
+@{
+    ViewBag.Title = "ConfigureDeliveryProvider";
+}
+
+<h2>ConfigureDeliveryProvider</h2>
+@Model.ProviderAssemblyQualifiedName
+
+
+@{
+    <div>pconfig = @Model.ProviderConfigurationData.GetType().Name</div>
+    var provConfig = Model.ProviderConfigurationData.GetType().GetProperties();
+    <div>Num Properties = @provConfig.Length</div>
+    foreach (var property in provConfig)
+    {
+        <div>@property.Name : @property.GetValue(Model.ProviderConfigurationData, null)</div>
+    }
+}

@@ -24,12 +24,12 @@ namespace TicketDesk.PushNotifications.Common
             NotificationContext = notificationContext;
         }
 
-        public async Task<SubscriberPushNotificationSetting> GetSettingsForSubscriber(string subscriberId)
+        public async Task<SubscriberNotificationSetting> GetSettingsForSubscriber(string subscriberId)
         {
             return await NotificationContext.SubscriberPushNotificationSettings.FindAsync(subscriberId);
         }
 
-        public void AddSettingsForSubscriber(SubscriberPushNotificationSetting settings)
+        public void AddSettingsForSubscriber(SubscriberNotificationSetting settings)
         {
             NotificationContext.SubscriberPushNotificationSettings.Add(settings);
         }

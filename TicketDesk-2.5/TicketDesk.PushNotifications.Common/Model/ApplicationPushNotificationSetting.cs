@@ -11,10 +11,13 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace TicketDesk.PushNotifications.Common.Model
@@ -31,6 +34,7 @@ namespace TicketDesk.PushNotifications.Common.Model
             AntiNoiseSettings = new AntiNoiseSetting();
             RetryAttempts = 5;
             RetryIntervalMinutes = 2;
+            DeliveryProviderSettings = new PushNotificationDeliveryProviderSetting[] { };
         }
 
         [Key]
@@ -57,10 +61,14 @@ namespace TicketDesk.PushNotifications.Common.Model
                 DeliveryIntervalMinutes = jData.DeliveryIntervalMinutes;
                 RetryAttempts = jData.RetryAttempts;
                 RetryIntervalMinutes = jData.RetryIntervalMinutes;
-
+                DeliveryProviderSettings = jData.DeliveryProviderSettings;
             }
         }
 
+        [NotMapped]
+        [Display(Name="Delivery Providers")]
+        public virtual ICollection<PushNotificationDeliveryProviderSetting> DeliveryProviderSettings { get; set; }
+            
         [NotMapped]
         [Display(Name = "Notifications Enabled")]
         public bool IsEnabled { get; set; }
@@ -82,6 +90,25 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         [NotMapped]
         public AntiNoiseSetting AntiNoiseSettings { get; set; }
+
+
+        public class PushNotificationDeliveryProviderSetting
+        {
+            public PushNotificationDeliveryProviderSetting()
+            {
+                IsEnabled = false;
+            }
+
+            [NotMapped]
+            public string ProviderAssemblyQualifiedName { get; set; }
+
+            [NotMapped]
+            public bool IsEnabled { get; set; }
+
+            [NotMapped]
+            public object ProviderConfigurationData { get; set; }
+        }
+
 
         public class AntiNoiseSetting
         {

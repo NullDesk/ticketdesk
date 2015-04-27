@@ -170,7 +170,7 @@ namespace TicketDesk.Web.Client.Controllers
                     HostingEnvironment.QueueBackgroundWorkItem(ct =>
                     {
                         NotificationContext.SubscriberPushNotificationSettingsManager.AddSettingsForSubscriber(
-                            new SubscriberPushNotificationSetting()
+                            new SubscriberNotificationSetting()
                             {
                                 SubscriberId = user.Id,
                                 IsEnabled = true,

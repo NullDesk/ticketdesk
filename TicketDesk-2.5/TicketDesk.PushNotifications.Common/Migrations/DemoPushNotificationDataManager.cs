@@ -30,7 +30,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
             context.SaveChanges();
 
 
-            context.SubscriberPushNotificationSettings.Add(new SubscriberPushNotificationSetting()
+            context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
             {
                 SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                 IsEnabled = true,
@@ -44,7 +44,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                         }
                     }
             });
-            context.SubscriberPushNotificationSettings.Add(new SubscriberPushNotificationSetting()
+            context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
             {
                 SubscriberId = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
                 IsEnabled = true,
@@ -58,7 +58,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                         }
                     }
             });
-            context.SubscriberPushNotificationSettings.Add(new SubscriberPushNotificationSetting()
+            context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
             {
                 SubscriberId = "17f78f38-fa68-445f-90de-38896140db28",
                 IsEnabled = true,

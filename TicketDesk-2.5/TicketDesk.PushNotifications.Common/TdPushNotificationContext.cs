@@ -31,7 +31,7 @@ namespace TicketDesk.PushNotifications.Common
             // dbsets are internal, must manually initialize for use by EF
             PushNotificationItems = Set<PushNotificationItem>();
             ApplicationPushNotificationSettings = Set<ApplicationPushNotificationSetting>();
-            SubscriberPushNotificationSettings = Set<SubscriberPushNotificationSetting>();
+            SubscriberPushNotificationSettings = Set<SubscriberNotificationSetting>();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -52,7 +52,7 @@ namespace TicketDesk.PushNotifications.Common
         //  expressions with these safely. Marking internal to prevent callers having direct access
         //  We'll provide a thin layer of abstraction for safely handling external interactions instead. 
         internal DbSet<ApplicationPushNotificationSetting> ApplicationPushNotificationSettings { get; set; }
-        internal DbSet<SubscriberPushNotificationSetting> SubscriberPushNotificationSettings { get; set; }
+        internal DbSet<SubscriberNotificationSetting> SubscriberPushNotificationSettings { get; set; }
 
         private SubscriberPushNotificationSettingsManager _subscriberPushNotificationSettingsManager;
         public SubscriberPushNotificationSettingsManager SubscriberPushNotificationSettingsManager
@@ -98,31 +98,43 @@ namespace TicketDesk.PushNotifications.Common
         {
             foreach (var item in infoItems)
             {
-                var citem = item;//foreach closure workaround
+                var citem = item; //foreach closure workaround
                 var userSettings = SubscriberPushNotificationSettings.GetSettingsForUser(citem.SubscriberId);
                 var appSettings = TicketDeskPushNotificationSettings;
-                var existingItem =
-                    await
-                        PushNotificationItems.SingleOrDefaultAsync(n =>
-                                n.TicketId == citem.TicketId &&
-                                n.SubscriberId == citem.SubscriberId &&
-                                n.DeliveryStatus == PushNotificationItemStatus.Scheduled);
 
-                if (existingItem != null)
+                //get items already in db that haven't been sent yet
+                var existingItems =
+                    await
+                        PushNotificationItems.Where(n =>
+                            n.TicketId == citem.TicketId &&
+                            n.SubscriberId == citem.SubscriberId &&
+                            n.DeliveryStatus == PushNotificationItemStatus.Scheduled).ToArrayAsync();
+                
+                //for already scheduled, just add the new event
+                foreach (var existingItem in existingItems)
                 {
                     existingItem.AddNewEvent(citem, appSettings, userSettings);
                 }
-                else
+
+                //get note items for each destination
+                var schedNotes = citem.ToPushNotificationItems(appSettings, userSettings);
+                foreach (var schedNote in schedNotes)
                 {
-                    var newNote = citem.ToPushNotificationItem(appSettings, userSettings);
-                    if (newNote.TicketEventsList.Any())
+                    //if no item for this destination in existing scheduled items list, add a new note for that destination
+                    if (!existingItems.Any(i =>
+                        i.DestinationType == schedNote.DestinationType &&
+                        i.DestinationAddress == schedNote.DestinationAddress))
                     {
-                        //only add the new note if it contains an event... if only CanceledEvents exist 
-                        //  for new note, then the note came in pre-canceled by the sender. This happens 
-                        //  when the ticket event is marked as read from the start --usually when a 
-                        //  subscriber has initiated the event in the first place and anti-noise is set
-                        //  to exclude subscriber's own events
-                        PushNotificationItems.Add(newNote);
+                        if (schedNote.TicketEventsList.Any())
+                        {
+                            //only add the new note if it contains an event... if only CanceledEvents exist 
+                            //  for new note, then the note came in pre-canceled by the sender. This happens 
+                            //  when the ticket event is marked as read from the start --usually when a 
+                            //  subscriber has initiated the event in the first place and anti-noise is set
+                            //  to exclude subscriber's own events
+                            PushNotificationItems.Add(schedNote);
+                        }
+
                     }
                 }
             }

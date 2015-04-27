@@ -21,7 +21,8 @@ namespace TicketDesk.PushNotifications.Common.Model
         Retrying,
         Failed,
         Canceled,
-        Disabled
+        Disabled,
+        NotAvailable
 
     }
 }

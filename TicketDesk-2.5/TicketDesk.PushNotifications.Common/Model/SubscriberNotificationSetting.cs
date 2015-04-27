@@ -17,9 +17,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TicketDesk.PushNotifications.Common.Model
 {
     [Table("SubscriberPushNotificationSettings", Schema = "notifications")]
-    public sealed class SubscriberPushNotificationSetting
+    public sealed class SubscriberNotificationSetting
     {
-        public SubscriberPushNotificationSetting()
+        public SubscriberNotificationSetting()
         {
             IsEnabled = true;
             PushNotificationDestinations = new PushNotificationDestinationCollection();

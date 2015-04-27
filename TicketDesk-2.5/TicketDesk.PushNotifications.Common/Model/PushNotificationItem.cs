@@ -31,6 +31,14 @@ namespace TicketDesk.PushNotifications.Common.Model
         [Column(Order = 1)]
         public string SubscriberId { get; set; }
 
+        [Key]
+        [Column(Order = 2)]
+        public string DestinationAddress { get; set; }
+
+        [Key]
+        [Column(Order = 3)]
+        public string DestinationType { get; set; }
+
         public DateTimeOffset CreatedDate { get; set; }
 
         public DateTimeOffset? ScheduledSendDate { get; set; }
@@ -69,7 +77,7 @@ namespace TicketDesk.PushNotifications.Common.Model
             }
         }
 
-        public void AddNewEvent(PushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, SubscriberPushNotificationSetting userSetting)
+        public void AddNewEvent(PushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userSetting)
         {
             if (eventInfo.CancelNotification)
             {
@@ -90,7 +98,7 @@ namespace TicketDesk.PushNotifications.Common.Model
             }
         }
 
-        private DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberPushNotificationSetting userNoteSettings)
+        private DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userNoteSettings)
         {
             var send = ScheduledSendDate;//we'll leave this alone if consolidation isn't used
 

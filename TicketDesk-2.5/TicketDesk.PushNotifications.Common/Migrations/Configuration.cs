@@ -39,7 +39,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
             {
                 if (!context.SubscriberPushNotificationSettings.Any(s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
                 {
-                    context.SubscriberPushNotificationSettings.Add(new SubscriberPushNotificationSetting()
+                    context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
                     {
                         SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                         IsEnabled = true,

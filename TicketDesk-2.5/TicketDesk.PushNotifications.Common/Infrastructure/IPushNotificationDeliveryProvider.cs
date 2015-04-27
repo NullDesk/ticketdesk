@@ -17,9 +17,14 @@ using TicketDesk.PushNotifications.Common.Model;
 
 namespace TicketDesk.PushNotifications.Common
 {
-    public interface IPushNotificationProvider
+    public interface IPushNotificationDeliveryProvider
     {
-        Task<bool> SendNotification(IEnumerable<PushNotificationItem> items);
-        bool IsConfigured { get; }
+        string DestinationType { get; }
+
+        IDeliveryProviderConfiguration Configuration { get; set; }
+
+        Task<object> GenerateMessageAsync(PushNotificationItem notificationItem);
+        
+        Task SendReadyMessageAsync(PushNotificationItem readyNote, int retryMax, int retryIntv);
     }
 }

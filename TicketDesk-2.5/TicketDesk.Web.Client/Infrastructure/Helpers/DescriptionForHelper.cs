@@ -13,19 +13,46 @@
 // provided to the recipient.
 
 using System;
+using System.CodeDom;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.ComponentModel;
+using System.Web.Mvc.Html;
 
 namespace TicketDesk.Web.Client
 {
     public static class DescriptionForHelper
     {
+        public static MvcHtmlString DescriptionFor(
+            this HtmlHelper helper,
+            Type modelType,
+            string cssClassName = "",
+            string tagName = "div"
+            )
+        {
+            var attr = (DescriptionAttribute)modelType.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
+            if (attr != null)
+            {
+                var description = attr.Description;
+                if (!string.IsNullOrEmpty(description))
+                {
+                    var tag = new TagBuilder(tagName) { InnerHtml = description };
+                    if (!string.IsNullOrEmpty(cssClassName))
+                    {
+                        tag.AddCssClass(cssClassName);
+                    }
+                    return new MvcHtmlString(tag.ToString());
+                }
+            }
+            return MvcHtmlString.Empty;
+        }
+
         public static MvcHtmlString DescriptionFor<TModel, TValue>(
             this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TValue>> expression,
-            string cssClassName = "", string tagName = "div")
+            string cssClassName = "", 
+            string tagName = "div")
         {
             //TODO: consider changing this to use Display(description="") instead? Same with enum extension
             var memberExpression = expression.Body as MemberExpression;

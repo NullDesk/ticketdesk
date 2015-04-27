@@ -53,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\IDeliveryProviderConfiguration.cs" />
+    <Compile Include="PushNotificationDeliveryManager.cs" />
     <Compile Include="Migrations\DemoPushNotificationDataManager.cs" />
-    <Compile Include="Infrastructure\IPushNotifcationProvider.cs" />
+    <Compile Include="Infrastructure\IPushNotificationDeliveryProvider.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationPushNotificationSetting.cs" />
     <Compile Include="Model\Extensions\ApplicationPushNotificationSettingsExtensions.cs" />
@@ -64,8 +66,10 @@
     <Compile Include="Model\PushNotificationDestination.cs" />
     <Compile Include="Model\PushNotificationDestinationCollection.cs" />
     <Compile Include="Model\PushNotificationItemStatus.cs" />
-    <Compile Include="Model\SubscriberPushNotificationSetting.cs" />
+    <Compile Include="Model\SubscriberNotificationSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Infrastructure\PushNotificationDeliveryProviderBase.cs" />
+    <Compile Include="SmtpDeliveryProvider.cs" />
     <Compile Include="SubscriberPushNotificationSettingsManager.cs" />
     <Compile Include="TdPushNotificationContext.cs" />
     <Compile Include="Infrastructure\TdPushNotificationDbInitializer.cs" />
