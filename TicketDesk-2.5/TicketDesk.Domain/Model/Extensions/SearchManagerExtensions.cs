@@ -14,16 +14,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TicketDesk.Domain.Search;
+using TicketDesk.Search.Common;
+
 
 namespace TicketDesk.Domain.Model
 {
     public static class SearchManagerExtensions
     {
-        public static async Task<IEnumerable<Ticket>> SearchAsync(this TicketDeskSearchProvider manager, IQueryable<Ticket> ticketQuery,
+        public static async Task<IEnumerable<Ticket>> SearchAsync(this TdSearchContext manager, IQueryable<Ticket> ticketQuery,
             string searchText)
         {
-            var results = await manager.SearchIndexAsync(searchText);
+            var results = await manager.IndexSearcher.SearchAsync(searchText);
             
             return from i in results
                    join t in ticketQuery

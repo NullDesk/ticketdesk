@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Search.Common;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -23,8 +24,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class SearchController : Controller
     {
-        private TicketDeskContext Context { get; set; }
-        public SearchController(TicketDeskContext context)
+        private TdDomainContext Context { get; set; }
+        public SearchController(TdDomainContext context)
         {
             Context = context;
         }
@@ -36,7 +37,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (!string.IsNullOrEmpty(term))
             {
-                var model = await Context.SearchProvider.SearchAsync(Context.Tickets, term);
+                var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term);
                 return View(model);
             }
             return View(new Ticket[0]);

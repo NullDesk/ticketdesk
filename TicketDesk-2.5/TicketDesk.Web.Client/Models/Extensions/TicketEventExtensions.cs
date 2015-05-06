@@ -14,8 +14,9 @@
 using System.Web;
 using StackExchange.DataExplorer.Helpers;
 using TicketDesk.Domain.Model;
+using TicketDesk.Web.Client;
 
-namespace TicketDesk.Web.Client.Models
+namespace TicketDesk.Domain.Model
 {
     public static class TicketEventExtensions
     {

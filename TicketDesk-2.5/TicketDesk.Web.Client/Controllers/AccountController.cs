@@ -14,10 +14,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications.Common.Model;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity.Model;
 
@@ -32,11 +35,13 @@ namespace TicketDesk.Web.Client.Controllers
     {
         private TicketDeskUserManager UserManager { get; set; }
         private TicketDeskSignInManager SignInManager { get; set; }
+        private TdPushNotificationContext NotificationContext { get; set; }
 
-        public AccountController(TicketDeskUserManager userManager, TicketDeskSignInManager signInManager )
+        public AccountController(TicketDeskUserManager userManager, TicketDeskSignInManager signInManager, TdPushNotificationContext notificationContext)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            NotificationContext = notificationContext;
         }
 
       
@@ -162,6 +167,26 @@ namespace TicketDesk.Web.Client.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     await UserManager.AddToRoleAsync(user.Id, "TdInternalUsers");
+                    HostingEnvironment.QueueBackgroundWorkItem(ct =>
+                    {
+                        NotificationContext.SubscriberPushNotificationSettingsManager.AddSettingsForSubscriber(
+                            new SubscriberNotificationSetting()
+                            {
+                                SubscriberId = user.Id,
+                                IsEnabled = true,
+                                PushNotificationDestinations = new PushNotificationDestinationCollection()
+                                {
+                                    new PushNotificationDestination()
+                                    {
+                                        DestinationType = "email",
+                                        DestinationAddress = user.Email,
+                                        SubscriberName = user.DisplayName
+                                    }
+                                }
+                            }
+                            );
+                        NotificationContext.SaveChanges();
+                    });
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

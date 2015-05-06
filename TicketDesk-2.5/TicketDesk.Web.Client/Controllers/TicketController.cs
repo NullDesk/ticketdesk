@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -29,8 +30,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class TicketController : Controller
     {
-        private TicketDeskContext Context { get; set; }
-        public TicketController(TicketDeskContext context)
+        private TdDomainContext Context { get; set; }
+        public TicketController(TdDomainContext context)
         {
             Context = context;
         }
@@ -44,6 +45,10 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> Index(int id)
         {
             var model = await Context.Tickets.FindAsync(id);
+            if (model == null)
+            {
+                return RedirectToAction("Index", "TicketCenter");
+            }
             return View(model);
         }
 
@@ -72,8 +77,9 @@ namespace TicketDesk.Web.Client.Controllers
                     }
                 }
                 // ReSharper disable once EmptyGeneralCatchClause
-                catch// (DbEntityValidationException ex)
+                catch (DbEntityValidationException)
                 {
+                    
                     //TODO: catch rule exceptions? or can annotations handle this fully now?
                 }
 

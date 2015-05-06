@@ -13,8 +13,9 @@
 
 using System.Web.Mvc;
 using TicketDesk.Domain.Model;
+using TicketDesk.Web.Client;
 
-namespace TicketDesk.Web.Client.Models
+namespace TicketDesk.Domain.Model
 {
     public static class ApplicationSettingExtensions
     {
@@ -32,5 +33,19 @@ namespace TicketDesk.Web.Client.Models
         {
             return settings.SelectLists.TicketTypesList.ToSelectList(p => p, p => p, selectedType, includeEmpty);
         }
+
+        public static string GetPriorities(this ApplicationSetting settings)
+        {
+            return string.Join(",", settings.SelectLists.PriorityList);
+        }
+        public static string GetTicketTypes(this ApplicationSetting settings)
+        {
+            return string.Join(",", settings.SelectLists.TicketTypesList);
+        }
+        public static string GetCategories(this ApplicationSetting settings)
+        {
+            return string.Join(",", settings.SelectLists.CategoryList);
+        }
+
     }
 }

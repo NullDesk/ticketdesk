@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Mvc;
 using StackExchange.DataExplorer.Helpers;
 using TicketDesk.IO;
+using TicketDesk.Search.Common;
 using TicketDesk.Web.Client;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity.Model;
@@ -28,6 +29,21 @@ namespace TicketDesk.Domain.Model
 {
     public static class TicketExtensions
     {
+        public static IEnumerable<SearchIndexItem> ToSeachIndexItems(this IEnumerable<Ticket> tickets)
+        {
+            return tickets.Select(t => new SearchIndexItem
+            {
+                Id = t.TicketId,
+                Title = t.Title,
+                Details = t.Details,
+                Status = t.TicketStatus.ToString(),
+                LastUpdateDate = t.LastUpdateDate,
+                Tags = string.IsNullOrEmpty(t.TagList) ? new string[] { } : t.TagList.Split(','),
+                //not null comments only, otherwise we end up indexing empty array item, or blowing up azure required field
+                Events = t.TicketEvents.Where(c => !string.IsNullOrEmpty(c.Comment)).Select(c => c.Comment).ToArray()
+            });
+        }
+
         public static UserDisplayInfo GetAssignedToInfo(this Ticket ticket)
         {
             return UserDisplayInfo.GetUserInfo(ticket.AssignedTo);
@@ -61,19 +77,19 @@ namespace TicketDesk.Domain.Model
 
         public static SelectList GetPriorityList(this Ticket ticket)
         {
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.TicketDeskSettings.GetPriorityList(true, ticket.Priority);
         }
 
         public static SelectList GetCategoryList(this Ticket ticket)
         {
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.TicketDeskSettings.GetCategoryList(true, ticket.Category);
         }
 
         public static SelectList GetTicketTypeList(this Ticket ticket)
         {
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.TicketDeskSettings.GetTicketTypeList(true, ticket.TicketType);
         }
 
@@ -115,21 +131,21 @@ namespace TicketDesk.Domain.Model
         public static bool AllowEditTags(this Ticket ticket)
         {
             //TODO: is this the best place to put this check?
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.SecurityProvider.IsTdHelpDeskUser || context.TicketDeskSettings.Permissions.AllowInternalUsersToEditTags;
         }
 
         public static bool AllowSetOwner(this Ticket ticket)
         {
             //TODO: is this the best place to put this check? Is this one even worth the extension?
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.SecurityProvider.IsTdHelpDeskUser;
         }
 
         public static bool AllowEditPriorityList(this Ticket ticket)
         {
             //TODO: is this the best place to put this check?
-            var context = DependencyResolver.Current.GetService<TicketDeskContext>();
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.SecurityProvider.IsTdHelpDeskUser || context.TicketDeskSettings.Permissions.AllowInternalUsersToEditPriority;
         }
 

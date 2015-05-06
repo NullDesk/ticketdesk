@@ -1,0 +1,50 @@
+﻿@using System.Reflection
+@using TicketDesk.PushNotifications.Common
+@model Dictionary<Type, TicketDesk.PushNotifications.Common.Model.ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting>
+
+@foreach (var type in Model.Keys)
+{
+    var settings = Model[type];
+    @*@Html.DescriptionFor(type, string.Empty) @:(@type.Name)
+
+
+        <div>Enabled: @settings.IsEnabled</div>*@
+    @*if (settings.IsEnabled)
+        {
+            var properties = settings.ProviderConfigurationData
+
+        }*@
+
+
+    <div class="form-group">
+        @Html.DescriptionFor(type, "col-md-4 col-sm-4 control-label", "label")
+        <div class="col-md-2 col-sm-2">
+            <label class="checkbox-inline">
+                @Html.CheckBox("IsEnabled", settings.IsEnabled, new {disabled = "disabled"})
+                Enabled
+            </label>
+
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @if (!settings.IsEnabled)
+            {
+                @Html.ActionLink("Configure", "ConfigureDeliveryProvider", new { ProviderTypeName = type.AssemblyQualifiedName }, new { @class = "btn btn-primary" })
+            }
+        </div>
+
+    </div>
+    if (settings.IsEnabled)
+    {
+        var provider = PushNotificationDeliveryManager.DeliveryProviders.FirstOrDefault(p => p.GetType().AssemblyQualifiedName == settings.ProviderAssemblyQualifiedName);
+        if (provider != null)
+        {
+            PropertyInfo[] properties = provider.GetType().GetProperties(BindingFlags.Public);
+            foreach (PropertyInfo property in properties)
+            {
+                <div>@property.GetValue(property, null)</div>
+            }
+        }
+    }
+
+}
+

@@ -27,8 +27,10 @@ using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using SimpleInjector;
 using SimpleInjector.Advanced;
+using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using TicketDesk.Domain;
+using TicketDesk.PushNotifications.Common;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
@@ -39,8 +41,6 @@ namespace TicketDesk.Web.Client
         public Container RegisterStructureMap(IAppBuilder app)
         {
             var container = GetInitializedContainer(app);
-
-            //container.Verify();
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
@@ -53,22 +53,29 @@ namespace TicketDesk.Web.Client
 
             container.RegisterSingle(app);
 
-            container.RegisterPerWebRequest<TicketDeskUserManager>();
+
+            //allows objects to be reused when inside web request, or created fresh when used on background threads or outside a request context
+            var hybridLifestyle = Lifestyle.CreateHybrid(
+                () => HttpContext.Current != null, new WebRequestLifestyle(), Lifestyle.Transient);
 
             container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
 
-            container.RegisterPerWebRequest(() => 
-                new TicketDeskContext(container.GetInstance<TicketDeskContextSecurityProvider>()));
+            container.Register(() => new TdPushNotificationContext(), hybridLifestyle);
 
-            container.RegisterPerWebRequest<TicketDeskIdentityContext>();
+            container.Register(() => HttpContext.Current != null ?
+                    new TdDomainContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
+                    new TdDomainContext(),
+                hybridLifestyle);
+
+            container.RegisterPerWebRequest<TdIdentityContext>();
 
             container.RegisterPerWebRequest<IUserStore<TicketDeskUser>>(() =>
-                new UserStore<TicketDeskUser>(container.GetInstance<TicketDeskIdentityContext>()));
+                new UserStore<TicketDeskUser>(container.GetInstance<TdIdentityContext>()));
 
             container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
-                new RoleStore<IdentityRole>(container.GetInstance<TicketDeskIdentityContext>()));
+                new RoleStore<IdentityRole>(container.GetInstance<TdIdentityContext>()));
 
-            
+
             container.RegisterPerWebRequest(() =>
             {
                 IOwinContext context;
@@ -102,6 +109,7 @@ namespace TicketDesk.Web.Client
 
             return container;
         }
+
 
 
         private void InitializeUserManager(TicketDeskUserManager manager, IAppBuilder app)

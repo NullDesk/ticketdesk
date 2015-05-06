@@ -22,7 +22,7 @@ namespace TicketDesk.Web.Client.Models
 {
     public class TicketCenterListViewModel
     {
-        public static async Task<TicketCenterListViewModel> GetViewModelAsync(int currentPage, string listName, TicketDeskContext context, string userId)
+        public static async Task<TicketCenterListViewModel> GetViewModelAsync(int currentPage, string listName, TdDomainContext context, string userId)
         {
             var vm = new TicketCenterListViewModel(currentPage, listName, context, userId);
             vm.Tickets = await vm.ListTicketsAsync(currentPage, context);
@@ -36,15 +36,18 @@ namespace TicketDesk.Web.Client.Models
         /// <param name="listName">Name of the list.</param>
         /// <param name="context">The context.</param>
         /// <param name="userId">The user identifier.</param>
-        private TicketCenterListViewModel(int currentPage, string listName, TicketDeskContext context, string userId)
+        private TicketCenterListViewModel(int currentPage, string listName, TdDomainContext context, string userId)
         {
-            UserListSettings = context.UserSettings.GetUserListSettings(userId).OrderBy(lp => lp.ListMenuDisplayOrder);
+            // ReSharper disable once ImplicitlyCapturedClosure
+            UserListSettings = AsyncHelper
+                                .RunSync(() => context.UserSettingsManager.GetUserListSettings(userId))
+                                .OrderBy(lp => lp.ListMenuDisplayOrder);
             CurrentPage = currentPage;
             if (string.IsNullOrEmpty(listName))
             {
                 listName = UserListSettings.First().ListName;
             }
-            CurrentListSetting = context.UserSettings.GetUserListSettingByName(listName, userId);
+            CurrentListSetting = AsyncHelper.RunSync(() => context.UserSettingsManager.GetUserListSettingByName(listName, userId));
 
             FilterBar = new FilterBarViewModel(CurrentListSetting);
 
@@ -57,7 +60,7 @@ namespace TicketDesk.Web.Client.Models
             get { return DependencyResolver.Current.GetService<TicketDeskUserManager>(); }
         }
 
-        public Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TicketDeskContext context)
+        public Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TdDomainContext context)
         {
             var filterColumns = CurrentListSetting.FilterColumns.ToList();
             var sortColumns = CurrentListSetting.SortColumns.ToList();

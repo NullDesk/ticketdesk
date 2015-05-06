@@ -15,22 +15,17 @@
     var ticketTags = (function () {
 
         var config = {};
-        var acivate = function (tdConfig) {
-            config = tdConfig;
-            cofigureTags();
-        };
-
-
+       
         var cofigureTags = function () {
             $('#ticketTags').select2({
                 tags: [],
                 multiple: true,
                 minimumInputLength: 2,
-                tokenSeparators: [",", " "],
+                tokenSeparators: [',', ' '],
                 width: 'resolve',
                 initSelection: function (element, callback) {
                     var data = [];
-                    $(element.val().split(",")).each(function () {
+                    $(element.val().split(',')).each(function () {
                         data.push({ id: this, text: this });
                     });
                     callback(data);
@@ -41,7 +36,7 @@
                     dataType: 'json',
                     data: function (term) {
                         return {
-                            term: term,
+                            term: term
                         };
                     },
                     results: function (data, page) {
@@ -55,6 +50,16 @@
                     return null;
                 }
             });
+            $('#ticketTags').select2('container').find('ul.select2-choices').sortable({
+                containment: 'parent',
+                start: function () { $('#ticketTags').select2('onSortStart'); },
+                update: function () { $('#ticketTags').select2('onSortEnd'); }
+            });
+        };
+
+        var acivate = function (tdConfig) {
+            config = tdConfig;
+            cofigureTags();
         };
 
         return {

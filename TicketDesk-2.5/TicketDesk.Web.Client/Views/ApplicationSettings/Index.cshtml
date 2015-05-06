@@ -1,0 +1,89 @@
+﻿@using TicketDesk.Domain.Model
+@model TicketDesk.Domain.Model.ApplicationSetting
+
+@section title
+{
+    Application Settings
+}
+
+@section scripts
+{
+    @Styles.Render("~/content/select2")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/application-settings")
+
+    <script type="text/javascript">
+
+        (function () {
+            window.applicationSettings.activate(null);
+        })();
+    </script>
+}
+
+<main>
+    @using (Html.BeginForm("Index", "ApplicationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2 class="panel-title">Global Permissions</h2>
+            </div>
+            <div class="panel-body ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.HiddenFor(model => model.ApplicationName)
+
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-offset-3 col-sm-5">
+                        <label class="checkbox-inline">
+                            @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditPriority, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.DisplayNameFor(model => model.Permissions.AllowInternalUsersToEditPriority)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-offset-3 col-sm-5">
+                        <label class="checkbox-inline">
+                            @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditTags, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.DisplayNameFor(model => model.Permissions.AllowInternalUsersToEditTags)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h2 class="panel-title">List Settings</h2>
+            </div>
+            <div class="panel-body ">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectLists.TicketTypesList, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
+                        <input id="tickettypes" name="tickettypes" class="form-control input-sm" value="@Model.GetTicketTypes()" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectLists.CategoryList, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
+                        <input id="categories" name="categories" class="form-control input-sm" value="@Model.GetCategories()" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectLists.PriorityList, new { @class = "col-md-3 col-sm-3 control-label" })
+                    <div class="col-md-5 col-sm-7">
+                        <input id="priorities" name="priorities" class="form-control input-sm" value="@Model.GetPriorities()" />
+                    </div>
+                </div>
+
+
+            </div>
+           
+            <div class="panel-footer">
+                <div class="">
+                    <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+</main>

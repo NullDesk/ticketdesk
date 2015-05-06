@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 namespace TicketDesk.Domain.Model
@@ -19,11 +20,12 @@ namespace TicketDesk.Domain.Model
     
     public class UserSetting
     {
+
         [Key]
+        [StringLength(256)]
         public string UserId { get; set; }
 
-
-        public virtual UserTicketListSettingsCollection ListSettings { get; set; }
+        public virtual UserTicketListSettingsCollection ListSettings { get; protected set; }
        
 
         public UserTicketListSetting GetUserListSettingByName(string listName)

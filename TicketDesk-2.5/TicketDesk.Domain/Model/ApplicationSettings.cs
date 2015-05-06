@@ -25,15 +25,20 @@ namespace TicketDesk.Domain.Model
             ApplicationName = "TicketDesk";
             Permissions = new ApplicationPermissionsSetting();
             SelectLists = new ApplicationSelectListSetting();
+            
+          
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(AutoGenerateField = false)]
         public string ApplicationName { get; set; }
 
         public ApplicationPermissionsSetting Permissions { get; set; }
 
         public ApplicationSelectListSetting SelectLists { get; set; }
+
+      
     }
 
 }

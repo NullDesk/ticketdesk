@@ -14,13 +14,10 @@
 using System;
 using System.Configuration;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
-using TicketDesk.Web.Identity;
-using WebGrease;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client
@@ -42,15 +39,12 @@ namespace TicketDesk.Web.Client
             }
             else
             {
-                var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
-                var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) &&
-                    demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) &&
-                    IsDatabaseReady;//only do this if database was ready on startup, otherwise migrator will take care of it
+                
 
                 //run any pending migrations automatically to bring the DB up to date
                 Database.SetInitializer(
-                    new MigrateDatabaseToLatestVersion<TicketDeskContext, Configuration>(true));
-                using (var ctx = new TicketDeskContext(null))
+                    new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
+                using (var ctx = new TdDomainContext(null))
                 {
                     try
                     {
@@ -60,7 +54,7 @@ namespace TicketDesk.Web.Client
                     {
                         ctx.Database.Initialize(true);
                     }
-                    if (firstRunDemoRefresh)
+                    if (IsFirstRunDemoRefreshEnabled())
                     {
                         DemoDataManager.SetupDemoData(ctx);
                     }
@@ -70,12 +64,13 @@ namespace TicketDesk.Web.Client
 
         
 
+
         public static bool IsDatabaseReady
         {
             get
             {
                 bool result;
-                using (var ctx = new TicketDeskContext(null))
+                using (var ctx = new TdDomainContext(null))
                 {
 
                     result = (ctx.Database.Exists() && !IsEmptyDatabase(ctx)) && !IsLegacyDatabase(ctx);
@@ -87,7 +82,7 @@ namespace TicketDesk.Web.Client
 
         public static bool IsEmptyDatabase()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 return IsEmptyDatabase(ctx);
             }
@@ -95,7 +90,7 @@ namespace TicketDesk.Web.Client
 
         public static bool IsLegacyDatabase()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 return IsLegacyDatabase(ctx);
             }
@@ -103,10 +98,20 @@ namespace TicketDesk.Web.Client
 
         public static bool HasLegacySecurity()
         {
-            using (var ctx = new TicketDeskContext(null))
+            using (var ctx = new TdDomainContext(null))
             {
                 return HasLegacySecurity(ctx);
             }
+        }
+
+        public static bool IsFirstRunDemoRefreshEnabled()
+        {
+            var demoRefresh = ConfigurationManager.AppSettings["ticketdesk:ResetDemoDataOnStartup"];
+            var firstRunDemoRefresh = !string.IsNullOrEmpty(demoRefresh) &&
+                                      demoRefresh.Equals("true", StringComparison.InvariantCultureIgnoreCase) &&
+                                      IsDatabaseReady;
+            //only do this if database was ready on startup, otherwise migrator will take care of it
+            return firstRunDemoRefresh;
         }
 
         private static bool IsEmptyDatabase(DbContext context)

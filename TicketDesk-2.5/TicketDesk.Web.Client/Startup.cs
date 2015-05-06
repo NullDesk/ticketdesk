@@ -16,12 +16,14 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.Owin;
 using Owin;
+using TicketDesk.Domain.Annotations;
 
 [assembly: OwinStartupAttribute(typeof(TicketDesk.Web.Client.Startup))]
 namespace TicketDesk.Web.Client
 {
     public partial class Startup
     {
+        [UsedImplicitly]
         public void Configuration(IAppBuilder app)
         {
             RegisterGlobalFilters(GlobalFilters.Filters);
@@ -29,9 +31,10 @@ namespace TicketDesk.Web.Client
             RegisterBundles(BundleTable.Bundles);
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
+            ConfigureSearch();
             ConfigureAuth(app, container);
-            ConfigureSearch(); 
-            
+            ConfigurePushNotifications();
+            ConfigureApplicationInsights();
         }
     }
 }

@@ -77,7 +77,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
-            return View(linkedAccounts);
+            return View("ManageLogins");
         }
 
         [HttpPost]
@@ -162,6 +162,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("verify-phone-number")]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
+            // ReSharper disable once UnusedVariable
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });

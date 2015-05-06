@@ -20,7 +20,7 @@ using Microsoft.AspNet.Identity;
 
 namespace TicketDesk.Web.Client
 {
-    public class TicketDeskContextSecurityProvider : TicketDeskContextSecurityProviderBase
+    public class TicketDeskContextSecurityProvider : TdDomainSecurityProviderBase
     {
         private TicketDeskUserManager UserManager { get; set; }
 

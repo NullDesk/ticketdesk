@@ -23,13 +23,13 @@ namespace TicketDesk.Domain
 
         //TODO: we should enforce required comments on the back-end
 
-        public static TicketActionManager GetInstance(TicketDeskContextSecurityProviderBase securityProvider)
+        public static TicketActionManager GetInstance(TdDomainSecurityProviderBase securityProvider)
         {
             return new TicketActionManager(securityProvider);
         }
 
-        TicketDeskContextSecurityProviderBase SecurityProvider { get; set; }
-        internal TicketActionManager(TicketDeskContextSecurityProviderBase securityProvider)
+        TdDomainSecurityProviderBase SecurityProvider { get; set; }
+        internal TicketActionManager(TdDomainSecurityProviderBase securityProvider)
         {
             SecurityProvider = securityProvider;
         }

@@ -1,0 +1,156 @@
+﻿@using System.Configuration
+@using TicketDesk.Domain.Model
+@model TicketDesk.PushNotifications.Common.Model.ApplicationPushNotificationSetting
+
+@section title
+{
+    Push Notification Settings
+}
+
+@section scripts
+{
+
+}
+
+<main>
+    @{
+        var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
+        if (demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <div class="alert alert-warning">
+                <p>TicketDesk is running demo mode. Push notifications are disabled.</p>
+                <p> To turn off demo mode, please change the setting in the web configuration file.</p>
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm("Index", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">General Settings</h2>
+                    </div>
+                    <div class="panel-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(model => model.ApplicationName)
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                <label class="checkbox-inline">
+                                    @Html.EditorFor(model => model.IsEnabled)
+                                    Enabled
+                                </label>
+                                @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.IsEnabled, "small well well-sm")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DeliveryIntervalMinutes, new { @class = "col-md-4 col-sm-4  control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                @Html.EditorFor(model => model.DeliveryIntervalMinutes, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.DeliveryIntervalMinutes, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.DeliveryIntervalMinutes, "small well well-sm")
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RetryAttempts, new { @class = "col-md-4 col-sm-4  control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                @Html.EditorFor(model => model.RetryAttempts, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.RetryAttempts, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.RetryAttempts, "small well well-sm")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RetryIntervalMinutes, new { @class = "col-md-4 col-sm-4 control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                @Html.EditorFor(model => model.RetryIntervalMinutes, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.RetryIntervalMinutes, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.RetryIntervalMinutes, "small well well-sm")
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Anti-Noise Settings</h2>
+                    </div>
+                    <div class="panel-body ">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, new { @class = "col-md-4 col-sm-4 control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                <label class="checkbox-inline">
+                                    @Html.EditorFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents)
+                                    Exclude
+                                </label>
+                                @Html.ValidationMessageFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, "small well well-sm")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                <label class="checkbox-inline">
+                                    @Html.EditorFor(model => model.AntiNoiseSettings.IsConsolidationEnabled)
+                                    Enabled
+                                </label>
+                                @Html.ValidationMessageFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, "small well well-sm")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AntiNoiseSettings.InitialConsolidationDelayMinutes, new { @class = "col-md-4 col-sm-4 control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                @Html.EditorFor(model => model.AntiNoiseSettings.InitialConsolidationDelayMinutes, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.AntiNoiseSettings.InitialConsolidationDelayMinutes, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.AntiNoiseSettings.InitialConsolidationDelayMinutes, "small well well-sm")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AntiNoiseSettings.MaxConsolidationDelayMinutes, new { @class = "col-md-4 col-sm-4 control-label" })
+                            <div class="col-md-2 col-sm-2">
+                                @Html.EditorFor(model => model.AntiNoiseSettings.MaxConsolidationDelayMinutes, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                @Html.ValidationMessageFor(model => model.AntiNoiseSettings.MaxConsolidationDelayMinutes, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                @Html.DescriptionFor(model => model.AntiNoiseSettings.MaxConsolidationDelayMinutes, "small well well-sm")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Delivery Providers</h2>
+                    </div>
+                    <div class="panel-body">
+                        @Html.Action("ListDeliveryProviderSettings")
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <div class="">
+                        <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
+
+                    </div>
+                </div>
+            }
+
+        }
+    }
+</main>

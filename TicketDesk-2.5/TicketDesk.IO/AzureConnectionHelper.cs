@@ -12,12 +12,33 @@
 // provided to the recipient.
 
 using System.Configuration;
-using Microsoft.WindowsAzure;
+using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage;
 
 namespace TicketDesk.IO
 {
-    public class AzureConnectionHelper
+    public static class AzureConnectionHelper
     {
+        private static CloudStorageAccount _cloudStorageAccount;
+
+        internal static CloudStorageAccount CloudStorageAccount
+        {
+            get
+            {
+                if (_cloudStorageAccount == null)
+                {
+                     var connectionString = CloudConfigConnString ??
+                                           ConfigManagerConnString;
+                    CloudStorageAccount cloudStorageAccount;
+                    if (CloudStorageAccount.TryParse(connectionString, out cloudStorageAccount))
+                    {
+                        _cloudStorageAccount = cloudStorageAccount;
+                    }
+                }
+                return _cloudStorageAccount;
+            }
+        }
+
         /// <summary>
         /// Gets the connection string from cloud configuration manager if it can see it.
         /// </summary>

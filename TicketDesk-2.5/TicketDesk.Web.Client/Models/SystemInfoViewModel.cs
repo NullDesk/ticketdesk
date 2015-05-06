@@ -16,8 +16,8 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Search.AzureSearch;
 using TicketDesk.IO;
+using TicketDesk.Search.Azure;
 
 namespace TicketDesk.Web.Client.Models
 {
@@ -117,7 +117,7 @@ namespace TicketDesk.Web.Client.Models
         {
             public DatabaseStatusViewModel()
             {
-                using (var ctx = new TicketDeskContext(null))
+                using (var ctx = new TdDomainContext(null))
                 {
                     DatabaseExists = ctx.Database.Exists();
                     IsCompatibleWithEfModel = DatabaseExists && !IsEmptyDatabase && ctx.Database.CompatibleWithModel(false);

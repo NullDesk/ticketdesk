@@ -10,8 +10,11 @@
 // For any distribution that contains code from this file, this notice of 
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
+
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using TicketDesk.Domain.Annotations;
 
 namespace TicketDesk.Domain.Model
 {
@@ -27,9 +30,12 @@ namespace TicketDesk.Domain.Model
         }
 
         [JsonIgnore]
+        [Display(AutoGenerateField = false)]
+        [ScaffoldColumn(false)]
         public string Serialized
         {
             get { return JsonConvert.SerializeObject(this); }
+            [UsedImplicitly]
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -43,9 +49,11 @@ namespace TicketDesk.Domain.Model
             }
         }
         [NotMapped]
+        [Display(Name = "Allow users to edit priority?")]
         public bool AllowInternalUsersToEditPriority { get; set; }
 
         [NotMapped]
+        [Display(Name = "Allow users to edit tags?")]
         public bool AllowInternalUsersToEditTags { get; set; }
     }
 

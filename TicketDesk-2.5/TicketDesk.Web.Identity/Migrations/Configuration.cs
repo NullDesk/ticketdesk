@@ -16,13 +16,12 @@ using System.Configuration;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using TicketDesk.Web.Identity.Infrastructure;
 using TicketDesk.Web.Identity.Model;
 using System.Data.Entity.Migrations;
 
 namespace TicketDesk.Web.Identity.Migrations
 {
-    public sealed class Configuration : DbMigrationsConfiguration<TicketDeskIdentityContext>
+    public sealed class Configuration : DbMigrationsConfiguration<TdIdentityContext>
     {
         public Configuration()
         {
@@ -39,13 +38,13 @@ namespace TicketDesk.Web.Identity.Migrations
         /// this not do anything that might break existing identity data
         /// </remarks>
         /// <param name="context">The context.</param>
-        protected override void Seed(TicketDeskIdentityContext context)
+        protected override void Seed(TdIdentityContext context)
         {
             InitializeUsers(context);
         }
 
         
-        public void InitializeUsers(TicketDeskIdentityContext context)
+        public void InitializeUsers(TdIdentityContext context)
         {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
             if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))

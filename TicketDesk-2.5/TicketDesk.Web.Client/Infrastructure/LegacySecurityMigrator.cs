@@ -54,7 +54,7 @@ namespace TicketDesk.Web.Client
         /// <param name="userManager">The user manager.</param>
         /// <param name="roleManager">The role manager.</param>
         /// <returns><c>true</c> if users migrated, <c>false</c> otherwise.</returns>
-        public static bool MigrateSecurity(TicketDeskIdentityContext context, TicketDeskUserManager userManager, TicketDeskRoleManager roleManager)
+        public static bool MigrateSecurity(TdIdentityContext context, TicketDeskUserManager userManager, TicketDeskRoleManager roleManager)
         {
             EnsureRolesExist(roleManager);
             var appId =
@@ -115,7 +115,7 @@ namespace TicketDesk.Web.Client
         private static void EnsureRolesExist(TicketDeskRoleManager roleManager)
         {
             //TODO: Move this method to td role manager after extending it to use enum role names
-            var roleNames = TicketDeskIdentityContext.DefaultRoles;
+            var roleNames = TdIdentityContext.DefaultRoles;
             foreach (var roleName in roleNames)
             {
                 var role = roleManager.FindByName(roleName);
@@ -127,7 +127,7 @@ namespace TicketDesk.Web.Client
             }
         }
 
-        public static void RemoveLegacyMembershipObjects(TicketDeskIdentityContext context)
+        public static void RemoveLegacyMembershipObjects(TdIdentityContext context)
         {
             const string script = @"
                 drop table aspnet_PersonalizationAllUsers

@@ -23,51 +23,6 @@ namespace TicketDesk.Domain.Model
     public static class UserSettingExtensions
     {
         /// <summary>
-        /// Gets the user list setting by name.
-        /// </summary>
-        /// <param name="settings">The settings.</param>
-        /// <param name="listName">Name of the list.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>UserTicketListSetting.</returns>
-        public static UserTicketListSetting GetUserListSettingByName(this DbSet<UserSetting> settings, string listName, string userId)
-        {
-            return GetUserSetting(settings, userId).GetUserListSettingByName(listName);
-            //return GetUserSettings(settings, userId).ListSettings.FirstOrDefault(us => us.ListName == listName);
-        }
-
-
-        /// <summary>
-        /// Gets all user list settings.
-        /// </summary>
-        /// <param name="settings">The settings.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>ICollection{UserTicketListSetting}.</returns>
-        public static ICollection<UserTicketListSetting> GetUserListSettings(this DbSet<UserSetting> settings,
-            string userId)
-        {
-            return GetUserSetting(settings, userId).ListSettings;
-
-        }
-
-        /// <summary>
-        /// Gets the user settings.
-        /// </summary>
-        /// <param name="settings">The settings.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>UserSetting.</returns>
-        public static UserSetting GetUserSetting(this DbSet<UserSetting> settings, string userId)
-        {
-            var usetting = settings.FirstOrDefault(us => us.UserId == userId);
-            if (usetting == null)
-            {
-                usetting = UserSetting.GetDefaultSettingsForUser(userId);
-                settings.Add(usetting);//if and when saves are made to the db, these will be included  
-            }
-            return usetting;
-        }
-
-
-        /// <summary>
         /// Applies the current sort column settings to an esql object query dynamically.
         /// </summary>
         /// <param name="sorts">The sorts.</param>

@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Linq;
 using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
@@ -25,8 +26,8 @@ namespace TicketDesk.Domain.Model
         public Ticket()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            TicketAttachments = new HashSet<TicketAttachment>();
             TicketEvents = new HashSet<TicketEvent>();
+            TicketSubscribers = new HashSet<TicketSubscriber>();
             TicketTags = new HashSet<TicketTag>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
@@ -62,7 +63,7 @@ namespace TicketDesk.Domain.Model
         public string TagList { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCreatedBy", ShortName = "TicketCreatedByShort")]
         public string CreatedBy { get; set; }
 
@@ -74,7 +75,7 @@ namespace TicketDesk.Domain.Model
 
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketOwner", ShortName = "TicketOwnerShort")]
         public string Owner
         {
@@ -91,7 +92,7 @@ namespace TicketDesk.Domain.Model
 
         private string _assignedTo;
 
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketAssignedTo", ShortName = "TicketAssignedToShort")]
         public string AssignedTo
         {
@@ -114,15 +115,15 @@ namespace TicketDesk.Domain.Model
         public DateTimeOffset CurrentStatusDate { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketCurrentStatusSetBy", ShortName = "TicketCurrentStatusSetByShort")]
         public string CurrentStatusSetBy { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(256)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateBy", ShortName = "TicketLastUpdateByShort")]
         public string LastUpdateBy { get; set; }
-        
+
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketLastUpdateDate", ShortName = "TicketLastUpdateDateShort")]
         public DateTimeOffset LastUpdateDate { get; set; }
 
@@ -138,12 +139,11 @@ namespace TicketDesk.Domain.Model
         [Timestamp]
         public byte[] Version { get; set; }
 
-        public virtual ICollection<TicketAttachment> TicketAttachments { get; set; }
-
         public virtual ICollection<TicketEvent> TicketEvents { get; set; }
 
         public virtual ICollection<TicketTag> TicketTags { get; set; }
 
+        public virtual ICollection<TicketSubscriber> TicketSubscribers { get; set; }
 
         [NotMapped]
         internal string PreviousOwner { get; set; }
@@ -164,6 +164,21 @@ namespace TicketDesk.Domain.Model
             get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
         }
 
+        public void EnsureSubscribers()
+        {
+            EnsureSubscriber(Owner);
+            EnsureSubscriber(AssignedTo);
+            EnsureSubscriber(PreviousOwner);
+            EnsureSubscriber(PreviousAssignedUser);
+        }
+
+        private void EnsureSubscriber(string user)
+        {
+            if (user != null && TicketSubscribers.All(s => s.SubscriberId != user))
+            {
+                TicketSubscribers.Add(new TicketSubscriber() { SubscriberId = user });
+            }
+        }
 
         public TicketActivity GetAvailableActivites(string userId)
         {

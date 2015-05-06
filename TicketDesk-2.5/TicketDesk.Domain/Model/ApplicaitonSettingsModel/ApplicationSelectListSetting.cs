@@ -12,14 +12,15 @@
 // provided to the recipient.
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using TicketDesk.Domain.Annotations;
 
 namespace TicketDesk.Domain.Model
 {
     public class ApplicationSelectListSetting
     {
-
         public ApplicationSelectListSetting()
         {
             //To ensure that missing database values for settings do not completely brick the
@@ -30,9 +31,12 @@ namespace TicketDesk.Domain.Model
         }
 
         [JsonIgnore]
+        [Display( AutoGenerateField = false)]
+        [ScaffoldColumn(false)]
         public string Serialized
         {
             get { return JsonConvert.SerializeObject(this); }
+            [UsedImplicitly]
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -47,14 +51,16 @@ namespace TicketDesk.Domain.Model
             }
         }
 
-
         [NotMapped]
+        [Display(Name = "Categories")]
         public ICollection<string> CategoryList { get; set; }
 
         [NotMapped]
+        [Display(Name="Priorities")]
         public ICollection<string> PriorityList { get; set; }
 
         [NotMapped]
+        [Display(Name = "Ticket Types")]
         public ICollection<string> TicketTypesList { get; set; }
     }
 

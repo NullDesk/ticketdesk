@@ -1,15 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31010.0
+VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{CD3BD9F4-D543-45F1-87EF-A5EC32597202}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{BD4049A9-28B0-4327-A870-FB7926D41A10}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\InsightsTesting-WAWS-dev.json = PublishScripts\Configurations\InsightsTesting-WAWS-dev.json
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1AB88EFD-7870-4CC0-A79D-91653E6B1553}"
 	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "TicketDesk.Domain\TicketDesk.Domain.csproj", "{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}"
@@ -18,14 +27,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Legacy", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Identity", "TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj", "{BD3617C2-A91E-40F3-A441-B085D2491399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Search", "TicketDesk.Domain.Search\TicketDesk.Domain.Search.csproj", "{E7049FEA-5C7F-4C59-A101-BC44F292FA62}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{302374B4-125F-4C34-936B-3BCECF93EB71}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{302374B4-125F-4C34-936B-3BCECF93EB71}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.IO", "TicketDesk.IO\TicketDesk.IO.csproj", "{D9477C13-68C4-43E0-A30B-F06F444C5358}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{399C20E8-85AC-494A-8226-A411528940D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Search.Common", "TicketDesk.Search.Common\TicketDesk.Search.Common.csproj", "{F8C97321-F0CC-4AF9-86E6-95E0E4840430}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Search.Azure", "TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj", "{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Search.Lucene", "TicketDesk.Search.Lucene\TicketDesk.Search.Lucene.csproj", "{54390F7F-A440-40F7-8B1A-28AB599A5213}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJobs", "WebJobs", "{E274BBA5-344B-4EF3-9085-7DA12E2C24EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.SearchMonitor.Job", "TicketDesk.SearchMonitor.Job\TicketDesk.SearchMonitor.Job.csproj", "{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PushNotifications", "PushNotifications", "{8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{48534875-FDAA-4BDC-ABE7-B58596D785C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotifications.Common", "TicketDesk.PushNotifications.Common\TicketDesk.PushNotifications.Common.csproj", "{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Mailer", "TicketDesk.Mailer\TicketDesk.Mailer.csproj", "{6584A6BF-7441-4E50-9FB6-36CFD11C4649}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,16 +76,46 @@ Global
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7049FEA-5C7F-4C59-A101-BC44F292FA62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54390F7F-A440-40F7-8B1A-28AB599A5213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6584A6BF-7441-4E50-9FB6-36CFD11C4649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6584A6BF-7441-4E50-9FB6-36CFD11C4649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6584A6BF-7441-4E50-9FB6-36CFD11C4649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6584A6BF-7441-4E50-9FB6-36CFD11C4649}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BD4049A9-28B0-4327-A870-FB7926D41A10} = {CD3BD9F4-D543-45F1-87EF-A5EC32597202}
+		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF} = {48534875-FDAA-4BDC-ABE7-B58596D785C5}
+		{F8C97321-F0CC-4AF9-86E6-95E0E4840430} = {399C20E8-85AC-494A-8226-A411528940D2}
+		{BE284CB5-BF8B-4B51-A865-F2AB7BEA2D02} = {399C20E8-85AC-494A-8226-A411528940D2}
+		{54390F7F-A440-40F7-8B1A-28AB599A5213} = {399C20E8-85AC-494A-8226-A411528940D2}
+		{0D9EEE2B-FCF5-4A3D-8C96-24BD683C4A48} = {E274BBA5-344B-4EF3-9085-7DA12E2C24EB}
+		{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82} = {8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}
+		{6584A6BF-7441-4E50-9FB6-36CFD11C4649} = {8923DF2C-3F0F-4DD8-A40D-16FB3E77040C}
 	EndGlobalSection
 EndGlobal

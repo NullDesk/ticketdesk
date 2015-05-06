@@ -17,8 +17,8 @@
     <div class="panel-heading">Database Configuration</div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-2 text-right">Server Type</div>
-            <div class="col-md-8">
+            <div class="col-sm-3">Server Type</div>
+            <div class="col-sm-8">
                 @if (Model.DatabaseInfo.IsLocalDb)
                 {
                     @:LocalDb -
@@ -27,25 +27,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 text-right">Server Name</div>
-            <div class="col-md-8">@Model.DatabaseInfo.ServerName</div>
+            <div class="col-sm-3">Server Name</div>
+            <div class="col-sm-8">@Model.DatabaseInfo.ServerName</div>
         </div>
         @if (!string.IsNullOrEmpty(Model.DatabaseInfo.SqlInstance))
         {
             <div class="row">
-                <div class="col-md-2 text-right">Instance Name</div>
-                <div class="col-md-8">@Model.DatabaseInfo.SqlInstance</div>
+                <div class="col-sm-3">Instance Name</div>
+                <div class="col-sm-8">@Model.DatabaseInfo.SqlInstance</div>
             </div>
         }
         <div class="row">
-            <div class="col-md-2 text-right">
+            <div class="col-sm-3">
                 Database @(Model.DatabaseInfo.IsFileDatabase ? "Location" : "Name")
             </div>
-            <div class="col-md-8">@Model.DatabaseInfo.DatabaseName</div>
+            <div class="col-sm-8">@Model.DatabaseInfo.DatabaseName</div>
         </div>
         <div class="row">
-            <div class="col-md-2 text-right">Database Type</div>
-            <div class="col-md-8 ">
+            <div class="col-sm-3">Database Type</div>
+            <div class="col-sm-8 ">
                 @(Model.DatabaseInfo.IsFileDatabase ? "File Database" : "SQL Catalog")
 
             </div>

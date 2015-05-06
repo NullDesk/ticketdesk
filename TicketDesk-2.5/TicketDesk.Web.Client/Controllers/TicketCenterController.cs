@@ -26,8 +26,8 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize]
     public class TicketCenterController : Controller
     {
-        private TicketDeskContext Context { get; set; }
-        public TicketCenterController(TicketDeskContext context)
+        private TdDomainContext Context { get; set; }
+        public TicketCenterController(TdDomainContext context)
         {
             Context = context;
         }
@@ -59,7 +59,7 @@ namespace TicketDesk.Web.Client.Controllers
             string assignedTo)
         {
             var uId = User.Identity.GetUserId();
-            var userSetting = Context.UserSettings.GetUserSetting(uId);
+            var userSetting = await Context.UserSettingsManager.GetSettingsForUser(uId);
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
@@ -79,7 +79,7 @@ namespace TicketDesk.Web.Client.Controllers
             bool isMultiSort = false)
         {
             var uId = User.Identity.GetUserId();
-            var userSetting = Context.UserSettings.GetUserSetting(uId);
+            var userSetting = await Context.UserSettingsManager.GetSettingsForUser(uId);
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
             var sortCol = currentListSetting.SortColumns.SingleOrDefault(sc => sc.ColumnName == columnName);
