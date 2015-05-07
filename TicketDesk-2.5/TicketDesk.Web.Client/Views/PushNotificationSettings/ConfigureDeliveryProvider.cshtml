@@ -4,17 +4,55 @@
 @{
     ViewBag.Title = "ConfigureDeliveryProvider";
 }
+<main>
+    <h2>ConfigureDeliveryProvider</h2>
+    @Model.ProviderAssemblyQualifiedName
 
-<h2>ConfigureDeliveryProvider</h2>
-@Model.ProviderAssemblyQualifiedName
 
+    @{
+        @*<div>pconfig = @Model.ProviderConfigurationData.GetType().Name</div>*@
+        var provConfig = Model.ProviderConfigurationData.GetType().GetProperties();
+        @*<div>Num Properties = @provConfig.Length</div>*@
 
-@{
-    <div>pconfig = @Model.ProviderConfigurationData.GetType().Name</div>
-    var provConfig = Model.ProviderConfigurationData.GetType().GetProperties();
-    <div>Num Properties = @provConfig.Length</div>
-    foreach (var property in provConfig)
-    {
-        <div>@property.Name : @property.GetValue(Model.ProviderConfigurationData, null)</div>
+        using (Html.BeginForm("ConfigureDeliveryProvider", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title">@Html.DescriptionFor(Type.GetType(Model.ProviderAssemblyQualifiedName))</h2>
+                </div>
+                <div class="panel-body ">
+                    @foreach (var property in provConfig)
+                    {
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label">@Html.DisplayNameFor(property)</label>
+                            <div class="col-md-2 col-sm-2">
+
+                                @{if (property.PropertyType == typeof(bool?))
+                                {
+                                    <label class="checkbox-inline">
+                                        @Html.CheckBox(property.Name, ((bool?)property.GetValue(Model.ProviderConfigurationData, null)) ?? false)
+                                        @Html.DisplayNameFor(property)
+                                    </label>
+                                }
+                                else
+                                {
+                                    var type = property.PropertyType == typeof(int?) ? "number" : "text";
+                                    @Html.TextBox(property.Name, property.GetValue(Model.ProviderConfigurationData, null), new { @class = "form-control input-sm", type = type })
+                                }
+
+                                }
+                            </div>
+                            <div class="col-sm-6 hidden-xs">
+                                <div>
+                                    @Html.DescriptionFor(property, "small well well-sm")
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
     }
-}
+</main>

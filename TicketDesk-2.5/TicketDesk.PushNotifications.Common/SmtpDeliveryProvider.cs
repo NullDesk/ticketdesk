@@ -48,12 +48,31 @@ namespace TicketDesk.PushNotifications.Common
 
             }
 
+            [Display(Name="SMTP Server Name")]
             public string SmtpServer { get; set; }
+
+            [Display(Name = "SMTP Port")]
             public int? SmtpPort { get; set; }
+
+            [Display(Name = "Enable SSL")]
             public bool? EnableSsl { get; set; }
+
+            [Display(Name = "SMTP User Name")]
+            [Description("Leave empty if authentication is not required")]
             public string SmtpUserName { get; set; }
+
+            [Display(Name = "SMTP Password")]
+            [Description("Leave empty if authentication is not required")]
             public string SmtpPassword { get; set; }
+
+            [Display(Name = "SMTP From Address")]
+            [Description("The email address to use when sending email from this povider")]
             public string SmtpFromAddress { get; set; }
+
+            [Display(Name = "SMTP From Display Name")]
+            [Description("The friendly name to use in the from address")]
+            public string SmtpFromDisplayName { get; set; }
+
 
 
 
