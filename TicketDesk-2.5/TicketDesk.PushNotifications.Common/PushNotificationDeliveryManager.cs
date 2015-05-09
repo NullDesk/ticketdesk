@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,15 +30,7 @@ namespace TicketDesk.PushNotifications.Common
                         {
                             if (prov.IsEnabled)
                             {
-                                var provType = Type.GetType(prov.ProviderAssemblyQualifiedName);
-                                if (provType != null)
-                                {
-                                    var ci = provType.GetConstructor(new []{typeof(JToken)});
-                                    if (ci != null)
-                                    {
-                                        _deliveryProviders.Add((IPushNotificationDeliveryProvider)ci.Invoke(new []{prov.ProviderConfigurationData}));
-                                    }
-                                }
+                                _deliveryProviders.Add(CreateDeliveryProviderInstance(prov));
                             }
                         }
                     }
@@ -45,6 +38,30 @@ namespace TicketDesk.PushNotifications.Common
                 return _deliveryProviders;
             }
             set { _deliveryProviders = value; }
+        }
+
+        public static IPushNotificationDeliveryProvider CreateDeliveryProviderInstance(ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting settings)
+        {
+            var provType = Type.GetType(settings.ProviderAssemblyQualifiedName);
+            if (provType != null)
+            {
+                var ci = provType.GetConstructor(new[] {typeof (JObject)});
+                if (ci != null)
+                {
+                   return (IPushNotificationDeliveryProvider) ci.Invoke(new[] {settings.ProviderConfigurationData});
+                }
+            }
+            return null;
+        }
+
+        public static IPushNotificationDeliveryProvider CreateDefaultDeliveryProviderInstance(Type providerType)
+        {
+            var ci = providerType.GetConstructor(new[] { typeof(JObject) });
+            if (ci == null)
+            {
+                throw new InstanceNotFoundException("Cannot locate a constructor for " + typeof(JObject).Name);
+            }
+            return (IPushNotificationDeliveryProvider)ci.Invoke(new object[] { null });
         }
 
 

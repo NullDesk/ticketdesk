@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -106,7 +107,17 @@ namespace TicketDesk.PushNotifications.Common.Model
             public bool IsEnabled { get; set; }
 
             [NotMapped]
-            public object ProviderConfigurationData { get; set; }
+            public JObject ProviderConfigurationData { get; set; }
+
+            public static PushNotificationDeliveryProviderSetting FromProvider(IPushNotificationDeliveryProvider provider)
+            {
+                return new PushNotificationDeliveryProviderSetting()
+                {
+                    IsEnabled = false,
+                    ProviderAssemblyQualifiedName = provider.GetType().AssemblyQualifiedName,
+                    ProviderConfigurationData = JObject.FromObject(provider.Configuration)
+                };
+            }
         }
 
 

@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-
+using TicketDesk.PushNotifications.Common.Model;
 
 namespace TicketDesk.PushNotifications.Common
 {
     [Description("SMTP Provider")]
     public sealed class SmtpDeliveryProvider : PushNotificationDeliveryProviderBase
     {
-        public SmtpDeliveryProvider(object configuration)
+        public SmtpDeliveryProvider(JToken configuration)
         {
             Configuration = configuration == null ? 
                 new SmtpDeliveryProviderConfiguration() :
-                (SmtpDeliveryProviderConfiguration)configuration;
+                configuration.ToObject<SmtpDeliveryProviderConfiguration>();
         }
 
         public override IDeliveryProviderConfiguration Configuration { get; set; }
@@ -27,7 +24,7 @@ namespace TicketDesk.PushNotifications.Common
             get { return "Email"; }
         }
 
-        public override Task<object> GenerateMessageAsync(Model.PushNotificationItem notificationItem)
+        public override Task<object> GenerateMessageAsync(PushNotificationItem notificationItem)
         {
             throw new NotImplementedException();
         }

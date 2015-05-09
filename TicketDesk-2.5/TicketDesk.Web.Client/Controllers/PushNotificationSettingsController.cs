@@ -14,7 +14,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Web.Mvc;
+using System.Reflection;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
@@ -31,6 +35,7 @@ namespace TicketDesk.Web.Client.Controllers
     public class PushNotificationSettingsController : Controller
     {
         private TdPushNotificationContext Context { get; set; }
+
         public PushNotificationSettingsController(TdPushNotificationContext context)
         {
             Context = context;
@@ -55,6 +60,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(dbSetting);
         }
 
+        [Route("list-providers")]
         public ActionResult ListDeliveryProviderSettings()
         {
 
@@ -64,47 +70,85 @@ namespace TicketDesk.Web.Client.Controllers
                 .Where(t => !t.IsAbstract && interfaceType.IsAssignableFrom(t)).ToList();
 
 
-            var model = new Dictionary<Type, ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting>();
+            var model =
+                new Dictionary<Type, ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting>();
 
             foreach (var c in classes)
             {
                 var settings = Context.TicketDeskPushNotificationSettings
                     .DeliveryProviderSettings
                     .FirstOrDefault(p => p.ProviderAssemblyQualifiedName == c.AssemblyQualifiedName);
-                model.Add(c, settings ?? new ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting());
+                model.Add(c,
+                    settings ?? new ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting());
             }
 
 
             return PartialView(model);
         }
 
-        public ActionResult ConfigureDeliveryProvider(string providerTypeName)
+        [Route("configure-provider")]
+        public ActionResult ConfigureDeliveryProvider(string providerAssemblyQualifiedName)
         {
-            var providerType = Type.GetType(providerTypeName);
-            var settings = Context.TicketDeskPushNotificationSettings.DeliveryProviderSettings.FirstOrDefault(
-                s => s.ProviderAssemblyQualifiedName == providerType.AssemblyQualifiedName);
+            var provider = GetProvider(providerAssemblyQualifiedName);
+            var settings = GetOrCreatePushNotificationDeliveryProviderSettings(provider);
             if (settings == null)
             {
+                return RedirectToAction("Index");
+            }
+            //ViewBag.Provider = provider;
+            return View(settings);
+        }
 
-                var provider = PushNotificationDeliveryManager.DeliveryProviders.FirstOrDefault(p => p.GetType() == providerType);
-                if (provider == null)
+        [HttpPost]
+        [Route("configure-provider")]
+        public async Task<ActionResult> ConfigureDeliveryProvider(string providerAssemblyQualifiedName, bool isEnabled,
+            FormCollection form)
+        {
+            var provider = GetProvider(providerAssemblyQualifiedName);
+            var settings = GetOrCreatePushNotificationDeliveryProviderSettings(provider);
+
+            if (ModelState.IsValid)
+            {
+                if (settings == null)
                 {
-                    var ci = providerType.GetConstructor(new[] {typeof (JToken)});
-                    if (ci != null)
-                    {
-                        provider = (IPushNotificationDeliveryProvider)ci.Invoke(new object[]{null});
-                    }
+                    return RedirectToAction("Index");
                 }
+                // reflection to get the TryUpdateMethod 
+                var method =
+                    GetType()
+                        .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
+                        .First(m => m.Name == "TryUpdateModel" && m.IsGenericMethod && m.GetParameters().Count() == 1)
+                        .MakeGenericMethod(provider.Configuration.GetType());
 
-                settings = new ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting()
+                if ((bool)method.Invoke(this, new[] { provider.Configuration }))//TryUpdateModel call
                 {
-                    IsEnabled = false, 
-                    ProviderAssemblyQualifiedName = providerType.AssemblyQualifiedName,
-                    ProviderConfigurationData = provider.Configuration
-                };
+                    settings.ProviderConfigurationData = JObject.FromObject(provider.Configuration);
+                    settings.IsEnabled = isEnabled;
+                    await Context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
             return View(settings);
         }
 
+        private ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting
+            GetOrCreatePushNotificationDeliveryProviderSettings(IPushNotificationDeliveryProvider provider)
+        {
+            var settings = Context.TicketDeskPushNotificationSettings.DeliveryProviderSettings.FirstOrDefault(
+                s => s.ProviderAssemblyQualifiedName == provider.GetType().AssemblyQualifiedName);
+            if (settings == null)
+            {
+                settings = ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting.FromProvider(provider);
+                //created new settings, add to context (will not be saved here, but may be committed by caller
+                Context.TicketDeskPushNotificationSettings.DeliveryProviderSettings.Add(settings);
+            }
+            return settings;
+        }
+
+        private IPushNotificationDeliveryProvider GetProvider(string providerTypeName)
+        {
+            return PushNotificationDeliveryManager.DeliveryProviders.FirstOrDefault(p => p.GetType().AssemblyQualifiedName == providerTypeName) ??
+                   PushNotificationDeliveryManager.CreateDefaultDeliveryProviderInstance(Type.GetType(providerTypeName));
+        }
     }
 }

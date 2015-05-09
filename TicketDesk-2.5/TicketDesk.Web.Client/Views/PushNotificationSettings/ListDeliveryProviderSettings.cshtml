@@ -26,10 +26,7 @@
 
         </div>
         <div class="col-md-6 col-sm-6">
-            @if (!settings.IsEnabled)
-            {
-                @Html.ActionLink("Configure", "ConfigureDeliveryProvider", new { ProviderTypeName = type.AssemblyQualifiedName }, new { @class = "btn btn-primary" })
-            }
+            @Html.ActionLink("Configure", "ConfigureDeliveryProvider", new { providerAssemblyQualifiedName = type.AssemblyQualifiedName }, new { @class = "btn btn-primary" })
         </div>
 
     </div>
