@@ -6,71 +6,75 @@
     ViewBag.Title = "ConfigureDeliveryProvider";
 }
 <main>
-    <h2>ConfigureDeliveryProvider</h2>
-    @{
-        var provider = PushNotificationDeliveryManager.CreateDeliveryProviderInstance(Model);
-        var provConfigPropertyInfo = provider.Configuration.GetType().GetProperties();
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2  col-sm-12">
 
-        using (Html.BeginForm("ConfigureDeliveryProvider", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
-        {
-        @Html.HiddenFor(model => model.ProviderAssemblyQualifiedName)
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h2 class="panel-title">@Html.DescriptionFor(Type.GetType(Model.ProviderAssemblyQualifiedName))</h2>
-            </div>
-            <div class="panel-body ">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IsEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
-                    <div class="col-md-2 col-sm-2">
-                        <label class="checkbox-inline">
-                            @Html.EditorFor(model => model.IsEnabled)
-                            Enabled
-                        </label>
-                        @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-sm-6 hidden-xs">
-                        @Html.DescriptionFor(model => model.IsEnabled, "small well well-sm")
-                    </div>
-                </div>
+            @{
+                var provider = PushNotificationDeliveryManager.CreateDeliveryProviderInstance(Model);
+                var provConfigPropertyInfo = provider.Configuration.GetType().GetProperties();
 
-                @foreach (var property in provConfigPropertyInfo)
+                using (Html.BeginForm("ConfigureDeliveryProvider", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
                 {
-                    <div class="form-group">
-                        <label class="col-md-4 col-sm-4 control-label">@Html.DisplayNameFor(property)</label>
-                        <div class="col-md-2 col-sm-2">
+                    <fieldset>
 
-                            @{
-                                if (property.PropertyType == typeof(bool?))
-                                {
-                                    <label class="checkbox-inline">
-                                        @Html.CheckBox(property.Name, ((bool?)property.GetValue(provider.Configuration, null)) ?? false)
-                                        @Html.DisplayNameFor(property)
-                                    </label>
-                                }
-                                else
-                                {
-                                    var type = property.PropertyType == typeof(int?) ? "number" : "text";
-                                    @Html.TextBox(property.Name, property.GetValue(provider.Configuration, null), new { @class = "form-control input-sm", type = type })
-                                }
-
-                            }
-                        </div>
-                        <div class="col-sm-6 hidden-xs">
-                            <div>
-                                @Html.DescriptionFor(property, "small well well-sm")
+                        <!-- Form Name -->
+                        <legend>Push notification settings</legend>
+                        @Html.HiddenFor(model => model.ProviderAssemblyQualifiedName)
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">@Html.DescriptionFor(Type.GetType(Model.ProviderAssemblyQualifiedName))</h2>
                             </div>
+                            <div class="panel-body ">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsEnabled, new {@class = "col-md-4 col-sm-4 control-label"})
+                                    <div class="col-md-8 col-sm-8">
+                                        <label class="checkbox-inline">
+                                            @Html.EditorFor(model => model.IsEnabled)
+                                            Enabled
+                                        </label>
+                                        @Html.ValidationMessageFor(model => model.IsEnabled, "", new {@class = "text-danger"})
+                                        @Html.DescriptionFor(model => model.IsEnabled, "help-block", "span")
+                                    </div>
+                                </div>
+
+                                @foreach (var property in provConfigPropertyInfo)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-sm-4 control-label">@Html.DisplayNameFor(property)</label>
+                                        <div class="col-md-8 col-sm-8">
+
+                                            @{
+                                                if (property.PropertyType == typeof (bool?))
+                                                {
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBox(property.Name, ((bool?) property.GetValue(provider.Configuration, null)) ?? false)
+                                                        @Html.DisplayNameFor(property)
+                                                    </label>
+                                                }
+                                                else
+                                                {
+                                                    var type = property.PropertyType == typeof (int?) ? "number" : "text";
+                                                    @Html.TextBox(property.Name, property.GetValue(provider.Configuration, null), new {@class = "form-control input-sm", type = type})
+                                                }
+                                                @Html.DescriptionFor(property, "help-block", "span")
+                                            }
+                                        </div>
+
+
+
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="panel-footer">
+
+                                <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
+                                @Html.ActionLink("Back to settings", "Index")
+                            </div>
+
                         </div>
-
-                    </div>
-                }
-            </div>
-            <div class="panel-footer">
-                <div class="">
-                    <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
-
-                </div>
-            </div>
-
-        </div>
-    }}
+                    </fieldset>
+                        }}
+</div>
+    </div>
 </main>

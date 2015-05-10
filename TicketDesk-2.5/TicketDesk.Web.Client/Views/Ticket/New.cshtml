@@ -46,128 +46,132 @@
     </script>
 }
 <main>
-    @using (Html.BeginForm("New", "Ticket",null, FormMethod.Post, new { @class = "form-horizontal" }))
-    {
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h2 class="panel-title">New Ticket</h2>
-            </div>
-            <div class="panel-body ">
-
-                @Html.AntiForgeryToken()
-
-                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-
-                @Html.HiddenFor(model => model.TicketId)
-
-                <input type="hidden" name="tempId" value="@ViewBag.TempId" />
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, new { @class = "col-md-2 col-sm-1 control-label" })
-                    <div class="col-md-8 col-sm-11">
-                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1 })
+    <div class="container">
+        <div class="col-lg-10 col-lg-offset-1 col-md-12">
+            @using (Html.BeginForm("New", "Ticket", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Create new ticket</h2>
                     </div>
-                </div>
+                    <div class="panel-body ">
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TicketType, new { @class = "col-md-2 col-sm-1 control-label" })
-                    <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.TicketType, Model.GetTicketTypeList(), new { @class = "form-control input-sm", tabindex = 2 })
-                        @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
-                    </div>
+                        @Html.AntiForgeryToken()
 
-                    @Html.LabelFor(model => model.Category, new { @class = "col-md-1 col-sm-1 control-label" })
-                    <div class="col-md-2 col-sm-3">
-                        @Html.DropDownListFor(model => model.Category, Model.GetCategoryList(), new { @class = "form-control input-sm", tabindex = 3 })
-                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-                    </div>
-                    @if (Model.AllowEditPriorityList())
-                    {
-                        @Html.LabelFor(model => model.Priority, new { @class = "col-md-1 col-sm-1 control-label" })
-                        <div class="col-md-2 col-sm-3">
-                            @Html.DropDownListFor(model => model.Priority, Model.GetPriorityList(), new { @class = "form-control input-sm", tabindex = 4 })
-                            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
-                        </div>
-                    }
-                </div>
-                <div class="form-group">
-                    <div class="col-md-2 col-md-offset-2 col-sm-3 col-sm-offset-1">
-                        <label class="checkbox-inline" for="affectsCustomer">
-                            <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="5" />
-                            Affects Customer
-                        </label>
-                    </div>
-                    @if (Model.AllowEditTags())
-                    {
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-                        @Html.LabelFor(model => model.TagList, new { @class = "col-md-1 col-sm-1 control-label" })
-                        <div class="col-md-4 col-sm-4">
-                            @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 6 })
+                        @Html.HiddenFor(model => model.TicketId)
 
-                        </div>
-                    }
-                   
-                </div>
+                        <input type="hidden" name="tempId" value="@ViewBag.TempId" />
 
-                <div class="form-group">
-                    <label class="col-md-2 col-sm-1 control-label text-right" for="wmd-input-ticketDetails">Details</label>
-                    <div class="col-md-8 col-sm-11 wmd-panel">
-                        <div class=" tabbable tabs-below">
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="tab1">
-                                    <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                                    @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
-
-                                </div>
-                                <div class="tab-pane fade" id="tab2">
-                                    <div class="row" style="min-height: 35px;"></div>
-
-                                    <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
-
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, new { @class = "col-md-2 col-sm-1 control-label" })
+                            <div class="col-md-8 col-sm-11">
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1 })
                             </div>
-                            <ul class="nav nav-tabs navbar-right">
-                                <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
-                                <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
-                            </ul>
                         </div>
-                        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    @if (Model.AllowSetOwner())
-                    {
-                        @Html.LabelFor(model => model.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
-                        <div class="col-md-3 col-sm-5">
-                            @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 8 })
-                            @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
-                        </div>
-                    }
-                    @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
-                    <div class="col-md-3 col-sm-4">
-                        @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 9 })
-                        @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 col-sm-1 control-label">Files</label>
-                    <div class="col-md-8 col-sm-11">
-                        <div class="dropzone" style="min-height: 40px;" id="attachmentsDropZone">
-                            <span class="dz-message" data-dz-message><i class="fa fa-download fa-3x"></i> Drop attachments here, or click to select files.</span>
-                        </div>
-                        <div class="dropzone-previews" id="dz-preview"></div>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TicketType, new { @class = "col-md-2 col-sm-1 control-label" })
+                            <div class="col-md-2 col-sm-3">
+                                @Html.DropDownListFor(model => model.TicketType, Model.GetTicketTypeList(), new { @class = "form-control input-sm", tabindex = 2 })
+                                @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
+                            </div>
 
-            </div>
-            <div class="panel-footer">
-                <div class="">
-                    <button type="submit" class="btn btn-success" tabindex="10">Create</button>&nbsp;&nbsp;
-                    @Html.ActionLink("Back to List", "Index")
+                            @Html.LabelFor(model => model.Category, new { @class = "col-md-1 col-sm-1 control-label" })
+                            <div class="col-md-2 col-sm-3">
+                                @Html.DropDownListFor(model => model.Category, Model.GetCategoryList(), new { @class = "form-control input-sm", tabindex = 3 })
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                            </div>
+                            @if (Model.AllowEditPriorityList())
+                            {
+                                @Html.LabelFor(model => model.Priority, new { @class = "col-md-1 col-sm-1 control-label" })
+                                <div class="col-md-2 col-sm-3">
+                                    @Html.DropDownListFor(model => model.Priority, Model.GetPriorityList(), new { @class = "form-control input-sm", tabindex = 4 })
+                                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-2 col-sm-3 col-sm-offset-1">
+                                <label class="checkbox-inline" for="affectsCustomer">
+                                    <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="5" />
+                                    Affects Customer
+                                </label>
+                            </div>
+                            @if (Model.AllowEditTags())
+                            {
+
+                                @Html.LabelFor(model => model.TagList, new { @class = "col-md-1 col-sm-1 control-label" })
+                                <div class="col-md-4 col-sm-4">
+                                    @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 6 })
+
+                                </div>
+                            }
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-sm-1 control-label text-right" for="wmd-input-ticketDetails">Details</label>
+                            <div class="col-md-8 col-sm-11 wmd-panel">
+                                <div class=" tabbable tabs-below">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab1">
+                                            <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
+                                            @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
+
+                                        </div>
+                                        <div class="tab-pane fade" id="tab2">
+                                            <div class="row" style="min-height: 35px;"></div>
+
+                                            <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="nav nav-tabs navbar-right">
+                                        <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
+                                        <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
+                                    </ul>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @if (Model.AllowSetOwner())
+                            {
+                                @Html.LabelFor(model => model.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
+                                <div class="col-md-3 col-sm-5">
+                                    @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 8 })
+                                    @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                            @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
+                            <div class="col-md-3 col-sm-4">
+                                @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 9 })
+                                @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-sm-1 control-label">Files</label>
+                            <div class="col-md-8 col-sm-11">
+                                <div class="dropzone" style="min-height: 40px;" id="attachmentsDropZone">
+                                    <span class="dz-message" data-dz-message><i class="fa fa-download fa-3x"></i> Drop attachments here, or click to select files.</span>
+                                </div>
+                                <div class="dropzone-previews" id="dz-preview"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <div class="">
+                            <button type="submit" class="btn btn-success" tabindex="10">Create</button>&nbsp;&nbsp;
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-    }
+    </div>
 </main>

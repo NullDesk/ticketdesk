@@ -18,15 +18,18 @@
 
     <div class="form-group">
         @Html.DescriptionFor(type, "col-md-4 col-sm-4 control-label", "label")
-        <div class="col-md-2 col-sm-2">
-            <label class="checkbox-inline">
-                @Html.CheckBox("IsEnabled", settings.IsEnabled, new {disabled = "disabled"})
+        <div class="col-md-8 col-sm-8" >
+            <label class="checkbox-inline" style="vertical-align: top;">
+                @Html.CheckBox("IsEnabled", settings.IsEnabled, new { disabled = "disabled" })
                 Enabled
-            </label>
 
-        </div>
-        <div class="col-md-6 col-sm-6">
-            @Html.ActionLink("Configure", "ConfigureDeliveryProvider", new { providerAssemblyQualifiedName = type.AssemblyQualifiedName }, new { @class = "btn btn-primary" })
+
+            </label>
+           
+                <a class="btn btn-link" href="@Url.Action("ConfigureDeliveryProvider", "PushNotificationSettings", new {providerAssemblyQualifiedName = type.AssemblyQualifiedName})">
+                    <i class="fa fa-gear"> Configure</i>
+                </a>
+            
         </div>
 
     </div>
