@@ -15,45 +15,45 @@ namespace TicketDesk.PushNotifications.Common
 
         public abstract Task<object> GenerateMessageAsync(PushNotificationItem notificationItem);
 
-        public abstract Task<bool> SendNotificationAsync(object message);
+        public abstract Task<bool> SendNotificationAsync(PushNotificationItem notificationItem, object message);
 
         public abstract IDeliveryProviderConfiguration Configuration { get; set; }
 
-        public async Task SendReadyMessageAsync(PushNotificationItem readyNote, int retryMax, int retryIntv)
+        public async Task SendReadyMessageAsync(PushNotificationItem notificationItem, int retryMax, int retryIntv)
         {
 
             //do the meat
-            var message = await GenerateMessageAsync(readyNote);
-            var result = await SendNotificationAsync(message);
+            var message = await GenerateMessageAsync(notificationItem);
+            var result = await SendNotificationAsync(notificationItem, message);
 
             //if we're in a retry case, increment retry count
-            if (readyNote.DeliveryStatus == PushNotificationItemStatus.Retrying)
+            if (notificationItem.DeliveryStatus == PushNotificationItemStatus.Retrying)
             {
-                readyNote.RetryCount++;
+                notificationItem.RetryCount++;
             }
             if (result)
             {
                 //if sent, mark sent and remove schedule
-                readyNote.DeliveryStatus = PushNotificationItemStatus.Sent;
-                readyNote.ScheduledSendDate = null;
+                notificationItem.DeliveryStatus = PushNotificationItemStatus.Sent;
+                notificationItem.ScheduledSendDate = null;
             }
             else
             {
-                if (readyNote.RetryCount <= retryMax)
+                if (notificationItem.RetryCount <= retryMax)
                 {
                     //mark for retry, update schedule
-                    readyNote.DeliveryStatus = PushNotificationItemStatus.Retrying;
-                    if (readyNote.ScheduledSendDate != null)
+                    notificationItem.DeliveryStatus = PushNotificationItemStatus.Retrying;
+                    if (notificationItem.ScheduledSendDate != null)
                     {
-                        readyNote.ScheduledSendDate =
-                            readyNote.ScheduledSendDate.Value.AddMinutes(retryIntv ^ readyNote.RetryCount);
+                        notificationItem.ScheduledSendDate =
+                            notificationItem.ScheduledSendDate.Value.AddMinutes(retryIntv ^ notificationItem.RetryCount);
                     }
                 }
                 else
                 {
                     //too many retry attempts, mark fail and clear schedule
-                    readyNote.DeliveryStatus = PushNotificationItemStatus.Failed;
-                    readyNote.ScheduledSendDate = null;
+                    notificationItem.DeliveryStatus = PushNotificationItemStatus.Failed;
+                    notificationItem.ScheduledSendDate = null;
                 }
 
             }

@@ -33,7 +33,7 @@ namespace TicketDesk.PushNotifications.Common.Model
         {
             var now = DateTimeOffset.Now;
             return userSettings.PushNotificationDestinations.Select(dest =>
-                new PushNotificationItem()
+            new PushNotificationItem()
                 {
                     TicketId = TicketId,
                     SubscriberId = SubscriberId,

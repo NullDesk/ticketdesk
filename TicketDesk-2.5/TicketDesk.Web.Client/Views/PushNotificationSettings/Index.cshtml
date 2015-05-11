@@ -51,7 +51,7 @@
                                             </label>
                                             @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                                             @Html.DescriptionFor(model => model.IsEnabled, "help-block", "span")
-                                            @if (!Model.DeliveryProviderSettings.Any(p => p.IsEnabled))
+                                            @if (!Model.DeliveryProviderSettings.Any(p => p.IsEnabled) && Model.IsEnabled)
                                             {
                                                 <p class="alert alert-danger">At least one provider must be enabled in order for messages to be sent.</p>
                                             }

@@ -55,6 +55,7 @@
                                                 {
                                                     var type = property.PropertyType == typeof (int?) ? "number" : "text";
                                                     @Html.TextBox(property.Name, property.GetValue(provider.Configuration, null), new {@class = "form-control input-sm", type = type})
+                                                    @Html.ValidationMessage(property.Name)
                                                 }
                                                 @Html.DescriptionFor(property, "help-block", "span")
                                             }

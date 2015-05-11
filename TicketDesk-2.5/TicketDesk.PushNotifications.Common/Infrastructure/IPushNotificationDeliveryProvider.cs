@@ -25,6 +25,6 @@ namespace TicketDesk.PushNotifications.Common
 
         Task<object> GenerateMessageAsync(PushNotificationItem notificationItem);
         
-        Task SendReadyMessageAsync(PushNotificationItem readyNote, int retryMax, int retryIntv);
+        Task SendReadyMessageAsync(PushNotificationItem notificationItem, int retryMax, int retryIntv);
     }
 }

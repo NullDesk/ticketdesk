@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Management.Instrumentation;
-using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using Newtonsoft.Json.Linq;
 using TicketDesk.PushNotifications.Common.Model;
 
 namespace TicketDesk.PushNotifications.Common
 {
-    public class PushNotificationDeliveryManager
+    public static class PushNotificationDeliveryManager
     {
         private static ICollection<IPushNotificationDeliveryProvider> _deliveryProviders;
 
@@ -65,7 +62,7 @@ namespace TicketDesk.PushNotifications.Common
         }
 
 
-        public async Task SendNotification
+        public static async Task SendNotification
         (
             int ticketId,
             string subscriberId,
@@ -97,7 +94,7 @@ namespace TicketDesk.PushNotifications.Common
 
 
 
-        public async Task SendNextReadyNotification()
+        public static async Task SendNextReadyNotification()
         {
             using (var context = new TdPushNotificationContext())
             {
@@ -115,7 +112,7 @@ namespace TicketDesk.PushNotifications.Common
         }
 
 
-        private async Task SendNotificationMessageAsync(TdPushNotificationContext context, PushNotificationItem readyNote)
+        private static async Task SendNotificationMessageAsync(TdPushNotificationContext context, PushNotificationItem readyNote)
         {
             var retryMax = context.TicketDeskPushNotificationSettings.RetryAttempts;
             var retryIntv = context.TicketDeskPushNotificationSettings.RetryIntervalMinutes;
