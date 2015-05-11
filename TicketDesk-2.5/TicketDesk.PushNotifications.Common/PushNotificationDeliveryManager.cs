@@ -66,8 +66,7 @@ namespace TicketDesk.PushNotifications.Common
         (
             int ticketId,
             string subscriberId,
-            string destinationAddress,
-            string destinationType
+            int destinationId
         )
         {
             using (var context = new TdPushNotificationContext())
@@ -78,8 +77,7 @@ namespace TicketDesk.PushNotifications.Common
                         (
                             n.TicketId == ticketId &&
                             n.SubscriberId == subscriberId &&
-                            n.DestinationAddress == destinationAddress &&
-                            n.DestinationType == destinationType
+                            n.DestinationId == destinationId
                         ) &&
                         (
                             n.DeliveryStatus == PushNotificationItemStatus.Scheduled ||
@@ -118,7 +116,7 @@ namespace TicketDesk.PushNotifications.Common
             var retryIntv = context.TicketDeskPushNotificationSettings.RetryIntervalMinutes;
 
             //find a provider for the notification destination type
-            var provider = DeliveryProviders.FirstOrDefault(p => p.DestinationType == readyNote.DestinationType);
+            var provider = DeliveryProviders.FirstOrDefault(p => p.DestinationType == readyNote.Destination.DestinationType);
             if (provider == null)
             {
                 //no provider

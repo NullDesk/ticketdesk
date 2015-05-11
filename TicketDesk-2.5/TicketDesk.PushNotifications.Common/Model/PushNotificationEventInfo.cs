@@ -37,8 +37,7 @@ namespace TicketDesk.PushNotifications.Common.Model
                 {
                     TicketId = TicketId,
                     SubscriberId = SubscriberId,
-                    DestinationType = dest.DestinationType,
-                    DestinationAddress = dest.DestinationAddress,
+                    Destination = dest,
                     DeliveryStatus = userSettings.IsEnabled ? (CancelNotification) ? PushNotificationItemStatus.Canceled : PushNotificationItemStatus.Scheduled : PushNotificationItemStatus.Disabled,
                     RetryCount = 0,
                     CreatedDate = now,

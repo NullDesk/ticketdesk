@@ -11,18 +11,19 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketDesk.PushNotifications.Common.Model
 {
     [Table("SubscriberPushNotificationSettings", Schema = "notifications")]
-    public sealed class SubscriberNotificationSetting
+    public class SubscriberNotificationSetting
     {
         public SubscriberNotificationSetting()
         {
             IsEnabled = true;
-            PushNotificationDestinations = new PushNotificationDestinationCollection();
+            
         }
 
         [Key]
@@ -32,8 +33,7 @@ namespace TicketDesk.PushNotifications.Common.Model
         [Display(Name = "Notifications Enabled?")]
         public bool IsEnabled { get; set; }
 
-
-        public PushNotificationDestinationCollection PushNotificationDestinations { get; set; }
+        public virtual ICollection<PushNotificationDestination> PushNotificationDestinations { get; set; }
 
     }
 }

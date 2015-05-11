@@ -43,7 +43,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                     {
                         SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                         IsEnabled = true,
-                        PushNotificationDestinations = new PushNotificationDestinationCollection()
+                        PushNotificationDestinations = new []
                         {
                             new PushNotificationDestination()
                             {

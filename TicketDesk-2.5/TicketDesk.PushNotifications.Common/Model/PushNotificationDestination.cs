@@ -11,21 +11,28 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketDesk.PushNotifications.Common.Model
 {
+    [Table("PushNotificationDestinations", Schema = "notifications")]
     public class PushNotificationDestination
     {
         [Key]
-        [Column(Order = 0)]
+        public int DestinationId { get; set; }
+
+        [Index("IX_SubscriberDestination", 0, IsUnique = true)]
+        [StringLength(100)]
         public string SubscriberName { get; set; }
-        [Key]
-        [Column(Order = 1)]
+
+        [Index("IX_SubscriberDestination", 1, IsUnique = true)]
+        [StringLength(256)]
         public string DestinationAddress { get; set; }
-        [Key]
-        [Column(Order = 2)]
+
+        [Index("IX_SubscriberDestination", 2, IsUnique = true)]
+        [StringLength(50)]
         public string DestinationType { get; set; }
     }
 }

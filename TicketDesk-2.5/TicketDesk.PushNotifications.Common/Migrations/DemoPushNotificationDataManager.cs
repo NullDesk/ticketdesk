@@ -34,7 +34,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
             {
                 SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
                 IsEnabled = true,
-                PushNotificationDestinations = new PushNotificationDestinationCollection()
+                PushNotificationDestinations = new []
                     {
                         new PushNotificationDestination()
                         {
@@ -48,7 +48,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
             {
                 SubscriberId = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
                 IsEnabled = true,
-                PushNotificationDestinations = new PushNotificationDestinationCollection()
+                PushNotificationDestinations = new []
                     {
                         new PushNotificationDestination()
                         {
@@ -62,7 +62,7 @@ namespace TicketDesk.PushNotifications.Common.Migrations
             {
                 SubscriberId = "17f78f38-fa68-445f-90de-38896140db28",
                 IsEnabled = true,
-                PushNotificationDestinations = new PushNotificationDestinationCollection()
+                PushNotificationDestinations = new []
                     {
                         new PushNotificationDestination()
                         {

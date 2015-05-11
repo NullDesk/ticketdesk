@@ -174,7 +174,7 @@ namespace TicketDesk.Web.Client.Controllers
                             {
                                 SubscriberId = user.Id,
                                 IsEnabled = true,
-                                PushNotificationDestinations = new PushNotificationDestinationCollection()
+                                PushNotificationDestinations = new []
                                 {
                                     new PushNotificationDestination()
                                     {

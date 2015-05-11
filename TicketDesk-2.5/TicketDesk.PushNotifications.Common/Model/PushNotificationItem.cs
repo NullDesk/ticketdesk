@@ -23,6 +23,8 @@ namespace TicketDesk.PushNotifications.Common.Model
     [Table("PushNotificationItems", Schema = "notifications")]
     public class PushNotificationItem
     {
+        //TODO: refactor this to a more generic base version with concrete classes implementing the base for specific application entity types
+
         [Key]
         [Column(Order = 0)]
         public int TicketId { get; set; }
@@ -33,12 +35,10 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         [Key]
         [Column(Order = 2)]
-        public string DestinationAddress { get; set; }
+        public int DestinationId { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        public string DestinationType { get; set; }
-
+        public PushNotificationDestination Destination { get; set; }
+        
         public DateTimeOffset CreatedDate { get; set; }
 
         public DateTimeOffset? ScheduledSendDate { get; set; }

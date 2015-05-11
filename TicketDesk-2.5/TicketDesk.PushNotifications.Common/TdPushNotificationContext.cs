@@ -40,9 +40,7 @@ namespace TicketDesk.PushNotifications.Common
              .Property(p => p.Serialized)
              .HasColumnName("PushNotificationSettingsJson");
 
-            modelBuilder.ComplexType<PushNotificationDestinationCollection>()
-             .Property(p => p.Serialized)
-             .HasColumnName("PushNotificationDestinationsJson");
+          
         }
 
         //This DbSet is managed entirely within this assembly, marking internal
@@ -123,9 +121,7 @@ namespace TicketDesk.PushNotifications.Common
                 foreach (var schedNote in schedNotes)
                 {
                     //if no item for this destination in existing scheduled items list, add a new note for that destination
-                    if (!existingItems.Any(i =>
-                        i.DestinationType == schedNote.DestinationType &&
-                        i.DestinationAddress == schedNote.DestinationAddress))
+                    if (!existingItems.Any(i => i.DestinationId == schedNote.DestinationId))
                     {
                         if (schedNote.TicketEventsList.Any())
                         {
