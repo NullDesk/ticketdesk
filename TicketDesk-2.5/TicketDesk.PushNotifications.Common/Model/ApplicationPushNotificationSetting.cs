@@ -35,7 +35,7 @@ namespace TicketDesk.PushNotifications.Common.Model
             AntiNoiseSettings = new AntiNoiseSetting();
             RetryAttempts = 5;
             RetryIntervalMinutes = 2;
-            DeliveryProviderSettings = new PushNotificationDeliveryProviderSetting[] { };
+            DeliveryProviderSettings = new List<PushNotificationDeliveryProviderSetting> { };
         }
 
         [Key]
