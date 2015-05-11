@@ -73,13 +73,15 @@ namespace TicketDesk.PushNotifications.Common
                 //this should only ever happen once, but if no settings are in DB, make default set
                 if (apn == null)
                 {
-                    apn = new ApplicationPushNotificationSetting();
+                    var napn = new ApplicationPushNotificationSetting();
                     //do this on another instance, because we don't want to commit other things that may be tracking on this instance
                     using (var tempContext = new TdPushNotificationContext())//this feels like cheating :)
                     {
-                        ApplicationPushNotificationSettings.Add(apn);
+                        tempContext.ApplicationPushNotificationSettings.Add(napn);
                         tempContext.SaveChanges();
                     }
+                    //try it again
+                    apn = ApplicationPushNotificationSettings.GetTicketDeskSettings();
                 }
                 return apn;
             }
