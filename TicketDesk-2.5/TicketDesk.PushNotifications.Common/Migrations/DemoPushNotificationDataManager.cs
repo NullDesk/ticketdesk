@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Linq;
 using TicketDesk.PushNotifications.Common.Model;
 
 namespace TicketDesk.PushNotifications.Common.Migrations
@@ -19,22 +20,28 @@ namespace TicketDesk.PushNotifications.Common.Migrations
     {
         public static void RemoveAllPushNotificationData(TdPushNotificationContext context)
         {
+            context.TicketPushNotificationItems.RemoveRange(context.TicketPushNotificationItems);
+            context.PushNotificationDestinations.RemoveRange(context.PushNotificationDestinations);
             context.SubscriberPushNotificationSettings.RemoveRange(context.SubscriberPushNotificationSettings);
-            context.PushNotificationItems.RemoveRange(context.PushNotificationItems);
+
+            //context.PushNotificationItems.RemoveRange(context.PushNotificationItems);
             context.TicketDeskPushNotificationSettings = new ApplicationPushNotificationSetting();
+
+            context.SaveChanges();
+
+            Configuration.InitializeStockUserSettings(context);
             context.SaveChanges();
         }
         public static void SetupDemoPushNotificationData(TdPushNotificationContext context)
         {
-            RemoveAllPushNotificationData(context);
-            context.SaveChanges();
-
-
-            context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+            if (!context.SubscriberPushNotificationSettings.Any(
+                    s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
             {
-                SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-                IsEnabled = true,
-                PushNotificationDestinations = new []
+                context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+                {
+                    SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
+                    IsEnabled = true,
+                    PushNotificationDestinations = new[]
                     {
                         new PushNotificationDestination()
                         {
@@ -43,12 +50,16 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                             DestinationType = "email"
                         }
                     }
-            });
-            context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+                });
+            }
+            if (!context.SubscriberPushNotificationSettings.Any(
+                s => s.SubscriberId == "72bdddfb-805a-4883-94b9-aa494f5f52dc"))
             {
-                SubscriberId = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
-                IsEnabled = true,
-                PushNotificationDestinations = new []
+                context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+                {
+                    SubscriberId = "72bdddfb-805a-4883-94b9-aa494f5f52dc",
+                    IsEnabled = true,
+                    PushNotificationDestinations = new[]
                     {
                         new PushNotificationDestination()
                         {
@@ -57,12 +68,17 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                             DestinationType = "email"
                         }
                     }
-            });
-            context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+                });
+            }
+
+            if (!context.SubscriberPushNotificationSettings.Any(
+                s => s.SubscriberId == "17f78f38-fa68-445f-90de-38896140db28"))
             {
-                SubscriberId = "17f78f38-fa68-445f-90de-38896140db28",
-                IsEnabled = true,
-                PushNotificationDestinations = new []
+                context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+                {
+                    SubscriberId = "17f78f38-fa68-445f-90de-38896140db28",
+                    IsEnabled = true,
+                    PushNotificationDestinations = new[]
                     {
                         new PushNotificationDestination()
                         {
@@ -71,7 +87,8 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                             DestinationType = "email"
                         }
                     }
-            });
+                });
+            }
             context.SaveChanges();
         }
     }

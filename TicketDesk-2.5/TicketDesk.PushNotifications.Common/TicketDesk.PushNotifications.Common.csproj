@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Delivery\SmtpDeliveryProviderConfiguration.cs" />
     <Compile Include="Infrastructure\IDeliveryProviderConfiguration.cs" />
+    <Compile Include="Model\TicketPushNotificationItem.cs" />
     <Compile Include="PushNotificationDeliveryManager.cs" />
     <Compile Include="Migrations\DemoPushNotificationDataManager.cs" />
     <Compile Include="Infrastructure\IPushNotificationDeliveryProvider.cs" />
@@ -62,10 +63,9 @@
     <Compile Include="Model\ApplicationPushNotificationSetting.cs" />
     <Compile Include="Model\Extensions\ApplicationPushNotificationSettingsExtensions.cs" />
     <Compile Include="Model\Extensions\UserPushNotificationSettingsExtensions.cs" />
-    <Compile Include="Model\PushNotificationEventInfo.cs" />
+    <Compile Include="Model\TicketPushNotificationEventInfo.cs" />
     <Compile Include="Model\PushNotificationItem.cs" />
     <Compile Include="Model\PushNotificationDestination.cs" />
-    <Compile Include="Model\PushNotificationDestinationCollection.cs" />
     <Compile Include="Model\PushNotificationItemStatus.cs" />
     <Compile Include="Model\SubscriberNotificationSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

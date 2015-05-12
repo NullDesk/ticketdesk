@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;

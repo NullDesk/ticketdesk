@@ -40,65 +40,67 @@ namespace TicketDesk.Web.Identity.Migrations
         /// <param name="context">The context.</param>
         protected override void Seed(TdIdentityContext context)
         {
-            InitializeUsers(context);
-        }
-
-        
-        public void InitializeUsers(TdIdentityContext context)
-        {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
             if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
             {
                 DemoIdentityDataManager.SetupDemoIdentityData(context);
             }
-            else//TODO: move this block to the context itself, and ensure that at least one admin account exists no matter what
+            else
             {
-                //create the standard roles and default admin account
-                var userStore = new UserStore<TicketDeskUser>(context);
-                var roleStore = new RoleStore<IdentityRole>(context);
+                InitializeStockUsers(context);
+            }
+        }
 
-                //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
-                var userManager = new UserManager<TicketDeskUser>(userStore);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                var roleNames = context.DefaultRoleNames;
-                foreach (var roleName in roleNames)
+        public static void InitializeStockUsers(TdIdentityContext context)
+        {
+
+            //create the standard roles and default admin account
+            var userStore = new UserStore<TicketDeskUser>(context);
+            var roleStore = new RoleStore<IdentityRole>(context);
+
+            //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
+            var userManager = new UserManager<TicketDeskUser>(userStore);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var roleNames = context.DefaultRoleNames;
+            foreach (var roleName in roleNames)
+            {
+                //Create Role if it does not exist
+                var role = roleManager.FindByName(roleName);
+                if (role == null)
                 {
-                    //Create Role if it does not exist
-                    var role = roleManager.FindByName(roleName);
-                    if (role == null)
-                    {
-                        role = new IdentityRole(roleName);
-                        roleManager.Create(role);
-                    }
+                    role = new IdentityRole(roleName);
+                    roleManager.Create(role);
                 }
+            }
 
-                var existingAdminRole = roleManager.FindByName("TdAdministrators");
-                //only create default admin user if no other user exists with the admin role
-                if (existingAdminRole != null &&
-                    !userManager.Users.Any(u => u.Roles.Any(r => r.RoleId == existingAdminRole.Id)))
+            var existingAdminRole = roleManager.FindByName("TdAdministrators");
+            //only create default admin user if no other user exists with the admin role
+            if (existingAdminRole != null &&
+                !userManager.Users.Any(u => u.Roles.Any(r => r.RoleId == existingAdminRole.Id)))
+            {
+                var admin = new TicketDeskUser
                 {
-                    var admin = new TicketDeskUser
-                    {
-                        Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-                        UserName = "admin@example.com",
-                        Email = "admin@example.com",
-                        DisplayName = "Admin User", 
-                    };
-                    if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
-                    {
-                        var adminRoles = new[] {"TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers"};
-                        userManager.Create(admin, "123456");
+                    Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
+                    UserName = "admin@example.com",
+                    Email = "admin@example.com",
+                    DisplayName = "Admin User",
+                };
+                if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
+                {
+                    var adminRoles = new[] { "TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers" };
+                    userManager.Create(admin, "123456");
 
-                        userManager.SetLockoutEnabled(admin.Id, false);
+                    userManager.SetLockoutEnabled(admin.Id, false);
 
-                        foreach (var rname in adminRoles)
-                        {
-                            userManager.AddToRole(admin.Id, rname);
-                        }
+                    foreach (var rname in adminRoles)
+                    {
+                        userManager.AddToRole(admin.Id, rname);
                     }
                 }
             }
         }
     }
 }
+

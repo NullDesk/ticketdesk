@@ -23,18 +23,26 @@ namespace TicketDesk.PushNotifications.Common.Model
     [Table("PushNotificationItems", Schema = "notifications")]
     public class PushNotificationItem
     {
-        //TODO: refactor this to a more generic base version with concrete classes implementing the base for specific application entity types
-
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PushNotificationItemId { get; set; }
+
+        [Index("IX_PushNotificationTarget", 0, IsUnique = true)]
         [Column(Order = 0)]
-        public int TicketId { get; set; }
+        public int ContentSourceId { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Required]
+        [Index("IX_PushNotificationTarget", 1, IsUnique = true)]
+        [StringLength(100)]
+        public string ContentSourceType { get; set; }
+
+        [Required]
+        [Index("IX_PushNotificationTarget", 2, IsUnique = true)]
+        [StringLength(256)]
         public string SubscriberId { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
+        [Required]
+        [Index("IX_PushNotificationTarget", 3, IsUnique = true)]
         public int DestinationId { get; set; }
 
         public PushNotificationDestination Destination { get; set; }
@@ -47,58 +55,7 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         public int RetryCount { get; set; }
 
-        public string TicketEventsList { get; set; }
-
-        public string CanceledEventsList { get; set; }
-
-        [NotMapped]
-        public Collection<int> TicketEvents
-        {
-            get
-            {
-                return new Collection<int>(Array.ConvertAll(TicketEventsList.Split(';'), int.Parse));
-            }
-            set
-            {
-                TicketEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
-            }
-        }
-
-        [NotMapped]
-        public Collection<int> CanceledEvents
-        {
-            get
-            {
-                return new Collection<int>(Array.ConvertAll(CanceledEventsList.Split(';'), int.Parse));
-            }
-            set
-            {
-                CanceledEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
-            }
-        }
-
-        public void AddNewEvent(PushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userSetting)
-        {
-            if (eventInfo.CancelNotification)
-            {
-                TicketEvents.Remove(eventInfo.EventId);
-                CanceledEvents.Add(eventInfo.EventId);
-                if (!TicketEvents.Any())
-                {
-                    DeliveryStatus = PushNotificationItemStatus.Canceled;
-                    ScheduledSendDate = null;
-                }
-            }
-            else
-            {
-                //add this event
-                TicketEvents.Add(eventInfo.EventId);
-                //kick the schedule out if consolidation enabled
-                ScheduledSendDate = GetSendDate(appSettings, userSetting);
-            }
-        }
-
-        private DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userNoteSettings)
+        internal DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userNoteSettings)
         {
             var send = ScheduledSendDate;//we'll leave this alone if consolidation isn't used
 
@@ -121,9 +78,6 @@ namespace TicketDesk.PushNotifications.Common.Model
                 send = now.AddMinutes(delay);
             }
             return send;
-
         }
     }
-
-
 }

@@ -31,9 +31,9 @@ namespace TicketDesk.Web.Identity.Migrations
             {
                 context.Roles.Remove(role);
             }
+            context.SaveChanges();
 
-            //the context itself will ensure that at least one valid admin user account remains
-
+            Configuration.InitializeStockUsers(context);
             context.SaveChanges();
         }
 

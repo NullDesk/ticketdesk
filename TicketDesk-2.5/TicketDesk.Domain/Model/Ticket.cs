@@ -31,7 +31,7 @@ namespace TicketDesk.Domain.Model
             TicketTags = new HashSet<TicketTag>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
-
+        [Key]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTicketId", ShortName = "TicketTicketIdShort")]
         public int TicketId { get; set; }
 

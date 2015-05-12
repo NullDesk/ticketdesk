@@ -32,6 +32,8 @@ namespace TicketDesk.PushNotifications.Common
             PushNotificationItems = Set<PushNotificationItem>();
             ApplicationPushNotificationSettings = Set<ApplicationPushNotificationSetting>();
             SubscriberPushNotificationSettings = Set<SubscriberNotificationSetting>();
+            TicketPushNotificationItems = Set<TicketPushNotificationItem>();
+            PushNotificationDestinations = Set<PushNotificationDestination>();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -45,6 +47,10 @@ namespace TicketDesk.PushNotifications.Common
 
         //This DbSet is managed entirely within this assembly, marking internal
         internal DbSet<PushNotificationItem> PushNotificationItems { get; set; }
+
+        internal DbSet<TicketPushNotificationItem> TicketPushNotificationItems { get; set; }
+
+        internal DbSet<PushNotificationDestination> PushNotificationDestinations { get; set; }
 
         //These DbSets contain json serialized content. Callers cannot use standard LINQ to Entities 
         //  expressions with these safely. Marking internal to prevent callers having direct access
@@ -94,7 +100,7 @@ namespace TicketDesk.PushNotifications.Common
             }
         }
 
-        public async Task<bool> AddNotifications(IEnumerable<PushNotificationEventInfo> infoItems)
+        public async Task<bool> AddNotifications(IEnumerable<TicketPushNotificationEventInfo> infoItems)
         {
             foreach (var item in infoItems)
             {
@@ -105,10 +111,11 @@ namespace TicketDesk.PushNotifications.Common
                 //get items already in db that haven't been sent yet
                 var existingItems =
                     await
-                        PushNotificationItems.Where(n =>
-                            n.TicketId == citem.TicketId &&
-                            n.SubscriberId == citem.SubscriberId &&
-                            n.DeliveryStatus == PushNotificationItemStatus.Scheduled).ToArrayAsync();
+                        TicketPushNotificationItems.Include(t => t.PushNotificationItem).Where(n =>
+                            n.PushNotificationItem.ContentSourceId == citem.TicketId &&
+                            n.PushNotificationItem.ContentSourceType == "ticket" &&
+                            n.PushNotificationItem.SubscriberId == citem.SubscriberId &&
+                            n.PushNotificationItem.DeliveryStatus == PushNotificationItemStatus.Scheduled).ToArrayAsync();
                 
                 //for already scheduled, just add the new event
                 foreach (var existingItem in existingItems)
@@ -121,7 +128,7 @@ namespace TicketDesk.PushNotifications.Common
                 foreach (var schedNote in schedNotes)
                 {
                     //if no item for this destination in existing scheduled items list, add a new note for that destination
-                    if (!existingItems.Any(i => i.DestinationId == schedNote.DestinationId))
+                    if (!existingItems.Any(i => i.PushNotificationItem.DestinationId == schedNote.PushNotificationItem.DestinationId))
                     {
                         if (schedNote.TicketEventsList.Any())
                         {
@@ -130,9 +137,8 @@ namespace TicketDesk.PushNotifications.Common
                             //  when the ticket event is marked as read from the start --usually when a 
                             //  subscriber has initiated the event in the first place and anti-noise is set
                             //  to exclude subscriber's own events
-                            PushNotificationItems.Add(schedNote);
+                            TicketPushNotificationItems.Add(schedNote);
                         }
-
                     }
                 }
             }

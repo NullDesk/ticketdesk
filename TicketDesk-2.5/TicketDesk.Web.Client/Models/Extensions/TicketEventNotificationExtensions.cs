@@ -19,9 +19,9 @@ namespace TicketDesk.Domain.Model
 {
     public static class TicketEventNotificationExtensions
     {
-        public static IEnumerable<PushNotificationEventInfo> ToNotificationEventInfoCollection(this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude)
+        public static IEnumerable<TicketPushNotificationEventInfo> ToNotificationEventInfoCollection(this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude)
         {
-            return eventNotifications.Select(note => new PushNotificationEventInfo()
+            return eventNotifications.Select(note => new TicketPushNotificationEventInfo()
             {
                 TicketId = note.TicketId,
                 SubscriberId = note.SubscriberId,

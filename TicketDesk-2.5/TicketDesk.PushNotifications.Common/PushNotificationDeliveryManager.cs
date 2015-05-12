@@ -64,7 +64,8 @@ namespace TicketDesk.PushNotifications.Common
 
         public static async Task SendNotification
         (
-            int ticketId,
+            int contentSourceId,
+            string contentSourceType,
             string subscriberId,
             int destinationId
         )
@@ -75,7 +76,8 @@ namespace TicketDesk.PushNotifications.Common
                 var readyNote = await context.PushNotificationItems
                     .FirstOrDefaultAsync(n =>
                         (
-                            n.TicketId == ticketId &&
+                            n.ContentSourceId == contentSourceId &&
+                            n.ContentSourceType == contentSourceType &&
                             n.SubscriberId == subscriberId &&
                             n.DestinationId == destinationId
                         ) &&

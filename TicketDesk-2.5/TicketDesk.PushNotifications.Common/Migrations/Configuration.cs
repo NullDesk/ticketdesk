@@ -37,14 +37,22 @@ namespace TicketDesk.PushNotifications.Common.Migrations
             }
             else
             {
-                if (!context.SubscriberPushNotificationSettings.Any(s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
+                InitializeStockUserSettings(context);
+            }
+            base.Seed(context);
+        }
+
+        public static void InitializeStockUserSettings(TdPushNotificationContext context)
+        {
+
+            if (!context.SubscriberPushNotificationSettings.Any(s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
+            {
+                context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
                 {
-                    context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
+                    SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
+                    IsEnabled = true,
+                    PushNotificationDestinations = new[]
                     {
-                        SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-                        IsEnabled = true,
-                        PushNotificationDestinations = new []
-                        {
                             new PushNotificationDestination()
                             {
                                 SubscriberName = "Admin User",
@@ -52,10 +60,9 @@ namespace TicketDesk.PushNotifications.Common.Migrations
                                 DestinationType = "email"
                             }
                         }
-                    });
-                }
+                });
             }
-            base.Seed(context);
+
         }
     }
 }

@@ -23,7 +23,6 @@ namespace TicketDesk.PushNotifications.Common.Model
         public SubscriberNotificationSetting()
         {
             IsEnabled = true;
-            
         }
 
         [Key]
@@ -32,6 +31,7 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         [Display(Name = "Notifications Enabled?")]
         public bool IsEnabled { get; set; }
+
 
         public virtual ICollection<PushNotificationDestination> PushNotificationDestinations { get; set; }
 

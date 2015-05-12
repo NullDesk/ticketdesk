@@ -34,5 +34,11 @@ namespace TicketDesk.PushNotifications.Common.Model
         [Index("IX_SubscriberDestination", 2, IsUnique = true)]
         [StringLength(50)]
         public string DestinationType { get; set; }
+
+        [StringLength(256)]
+        public string SubscriberId { get; set; }
+
+
+        public virtual SubscriberNotificationSetting SubscriberNotificationSettings { get; set; }
     }
 }
