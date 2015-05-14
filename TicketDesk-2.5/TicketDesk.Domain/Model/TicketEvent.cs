@@ -41,7 +41,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(500)]
         public string EventDescription { get; set; }
 
-        [Column(TypeName = "ntext")]
+        
         public string Comment { get; set; }
 
         public bool IsHtml { get; set; }
