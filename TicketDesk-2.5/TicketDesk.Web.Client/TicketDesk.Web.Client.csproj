@@ -22,7 +22,8 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>d427fa59</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/f96911eb-9288-41c5-afd8-30e2a9b16f96/resourcegroups/Default-Web-CentralUS/providers/microsoft.insights/components/ticketdesk2</ApplicationInsightsResourceId>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -59,17 +60,25 @@
     <Reference Include="MarkdownSharp">
       <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights, Version=0.16.1.418, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.0.16.1-build00418\lib\net40\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Extensibility.PerfCollector">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.PerformanceCollector.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights.Extensibility.PerfCollector, Version=0.16.1.444, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.0.16.1-build00418\lib\net40\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.RuntimeTelemetry.0.14.0-build20632\lib\net45\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry, Version=0.16.1.418, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.0.16.1-build00418\lib\net45\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Extensibility.Web">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.0.14.0-build20632\lib\net45\Microsoft.ApplicationInsights.Extensibility.Web.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights.Extensibility.Web, Version=0.16.1.418, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.0.16.1-build00418\lib\net45\Microsoft.ApplicationInsights.Extensibility.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.PersistenceChannel, Version=0.16.1.445, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PersistenceChannel.0.16.1-build00418\lib\net40\Microsoft.ApplicationInsights.PersistenceChannel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -87,8 +96,9 @@
     <Reference Include="Microsoft.Diagnostics.Instrumentation.Extensions.Intercept">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\lib\net40\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource">
-      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\lib\net45\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.24\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -127,21 +137,17 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=2.7.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleInjector.2.7.3\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=2.8.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.2.8.0\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="SimpleInjector.Diagnostics, Version=2.7.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleInjector.2.7.3\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
+    <Reference Include="SimpleInjector.Integration.Web, Version=2.8.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.2.8.0\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="SimpleInjector.Integration.Web, Version=2.7.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleInjector.Integration.Web.2.7.3\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=2.7.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.2.7.3\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=2.8.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.2.8.0\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -300,7 +306,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -313,8 +318,9 @@
     <Content Include="Scripts\dropzone\dropzone.js" />
     <Content Include="Scripts\dropzone\dropzone.min.css" />
     <Content Include="Scripts\dropzone\dropzone.min.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery.ui.sortable\jquery-ui-custom.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -341,7 +347,7 @@
     <Content Include="Scripts\jquery.clickable-0.1.9.min.js">
       <DependentUpon>jquery.clickable-0.1.9.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -562,12 +568,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\build\portable-net45+win8+wpa81\Microsoft.Diagnostics.Tracing.EventSource.Redist.targets" Condition="Exists('..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.16-beta\build\portable-net45+win8+wpa81\Microsoft.Diagnostics.Tracing.EventSource.Redist.targets')" />
-  <Import Project="..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets')" />
-  <Target Name="EnsureApplicationInsightsImported" BeforeTargets="BeforeBuild" Condition="'$(ApplicationInsightsImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
-    <Error Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\tools\net40\Microsoft.ApplicationInsights.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
-  </Target>
   <Import Project="..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\build\Microsoft.ApplicationInsights.Agent.Intercept.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Agent.Intercept.0.14.0-build08008\build\Microsoft.ApplicationInsights.Agent.Intercept.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -577,6 +577,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.3\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.3\tools\webjobs.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.0.16.1-build00418\tools\net40\Microsoft.ApplicationInsights.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.16.1-build00418\tools\net40\Microsoft.ApplicationInsights.targets')" />
+  <Target Name="EnsureApplicationInsightsImported" BeforeTargets="BeforeBuild" Condition="'$(ApplicationInsightsImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.0.16.1-build00418\tools\net40\Microsoft.ApplicationInsights.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
+    <Error Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.16.1-build00418\tools\net40\Microsoft.ApplicationInsights.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
