@@ -55,6 +55,8 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         public int RetryCount { get; set; }
 
+        public string MessageContent { get; set; }
+
         internal DateTimeOffset? GetSendDate(ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userNoteSettings)
         {
             var send = ScheduledSendDate;//we'll leave this alone if consolidation isn't used

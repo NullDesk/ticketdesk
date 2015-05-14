@@ -28,6 +28,8 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         public bool CancelNotification { get; set; }
 
+        public string MessageContent { get; set; } 
+
         internal IEnumerable<TicketPushNotificationItem> ToPushNotificationItems(
             ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userSettings)
         {
