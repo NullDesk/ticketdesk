@@ -78,11 +78,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketMailGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include="Views\Emails\Ticket.cshtml" />
     <None Include="Views\Emails\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Domain\TicketDesk.Domain.csproj">
+      <Project>{dbd5279b-9f1c-4915-86a9-6a8f1cf0622d}</Project>
+      <Name>TicketDesk.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

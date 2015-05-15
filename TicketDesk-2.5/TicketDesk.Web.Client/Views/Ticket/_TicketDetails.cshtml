@@ -19,10 +19,10 @@
 @model Ticket
 
 <div class="panel-heading">
-    <div class="pull-left fa-rotate-270" style="padding:3px 0;position: relative;left: -15px;height:auto;"><span>@Model.TicketStatus.GetDescription()</span></div>
+    <div class="pull-left " style="position: relative; padding: 3px; left: -5px; "><span>@Model.TicketStatus.GetDescription()</span></div>
     <div>
         <h2 class="panel-title pull-right">Priority: @Model.Priority</h2>
-        <h2 class="panel-title">Ticket: #@Model.TicketId - @Model.Category @Model.TicketType</h2>
+        <h2 class="panel-title"> #@Model.TicketId - @Model.Category @Model.TicketType</h2>
         <span>@Model.Title</span>
     </div>
 </div>
