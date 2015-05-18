@@ -111,7 +111,7 @@ namespace TicketDesk.PushNotifications.Common
                 //get items already in db that haven't been sent yet
                 var existingItems =
                     await
-                        TicketPushNotificationItems.Include(t => t.PushNotificationItem).Where(n =>
+                        TicketPushNotificationItems.Include(t => t.PushNotificationItem).Include(t => t.PushNotificationItem.Destination).Where(n =>
                             n.PushNotificationItem.ContentSourceId == citem.TicketId &&
                             n.PushNotificationItem.ContentSourceType == "ticket" &&
                             n.PushNotificationItem.SubscriberId == citem.SubscriberId &&

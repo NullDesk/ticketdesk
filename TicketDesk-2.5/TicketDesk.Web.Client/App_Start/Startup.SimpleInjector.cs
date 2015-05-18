@@ -67,13 +67,15 @@ namespace TicketDesk.Web.Client
                     new TdDomainContext(),
                 hybridLifestyle);
 
-            container.RegisterPerWebRequest<TdIdentityContext>();
+            container.Register(() => new TdIdentityContext(), hybridLifestyle);
 
-            container.RegisterPerWebRequest<IUserStore<TicketDeskUser>>(() =>
-                new UserStore<TicketDeskUser>(container.GetInstance<TdIdentityContext>()));
+            container.Register<IUserStore<TicketDeskUser>>(() =>
+                new UserStore<TicketDeskUser>(container.GetInstance<TdIdentityContext>()), 
+                hybridLifestyle);
 
-            container.RegisterPerWebRequest<IRoleStore<IdentityRole, string>>(() =>
-                new RoleStore<IdentityRole>(container.GetInstance<TdIdentityContext>()));
+            container.Register<IRoleStore<IdentityRole, string>>(() =>
+                new RoleStore<IdentityRole>(container.GetInstance<TdIdentityContext>()), 
+                hybridLifestyle);
 
 
             container.RegisterPerWebRequest(() =>

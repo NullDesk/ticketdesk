@@ -37,7 +37,7 @@ namespace TicketDesk.Web.Client
                 //disable if database hasn't been created, of if running in demo mode
                 return;
             }
-           
+
             //configuration supplied by the IoC configuration
             var context = DependencyResolver.Current.GetService<TdPushNotificationContext>();
 
@@ -45,11 +45,11 @@ namespace TicketDesk.Web.Client
             {
                 DemoPushNotificationDataManager.SetupDemoPushNotificationData(context);
             }
-            
+
             if (context.TicketDeskPushNotificationSettings.IsEnabled)
             {
                 context.Dispose();//ensure that no one accidentally holds a reference to this in closure
-                
+
                 //register for static notifications created event handler 
                 TdDomainContext.NotificationsCreated += (sender, notifications) =>
                 {

@@ -29,6 +29,7 @@ namespace TicketDesk.Web.Client
             return Task.FromResult(0);
         }
     }
+
     //TODO: What to do with this?
     public class SmsService : IIdentityMessageService
     {

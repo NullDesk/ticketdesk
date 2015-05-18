@@ -11,26 +11,50 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Web.Mvc;
+using Newtonsoft.Json;
+using Postal;
 using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.Web.Client.Controllers;
+using S22.Mail;
 
 namespace TicketDesk.Domain.Model
 {
     public static class TicketEventNotificationExtensions
     {
-        public static IEnumerable<TicketPushNotificationEventInfo> ToNotificationEventInfoCollection(this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude)
+        public static IEnumerable<TicketPushNotificationEventInfo> ToNotificationEventInfoCollection(
+            this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude)
         {
+
             return eventNotifications.Select(note => new TicketPushNotificationEventInfo()
             {
                 TicketId = note.TicketId,
                 SubscriberId = note.SubscriberId,
                 EventId = note.EventId,
-                CancelNotification = subscriberExclude && note.IsRead
+                CancelNotification = subscriberExclude && note.IsRead,
+                MessageContent = GetEmailForNote(note)
             });
 
         }
 
-       
+        private static string GetEmailForNote(TicketEventNotification note)
+        {
+            var email = new TicketEmail { Ticket = note.TicketEvent.Ticket };
+            var mailService = new Postal.EmailService();
+            SerializableMailMessage message = mailService.CreateMailMessage(email);
+
+            using (var ms = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(ms, message);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+        }
+
     }
 }

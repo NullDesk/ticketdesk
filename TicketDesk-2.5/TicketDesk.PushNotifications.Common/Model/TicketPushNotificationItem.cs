@@ -18,35 +18,34 @@ namespace TicketDesk.PushNotifications.Common.Model
         [ForeignKey("PushNotificationItemId")]
         public virtual PushNotificationItem PushNotificationItem { get; set; }
 
-        public string TicketEventsList { get; set; }
-
-        public string CanceledEventsList { get; set; }
-
-        [NotMapped]
-        public Collection<int> TicketEvents
+        public string TicketEventsList
         {
-            get
-            {
-                return new Collection<int>(Array.ConvertAll(TicketEventsList.Split(';'), int.Parse));
-            }
+            get { return string.Join(",", TicketEvents.Select(p => p.ToString()).ToArray()); }
             set
             {
-                TicketEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
+                TicketEvents = string.IsNullOrEmpty(value) ?
+                    new List<int>() :
+                    new List<int>(Array.ConvertAll(value.Split(','), int.Parse));
+            }
+        }
+
+        public string CanceledEventsList
+        {
+            get { return string.Join(",", CanceledEvents.Select(p => p.ToString()).ToArray()); }
+            set
+            {
+                CanceledEvents = string.IsNullOrEmpty(value) ?
+                    new List<int>() :
+                    new List<int>(Array.ConvertAll(value.Split(','), int.Parse));
             }
         }
 
         [NotMapped]
-        public Collection<int> CanceledEvents
-        {
-            get
-            {
-                return new Collection<int>(Array.ConvertAll(CanceledEventsList.Split(';'), int.Parse));
-            }
-            set
-            {
-                CanceledEventsList = String.Join(",", value.Select(p => p.ToString()).ToArray());
-            }
-        }
+        public ICollection<int> TicketEvents{get; set;}
+
+        [NotMapped]
+        public ICollection<int> CanceledEvents { get; set; }
+        
 
         public void AddNewEvent(TicketPushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userSetting)
         {

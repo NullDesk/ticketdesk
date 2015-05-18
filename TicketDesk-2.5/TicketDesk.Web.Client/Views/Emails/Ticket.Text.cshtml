@@ -1,0 +1,8 @@
+﻿@using TicketDesk.Domain.Model
+@model TicketDesk.Web.Client.Controllers.TicketEmail
+Content - Type: text / plain; charset = utf - 8
+
+#@Model.Ticket.TicketId - @Model.Ticket.Category @Model.Ticket.TicketType : @Model.Ticket.Title
+
+--------
+@Model.Ticket.Details

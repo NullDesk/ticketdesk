@@ -137,6 +137,14 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Postal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=45719375b8b4d528, processorArchitecture=MSIL">
+      <HintPath>..\packages\Postal.Mvc5.1.2.0\lib\net45\Postal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.4.1\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SimpleInjector, Version=2.8.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleInjector.2.8.0\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
@@ -229,6 +237,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\EmailTestController.cs" />
     <Compile Include="Controllers\PushNotificationSettingsController.cs" />
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\FirstRunSetupController.cs" />
@@ -495,6 +504,13 @@
     <Content Include="Views\PushNotificationSettings\Index.cshtml" />
     <Content Include="Views\PushNotificationSettings\ListDeliveryProviderSettings.cshtml" />
     <Content Include="Views\PushNotificationSettings\ConfigureDeliveryProvider.cshtml" />
+    <Content Include="Views\Emails\Ticket.Html.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Emails\Web.config" />
+    <Content Include="Views\Emails\_ViewStart.cshtml" />
+    <Content Include="Views\Emails\Ticket.cshtml" />
+    <Content Include="Views\Emails\Ticket.Text.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -507,6 +523,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\S22.Mail\S22.Mail.csproj">
+      <Project>{ca72a1aa-6f1a-4d5f-b98b-fd73f5407563}</Project>
+      <Name>S22.Mail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Domain.Legacy\TicketDesk.Domain.Legacy.csproj">
       <Project>{a85d9882-1db3-40ec-a23e-6b4562f48bcf}</Project>
       <Name>TicketDesk.Domain.Legacy</Name>
