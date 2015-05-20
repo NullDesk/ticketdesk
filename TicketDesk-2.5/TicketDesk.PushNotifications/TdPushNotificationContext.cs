@@ -17,10 +17,10 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using TicketDesk.PushNotifications.Common.Model;
-using TicketDesk.PushNotifications.Common.Model.Extensions;
+using TicketDesk.PushNotifications.Model;
+using TicketDesk.PushNotifications.Model.Extensions;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public sealed class TdPushNotificationContext : DbContext
     {

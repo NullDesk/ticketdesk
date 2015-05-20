@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
     [Table("TicketPushNotificationItems", Schema = "notifications")]
     public class TicketPushNotificationItem
@@ -49,11 +49,15 @@ namespace TicketDesk.PushNotifications.Common.Model
 
         public void AddNewEvent(TicketPushNotificationEventInfo eventInfo, ApplicationPushNotificationSetting appSettings, SubscriberNotificationSetting userSetting)
         {
+            //no matter what, update to the current message content
+            PushNotificationItem.MessageContent = eventInfo.MessageContent;
+
             if (eventInfo.CancelNotification)
             {
+                //remove event
                 TicketEvents.Remove(eventInfo.EventId);
                 CanceledEvents.Add(eventInfo.EventId);
-                if (!TicketEvents.Any())
+                if (!TicketEvents.Any())//no events left, scrap entire notification
                 {
                     PushNotificationItem.DeliveryStatus = PushNotificationItemStatus.Canceled;
                     PushNotificationItem.ScheduledSendDate = null;

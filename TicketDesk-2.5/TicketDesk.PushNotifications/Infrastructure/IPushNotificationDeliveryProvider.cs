@@ -12,10 +12,11 @@
 // provided to the recipient.
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public interface IPushNotificationDeliveryProvider
     {
@@ -23,8 +24,8 @@ namespace TicketDesk.PushNotifications.Common
 
         IDeliveryProviderConfiguration Configuration { get; set; }
 
-        Task<object> GenerateMessageAsync(PushNotificationItem notificationItem);
+        Task<object> GenerateMessageAsync(PushNotificationItem notificationItem, CancellationToken ct);
         
-        Task SendReadyMessageAsync(PushNotificationItem notificationItem, int retryMax, int retryIntv);
+        Task SendReadyMessageAsync(PushNotificationItem notificationItem, int retryMax, int retryIntv, CancellationToken ct);
     }
 }

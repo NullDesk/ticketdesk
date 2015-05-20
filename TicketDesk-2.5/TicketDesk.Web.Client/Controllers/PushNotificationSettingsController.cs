@@ -22,8 +22,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.PushNotifications.Common;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Model;
 using TicketDesk.Search.Azure;
 using TicketDesk.Search.Common;
 

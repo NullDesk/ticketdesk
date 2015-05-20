@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
     [Table("SubscriberPushNotificationSettings", Schema = "notifications")]
     public class SubscriberNotificationSetting

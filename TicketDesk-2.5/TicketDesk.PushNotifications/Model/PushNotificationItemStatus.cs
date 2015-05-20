@@ -11,12 +11,11 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
     public enum PushNotificationItemStatus
     {
         Scheduled,
-        Sending,
         Sent,
         Retrying,
         Failed,

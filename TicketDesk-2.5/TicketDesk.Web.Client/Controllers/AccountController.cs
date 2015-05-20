@@ -19,8 +19,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using TicketDesk.PushNotifications.Common;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity.Model;
 

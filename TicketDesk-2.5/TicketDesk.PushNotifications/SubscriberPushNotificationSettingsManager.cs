@@ -12,9 +12,9 @@
 // provided to the recipient.
 
 using System.Threading.Tasks;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public class SubscriberPushNotificationSettingsManager
     {

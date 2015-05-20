@@ -12,9 +12,9 @@
 // provided to the recipient.
 
 using System.Data.Entity;
-using TicketDesk.PushNotifications.Common.Migrations;
+using TicketDesk.PushNotifications.Migrations;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public class TdPushNotificationDbInitializer : MigrateDatabaseToLatestVersion<TdPushNotificationContext, Configuration>
     {

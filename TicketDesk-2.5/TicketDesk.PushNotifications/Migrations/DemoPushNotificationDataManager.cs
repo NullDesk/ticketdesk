@@ -12,9 +12,9 @@
 // provided to the recipient.
 
 using System.Linq;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications.Common.Migrations
+namespace TicketDesk.PushNotifications.Migrations
 {
     public static class DemoPushNotificationDataManager
     {

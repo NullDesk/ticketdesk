@@ -15,9 +15,9 @@ using System;
 using System.Configuration;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications.Common.Migrations
+namespace TicketDesk.PushNotifications.Migrations
 {
     public sealed class Configuration : DbMigrationsConfiguration<TdPushNotificationContext>
     {

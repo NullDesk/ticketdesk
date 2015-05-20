@@ -21,8 +21,9 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.PushNotifications.Common;
-using TicketDesk.PushNotifications.Common.Migrations;
+using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Migrations;
+using TicketDesk.Web.Client.Infrastructure;
 
 namespace TicketDesk.Web.Client
 {
@@ -48,6 +49,9 @@ namespace TicketDesk.Web.Client
 
             if (context.TicketDeskPushNotificationSettings.IsEnabled)
             {
+
+                InProcessPushNotificationScheduler.Start(context.TicketDeskPushNotificationSettings.DeliveryIntervalMinutes);
+
                 context.Dispose();//ensure that no one accidentally holds a reference to this in closure
 
                 //register for static notifications created event handler 
@@ -66,7 +70,14 @@ namespace TicketDesk.Web.Client
                                     var subscriberExclude =
                                         noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings.ExcludeSubscriberEvents;
                                     await noteContext.AddNotifications(notes.ToNotificationEventInfoCollection(subscriberExclude));
-                                    await noteContext.SaveChangesAsync(ct);
+                                    try
+                                    {
+                                        await noteContext.SaveChangesAsync(ct);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        var x = true;
+                                    }
                                 });
                         }
                     }
@@ -77,24 +88,6 @@ namespace TicketDesk.Web.Client
                 };
             }
         }
-
-        ///// <summary>
-        ///// Gets the notification configuration.
-        ///// </summary>
-        ///// <returns>IEnumerable&lt;IPushNotifcationProvider&gt;.</returns>
-        //private static IEnumerable<IPushNotificationProvider> GetPushNotificationProviders()
-        //{
-        //    //TODO: when we move to a plug-in model, this should be refactored to use an application setting.
-        //    var potentialProviders = new List<IPushNotificationProvider>()
-        //    {
-        //        //TODO: for now, just new up one of each possible provider type and we'll pick what is correctly configured
-        //        new AzurePushNotificationProvider(),
-        //    };
-
-        //    var pot = potentialProviders.Where(p => p.IsConfigured).ToArray();
-        //    //web local is the last-ditch fallback provider, only use if/when no other providers are available
-        //    return pot.Any() ? pot : new[] { new WebLocalPushNotificationProvider() };
-        //}
-
+        
     }
 }

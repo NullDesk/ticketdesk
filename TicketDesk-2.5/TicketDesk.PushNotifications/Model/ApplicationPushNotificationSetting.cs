@@ -21,7 +21,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
     [Table("ApplicationPushNotificationSettings", Schema = "notifications")]
     public class ApplicationPushNotificationSetting

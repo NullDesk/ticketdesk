@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
     public static class ApplicationPushNotificationSettingsExtensions
     {

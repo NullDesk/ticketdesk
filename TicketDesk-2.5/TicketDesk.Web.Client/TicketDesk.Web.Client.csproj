@@ -267,6 +267,7 @@
     <Compile Include="Infrastructure\Identity\TicketDeskUserManager.cs" />
     <Compile Include="Infrastructure\Identity\UserDisplayInfoCache.cs" />
     <Compile Include="Infrastructure\ModelBinders\CommaSeparatedValuesModelBinder.cs" />
+    <Compile Include="Infrastructure\PushNotifications\InProcessPushNotificationScheduler.cs" />
     <Compile Include="Infrastructure\WhenSetupEnabledAttribute.cs" />
     <Compile Include="Infrastructure\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -539,9 +540,9 @@
       <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
       <Name>TicketDesk.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.PushNotifications.Common\TicketDesk.PushNotifications.Common.csproj">
+    <ProjectReference Include="..\TicketDesk.PushNotifications\TicketDesk.PushNotifications.csproj">
       <Project>{6e3b1af8-762d-4b69-84c3-c79e74aa9c82}</Project>
-      <Name>TicketDesk.PushNotifications.Common</Name>
+      <Name>TicketDesk.PushNotifications</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj">
       <Project>{be284cb5-bf8b-4b51-a865-f2ab7bea2d02}</Project>

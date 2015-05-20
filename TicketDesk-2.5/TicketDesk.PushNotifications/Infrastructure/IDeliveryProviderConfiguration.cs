@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public interface IDeliveryProviderConfiguration
     {

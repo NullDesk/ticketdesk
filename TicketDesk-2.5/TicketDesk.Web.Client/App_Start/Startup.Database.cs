@@ -13,7 +13,7 @@
 
 using System.Data.Entity;
 using TicketDesk.Domain;
-using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications;
 using TicketDesk.Web.Identity;
 
 namespace TicketDesk.Web.Client

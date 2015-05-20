@@ -17,7 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
 
     [Table("PushNotificationItems", Schema = "notifications")]
@@ -27,22 +27,22 @@ namespace TicketDesk.PushNotifications.Common.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PushNotificationItemId { get; set; }
 
-        [Index("IX_PushNotificationTarget", 0, IsUnique = true)]
+        [Index("IX_PushNotificationTarget", 0)]
         [Column(Order = 0)]
         public int ContentSourceId { get; set; }
 
         [Required]
-        [Index("IX_PushNotificationTarget", 1, IsUnique = true)]
+        [Index("IX_PushNotificationTarget", 1)]
         [StringLength(100)]
         public string ContentSourceType { get; set; }
 
         [Required]
-        [Index("IX_PushNotificationTarget", 2, IsUnique = true)]
+        [Index("IX_PushNotificationTarget", 2)]
         [StringLength(256)]
         public string SubscriberId { get; set; }
 
         [Required]
-        [Index("IX_PushNotificationTarget", 3, IsUnique = true)]
+        [Index("IX_PushNotificationTarget", 3)]
         public int DestinationId { get; set; }
 
         public PushNotificationDestination Destination { get; set; }

@@ -15,7 +15,7 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TicketDesk.PushNotifications.Common.Model
+namespace TicketDesk.PushNotifications.Model
 {
     [Table("PushNotificationDestinations", Schema = "notifications")]
     public class PushNotificationDestination

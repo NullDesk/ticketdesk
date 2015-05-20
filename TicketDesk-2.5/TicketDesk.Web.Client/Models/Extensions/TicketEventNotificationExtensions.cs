@@ -20,7 +20,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Postal;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Controllers;
 using S22.Mail;
 

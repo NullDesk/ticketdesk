@@ -7,8 +7,8 @@
     <ProjectGuid>{6E3B1AF8-762D-4B69-84C3-C79E74AA9C82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TicketDesk.PushNotifications.Common</RootNamespace>
-    <AssemblyName>TicketDesk.PushNotifications.Common</AssemblyName>
+    <RootNamespace>TicketDesk.PushNotifications</RootNamespace>
+    <AssemblyName>TicketDesk.PushNotifications</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -79,7 +79,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\S22.Mail\S22.Mail.csproj">
+      <Project>{ca72a1aa-6f1a-4d5f-b98b-fd73f5407563}</Project>
+      <Name>S22.Mail</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

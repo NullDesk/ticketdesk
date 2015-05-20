@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Instrumentation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public abstract class PushNotificationDeliveryProviderBase : IPushNotificationDeliveryProvider
     {
         public abstract string DestinationType { get; }
 
-        public abstract Task<object> GenerateMessageAsync(PushNotificationItem notificationItem);
+        public abstract Task<object> GenerateMessageAsync(PushNotificationItem notificationItem, CancellationToken ct);
 
-        public abstract Task<bool> SendNotificationAsync(PushNotificationItem notificationItem, object message);
+        public abstract Task<bool> SendNotificationAsync(PushNotificationItem notificationItem, object message, CancellationToken ct);
 
         public abstract IDeliveryProviderConfiguration Configuration { get; set; }
 
-        public async Task SendReadyMessageAsync(PushNotificationItem notificationItem, int retryMax, int retryIntv)
+        public async Task SendReadyMessageAsync(PushNotificationItem notificationItem, int retryMax, int retryIntv, CancellationToken ct)
         {
 
             //do the meat
-            var message = await GenerateMessageAsync(notificationItem);
-            var result = await SendNotificationAsync(notificationItem, message);
+            var message = await GenerateMessageAsync(notificationItem, ct);
+            var result = await SendNotificationAsync(notificationItem, message, ct);
 
             //if we're in a retry case, increment retry count
             if (notificationItem.DeliveryStatus == PushNotificationItemStatus.Retrying)

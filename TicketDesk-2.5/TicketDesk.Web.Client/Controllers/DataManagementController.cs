@@ -15,8 +15,8 @@ using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
-using TicketDesk.PushNotifications.Common;
-using TicketDesk.PushNotifications.Common.Migrations;
+using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Migrations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Migrations;
 

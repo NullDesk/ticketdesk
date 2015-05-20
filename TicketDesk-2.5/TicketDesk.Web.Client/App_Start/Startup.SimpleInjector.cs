@@ -30,7 +30,7 @@ using SimpleInjector.Advanced;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using TicketDesk.Domain;
-using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 

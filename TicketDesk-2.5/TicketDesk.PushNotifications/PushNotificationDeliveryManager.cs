@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Management.Instrumentation;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using TicketDesk.PushNotifications.Common.Model;
+using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications.Common
+namespace TicketDesk.PushNotifications
 {
     public static class PushNotificationDeliveryManager
     {
@@ -87,32 +88,37 @@ namespace TicketDesk.PushNotifications.Common
                         );
                 if (readyNote == null) { return; }
 
-                await SendNotificationMessageAsync(context, readyNote);
+                await SendNotificationMessageAsync(context, readyNote, CancellationToken.None);
                 await context.SaveChangesAsync();
             }
         }
 
-
-
-        public static async Task SendNextReadyNotification()
+        public static async Task<int> SendNextReadyNotification(CancellationToken ct)
         {
+           
+
+
             using (var context = new TdPushNotificationContext())
             {
                 //get the next notification that is ready to send
                 var readyNote =
-                    await context.PushNotificationItems.OrderBy(n => n.ScheduledSendDate).FirstOrDefaultAsync(
+                    await context.PushNotificationItems.Include(n => n.Destination).OrderBy(n => n.ScheduledSendDate).FirstOrDefaultAsync(
                         n =>
                             (n.DeliveryStatus == PushNotificationItemStatus.Scheduled || n.DeliveryStatus == PushNotificationItemStatus.Retrying) &&
-                            n.ScheduledSendDate <= DateTimeOffset.Now);
+                            n.ScheduledSendDate <= DateTimeOffset.Now, ct);
 
-
-                await SendNotificationMessageAsync(context, readyNote);
-                await context.SaveChangesAsync();
+                if (readyNote == null)
+                {
+                    return 0;
+                }
+                await SendNotificationMessageAsync(context, readyNote, ct);
+                var i = await context.SaveChangesAsync(ct);
+                return i;
             }
         }
 
 
-        private static async Task SendNotificationMessageAsync(TdPushNotificationContext context, PushNotificationItem readyNote)
+        private static async Task SendNotificationMessageAsync(TdPushNotificationContext context, PushNotificationItem readyNote, CancellationToken ct)
         {
             var retryMax = context.TicketDeskPushNotificationSettings.RetryAttempts;
             var retryIntv = context.TicketDeskPushNotificationSettings.RetryIntervalMinutes;
@@ -127,7 +133,7 @@ namespace TicketDesk.PushNotifications.Common
             }
             else
             {
-                await provider.SendReadyMessageAsync(readyNote, retryMax, retryIntv);
+                await provider.SendReadyMessageAsync(readyNote, retryMax, retryIntv, ct);
             }
         }
 

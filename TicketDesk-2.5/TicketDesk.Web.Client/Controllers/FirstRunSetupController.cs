@@ -18,7 +18,7 @@ using System.Web.Mvc;
 using Microsoft.Owin;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
-using TicketDesk.PushNotifications.Common;
+using TicketDesk.PushNotifications;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
