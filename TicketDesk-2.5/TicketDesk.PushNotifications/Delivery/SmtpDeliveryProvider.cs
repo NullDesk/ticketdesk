@@ -32,9 +32,11 @@ namespace TicketDesk.PushNotifications
         public override Task<object> GenerateMessageAsync(PushNotificationItem notificationItem, CancellationToken ct)
         {
             var memorydata = Convert.FromBase64String(notificationItem.MessageContent);
-            var rs = new MemoryStream(memorydata);
-            var sf = new BinaryFormatter();
-            return Task.FromResult(sf.Deserialize(rs));
+            using (var rs = new MemoryStream(memorydata))
+            {
+                var sf = new BinaryFormatter();
+                return Task.FromResult(sf.Deserialize(rs));
+            }
         }
 
         public override Task<bool> SendNotificationAsync(PushNotificationItem notificationItem, object message, CancellationToken ct)

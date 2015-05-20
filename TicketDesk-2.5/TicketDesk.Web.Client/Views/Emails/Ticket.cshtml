@@ -1,4 +1,6 @@
-﻿To: test@test.com
+﻿@using TicketDesk.Domain.Model
+@model TicketDesk.Web.Client.Controllers.TicketEmail
+To: test@test.com
 From: postal@example.com
-Subject: Example
+Subject: #@Model.Ticket.TicketId + " : " @Model.Ticket.Title
 Views: Text, Html

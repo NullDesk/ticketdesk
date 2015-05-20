@@ -70,14 +70,9 @@ namespace TicketDesk.Web.Client
                                     var subscriberExclude =
                                         noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings.ExcludeSubscriberEvents;
                                     await noteContext.AddNotifications(notes.ToNotificationEventInfoCollection(subscriberExclude));
-                                    try
-                                    {
-                                        await noteContext.SaveChangesAsync(ct);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        var x = true;
-                                    }
+                                    
+                                    await noteContext.SaveChangesAsync(ct);
+                                    
                                 });
                         }
                     }
