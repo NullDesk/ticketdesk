@@ -63,6 +63,7 @@ namespace TicketDesk.PushNotifications.Model
                 RetryAttempts = jData.RetryAttempts;
                 RetryIntervalMinutes = jData.RetryIntervalMinutes;
                 DeliveryProviderSettings = jData.DeliveryProviderSettings;
+                AntiNoiseSettings = jData.AntiNoiseSettings;
             }
         }
 
