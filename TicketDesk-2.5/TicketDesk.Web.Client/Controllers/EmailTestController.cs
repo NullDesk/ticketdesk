@@ -15,6 +15,7 @@ using Postal;
 using S22.Mail;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using System.Data.Entity;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -30,7 +31,7 @@ namespace TicketDesk.Web.Client.Controllers
         public ActionResult Index(int id)
         {
             //TODO: Remove/mode to admin
-            var ticket = Context.Tickets.Find(id);
+            var ticket = Context.Tickets.Include(t => t.TicketTags).First(t => t.TicketId == id);
             var email = new TicketEmail {Ticket = ticket};
 
             //email.Send();

@@ -18,19 +18,54 @@
 @using TicketDesk.IO
 @model Ticket
 
-<div class="panel-heading">
-    <div class="pull-left " style="position: relative; padding: 3px; left: -5px; "><span>@Model.TicketStatus.GetDescription()</span></div>
-    <div>
-        <h2 class="panel-title pull-right">Priority: @Model.Priority</h2>
-        <h2 class="panel-title"> #@Model.TicketId - @Model.Category @Model.TicketType</h2>
-        <span>@Model.Title</span>
+<div class="panel-heading" style="padding: 3px 5px;">
+    <div class="row">
+        <div class="row-same-height row-full-height">
+            <div class="col-xs-2 col-sm-1 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
+                @Model.TicketStatus.GetDescription()
+            </div>
+            <div class="col-xs-2 col-sm-1 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
+                #@Model.TicketId
+            </div>
+            <div class="col-xs-8 col-sm-10 col-xs-height col-full-height panel-title">
+                @Model.Title
+            </div>
+
+        </div>
     </div>
+
 </div>
-<div class="bg-warning container-fluid" style="border-bottom: 1px solid #B3CBDF;">
-    <div class="pull-right">Tags: @Model.TagList</div>
-    <div class="">
-        <div>Assigned To: @Model.GetAssignedToInfo().DisplayName</div>
-        <div>Owned By: @Model.GetOwnerInfo().DisplayName</div>
+<div class="container-fluid" style="border-bottom: 1px solid #B3CBDF;padding-bottom:3px">
+    <ul class="pull-right">
+        @foreach (var tag in Model.TicketTags)
+        {
+            <li class="label label-default">@tag.TagName</li>
+        }
+    </ul>
+
+    <div>
+        <div>@Model.Priority Priority @Model.Category @Model.TicketType</div>
+        <div>
+            <div style="width: 90px; display: inline-block;">Assigned To:</div>
+            @if (string.IsNullOrEmpty(Model.AssignedTo))
+            {
+                <div class='label label-warning'>Unassigned</div>
+            }
+            else
+            {
+                <div class='label label-success'>
+                    @Model.GetAssignedToInfo().DisplayName
+                </div>
+            }
+        </div>
+        <div>
+            <div style="width: 90px; display: inline-block;">
+                Owned By:
+            </div>
+            <div class='label label-info'>
+                @Model.GetOwnerInfo().DisplayName
+            </div>
+        </div>
     </div>
 </div>
 <div class="panel-body" style="margin:0;padding:0;">

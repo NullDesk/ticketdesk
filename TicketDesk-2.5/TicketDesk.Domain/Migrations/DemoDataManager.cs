@@ -12,7 +12,9 @@
 // provided to the recipient.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using ICSharpCode.SharpZipLib.Zip;
 using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain.Migrations
@@ -28,7 +30,7 @@ namespace TicketDesk.Domain.Migrations
             context.TicketEvents.RemoveRange(context.TicketEvents);
             context.Tickets.RemoveRange(context.Tickets);
             context.TicketDeskSettings = new ApplicationSetting();
-          
+
             context.SaveChanges();
         }
 
@@ -37,8 +39,8 @@ namespace TicketDesk.Domain.Migrations
             RemoveAllData(context);
             context.SaveChanges();
 
-          
-          
+
+
 
 
             context.Tickets.AddOrUpdate(t => t.Title,
@@ -59,8 +61,9 @@ namespace TicketDesk.Domain.Migrations
                        Owner = "17f78f38-fa68-445f-90de-38896140db28",
                        Priority = "Low",
                        TagList = "test,moretest",
+                       TicketTags = new List<TicketTag> { new TicketTag() { TagName = "test" }, { new TicketTag() { TagName = "moretest" } } },
                        TicketType = "Problem",
-                       TicketEvents = new[] {TicketEvent.CreateActivityEvent("17f78f38-fa68-445f-90de-38896140db28",TicketActivity.Create, null,null,null)}
+                       TicketEvents = new[] { TicketEvent.CreateActivityEvent("17f78f38-fa68-445f-90de-38896140db28", TicketActivity.Create, null, null, null) }
 
                    });
 
@@ -106,6 +109,7 @@ namespace TicketDesk.Domain.Migrations
                         Owner = oo,
                         Priority = "Low",
                         TagList = "test,moretest",
+                        TicketTags = new List<TicketTag> { new TicketTag() { TagName = "test" }, { new TicketTag() { TagName = "moretest" } } },
                         TicketType = tt,
                         TicketEvents = new[] { TicketEvent.CreateActivityEvent(oo, TicketActivity.Create, null, null, null) }
                     });

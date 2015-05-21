@@ -1,4 +1,5 @@
-﻿@using TicketDesk.Domain.Model
+﻿@using TicketDesk.Domain
+@using TicketDesk.Domain.Model
 @model TicketDesk.Web.Client.Controllers.TicketEmail
 Content-Type: text/html; charset=utf-8
 
@@ -9,14 +10,99 @@ Content-Type: text/html; charset=utf-8
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Ticket #@Model.Ticket.TicketId </title>
+    <style type="text/css">
+        * {
+            font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
+            font-size: 11pt;
+        }
+
+        p {
+            margin: 0.8ex 0 0.8ex 0;
+        }
+
+        td {
+            padding-left: 3px;
+            padding-right: 3px;
+        }
+
+        .tag {
+            border: 1px solid #dcdcdc;
+            background-color: #fcf8e3;
+            font-size: 9pt;
+            padding: 2px;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <p>#@Model.Ticket.TicketId - @Model.Ticket.Category @Model.Ticket.TicketType : @Model.Ticket.Title</p>
-        <p>Assigned To: @Model.Ticket.GetAssignedToInfo().DisplayName</p>
-        <p>Owner: @Model.Ticket.GetOwnerInfo().DisplayName</p>
-        <hr />
-        <div>@Model.Ticket.HtmlDetails()</div>
+    <div style="border: 1px solid #dcdcdc;">
+        <table style="background-color: #B3CBDF;width: 100%;">
+            <tr>
+                <td style="width: 55px; font-size: larger; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
+                    @Model.Ticket.TicketStatus.GetDescription()
+                </td>
+                <td style="width: 40px; font-size: larger; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
+                    #@Model.Ticket.TicketId
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Model.Ticket.Title
+                </td>
+
+            </tr>
+        </table>
+        <table style="border-bottom: 1px solid #e7e7e7; width: 100%;">
+            @if (Model.Ticket.TicketTags.Any())
+            {
+                <tr>
+                    <td style="text-align: right;">
+                        @foreach (var tag in Model.Ticket.TicketTags)
+                        {
+                            <span class="tag">@tag.TagName</span>
+                        }
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    @Model.Ticket.Priority Priority @Model.Ticket.Category @Model.Ticket.TicketType
+                </td>
+            </tr>
+            <tr>
+            <td>
+                @if (string.IsNullOrEmpty(Model.Ticket.AssignedTo))
+                {
+                    @:Assigned To: <span class="tag">Unassigned</span>
+                }
+                else
+                {
+                    @:Assigned To: @Model.Ticket.GetAssignedToInfo().DisplayName
+                }
+            </td>
+            <tr>
+                <td>
+                    Owner: @Model.Ticket.GetOwnerInfo().DisplayName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Last updated by @Model.Ticket.GetLastUpdatedByInfo().DisplayName at @Model.Ticket.LastUpdateDate.DateTime.ToShortDateString() @Model.Ticket.LastUpdateDate.DateTime.ToShortTimeString()
+
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+            <tr>
+                <td style="">
+                    <div style="overflow-y:scroll; max-height: 400px;">
+                        @Model.Ticket.HtmlDetails()
+                    </div>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </body>
 </html>
