@@ -86,6 +86,16 @@ body {
     overflow: auto;
 }
 
+
+dl {
+    margin-left: 15px;
+}
+dd {
+    text-indent: 1em;
+    font-family: monospace;
+    font-size: smaller;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 
 
@@ -357,6 +367,14 @@ p {
 /* Bootstrap hack to allow for same height columns */
 /* columns of same height styles */
 
+.row-no-padding > [class*="col-"] {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+
 .row-full-height {
   height: 100%;
 }
@@ -366,7 +384,7 @@ p {
 }
 .row-same-height {
   display: table;
-  width: 100%;
+  /*width: 100%;*/
   /* fix overflow */
   table-layout: fixed;
 }

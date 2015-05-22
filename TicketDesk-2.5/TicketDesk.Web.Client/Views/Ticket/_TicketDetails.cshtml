@@ -35,104 +35,106 @@
     </div>
 
 </div>
-<div class="container-fluid" style="border-bottom: 1px solid #B3CBDF;padding-bottom:3px">
-    <ul class="pull-right">
-        @foreach (var tag in Model.TicketTags)
-        {
-            <li class="label label-default">@tag.TagName</li>
-        }
-    </ul>
-
-    <div>
-        <div>@Model.Priority Priority @Model.Category @Model.TicketType</div>
-        <div>
-            <div style="width: 90px; display: inline-block;">Assigned To:</div>
-            @if (string.IsNullOrEmpty(Model.AssignedTo))
-            {
-                <div class='label label-warning'>Unassigned</div>
-            }
-            else
-            {
-                <div class='label label-success'>
-                    @Model.GetAssignedToInfo().DisplayName
-                </div>
-            }
-        </div>
-        <div>
-            <div style="width: 90px; display: inline-block;">
-                Owned By:
-            </div>
-            <div class='label label-info'>
-                @Model.GetOwnerInfo().DisplayName
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel-body" style="margin:0;padding:0;">
-    <div class="col-md-8 col-sm-8" style="height:100%;margin:0;padding:0; border-right: 1px solid #B3CBDF;">
-        <div class="" id="detailsText" style="height: 200px; overflow: auto; margin: 0;padding: 5px;">
-            @Model.HtmlDetails()
-        </div>
-        <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;">
-            <i id="expandersymbol" class="fa fa-chevron-down text-center"></i>
-        </div>
-    </div>
-    <aside class="col-md-4 col-sm-4 small hidden-xs">
-        <div class="row">
-            @Html.LabelFor(m => m.TicketStatus, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.TicketStatus.GetDescription()
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.LastUpdateBy, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.GetLastUpdatedByInfo().DisplayName
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.LastUpdateDate, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.LastUpdateDate.DateTime.ToShortDateString() @Model.LastUpdateDate.DateTime.ToShortTimeString()
-            </div>
-        </div>
-
-        <div class="row">
-            @Html.LabelFor(m => m.CurrentStatusSetBy, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.GetCurrentStatusSetByInfo().DisplayName
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.CurrentStatusDate, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.CurrentStatusDate.DateTime.ToShortDateString() @Model.CurrentStatusDate.DateTime.ToShortTimeString()
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.CreatedBy, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.GetCreatedByInfo().DisplayName
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 text-right" })
-            <div class="col-sm-7">
-                @Model.CreatedDate.DateTime.ToShortDateString() @Model.CreatedDate.DateTime.ToShortTimeString()
-            </div>
-        </div>
-        <div id="attachments-list" class="row">
-            <label class="col-sm-5 text-right">Files:</label>
-            <div class="col-sm-7">
-                <ul class="list-unstyled">
-                    @foreach (TicketDeskFileInfo file in ViewBag.Attachments)
+<div class="panel-body" style="padding-top: 0; padding-bottom: 0;">
+    <div class="row row-no-padding row-same-height row-full-height">
+        <div class="col-md-8 col-sm-8 col-xs-12 col-xs-height col-full-height ">
+            <div class="" style="border-bottom: 1px solid #B3CBDF; padding: 3px; background-color: #F7F7F7;">
+                <ul class="pull-right">
+                    @foreach (var tag in Model.TicketTags)
                     {
-                        <li>
-                            <a href="@Url.RouteUrl("GetAttachedFile", new { Id = Model.TicketId, FileName = file.Name })"><i class="fa fa-file fa-align-left"></i> @file.Name</a>
-                        </li>
+                        <li class="label label-default">@tag.TagName</li>
                     }
                 </ul>
+                <div>
+                    <div>@Model.Priority Priority @Model.Category @Model.TicketType</div>
+                    <div>
+                        Assigned To:
+                        @if (string.IsNullOrEmpty(Model.AssignedTo))
+                        {
+                            <span class='label label-warning'>Unassigned</span>
+                        }
+                        else
+                        {
+                            @Model.GetAssignedToInfo().DisplayName
+                        }
+                    </div>
+                    <div>
+                        Owned By:
+                        @Model.GetOwnerInfo().DisplayName
+
+                    </div>
+                </div>
+            </div>
+            <div class="" style="margin: 0; padding: 0;">
+                <div class="" id="detailsText" style="height: 200px; overflow: auto; margin: 0; padding: 5px;">
+                    @Model.HtmlDetails()
+                </div>
+                <div id="detailTextExpander" class="expanderButton" style="height: 20px; display: none;">
+                    <i id="expandersymbol" class="fa fa-chevron-down text-center"></i>
+                </div>
             </div>
         </div>
-    </aside>
+        <div class="col-md-4 col-sm-4 hidden-xs col-sm-height col-full-height col-top" style="border-left: 1px solid #B3CBDF;background-color: #F7F7F7;">
+            <aside class="small">
+                <div class="row">
+                    @Html.LabelFor(m => m.TicketStatus, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.TicketStatus.GetDescription()
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.LastUpdateBy, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.GetLastUpdatedByInfo().DisplayName
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.LastUpdateDate, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.LastUpdateDate.DateTime.ToShortDateString() @Model.LastUpdateDate.DateTime.ToShortTimeString()
+                    </div>
+                </div>
+
+                <div class="row">
+                    @Html.LabelFor(m => m.CurrentStatusSetBy, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.GetCurrentStatusSetByInfo().DisplayName
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CurrentStatusDate, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.CurrentStatusDate.DateTime.ToShortDateString() @Model.CurrentStatusDate.DateTime.ToShortTimeString()
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CreatedBy, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.GetCreatedByInfo().DisplayName
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.LabelFor(m => m.CreatedDate, new { @class = "col-sm-5 col-lg-4 text-right" })
+                    <div class="col-sm-7 col-lg-8">
+                        @Model.CreatedDate.DateTime.ToShortDateString() @Model.CreatedDate.DateTime.ToShortTimeString()
+                    </div>
+                </div>
+                <div id="attachments-list" class="row">
+                    <label class="col-sm-5 col-lg-4 text-right">Files:</label>
+                    <div class="col-sm-7 col-lg-8">
+                        <ul class="list-unstyled">
+                            @foreach (TicketDeskFileInfo file in ViewBag.Attachments)
+                            {
+                                <li>
+                                    <a href="@Url.RouteUrl("GetAttachedFile", new {Id = Model.TicketId, FileName = file.Name})"><i class="fa fa-file fa-align-left"></i> @file.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+
 </div>
