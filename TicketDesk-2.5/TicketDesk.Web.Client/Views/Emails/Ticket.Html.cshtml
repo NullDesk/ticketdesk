@@ -31,6 +31,16 @@ Content-Type: text/html; charset=utf-8
             font-size: 9pt;
             padding: 2px;
         }
+
+        dl {
+            margin-left: 15px;
+        }
+
+        dd {
+            text-indent: 1em;
+            font-family: monospace;
+            font-size: smaller;
+        }
     </style>
 </head>
 <body>
@@ -52,7 +62,7 @@ Content-Type: text/html; charset=utf-8
 
             </tr>
         </table>
-        <table style="border-bottom: 1px solid #e7e7e7; width: 100%;">
+        <table style="border-bottom: 1px solid #e7e7e7; width: 100%; background-color: #F7F7F7;">
             @if (Model.Ticket.TicketTags.Any())
             {
                 <tr>
@@ -70,16 +80,16 @@ Content-Type: text/html; charset=utf-8
                 </td>
             </tr>
             <tr>
-            <td>
-                @if (string.IsNullOrEmpty(Model.Ticket.AssignedTo))
-                {
-                    @:Assigned To: <span class="tag">Unassigned</span>
+                <td>
+                    @if (string.IsNullOrEmpty(Model.Ticket.AssignedTo))
+                    {
+                        @:Assigned To: <span class="tag">Unassigned</span>
                 }
-                else
-                {
-                    @:Assigned To: @Model.Ticket.GetAssignedToInfo().DisplayName
+                    else
+                    {
+                        @:Assigned To: @Model.Ticket.GetAssignedToInfo().DisplayName
                 }
-            </td>
+                </td>
             <tr>
                 <td>
                     Owner: @Model.Ticket.GetOwnerInfo().DisplayName
@@ -96,12 +106,49 @@ Content-Type: text/html; charset=utf-8
         <table style="width: 100%;">
             <tr>
                 <td style="">
-                    <div style="overflow-y:scroll; max-height: 400px;">
+                    <div style="overflow-y:scroll; max-height: 200px;">
                         @Model.Ticket.HtmlDetails()
                     </div>
                 </td>
             </tr>
         </table>
+        <table style="background-color: #B3CBDF; width: 100%;">
+            <tr>
+                <td style="font-size: larger; font-weight: bold;">
+                    Activity
+                </td>
+            </tr>
+        </table>
+        <div style="padding: 10px;">
+            @foreach (var evt in Model.Ticket.TicketEvents.OrderByDescending(c => c.EventDate))
+            {
+                <div style="border: 1px solid #dfdfdf; margin-bottom: 10px;">
+                    <table style="background-color: #F7F7F7;width: 100%;">
+                        <tr>
+                            <td><strong>@evt.GetEventByInfo().DisplayName</strong> @evt.EventDescription</td>
+                        </tr>
+                        <tr>
+                            <td style="text-indent: 1em; font-size: smaller">
+                                @evt.EventDate.Date.ToLongDateString()
+                                @evt.EventDate.Date.ToShortTimeString()
+                            </td>
+                        </tr>
+                    </table>
+
+                    @{
+                        var cmt = evt.HtmlComment();
+                        if (!string.IsNullOrEmpty(cmt.ToString()))
+                        {
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="font-family: monospace; font-size: 9pt;">@cmt</td>
+                                </tr>
+                            </table>
+                        }
+                    }
+                </div>
+                        }
+        </div>
 
     </div>
 </body>

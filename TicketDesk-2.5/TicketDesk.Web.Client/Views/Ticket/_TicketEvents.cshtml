@@ -19,7 +19,7 @@
 @foreach (var evt in Model.OrderByDescending(c => c.EventDate))
 {
     <div class="panel panel-default">
-        <div class="panel-heading ">
+        <div class="panel-heading"  style="padding: 5px;">
             <div><strong>@evt.GetEventByInfo().DisplayName</strong> @evt.EventDescription</div>
 
             <div class="text-muted small" style="text-indent: 1em;">
@@ -28,10 +28,10 @@
             </div>
         </div>
         @{
-            var c = evt.HtmlComment();
-            if (!string.IsNullOrEmpty(c.ToString()))
+            var cmt = evt.HtmlComment();
+            if (!string.IsNullOrEmpty(cmt.ToString()))
             {
-                <div class="panel-body">@evt.HtmlComment()</div>
+                <div class="panel-body" style="padding: 5px;">@cmt</div>
             }
         }
     </div>

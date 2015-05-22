@@ -49,6 +49,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return RedirectToAction("Index", "TicketCenter");
             }
+
             return View(model);
         }
 
@@ -88,7 +89,13 @@ namespace TicketDesk.Web.Client.Controllers
             return View(ticket);
         }
 
-        
+        [Route("ticket-files")]
+        public ActionResult TicketFiles(int ticketId)
+        {
+            var attachments = TicketDeskFileStore.ListAttachmentInfo(ticketId.ToString(CultureInfo.InvariantCulture), false);
+            ViewBag.TicketId = ticketId;
+            return PartialView("_TicketFiles", attachments);
+        }
 
         [Route("ticket-events")]
         public async Task<ActionResult> TicketEvents(int ticketId)
@@ -102,7 +109,6 @@ namespace TicketDesk.Web.Client.Controllers
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
 
-            ViewBag.Attachments = TicketDeskFileStore.ListAttachmentInfo(ticketId.ToString(CultureInfo.InvariantCulture), false);
 
             return PartialView("_TicketDetails", ticket);
         }

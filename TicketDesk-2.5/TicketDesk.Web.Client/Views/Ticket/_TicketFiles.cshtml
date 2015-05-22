@@ -1,0 +1,23 @@
+﻿@using TicketDesk.IO
+@model IEnumerable<TicketDeskFileInfo>
+@{
+
+    if (Model != null && Model.Any())
+    {
+        <div class="panel panel-success" style="padding-top: 0; padding-bottom: 0;">
+            <div class="panel-heading" style="padding: 3px 5px;">
+                Files:
+            </div>
+            <div class="panel-body" style="">
+                <ul class="list-unstyled list-inline">
+                    @foreach (var file in Model)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("GetAttachedFile", new {Id = ViewBag.TicketId, FileName = file.Name})"><i class="fa fa-file fa-align-left"></i> @file.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+}

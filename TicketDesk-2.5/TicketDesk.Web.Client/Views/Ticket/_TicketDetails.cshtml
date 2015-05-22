@@ -63,6 +63,9 @@
                         @Model.GetOwnerInfo().DisplayName
 
                     </div>
+                    <div class="hidden-md">
+                        Last updated by @Model.GetLastUpdatedByInfo().DisplayName at @Model.LastUpdateDate.DateTime.ToShortDateString() @Model.LastUpdateDate.DateTime.ToShortTimeString()
+                    </div>
                 </div>
             </div>
             <div class="" style="margin: 0; padding: 0;">
@@ -119,20 +122,12 @@
                         @Model.CreatedDate.DateTime.ToShortDateString() @Model.CreatedDate.DateTime.ToShortTimeString()
                     </div>
                 </div>
-                <div id="attachments-list" class="row">
-                    <label class="col-sm-5 col-lg-4 text-right">Files:</label>
-                    <div class="col-sm-7 col-lg-8">
-                        <ul class="list-unstyled">
-                            @foreach (TicketDeskFileInfo file in ViewBag.Attachments)
-                            {
-                                <li>
-                                    <a href="@Url.RouteUrl("GetAttachedFile", new {Id = Model.TicketId, FileName = file.Name})"><i class="fa fa-file fa-align-left"></i> @file.Name</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
+
             </aside>
+            </div>
+        </div>
+
+
         </div>
     </div>
 

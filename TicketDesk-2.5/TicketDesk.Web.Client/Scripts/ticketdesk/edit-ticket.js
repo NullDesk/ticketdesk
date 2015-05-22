@@ -35,6 +35,7 @@
                 renderActivityPanel(data);
             } else {
                 loadEventPanel();
+                loadAttachmentsPanel();
                 loadActivityButtons();
                 loadDetails();
                 $('#activityPanel').empty().parent().animate({ opacity: 1 }, 200);
@@ -137,6 +138,10 @@
             $.get(config.loadActivityUrl, { "activity": activityName, "tempId": $('#tempId').val() }, renderActivityPanel);
         };
 
+        var loadAttachmentsPanel = function () {
+            $('#attachmentsPanel').animate({ opacity: 0.5 }, 200);
+            $.get(config.attachmentsPanelUrl, renderAttachmentsPanel);
+        }
         var loadDetails = function () {
             $('#ticketDetailPanel').parent().animate({ opacity: 0.5 }, 200);
             $.get(config.loadDetailsUrl, renderDetailsPanel);
@@ -151,7 +156,7 @@
             $('#activityPanel').empty().append(data).parent().animate({ opacity: 1 }, 200);
             $('#activityPanel #activityBody').addClass('panel-body');
 
-            
+
             if ($('div#attachmentsDropZone').length) {
                 window.ticketFileUploader.activate(config.uploaderConfig);
             }
@@ -174,6 +179,10 @@
         var renderEventPanel = function (data) {
             $('#eventPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
         };
+
+        var renderAttachmentsPanel = function(data) {
+            $('#attachmentsPanel').empty().append(data).animate({ opacity: 1 }, 200);
+        }
 
         return {
             activate: activate,

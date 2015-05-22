@@ -512,6 +512,7 @@
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Emails\Ticket.cshtml" />
     <Content Include="Views\Emails\Ticket.Text.cshtml" />
+    <Content Include="Views\Ticket\_TicketFiles.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
