@@ -2,6 +2,7 @@
 // Contributor(s):
 //
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//      Wootz (https://github.com/Wootz)
 //
 // This file is distributed under the terms of the Microsoft Public 
 // License (Ms-PL). See http://opensource.org/licenses/MS-PL
@@ -36,8 +37,8 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new StyleBundle("~/content/editor")
                    
-                    .Include("~/Scripts/dropzone/css/dropzone.css", new CssRewriteUrlTransform())
-                    .Include("~/Scripts/dropzone/css/basic.css", new CssRewriteUrlTransform()));
+                    .Include("~/Scripts/dropzone/dropzone.css", new CssRewriteUrlTransform())
+                    .Include("~/Scripts/dropzone/basic.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/editticket")
                 .Include("~/Scripts/ticketdesk/edit-ticket.js"));
