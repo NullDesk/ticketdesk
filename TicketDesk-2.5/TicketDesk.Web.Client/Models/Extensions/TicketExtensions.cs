@@ -71,6 +71,7 @@ namespace TicketDesk.Domain.Model
 
         public static HtmlString HtmlDetails(this Ticket ticket)
         {
+           
             var content = (ticket.IsHtml) ? ticket.Details : ticket.Details.HtmlFromMarkdown();
             return new HtmlString(HtmlUtilities.Safe(content));
         }

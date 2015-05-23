@@ -61,7 +61,7 @@ body {
     border-color: #B3CBDF;
 }
 
-    .panel-info .panel-heading {
+    .panel-info > .panel-heading {
         background-color: #b3cbdf;
         color: #000;
     }

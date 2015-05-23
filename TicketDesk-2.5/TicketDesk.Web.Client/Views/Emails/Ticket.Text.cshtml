@@ -1,8 +1,37 @@
 ﻿@using TicketDesk.Domain.Model
+@using System.Text.RegularExpressions
+@using TicketDesk.Domain
 @model TicketDesk.Web.Client.Controllers.TicketEmail
 Content - Type: text / plain; charset = utf - 8
+----------------------------------------------------------------
+Ticket #@Model.Ticket.TicketId - @Model.Ticket.Category @Model.Ticket.TicketType : @Model.Ticket.Title
+----------------------------------------------------------------
+Status @Model.Ticket.TicketStatus.GetDescription()
+Assigned To: @Model.Ticket.GetAssignedToInfo().DisplayName
+Owner: @Model.Ticket.GetOwnerInfo().DisplayName
+Last updated by @Model.Ticket.GetLastUpdatedByInfo().DisplayName at @Model.Ticket.LastUpdateDate.DateTime.ToShortDateString() @Model.Ticket.LastUpdateDate.DateTime.ToShortTimeString()
 
-#@Model.Ticket.TicketId - @Model.Ticket.Category @Model.Ticket.TicketType : @Model.Ticket.Title
+@{
+    var details = Regex.Replace(Model.Ticket.HtmlDetails().ToString(), @"<(.|\n)*?>", "");
+    if (details.Length > 100)
+    {
+        details = new string(details.Take(100).ToArray()) + "\n\n...";
+    }
+}
 
---------
-@Model.Ticket.Details
+@details
+----------------------------------------------------------------
+Activity:
+----------------------------------------------------------------
+
+@foreach (var evt in Model.Ticket.TicketEvents.OrderByDescending(c => c.EventDate))
+{
+    var cmt = Regex.Replace(evt.HtmlComment().ToString(), @"<(.|\n)*?>", "");
+
+@:    @evt.GetEventByInfo().DisplayName @evt.EventDescription
+@:        @evt.EventDate.Date.ToLongDateString() @evt.EventDate.Date.ToShortTimeString()
+
+@:    @cmt
+@:----------------------------------------------------------------
+
+}

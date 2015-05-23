@@ -43,6 +43,7 @@ namespace TicketDesk.PushNotifications
         {
             var cfg = (SmtpDeliveryProviderConfiguration)Configuration;
             var sent = false;
+            //implicit conversion operator
             var smsg = message as SerializableMailMessage;
             if (smsg != null)
             {
@@ -57,6 +58,8 @@ namespace TicketDesk.PushNotifications
                     client.Credentials = new NetworkCredential(cfg.SmtpUserName, cfg.SmtpPassword);
 
                 }
+                smsg.To.Add(new MailAddress(notificationItem.Destination.DestinationAddress, notificationItem.Destination.SubscriberName));
+                smsg.From = new MailAddress(cfg.SmtpFromAddress,cfg.SmtpFromDisplayName);
                 client.Send(smsg);
                 sent = true;
             }

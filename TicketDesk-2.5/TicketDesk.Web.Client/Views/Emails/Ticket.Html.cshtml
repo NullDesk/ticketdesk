@@ -63,14 +63,16 @@ Content-Type: text/html; charset=utf-8
             </tr>
         </table>
         <table style="border-bottom: 1px solid #e7e7e7; width: 100%; background-color: #F7F7F7;">
-            @if (Model.Ticket.TicketTags.Any())
+            @if (!string.IsNullOrEmpty(Model.Ticket.TagList))
             {
                 <tr>
                     <td style="text-align: right;">
-                        @foreach (var tag in Model.Ticket.TicketTags)
+
+                        @foreach (var tag in Model.Ticket.TagList.Split(','))
                         {
-                            <span class="tag">@tag.TagName</span>
+                            <span class="tag">@tag</span>
                         }
+
                     </td>
                 </tr>
             }

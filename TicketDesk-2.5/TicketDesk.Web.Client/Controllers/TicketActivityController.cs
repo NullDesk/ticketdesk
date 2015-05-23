@@ -152,7 +152,7 @@ namespace TicketDesk.Web.Client.Controllers
                    foreach (var file in files)
                    {
                        TicketDeskFileStore.DeleteAttachment(file, ticketId.ToString(CultureInfo.InvariantCulture), false);
-                       sb.AppendLine(string.Format("<dd>{0}</dd>", file));
+                       sb.AppendLine(string.Format("<dd>    {0}</dd>", file));
                    }
                    sb.AppendLine("</dl>");
                }
@@ -167,7 +167,7 @@ namespace TicketDesk.Web.Client.Controllers
 
                    foreach (var file in filesAdded)
                    {
-                       sb.AppendLine(string.Format("<dd>{0}</dd>", file));
+                       sb.AppendLine(string.Format("<dd>    {0}</dd>", file));
                    }
                    sb.AppendLine("</dl>");
                }

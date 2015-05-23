@@ -19,15 +19,15 @@
 @model Ticket
 
 <div class="panel-heading" style="padding: 3px 5px;">
-    <div class="row">
+    <div class="row ">
         <div class="row-same-height row-full-height">
-            <div class="col-xs-2 col-sm-1 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
+            <div class="col-xs-2 col-sm-2 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
                 @Model.TicketStatus.GetDescription()
             </div>
             <div class="col-xs-2 col-sm-1 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
                 #@Model.TicketId
             </div>
-            <div class="col-xs-8 col-sm-10 col-xs-height col-full-height panel-title">
+            <div class="col-xs-8 col-sm-9 col-xs-height col-full-height panel-title">
                 @Model.Title
             </div>
 
@@ -63,8 +63,8 @@
                         @Model.GetOwnerInfo().DisplayName
 
                     </div>
-                    <div class="hidden-md">
-                        Last updated by @Model.GetLastUpdatedByInfo().DisplayName at @Model.LastUpdateDate.DateTime.ToShortDateString() @Model.LastUpdateDate.DateTime.ToShortTimeString()
+                    <div class="hidden-sm">
+                        Updated by @Model.GetLastUpdatedByInfo().DisplayName at @Model.LastUpdateDate.DateTime.ToShortDateString() @Model.LastUpdateDate.DateTime.ToShortTimeString()
                     </div>
                 </div>
             </div>
@@ -124,10 +124,6 @@
                 </div>
 
             </aside>
-            </div>
-        </div>
-
-
         </div>
     </div>
 

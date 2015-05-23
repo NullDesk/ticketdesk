@@ -13,11 +13,15 @@
     provided to the recipient.
 *@
 
+@using Microsoft.AspNet.Identity
 @using TicketDesk.Domain.Model
 @model IEnumerable<TicketEvent>
 
 @foreach (var evt in Model.OrderByDescending(c => c.EventDate))
 {
+    var userId = User.Identity.GetUserId();
+    
+    var pnlType = (evt.EventBy == userId)? "panel-success": "panel-default";
     <div class="panel panel-default">
         <div class="panel-heading"  style="padding: 5px;">
             <div><strong>@evt.GetEventByInfo().DisplayName</strong> @evt.EventDescription</div>
