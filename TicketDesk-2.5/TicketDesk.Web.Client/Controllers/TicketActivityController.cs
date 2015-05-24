@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Security;
@@ -133,6 +134,11 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("modify-attachments")]
         public async Task<ActionResult> ModifyAttachments(int ticketId, string comment, Guid tempId, string deleteFiles)
         {
+            var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            if (demoMode)
+            {
+                return new EmptyResult();
+            }
             //most of this action is performed directly against the storage provider, outside the business domain's control. 
             //  All the business domain has to do is record the activity log and comments
             Action<Ticket> activityFn = ticket =>
@@ -163,7 +169,6 @@ namespace TicketDesk.Web.Client.Controllers
                    sb.AppendLine("<dl><dt>");
                    sb.AppendLine("New files:");
                    sb.AppendLine("</dt>");
-
 
                    foreach (var file in filesAdded)
                    {

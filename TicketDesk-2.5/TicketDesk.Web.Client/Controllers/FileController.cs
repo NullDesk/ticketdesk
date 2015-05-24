@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -30,6 +31,11 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("upload")]
         public async Task<ActionResult> Upload(Guid tempId)
         {
+            var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            if (demoMode)
+            {
+                return new EmptyResult();
+            }
             //TODO: doesn't necessarily play well with large files, cap file upload size to something reasonable (define in settings) or use upload chunking
             foreach (string fileName in Request.Files)
             {

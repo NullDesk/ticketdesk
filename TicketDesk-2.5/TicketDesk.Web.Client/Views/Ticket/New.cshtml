@@ -14,6 +14,7 @@
     provided to the recipient.
 *@
 
+@using System.Configuration
 @using TicketDesk.Domain.Model
 @model Ticket
 
@@ -157,11 +158,22 @@
                         <div class="form-group">
                             <label class="col-md-2 col-sm-1 control-label">Files</label>
                             <div class="col-md-8 col-sm-11">
-                                <div class="dropzone" style="min-height: 40px;" id="attachmentsDropZone">
-                                    <span class="dz-message" data-dz-message><i class="fa fa-download fa-3x"></i> Drop attachments here, or click to select files.</span>
-
-                                    <div class="dropzone-previews" id="dz-preview"></div>
-                                </div>
+                                @{
+                                    var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
+                                    if (demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        <div class="alert alert-warning">
+                                            <p>TicketDesk is running demo mode. Attachment Uploads are disabled.</p>
+                                            <p> To turn off demo mode, please change the setting in application configuration.</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="dropzone" style="min-height: 40px;" id="attachmentsDropZone">
+                                            <div class="dz-message" data-dz-message><i class="fa fa-download "></i> Drop attachments here, or click to select files.</div>
+                                            <div class="dropzone-previews" id="dz-preview"></div>
+                                        </div>
+                                    }}
                             </div>
                         </div>
 
@@ -173,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-            }
+                                    }
         </div>
     </div>
 </main>
