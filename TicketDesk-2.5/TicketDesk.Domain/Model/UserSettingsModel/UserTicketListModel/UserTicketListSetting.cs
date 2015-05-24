@@ -13,6 +13,7 @@
 
 
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using TicketDesk.Domain.Localization;
 
@@ -147,15 +148,34 @@ namespace TicketDesk.Domain.Model
         }
 
 
-        internal static List<UserTicketListSetting> GetDefaultListSettings(string userId)
+        internal static List<UserTicketListSetting> GetDefaultListSettings(string userId, bool isHelpDeskUser)
         {
             
             var settings = new List<UserTicketListSetting>();
 
             var disableStatusColumn = new List<string> { "TicketStatus" };
             var disableOwnerColumn = new List<string> { "Owner" };
+            var disableAssignedColumn  = new List<string> { "AssignedTo" };
 
             var disOrder = 0;
+
+            if (isHelpDeskUser)
+            {
+                var unassignedSortColumns = new List<UserTicketListSortColumn>();
+                var unassignedFilterColumns = new List<UserTicketListFilterColumn>();
+                unassignedSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
+                unassignedFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
+                unassignedFilterColumns.Add(new UserTicketListFilterColumn("AssignedTo", null, null, typeof(string)));
+                settings.Add(new UserTicketListSetting("unassigned", TicketDeskDomainText.DefaultListNameUnassigned, disOrder++, 20, unassignedSortColumns, unassignedFilterColumns, disableAssignedColumn));
+
+                var assignedToMeSortColumns = new List<UserTicketListSortColumn>();
+                var assignedToMeFilterColumns = new List<UserTicketListFilterColumn>();
+                assignedToMeSortColumns.Add(new UserTicketListSortColumn("TicketStatus", ColumnSortDirection.Ascending));
+                assignedToMeSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
+                assignedToMeFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
+                assignedToMeFilterColumns.Add(new UserTicketListFilterColumn("AssignedTo", true, userId));
+                settings.Add(new UserTicketListSetting("assignedToMe", TicketDeskDomainText.DefaultListNameAssignedToMe, disOrder++, 20, assignedToMeSortColumns, assignedToMeFilterColumns, disableAssignedColumn));
+            }
 
             var mySortColumns = new List<UserTicketListSortColumn>();
             var myFilterColumns = new List<UserTicketListFilterColumn>();

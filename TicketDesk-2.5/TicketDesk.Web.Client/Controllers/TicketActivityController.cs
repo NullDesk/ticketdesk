@@ -143,7 +143,6 @@ namespace TicketDesk.Web.Client.Controllers
             //  All the business domain has to do is record the activity log and comments
             Action<Ticket> activityFn = ticket =>
            {
-
                 //TODO: it might make sense to move the string building part of this over to the TicketDeskFileStore too?
                 var sb = new StringBuilder(comment);
                if (!string.IsNullOrEmpty(deleteFiles))

@@ -25,14 +25,24 @@ namespace TicketDesk.Domain
             Context = context;
         }
 
+        public async Task ResetAllListSettingsForUser(string userId)
+        {
+            var settings = await GetSettingsForUser(userId);
+            settings.ListSettings = new UserTicketListSettingsCollection
+            {
+                    UserTicketListSetting.GetDefaultListSettings(userId, Context.SecurityProvider.IsTdHelpDeskUser)
+            };
+        }
+
         public async Task<UserSetting> GetSettingsForUser(string userId)
         {
+
             var settings = await Context.UserSettings.FindAsync(userId);
             if (settings == null)
             {
                 //settings for user not found, make default and save on separate context (so we don't commit other changes on this context as a side-effect).
-                settings = UserSetting.GetDefaultSettingsForUser(userId);
-                using (var tempCtx = new TdDomainContext()) 
+                settings = UserSetting.GetDefaultSettingsForUser(userId, Context.SecurityProvider.IsTdHelpDeskUser);
+                using (var tempCtx = new TdDomainContext())
                 {
                     tempCtx.UserSettingsManager.AddSettingsForUser(settings);
                     await tempCtx.SaveChangesAsync();

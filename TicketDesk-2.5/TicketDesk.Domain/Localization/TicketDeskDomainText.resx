@@ -314,4 +314,10 @@
     <value> at a priority of {0}</value>
     <comment>leading space</comment>
   </data>
+  <data name="DefaultListNameAssignedToMe" xml:space="preserve">
+    <value>My Assigned</value>
+  </data>
+  <data name="DefaultListNameUnassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
 </root>

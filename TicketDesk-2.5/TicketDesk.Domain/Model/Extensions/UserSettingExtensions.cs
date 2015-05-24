@@ -61,26 +61,38 @@ namespace TicketDesk.Domain.Model
                 var fParams = new ObjectParameter[filterColumns.Count];
                 for (var i = 0; i < filterColumns.Count; i++)
                 {
+                    string optr;
                     var filterColumn = filterColumns[i];
 
-                    var optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value) ? "!=" : "=";
+                    if (filterColumn.ColumnValue == DBNull.Value)
+                    {
+                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value)
+                            ? "IS NOT"
+                            : "IS";
+                    }
+                    else
+                    {
+                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value)
+                            ? "!="
+                            : "=";
+                    }
 
                     fkeys[i] = string.Format("it.{0} {1} {2}", filterColumn.ColumnName, optr, "@" + filterColumn.ColumnName);
-
 
                     //most of the time esql works with whatever type of param value you pass in, but
                     // enums in our collection are serialized to/from json as integers.
                     // Check if enum, and explicitly convert int value to the correct enum value
-                    if (filterColumn.ColumnValueType.IsEnum)
+                    if (filterColumn.ColumnValueType != null && filterColumn.ColumnValueType.IsEnum)
                     {
                         filterColumn.ColumnValue = Enum.Parse(filterColumn.ColumnValueType, filterColumn.ColumnValue.ToString());
                     }
-
                     //assigning the type in ctor, then value directly as a param works around issues when the colum val is null.
+
                     fParams[i] = new ObjectParameter(filterColumn.ColumnName, filterColumn.ColumnValueType)
                     {
                         Value = filterColumn.ColumnValue
                     };
+
                 }
 
                 var wString = string.Join(" and ", fkeys);

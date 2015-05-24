@@ -32,10 +32,21 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
+        [Route("reset-user-lists")]
+        public async Task<ActionResult> ResetUserLists()
+        {
+            var uId = User.Identity.GetUserId();
+            await Context.UserSettingsManager.ResetAllListSettingsForUser(uId);
+            var x = await Context.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+        }
+
         // GET: TicketCenter
-        [Route("{listName=mytickets}/{page:int?}")]
+        [Route("{listName?}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
+            listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "myTickets");
             var pageNumber = page ?? 1;
 
             var viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
@@ -115,6 +126,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             return await GetTicketListPartial(page, listName);
         }
+
 
 
         private async Task<PartialViewResult> GetTicketListPartial(int? page, string listName)

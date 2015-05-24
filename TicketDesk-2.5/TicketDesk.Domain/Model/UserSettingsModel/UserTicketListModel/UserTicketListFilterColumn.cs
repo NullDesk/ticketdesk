@@ -24,10 +24,14 @@ namespace TicketDesk.Domain.Model
         /// <param name="useEqualityComparison">The equality comparison selection.</param>
         /// <param name="columnValue">The column value to test for.</param>
         public UserTicketListFilterColumn(string columnName, bool? useEqualityComparison, object columnValue)
+        : this(columnName, useEqualityComparison, columnValue, columnValue.GetType())
+        {}
+
+        public UserTicketListFilterColumn(string columnName, bool? useEqualityComparison, object columnValue, Type columnValueType)
         {
             ColumnName = columnName;
-            ColumnValue = columnValue;
-            ColumnValueType = columnValue.GetType();
+            ColumnValue = columnValue?? DBNull.Value;
+            ColumnValueType = columnValueType;
             UseEqualityComparison = useEqualityComparison;
         }
 

@@ -24,7 +24,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(256)]
         public string UserId { get; set; }
 
-        public virtual UserTicketListSettingsCollection ListSettings { get; protected set; }
+        public virtual UserTicketListSettingsCollection ListSettings { get; internal set; }
        
 
         public UserTicketListSetting GetUserListSettingByName(string listName)
@@ -32,11 +32,11 @@ namespace TicketDesk.Domain.Model
             return ListSettings.FirstOrDefault(us => us.ListName == listName);
         }
 
-        public static UserSetting GetDefaultSettingsForUser(string userId)
+        public static UserSetting GetDefaultSettingsForUser(string userId, bool isHelpDeskUser)
         {
             var collection = new UserTicketListSettingsCollection
             {
-                UserTicketListSetting.GetDefaultListSettings(userId)
+                UserTicketListSetting.GetDefaultListSettings(userId, isHelpDeskUser)
             };
 
             return new UserSetting { UserId = userId, ListSettings = collection };
