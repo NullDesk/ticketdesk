@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using ICSharpCode.SharpZipLib.Zip;
 using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain.Migrations

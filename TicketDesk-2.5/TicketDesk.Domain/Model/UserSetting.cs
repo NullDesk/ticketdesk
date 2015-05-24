@@ -12,7 +12,6 @@
 // provided to the recipient.
 
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 namespace TicketDesk.Domain.Model

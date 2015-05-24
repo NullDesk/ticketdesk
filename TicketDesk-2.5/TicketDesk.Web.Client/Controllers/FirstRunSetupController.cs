@@ -13,15 +13,13 @@
 
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
+using TicketDesk.Domain.Migrations;
 using TicketDesk.PushNotifications;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
-using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client.Controllers
 {

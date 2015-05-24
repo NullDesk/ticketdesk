@@ -13,7 +13,6 @@
 
 using System.Web;
 using StackExchange.DataExplorer.Helpers;
-using TicketDesk.Domain.Model;
 using TicketDesk.Web.Client;
 
 namespace TicketDesk.Domain.Model

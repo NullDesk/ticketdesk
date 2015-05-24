@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//
+//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+
+using System.Data.Entity;
 using System.Linq;
-using System.Net.Mail;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using Postal;
-using S22.Mail;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using System.Data.Entity;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -30,7 +31,7 @@ namespace TicketDesk.Web.Client.Controllers
         // GET: EmailTest
         public ActionResult Index(int id)
         {
-            //TODO: Remove/mode to admin
+            //TODO: Remove/move to admin
             var ticket = Context.Tickets.Include(t => t.TicketTags).First(t => t.TicketId == id);
             var email = new TicketEmail {Ticket = ticket};
 

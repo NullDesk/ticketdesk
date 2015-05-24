@@ -15,14 +15,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Web.Mvc;
-using Newtonsoft.Json;
 using Postal;
+using S22.Mail;
 using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Controllers;
-using S22.Mail;
 
 namespace TicketDesk.Domain.Model
 {
@@ -46,7 +43,7 @@ namespace TicketDesk.Domain.Model
         private static string GetEmailForNote(TicketEventNotification note)
         {
             var email = new TicketEmail { Ticket = note.TicketEvent.Ticket };
-            var mailService = new Postal.EmailService();
+            var mailService = new EmailService();
             SerializableMailMessage message = mailService.CreateMailMessage(email);
 
             using (var ms = new MemoryStream())

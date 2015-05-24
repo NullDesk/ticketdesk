@@ -12,7 +12,6 @@
 // provided to the recipient.
 
 using System;
-using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

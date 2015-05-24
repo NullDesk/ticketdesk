@@ -27,7 +27,6 @@ namespace TicketDesk.PushNotifications.Migrations
             ContextKey = "TicketDeskPushNotifications";
             AutomaticMigrationDataLossAllowed = true;
         }
-
         protected override void Seed(TdPushNotificationContext context)
         {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
@@ -62,7 +61,6 @@ namespace TicketDesk.PushNotifications.Migrations
                         }
                 });
             }
-
         }
     }
 }
