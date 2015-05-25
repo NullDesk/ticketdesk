@@ -36,7 +36,6 @@ namespace TicketDesk.Domain
 
         public async Task<UserSetting> GetSettingsForUser(string userId)
         {
-
             var settings = await Context.UserSettings.FindAsync(userId);
             if (settings == null)
             {

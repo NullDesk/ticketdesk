@@ -55,7 +55,16 @@ namespace TicketDesk.IO
                 {
                     Current.TryCreateFolder(GetFileFolderPath(newContainerId, false));//don't care about return value
                 }
-               
+                //hadle case where filename already exists ; add (x) to filename
+                var count = 1;
+                var fileNameOnly = Path.GetFileNameWithoutExtension(fileName);
+                var extension = Path.GetExtension(fileName);
+                while (Current.FileExists(newPath))
+                {
+                    var tempFileName = string.Format("{0}({1}){2}", fileNameOnly, count++, extension);
+                    newPath = GetFilePath(tempFileName,newContainerId, isPending);
+                }
+                
                 Current.RenameFile(oldPath,newPath);
                
                 return true;
