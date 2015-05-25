@@ -20,19 +20,17 @@ using Microsoft.AspNet.Identity;
 
 namespace TicketDesk.Web.Client
 {
-    public class TicketDeskContextSecurityProvider : TdDomainSecurityProviderBase
+    public sealed class TicketDeskContextSecurityProvider : TdDomainSecurityProviderBase
     {
         private TicketDeskUserManager UserManager { get; set; }
 
         public TicketDeskContextSecurityProvider()
         {
             UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
+            CurrentUserId = HttpContext.Current.User.Identity.GetUserId();
         }
 
-        protected override Func<string> GetCurrentUserId
-        {
-            get { return HttpContext.Current.User.Identity.GetUserId; }
-        }
+        public override string CurrentUserId { get; set; }
 
         protected override Func<string, bool> GetIsTdHelpDeskUser
         {
@@ -58,5 +56,6 @@ namespace TicketDesk.Web.Client
         {
             get { return userId => UserManager.InfoCache.GetUserInfo(userId).IfNotNull(i => i.DisplayName); }
         }
+
     }
 }

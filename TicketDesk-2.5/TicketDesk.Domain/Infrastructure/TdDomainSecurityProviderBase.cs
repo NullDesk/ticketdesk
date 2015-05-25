@@ -22,7 +22,6 @@ namespace TicketDesk.Domain
     /// </summary>
     public abstract class TdDomainSecurityProviderBase
     {
-        protected abstract Func<string> GetCurrentUserId { get; }
 
         protected abstract Func<string, bool> GetIsTdHelpDeskUser { get; }
 
@@ -34,34 +33,31 @@ namespace TicketDesk.Domain
 
         public abstract Func<string, string> GetUserDisplayName { get; }
 
-        public string CurrentUserId
-        {
-            get { return GetCurrentUserId(); }
-        }
+        public abstract string CurrentUserId { get; set; }
 
         public string CurrentUserDisplayName
         {
-            get { return GetUserDisplayName(GetCurrentUserId()); }
+            get { return GetUserDisplayName(CurrentUserId); }
         }
 
         public bool IsTdHelpDeskUser
         {
-            get { return GetIsTdHelpDeskUser(GetCurrentUserId()); }
+            get { return GetIsTdHelpDeskUser(CurrentUserId); }
         }
 
         public bool IsTdInternalUser
         {
-            get { return GetIsTdInternalUser(GetCurrentUserId()); }
+            get { return GetIsTdInternalUser(CurrentUserId); }
         }
 
         public bool IsTdAdministrator
         {
-            get { return GetIsTdAdministrator(GetCurrentUserId()); }
+            get { return GetIsTdAdministrator(CurrentUserId); }
         }
 
         public bool IsTdPendingUser
         {
-            get { return GetIsTdPendingUser(GetCurrentUserId()); }
+            get { return GetIsTdPendingUser(CurrentUserId); }
         }
 
         internal TicketActivity GetInternalUserPermissions()
@@ -102,7 +98,7 @@ namespace TicketDesk.Domain
             {
                 throw new SecurityException("User is not authorized to read ticket data.");
             }
-            var validTicketActivities = ticket.GetAvailableActivites(GetCurrentUserId());
+            var validTicketActivities = ticket.GetAvailableActivites(CurrentUserId);
             var allowedActivities = IsTdAdministrator
                 ? GetAdministratorUserPermissions()
                 : IsTdHelpDeskUser
