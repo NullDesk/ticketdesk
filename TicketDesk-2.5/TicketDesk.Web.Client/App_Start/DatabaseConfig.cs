@@ -39,7 +39,7 @@ namespace TicketDesk.Web.Client
             }
             else
             {
-                
+
 
                 //run any pending migrations automatically to bring the DB up to date
                 Database.SetInitializer(
@@ -62,7 +62,7 @@ namespace TicketDesk.Web.Client
             }
         }
 
-        
+
 
 
         public static bool IsDatabaseReady
@@ -147,11 +147,23 @@ namespace TicketDesk.Web.Client
             var isLegacy = false;
             try
             {
-                var oldVersion =
-                    context.Database.SqlQuery<string>("select SettingValue from Settings where SettingName = 'Version'");
-                isLegacy = (oldVersion != null && oldVersion.Any() && oldVersion.First().Equals("2.0.2"));
+                var isTable = context.Database.SqlQuery<int>(@"(SELECT COUNT(TABLE_NAME) 
+                                                                  FROM INFORMATION_SCHEMA.TABLES 
+                                                                  WHERE TABLE_SCHEMA = 'dbo' 
+                                                                  AND TABLE_NAME = 'Settings')");
+                if (isTable.Any())
+                {
+                    var it = isTable.First();
+                    if (it > 0)
+                    {
+                        var oldVersion =
+                            context.Database.SqlQuery<string>(
+                                "select SettingValue from Settings where SettingName = 'Version'");
+                        isLegacy = (oldVersion.Any() && oldVersion.First().Equals("2.0.2"));
+                    }
+                }
             }
-            // ReSharper disable once EmptyGeneralCatchClause
+                // ReSharper disable once EmptyGeneralCatchClause
             catch
             {
                 //eat any exception, we'll assume that if the db exists, but we can't read the settings, then it is an just empty new db
