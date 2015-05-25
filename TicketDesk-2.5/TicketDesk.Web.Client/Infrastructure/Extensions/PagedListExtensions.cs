@@ -33,9 +33,9 @@ public class PagedListAsync<T> : BasePagedList<T>
     async Task Init(IQueryable<T> superset, int pageNumber, int pageSize)
     {
         if (pageNumber < 1)
-            throw new ArgumentOutOfRangeException(nameof(pageNumber), pageNumber, "PageNumber cannot be below 1.");
+            throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "PageNumber cannot be below 1.");
         if (pageSize < 1)
-            throw new ArgumentOutOfRangeException(nameof(pageSize), pageSize, "PageSize cannot be less than 1.");
+            throw new ArgumentOutOfRangeException("pageSize", pageSize, "PageSize cannot be less than 1.");
         TotalItemCount = superset == null ? 0 : await superset.CountAsync();
         PageSize = pageSize;
         PageNumber = pageNumber;
