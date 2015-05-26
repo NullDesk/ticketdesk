@@ -46,9 +46,13 @@ namespace TicketDesk.Web.Client
 
             if (context.TicketDeskPushNotificationSettings.IsEnabled)
             {
-
-                InProcessPushNotificationScheduler.Start(context.TicketDeskPushNotificationSettings.DeliveryIntervalMinutes);
-
+                //TODO: poor man's detection of appropriate scheduler
+                var siteName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
+                var isAzureWebSite = !string.IsNullOrEmpty(siteName);
+                if (!isAzureWebSite)
+                {
+                    InProcessPushNotificationScheduler.Start(context.TicketDeskPushNotificationSettings.DeliveryIntervalMinutes);
+                }
                 context.Dispose();//ensure that no one accidentally holds a reference to this in closure
 
                 //register for static notifications created event handler 

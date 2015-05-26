@@ -22,6 +22,5 @@ namespace TicketDesk.PushNotifications.Model
         Canceled,
         Disabled,
         NotAvailable
-
     }
 }

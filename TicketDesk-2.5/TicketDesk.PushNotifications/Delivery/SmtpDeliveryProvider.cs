@@ -60,21 +60,31 @@ namespace TicketDesk.PushNotifications
             var smsg = message as SerializableMailMessage;
             if (smsg != null)
             {
-                var client = new SmtpClient()
+                try
                 {
-                    Host = cfg.SmtpServer,
-                    Port = cfg.SmtpPort ?? 25,
-                    EnableSsl = cfg.EnableSsl??false
-                };
-                if (!string.IsNullOrEmpty(cfg.SmtpUserName))
-                {
-                    client.Credentials = new NetworkCredential(cfg.SmtpUserName, cfg.SmtpPassword);
+                    var client = new SmtpClient()
+                    {
+                        Host = cfg.SmtpServer,
+                        Port = cfg.SmtpPort ?? 25,
+                        EnableSsl = cfg.EnableSsl ?? false
+                    };
+                    if (!string.IsNullOrEmpty(cfg.SmtpUserName))
+                    {
+                        client.Credentials = new NetworkCredential(cfg.SmtpUserName, cfg.SmtpPassword);
 
+                    }
+                    smsg.To.Add(new MailAddress(notificationItem.Destination.DestinationAddress, notificationItem.Destination.SubscriberName));
+                    smsg.From = new MailAddress(cfg.SmtpFromAddress, cfg.SmtpFromDisplayName);
+
+                    client.Send(smsg);
+                    sent = true;
                 }
-                smsg.To.Add(new MailAddress(notificationItem.Destination.DestinationAddress, notificationItem.Destination.SubscriberName));
-                smsg.From = new MailAddress(cfg.SmtpFromAddress,cfg.SmtpFromDisplayName);
-                client.Send(smsg);
-                sent = true;
+                catch
+                {
+                    sent = false;
+                    //TODO: log this somewhere
+                }
+
             }
             return Task.FromResult(sent);
         }

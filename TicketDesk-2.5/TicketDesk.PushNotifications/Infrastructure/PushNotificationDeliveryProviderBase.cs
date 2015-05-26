@@ -63,9 +63,7 @@ namespace TicketDesk.PushNotifications
                     notificationItem.DeliveryStatus = PushNotificationItemStatus.Failed;
                     notificationItem.ScheduledSendDate = null;
                 }
-
             }
         }
-
     }
 }

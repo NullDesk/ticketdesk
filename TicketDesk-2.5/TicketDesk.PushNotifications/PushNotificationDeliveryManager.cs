@@ -86,7 +86,6 @@ namespace TicketDesk.PushNotifications
         {
             using (var context = new TdPushNotificationContext())
             {
-                
                 var readyNote = await context.PushNotificationItems
                     .FirstOrDefaultAsync(n =>
                         (
@@ -108,9 +107,6 @@ namespace TicketDesk.PushNotifications
 
         public static async Task<int> SendNextReadyNotification(CancellationToken ct)
         {
-           
-
-
             using (var context = new TdPushNotificationContext())
             {
                 //get the next notification that is ready to send
@@ -125,11 +121,10 @@ namespace TicketDesk.PushNotifications
                     return 0;
                 }
                 await SendNotificationMessageAsync(context, readyNote, ct);
-                var i = await context.SaveChangesAsync(ct);
-                return i;
+                return await context.SaveChangesAsync(ct);
+                
             }
         }
-
 
         private static async Task SendNotificationMessageAsync(TdPushNotificationContext context, PushNotificationItem readyNote, CancellationToken ct)
         {
@@ -149,40 +144,5 @@ namespace TicketDesk.PushNotifications
                 await provider.SendReadyMessageAsync(readyNote, retryMax, retryIntv, ct);
             }
         }
-
-        /*
-        InProcess
-         *  Create context
-         *  Get one ready item
-         *  Mark sending??/
-         *  Generate email
-         *  Send email
-         *      fail
-         *         Mark for retry
-         *      success     
-         *          Mark sent
-         *  Clear context
-         *      If two or more failues, break;
-         *      Repeat until all are sent
-        Azure
-         *  WebJob Schedule Trigger
-         *      Create context
-         *      Get all ready items
-         *      Queue all ready items
-         *      Mark sending??
-         *      Clear context - repeat until all are queued
-         *  WebJob Queue Trigger Function
-         *      Create context
-         *      Check if sent
-         *          Discard if sent
-         *      Generate email
-         *      Send email
-         *          fail
-         *              Mark for retry
-         *          success     
-         *              Mark sent
-         *      
-        */
-
     }
 }

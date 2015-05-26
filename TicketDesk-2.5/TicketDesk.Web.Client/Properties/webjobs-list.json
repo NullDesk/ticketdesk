@@ -3,6 +3,9 @@
   "WebJobs": [
     {
       "filePath": "../TicketDesk.SearchMonitor.Job/TicketDesk.SearchMonitor.Job.csproj"
+    },
+    {
+      "filePath": "../TicketDesk.PushNotifications.Job/TicketDesk.PushNotifications.Job.csproj"
     }
   ]
 }
