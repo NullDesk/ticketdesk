@@ -24,7 +24,7 @@ using TicketDesk.IO;
 namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("file")]
-    [Authorize]
+    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class FileController : Controller
     {
         [HttpPost]

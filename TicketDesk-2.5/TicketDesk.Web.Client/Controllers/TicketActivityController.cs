@@ -25,9 +25,9 @@ using TicketDesk.IO;
 
 namespace TicketDesk.Web.Client.Controllers
 {
-    [Authorize]
     [RoutePrefix("ticket-activity")]
     [Route("{action}")]
+    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketActivityController : Controller
     {
 

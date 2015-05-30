@@ -18,7 +18,7 @@ using TicketDesk.Domain;
 namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("auto-complete")]
-    [Authorize]
+    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class AutoCompleteController : Controller
     {
 
