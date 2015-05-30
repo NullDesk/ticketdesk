@@ -46,7 +46,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("{listName?}/{page:int?}")]
         public async Task<ActionResult> Index(int? page, string listName)
         {
-            listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "myTickets");
+            listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "mytickets");
             var pageNumber = page ?? 1;
 
             var viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
