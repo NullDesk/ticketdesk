@@ -30,7 +30,6 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketActivityController : Controller
     {
-
         private TdDomainContext Context { get; set; }
         public TicketActivityController(TdDomainContext context)
         {
@@ -55,7 +54,6 @@ namespace TicketDesk.Web.Client.Controllers
             var activities = Context.TicketActions.GetValidTicketActivities(ticket);
             return PartialView("_ActivityButtons", activities);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
