@@ -61,15 +61,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\EmailDeliveryProviderBase.cs" />
+    <Compile Include="Delivery\Base\EmailDeliveryProviderBase.cs" />
     <Compile Include="Delivery\SendGridDeliveryProvider.cs" />
     <Compile Include="Delivery\SendGridDeliveryProviderConfiguration.cs" />
     <Compile Include="Delivery\SmtpDeliveryProviderConfiguration.cs" />
-    <Compile Include="Infrastructure\IDeliveryProviderConfiguration.cs" />
+    <Compile Include="Delivery\Base\IDeliveryProviderConfiguration.cs" />
     <Compile Include="Model\TicketPushNotificationItem.cs" />
     <Compile Include="PushNotificationDeliveryManager.cs" />
     <Compile Include="Migrations\DemoPushNotificationDataManager.cs" />
-    <Compile Include="Infrastructure\IPushNotificationDeliveryProvider.cs" />
+    <Compile Include="Delivery\Base\IPushNotificationDeliveryProvider.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationPushNotificationSetting.cs" />
     <Compile Include="Model\Extensions\ApplicationPushNotificationSettingsExtensions.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="Model\PushNotificationItemStatus.cs" />
     <Compile Include="Model\SubscriberNotificationSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\PushNotificationDeliveryProviderBase.cs" />
+    <Compile Include="Delivery\Base\PushNotificationDeliveryProviderBase.cs" />
     <Compile Include="Delivery\SmtpDeliveryProvider.cs" />
     <Compile Include="SubscriberPushNotificationSettingsManager.cs" />
     <Compile Include="TdPushNotificationContext.cs" />
@@ -96,6 +96,7 @@
       <Name>S22.Mail</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,7 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-namespace TicketDesk.PushNotifications
+namespace TicketDesk.PushNotifications.Delivery
 {
     public interface IDeliveryProviderConfiguration
     {

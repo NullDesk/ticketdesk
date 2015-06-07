@@ -15,7 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications
+namespace TicketDesk.PushNotifications.Delivery
 {
     public abstract class PushNotificationDeliveryProviderBase : IPushNotificationDeliveryProvider
     {

@@ -14,18 +14,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Management.Instrumentation;
-using System.Web.Mvc;
 using System.Reflection;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
-using TicketDesk.Domain;
-using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Delivery;
 using TicketDesk.PushNotifications.Model;
-using TicketDesk.Search.Azure;
-using TicketDesk.Search.Common;
 
 namespace TicketDesk.Web.Client.Controllers
 {
