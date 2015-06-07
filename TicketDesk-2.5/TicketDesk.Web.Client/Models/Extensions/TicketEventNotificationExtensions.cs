@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
 using Postal;
 using S22.Mail;
@@ -45,7 +46,6 @@ namespace TicketDesk.Domain.Model
             var email = new TicketEmail { Ticket = note.TicketEvent.Ticket };
             var mailService = new EmailService();
             SerializableMailMessage message = mailService.CreateMailMessage(email);
-
             using (var ms = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(ms, message);

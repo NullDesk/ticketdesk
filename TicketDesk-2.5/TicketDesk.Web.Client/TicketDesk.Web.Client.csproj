@@ -265,6 +265,7 @@
     <Compile Include="Infrastructure\Helpers\DisplayForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\JsonCamelCaseResult.cs" />
     <Compile Include="Infrastructure\Helpers\MimeTypeMap.cs" />
+    <Compile Include="Infrastructure\Helpers\PromptForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\SortableColumnHeaderHelper.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskContextSecurityProvider.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskRoleManager.cs" />
@@ -510,9 +511,7 @@
     <Content Include="Views\PushNotificationSettings\Index.cshtml" />
     <Content Include="Views\PushNotificationSettings\ListDeliveryProviderSettings.cshtml" />
     <Content Include="Views\PushNotificationSettings\ConfigureDeliveryProvider.cshtml" />
-    <Content Include="Views\Emails\Ticket.Html.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Views\Emails\Ticket.Html.cshtml" />
     <Content Include="Views\Emails\Web.config" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Emails\Ticket.cshtml" />

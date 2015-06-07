@@ -69,7 +69,7 @@ namespace TicketDesk.PushNotifications.Model
         public virtual ICollection<PushNotificationDeliveryProviderSetting> DeliveryProviderSettings { get; set; }
             
         [NotMapped]
-        [Display(Name = "Notifications Enabled")]
+        [Display(Name = "Notifications Enabled", Prompt = "Enabled")]
         public bool IsEnabled { get; set; }
 
         [NotMapped]
@@ -102,6 +102,7 @@ namespace TicketDesk.PushNotifications.Model
             public string ProviderAssemblyQualifiedName { get; set; }
 
             [NotMapped]
+            [Display(Name = "Provider", Prompt = "Enabled")]
             public bool IsEnabled { get; set; }
 
             [NotMapped]
@@ -130,7 +131,7 @@ namespace TicketDesk.PushNotifications.Model
             }
 
             [NotMapped]
-            [Display(Name = "Consolidate notifications")]
+            [Display(Name = "Consolidate notifications", Prompt = "Enabled")]
             [Description("Consolidation allows push notifications for an event to be delayed for a short time. If additional events occur for the same subscriber and ticket, they will be grouped into a single message instead of being sent separately. This reduces spam in cases where many chages are made to a ticket in rapid succession.")]
             public bool IsConsolidationEnabled { get; set; }
 
@@ -145,7 +146,7 @@ namespace TicketDesk.PushNotifications.Model
             public int MaxConsolidationDelayMinutes { get; set; }
 
             [NotMapped]
-            [Display(Name = "Exclude subscriber's own events")]
+            [Display(Name = "Exclude subscriber's own events", Prompt = "Exclude")]
             [Description("HIGHLY RECOMMENDED! This prevents push notifications from being sent to the same user whose action triggered the notification.")]
             public bool ExcludeSubscriberEvents { get; set; }
         }

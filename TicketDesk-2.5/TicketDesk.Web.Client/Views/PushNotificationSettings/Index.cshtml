@@ -47,7 +47,7 @@
                                         <div class="col-md-8 col-sm-8">
                                             <label class="checkbox-inline">
                                                 @Html.EditorFor(model => model.IsEnabled)
-                                                Enabled
+                                                @Html.PromptFor(model => model.IsEnabled)
                                             </label>
                                             @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                                             @Html.DescriptionFor(model => model.IsEnabled, "help-block", "span")
@@ -96,7 +96,7 @@
                                         <div class="col-md-8 col-sm-8">
                                             <label class="checkbox-inline">
                                                 @Html.EditorFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents)
-                                                Exclude
+                                                @Html.PromptFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents)
                                             </label>
                                             @Html.ValidationMessageFor(model => model.AntiNoiseSettings.ExcludeSubscriberEvents, "", new { @class = "text-danger" })
 
@@ -108,7 +108,7 @@
                                         <div class="col-md-8 col-sm-8">
                                             <label class="checkbox-inline">
                                                 @Html.EditorFor(model => model.AntiNoiseSettings.IsConsolidationEnabled)
-                                                Enabled
+                                                @Html.PromptFor(model => model.AntiNoiseSettings.IsConsolidationEnabled)
                                             </label>
                                             @Html.ValidationMessageFor(model => model.AntiNoiseSettings.IsConsolidationEnabled, "", new { @class = "text-danger" })
 

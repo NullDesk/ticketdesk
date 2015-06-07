@@ -14,7 +14,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace TicketDesk.PushNotifications
+namespace TicketDesk.PushNotifications.Delivery
 {
     public class SmtpDeliveryProviderConfiguration : IDeliveryProviderConfiguration
     {
@@ -42,12 +42,13 @@ namespace TicketDesk.PushNotifications
 
         [Display(Name = "SMTP Password")]
         [Description("Leave empty if authentication is not required")]
+        [DataType(DataType.Password)]
         public string SmtpPassword { get; set; }
 
         [Display(Name = "SMTP From Address")]
         [Description("The email address to use when sending email from this povider")]
         [Required]
-        [EmailAddress]
+        [DataType(DataType.EmailAddress)]
         public string SmtpFromAddress { get; set; }
 
         [Display(Name = "SMTP From Display Name")]

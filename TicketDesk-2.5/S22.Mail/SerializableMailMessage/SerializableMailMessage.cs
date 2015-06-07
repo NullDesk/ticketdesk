@@ -24,7 +24,7 @@ namespace S22.Mail {
 			foreach (SerializableMailAddress a in message.CC)
 				m.CC.Add(a);
 			m.DeliveryNotificationOptions = message.DeliveryNotificationOptions;
-			m.From = message.From;
+			m.From = message.From ?? new MailAddress("fake@example.com");//because conversion fails if this is null
 			m.Headers.Add(message.Headers);
 			m.HeadersEncoding = message.HeadersEncoding;
 			m.IsBodyHtml = message.IsBodyHtml;

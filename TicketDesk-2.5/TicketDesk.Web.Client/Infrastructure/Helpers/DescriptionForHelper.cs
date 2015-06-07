@@ -21,6 +21,7 @@ using System.Web.Mvc;
 
 namespace TicketDesk.Web.Client
 {
+
     public static class DescriptionForHelper
     {
         public static MvcHtmlString DescriptionFor(

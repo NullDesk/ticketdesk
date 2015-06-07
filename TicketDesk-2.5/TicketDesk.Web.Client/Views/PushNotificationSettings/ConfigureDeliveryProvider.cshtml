@@ -1,4 +1,5 @@
-﻿@using System.Reflection
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
 @using Newtonsoft.Json
 @using TicketDesk.PushNotifications
 @model TicketDesk.PushNotifications.Model.ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting
@@ -26,13 +27,13 @@
                             </div>
                             <div class="panel-body ">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IsEnabled, new {@class = "col-md-4 col-sm-4 control-label"})
+                                    @Html.LabelFor(model => model.IsEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
                                     <div class="col-md-8 col-sm-8">
                                         <label class="checkbox-inline">
                                             @Html.EditorFor(model => model.IsEnabled)
-                                            Enabled
+                                            @Html.PromptFor(model => model.IsEnabled)
                                         </label>
-                                        @Html.ValidationMessageFor(model => model.IsEnabled, "", new {@class = "text-danger"})
+                                        @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                                         @Html.DescriptionFor(model => model.IsEnabled, "help-block", "span")
                                     </div>
                                 </div>
@@ -44,17 +45,27 @@
                                         <div class="col-md-8 col-sm-8">
 
                                             @{
-                                                if (property.PropertyType == typeof (bool?))
+                                                if (property.PropertyType == typeof(bool?))
                                                 {
                                                     <label class="checkbox-inline">
-                                                        @Html.CheckBox(property.Name, ((bool?) property.GetValue(provider.Configuration, null)) ?? false)
-                                                        @Html.DisplayNameFor(property)
+                                                        @Html.CheckBox(property.Name, ((bool?)property.GetValue(provider.Configuration, null)) ?? false)
+                                                        @Html.PromptFor(property)
+                                                       
                                                     </label>
                                                 }
                                                 else
                                                 {
-                                                    var type = property.PropertyType == typeof (int?) ? "number" : "text";
-                                                    @Html.TextBox(property.Name, property.GetValue(provider.Configuration, null), new {@class = "form-control input-sm", type = type})
+                                                    var type = property.PropertyType == typeof(int?) ? "number" : "text";
+                                                    var dtprop = property.GetCustomAttributes().FirstOrDefault(a => a.GetType() == typeof(DataTypeAttribute));
+                                                    if (dtprop != null)
+                                                    {
+                                                        var dt = ((DataTypeAttribute)dtprop).DataType;
+                                                        type =
+                                                            dt == DataType.Password ? "password" :
+                                                            dt == DataType.EmailAddress ? "email" :
+                                                            type;
+                                                    }
+                                                    @Html.TextBox(property.Name, property.GetValue(provider.Configuration, null), new { @class = "form-control input-sm", type = type })
                                                     @Html.ValidationMessage(property.Name)
                                                 }
                                                 @Html.DescriptionFor(property, "help-block", "span")
@@ -65,7 +76,7 @@
 
 
                                     </div>
-                                }
+                                                }
                             </div>
                             <div class="panel-footer">
 
@@ -75,7 +86,7 @@
 
                         </div>
                     </fieldset>
-                        }}
-</div>
+                                                }}
+        </div>
     </div>
 </main>

@@ -19,6 +19,7 @@ namespace TicketDesk.PushNotifications
 {
     public abstract class PushNotificationDeliveryProviderBase : IPushNotificationDeliveryProvider
     {
+    
         public abstract string DestinationType { get; }
 
         public abstract Task<object> GenerateMessageAsync(PushNotificationItem notificationItem, CancellationToken ct);

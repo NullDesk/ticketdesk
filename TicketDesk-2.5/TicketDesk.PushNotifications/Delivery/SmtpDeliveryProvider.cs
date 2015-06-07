@@ -11,22 +11,19 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
 using System.ComponentModel;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using S22.Mail;
 using TicketDesk.PushNotifications.Model;
 
-namespace TicketDesk.PushNotifications
+namespace TicketDesk.PushNotifications.Delivery
 {
-    [Description("SMTP Provider")]
-    public sealed class SmtpDeliveryProvider : PushNotificationDeliveryProviderBase
+    [Description("SMTP Provider (Email)")]
+    public sealed class SmtpDeliveryProvider : EmailDeliveryProviderBase
     {
         public SmtpDeliveryProvider(JToken configuration)
         {
@@ -35,28 +32,11 @@ namespace TicketDesk.PushNotifications
                 configuration.ToObject<SmtpDeliveryProviderConfiguration>();
         }
 
-        public override IDeliveryProviderConfiguration Configuration { get; set; }
-
-        public override string DestinationType
-        {
-            get { return "email"; }
-        }
-
-        public override Task<object> GenerateMessageAsync(PushNotificationItem notificationItem, CancellationToken ct)
-        {
-            var memorydata = Convert.FromBase64String(notificationItem.MessageContent);
-            using (var rs = new MemoryStream(memorydata))
-            {
-                var sf = new BinaryFormatter();
-                return Task.FromResult(sf.Deserialize(rs));
-            }
-        }
-
         public override Task<bool> SendNotificationAsync(PushNotificationItem notificationItem, object message, CancellationToken ct)
         {
             var cfg = (SmtpDeliveryProviderConfiguration)Configuration;
             var sent = false;
-            //implicit conversion operator
+           
             var smsg = message as SerializableMailMessage;
             if (smsg != null)
             {
