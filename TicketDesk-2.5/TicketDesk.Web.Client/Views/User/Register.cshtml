@@ -1,0 +1,58 @@
+﻿@model TicketDesk.Web.Client.Models.UserRegisterViewModel
+@section title
+{
+    Register
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/common")
+}
+<main>
+    <div class="container">
+        <fieldset>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Register for a new user account</legend>
+            <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Account Details</h2>
+                        </div>
+                        <div class="panel-body">
+                            @Html.ValidationSummary("", new {@class = "text-danger"})
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new {@class = "col-sm-3 control-label"})
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new {@class = "col-sm-3 control-label"})
+                                <div class="col-sm-9">
+                                    @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, new {@class = "col-sm-3 control-label"})
+                                <div class="col-sm-9">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DisplayName, new {@class = "col-sm-3 control-label"})
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.DisplayName, new {@class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-default" value="Register"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+</main>

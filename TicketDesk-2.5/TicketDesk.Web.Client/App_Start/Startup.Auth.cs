@@ -29,18 +29,6 @@ namespace TicketDesk.Web.Client
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app, Container container)
         {
-            //app.createperowincontext stuff is now done by simpleinjector instead.
-            //  It is worth noting that CreatePerOwinContext has one fatal down-side... it WILL 
-            //  create an instance for each owin context, even if nothing ever attempts to get
-            //  that instance... in TD's case, this causes things like the user manager to try
-            //  to instantiate, even if we're in first-run-setup mode and don't have a database
-            //  available yet. 
-
-                //app.CreatePerOwinContext(TicketDeskIdentityContext.Create);
-                //app.CreatePerOwinContext<TicketDeskUserManager>(TicketDeskUserManager.Create);
-                //app.CreatePerOwinContext<TicketDeskRoleManager>(TicketDeskRoleManager.Create);
-                //app.CreatePerOwinContext<TicketDeskSignInManager>(TicketDeskSignInManager.Create);
-                //app.CreatePerOwinContext(container.GetInstance<TicketDeskUserManager>);
             
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -48,7 +36,7 @@ namespace TicketDesk.Web.Client
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/account/login"),
+                LoginPath = new PathString("/user/sign-in"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -59,15 +47,15 @@ namespace TicketDesk.Web.Client
                 }
             });       
      
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
-            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+            //app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
 
             // Enables the application to remember the second login verification factor such as phone or email.
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
-            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+            //app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

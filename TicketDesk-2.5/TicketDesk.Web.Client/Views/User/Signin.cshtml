@@ -1,0 +1,71 @@
+﻿@model TicketDesk.Web.Client.Models.UserSignInViewModel
+@section title
+{
+    Sign In
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/common")
+}
+<main>
+    <div class="container">
+        <fieldset>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Sign In</legend>
+            <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+                @using (Html.BeginForm("Signin", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Enter your Sign In Credentials</h2>
+                        </div>
+                        <div class="panel-body">
+                            @*  *@
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-sm-offset-2 col-sm-9">
+                                    <label class="checkbox-inline">
+                                        @Html.EditorFor(m => m.RememberMe)
+                                        @Html.DisplayNameFor(m => m.RememberMe)
+                                    </label>
+
+                                   
+
+
+
+                                </div></div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Log in" class="btn btn-default"/><div class="pull-right">
+    @Html.ActionLink("Register as a new user", "Register")
+</div>
+                                    </div>
+                                </div>
+
+
+
+                                @*  *@
+
+
+                            </div>
+                        </div>
+                        }
+                    </div>
+            </fieldset>
+        </div>
+    </main>

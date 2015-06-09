@@ -61,6 +61,13 @@
             cofigureSettings('categories');
             cofigureSettings('priorities');
             cofigureSettings('tickettypes');
+            $("#defaultroles > option").each(function () {
+                if (this.value === 'TdPendingUsers') {
+                    $(this).attr('locked', 'locked');
+                }
+            });
+
+            $('#defaultroles').select2();
         };
 
         return {

@@ -29,14 +29,14 @@
                 @Html.ActionLink("My Account", "Index", "Manage")
             </li>
             <li>
-                @Html.ActionLink("Log Off", "LogOff", "Account")
+                @Html.ActionLink("Log Off", "SignOut", "User")
             </li>
         }
         else
         {
 
-            <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
-            <li>@Html.ActionLink("Log In", "Login", "Account", null, new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Register", "Register", "User", null, new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Sign In", "SignIn", "User", null, new { id = "loginLink" })</li>
         }
     </ul>
 

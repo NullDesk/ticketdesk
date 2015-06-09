@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
@@ -45,7 +46,8 @@ namespace TicketDesk.Web.Client.Controllers
             ApplicationSetting settings,
             [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] categories,
             [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] tickettypes,
-            [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] priorities
+            [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] priorities,
+            List<string> defaultroles
             )
         {
             var dbSetting = Context.TicketDeskSettings;
@@ -54,6 +56,7 @@ namespace TicketDesk.Web.Client.Controllers
                 dbSetting.SelectLists.CategoryList = categories.ToList();
                 dbSetting.SelectLists.PriorityList = priorities.ToList();
                 dbSetting.SelectLists.TicketTypesList = tickettypes.ToList();
+                dbSetting.SecuritySettings.DefaultNewUserRoles = defaultroles;
                 Context.SaveChanges();
             }
             ViewBag.IsAzureSearchEnabled = IsAzureSearchDetected;

@@ -28,25 +28,24 @@
 
 <main>
     <div class="container">
-        <div class="col-lg-8 col-lg-offset-2  col-sm-12">
-            @{
-                var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
-                if (demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    <div class="alert alert-warning">
-                        <p>TicketDesk is running demo mode. Push notifications are disabled.</p>
-                        <p> To turn off demo mode, please change the setting in application configuration.</p>
-                    </div>
-                }
-                else
-                {
-
-                    using (Html.BeginForm("Index", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
+        <fieldset>
+            <legend class="col-lg-9 col-lg-offset-1 col-sm-12">Push notification settings</legend>
+            <div class="col-lg-8 col-lg-offset-2  col-sm-12">
+                @{
+                    var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
+                    if (demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        <fieldset>
+                        <div class="alert alert-warning">
+                            <p>TicketDesk is running demo mode. Push notifications are disabled.</p>
+                            <p> To turn off demo mode, please change the setting in application configuration.</p>
+                        </div>
+                    }
+                    else
+                    {
 
-                            <!-- Form Name -->
-                            <legend>Push notification settings</legend>
+                        using (Html.BeginForm("Index", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+
                             @Html.AntiForgeryToken()
                             <div class="panel panel-info">
                                 <div class="panel-heading">
@@ -163,11 +162,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </fieldset>
-                    }
 
+                        }
+
+                    }
                 }
-            }
-        </div>
+            </div>
+        </fieldset>
     </div>
 </main>

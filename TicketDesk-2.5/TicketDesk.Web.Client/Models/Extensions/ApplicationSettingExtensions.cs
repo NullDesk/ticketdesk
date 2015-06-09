@@ -11,8 +11,10 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Web.Client;
+using TicketDesk.Web.Identity;
 
 namespace TicketDesk.Domain.Model
 {
@@ -33,6 +35,15 @@ namespace TicketDesk.Domain.Model
             return settings.SelectLists.TicketTypesList.ToSelectList(p => p, p => p, selectedType, includeEmpty);
         }
 
+        public static MultiSelectList GetDefaultNewUserRolesList(this ApplicationSetting settings)
+        {
+            return TdIdentityContext.DefaultRoles.ToMultiSelectList(
+                r => r, 
+                r => r,
+                settings.SecuritySettings.DefaultNewUserRoles.ToArray(),
+                false);
+        }
+
         public static string GetPriorities(this ApplicationSetting settings)
         {
             return string.Join(",", settings.SelectLists.PriorityList);
@@ -45,6 +56,7 @@ namespace TicketDesk.Domain.Model
         {
             return string.Join(",", settings.SelectLists.CategoryList);
         }
+
 
     }
 }

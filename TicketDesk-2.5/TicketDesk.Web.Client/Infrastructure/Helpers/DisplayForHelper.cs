@@ -22,15 +22,6 @@ namespace TicketDesk.Web.Client
 {
     public static class DisplayForHelper
     {
-       
-
-        public static MvcHtmlString DisplayNameFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
-        {
-            var md = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-            return new MvcHtmlString(md.GetDisplayName());
-        }
-
-
         public static MvcHtmlString DisplayNameFor(this HtmlHelper helper, PropertyInfo property)
         {
             var attr = (DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();

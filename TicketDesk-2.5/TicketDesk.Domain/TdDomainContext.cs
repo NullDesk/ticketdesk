@@ -117,7 +117,11 @@ namespace TicketDesk.Domain
                 .Property(p => p.Serialized)
                 .HasColumnName("PermissionsSettingsJson");
 
-         
+            modelBuilder.ComplexType<ApplicationSecuritySetting>()
+               .Property(p => p.Serialized)
+               .HasColumnName("SecuritySettingsJson");
+
+
 
         }
 

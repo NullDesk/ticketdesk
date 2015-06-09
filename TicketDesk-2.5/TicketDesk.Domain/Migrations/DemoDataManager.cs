@@ -38,10 +38,6 @@ namespace TicketDesk.Domain.Migrations
             RemoveAllData(context);
             context.SaveChanges();
 
-
-
-
-
             context.Tickets.AddOrUpdate(t => t.Title,
                    new Ticket
                    {

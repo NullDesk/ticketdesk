@@ -22,13 +22,15 @@
 
 <main>
     <div class="container">
-        <div class="col-lg-8 col-lg-offset-2  col-sm-12">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="col-lg-9 col-lg-offset-1 col-sm-12">
+                Application settings
+            </legend>
+
             @using (Html.BeginForm("Index", "ApplicationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
             {
-                <fieldset>
-
-                    <!-- Form Name -->
-                    <legend>Application settings</legend>
+                <div class="col-lg-8 col-lg-offset-2  col-sm-12">
                     @Html.AntiForgeryToken()
                     <div class="panel panel-info">
                         <div class="panel-heading">
@@ -52,7 +54,7 @@
                                 <label class="col-md-4 col-sm-4 control-label">Tags</label>
                                 <div class="col-md-8 col-sm-8">
                                     <label class="checkbox-inline">
-                                        @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditTags, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditTags, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.DisplayNameFor(model => model.Permissions.AllowInternalUsersToEditTags)
                                     </label>
                                 </div>
@@ -80,20 +82,29 @@
                                     <input id="priorities" name="priorities" class="form-control input-sm" value="@Model.GetPriorities()" />
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Security settings</h2>
+                        </div>
+                        <div class="panel-body ">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SecuritySettings.DefaultNewUserRoles, new { @class = "col-md-4 col-sm-4 control-label" })
+                                <div class="col-md-8 col-sm-8">
+                                    @Html.ListBox("defaultroles", Model.GetDefaultNewUserRolesList(), new { id = "defaultroles", @class = "form-control input-sm" })
+                                </div>
+                            </div>
 
                         </div>
-
                         <div class="panel-footer">
                             <div class="">
                                 <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
 
                             </div>
                         </div>
-                    </div>
-                </fieldset>
-            }
 
-        </div>
-    </div>
-</main>
+                    </div>
+                </div>
+            }
+            </fieldset>
+            </div>
+        </main>
