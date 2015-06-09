@@ -29,8 +29,6 @@ namespace TicketDesk.Web.Client.Controllers
     [Route("{action=index}")]
     public class ManageController : Controller
     {
-
-
         public ManageController(TicketDeskUserManager userManager)
         {
             UserManager = userManager;
