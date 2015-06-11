@@ -65,17 +65,34 @@ body {
         background-color: #b3cbdf;
         color: #000;
     }
-
-.input-group-xs>.form-control,
-.input-group-xs>.input-group-addon,
-.input-group-xs>.input-group-btn>.btn {
-    height: 22px;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
+.form-group-xs .form-control {
+  height: 22px;
+  padding: 1px 3px;
+  font-size: 11px;
+  line-height: 1.2;
+  border-radius: 2px;
+}
+select.form-group-xs .form-control {
+  height: 22px;
+  line-height: 18px;
+}
+textarea.form-group-xs .form-control,
+select[multiple].form-group-xs .form-control {
+  height: auto;
+}
+.form-group-xs .form-control-static {
+  height: 22px;
+  min-height: 20px;
+  padding: 1px 3px;
+  font-size: 11px;
+  line-height: 1.2;
 }
 
-
+@media (min-width: 768px) {
+  .form-horizontal .form-group-xs .control-label {
+    padding-top: 6px;
+  }
+}
 
 .wmd-preview {
     min-height: 250px;
@@ -155,7 +172,17 @@ p {
         border-radius: 0;
     }
 
+    #ticketList .filterBar.navbar {
+         min-height: 20px;
+    }
+
+    #filterForm.navbar-form {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
     #ticketList .filterBar {
+       
         margin: 0;
         display: block;
         border: 1px dotted #B3CBDF;
@@ -209,7 +236,9 @@ p {
     }
 
     #ticketList .number-select {
-        width: 75px;
+        width: 55px;
+        display: inline-block;
+      
     }
 
 .menulist{

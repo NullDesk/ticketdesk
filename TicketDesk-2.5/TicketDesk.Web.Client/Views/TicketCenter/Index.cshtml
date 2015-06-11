@@ -20,7 +20,7 @@
 @section title{ Ticket Center}
 
 
-<main>
+<main style="display: none;">
 
     @Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
     {
@@ -36,9 +36,11 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            $('main').show();
             $.ajaxSetup({ cache: false });
             ticketCenter.filters.setupFilterForm();
             ticketCenter.makeClicky();
+
         });
 
     </script>
