@@ -26,10 +26,7 @@
         @if ( User.Identity.IsAuthenticated)
         {
             <li>
-                @Html.ActionLink("Account Settings", "Manage", "Account")
-            </li>
-            <li>
-                @Html.ActionLink("My Account", "Index", "Manage")
+                @Html.ActionLink("My Account", "Manage", "Account")
             </li>
             <li>
                 @Html.ActionLink("Log Off", "SignOut", "User")
