@@ -33,7 +33,7 @@ integration for users wanting to cloud deploy to Microsoft Azure.
 Current Development Information
 ===========
 
-A [demo of TicketDesk 2.5 beta](http://ticketdesk2.azurewebsites.net/) is available. It is just an alpha, so expect rough-edges
+A [demo of TicketDesk 2.5 alpha](http://ticketdesk2.azurewebsites.net/) is available. It is just an alpha, so expect rough-edges
 
 TicketDesk 2.5 is a full technology platfrom update. 
 
