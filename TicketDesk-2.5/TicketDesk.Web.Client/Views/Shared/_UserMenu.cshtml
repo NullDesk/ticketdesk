@@ -23,8 +23,11 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-        @if (Request.IsAuthenticated)
+        @if ( User.Identity.IsAuthenticated)
         {
+            <li>
+                @Html.ActionLink("Account Settings", "Manage", "Account")
+            </li>
             <li>
                 @Html.ActionLink("My Account", "Index", "Manage")
             </li>

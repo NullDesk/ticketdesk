@@ -4,7 +4,6 @@
     Register
 }
 @section Scripts {
-    @Scripts.Render("~/bundles/common")
 }
 <main>
     <div class="container">
@@ -44,11 +43,11 @@
                                     @Html.TextBoxFor(m => m.DisplayName, new {@class = "form-control"})
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9">
-                                    <input type="submit" class="btn btn-default" value="Register"/>
-                                </div>
-                            </div>
+                          
+                        </div>
+                        <div class="panel-footer">
+                            <button type="submit" class="btn btn-success" tabindex="10">Register</button>&nbsp;&nbsp;
+                            @Html.ActionLink("Login with an existing account", "SignIn")
                         </div>
                     </div>
                 }

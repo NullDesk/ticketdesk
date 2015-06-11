@@ -1,0 +1,50 @@
+﻿@model TicketDesk.Web.Client.Models.AccountProfileViewModel
+@section title
+{
+    Account Profile
+}
+@section Scripts {
+}
+<main>
+    <div class="container">
+        <fieldset>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Manage your account</legend>
+            <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+                @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Account Profile</h2>
+                        </div>
+                        <div class="panel-body">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new {@class = "col-sm-3 control-label"})
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(m => m.Email, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.DisplayName, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
+                            @Html.ActionLink("Back to account options", "Manage")
+                        </div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+</main>

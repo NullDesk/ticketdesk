@@ -242,6 +242,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Routes.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmailTestController.cs" />
     <Compile Include="Controllers\PushNotificationSettingsController.cs" />
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
@@ -251,7 +252,6 @@
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketCenterController.cs" />
@@ -277,6 +277,7 @@
     <Compile Include="Infrastructure\PushNotifications\InProcessPushNotificationScheduler.cs" />
     <Compile Include="Infrastructure\WhenSetupEnabledAttribute.cs" />
     <Compile Include="Infrastructure\ValidateOnlyIncomingValuesAttribute.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />
@@ -286,7 +287,6 @@
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SystemInfoViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -442,12 +442,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\_UserMenu.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -504,8 +498,11 @@
     <Content Include="Views\Emails\Ticket.Text.cshtml" />
     <Content Include="Views\Ticket\_TicketFiles.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
-    <Content Include="Views\User\Signin.cshtml" />
+    <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\User\Lockout.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
