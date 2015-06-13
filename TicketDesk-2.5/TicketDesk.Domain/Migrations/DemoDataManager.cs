@@ -28,7 +28,7 @@ namespace TicketDesk.Domain.Migrations
             context.TicketSubscribers.RemoveRange(context.TicketSubscribers);
             context.TicketEvents.RemoveRange(context.TicketEvents);
             context.Tickets.RemoveRange(context.Tickets);
-            context.TicketDeskSettings = new ApplicationSetting();
+            context.TicketDeskSettings = new ApplicationSetting() {};
 
             context.SaveChanges();
         }

@@ -17,7 +17,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using Newtonsoft.Json.Linq;
+using TicketDesk.Domain;
 using TicketDesk.PushNotifications;
 using TicketDesk.PushNotifications.Delivery;
 using TicketDesk.PushNotifications.Model;
@@ -29,29 +31,38 @@ namespace TicketDesk.Web.Client.Controllers
     [Authorize(Roles = "TdAdministrators")]
     public class PushNotificationSettingsController : Controller
     {
-        private TdPushNotificationContext Context { get; set; }
+        private TdPushNotificationContext NoteContext { get; set; }
+        private TdDomainContext DomainContext { get; set; }
 
-        public PushNotificationSettingsController(TdPushNotificationContext context)
+        public PushNotificationSettingsController(TdPushNotificationContext noteContext, TdDomainContext domainContext)
         {
-            Context = context;
+            NoteContext = noteContext;
+            DomainContext = domainContext;
         }
 
         public ActionResult Index()
         {
-            var dbSetting = Context.TicketDeskPushNotificationSettings;
+            ViewBag.CurrentRootUrl = GetCurrentRootUrl();
+            ViewBag.SiteRootUrl = GetRootUrlSetting();
+
+            var dbSetting = NoteContext.TicketDeskPushNotificationSettings;
 
             return View(dbSetting);
         }
 
+
         [HttpPost]
-        public ActionResult Index(ApplicationPushNotificationSetting settings)
+        public ActionResult Index(ApplicationPushNotificationSetting settings, string siteRootUrl)
         {
-            var dbSetting = Context.TicketDeskPushNotificationSettings;
+            var dbSetting = NoteContext.TicketDeskPushNotificationSettings;
             if (ModelState.IsValid && TryUpdateModel(dbSetting))
             {
-
-                Context.SaveChanges();
+                NoteContext.SaveChanges();
+                DomainContext.TicketDeskSettings.ClientSettings.Settings["DefaultSiteRootUrl"] = siteRootUrl.TrimEnd('/');
+                DomainContext.SaveChanges();
             }
+            ViewBag.CurrentRootUrl = GetCurrentRootUrl();
+            ViewBag.SiteRootUrl = GetRootUrlSetting();
             return View(dbSetting);
         }
 
@@ -70,7 +81,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             foreach (var c in classes)
             {
-                var settings = Context.TicketDeskPushNotificationSettings
+                var settings = NoteContext.TicketDeskPushNotificationSettings
                     .DeliveryProviderSettings
                     .FirstOrDefault(p => p.ProviderAssemblyQualifiedName == c.AssemblyQualifiedName);
                 model.Add(c,
@@ -119,7 +130,7 @@ namespace TicketDesk.Web.Client.Controllers
                 {
                     settings.ProviderConfigurationData = JObject.FromObject(provider.Configuration);
                     settings.IsEnabled = isEnabled;
-                    await Context.SaveChangesAsync();
+                    await NoteContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
@@ -129,13 +140,13 @@ namespace TicketDesk.Web.Client.Controllers
         private ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting
             GetOrCreatePushNotificationDeliveryProviderSettings(IPushNotificationDeliveryProvider provider)
         {
-            var settings = Context.TicketDeskPushNotificationSettings.DeliveryProviderSettings.FirstOrDefault(
+            var settings = NoteContext.TicketDeskPushNotificationSettings.DeliveryProviderSettings.FirstOrDefault(
                 s => s.ProviderAssemblyQualifiedName == provider.GetType().AssemblyQualifiedName);
             if (settings == null)
             {
                 settings = ApplicationPushNotificationSetting.PushNotificationDeliveryProviderSetting.FromProvider(provider);
                 //created new settings, add to context (will not be saved here, but may be committed by caller
-                Context.TicketDeskPushNotificationSettings.DeliveryProviderSettings.Add(settings);
+                NoteContext.TicketDeskPushNotificationSettings.DeliveryProviderSettings.Add(settings);
             }
             return settings;
         }
@@ -144,6 +155,21 @@ namespace TicketDesk.Web.Client.Controllers
         {
             return PushNotificationDeliveryManager.DeliveryProviders.FirstOrDefault(p => p.GetType().AssemblyQualifiedName == providerTypeName) ??
                    PushNotificationDeliveryManager.CreateDefaultDeliveryProviderInstance(Type.GetType(providerTypeName));
+        }
+
+
+        private string GetRootUrlSetting()
+        {
+            var root = DomainContext.TicketDeskSettings.ClientSettings.Settings
+                .Where(s => s.Key == "DefaultSiteRootUrl")
+                .Select(s => s.Value)
+                .FirstOrDefault() ?? GetCurrentRootUrl();
+            return root;
+        }
+
+        private string GetCurrentRootUrl()
+        {
+            return Request.Url == null ? string.Empty : Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~/").TrimEnd('/');
         }
     }
 }

@@ -11,8 +11,11 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 
 namespace TicketDesk.Domain.Model
 {
@@ -26,7 +29,7 @@ namespace TicketDesk.Domain.Model
             Permissions = new ApplicationPermissionsSetting();
             SelectLists = new ApplicationSelectListSetting();
             SecuritySettings = new ApplicationSecuritySetting();
-
+            ClientSettings = new ClientSetting();
         }
 
         [Key]
@@ -40,7 +43,8 @@ namespace TicketDesk.Domain.Model
 
         public ApplicationSecuritySetting SecuritySettings { get; set; }
 
-      
+        public ClientSetting ClientSettings { get; set; }
+        
     }
 
 }

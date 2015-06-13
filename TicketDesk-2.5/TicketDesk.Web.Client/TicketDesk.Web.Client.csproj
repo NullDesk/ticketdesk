@@ -289,6 +289,7 @@
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
     <Compile Include="Models\SystemInfoViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
+    <Compile Include="Models\TicketEmail.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

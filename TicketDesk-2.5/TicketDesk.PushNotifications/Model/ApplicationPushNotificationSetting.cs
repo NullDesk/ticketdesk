@@ -28,7 +28,7 @@ namespace TicketDesk.PushNotifications.Model
         public ApplicationPushNotificationSetting()
         {
             ApplicationName = "TicketDesk";
-            IsEnabled = true;
+            IsEnabled = false;
             DeliveryIntervalMinutes = 2;
             AntiNoiseSettings = new AntiNoiseSetting();
             RetryAttempts = 5;

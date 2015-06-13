@@ -11,12 +11,15 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Postal;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -33,7 +36,11 @@ namespace TicketDesk.Web.Client.Controllers
         {
             //TODO: Remove/move to admin
             var ticket = Context.Tickets.Include(t => t.TicketTags).First(t => t.TicketId == id);
-            var email = new TicketEmail {Ticket = ticket};
+            var root =Context.TicketDeskSettings.ClientSettings.Settings
+                .Where(s => s.Key == "DefaultSiteRootUrl")
+                .Select(s => s.Value)
+                .FirstOrDefault();
+            var email = new TicketEmail { Ticket = ticket, SiteRootUrl = root };
 
             //email.Send();
             //string content;
@@ -69,9 +76,6 @@ namespace TicketDesk.Web.Client.Controllers
         }
     }
 
-    public class TicketEmail : Email
-    {
-        public Ticket Ticket { get; set; }
-    }
-    
+
+
 }

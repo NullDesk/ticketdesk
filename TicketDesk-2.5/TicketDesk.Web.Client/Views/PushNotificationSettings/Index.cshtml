@@ -23,7 +23,14 @@
 
 @section scripts
 {
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#useCurrentUrlButton').on('click', function () {
+                $('#siteRootUrl').val('@ViewBag.CurrentRootUrl');
+            });
+        });
+    </script>
 }
 
 <main>
@@ -70,6 +77,43 @@
                                             }
                                         </div>
                                     </div>
+
+
+                                    <div class="form-group">
+                                        <label for="siteRootUrl" class="col-md-4 col-sm-4 control-label">Site Root Url</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <div class="input-group input-group-sm">
+                                                <input id="siteRootUrl"
+                                                       name="siteRootUrl"
+                                                       class="form-control input-sm"
+                                                       type="url"
+                                                       data-val="true"
+                                                       data-val-url="The url is invalid. If you are trying to use localhost for testing, specify the loopback IP address instead (http://127.0.0.1:80)"
+                                                       value="@ViewBag.SiteRootUrl"/>
+                                                <span class="input-group-btn">
+                                                    <button id="useCurrentUrlButton"
+                                                            type="button"
+                                                            data-toggle="tooltip"
+                                                            data-placement="bottom"
+                                                            title="Use current root URL" class="btn btn-default btn-sm">
+                                                        <i class="fa fa-link"></i>
+                                                    </button>
+                                                </span>
+
+                                            </div>
+                                            <div class="field-validation-valid" data-valmsg-for="siteRootUrl" data-valmsg-replace="true"></div>
+                                            <span class="help-block">
+                                                This setting is vital to ensure that hyperlinks in emails contain the currect URL to your site.
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.DeliveryIntervalMinutes, new { @class = "col-md-4 col-sm-4  control-label" })
                                         <div class="col-md-8 col-sm-8">

@@ -15,17 +15,37 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Web.Mvc;
 using Postal;
 using S22.Mail;
 using TicketDesk.PushNotifications.Model;
-using TicketDesk.Web.Client.Controllers;
+using TicketDesk.Web.Client.Models;
 
 namespace TicketDesk.Domain.Model
 {
     public static class TicketEventNotificationExtensions
     {
+        private static string _rootUrl;
+        private static string RootUrl
+        {
+            get
+            {
+                if (_rootUrl == null)
+                {
+                    using (var context = DependencyResolver.Current.GetService<TdDomainContext>())
+                    {
+                        _rootUrl = context.TicketDeskSettings.ClientSettings.Settings
+                            .Where(s => s.Key == "DefaultSiteRootUrl")
+                            .Select(s => s.Value)
+                            .FirstOrDefault() ?? string.Empty;
+                    }
+                }
+                return _rootUrl;
+            }
+           
+        }
+
         public static IEnumerable<TicketPushNotificationEventInfo> ToNotificationEventInfoCollection(
             this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude)
         {
@@ -43,7 +63,7 @@ namespace TicketDesk.Domain.Model
 
         private static string GetEmailForNote(TicketEventNotification note)
         {
-            var email = new TicketEmail { Ticket = note.TicketEvent.Ticket };
+            var email = new TicketEmail { Ticket = note.TicketEvent.Ticket, SiteRootUrl = RootUrl};
             var mailService = new EmailService();
             SerializableMailMessage message = mailService.CreateMailMessage(email);
             using (var ms = new MemoryStream())
@@ -52,6 +72,5 @@ namespace TicketDesk.Domain.Model
                 return Convert.ToBase64String(ms.ToArray());
             }
         }
-
     }
 }

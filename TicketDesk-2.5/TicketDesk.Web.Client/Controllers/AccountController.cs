@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
@@ -19,11 +21,12 @@ namespace TicketDesk.Web.Client.Controllers
     {
         private TicketDeskUserManager UserManager { get; set; }
         private TicketDeskSignInManager SignInManager { get; set; }
-
-        public AccountController(TicketDeskUserManager userManager, TicketDeskSignInManager signInManager)
+        private TdPushNotificationContext NotificationContext { get; set; }
+        public AccountController(TicketDeskUserManager userManager, TicketDeskSignInManager signInManager, TdPushNotificationContext notificationContext)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            NotificationContext = notificationContext;
         }
 
 
@@ -69,7 +72,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("edit-profile")]
         public ActionResult EditProfile()
         {
-            var model = new AccountProfileViewModel {DisplayName = User.Identity.GetUserDisplayName(), Email = User.Identity.GetUserName()};
+            var model = new AccountProfileViewModel { DisplayName = User.Identity.GetUserDisplayName(), Email = User.Identity.GetUserName() };
             return View(model);
         }
 
@@ -82,18 +85,38 @@ namespace TicketDesk.Web.Client.Controllers
                 return View(model);
             }
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var oldEmail = user.Email;
             user.UserName = model.Email;
             user.Email = model.Email;
             user.DisplayName = model.DisplayName;
             var result = await UserManager.UpdateAsync(user);
+
             if (result.Succeeded)
             {
+                await ResetMailEmailDestination(user, oldEmail);
+
                 AuthenticationManager.SignOut();
                 await SignInManager.SignInAsync(user, false, false);//.SignIn(new AuthenticationProperties { IsPersistent = false }, 
                 //await user.GenerateUserIdentityAsync(UserManager);
                 return RedirectToAction("Manage", new { Message = AccountMessageId.ProfileSaveSuccess });
             }
             return View();
+        }
+
+        private async Task ResetMailEmailDestination(TicketDeskUser user, string oldEmail)
+        {
+            var noteSettings =
+                await NotificationContext.SubscriberPushNotificationSettingsManager.GetSettingsForSubscriber(user.Id);
+            var dest = noteSettings.PushNotificationDestinations.FirstOrDefault(
+                d => d.DestinationType == "email" && d.DestinationAddress == oldEmail);
+            if (dest == null)
+            {
+                dest = new PushNotificationDestination() {SubscriberId = user.Id, DestinationType = "email"};
+                noteSettings.PushNotificationDestinations.Add(dest);
+            }
+            dest.DestinationAddress = user.Email;
+            dest.SubscriberName = user.DisplayName;
+            await NotificationContext.SaveChangesAsync();
         }
 
         public enum AccountMessageId

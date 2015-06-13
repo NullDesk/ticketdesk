@@ -119,6 +119,10 @@
     <Compile Include="Migrations\201506072317300_Td2.5.015.Designer.cs">
       <DependentUpon>201506072317300_Td2.5.015.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506122207367_Td2.5.016.cs" />
+    <Compile Include="Migrations\201506122207367_Td2.5.016.Designer.cs">
+      <DependentUpon>201506122207367_Td2.5.016.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TdDomainSecurityProviderBase.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationPermissionsSetting.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSecuritySetting.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSelectListSetting.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ClientSettings.cs" />
     <Compile Include="Model\ApplicationSettings.cs" />
     <Compile Include="Model\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
@@ -232,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506072317300_Td2.5.015.resx">
       <DependentUpon>201506072317300_Td2.5.015.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506122207367_Td2.5.016.resx">
+      <DependentUpon>201506122207367_Td2.5.016.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

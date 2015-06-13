@@ -15,7 +15,7 @@
 
 @using TicketDesk.Domain
 @using TicketDesk.Domain.Model
-@model TicketDesk.Web.Client.Controllers.TicketEmail
+@model TicketDesk.Web.Client.Models.TicketEmail
 Content-Type: text/html; charset=utf-8
 
 <!DOCTYPE html>
@@ -61,17 +61,23 @@ Content-Type: text/html; charset=utf-8
     <div style="border: 1px solid #dcdcdc;">
         <table style="background-color: #B3CBDF;width: 100%;">
             <tr>
-                <td style="width: 55px; font-size: larger; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
-                    @Model.Ticket.TicketStatus.GetDescription()
+                <td style="width: 55px; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
+                    <a href="@((Model.SiteRootUrl??string.Empty).TrimEnd('/'))@Url.Action("Index", "Ticket", new {Id = Model.Ticket.TicketId })">
+                        @Model.Ticket.TicketStatus.GetDescription()
+                    </a>
                 </td>
-                <td style="width: 40px; font-size: larger; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
-                    #@Model.Ticket.TicketId
+                <td style="width: 40px; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
+                    <a href="@((Model.SiteRootUrl??string.Empty).TrimEnd('/'))@Url.Action("Index", "Ticket", new {Id = Model.Ticket.TicketId })">
+                        #@Model.Ticket.TicketId
+                    </a>
 
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    @Model.Ticket.Title
+                <td colspan="2" style="font-weight: bold;">
+                    <a href="@((Model.SiteRootUrl??string.Empty).TrimEnd('/'))@Url.Action("Index", "Ticket", new {Id = Model.Ticket.TicketId })">
+                        @Model.Ticket.Title
+                    </a>
                 </td>
 
             </tr>
@@ -130,7 +136,7 @@ Content-Type: text/html; charset=utf-8
         </table>
         <table style="background-color: #B3CBDF; width: 100%;">
             <tr>
-                <td style="font-size: larger; font-weight: bold;">
+                <td style="font-weight: bold;">
                     Activity
                 </td>
             </tr>
