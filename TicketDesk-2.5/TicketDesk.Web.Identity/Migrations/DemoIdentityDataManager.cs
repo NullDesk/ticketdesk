@@ -40,24 +40,15 @@ namespace TicketDesk.Web.Identity.Migrations
         public static void SetupDemoIdentityData(TdIdentityContext context)
         {
             var userStore = new UserStore<TicketDeskUser>(context);
-            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleStore = new RoleStore<TicketDeskRole>(context);
+
+
             //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
             var userManager = new UserManager<TicketDeskUser>(userStore);
 
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            var roleNames = context.DefaultRoleNames;
-
-            foreach (var roleName in roleNames)
-            {
-                //Create Role if it does not exist
-                var role = roleManager.FindByName(roleName);
-                if (role == null)
-                {
-                    role = new IdentityRole(roleName);
-                    roleManager.Create(role);
-                }
-            }
+            var roleManager = new TicketDeskRoleManager(roleStore);
+            roleManager.EnsureDefaultRolesExist();
 
             var admin = new TicketDeskUser { Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a", UserName = "admin@example.com", Email = "admin@example.com", DisplayName = "Admin User" };
             var staff = new TicketDeskUser { Id = "72bdddfb-805a-4883-94b9-aa494f5f52dc", UserName = "staff@example.com", Email = "staff@example.com", DisplayName = "HelpDesk User" };
@@ -71,7 +62,7 @@ namespace TicketDesk.Web.Identity.Migrations
             };
             foreach (var tdUser in users)
             {
-                
+
                 var user = userManager.FindByName(tdUser.UserName);
                 if (user == null)
                 {

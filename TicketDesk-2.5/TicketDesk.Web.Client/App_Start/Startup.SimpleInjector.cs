@@ -68,8 +68,8 @@ namespace TicketDesk.Web.Client
                 new UserStore<TicketDeskUser>(container.GetInstance<TdIdentityContext>()), 
                 hybridLifestyle);
 
-            container.Register<IRoleStore<IdentityRole, string>>(() =>
-                new RoleStore<IdentityRole>(container.GetInstance<TdIdentityContext>()), 
+            container.Register<IRoleStore<TicketDeskRole, string>>(() =>
+                new RoleStore<TicketDeskRole>(container.GetInstance<TdIdentityContext>()), 
                 hybridLifestyle);
 
 

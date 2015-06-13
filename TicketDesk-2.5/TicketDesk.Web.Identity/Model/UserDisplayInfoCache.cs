@@ -15,11 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Web.Identity.Model;
 
-namespace TicketDesk.Web.Client
+namespace TicketDesk.Web.Identity.Model
 {
     public class UserDisplayInfoCache : List<UserDisplayInfo>
     {
@@ -68,11 +67,6 @@ namespace TicketDesk.Web.Client
         public string Email { get; set; }
         public string DisplayName { get; set; }
 
-        public static UserDisplayInfo GetUserInfo(string userId)
-        {
-            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return userManager.InfoCache.GetUserInfo(userId) ?? new UserDisplayInfo();
-        }
 
     }
 }

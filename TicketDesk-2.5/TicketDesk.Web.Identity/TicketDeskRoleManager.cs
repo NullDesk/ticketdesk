@@ -13,27 +13,19 @@
 
 using System.Linq;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
-namespace TicketDesk.Web.Client
+namespace TicketDesk.Web.Identity
 {
-    public class TicketDeskRoleManager : RoleManager<IdentityRole>
+    public class TicketDeskRoleManager : RoleManager<TicketDeskRole>
     {
-        public TicketDeskRoleManager(IRoleStore<IdentityRole, string> roleStore)
+
+        public TicketDeskRoleManager(IRoleStore<TicketDeskRole, string> roleStore)
             : base(roleStore)
         {
         }
 
-        
-
-        ////TODO: Why are options passed here, and what are they for? This is from the Microsoft.AspNet.Identity.Samples package
-        //public static TicketDeskRoleManager Create(IdentityFactoryOptions<TicketDeskRoleManager> options, IOwinContext context)
-        //{
-        //    return new TicketDeskRoleManager(new RoleStore<IdentityRole>(context.Get<TicketDeskIdentityContext>()));
-        //}
-       
 
         public IOrderedEnumerable<TicketDeskUser> GetTdInternalUsers(TicketDeskUserManager userManager)
         {
@@ -55,11 +47,27 @@ namespace TicketDesk.Web.Client
 
         public IOrderedEnumerable<TicketDeskUser> GetUsersInRole(string roleName, TicketDeskUserManager userManager)
         {
-           return this
-                .FindByName(roleName)
-                .Users
-                .GetUsersInRole(userManager)
-                .OrderBy(u => u.DisplayName);
+            return this
+                 .FindByName(roleName)
+                 .Users
+                 .GetUsersInRole(userManager)
+                 .OrderBy(u => u.DisplayName);
+        }
+
+        /// <summary>
+        /// Ensures the correct set of TD standard roles exist.
+        /// </summary>
+        public void EnsureDefaultRolesExist()
+        {
+            //var roles = TdIdentityContext.DefaultRoles;
+            foreach (var defaultRole in TdIdentityContext.DefaultRoles)
+            {
+                if(!this.RoleExists(defaultRole.Name))
+                {
+                    this.Create(defaultRole);
+                }
+            }
+           
         }
 
     }

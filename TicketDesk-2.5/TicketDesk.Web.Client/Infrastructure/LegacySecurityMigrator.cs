@@ -56,14 +56,14 @@ namespace TicketDesk.Web.Client
         /// <returns><c>true</c> if users migrated, <c>false</c> otherwise.</returns>
         public static bool MigrateSecurity(TdIdentityContext context, TicketDeskUserManager userManager, TicketDeskRoleManager roleManager)
         {
-            EnsureRolesExist(roleManager);
+            roleManager.EnsureDefaultRolesExist();
             var appId =
                 context.Database.SqlQuery<Guid>(
                     "select ApplicationId from aspnet_Applications where ApplicationName = 'TicketDesk'").First().ToString();
             var users = context.Database.SqlQuery<LegacyUser>(
                 "select UserId, Email, Password, PasswordFormat, Comment from aspnet_Membership where ApplicationId = '" + appId + "' and IsApproved = 1 and IsLockedOut = 0").ToList();
             const string roleQuery = "SELECT r.RoleName FROM aspnet_UsersInRoles u inner join aspnet_Roles r on u.RoleId = r.RoleId WHERE u.UserId = @userId and r.ApplicationId = @appId";
-            
+
             foreach (var user in users)
             {
                 var newUser = new TicketDeskUser
@@ -80,7 +80,7 @@ namespace TicketDesk.Web.Client
                 if (result.Succeeded)
                 {
                     var rolesForUser =
-                        context.Database.SqlQuery<string>(roleQuery, 
+                        context.Database.SqlQuery<string>(roleQuery,
                         new SqlParameter("userId", user.UserId),
                         new SqlParameter("appId", appId));
                     var newRoles = new List<string>();
@@ -108,24 +108,7 @@ namespace TicketDesk.Web.Client
             return true;
         }
 
-        /// <summary>
-        /// Ensures the correct set of TD standard roles exist.
-        /// </summary>
-        /// <param name="roleManager">The role manager.</param>
-        private static void EnsureRolesExist(TicketDeskRoleManager roleManager)
-        {
-            //TODO: Move this method to td role manager after extending it to use enum role names
-            var roleNames = TdIdentityContext.DefaultRoles;
-            foreach (var roleName in roleNames)
-            {
-                var role = roleManager.FindByName(roleName);
-                if (role == null)
-                {
-                    role = new IdentityRole(roleName);
-                    roleManager.Create(role);
-                }
-            }
-        }
+       
 
         public static void RemoveLegacyMembershipObjects(TdIdentityContext context)
         {

@@ -57,23 +57,13 @@ namespace TicketDesk.Web.Identity.Migrations
 
             //create the standard roles and default admin account
             var userStore = new UserStore<TicketDeskUser>(context);
-            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleStore = new RoleStore<TicketDeskRole>(context);
 
             //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
             var userManager = new UserManager<TicketDeskUser>(userStore);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-            var roleNames = context.DefaultRoleNames;
-            foreach (var roleName in roleNames)
-            {
-                //Create Role if it does not exist
-                var role = roleManager.FindByName(roleName);
-                if (role == null)
-                {
-                    role = new IdentityRole(roleName);
-                    roleManager.Create(role);
-                }
-            }
+            var roleManager = new TicketDeskRoleManager(roleStore);
+            roleManager.EnsureDefaultRolesExist();
+            
 
             var existingAdminRole = roleManager.FindByName("TdAdministrators");
             //only create default admin user if no other user exists with the admin role

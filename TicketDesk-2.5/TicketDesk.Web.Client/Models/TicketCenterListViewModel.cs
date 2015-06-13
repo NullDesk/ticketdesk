@@ -17,6 +17,7 @@ using System.Web.Mvc;
 using PagedList;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Web.Identity;
 
 namespace TicketDesk.Web.Client.Models
 {

@@ -1,0 +1,25 @@
+﻿@model PagedList.IPagedList<TicketDesk.Web.Client.Controllers.UserRoleInfo>
+@section title{
+    User Management
+}
+
+<h2>Users</h2>
+
+@foreach (var user in Model)
+{
+    <div class="row">
+        <div class="col-sm-3">@user.DisplayName</div>
+        <div class="col-sm-3">@user.Email</div>
+        <div class="col-sm-3">
+            <ul>
+                @foreach (var role in user.GetRoleNames(ViewBag.AllRolesList))
+                {
+                    <li class="label label-default">@role</li>
+                }
+            </ul>
+
+        </div>
+
+
+    </div>
+}

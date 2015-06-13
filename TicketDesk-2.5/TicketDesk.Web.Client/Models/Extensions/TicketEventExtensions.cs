@@ -12,8 +12,11 @@
 // provided to the recipient.
 
 using System.Web;
+using System.Web.Mvc;
 using StackExchange.DataExplorer.Helpers;
 using TicketDesk.Web.Client;
+using TicketDesk.Web.Identity;
+using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Domain.Model
 {
@@ -21,7 +24,8 @@ namespace TicketDesk.Domain.Model
     {
         public static UserDisplayInfo GetEventByInfo(this TicketEvent ticketEvent)
         {
-            return UserDisplayInfo.GetUserInfo(ticketEvent.EventBy);
+            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
+            return userManager.GetUserInfo(ticketEvent.EventBy);
         }
 
         public static HtmlString HtmlComment(this TicketEvent ticketEvent)

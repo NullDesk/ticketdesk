@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client

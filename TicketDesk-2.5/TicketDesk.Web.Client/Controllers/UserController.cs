@@ -23,6 +23,7 @@ using TicketDesk.Domain;
 using TicketDesk.PushNotifications;
 using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Models;
+using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Controllers

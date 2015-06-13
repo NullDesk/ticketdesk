@@ -13,12 +13,9 @@
 
 using System;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security.DataProtection;
-using Owin;
 using TicketDesk.Web.Identity.Model;
 
-namespace TicketDesk.Web.Client
+namespace TicketDesk.Web.Identity
 {
     public class TicketDeskUserManager : UserManager<TicketDeskUser>
     {
@@ -49,7 +46,8 @@ namespace TicketDesk.Web.Client
         {
             return this.IsInRole(userId, "TdPendingUsers");
         }
-        internal void InitializeUserManager(IAppBuilder app)
+
+        public void InitializeUserManager()
         {
             UserValidator = new UserValidator<TicketDeskUser>(this)
             {
@@ -71,13 +69,7 @@ namespace TicketDesk.Web.Client
             UserLockoutEnabledByDefault = true;
             DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             MaxFailedAccessAttemptsBeforeLockout = 5;
-
-            //TODO: research DpapiDataProtectionProvider and figure out what the f*** this is supposed to do
-            var dataProtectionProvider = app.GetDataProtectionProvider();
-            if (dataProtectionProvider != null)
-            {
-                UserTokenProvider = new DataProtectorTokenProvider<TicketDeskUser>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
         }
+
     }
 }

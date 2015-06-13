@@ -26,6 +26,7 @@ namespace TicketDesk.Web.Client.Models
         private UserTicketListSetting CurrentListSetting { get; set; }
         private TicketDeskRoleManager RoleManager { get; set; }
         private TicketDeskUserManager UserManager { get; set; }
+
         public FilterBarViewModel(UserTicketListSetting currentListSetting)
         {
             CurrentListSetting = currentListSetting;

@@ -17,6 +17,7 @@ using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
+using TicketDesk.Web.Identity;
 
 namespace TicketDesk.Web.Client
 {
