@@ -26,6 +26,7 @@ namespace TicketDesk.Web.Identity.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "TicketDeskIdentity";
         }
 
