@@ -51,6 +51,16 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/jquery.clickable-{version}.js"
                     ));
 
+            bundles.Add(new ScriptBundle("~/bundles/admin-users").Include(
+                    "~/Scripts/ticketdesk/admin-users.js",
+                    "~/Scripts/jquery.clickable-{version}.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/admin-edit-user").Include(
+                "~/Scripts/ticketdesk/admin-edit-user.js"
+            ));
+
+
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(
                     "~/Scripts/dropzone/dropzone.js",
                     "~/Scripts/ticketdesk/ticket-file-uploader.js",

@@ -65,53 +65,60 @@ body {
         background-color: #b3cbdf;
         color: #000;
     }
+
 .form-group-xs .form-control {
-  height: 22px;
-  padding: 1px 3px;
-  font-size: 11px;
-  line-height: 1.2;
-  border-radius: 2px;
+    height: 22px;
+    padding: 1px 3px;
+    font-size: 11px;
+    line-height: 1.2;
+    border-radius: 2px;
 }
+
 select.form-group-xs .form-control {
-  height: 22px;
-  line-height: 18px;
+    height: 22px;
+    line-height: 18px;
 }
+
 textarea.form-group-xs .form-control,
 select[multiple].form-group-xs .form-control {
-  height: auto;
+    height: auto;
 }
+
 .form-group-xs .form-control-static {
-  height: 22px;
-  min-height: 20px;
-  padding: 1px 3px;
-  font-size: 11px;
-  line-height: 1.2;
+    height: 22px;
+    min-height: 20px;
+    padding: 1px 3px;
+    font-size: 11px;
+    line-height: 1.2;
 }
 
 @media (min-width: 768px) {
-  .form-horizontal .form-group-xs .control-label {
-    padding-top: 6px;
-  }
+    .form-horizontal .form-group-xs .control-label {
+        padding-top: 6px;
+    }
 }
 
 .wmd-preview {
     min-height: 250px;
     overflow: auto;
 }
+
 #wmd-preview-activity.wmd-preview {
     min-height: 100px;
     overflow: auto;
 }
 
 
-dl {
+
+#eventPanel dl {
     margin-left: 15px;
 }
-dd {
-    text-indent: 1em;
-    font-family: monospace;
-    font-size: smaller;
-}
+
+    #eventPanel dl dd {
+        text-indent: 1em;
+        font-family: monospace;
+        font-size: smaller;
+    }
 
 /* Set width on the form input elements since they're 100% wide by default */
 
@@ -146,7 +153,6 @@ input[type="checkbox"].input-validation-error {
 /*Home page*/
 .right-side-box {
     height: 100%;
-    
 }
 
 .left-side-box {
@@ -173,75 +179,72 @@ p {
     }
 
     #ticketList .filterBar.navbar {
-         min-height: 20px;
+        min-height: 20px;
     }
 
-    #filterForm.navbar-form {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
+#filterForm.navbar-form {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
-    #ticketList .filterBar {
-       
-        margin: 0;
-        display: block;
+#ticketList .filterBar {
+    margin: 0;
+    display: block;
+    border: 1px dotted #B3CBDF;
+    background-color: #E1EBF2;
+    -ms-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -ms-border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#ticketList table {
+    margin-bottom: 0;
+}
+
+#ticketList table {
+    font-size: 10pt;
+    /*border: 1px solid #B3CBDF;*/
+}
+
+    #ticketList table td {
         border: 1px dotted #B3CBDF;
-        background-color: #E1EBF2;
-        -ms-border-top-left-radius: 10px;
-        border-top-left-radius: 10px;
-        -ms-border-top-right-radius: 10px;
-        border-top-right-radius: 10px;
+        border-collapse: collapse;
+        white-space: nowrap;
     }
 
-    #ticketList table {
-        margin-bottom: 0;
-    }
-
-    #ticketList table {
-        font-size: 10pt;
-        /*border: 1px solid #B3CBDF;*/
-    }
-
-        #ticketList table td {
-            border: 1px dotted #B3CBDF;
-            border-collapse: collapse;
-            white-space: nowrap;
-        }
-
-        #ticketList table th {
-            white-space: nowrap;
-            border: 1px dotted #B3CBDF;
-            background-color: #FFFFDD;
-        }
-
-
-
-
-    #ticketList footer {
+    #ticketList table th {
+        white-space: nowrap;
         border: 1px dotted #B3CBDF;
-        -ms-border-bottom-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        -ms-border-bottom-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        background-color: #E1EBF2;
-        padding: 0 20px;
+        background-color: #FFFFDD;
     }
 
-        #ticketList footer .pagination {
-            margin: 10px 0;
-        }
 
-    #ticketList tr:hover.clickable {
-        cursor: pointer;
+#ticketList footer {
+    border: 1px dotted #B3CBDF;
+    -ms-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -ms-border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #E1EBF2;
+    padding: 0 20px;
+}
+
+    #ticketList footer .pagination,
+    #userListBody .panel-footer .pagination {
+        margin: 5px 0;
     }
 
-    #ticketList .number-select {
-        width: 55px;
-        display: inline-block;
-      
-    }
+#ticketList .number-select {
+    width: 55px;
+    display: inline-block;
+}
 
-.menulist{
+tr:hover.clickable {
+    cursor: pointer;
+}
+
+.menulist {
     margin-right: 8px;
     margin-left: 5px;
 }
@@ -253,22 +256,18 @@ p {
 
 
 
-.expanderButton
-{
+.expanderButton {
     cursor: pointer;
     text-align: center;
-   
     color: #333;
     background-color: #EBEBEB;
     border: none;
     border-bottom-left-radius: 4px;
+}
 
-}
-.expanderButton:hover
-{
-    background-color: #999999;
-    
-}
+    .expanderButton:hover {
+        background-color: #999999;
+    }
 
 
 
@@ -397,56 +396,63 @@ p {
 /* columns of same height styles */
 
 .row-no-padding > [class*="col-"] {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 
 .row-full-height {
-  height: 100%;
+    height: 100%;
 }
+
 .col-full-height {
-  height: 100%;
-  vertical-align: middle;
+    height: 100%;
+    vertical-align: middle;
 }
+
 .row-same-height {
-  display: table;
-  /*width: 100%;*/
-  /* fix overflow */
-  table-layout: fixed;
+    display: table;
+    /*width: 100%;*/
+    /* fix overflow */
+    table-layout: fixed;
 }
+
 .col-xs-height {
-  display: table-cell;
-  float: none !important;
+    display: table-cell;
+    float: none !important;
 }
 
 @media (min-width: 768px) {
-  .col-sm-height {
-    display: table-cell;
-    float: none !important;
-  }
+    .col-sm-height {
+        display: table-cell;
+        float: none !important;
+    }
 }
+
 @media (min-width: 992px) {
-  .col-md-height {
-    display: table-cell;
-    float: none !important;
-  }
+    .col-md-height {
+        display: table-cell;
+        float: none !important;
+    }
 }
+
 @media (min-width: 1200px) {
-  .col-lg-height {
-    display: table-cell;
-    float: none !important;
-  }
+    .col-lg-height {
+        display: table-cell;
+        float: none !important;
+    }
 }
 
 .col-top {
-  vertical-align: top;
+    vertical-align: top;
 }
+
 .col-middle {
-  vertical-align: middle;
+    vertical-align: middle;
 }
+
 .col-bottom {
-  vertical-align: bottom;
+    vertical-align: bottom;
 }

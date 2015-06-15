@@ -12,7 +12,7 @@
 // provided to the recipient.
 
 (function (window) {
-    var editTicket = (function () {
+    window.editTicket = (function () {
         var config;
         var activate = function (tdConfig) {
             config = tdConfig;
@@ -194,5 +194,4 @@
             failActivity: failActivity
         };
     })();
-    window.editTicket = editTicket;
 })(window);

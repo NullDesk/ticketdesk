@@ -37,7 +37,8 @@ namespace TicketDesk.Domain.Model
 
         public static MultiSelectList GetDefaultNewUserRolesList(this ApplicationSetting settings)
         {
-            return TdIdentityContext.DefaultRoles.ToMultiSelectList(
+            var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
+            return roleManager.Roles.ToMultiSelectList(
                 r => r.Name, 
                 r => r.DisplayName,
                 settings.SecuritySettings.DefaultNewUserRoles.ToArray(),

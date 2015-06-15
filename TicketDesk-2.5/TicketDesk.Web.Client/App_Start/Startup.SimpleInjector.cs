@@ -99,7 +99,7 @@ namespace TicketDesk.Web.Client
             container.RegisterPerWebRequest<TicketDeskRoleManager>();
 
             container.RegisterInitializer<TicketDeskUserManager>(manager =>
-                manager.InitializeUserManager(app));
+                manager.ConfigureDataProtection(app));
 
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());

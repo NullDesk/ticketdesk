@@ -11,10 +11,8 @@ namespace TicketDesk.Web.Identity
         {
             return userManager.InfoCache.GetUserInfo(userId) ?? new UserDisplayInfo();
         }
-        public static void InitializeUserManager(this TicketDeskUserManager userManager, IAppBuilder app)
+        public static void ConfigureDataProtection(this TicketDeskUserManager userManager, IAppBuilder app)
         {
-            userManager.InitializeUserManager();
-
             //TODO: research DpapiDataProtectionProvider and figure out what the f*** this is supposed to do
             var dataProtectionProvider = app.GetDataProtectionProvider();
             if (dataProtectionProvider != null)

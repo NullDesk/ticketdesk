@@ -12,7 +12,7 @@
 // provided to the recipient.
 
 (function (window) {
-    var ticketDetails = (function () {
+    window.ticketDetails = (function () {
 
         var config = {};
         var acivate = function (tdConfig) {
@@ -44,7 +44,4 @@
             activate: acivate
         }
     })();
-
-    window.ticketDetails = ticketDetails;
-
 })(window);

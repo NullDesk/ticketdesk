@@ -12,7 +12,7 @@
 // provided to the recipient.
 
 (function (window) {
-    var ticketTags = (function () {
+    window.ticketTags = (function () {
 
         var config = {};
        
@@ -66,7 +66,4 @@
             activate: acivate
         }
     })();
-
-    window.ticketTags = ticketTags;
-
 })(window);

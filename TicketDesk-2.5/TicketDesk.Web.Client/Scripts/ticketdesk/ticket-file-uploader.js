@@ -14,7 +14,7 @@
 
 
 (function (window) {
-    var ticketFileUploader = (function () {
+    window.ticketFileUploader = (function () {
         var activate = function (config) {
             Dropzone.autoDiscover = false;
 
@@ -90,8 +90,5 @@
             activate: activate
         }
     })();
-
-    window.ticketFileUploader = ticketFileUploader;
-
 })(window);
 

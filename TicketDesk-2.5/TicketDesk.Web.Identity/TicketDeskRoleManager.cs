@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Web.Identity;
@@ -60,14 +61,50 @@ namespace TicketDesk.Web.Identity
         public void EnsureDefaultRolesExist()
         {
             //var roles = TdIdentityContext.DefaultRoles;
-            foreach (var defaultRole in TdIdentityContext.DefaultRoles)
+            foreach (var defaultRole in DefaultRoles)
             {
-                if(!this.RoleExists(defaultRole.Name))
+                if (!this.RoleExists(defaultRole.Name))
                 {
                     this.Create(defaultRole);
                 }
             }
-           
+
+        }
+
+
+        public static IEnumerable<TicketDeskRole> DefaultRoles
+        {
+            get
+            {
+                return new[]
+                {
+                    new TicketDeskRole
+                    {
+                        Name = "TdAdministrators",
+                        DisplayName = "Administrator",
+                        Description = "Can manage settings, users, and access application logs"
+                    },
+                     new TicketDeskRole
+                    {
+                        Name = "TdHelpDeskUsers",
+                        DisplayName = "Help Desk Staff",
+                        Description = "May be assigned tickets, have full control over all existing tickets."
+
+                     },
+                     new TicketDeskRole
+                    {
+                        Name = "TdInternalUsers",
+                        DisplayName = "Internal User",
+                        Description = "Can submit tickets and view all existing tickets."
+                     },
+                     new TicketDeskRole
+                    {
+                        Name = "TdPendingUsers",
+                        DisplayName = "Pending Approval",
+                        Description = "Users that have registered, but who's accounts have not been approved by an Administrator."
+                     }
+                };
+            }
         }
 
     }

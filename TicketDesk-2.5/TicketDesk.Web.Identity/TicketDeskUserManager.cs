@@ -22,7 +22,7 @@ namespace TicketDesk.Web.Identity
         public TicketDeskUserManager(IUserStore<TicketDeskUser> store)
             : base(store)
         {
-
+            ConfigureUserManager();
         }
 
         public UserDisplayInfoCache InfoCache { get { return new UserDisplayInfoCache(this); } }
@@ -47,7 +47,7 @@ namespace TicketDesk.Web.Identity
             return this.IsInRole(userId, "TdPendingUsers");
         }
 
-        public void InitializeUserManager()
+        private void ConfigureUserManager()
         {
             UserValidator = new UserValidator<TicketDeskUser>(this)
             {
@@ -64,7 +64,7 @@ namespace TicketDesk.Web.Identity
                 RequireLowercase = false,
                 RequireUppercase = false,
             };
-
+            
             // Configure user lockout defaults
             UserLockoutEnabledByDefault = true;
             DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);

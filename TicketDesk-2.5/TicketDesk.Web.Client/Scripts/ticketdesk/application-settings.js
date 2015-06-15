@@ -12,7 +12,7 @@
 // provided to the recipient.
 
 (function (window) {
-    var applicationSettings = (function () {
+    window.applicationSettings = (function () {
         var config;
 
         var cofigureSettings = function (elementId) {
@@ -74,5 +74,4 @@
             activate: activate
         }
     })();
-    window.applicationSettings = applicationSettings;
 })(window);

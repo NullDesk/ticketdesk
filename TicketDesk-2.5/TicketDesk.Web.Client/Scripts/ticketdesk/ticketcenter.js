@@ -84,9 +84,7 @@
             sorts: sorts,
             filters: filters
         };
-
     }();
-    window.ticketCenter = ticketCenter;
 })(window);
 
 

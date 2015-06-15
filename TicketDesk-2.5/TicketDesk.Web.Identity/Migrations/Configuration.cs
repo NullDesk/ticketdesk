@@ -59,8 +59,7 @@ namespace TicketDesk.Web.Identity.Migrations
             var userStore = new UserStore<TicketDeskUser>(context);
             var roleStore = new RoleStore<TicketDeskRole>(context);
 
-            //TODO: this user manager has a default config, need to leverage the same user manager as the rest of the application
-            var userManager = new UserManager<TicketDeskUser>(userStore);
+            var userManager = new TicketDeskUserManager(userStore);
             var roleManager = new TicketDeskRoleManager(roleStore);
             roleManager.EnsureDefaultRolesExist();
             
@@ -81,8 +80,6 @@ namespace TicketDesk.Web.Identity.Migrations
                 {
                     var adminRoles = new[] { "TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers" };
                     userManager.Create(admin, "123456");
-
-                    userManager.SetLockoutEnabled(admin.Id, false);
 
                     foreach (var rname in adminRoles)
                     {

@@ -100,7 +100,7 @@ namespace TicketDesk.Web.Client.Controllers
                 //await user.GenerateUserIdentityAsync(UserManager);
                 return RedirectToAction("Manage", new { Message = AccountMessageId.ProfileSaveSuccess });
             }
-            return View();
+            return View(model);
         }
 
         private async Task ResetMailEmailDestination(TicketDeskUser user, string oldEmail)

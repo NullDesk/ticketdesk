@@ -40,45 +40,8 @@ namespace TicketDesk.Web.Identity
 
         }
 
-        public static IEnumerable<string> DefaultRoleNames
-        {
-            get { return DefaultRoles.Select(r => r.Name); }
-        }
+       
 
-        public static IEnumerable<TicketDeskRole> DefaultRoles
-        {
-            get
-            {
-                return new[]
-                {
-                    new TicketDeskRole
-                    {
-                        Name = "TdAdministrators",
-                        DisplayName = "Administrators",
-                        Description = "Can manage settings, users, and access application logs"
-                    },
-                     new TicketDeskRole
-                    {
-                        Name = "TdHelpDeskUsers",
-                        DisplayName = "Help Desk Users",
-                        Description = "May be assigned tickets, have full control over all existing tickets."
-
-                     },
-                     new TicketDeskRole
-                    {
-                        Name = "TdInternalUsers",
-                        DisplayName = "Internal Users",
-                        Description = "Can submit tickets and view all existing tickets."
-                     },
-                     new TicketDeskRole
-                    {
-                        Name = "TdPendingUsers",
-                        DisplayName = "Pending Approval",
-                        Description = "Users that have registered, but who's accounts have not been approved by an Administrator."
-                     }
-                };
-            }
-        }
 
     }
 }
