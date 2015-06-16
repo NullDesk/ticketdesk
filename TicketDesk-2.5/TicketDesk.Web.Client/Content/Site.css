@@ -240,8 +240,11 @@ p {
     display: inline-block;
 }
 
-tr:hover.clickable {
+.clickable {
     cursor: pointer;
+}
+.clickable:hover .panel-heading{
+    background-color: rgba(223, 240, 216,0.4);
 }
 
 .menulist {

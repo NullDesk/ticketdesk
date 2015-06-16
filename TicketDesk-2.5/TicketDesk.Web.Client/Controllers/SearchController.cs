@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
@@ -38,6 +39,7 @@ namespace TicketDesk.Web.Client.Controllers
             if (!string.IsNullOrEmpty(term))
             {
                 var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term);
+               
                 return View(model);
             }
             return View(new Ticket[0]);

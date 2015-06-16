@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client
                     .Include("~/Content/css/select2-bootstrap.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new StyleBundle("~/content/editor")
-                   
+
                     .Include("~/Scripts/dropzone/dropzone.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/basic.css", new CssRewriteUrlTransform()));
 
@@ -56,6 +56,11 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/jquery.clickable-{version}.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/search").Include(
+                   "~/Scripts/ticketdesk/search.js",
+                   "~/Scripts/jquery.clickable-{version}.js"
+               ));
+
             bundles.Add(new ScriptBundle("~/bundles/admin-edit-user").Include(
                 "~/Scripts/ticketdesk/admin-edit-user.js"
             ));
@@ -66,7 +71,7 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/ticketdesk/ticket-file-uploader.js",
                     "~/Scripts/ticketdesk/ticket-details.js",
                     "~/Scripts/ticketdesk/ticket-tags.js"
-                    
+
                     ));
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(

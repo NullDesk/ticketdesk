@@ -345,6 +345,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\ticketdesk\admin-edit-user.js" />
+    <Content Include="Scripts\ticketdesk\search.js" />
     <Content Include="Scripts\ticketdesk\admin-users.js" />
     <Content Include="Scripts\ticketdesk\application-settings.js" />
     <Content Include="Views\SearchManager\Index.cshtml" />
