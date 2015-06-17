@@ -44,12 +44,12 @@ namespace TicketDesk.Web.Client.Controllers
                 
                 await TicketDeskFileStore.SaveAttachmentAsync(file.InputStream, file.FileName, tempId.ToString(), true);
             }
-            return Json(new { Message = string.Empty });//dropzone expects a message property back
+            return new JsonCamelCaseResult { Data = new { Message = string.Empty } };//dropzone expects a message property back
         }
-       
+
         [HttpPost]
         [Route("delete")]
-        public ActionResult Delete(Guid id, string fileName)
+        public JsonResult Delete(Guid id, string fileName)
         {
             //ticketdesk never lets the UI directly delete a file attachment unless it is a pending. 
             TicketDeskFileStore.DeleteAttachment(fileName, id.ToString(), true);

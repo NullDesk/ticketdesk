@@ -47,7 +47,7 @@
             var detailsMinHeight = 200;
 
             setupDetails();
-
+            configureWatchButton();
             //#region internal details configuration functions
             function setupDetails() {
                 $("#detailTextExpander").each(function (idx, elem) {
@@ -68,6 +68,8 @@
                     }
                 });
             }
+
+
 
             function toggleExpanderState(jqElem, newHeight, overflow, addClass, remClass) {
                 jqElem.siblings("#detailsText")
@@ -122,6 +124,22 @@
             }
         };
 
+        var configureWatchButton = function () {
+            setWatchButton(config.isSubscribed);
+            $('#watch').on('click', function (e) {
+                $.ajax({
+                    type: 'POST',
+                    url: config.changeTicketSubscription,
+                    dataType: 'json'
+                }).done(function (data) {
+                    config.isSubscribed = data.isSubscribed;
+                    loadDetails();
+                });
+            });
+        }
+
+       
+
         // ReSharper disable once UnusedParameter
         var failActivity = function (data) {
             $('#activityPanel').animate({ opacity: 1 }, 200);
@@ -145,6 +163,7 @@
         var loadDetails = function () {
             $('#ticketDetailPanel').parent().animate({ opacity: 0.5 }, 200);
             $.get(config.loadDetailsUrl, renderDetailsPanel);
+            
         };
 
         var loadEventPanel = function () {
@@ -180,8 +199,16 @@
             $('#eventPanel').empty().addClass('panel-body').append(data).parent().animate({ opacity: 1 }, 200);
         };
 
-        var renderAttachmentsPanel = function(data) {
+        var renderAttachmentsPanel = function (data) {
             $('#attachmentsPanel').empty().append(data).animate({ opacity: 1 }, 200);
+        }
+
+        var setWatchButton = function (isSubscribed) {
+            var icon = $('#watch > i');
+            var iconClass = isSubscribed ? 'fa-eye-slash' : 'fa-eye';
+            icon.removeClass('fa-eye fa-eye-slash').addClass(iconClass);
+            $('#watch>span').text((isSubscribed ? "Unwatch" : "Watch"));
+            config.isSubscribed = isSubscribed;
         }
 
         return {

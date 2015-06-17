@@ -35,7 +35,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("reset-user-lists")]
         public async Task<ActionResult> ResetUserLists()
         {
-            var uId = User.Identity.GetUserId();
+            var uId = Context.SecurityProvider.CurrentUserId;
             await Context.UserSettingsManager.ResetAllListSettingsForUser(uId);
             var x = await Context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -69,7 +69,7 @@ namespace TicketDesk.Web.Client.Controllers
             string owner,
             string assignedTo)
         {
-            var uId = User.Identity.GetUserId();
+            var uId = Context.SecurityProvider.CurrentUserId;
             var userSetting = await Context.UserSettingsManager.GetSettingsForUser(uId);
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
@@ -89,7 +89,7 @@ namespace TicketDesk.Web.Client.Controllers
             string columnName,
             bool isMultiSort = false)
         {
-            var uId = User.Identity.GetUserId();
+            var uId = Context.SecurityProvider.CurrentUserId;
             var userSetting = await Context.UserSettingsManager.GetSettingsForUser(uId);
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
@@ -133,7 +133,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             var pageNumber = page ?? 1;
 
-            var viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, User.Identity.GetUserId());//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
+            var viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUserId);//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
             return PartialView("_TicketList", viewModel);
 
         }

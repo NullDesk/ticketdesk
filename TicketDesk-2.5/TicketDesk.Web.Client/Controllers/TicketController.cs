@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
+using System.Data.Entity.Utilities;
+using System.Linq;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -44,7 +47,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult> Index(int id)
         {
-            var model = await Context.Tickets.FindAsync(id);
+            var model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
             if (model == null)
             {
                 return RedirectToAction("Index", "TicketCenter");
@@ -53,7 +56,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-       
+
         [Route("new")]
         public ActionResult New()
         {
@@ -80,7 +83,7 @@ namespace TicketDesk.Web.Client.Controllers
                 // ReSharper disable once EmptyGeneralCatchClause
                 catch (DbEntityValidationException)
                 {
-                    
+
                     //TODO: catch rule exceptions? or can annotations handle this fully now?
                 }
 
@@ -109,8 +112,33 @@ namespace TicketDesk.Web.Client.Controllers
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
 
-
             return PartialView("_TicketDetails", ticket);
+        }
+
+        [Route("change-ticket-subscription")]
+        [HttpPost]
+        public async Task<JsonResult> ChangeTicketSubscription(int ticketId)
+        {
+            var userId = Context.SecurityProvider.CurrentUserId;
+            var ticket = await Context.Tickets.Include(t => t.TicketSubscribers).Include(t => t.TicketEvents.Select(e => e.TicketEventNotifications)).FirstOrDefaultAsync(t => t.TicketId == ticketId);
+            var subscriber =
+                ticket.TicketSubscribers.FirstOrDefault(s => s.SubscriberId == Context.SecurityProvider.CurrentUserId);
+            var isSubscribed = false;
+            if (subscriber == null)
+            {
+                subscriber = new TicketSubscriber
+                {
+                    SubscriberId = userId,
+                };
+                ticket.TicketSubscribers.Add(subscriber);
+                isSubscribed = true;
+            }
+            else
+            {
+                ticket.TicketSubscribers.Remove(subscriber);
+            }
+            await Context.SaveChangesAsync();
+            return new JsonCamelCaseResult { Data = new { IsSubscribed = isSubscribed } };
         }
 
         private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)

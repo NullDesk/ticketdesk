@@ -284,6 +284,7 @@
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketEventNotificationExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketSubscriberExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
     <Compile Include="Models\SystemInfoViewModel.cs" />

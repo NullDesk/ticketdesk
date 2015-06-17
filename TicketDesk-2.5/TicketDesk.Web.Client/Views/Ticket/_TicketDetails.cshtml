@@ -12,14 +12,12 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
-
 @using TicketDesk.Domain
 @using TicketDesk.Domain.Model
-@using TicketDesk.IO
 @model Ticket
 
 <div class="panel-heading" style="padding: 3px 5px;">
-    <div class="row ">
+    <div class="row">
         <div class="row-same-height row-full-height">
             <div class="col-xs-2 col-sm-2 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
                 @Model.TicketStatus.GetDescription()
@@ -27,8 +25,15 @@
             <div class="col-xs-2 col-sm-1 col-xs-height col-full-height text-center panel-title" style="border-right: 1px solid #dcdcdc;">
                 #@Model.TicketId
             </div>
-            <div class="col-xs-8 col-sm-9 col-xs-height col-full-height panel-title">
+            <div class="col-xs-7 col-sm-8 col-xs-height col-full-height panel-title">
                 @Model.Title
+            </div>
+            <div class="col-xs-1 col-xs-height col-full-height">
+                <div class="pull-right">
+                    <button id="watch" type="button" class="btn btn-default">
+                        <i class="fa fa-eye"></i> <span></span>
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -122,6 +127,18 @@
                         @Model.CreatedDate.DateTime.ToShortDateString() @Model.CreatedDate.DateTime.ToShortTimeString()
                     </div>
                 </div>
+
+                <div class="row">
+                    <label class="col-sm-5 col-lg-4 text-right">Subscribers</label>
+                    <div class="col-sm-7 col-lg-8">
+                       
+                        @foreach (var sub in Model.TicketSubscribers)
+                        {
+                            <div>@sub.GetSubscriberDisplayInfo().DisplayName</div>
+                        }
+                    </div>
+                </div>
+
 
             </aside>
         </div>

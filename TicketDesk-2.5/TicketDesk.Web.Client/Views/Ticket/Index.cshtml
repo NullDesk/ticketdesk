@@ -13,6 +13,7 @@
     provided to the recipient.
 *@
 
+@using Microsoft.AspNet.Identity
 @using TicketDesk.Domain.Model
 @using TicketDesk.IO
 @model Ticket
@@ -42,6 +43,8 @@
                 eventPanelUrl: '@Url.Action("TicketEvents", "Ticket", new {ticketId = Model.TicketId})',
                 loadDetailsUrl: '@Url.Action("TicketDetails", "Ticket", new {ticketId = Model.TicketId})',
                 attachmentsPanelUrl: '@Url.Action("TicketFiles", "Ticket", new {ticketId = Model.TicketId})',
+                changeTicketSubscription: '@Url.Action("ChangeTicketSubscription","Ticket", new { ticketId = Model.TicketId })',
+                isSubscribed : @(Model.TicketSubscribers.Any(s => s.SubscriberId == User.Identity.GetUserId())?"true":"false"),
                 uploaderConfig: {
                     dropzoneUploadUrl: '@Url.Action("Upload", "File")',
                     getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
