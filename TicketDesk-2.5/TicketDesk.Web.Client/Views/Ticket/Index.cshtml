@@ -27,10 +27,12 @@
 {
     @Styles.Render("~/content/editor")
     @Styles.Render("~/content/select2")
+    @Styles.Render("~/content/summernote")
     @Scripts.Render("~/bundles/editor")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/markdown")
     @Scripts.Render("~/bundles/editticket")
+    @Scripts.Render("~/bundles/summernote")
 
 
     <script type="text/javascript">
@@ -43,18 +45,23 @@
                 eventPanelUrl: '@Url.Action("TicketEvents", "Ticket", new {ticketId = Model.TicketId})',
                 loadDetailsUrl: '@Url.Action("TicketDetails", "Ticket", new {ticketId = Model.TicketId})',
                 attachmentsPanelUrl: '@Url.Action("TicketFiles", "Ticket", new {ticketId = Model.TicketId})',
-                changeTicketSubscription: '@Url.Action("ChangeTicketSubscription","Ticket", new { ticketId = Model.TicketId })',
-                isSubscribed : @(Model.TicketSubscribers.Any(s => s.SubscriberId == User.Identity.GetUserId())?"true":"false"),
+                changeTicketSubscription: '@Url.Action("ChangeTicketSubscription", "Ticket", new {ticketId = Model.TicketId})',
+                isSubscribed: @(Model.TicketSubscribers.Any(s => s.SubscriberId == User.Identity.GetUserId()) ? "true" : "false"),
                 uploaderConfig: {
                     dropzoneUploadUrl: '@Url.Action("Upload", "File")',
                     getAttachmentsUrl: '@Url.Action("GetAttachmentsInfo", "File")',
                     defaultThumbnailUrl: '@Url.Content("~/content/images/general-file.png")',
                     deleteFileUrl: '@Url.Action("Delete", "File")',
-                    ticketId: @Model.TicketId},
+                    ticketId: @Model.TicketId
+                    },
                 tagsConfig: {
                     tagAutoCompleteUrl: '@Url.Action("TagList", "AutoComplete")',
-                }
-            };
+                },
+                detailsConfig: {
+                    isHtml: @(Model.IsHtml ? "true" : "false")
+                    },
+                isEditorDefaultHtml: @(ViewBag.IsEditorDefaultHtml? "true" : "false")
+                };
             window.editTicket.activate(tdConfig);
         });
     </script>

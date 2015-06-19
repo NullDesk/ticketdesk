@@ -15,13 +15,12 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
-using System.Data.Entity.Utilities;
-using System.Linq;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -52,6 +51,9 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return RedirectToAction("Index", "TicketCenter");
             }
+            ViewBag.IsEditorDefaultHtml =
+                (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") ==
+                "summernote";
 
             return View(model);
         }
@@ -60,7 +62,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("new")]
         public ActionResult New()
         {
-            var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId };
+            var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId, IsHtml = (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") == "summernote" };
             ViewBag.TempId = Guid.NewGuid();
             return View(model);
         }
@@ -68,6 +70,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateOnlyIncomingValues]
+        [ValidateInput(false)]
         [Route("new")]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {

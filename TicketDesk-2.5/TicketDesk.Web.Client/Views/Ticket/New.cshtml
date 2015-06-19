@@ -24,9 +24,12 @@
 {
     @Styles.Render("~/content/editor")
     @Styles.Render("~/content/select2")
+    @Styles.Render("~/content/summernote")
     @Scripts.Render("~/bundles/editor")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/markdown")
+    @Scripts.Render("~/bundles/summernote")
+
     <script type="text/javascript">
 
         (function () {
@@ -41,8 +44,11 @@
             var tagsConfig = {
                 tagAutoCompleteUrl: '@Url.Action("TagList", "AutoComplete")'
             };
+            var detailsConfig = {
+                isHtml: @(Model.IsHtml ? "true" : "false")
+            };
             window.ticketTags.activate(tagsConfig);
-            window.ticketDetails.activate();
+            window.ticketDetails.activate(detailsConfig);
             window.ticketFileUploader.activate(uploaderConfig);
         })();
     </script>
@@ -63,6 +69,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
                         @Html.HiddenFor(model => model.TicketId)
+                        @Html.HiddenFor(model => model.IsHtml)
 
                         <input type="hidden" name="tempId" value="@ViewBag.TempId" />
 
@@ -107,39 +114,49 @@
                                 @Html.LabelFor(model => model.TagList, new { @class = "col-md-1 col-sm-1 control-label" })
                                 <div class="col-md-4 col-sm-4">
                                     @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 6 })
-
                                 </div>
                             }
 
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 col-sm-1 control-label text-right" for="wmd-input-ticketDetails">Details</label>
-                            <div class="col-md-8 col-sm-11 wmd-panel">
-                                <div class=" tabbable tabs-below">
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade in active" id="tab1">
-                                            <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                                            @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
-
-                                        </div>
-                                        <div class="tab-pane fade" id="tab2">
-                                            <div class="row" style="min-height: 35px;"></div>
-
-                                            <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
+                        @if (Model.IsHtml)//TODO: Refactor into a partial or mvc editorfor view
+                        {
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-1 control-label text-right" for="summernote">Details</label>
+                                <div class="col-md-8 col-sm-11">
+                                    <textarea id="wmd-input-ticketDetails" name="Details" data-val-required="" data-val="true" >@Model.Details</textarea>
+                                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-1 control-label text-right" for="wmd-input-ticketDetails">Details</label>
+                                <div class="col-md-8 col-sm-11 wmd-panel">
+                                    <div class=" tabbable tabs-below">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab1">
+                                                <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
+                                                @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required="", data_val="true", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
 
                                             </div>
-                                        </div>
-                                    </div>
-                                    <ul class="nav nav-tabs navbar-right">
-                                        <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
-                                        <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
-                                    </ul>
-                                </div>
-                                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                            <div class="tab-pane fade" id="tab2">
+                                                <div class="row" style="min-height: 35px;"></div>
 
+                                                <div id="wmd-preview-ticketDetails" class="wmd-panel wmd-preview form-control">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="nav nav-tabs navbar-right">
+                                            <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
+                                            <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
+                                        </ul>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
                         <div class="form-group">
                             @if (Model.AllowSetOwner())
                             {

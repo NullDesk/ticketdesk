@@ -28,6 +28,7 @@ namespace TicketDesk.Web.Client.Controllers
     [RoutePrefix("ticket-activity")]
     [Route("{action}")]
     [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
+    [ValidateInput(false)]
     public class TicketActivityController : Controller
     {
         private TdDomainContext Context { get; set; }
@@ -36,7 +37,7 @@ namespace TicketDesk.Web.Client.Controllers
             Context = context;
         }
 
-        [Route("load-actiity")]
+        [Route("load-activity")]
         public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId, Guid? tempId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
@@ -44,6 +45,9 @@ namespace TicketDesk.Web.Client.Controllers
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
             ViewBag.TempId = tempId ?? Guid.NewGuid();
+            ViewBag.IsEditorDefaultHtml =
+                (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") ==
+                "summernote";
             return PartialView("_ActivityForm", ticket);
         }
 
@@ -269,6 +273,9 @@ namespace TicketDesk.Web.Client.Controllers
             //fail case, return the view and let the client/view sort out the errors
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
+            ViewBag.IsEditorDefaultHtml =
+               (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") ==
+               "summernote";
             return PartialView("_ActivityForm", ticket);
         }
     }

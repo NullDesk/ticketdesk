@@ -13,7 +13,7 @@
 
 using System.Web;
 using System.Web.Mvc;
-using StackExchange.DataExplorer.Helpers;
+using Ganss.XSS;
 using TicketDesk.Web.Client;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
@@ -31,7 +31,10 @@ namespace TicketDesk.Domain.Model
         public static HtmlString HtmlComment(this TicketEvent ticketEvent)
         {
             var content = (ticketEvent.IsHtml) ? ticketEvent.Comment : ticketEvent.Comment.HtmlFromMarkdown();
-            return new HtmlString(HtmlUtilities.Safe(content));
+            var san = new HtmlSanitizer();
+
+            return new HtmlString(san.Sanitize(content));
+            
         }
     }
 }

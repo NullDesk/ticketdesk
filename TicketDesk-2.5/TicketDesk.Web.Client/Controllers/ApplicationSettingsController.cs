@@ -47,7 +47,8 @@ namespace TicketDesk.Web.Client.Controllers
             [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] categories,
             [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] tickettypes,
             [ModelBinder(typeof(CommaSeparatedModelBinder))] string[] priorities,
-            List<string> defaultroles
+            List<string> defaultroles,
+            string defaultTextEditorType
             )
         {
             var dbSetting = Context.TicketDeskSettings;
@@ -57,6 +58,7 @@ namespace TicketDesk.Web.Client.Controllers
                 dbSetting.SelectLists.PriorityList = priorities.ToList();
                 dbSetting.SelectLists.TicketTypesList = tickettypes.ToList();
                 dbSetting.SecuritySettings.DefaultNewUserRoles = defaultroles;
+                dbSetting.ClientSettings.Settings["DefaultTextEditorType"] = defaultTextEditorType ?? "summernote";
                 Context.SaveChanges();
             }
             ViewBag.IsAzureSearchEnabled = IsAzureSearchDetected;

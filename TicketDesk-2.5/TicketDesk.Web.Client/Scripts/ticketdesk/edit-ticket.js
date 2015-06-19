@@ -18,6 +18,7 @@
             config = tdConfig;
             configureDetails();
             loadActivityButtons();
+
         };
 
         var beginActivity = function () {
@@ -97,30 +98,50 @@
 
         };
         var configureCommentEditor = function () {
-            var jelem = $('#wmd-input-activity');
-            if (jelem.length > 0) {
 
+            $.validator.setDefaults({
+                ignore: ""
+            });
+            if (config.isEditorDefaultHtml) {
+                jelem = $('#wmd-input-activity');
+                jelem.summernote({ height: 200 });
+                if (jelem.length > 0) {
 
-                if (jelem.data('is-required')) {
-                    jelem.attr('data-val', "true").attr('data-val-required', "");
-                    $.validator.unobtrusive.parseElement(jelem.get(0));
+                    if (jelem.data('is-required')) {
+                        jelem.attr('data-val', "true").attr('data-val-required', "");
+                       
+
+                       
+                        $.validator.unobtrusive.parseElement(jelem.get(0));
+                    }
                 }
 
-                var converter1 = Markdown.getSanitizingConverter();
+            } else {
 
-                converter1.hooks.chain("preBlockGamut", function (text, rbg) {
-                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
-                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                var jelem = $('#wmd-input-activity');
+                if (jelem.length > 0) {
+
+                    if (jelem.data('is-required')) {
+                        jelem.attr('data-val', "true").attr('data-val-required', "");
+                        $.validator.unobtrusive.parseElement(jelem.get(0));
+                    }
+
+                    var converter1 = Markdown.getSanitizingConverter();
+
+                    converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+                        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                        });
                     });
-                });
 
-                converter1.hooks.chain("postSpanGamut", function (text) {
-                    return text.replace(/\n/g, " <br>\n");
-                });
+                    converter1.hooks.chain("postSpanGamut", function (text) {
+                        return text.replace(/\n/g, " <br>\n");
+                    });
 
-                var editor1 = new Markdown.Editor(converter1, "-activity");
+                    var editor1 = new Markdown.Editor(converter1, "-activity");
 
-                editor1.run();
+                    editor1.run();
+                }
             }
         };
 
@@ -138,7 +159,7 @@
             });
         }
 
-       
+
 
         // ReSharper disable once UnusedParameter
         var failActivity = function (data) {
@@ -163,7 +184,7 @@
         var loadDetails = function () {
             $('#ticketDetailPanel').parent().animate({ opacity: 0.5 }, 200);
             $.get(config.loadDetailsUrl, renderDetailsPanel);
-            
+
         };
 
         var loadEventPanel = function () {
@@ -183,7 +204,7 @@
                 window.ticketTags.activate(config.tagsConfig);
             }
             if ($('#wmd-input-ticketDetails').length) {
-                window.ticketDetails.activate();
+                window.ticketDetails.activate(config.detailsConfig);
             }
             if ($('#wmd-input-activity').length) {
                 configureCommentEditor();

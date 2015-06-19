@@ -26,8 +26,7 @@ namespace TicketDesk.Web.Client
             bundles.Add(new StyleBundle("~/content/styles").Include(
                     "~/Content/bootstrap.css",
                     "~/Content/site.css",
-                    "~/Content/font-awesome.css"
-                    ));
+                    "~/Content/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/content/wizard").Include("~/Content/wizard.css"));
 
@@ -36,9 +35,11 @@ namespace TicketDesk.Web.Client
                     .Include("~/Content/css/select2-bootstrap.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new StyleBundle("~/content/editor")
-
                     .Include("~/Scripts/dropzone/dropzone.css", new CssRewriteUrlTransform())
                     .Include("~/Scripts/dropzone/basic.css", new CssRewriteUrlTransform()));
+
+            bundles.Add(new StyleBundle("~/content/summernote").Include(
+                    "~/Scripts/summernote/summernote.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/editticket")
                 .Include("~/Scripts/ticketdesk/edit-ticket.js"));
@@ -48,36 +49,32 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new ScriptBundle("~/bundles/ticketcenter").Include(
                     "~/Scripts/ticketdesk/ticketcenter.js",
-                    "~/Scripts/jquery.clickable-{version}.js"
-                    ));
+                    "~/Scripts/jquery.clickable-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin-users").Include(
                     "~/Scripts/ticketdesk/admin-users.js",
-                    "~/Scripts/jquery.clickable-{version}.js"
-                ));
+                    "~/Scripts/jquery.clickable-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/search").Include(
                    "~/Scripts/ticketdesk/search.js",
-                   "~/Scripts/jquery.clickable-{version}.js"
-               ));
+                   "~/Scripts/jquery.clickable-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin-edit-user").Include(
-                "~/Scripts/ticketdesk/admin-edit-user.js"
-            ));
+                "~/Scripts/ticketdesk/admin-edit-user.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(
                     "~/Scripts/dropzone/dropzone.js",
                     "~/Scripts/ticketdesk/ticket-file-uploader.js",
                     "~/Scripts/ticketdesk/ticket-details.js",
-                    "~/Scripts/ticketdesk/ticket-tags.js"
-
-                    ));
+                    "~/Scripts/ticketdesk/ticket-tags.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                     "~/Scripts/select2.js",
-                    "~/Scripts/jquery.ui.sortable/jquery-ui-custom.js"
-                    ));
+                    "~/Scripts/jquery.ui.sortable/jquery-ui-custom.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/summernote").Include(
+                "~/Scripts/summernote/summernote.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
                     "~/Scripts/pagedown/Markdown.Converter.js",

@@ -17,7 +17,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using StackExchange.DataExplorer.Helpers;
+using Ganss.XSS;
 using TicketDesk.IO;
 using TicketDesk.Search.Common;
 using TicketDesk.Web.Client;
@@ -80,7 +80,8 @@ namespace TicketDesk.Domain.Model
         {
            
             var content = (ticket.IsHtml) ? ticket.Details : ticket.Details.HtmlFromMarkdown();
-            return new HtmlString(HtmlUtilities.Safe(content));
+            var san = new HtmlSanitizer();
+            return new HtmlString(san.Sanitize(content));
         }
 
         public static SelectList GetPriorityList(this Ticket ticket)
