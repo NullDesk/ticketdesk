@@ -1,3 +1,0 @@
-[config]
-project = TicketDesk-2.5/TicketDesk.Web.Client/TicketDesk.Web.Client.csproj
-;SCM_BUILD_ARGS=-p:Configuration=Release;PublishProfile=azure
