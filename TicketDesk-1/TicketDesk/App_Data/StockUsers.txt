@@ -1,5 +1,0 @@
-﻿user: admin
-pwd:  admin
-
-user: toastman
-pwd: toastman
