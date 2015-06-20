@@ -58,7 +58,7 @@ namespace TicketDesk.Web.Client.Controllers
                 dbSetting.SelectLists.PriorityList = priorities.ToList();
                 dbSetting.SelectLists.TicketTypesList = tickettypes.ToList();
                 dbSetting.SecuritySettings.DefaultNewUserRoles = defaultroles;
-                dbSetting.ClientSettings.Settings["DefaultTextEditorType"] = defaultTextEditorType ?? "summernote";
+                dbSetting.ClientSettings.GetDefaultTextEditorType();
                 Context.SaveChanges();
             }
             ViewBag.IsAzureSearchEnabled = IsAzureSearchDetected;

@@ -36,10 +36,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             //TODO: Remove/move to admin
             var ticket = Context.Tickets.Include(t => t.TicketTags).First(t => t.TicketId == id);
-            var root =Context.TicketDeskSettings.ClientSettings.Settings
-                .Where(s => s.Key == "DefaultSiteRootUrl")
-                .Select(s => s.Value)
-                .FirstOrDefault();
+            var root = Context.TicketDeskSettings.ClientSettings.GetDefaultSiteRootUrl();
             var email = new TicketEmail { Ticket = ticket, SiteRootUrl = root };
 
             //email.Send();

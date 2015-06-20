@@ -20,6 +20,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Newtonsoft.Json.Linq;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications;
 using TicketDesk.PushNotifications.Delivery;
 using TicketDesk.PushNotifications.Model;
@@ -160,10 +161,11 @@ namespace TicketDesk.Web.Client.Controllers
 
         private string GetRootUrlSetting()
         {
-            var root = DomainContext.TicketDeskSettings.ClientSettings.Settings
-                .Where(s => s.Key == "DefaultSiteRootUrl")
-                .Select(s => s.Value)
-                .FirstOrDefault() ?? GetCurrentRootUrl();
+            var root = DomainContext.TicketDeskSettings.ClientSettings.GetDefaultSiteRootUrl();
+            if (string.IsNullOrEmpty(root))
+            {
+                root = GetCurrentRootUrl();
+            }
             return root;
         }
 

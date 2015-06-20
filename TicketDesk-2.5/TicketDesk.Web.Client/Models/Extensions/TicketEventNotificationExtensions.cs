@@ -35,10 +35,7 @@ namespace TicketDesk.Domain.Model
                 {
                     using (var context = DependencyResolver.Current.GetService<TdDomainContext>())
                     {
-                        _rootUrl = context.TicketDeskSettings.ClientSettings.Settings
-                            .Where(s => s.Key == "DefaultSiteRootUrl")
-                            .Select(s => s.Value)
-                            .FirstOrDefault() ?? string.Empty;
+                        _rootUrl = context.TicketDeskSettings.ClientSettings.GetDefaultSiteRootUrl();
                     }
                 }
                 return _rootUrl;

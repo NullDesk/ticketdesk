@@ -45,9 +45,7 @@ namespace TicketDesk.Web.Client.Controllers
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
             ViewBag.TempId = tempId ?? Guid.NewGuid();
-            ViewBag.IsEditorDefaultHtml =
-                (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") ==
-                "summernote";
+            ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
             return PartialView("_ActivityForm", ticket);
         }
 
@@ -145,8 +143,8 @@ namespace TicketDesk.Web.Client.Controllers
             //  All the business domain has to do is record the activity log and comments
             Action<Ticket> activityFn = ticket =>
            {
-                //TODO: it might make sense to move the string building part of this over to the TicketDeskFileStore too?
-                var sb = new StringBuilder(comment);
+               //TODO: it might make sense to move the string building part of this over to the TicketDeskFileStore too?
+               var sb = new StringBuilder(comment);
                if (!string.IsNullOrEmpty(deleteFiles))
                {
                    sb.AppendLine();
@@ -179,8 +177,8 @@ namespace TicketDesk.Web.Client.Controllers
                }
                comment = sb.ToString();
 
-                //perform the simple business domain functions
-                var domainActivityFn = Context.TicketActions.ModifyAttachments(comment);
+               //perform the simple business domain functions
+               var domainActivityFn = Context.TicketActions.ModifyAttachments(comment);
                domainActivityFn(ticket);
            };
 
@@ -273,9 +271,7 @@ namespace TicketDesk.Web.Client.Controllers
             //fail case, return the view and let the client/view sort out the errors
             ViewBag.CommentRequired = activity.IsCommentRequired();
             ViewBag.Activity = activity;
-            ViewBag.IsEditorDefaultHtml =
-               (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") ==
-               "summernote";
+            ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
             return PartialView("_ActivityForm", ticket);
         }
     }

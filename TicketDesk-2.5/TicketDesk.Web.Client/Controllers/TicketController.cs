@@ -51,9 +51,8 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return RedirectToAction("Index", "TicketCenter");
             }
-            ViewBag.IsEditorDefaultHtml =
-                (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") ==
-                "summernote";
+            ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
+
 
             return View(model);
         }
@@ -62,7 +61,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("new")]
         public ActionResult New()
         {
-            var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId, IsHtml = (Context.TicketDeskSettings.ClientSettings.Settings["DefaultTextEditorType"] ?? "summernote") == "summernote" };
+            var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId, IsHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote" };
             ViewBag.TempId = Guid.NewGuid();
             return View(model);
         }

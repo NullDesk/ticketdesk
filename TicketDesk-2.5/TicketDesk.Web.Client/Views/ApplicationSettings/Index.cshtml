@@ -71,34 +71,30 @@
                                 <div class="form-group">
 
 
-                                    @{
-                                        if (!Model.ClientSettings.Settings.ContainsKey("DefaultTextEditorType"))
-                                        {
-                                            Model.ClientSettings.Settings["DefaultTextEditorType"] = "pagedown";
-                                        }}
+                                   
 
                                     <label class="col-md-4 col-sm-4 control-label">Text Editor</label>
                                     <div class="col-md-8 col-sm-8">
                                         <div class="radio">
                                             <label class="checkbox-inline">
-                                                @Html.RadioButton("DefaultTextEditorType", "summernote", ((Model.ClientSettings.Settings["DefaultTextEditorType"] == "summernote")), new { id = "IsSummernote" })
+                                                @Html.RadioButton("DefaultTextEditorType", "summernote", (Model.ClientSettings.GetDefaultTextEditorType() == "summernote"), new { id = "IsSummernote" })
                                                 Summernote (HTML Editor)
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label class="checkbox-inline">
-                                                @Html.RadioButton("DefaultTextEditorType", "pagedown", ((Model.ClientSettings.Settings["DefaultTextEditorType"] == "pagedown")), new { id = "IsPagedown" })
+                                                @Html.RadioButton("DefaultTextEditorType", "pagedown", (Model.ClientSettings.GetDefaultTextEditorType() == "pagedown"), new { id = "IsPagedown" })
                                                 Pagedown (Markdown Editor)
                                             </label>
                                         </div>
                                         <div class="help-block">
                                             <p>
-                                                Ticketdesk includes your choice of an HTML rich text editor, or a Markdown editor
+                                                Ticketdesk includes two choices for rich text editing.
                                             </p>
                                             <p>
-                                                Ticketdesk will sanitize any HTML content from either editor to help prevent script injection
-                                                attacks. Markdown is recommended, but for less technical users who will often use advacned 
-                                                formattingthe, the HTML editor may be a more intuative option.
+                                                Ticketdesk will sanitize HTML content from either editor to help prevent script injection
+                                                attacks. The Markdown editor is recommended, but for less technical users an HTML based editor
+                                                may be more intuative.
                                             </p>
                                         </div>
                                     </div>
