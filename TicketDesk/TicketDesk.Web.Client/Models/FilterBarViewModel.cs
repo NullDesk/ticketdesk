@@ -99,7 +99,7 @@ namespace TicketDesk.Web.Client.Models
             get
             {
                 var isOwnerFilterDisabled = CurrentListSetting.DisabledFilterColumnNames.Contains("Owner");
-                var cVal = String.Format("postback{0}", (isOwnerFilterDisabled) ? " disabled" : string.Empty);
+                var cVal = String.Format("postback{0} form-control", (isOwnerFilterDisabled) ? " disabled" : string.Empty);
                 var ownerHtmlAttributes = new Dictionary<string, object> { { "Class", cVal } };
                 if (isOwnerFilterDisabled)
                 {
@@ -157,7 +157,7 @@ namespace TicketDesk.Web.Client.Models
             get
             {
                 var isAssignedToFilterDisabled = CurrentListSetting.DisabledFilterColumnNames.Contains("AssignedTo");
-                var cVal = String.Format("postback{0}", (isAssignedToFilterDisabled) ? " disabled" : string.Empty);
+                var cVal = String.Format("postback{0} form-control", (isAssignedToFilterDisabled) ? " disabled" : string.Empty);
                 var assignedHtmlAttributes = new Dictionary<string, object> { { "Class", cVal } };
                 if (isAssignedToFilterDisabled)
                 {
@@ -172,7 +172,7 @@ namespace TicketDesk.Web.Client.Models
             get
             {
                 var isTicketStatusFilterDisabled = CurrentListSetting.DisabledFilterColumnNames.Contains("TicketStatus");
-                var cVal = String.Format("postback{0}", (isTicketStatusFilterDisabled) ? " disabled" : string.Empty);
+                var cVal = String.Format("postback{0} form-control", (isTicketStatusFilterDisabled) ? " disabled" : string.Empty);
                 var statusHtmlAttributes = new Dictionary<string, object> { { "Class", cVal } };
                 if (isTicketStatusFilterDisabled)
                 {

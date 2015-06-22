@@ -22,7 +22,7 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #fff;
-    font-size: 11pt;
+    font-size: 10pt;
     font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
 }
 
@@ -65,6 +65,13 @@ body {
         background-color: #b3cbdf;
         color: #000;
     }
+
+.form-group-xs .control-label {
+    height: 22px;
+    padding: 1px 3px;
+    font-size: 11px;
+    line-height: 1.2;
+}
 
 .form-group-xs .form-control {
     height: 22px;
@@ -174,20 +181,20 @@ p {
     margin-bottom: 20px;
 }
 
-    #ticketList .navbar {
+    /*#ticketList .navbar {
         border-radius: 0;
-    }
+    }*/
 
-    #ticketList .filterBar.navbar {
+    /*#ticketList .filterBar.navbar {
         min-height: 20px;
-    }
+    }*/
 
-#filterForm.navbar-form {
+/*#filterForm.navbar-form {
     margin-left: 5px;
     margin-right: 5px;
-}
+}*/
 
-#ticketList .filterBar {
+/*#ticketList .filterBar {
     margin: 0;
     display: block;
     border: 1px dotted #B3CBDF;
@@ -196,9 +203,9 @@ p {
     border-top-left-radius: 10px;
     -ms-border-top-right-radius: 10px;
     border-top-right-radius: 10px;
-}
+}*/
 
-#ticketList table {
+/*#ticketList table {
     margin-bottom: 0;
 }
 
@@ -208,14 +215,14 @@ p {
 }
 
     #ticketList table td {
-        border: 1px dotted #B3CBDF;
-        border-collapse: collapse;
+        /*border: 1px dotted #B3CBDF;
+        border-collapse: collapse;*/
         white-space: nowrap;
     }
 
     #ticketList table th {
         white-space: nowrap;
-        border: 1px dotted #B3CBDF;
+        /*border: 1px dotted #B3CBDF;*/
         background-color: #FFFFDD;
     }
 
@@ -228,7 +235,7 @@ p {
     border-bottom-right-radius: 10px;
     background-color: #E1EBF2;
     padding: 0 20px;
-}
+}*/
 
     #ticketList footer .pagination,
     #userListBody .panel-footer .pagination {

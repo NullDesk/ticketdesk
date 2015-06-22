@@ -23,15 +23,17 @@
         @foreach (var list in Model)
         {
             var className = ((currentListSettings.ListName == list.ListName)) ? "active" : string.Empty;
-            <li class="@className">
+            <li class="@className small">
 
                 @Html.ActionLink(list.ListDisplayName, "Index", new { ListName = list.ListName })
             </li>
 
         }
-        <li>
+        <li data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Reset all settings for all lists">
             <a href="#" class="" data-toggle="modal" data-target="#reset-confirm">
-                <i class="fa fa-repeat"></i> Reset Lists
+                <i class="fa fa-repeat"></i> <span class="hidden-sm">Reset Lists</span>
             </a>
 
 
@@ -50,7 +52,7 @@
             </div>
             <div class="modal-body">
                 <p class="alert alert-danger">
-                    All lists will be reset, including custom sort and filter settings. This cannot be undone!.
+                    All lists will be reset, including custom sort and filter settings. This cannot be undone!
                 </p>
             </div>
             <div class="modal-footer">
