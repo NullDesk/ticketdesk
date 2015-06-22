@@ -21,8 +21,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using TicketDesk.Web.Client.Annotations;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
@@ -34,7 +32,6 @@ namespace TicketDesk.Web.Client
     /// </summary>
     public static class LegacySecurityMigrator
     {
-        [UsedImplicitly]
         private class LegacyUser
         {
             // ReSharper disable UnusedAutoPropertyAccessor.Local

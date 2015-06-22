@@ -80,9 +80,13 @@
                                         @Html.ListBoxFor(model => model.Roles, Model.UserRolesList, new { id = "userroles", @class = "form-control input-sm" })
                                         @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
                                         @Html.DescriptionFor(model => model.Roles, "help-block", "span")
-                                        <span class="input-group-btn">
+                                        <span class="input-group-btn"  
+                                              data-toggle="tooltip"
+                                              data-placement="top"
+                                              title="Show role descriptions">
                                             <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" href="#collapseRoleDescription" aria-expanded="false" aria-controls="collapseRoleDescription">
-                                                <i class="fa fa-info-circle"></i>
+                                                <i class="fa fa-info"
+                                                  ></i>
                                             </button>
                                         </span>
                                     </div>
@@ -121,8 +125,8 @@
                         </div>
                         <div class="panel-footer">
                             <div class="">
-                                <button type="submit" class="btn btn-success" tabindex="10">Save</button>&nbsp;&nbsp;
-                                @Html.ActionLink("Back to users","Index")
+                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>&nbsp;&nbsp;
+                                @Html.ActionLink("Back to users", "Index")
                             </div>
                         </div>
                     </div>

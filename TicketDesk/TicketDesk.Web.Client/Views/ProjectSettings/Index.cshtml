@@ -1,0 +1,99 @@
+﻿@using Microsoft.Data.OData.Query.SemanticAst
+@model IEnumerable<TicketDesk.Web.Client.Models.ProjectListViewModelItem>
+
+@section title
+{
+    Project Settings
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/project-settings")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".clickable").clickable();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}
+
+<main>
+    <div class="container-fluid">
+        <fieldset>
+            <legend class="col-sm-12">
+                Manage Projects
+                <span data-toggle="tooltip"
+                      data-placement="top"
+                      title="Show more information">
+                    <span class="btn btn-link btn-lg" type="button"
+                          data-toggle="collapse"
+                          href="#collapseProjectDescription"
+                          aria-expanded="false"
+                          aria-controls="collapseRoleDescription">
+                        <i class="fa fa-info-circle"></i>
+                    </span>
+                </span>
+            </legend>
+            <div class="col-sm-12">
+                <div class="collapse" id="collapseProjectDescription">
+                    <div class="well text-muted">
+                        <p>
+                            Projects are top-level containers for grouping tickets. When multiple projects exist, a top
+                            level selector lets users filter their dislay to include only tickets within the selected project.
+                        </p>
+                        <p>
+                            If only one project exists, then project related features are hidden.
+                        </p>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+
+                    <div class="panel-body" style="padding: 0;">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-condensed table-hover ">
+                                <tr>
+                                    <th>
+                                        Project
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Tickets
+                                    </th>
+
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="clickable">
+                                        <td>
+                                            <a href="@Url.Action("Edit", "ProjectSettings", new {projectId = item.Project.ProjectId})">
+                                                @item.Project.ProjectName
+                                            </a>
+                                        </td>
+                                        <td>@item.Project.ProjectDescription</td>
+                                        <td>@item.NumberOfTickets</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="">
+
+                            <a href="@Url.Action("New", "ProjectSettings")" class="btn btn-primary">
+                                <i class="fa fa-plus"></i>&nbsp;&nbsp;New Project
+                            </a>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </fieldset>
+    </div>
+</main>

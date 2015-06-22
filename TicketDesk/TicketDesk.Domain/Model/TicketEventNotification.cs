@@ -85,6 +85,11 @@ namespace TicketDesk.Domain.Model
             }
         }
 
+        [Column(TypeName = "timestamp")]
+        [MaxLength(8)]
+        [Timestamp]
+        public byte[] Version { get; set; }
+
         public virtual TicketEvent TicketEvent { get; set; }
 
         public virtual TicketSubscriber TicketSubscriber { get; set; }

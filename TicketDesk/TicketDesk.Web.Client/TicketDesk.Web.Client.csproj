@@ -249,6 +249,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmailTestController.cs" />
+    <Compile Include="Controllers\ProjectSettingsController.cs" />
     <Compile Include="Controllers\PushNotificationSettingsController.cs" />
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\FirstRunSetupController.cs" />
@@ -293,11 +294,11 @@
     <Compile Include="Models\Extensions\TicketSubscriberExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
+    <Compile Include="Models\ProjectListViewModel.cs" />
     <Compile Include="Models\SystemInfoViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Models\TicketEmail.cs" />
     <Compile Include="Models\UserViewModel.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -519,6 +520,9 @@
     <Content Include="Views\UserAdministration\Index.cshtml" />
     <Content Include="Views\UserAdministration\Edit.cshtml" />
     <Content Include="Views\UserAdministration\_UserList.cshtml" />
+    <Content Include="Views\ProjectSettings\Index.cshtml" />
+    <Content Include="Views\ProjectSettings\Edit.cshtml" />
+    <Content Include="Views\ProjectSettings\New.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -16,14 +16,13 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.Owin;
 using Owin;
-using TicketDesk.Domain.Annotations;
+using TicketDesk.Web.Client;
 
-[assembly: OwinStartupAttribute(typeof(TicketDesk.Web.Client.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 namespace TicketDesk.Web.Client
 {
     public partial class Startup
     {
-        [UsedImplicitly]
         public void Configuration(IAppBuilder app)
         {
             RegisterGlobalFilters(GlobalFilters.Filters);

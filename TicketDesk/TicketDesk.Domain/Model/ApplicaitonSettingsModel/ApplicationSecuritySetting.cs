@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using TicketDesk.Domain.Annotations;
 
 namespace TicketDesk.Domain.Model
 {
@@ -23,7 +18,6 @@ namespace TicketDesk.Domain.Model
         public string Serialized
         {
             get { return JsonConvert.SerializeObject(this); }
-            [UsedImplicitly]
             set
             {
                 if (string.IsNullOrEmpty(value))

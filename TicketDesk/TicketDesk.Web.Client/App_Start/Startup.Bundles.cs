@@ -55,6 +55,9 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/ticketdesk/admin-users.js",
                     "~/Scripts/jquery.clickable-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/project-settings").Include(
+                   "~/Scripts/jquery.clickable-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/search").Include(
                    "~/Scripts/ticketdesk/search.js",
                    "~/Scripts/jquery.clickable-{version}.js"));

@@ -35,6 +35,10 @@ namespace TicketDesk.Domain.Model
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTicketId", ShortName = "TicketTicketIdShort")]
         public int TicketId { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ProjectId { get; set; }
+
+
         [Required]
         [StringLength(50)]
         [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketTicketType", ShortName = "TicketTicketTypeShort")]
@@ -137,6 +141,8 @@ namespace TicketDesk.Domain.Model
         [MaxLength(8)]
         [Timestamp]
         public byte[] Version { get; set; }
+
+        public virtual Project Project { get; set; }
 
         public virtual ICollection<TicketEvent> TicketEvents { get; set; }
 

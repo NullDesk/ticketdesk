@@ -13,16 +13,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using TicketDesk.Domain.Annotations;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
-using System.Data.Entity;
-
 
 namespace TicketDesk.Domain
 {
@@ -50,7 +48,7 @@ namespace TicketDesk.Domain
             }
         }
 
-        public static event EventHandler<IEnumerable<TicketEventNotification>>  NotificationsCreated;
+        public static event EventHandler<IEnumerable<TicketEventNotification>> NotificationsCreated;
         private static void RaiseNotificationsCreated(TdDomainContext sender, IEnumerable<TicketEventNotification> notifications)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
@@ -108,7 +106,7 @@ namespace TicketDesk.Domain
                 .Property(p => p.Serialized)
                 .HasColumnName("ListSettingsJson");
 
-         
+
             modelBuilder.ComplexType<ApplicationSelectListSetting>()
                 .Property(p => p.Serialized)
                 .HasColumnName("SelectListSettingsJson");
@@ -128,9 +126,10 @@ namespace TicketDesk.Domain
 
         }
 
-        public DbSet<TicketEvent> TicketEvents { get; [UsedImplicitly]set; }
-        public DbSet<Ticket> Tickets { get; [UsedImplicitly] set; }
-        public DbSet<TicketTag> TicketTags { get; [UsedImplicitly] set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<TicketEvent> TicketEvents { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketTag> TicketTags { get; set; }
         public DbSet<TicketSubscriber> TicketSubscribers { get; set; }
         public DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
 
@@ -138,8 +137,8 @@ namespace TicketDesk.Domain
         //These DbSets contain json serialized content. Callers cannot use standard LINQ to Entities 
         //  expressions with these safely. Marking internal to prevent callers having direct access
         //  We'll provide a thin layer of abstraction for safely handling external interactions instead. 
-        internal DbSet<ApplicationSetting> ApplicationSettings { get; [UsedImplicitly]set; }
-        internal DbSet<UserSetting> UserSettings { get; [UsedImplicitly] set; }
+        internal DbSet<ApplicationSetting> ApplicationSettings { get;set; }
+        internal DbSet<UserSetting> UserSettings { get; set; }
 
         private UserSettingsManager _userSettingsManager;
         public UserSettingsManager UserSettingsManager
@@ -231,7 +230,7 @@ namespace TicketDesk.Domain
             return result;
         }
 
-      
+
         public override int SaveChanges()
         {
             var pendingEntityChanges = OnSaving();
@@ -253,7 +252,7 @@ namespace TicketDesk.Domain
         {
             var pending = new PendingEventEntities();
             pending.PendingTicketChanges = GetTicketChanges().ToArray();
-           
+
             if (SecurityProvider != null)
             {
                 PreProcessNewTickets();

@@ -11,16 +11,14 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Collections.Generic;
-using TicketDesk.Domain.Annotations;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     public class TicketEvent
     {
         public TicketEvent()
@@ -31,7 +29,7 @@ namespace TicketDesk.Domain.Model
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int TicketId { get; [UsedImplicitly] set; }
+        public int TicketId { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -41,7 +39,7 @@ namespace TicketDesk.Domain.Model
         [StringLength(500)]
         public string EventDescription { get; set; }
 
-        
+
         public string Comment { get; set; }
 
         public bool IsHtml { get; set; }
@@ -57,7 +55,7 @@ namespace TicketDesk.Domain.Model
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]
         [Timestamp]
-        public byte[] Version { get; [UsedImplicitly] set; }
+        public byte[] Version { get; set; }
 
         public virtual Ticket Ticket { get; set; }
 
