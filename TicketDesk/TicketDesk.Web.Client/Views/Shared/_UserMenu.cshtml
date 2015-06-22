@@ -18,12 +18,13 @@
 
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-user"></i>
-        @(User.Identity.IsAuthenticated ? User.Identity.GetUserDisplayName() : "Account")
+        <i class="fa fa-user"></i><span class="hidden-sm">
+            @(User.Identity.IsAuthenticated ? User.Identity.GetUserDisplayName() : "Account")
+        </span>
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-        @if ( User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated)
         {
             <li>
                 @Html.ActionLink("My Account", "Manage", "Account")
