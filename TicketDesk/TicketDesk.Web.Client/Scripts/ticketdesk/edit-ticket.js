@@ -18,6 +18,7 @@
             config = tdConfig;
             configureDetails();
             loadActivityButtons();
+            $('[data-toggle="tooltip"]').tooltip();
 
         };
 
@@ -228,7 +229,9 @@
             var icon = $('#watch > i');
             var iconClass = isSubscribed ? 'fa-eye-slash' : 'fa-eye';
             icon.removeClass('fa-eye fa-eye-slash').addClass(iconClass);
-            $('#watch>span').text((isSubscribed ? "Unwatch" : "Watch"));
+            $('#watch>span').text((isSubscribed ? 'Unwatch' : 'Watch'));
+            $('#watch').attr('title', (isSubscribed ? 'Unwatch' : 'Watch') + ' Ticket');
+            $('#watch[data-toggle="tooltip"]').tooltip();
             config.isSubscribed = isSubscribed;
         }
 

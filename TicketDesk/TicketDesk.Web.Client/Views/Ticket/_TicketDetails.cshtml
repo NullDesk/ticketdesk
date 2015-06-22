@@ -30,8 +30,11 @@
             </div>
             <div class="col-xs-1 col-xs-height col-full-height">
                 <div class="pull-right">
-                    <button id="watch" type="button" class="btn btn-default">
-                        <i class="fa fa-eye"></i> <span></span>
+                    <button id="watch" type="button" class="btn btn-default"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="">
+                        <i class="fa fa-eye"></i> <span class="hidden-sm hidden-xs"></span>
                     </button>
                 </div>
             </div>
@@ -131,7 +134,7 @@
                 <div class="row">
                     <label class="col-sm-5 col-lg-4 text-right">Subscribers</label>
                     <div class="col-sm-7 col-lg-8">
-                       
+
                         @foreach (var sub in Model.TicketSubscribers)
                         {
                             <div>@sub.GetSubscriberDisplayInfo().DisplayName</div>

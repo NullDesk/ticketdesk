@@ -74,10 +74,10 @@
                 @Html.Partial("_AdminMenu")
               
                 <li class="@Html.IsActiveRoute("About", "Home" )">
-                    <a href="@Url.Action("About", "Home", new { area = "" })"><i class="fa fa-info-circle fa-lg"></i></a>
+                    <a href="@Url.Action("About", "Home", new { area = "" })"><i class="fa fa-info-circle fa-lg"></i> <span class="hidden-sm">About</span></a>
                 </li>
             </ul>
-            <div class="pull-right">
+            <div class="">
                 @Html.Partial("_QuickSearch")
             </div>
         </div>
