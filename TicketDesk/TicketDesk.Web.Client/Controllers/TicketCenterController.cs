@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> ResetUserLists()
         {
             var uId = Context.SecurityProvider.CurrentUserId;
-            await Context.UserSettingsManager.ResetAllListSettingsForUser(uId);
+            await Context.UserSettingsManager.ResetAllListSettingsForUserAsync(uId);
             var x = await Context.SaveChangesAsync();
             return RedirectToAction("Index");
 
@@ -70,7 +70,7 @@ namespace TicketDesk.Web.Client.Controllers
             string assignedTo)
         {
             var uId = Context.SecurityProvider.CurrentUserId;
-            var userSetting = await Context.UserSettingsManager.GetSettingsForUser(uId);
+            var userSetting = await Context.UserSettingsManager.GetSettingsForUserAsync(uId);
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
@@ -90,7 +90,7 @@ namespace TicketDesk.Web.Client.Controllers
             bool isMultiSort = false)
         {
             var uId = Context.SecurityProvider.CurrentUserId;
-            var userSetting = await Context.UserSettingsManager.GetSettingsForUser(uId);
+            var userSetting = await Context.UserSettingsManager.GetSettingsForUserAsync(uId);
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
             var sortCol = currentListSetting.SortColumns.SingleOrDefault(sc => sc.ColumnName == columnName);

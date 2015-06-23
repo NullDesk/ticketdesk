@@ -12,33 +12,22 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+<div class="form-group">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("TdAdministrators"))
+    {
+        <div class="input-group input-group-sm">
+            <span class="dropdown">
+                <button href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-gears"></i>
+                    <span class="hidden-sm">Settings</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    @Html.Partial("_AdminMenuItems")
+                </ul>
+            </span>
+        </div>
+    }
 
-@if (User.Identity.IsAuthenticated && User.IsInRole("TdAdministrators"))
-{
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-gears"></i> <span class="hidden-sm">Settings</span>
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                @Html.ActionLink("Manage Users", "Index", "UserAdministration")
-            </li>
-            <li>
-                @Html.ActionLink("Manage Projects", "Index", "ProjectSettings")
-            </li>
-            <li>
-                @Html.ActionLink("Application Settings", "Index", "ApplicationSettings")
-            </li>
-            <li>
-                @Html.ActionLink("Push Notification Settings", "Index", "PushNotificationSettings")
-            </li>
-            <li>
-                @Html.ActionLink("Demo Data Management", "Demo", "DataManagement")
-            </li>
-            <li>
-                @Html.ActionLink("Search Management", "Index", "SearchManager")
-            </li>
-        </ul>
-    </li>
-}
+
+</div>

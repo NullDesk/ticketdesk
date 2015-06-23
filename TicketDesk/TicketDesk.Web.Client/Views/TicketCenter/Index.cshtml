@@ -22,13 +22,15 @@
 
 <main style="display: none;">
 
-    @Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
-    {
-        { "CurrentListSettings", Model.CurrentListSetting }
-    })
 
+    
+        @Html.Partial("_ListMenu", Model.UserListSettings, new ViewDataDictionary
+            {
+                { "CurrentListSettings", Model.CurrentListSetting }
+            })
 
-    @Html.Partial("_TicketList", Model)
+        @Html.Partial("_TicketList", Model)
+   
 </main>
 
 @section scripts{

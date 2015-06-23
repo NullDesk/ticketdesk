@@ -523,6 +523,8 @@
     <Content Include="Views\ProjectSettings\Index.cshtml" />
     <Content Include="Views\ProjectSettings\Edit.cshtml" />
     <Content Include="Views\ProjectSettings\New.cshtml" />
+    <Content Include="Views\Shared\_AdminMenuItems.cshtml" />
+    <Content Include="Views\Shared\_ProjectMenu.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

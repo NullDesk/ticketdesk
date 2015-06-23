@@ -25,16 +25,16 @@ namespace TicketDesk.Domain
             Context = context;
         }
 
-        public async Task ResetAllListSettingsForUser(string userId)
+        public async Task ResetAllListSettingsForUserAsync(string userId)
         {
-            var settings = await GetSettingsForUser(userId);
+            var settings = await GetSettingsForUserAsync(userId);
             settings.ListSettings = new UserTicketListSettingsCollection
             {
                     UserTicketListSetting.GetDefaultListSettings(userId, Context.SecurityProvider.IsTdHelpDeskUser)
             };
         }
 
-        public async Task<UserSetting> GetSettingsForUser(string userId)
+        public async Task<UserSetting> GetSettingsForUserAsync(string userId)
         {
             var settings = await Context.UserSettings.FindAsync(userId);
             if (settings == null)
@@ -55,15 +55,15 @@ namespace TicketDesk.Domain
             Context.UserSettings.Add(settings);
         }
 
-        public async Task<ICollection<UserTicketListSetting>> GetUserListSettings(string userId)
+        public async Task<ICollection<UserTicketListSetting>> GetUserListSettingsAsync(string userId)
         {
-            var settings = await GetSettingsForUser(userId);
+            var settings = await GetSettingsForUserAsync(userId);
             return settings.ListSettings;
         }
 
-        public async Task<UserTicketListSetting> GetUserListSettingByName(string listName, string userId)
+        public async Task<UserTicketListSetting> GetUserListSettingByNameAsync(string listName, string userId)
         {
-            var settings = await GetSettingsForUser(userId);
+            var settings = await GetSettingsForUserAsync(userId);
             return settings.GetUserListSettingByName(listName);
         }
 

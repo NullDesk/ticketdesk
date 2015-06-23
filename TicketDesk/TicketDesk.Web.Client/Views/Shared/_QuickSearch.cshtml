@@ -13,10 +13,13 @@
     provided to the recipient.
 *@
 
-@using (Html.BeginForm("index", "search", new { area = "" }, FormMethod.Get, new { @class = "navbar-form navbar-left", style = "width:150px;", role = "search" }))
+
+@using (Html.BeginForm("index", "search", new { area = "" }, FormMethod.Get, new { @class = "", role = "search" }))
 {
     <div class="input-group input-group-sm">
-        <label class="sr-only " for="find"> Search:</label>@Html.TextBox("term", null, new { @class = "form-control", placeholder = "Search" })
+
+        <label class="sr-only " for="find"> Search:</label>
+        @Html.TextBox("term", null, new { @class = "form-control", placeholder = "Search" })
         <span class="input-group-btn">
             <button type="submit" value="go" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
         </span>

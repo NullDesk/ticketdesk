@@ -19,8 +19,8 @@ html {
 }
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 95px;*/
+    /*padding-bottom: 20px;*/
     background-color: #fff;
     font-size: 10pt;
     font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
@@ -32,8 +32,17 @@ body {
     padding-right: 15px;
 }
 
+#main-menu-collapse {
+    margin: 0 0 0 10px;
+}
+
 #mainNav.navbar-fixed-top {
-    background-color: #f7f7f7;
+    background-color: #fff;
+    /*border-bottom: none;*/
+}
+
+#mainNav.navbar-fixed-top .container-fluid.navbar-default {
+        background-color: #f5f5f5;
 }
 
 
@@ -48,7 +57,7 @@ body {
 
 .body-content > main {
     min-height: 300px;
-    padding: 15px 8px;
+    /*padding: 15px 8px;*/
 }
 
 .body-content > footer {
@@ -434,11 +443,21 @@ p {
     float: none !important;
 }
 
+@media only screen and (max-width : 480px) {
+    .pull-left-xs {
+        float: left;
+    }
+}
 @media (min-width: 768px) {
     .col-sm-height {
         display: table-cell;
         float: none !important;
     }
+
+    .pull-right-sm {
+        float: right;
+    }
+    
 }
 
 @media (min-width: 992px) {
@@ -446,12 +465,16 @@ p {
         display: table-cell;
         float: none !important;
     }
+    
 }
 
 @media (min-width: 1200px) {
     .col-lg-height {
         display: table-cell;
         float: none !important;
+    }
+    .pull-right-md {
+        float: right;
     }
 }
 

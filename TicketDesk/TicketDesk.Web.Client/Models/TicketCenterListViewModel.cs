@@ -27,15 +27,16 @@ namespace TicketDesk.Web.Client.Models
 
         public static async Task<TicketCenterListViewModel> GetViewModelAsync(int currentPage, string listName, TdDomainContext context, string userId)
         {
+            var userSettings = await context.UserSettingsManager.GetSettingsForUserAsync(userId);
             var vm = new TicketCenterListViewModel()
             {
-                UserListSettings =
-                    (await context.UserSettingsManager.GetUserListSettings(userId)).OrderBy(
+                UserListSettings = userSettings.ListSettings.OrderBy(
                         lp => lp.ListMenuDisplayOrder),
                 CurrentPage = currentPage,
-                CurrentListSetting = await context.UserSettingsManager.GetUserListSettingByName(listName, userId)
+                CurrentListSetting = await context.UserSettingsManager.GetUserListSettingByNameAsync(listName, userId)
             };
 
+            
             vm.Tickets = await vm.ListTicketsAsync(currentPage, context);
 
             return vm;
