@@ -60,7 +60,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("add-comment")]
-        public async Task<ActionResult> AddComment(int ticketId, string comment)
+        public async Task<ActionResult> AddComment(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.AddComment(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.AddComment);
@@ -69,7 +69,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("assign")]
-        public async Task<ActionResult> Assign(int ticketId, string comment, string assignedTo, string priority)
+        public async Task<ActionResult> Assign(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.Assign(comment, assignedTo, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.Assign);
@@ -78,7 +78,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("cancel-more-info")]
-        public async Task<ActionResult> CancelMoreInfo(int ticketId, string comment)
+        public async Task<ActionResult> CancelMoreInfo(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.CancelMoreInfo(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.CancelMoreInfo);
@@ -87,7 +87,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("close")]
-        public async Task<ActionResult> Close(int ticketId, string comment)
+        public async Task<ActionResult> Close(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.Close(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.Close);
@@ -98,7 +98,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("edit-ticket-info")]
         public async Task<ActionResult> EditTicketInfo(
             int ticketId,
-            string comment,
+            [ModelBinder(typeof(SummernoteModelBinder))] string comment,
             string title,
             string details,
             string priority,
@@ -107,6 +107,8 @@ namespace TicketDesk.Web.Client.Controllers
             string owner,
             string tagList)
         {
+            details = details.StripHtmlWhenEmpty();
+
             var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
@@ -114,7 +116,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("force-close")]
-        public async Task<ActionResult> ForceClose(int ticketId, string comment)
+        public async Task<ActionResult> ForceClose(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.ForceClose(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ForceClose);
@@ -123,7 +125,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("give-up")]
-        public async Task<ActionResult> GiveUp(int ticketId, string comment)
+        public async Task<ActionResult> GiveUp(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.GiveUp(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.GiveUp);
@@ -132,7 +134,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("modify-attachments")]
-        public async Task<ActionResult> ModifyAttachments(int ticketId, string comment, Guid tempId, string deleteFiles)
+        public async Task<ActionResult> ModifyAttachments(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment, Guid tempId, string deleteFiles)
         {
             var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
             if (demoMode)
@@ -188,7 +190,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("pass")]
-        public async Task<ActionResult> Pass(int ticketId, string comment, string assignedTo, string priority)
+        public async Task<ActionResult> Pass(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.Pass(comment, assignedTo, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.Pass);
@@ -197,7 +199,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("reassign")]
-        public async Task<ActionResult> ReAssign(int ticketId, string comment, string assignedTo, string priority)
+        public async Task<ActionResult> ReAssign(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.ReAssign(comment, assignedTo, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReAssign);
@@ -206,7 +208,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("request-more-info")]
-        public async Task<ActionResult> RequestMoreInfo(int ticketId, string comment)
+        public async Task<ActionResult> RequestMoreInfo(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.RequestMoreInfo(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.RequestMoreInfo);
@@ -215,7 +217,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("reopen")]
-        public async Task<ActionResult> ReOpen(int ticketId, string comment, bool assignToMe = false)
+        public async Task<ActionResult> ReOpen(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment, bool assignToMe = false)
         {
             var activityFn = Context.TicketActions.ReOpen(comment, assignToMe);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReOpen);
@@ -224,7 +226,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("resolve")]
-        public async Task<ActionResult> Resolve(int ticketId, string comment)
+        public async Task<ActionResult> Resolve(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment)
         {
             var activityFn = Context.TicketActions.Resolve(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReOpen);
@@ -233,7 +235,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("supply-more-info")]
-        public async Task<ActionResult> SupplyMoreInfo(int ticketId, string comment, bool reactivate = false)
+        public async Task<ActionResult> SupplyMoreInfo(int ticketId, [ModelBinder(typeof(SummernoteModelBinder))] string comment, bool reactivate = false)
         {
             var activityFn = Context.TicketActions.SupplyMoreInfo(comment, reactivate);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.SupplyMoreInfo);
@@ -242,7 +244,10 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("take-over")]
-        public async Task<ActionResult> TakeOver(int ticketId, string comment, string priority)
+        public async Task<ActionResult> TakeOver(
+            int ticketId,
+            [ModelBinder(typeof(SummernoteModelBinder))] string comment,
+            string priority)
         {
             var activityFn = Context.TicketActions.TakeOver(comment, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.TakeOver);
@@ -252,6 +257,7 @@ namespace TicketDesk.Web.Client.Controllers
         private async Task<ActionResult> PerformTicketAction(int ticketId, Action<Ticket> activityFn, TicketActivity activity)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
+            TryValidateModel(ticket);
             if (ModelState.IsValid)
             {
                 try

@@ -73,6 +73,15 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("new")]
         public async Task<ActionResult> New(Ticket ticket, Guid tempId)
         {
+            if (ticket.IsHtml)
+            {
+                ticket.Details = ticket.Details.StripHtmlWhenEmpty();
+                if (string.IsNullOrEmpty(ticket.Details))
+                {
+                    ModelState.AddModelError("Details", "This field is required.");
+                }
+            }
+            
             if (ModelState.IsValid)
             {
                 try
@@ -145,6 +154,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)
         {
+            
             Context.Tickets.Add(ticket);
             await Context.SaveChangesAsync();
             ticket.CommitPendingAttachments(tempId);

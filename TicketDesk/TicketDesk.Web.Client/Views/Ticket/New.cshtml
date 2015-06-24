@@ -66,7 +66,7 @@
 
                         @Html.AntiForgeryToken()
 
-                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                        @Html.ValidationSummary(true, "Unable to create ticket, please correct the errors below", new { @class = "alert alert-danger" })
 
                         @Html.HiddenFor(model => model.TicketId)
                         @Html.HiddenFor(model => model.IsHtml)
