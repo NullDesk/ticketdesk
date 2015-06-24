@@ -20,7 +20,7 @@ namespace TicketDesk.Web.Client
         public void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            
+            filters.Add(new UserSettingsFilter());
         }
     }
 }

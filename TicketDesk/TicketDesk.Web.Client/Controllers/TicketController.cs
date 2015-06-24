@@ -57,11 +57,14 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-
         [Route("new")]
         public ActionResult New()
         {
-            var model = new Ticket { Owner = Context.SecurityProvider.CurrentUserId, IsHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote" };
+            var model = new Ticket
+            {
+                Owner = Context.SecurityProvider.CurrentUserId,
+                IsHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote"
+            };
             ViewBag.TempId = Guid.NewGuid();
             return View(model);
         }

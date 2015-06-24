@@ -102,6 +102,13 @@ namespace TicketDesk.Domain.Model
             return context.TicketDeskSettings.GetTicketTypeList(true, ticket.TicketType);
         }
 
+        public static SelectList GetProjectList(this Ticket ticket, int? selectedProject)
+        {
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
+            return context.Projects.OrderBy(p => p.ProjectName)
+                .ToSelectList(p => p.ProjectId.ToString(), p => p.ProjectName, selectedProject ?? 0, true);
+        }
+
         public static SelectList GetOwnersList(this Ticket ticket, bool excludeCurrentUser = false, bool excludeCurrentOwner = false)
         {
             var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();

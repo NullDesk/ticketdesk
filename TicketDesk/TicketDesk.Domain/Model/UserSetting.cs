@@ -20,12 +20,13 @@ namespace TicketDesk.Domain.Model
     
     public class UserSetting
     {
-
         [Key]
         [StringLength(256)]
         public string UserId { get; set; }
 
         public virtual UserTicketListSettingsCollection ListSettings { get; internal set; }
+
+        public int? SelectedProjectId { get; set; }
        
 
         public UserTicketListSetting GetUserListSettingByName(string listName)
