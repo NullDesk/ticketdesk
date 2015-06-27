@@ -39,7 +39,7 @@
                         <th>
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TicketStatus", "Status", ajaxSortOptions)
                         </th>
-                        <th>
+                        <th class="hidden-xs">
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "Owner", "Owner", ajaxSortOptions)
                         </th>
                         <th>
@@ -67,7 +67,7 @@
                     @foreach (var item in tickets)
                     {
                         <tr class="clickable">
-                            <td colspan="2">
+                            <td colspan="2" style="white-space: normal;">
                                 <a href="@Url.Action("Index", "Ticket", new {area = "", id = item.TicketId})", style="margin-right: 1ex;">
                                     #@item.TicketId
                                 </a>
@@ -85,7 +85,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.TicketStatus)
                             </td>
-                            <td>
+                            <td class="hidden-xs">
                                 @Html.DisplayFor(modelItem => item.GetOwnerInfo().DisplayName)
                             </td>
                             <td>
