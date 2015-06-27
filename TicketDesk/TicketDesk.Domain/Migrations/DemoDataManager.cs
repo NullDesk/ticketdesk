@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Linq;
 using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain.Migrations
@@ -28,6 +29,7 @@ namespace TicketDesk.Domain.Migrations
             context.TicketSubscribers.RemoveRange(context.TicketSubscribers);
             context.TicketEvents.RemoveRange(context.TicketEvents);
             context.Tickets.RemoveRange(context.Tickets);
+            context.Projects.RemoveRange(context.Projects.Where(p => p.ProjectName != "Default"));
             context.TicketDeskSettings = new ApplicationSetting() {};
 
             context.SaveChanges();
@@ -35,13 +37,14 @@ namespace TicketDesk.Domain.Migrations
 
         public static void SetupDemoData(TdDomainContext context)
         {
+            var dProj = context.Projects.First();
             RemoveAllData(context);
             context.SaveChanges();
 
             context.Tickets.AddOrUpdate(t => t.Title,
                    new Ticket
                    {
-                       ProjectId = 1,
+                       ProjectId = dProj.ProjectId,
                        Title = "Test Unassigned Ticket",
                        AffectsCustomer = false,
                        Category = "Hardware",
@@ -89,7 +92,7 @@ namespace TicketDesk.Domain.Migrations
                 context.Tickets.AddOrUpdate(t => t.Title,
                     new Ticket
                     {
-                        ProjectId = 1,
+                        ProjectId = dProj.ProjectId,
                         Title = "Test Ticket " + p,
                         AffectsCustomer = false,
                         AssignedTo = "64165817-9cb5-472f-8bfb-6a35ca54be6a",

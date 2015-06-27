@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.Configuration;
+using TicketDesk.Domain.Model;
 
 namespace TicketDesk.Domain.Migrations
 {
@@ -29,6 +30,7 @@ namespace TicketDesk.Domain.Migrations
         protected override void Seed(TdDomainContext context)
         {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
+            context.Projects.AddOrUpdate(new [] { new Project() { ProjectName = "Default", ProjectDescription = "Default" }});
             if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
             {
                 DemoDataManager.SetupDemoData(context);
