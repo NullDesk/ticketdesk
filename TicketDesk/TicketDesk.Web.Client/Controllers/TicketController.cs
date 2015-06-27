@@ -16,8 +16,10 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
@@ -58,16 +60,23 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Route("new")]
-        public ActionResult New()
+        public async Task<ActionResult> New()
         {
+
             var model = new Ticket
             {
                 Owner = Context.SecurityProvider.CurrentUserId,
                 IsHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote"
             };
+
+            await SetProjectInfoForModel(model);
+
             ViewBag.TempId = Guid.NewGuid();
+
             return View(model);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,7 +93,7 @@ namespace TicketDesk.Web.Client.Controllers
                     ModelState.AddModelError("Details", "This field is required.");
                 }
             }
-            
+
             if (ModelState.IsValid)
             {
                 try
@@ -103,6 +112,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             }
             ViewBag.TempId = tempId;
+            await SetProjectInfoForModel(ticket);
             return View(ticket);
         }
 
@@ -155,9 +165,29 @@ namespace TicketDesk.Web.Client.Controllers
             return new JsonCamelCaseResult { Data = new { IsSubscribed = isSubscribed } };
         }
 
+        private async Task SetProjectInfoForModel(Ticket ticket)
+        {
+            if (ticket.ProjectId == default(int))
+            {
+                var projects = await Context.Projects.ToListAsync();
+                var isMulti = (projects.Count > 1);
+                ViewBag.IsMultiProject = isMulti;
+               
+                //set to first project if only one project exists, otherwise use user's selected project
+                ticket.ProjectId = (isMulti) ? await GetUserSelectedProjectId(): projects.First().ProjectId; 
+
+            }
+        }
+
+        private async Task<int> GetUserSelectedProjectId()
+        {
+            var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId);
+            return (settings.SelectedProjectId ?? 0);
+        }
+
         private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)
         {
-            
+
             Context.Tickets.Add(ticket);
             await Context.SaveChangesAsync();
             ticket.CommitPendingAttachments(tempId);

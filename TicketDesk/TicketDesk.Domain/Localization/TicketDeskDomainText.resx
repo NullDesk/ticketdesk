@@ -320,4 +320,10 @@
   <data name="DefaultListNameUnassigned" xml:space="preserve">
     <value>Unassigned</value>
   </data>
+  <data name="TicketProject" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="TicketProjectShort" xml:space="preserve">
+    <value>Project</value>
+  </data>
 </root>

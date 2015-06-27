@@ -529,6 +529,24 @@ namespace TicketDesk.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string TicketProject {
+            get {
+                return ResourceManager.GetString("TicketProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string TicketProjectShort {
+            get {
+                return ResourceManager.GetString("TicketProjectShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string TicketStatusActive {

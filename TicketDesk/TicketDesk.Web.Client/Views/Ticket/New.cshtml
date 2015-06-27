@@ -71,20 +71,28 @@
 
                         @Html.HiddenFor(model => model.TicketId)
                         @Html.HiddenFor(model => model.IsHtml)
-                        <input type="hidden" name="tempId" value="@ViewBag.TempId"/>
+                        <input type="hidden" name="tempId" value="@ViewBag.TempId" />
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProjectId, new { @class = "col-md-2 col-sm-1 control-label" })
-                            <div class="col-md-8 col-sm-11">
-                                @Html.DropDownListFor(model => model.ProjectId, Model.GetProjectList((int?)ViewBag.SelectedProjectId), new { @class = "form-control input-sm", tabindex = 2 })
-                                @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
+                        @if (ViewBag.IsMultiProject)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProjectId, new { @class = "col-md-2 col-sm-1 control-label" })
+                                <div class="col-md-8 col-sm-11">
+                                    @Html.DropDownListFor(model => model.ProjectId, Model.GetProjectList((int?)ViewBag.SelectedProjectId), new { @class = "form-control input-sm", tabindex = 2 })
+                                    @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(model => model.ProjectId)
+                        }
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Title, new { @class = "col-md-2 col-sm-1 control-label" })
+                            @Html.LabelFor(model => model.Title, new { @class = "col-md-2 col-sm-1 control-label focus" })
                             <div class="col-md-8 col-sm-11">
-                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1 })
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1, autofocus = string.Empty })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

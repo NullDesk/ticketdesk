@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.Linq;
+using System.Linq.Expressions;
 using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
@@ -36,6 +37,7 @@ namespace TicketDesk.Domain.Model
         public int TicketId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(ResourceType = typeof(TicketDeskDomainText), Name = "TicketProject", ShortName = "TicketProjectShort")]
         public int ProjectId { get; set; }
 
 

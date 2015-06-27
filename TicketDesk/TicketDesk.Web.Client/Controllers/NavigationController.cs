@@ -61,7 +61,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         private async Task<int> GetUserSelectedProjectId(IEnumerable<Project> projects)
         {
-            var settings = AsyncHelper.RunSync(() => Context.UserSettingsManager.GetSettingsForUserAsync(User.Identity.GetUserId()));
+            var settings = AsyncHelper.RunSync(() => Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId));
             var projectId = settings.SelectedProjectId ?? 0;
 
             //if user's selected project points to a project that no longer exists, reset
@@ -79,7 +79,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         private async Task UpdateUserSelectedProject(int projectId)
         {
-            var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(User.Identity.GetUserId());
+            var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId);
             settings.SelectedProjectId = projectId;
         }
     }
