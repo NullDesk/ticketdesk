@@ -14,6 +14,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using TicketDesk.Search.Common;
@@ -26,7 +27,7 @@ namespace TicketDesk.Search.Lucene
         public LuceneSearchLocatorProvider()
             : base("ticketdesk-searchindex") { }
 
-        public Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
+        public Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText, int projectId)
         {
             return Task.Run(() =>
             {
@@ -46,10 +47,19 @@ namespace TicketDesk.Search.Lucene
 
                 var query = parser.Parse(searchText);
                 
+                
                 var collector = TopScoreDocCollector.Create(20, true);
-
-                searcher.Search(query, collector);
-
+                if (projectId != default(int))
+                {
+                    var filterQuery = new BooleanQuery();
+                    filterQuery.Add(new TermQuery(new Term("projectid", projectId.ToString())), Occur.MUST);
+                    var filter = new QueryWrapperFilter(filterQuery);
+                    searcher.Search(query, filter, collector);
+                }
+                else
+                {
+                    searcher.Search(query, collector);
+                }
                 return collector.TopDocs().ScoreDocs.Select(d =>
                 {
                     var document = searcher.Doc(d.Doc);

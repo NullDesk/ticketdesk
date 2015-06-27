@@ -22,9 +22,9 @@ namespace TicketDesk.Domain.Model
     public static class SearchManagerExtensions
     {
         public static async Task<IEnumerable<Ticket>> SearchAsync(this TdSearchContext manager, IQueryable<Ticket> ticketQuery,
-            string searchText)
+            string searchText, int projectId)
         {
-            var results = await manager.IndexSearcher.SearchAsync(searchText);
+            var results = await manager.IndexSearcher.SearchAsync(searchText,projectId);
             
             return from i in results
                    join t in ticketQuery

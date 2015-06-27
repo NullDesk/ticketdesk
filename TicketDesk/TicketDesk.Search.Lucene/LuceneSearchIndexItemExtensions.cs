@@ -30,14 +30,24 @@ namespace TicketDesk.Search.Lucene
                 item.Id.ToString(CultureInfo.InvariantCulture),
                 Field.Store.YES,
                 Field.Index.NOT_ANALYZED,
-                Field.TermVector.NO) { Boost = 3F };
+                Field.TermVector.NO)
+            { Boost = 3F };
+
+            var projectid = new Field(
+                "projectid",
+                item.ProjectId.ToString(CultureInfo.InvariantCulture),
+                Field.Store.YES,
+                Field.Index.NOT_ANALYZED,
+                Field.TermVector.NO)
+            { Boost = 0F };
 
             var title = new Field(
                 "title",
                 item.Title ?? string.Empty,
                 Field.Store.NO,
                 Field.Index.ANALYZED,
-                Field.TermVector.YES) { Boost = 2F };
+                Field.TermVector.YES)
+            { Boost = 2F };
 
             var status = new Field(
                 "status",
@@ -47,7 +57,7 @@ namespace TicketDesk.Search.Lucene
                 Field.TermVector.NO);
             var lastupdatedate = new Field(
                 "status",
-                DateTools.DateToString(item.LastUpdateDate.DateTime,DateTools.Resolution.SECOND),
+                DateTools.DateToString(item.LastUpdateDate.DateTime, DateTools.Resolution.SECOND),
                 Field.Store.YES,
                 Field.Index.NOT_ANALYZED,
                 Field.TermVector.NO
@@ -63,16 +73,19 @@ namespace TicketDesk.Search.Lucene
                 tagList,
                 Field.Store.NO,
                 Field.Index.ANALYZED,
-                Field.TermVector.NO) { Boost = 2.5F };
+                Field.TermVector.NO)
+            { Boost = 2.5F };
             var events = new Field(
                 "events",
                 eventText,
                 Field.Store.NO,
                 Field.Index.ANALYZED,
-                Field.TermVector.YES) { Boost = 0.75F };
+                Field.TermVector.YES)
+            { Boost = 0.75F };
 
             var doc = new Document();
             doc.Add(id);
+            doc.Add(projectid);
             doc.Add(title);
             doc.Add(status);
             doc.Add(lastupdatedate);

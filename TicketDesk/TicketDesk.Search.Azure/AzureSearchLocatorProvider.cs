@@ -24,13 +24,18 @@ namespace TicketDesk.Search.Azure
         private const string IndexName = "ticketdesk-searchindex";
 
 
-        public async Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText)
+        public async Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText, int projectId)
         {
             var query = new SearchQuery(searchText)
             {
                 SearchFields = "id,title,details,tags,events",
-                Select = "id"
+                Select = "id",
+                
             };
+            if (projectId != default(int))
+            {
+                query.Filter = string.Format("projectid eq '{0}'", projectId);
+            }
             var result = await QueryClient.SearchAsync(IndexName, query);
             if (result.IsSuccess)
             {

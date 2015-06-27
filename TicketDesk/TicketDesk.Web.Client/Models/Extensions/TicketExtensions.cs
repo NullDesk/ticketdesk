@@ -35,6 +35,7 @@ namespace TicketDesk.Domain.Model
             return tickets.Select(t => new SearchIndexItem
             {
                 Id = t.TicketId,
+                ProjectId = t.ProjectId,
                 Title = t.Title,
                 Details = t.Details,
                 Status = t.TicketStatus.ToString(),

@@ -36,10 +36,18 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(string term)
         {
+            var projectId = await Context.UserSettingsManager.GetUserSelectedProjectId(Context);
             if (!string.IsNullOrEmpty(term))
             {
-                var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term);
-               
+                var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term, projectId);
+
+                if (Context.Projects.Count() > 1)
+                {
+                    ViewBag.IsMultiProject = true;
+                    ViewBag.SearchProjectName = (projectId == 0) ? "Showing results from all projects" : string.Format("Showing results from project: {0}",Context.Projects.First(p => p.ProjectId == projectId).ProjectName);
+                }
+
+
                 return View(model);
             }
             return View(new Ticket[0]);

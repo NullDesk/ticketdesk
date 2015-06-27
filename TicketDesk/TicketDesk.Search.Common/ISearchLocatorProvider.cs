@@ -18,6 +18,6 @@ namespace TicketDesk.Search.Common
 {
     public interface ISearchLocatorProvider
     {
-        Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText);
+        Task<IEnumerable<SearchResultItem>> SearchAsync(string searchText, int projectId);
     }
 }

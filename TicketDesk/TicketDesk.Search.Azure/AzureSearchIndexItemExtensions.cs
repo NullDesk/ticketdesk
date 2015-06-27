@@ -23,6 +23,7 @@ namespace TicketDesk.Search.Azure
         {
             var op = new IndexOperation(IndexOperationType.Upload, "id", item.Id.ToString(CultureInfo.InvariantCulture))
                 .WithProperty("title", item.Title)
+                .WithProperty("projectid", item.ProjectId)
                 .WithProperty("status", item.Status)
                 .WithProperty("lastupdatedate", item.LastUpdateDate)
                 .WithProperty("details", item.Details)

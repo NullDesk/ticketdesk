@@ -33,7 +33,7 @@ namespace TicketDesk.Web.Client.Controllers
             var modelProjects = projects.ToList();
             
             //get user's selected project
-            var projectId = AsyncHelper.RunSync(() =>  GetUserSelectedProjectId(modelProjects));
+            var projectId = AsyncHelper.RunSync(() => Context.UserSettingsManager.GetUserSelectedProjectId(Context));
 
             //add the "all projects item" then get a select list to render
             modelProjects.Insert(0, new Project {ProjectId = 0, ProjectName = "All Projects", ProjectDescription = string.Empty});
@@ -48,7 +48,7 @@ namespace TicketDesk.Web.Client.Controllers
             //only switch projects if project exists, or selection is the "all projects" option
             if (projectId == 0 || Context.Projects.Any(p => p.ProjectId == projectId))
             {
-                await UpdateUserSelectedProject(projectId);
+                await Context.UserSettingsManager.UpdateUserSelectedProject(projectId, Context.SecurityProvider.CurrentUserId);
                 await Context.SaveChangesAsync();
             }
             if (Request.UrlReferrer == null)
@@ -59,28 +59,28 @@ namespace TicketDesk.Web.Client.Controllers
 
         }
 
-        private async Task<int> GetUserSelectedProjectId(IEnumerable<Project> projects)
-        {
-            var settings = AsyncHelper.RunSync(() => Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId));
-            var projectId = settings.SelectedProjectId ?? 0;
+        //private async Task<int> GetUserSelectedProjectId(IEnumerable<Project> projects)
+        //{
+        //    var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId);
+        //    var projectId = settings.SelectedProjectId ?? 0;
 
-            //if user's selected project points to a project that no longer exists, reset
-            //  normally this wouldn't happen since the dbcontext will update user settings when projects are deleted 
-            if (projectId != 0 && projects.All(p => p.ProjectId != projectId))
-            {
-                projectId = 0;
-                await UpdateUserSelectedProject(projectId);
-                Context.SaveChanges();
-            }
+        //    //if user's selected project points to a project that no longer exists, reset
+        //    //  normally this wouldn't happen since the dbcontext will update user settings when projects are deleted 
+        //    if (projectId != 0 && projects.All(p => p.ProjectId != projectId))
+        //    {
+        //        projectId = 0;
+        //        await UpdateUserSelectedProject(projectId);
+        //        Context.SaveChanges();
+        //    }
 
-            return projectId;
+        //    return projectId;
 
-        }
+        //}
 
-        private async Task UpdateUserSelectedProject(int projectId)
-        {
-            var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId);
-            settings.SelectedProjectId = projectId;
-        }
+        //private async Task UpdateUserSelectedProject(int projectId)
+        //{
+        //    var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId);
+        //    settings.SelectedProjectId = projectId;
+        //}
     }
 }

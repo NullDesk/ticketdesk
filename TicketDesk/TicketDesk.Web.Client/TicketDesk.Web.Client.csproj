@@ -287,6 +287,7 @@
     <Compile Include="Infrastructure\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\Extensions\ClientSettingExtensions.cs" />
+    <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />

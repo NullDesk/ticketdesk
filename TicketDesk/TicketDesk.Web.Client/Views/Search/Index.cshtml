@@ -31,8 +31,19 @@
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Search</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">
+                Search
+
+
+
+            </legend>
+            
+
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+                    @if (ViewBag.IsMultiProject ?? false)
+                    {
+                        <div class="alert alert-info ">@ViewBag.SearchProjectName</div>
+                    }
                 @foreach (var item in Model)
                 {
                     <div id="ticketDetailPanel" class="panel panel-info clickable">
@@ -101,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                }
+                                                }
             </div>
         </fieldset>
     </div>

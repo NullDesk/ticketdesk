@@ -135,6 +135,8 @@ namespace TicketDesk.Search.Azure
             var index = new Index(IndexName)
                 .WithStringField("id", opt =>
                     opt.IsKey().IsRetrievable().IsSearchable().IsSortable().IsFilterable())
+                .WithStringField("projectid", opt =>
+                    opt.IsRetrievable().IsSortable().IsFilterable())
                 .WithStringField("title", opt =>
                     opt.IsRetrievable().IsSearchable())
                 .WithStringField("status", opt =>
@@ -159,6 +161,7 @@ namespace TicketDesk.Search.Azure
                         Weights = new Dictionary<string, double>
                         {
                             {"id", 3D},
+                            {"projectid",0d},
                             {"tags", 2.5D},
                             {"title", 2D},
                             {"events", 0.75D}
