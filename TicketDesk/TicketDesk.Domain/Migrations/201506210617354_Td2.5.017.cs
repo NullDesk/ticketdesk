@@ -22,7 +22,7 @@ namespace TicketDesk.Domain.Migrations
             AddColumn("dbo.TicketEventNotifications", "Version", c => c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "timestamp"));
             AddColumn("dbo.Tickets", "ProjectId", c => c.Int(nullable: false, defaultValue: 1));
             CreateIndex("dbo.Tickets", "ProjectId");
-            AddForeignKey("dbo.Tickets", "ProjectId", "dbo.Projects", "ProjectId", cascadeDelete: true);
+            AddForeignKey("dbo.Tickets", "ProjectId", "dbo.Projects", "ProjectId", cascadeDelete: false);
         }
         
         public override void Down()

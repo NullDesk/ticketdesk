@@ -19,8 +19,6 @@ html {
 }
 
 body {
-    /*padding-top: 95px;*/
-    /*padding-bottom: 20px;*/
     background-color: #fff;
     font-size: 10pt;
     font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
@@ -33,12 +31,11 @@ body {
 }
 
 #main-menu-collapse {
-    margin: 0 0 0 10px;
+    /*margin: 0 0 0 10px;*/
 }
 
 #mainNav.navbar-fixed-top {
     background-color: #fff;
-    /*border-bottom: none;*/
 }
 
 #mainNav.navbar-fixed-top .container-fluid.navbar-default {
@@ -57,7 +54,6 @@ body {
 
 .body-content > main {
     min-height: 300px;
-    /*padding: 15px 8px;*/
 }
 
 .body-content > footer {
@@ -164,8 +160,6 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-
-
 /*Home page*/
 .right-side-box {
     height: 100%;
@@ -183,55 +177,15 @@ p {
 
 /*Ticket Center*/
 #ticketList {
-    /*border: 1px solid #B3CBDF;
-    -ms-border-radius: 10px;
-    border-radius: 10px;*/
     border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-    /*#ticketList .navbar {
-        border-radius: 0;
-    }*/
-
-    /*#ticketList .filterBar.navbar {
-        min-height: 20px;
-    }*/
-
-/*#filterForm.navbar-form {
-    margin-left: 5px;
-    margin-right: 5px;
-}*/
-
-/*#ticketList .filterBar {
-    margin: 0;
-    display: block;
-    border: 1px dotted #B3CBDF;
-    background-color: #E1EBF2;
-    -ms-border-top-left-radius: 10px;
-    border-top-left-radius: 10px;
-    -ms-border-top-right-radius: 10px;
-    border-top-right-radius: 10px;
-}*/
-
-/*#ticketList table {
-    margin-bottom: 0;
-}
-
-#ticketList table {
-    font-size: 10pt;
-    /*border: 1px solid #B3CBDF;*/
 }
 
     #ticketList table td {
-        /*border: 1px dotted #B3CBDF;
-        border-collapse: collapse;*/
         white-space: nowrap;
     }
 
     #ticketList table th {
         white-space: nowrap;
-        /*border: 1px dotted #B3CBDF;*/
         background-color: #FFFFDD;
     }
 
@@ -244,7 +198,7 @@ p {
     border-bottom-right-radius: 10px;
     background-color: #E1EBF2;
     padding: 0 20px;
-}*/
+}
 
     #ticketList footer .pagination,
     #userListBody .panel-footer .pagination {
@@ -289,12 +243,7 @@ p {
     }
 
 
-
-
-
 /* custom inclusion of right, left and below tabs */
-
-
 
 .tabs-below {
     border-top: 0;
@@ -317,8 +266,6 @@ p {
 .pill-content > .active {
     display: block;
 }
-
-
 
 .tabs-below > .nav-tabs > li {
     margin-top: -1px;
@@ -433,7 +380,6 @@ p {
 
 .row-same-height {
     display: table;
-    /*width: 100%;*/
     /* fix overflow */
     table-layout: fixed;
 }

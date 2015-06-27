@@ -54,7 +54,7 @@
             </button>
             @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand pull-left" })
         </div>
-        <div class="row">
+        <div>
             <div id="main-menu-collapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="@Html.IsActiveRoute("Index", "Home")">
@@ -63,13 +63,11 @@
                     <li class="@Html.IsActiveRoute("Index", "TicketCenter")">
                         <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"><i class="fa fa-ticket"></i> Ticket Center</a>
                     </li>
-
                     <li class="@Html.IsActiveRoute("New", "Ticket")">
                         <a href="@Url.Action("New", "Ticket", new {area = ""})"><i class="fa fa-plus"></i> New Ticket</a>
                     </li>
                     <li role="separator" class="nav-divider"></li>
                 </ul>
-
                 <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
                     <li class="dropdown hidden-sm hidden-md hidden-lg" style="padding: 10px 15px;">
                         @Html.Partial("_QuickSearch")
@@ -89,14 +87,11 @@
                         <a href="@Url.Action("About", "Home", new {area = ""})"><i class="fa fa-info-circle fa-lg"></i> <span class="hidden-sm">About</span></a>
                     </li>
                 </ul>
-
             </div>
         </div>
-        
-        <div class="container-fluid navbar-default @((ViewBag.MultiProjects ?? true )? string.Empty:"hidden-xs")" style="border-top: 1px solid #e7e7e7; padding: 7px;">
-
+        <div class="container-fluid navbar-default" style="border-top: 1px solid #e7e7e7; padding: 7px;">
             <div class="form form-inline pull-left-xs pull-right-sm">
-                @Html.Partial("_ProjectMenu")
+                @{ Html.RenderAction("ProjectMenu", "Navigation"); }
                 <div class="form-group hidden-xs">
                     @Html.Partial("_QuickSearch")
                 </div>

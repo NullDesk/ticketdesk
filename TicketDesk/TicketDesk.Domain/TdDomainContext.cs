@@ -137,7 +137,7 @@ namespace TicketDesk.Domain
         //These DbSets contain json serialized content. Callers cannot use standard LINQ to Entities 
         //  expressions with these safely. Marking internal to prevent callers having direct access
         //  We'll provide a thin layer of abstraction for safely handling external interactions instead. 
-        internal DbSet<ApplicationSetting> ApplicationSettings { get;set; }
+        internal DbSet<ApplicationSetting> ApplicationSettings { get; set; }
         internal DbSet<UserSetting> UserSettings { get; set; }
 
         private UserSettingsManager _userSettingsManager;
@@ -251,10 +251,11 @@ namespace TicketDesk.Domain
         private PendingEventEntities OnSaving()
         {
             var pending = new PendingEventEntities();
-            pending.PendingTicketChanges = GetTicketChanges().ToArray();
-
+            pending.PendingTicketChanges = GetTicketChanges();
+            
             if (SecurityProvider != null)
             {
+                ProcessDeletedProjects();
                 PreProcessNewTickets();
                 PreProcessModifiedTickets(pending.PendingTicketChanges);
                 //IMPORTANT! ticket event changes may not exist until after preprocess methods above 
@@ -264,6 +265,8 @@ namespace TicketDesk.Domain
             }
             return pending;
         }
+
+       
 
         private void CreateEventNotifications()
         {
@@ -279,6 +282,21 @@ namespace TicketDesk.Domain
             foreach (var change in ticketChanges)
             {
                 PrePopulateModifiedTicket(change);
+            }
+        }
+
+        private void ProcessDeletedProjects()
+        {
+            var projectChanges = ChangeTracker.Entries<Project>()
+                .Where(t => t.State == EntityState.Deleted)
+                .Select(t => t.Entity);
+            foreach (var change in projectChanges)
+            {
+                var usersToUpdate = UserSettings.Where(u => u.SelectedProjectId == change.ProjectId);
+                foreach(var user in usersToUpdate)
+                {
+                    user.SelectedProjectId = 0;
+                }
             }
         }
 
@@ -352,6 +370,8 @@ namespace TicketDesk.Domain
             newTicket.EnsureSubscribers();
         }
 
+        
+
         private IEnumerable<Ticket> GetTicketChanges()
         {
             var pendingEventChanges = GetTicketEventChanges();
@@ -367,7 +387,8 @@ namespace TicketDesk.Domain
         {
             var pendingEventChanges =
                 ChangeTracker.Entries<TicketEvent>().Where(t => t.State != EntityState.Unchanged)
-                .Select(t => t.Entity);
+                .Select(t => t.Entity)
+                .ToArray();//execute now, because after save changes this query will return no results
 
             return pendingEventChanges;
         }
@@ -386,6 +407,7 @@ namespace TicketDesk.Domain
         {
             public IEnumerable<Ticket> PendingTicketChanges { get; set; }
             public IEnumerable<TicketEventNotification> PendingEventNotificationChanges { get; set; }
+
         }
     }
 }

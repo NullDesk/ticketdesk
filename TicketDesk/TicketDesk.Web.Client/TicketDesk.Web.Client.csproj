@@ -249,6 +249,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmailTestController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ProjectSettingsController.cs" />
     <Compile Include="Controllers\PushNotificationSettingsController.cs" />
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
@@ -269,7 +270,6 @@
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\SummerNoteStringExtensions.cs" />
-    <Compile Include="Infrastructure\Filters\UserSettingsFilter.cs" />
     <Compile Include="Infrastructure\Helpers\DescriptionForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\DisplayForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\JsonCamelCaseResult.cs" />
@@ -535,6 +535,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\Filters\" />
+    <Folder Include="Views\ProjectSelector\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
