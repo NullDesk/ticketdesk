@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(string term)
         {
-            var projectId = await Context.UserSettingsManager.GetUserSelectedProjectId(Context);
+            var projectId = await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context);
             if (!string.IsNullOrEmpty(term))
             {
                 var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term, projectId);

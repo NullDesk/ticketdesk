@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Identity;
@@ -11,9 +12,14 @@ namespace TicketDesk.Domain.Model
 {
     public static class ProjectExtensions
     {
+      
 
-        public static async Task<int> GetUserSelectedProjectId(this UserSettingsManager userSettingsManager, TdDomainContext context)
+        public static async Task<int> GetUserSelectedProjectIdAsync(this UserSettingsManager userSettingsManager, TdDomainContext context)
         {
+            //TODO: We have to take the source context as a param because we have sync callers (child action in navigation).
+            //      Trying to use dependency resolver with a sync caller results in the context being invoked without a security provider.
+            //      The entire concept of child actions are heavily refactored in MVC 6, so this should not be an issue in future versions.
+
             var projects = context.Projects;
             var settings = await userSettingsManager.GetSettingsForUserAsync(context.SecurityProvider.CurrentUserId);
             var projectId = settings.SelectedProjectId ?? 0;
@@ -23,14 +29,14 @@ namespace TicketDesk.Domain.Model
             if (projectId != 0 && projects.All(p => p.ProjectId != projectId))
             {
                 projectId = 0;
-                await UpdateUserSelectedProject(userSettingsManager, projectId, context.SecurityProvider.CurrentUserId);
+                await UpdateUserSelectedProjectAsync(userSettingsManager, projectId, context.SecurityProvider.CurrentUserId);
                 context.SaveChanges();
             }
             return projectId;
 
         }
 
-        public static async Task UpdateUserSelectedProject(this UserSettingsManager userSettingsManager, int projectId, string userId)
+        public static async Task UpdateUserSelectedProjectAsync(this UserSettingsManager userSettingsManager, int projectId, string userId)
         {
             var settings = await userSettingsManager.GetSettingsForUserAsync(userId);
             settings.SelectedProjectId = projectId;

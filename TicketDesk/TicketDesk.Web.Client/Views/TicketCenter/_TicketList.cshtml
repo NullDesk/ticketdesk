@@ -33,11 +33,11 @@
                         <th>
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TicketId", "ID", ajaxSortOptions)
                         </th>
-                        <th class="hidden-sm hidden-xs">
-                            @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TicketType", "Type", ajaxSortOptions)
-                        </th>
                         <th>
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "Title", "Title", ajaxSortOptions)
+                        </th>
+                        <th>
+                            @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TicketStatus", "Status", ajaxSortOptions)
                         </th>
                         <th>
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "Owner", "Owner", ajaxSortOptions)
@@ -45,8 +45,8 @@
                         <th>
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "AssignedTo", "Assigned", ajaxSortOptions)
                         </th>
-                        <th>
-                            @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TicketStatus", "Status", ajaxSortOptions)
+                        <th class="hidden-sm hidden-xs">
+                            @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TicketType", "Type", ajaxSortOptions)
                         </th>
                         <th class="hidden-sm hidden-xs">
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "Category", "Category", ajaxSortOptions)
@@ -67,16 +67,23 @@
                     @foreach (var item in tickets)
                     {
                         <tr class="clickable">
-                            <td>
-                                <a href="@Url.Action("Index", "Ticket", new {area = "", id = item.TicketId})">
-                                    @item.TicketId
+                            <td colspan="2">
+                                <a href="@Url.Action("Index", "Ticket", new {area = "", id = item.TicketId})", style="margin-right: 1ex;">
+                                    #@item.TicketId
                                 </a>
-                            </td>
-                            <td class="hidden-sm hidden-xs">
-                                @Html.DisplayFor(modelItem => item.TicketType)
+                                @Html.DisplayFor(modelItem => item.Title)
+                                @if (Model.DisplayProjects)
+                                {
+                                    <div>
+                                        <span class="small text-muted">
+                                            <i class="fa fa-book"></i>
+                                            @item.Project.ProjectName
+                                        </span>
+                                    </div>
+                                }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Title)
+                                @Html.DisplayFor(modelItem => item.TicketStatus)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.GetOwnerInfo().DisplayName)
@@ -84,8 +91,8 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.GetAssignedToInfo().DisplayName)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TicketStatus)
+                            <td class="hidden-sm hidden-xs">
+                                @Html.DisplayFor(modelItem => item.TicketType)
                             </td>
                             <td class="hidden-sm hidden-xs">
                                 @Html.DisplayFor(modelItem => item.Category)
@@ -96,8 +103,6 @@
                             <td class="hidden-sm hidden-xs">
                                 @item.CreatedDate.ToString("MM/dd/yyyy")<br />
                                 @item.CreatedDate.ToString("hh:mm tt")
-
-
                             </td>
                             <td>
                                 @item.LastUpdateDate.ToString("MM/dd/yyyy")<br />

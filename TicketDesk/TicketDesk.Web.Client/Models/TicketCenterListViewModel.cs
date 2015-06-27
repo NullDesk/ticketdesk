@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client.Models
                 CurrentListSetting = await context.UserSettingsManager.GetUserListSettingByNameAsync(listName, userId)
             };
 
-            
+
             vm.Tickets = await vm.ListTicketsAsync(currentPage, context);
 
             return vm;
@@ -45,18 +45,34 @@ namespace TicketDesk.Web.Client.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="TicketCenterListViewModel" /> class.
         /// </summary>
-        private TicketCenterListViewModel() { }//private ctor
+        private TicketCenterListViewModel()
+        {
+            DisplayProjects = false;
+        }//private ctor
 
         public int CurrentPage { get; set; }
+
+        public bool DisplayProjects { get; set; }
 
         public TicketDeskUserManager UserManager
         {
             get { return DependencyResolver.Current.GetService<TicketDeskUserManager>(); }
         }
 
-        public Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TdDomainContext context)
+        public async Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TdDomainContext context)
         {
             var filterColumns = CurrentListSetting.FilterColumns.ToList();
+
+            //if filtering by project, add filter for selected project
+            var projectId = await context.UserSettingsManager.GetUserSelectedProjectIdAsync(context);
+            if (projectId != default(int))
+            {
+                filterColumns.Add(new UserTicketListFilterColumn("ProjectId", true, projectId));
+            }
+
+            DisplayProjects = context.Projects.Count() > 1;
+
+
             var sortColumns = CurrentListSetting.SortColumns.ToList();
             var pageSize = CurrentListSetting.ItemsPerPage;
             var query = context.GetObjectQueryFor(context.Tickets);
@@ -64,7 +80,7 @@ namespace TicketDesk.Web.Client.Models
             query = filterColumns.ApplyToQuery(query);
             query = sortColumns.ApplyToQuery(query);
 
-            return query.ToPagedListAsync(pageIndex, pageSize);
+            return await query.ToPagedListAsync(pageIndex, pageSize);
         }
 
         /// <summary>
