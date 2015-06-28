@@ -16,10 +16,26 @@
 @using TicketDesk.Domain.Model
 @model  Ticket
 
+@if (ViewBag.IsMultiProject)
+{
+<div class="form-group">
+    @Html.LabelFor(model => model.ProjectId, new {@class = "col-sm-2 control-label"})
+    <div class="col-sm-9">
+        @Html.DropDownListFor(model => model.ProjectId, Model.GetProjectList((int)Model.ProjectId), new { @class = "form-control input-sm", tabindex = 0 })
+        @Html.ValidationMessageFor(model => model.ProjectId, "", new {@class = "text-danger"})
+    </div>
+</div>
+}
+else
+{
+    @Html.HiddenFor(model => model.ProjectId)
+}
+
 <div class="form-group">
     @Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-9">
         @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-sm", placeholder = "Ticket title", tabindex = 1 })
+        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
     </div>
 </div>
 

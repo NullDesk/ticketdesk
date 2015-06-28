@@ -111,6 +111,8 @@ namespace TicketDesk.Domain
 
         public Action<Ticket> EditTicketInfo(
             string comment,
+            int projectId,
+            string projectName,
             string title,
             string details,
             string priority,
@@ -138,6 +140,14 @@ namespace TicketDesk.Domain
                     {
                         sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Title)));
                         ticket.Title = title;
+                    }
+                    if (ticket.ProjectId != projectId)
+                    {
+                        sb.AppendLine(string.Format("<dd>    {0}: from \"{1}\" to \"{2}\"</dd>", 
+                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ProjectId),
+                            ticket.Project.ProjectName,
+                            projectName));
+                        ticket.ProjectId = projectId;
                     }
                     if (ticket.Details != details)
                     {

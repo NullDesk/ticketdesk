@@ -78,7 +78,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProjectId, new { @class = "col-md-2 col-sm-1 control-label" })
                                 <div class="col-md-8 col-sm-11">
-                                    @Html.DropDownListFor(model => model.ProjectId, Model.GetProjectList((int?)ViewBag.SelectedProjectId), new { @class = "form-control input-sm", tabindex = 2 })
+                                    @Html.DropDownListFor(model => model.ProjectId, Model.GetProjectList((int?)ViewBag.SelectedProjectId), new { @class = "form-control input-sm", tabindex = 1 })
                                     @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
 
                                 </div>

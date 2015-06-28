@@ -20,19 +20,24 @@
 Content-Type: text/plain; charset=utf-8
 
 ----------------------------------------------------------------
-Ticket #@Model.Ticket.TicketId - @Model.Ticket.Category @Model.Ticket.TicketType : @Model.Ticket.Title
+Ticket #@Model.Ticket.TicketId - @(string.IsNullOrEmpty(Model.Ticket.Priority)? string.Empty: Model.Ticket.Priority + " Priority") @Model.Ticket.Category @Model.Ticket.TicketType
+    @Model.Ticket.Title
 ----------------------------------------------------------------
-Status @Model.Ticket.TicketStatus.GetDescription()
+@if (Model.IsMultiProject)
+{
+@:Project: @Model.Ticket.Project.ProjectName
+}
+Status: @Model.Ticket.TicketStatus.GetDescription()
 Assigned To: @Model.Ticket.GetAssignedToInfo().DisplayName
 Owner: @Model.Ticket.GetOwnerInfo().DisplayName
-Last updated by @Model.Ticket.GetLastUpdatedByInfo().DisplayName at @Model.Ticket.LastUpdateDate.DateTime.ToShortDateString() @Model.Ticket.LastUpdateDate.DateTime.ToShortTimeString()
-
+Updated by: @Model.Ticket.GetLastUpdatedByInfo().DisplayName at @Model.Ticket.LastUpdateDate.DateTime.ToShortDateString() @Model.Ticket.LastUpdateDate.DateTime.ToShortTimeString()
+Details:
 @{
-    var details = Regex.Replace(Model.Ticket.HtmlDetails().ToString(), @"<(.|\n)*?>", "");
-    if (details.Length > 100)
-    {
-        details = new string(details.Take(100).ToArray()) + "\n\n...";
-    }
+        var details = Regex.Replace(Model.Ticket.HtmlDetails().ToString(), @"<(.|\n)*?>", "");
+        if (details.Length > 100)
+        {
+            details = new string(details.Take(100).ToArray()) + "\n\n...";
+        }
 }
 
 @details

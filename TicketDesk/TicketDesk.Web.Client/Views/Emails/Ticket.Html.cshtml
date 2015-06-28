@@ -27,7 +27,7 @@ Content-Type: text/html; charset=utf-8
     <style type="text/css">
         * {
             font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
-            font-size: 11pt;
+            font-size: 10pt;
         }
 
         p {
@@ -101,6 +101,14 @@ Content-Type: text/html; charset=utf-8
                     @Model.Ticket.Priority Priority @Model.Ticket.Category @Model.Ticket.TicketType
                 </td>
             </tr>
+            @if (Model.IsMultiProject)
+            {
+                <tr>
+                    <td>
+                        Project: @Model.Ticket.Project.ProjectName
+                    </td>
+                </tr>
+            }
             <tr>
                 <td>
                     @if (string.IsNullOrEmpty(Model.Ticket.AssignedTo))
@@ -119,7 +127,7 @@ Content-Type: text/html; charset=utf-8
             </tr>
             <tr>
                 <td>
-                    Last updated by @Model.Ticket.GetLastUpdatedByInfo().DisplayName at @Model.Ticket.LastUpdateDate.DateTime.ToShortDateString() @Model.Ticket.LastUpdateDate.DateTime.ToShortTimeString()
+                    Updated by: @Model.Ticket.GetLastUpdatedByInfo().DisplayName at @Model.Ticket.LastUpdateDate.DateTime.ToShortDateString() @Model.Ticket.LastUpdateDate.DateTime.ToShortTimeString()
 
                 </td>
             </tr>
@@ -128,7 +136,7 @@ Content-Type: text/html; charset=utf-8
         <table style="width: 100%;">
             <tr>
                 <td style="">
-                    <div style="overflow-y:scroll; max-height: 200px;">
+                    <div style="overflow-y:scroll; max-height: 250px; min-height: 100px;">
                         @Model.Ticket.HtmlDetails()
                     </div>
                 </td>

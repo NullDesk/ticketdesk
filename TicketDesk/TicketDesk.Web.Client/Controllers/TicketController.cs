@@ -48,13 +48,13 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult> Index(int id)
         {
+           
             var model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
             if (model == null)
             {
                 return RedirectToAction("Index", "TicketCenter");
             }
             ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
-
 
             return View(model);
         }
@@ -135,6 +135,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> TicketDetails(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
+            ViewBag.DisplayProjects = Context.Projects.Count() > 1;
 
             return PartialView("_TicketDetails", ticket);
         }
@@ -174,16 +175,10 @@ namespace TicketDesk.Web.Client.Controllers
                 ViewBag.IsMultiProject = isMulti;
                
                 //set to first project if only one project exists, otherwise use user's selected project
-                ticket.ProjectId = (isMulti) ? await GetUserSelectedProjectId(): projects.First().ProjectId; 
-
+                ticket.ProjectId = (isMulti) ? await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context) : projects.First().ProjectId; 
             }
         }
 
-        private async Task<int> GetUserSelectedProjectId()
-        {
-            var settings = await Context.UserSettingsManager.GetSettingsForUserAsync(Context.SecurityProvider.CurrentUserId);
-            return (settings.SelectedProjectId ?? 0);
-        }
 
         private async Task<bool> CreateTicketAsync(Ticket ticket, Guid tempId)
         {

@@ -327,6 +327,21 @@ namespace TicketDesk.Domain
                     modifiedTicket.CurrentStatusDate = now;
                     modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUserId;
                 }
+                if (modifiedTicket.TagList != origTicket.TagList)
+                {
+                    //var tagsToDie = origTicket.TicketTags.Select(ot => ot.TicketTagId);
+                    var tagNames = modifiedTicket.TagList.Split(',');
+                    var tagsInList = modifiedTicket.TicketTags.Where(ot => tagNames.Contains(ot.TagName)).ToArray();
+                    var tagsToKill = modifiedTicket.TicketTags.Except(tagsInList).ToArray();
+                    var newTags = tagNames
+                        .Where(tagName => tagsInList.Select(tagInList => tagInList.TagName).Contains(tagName))
+                        .Select(nt => new TicketTag
+                        {
+                            TagName = nt,
+                        });
+                        TicketTags.RemoveRange(tagsToKill);
+                    modifiedTicket.TicketTags.AddRange(newTags);
+                }
             }
             modifiedTicket.EnsureSubscribers();
         }

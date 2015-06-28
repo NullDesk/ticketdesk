@@ -13,6 +13,7 @@
 
 using System;
 using System.Configuration;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Security;
@@ -46,7 +47,18 @@ namespace TicketDesk.Web.Client.Controllers
             ViewBag.Activity = activity;
             ViewBag.TempId = tempId ?? Guid.NewGuid();
             ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
+            if (activity == TicketActivity.EditTicketInfo)
+            {
+                await SetProjectInfoForModel(ticket);
+            }
             return PartialView("_ActivityForm", ticket);
+        }
+
+        private async Task SetProjectInfoForModel(Ticket ticket)
+        {
+            var projects = await Context.Projects.ToListAsync();
+            var isMulti = (projects.Count > 1);
+            ViewBag.IsMultiProject = isMulti;
         }
 
         [Route("activity-buttons")]
@@ -98,6 +110,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("edit-ticket-info")]
         public async Task<ActionResult> EditTicketInfo(
             int ticketId,
+            int projectId,
             [ModelBinder(typeof(SummernoteModelBinder))] string comment,
             string title,
             string details,
@@ -108,8 +121,8 @@ namespace TicketDesk.Web.Client.Controllers
             string tagList)
         {
             details = details.StripHtmlWhenEmpty();
-
-            var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
+            var projectName = Context.Projects.First(p => p.ProjectId == projectId).ProjectName;
+            var activityFn = Context.TicketActions.EditTicketInfo(comment, projectId, projectName, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
 
