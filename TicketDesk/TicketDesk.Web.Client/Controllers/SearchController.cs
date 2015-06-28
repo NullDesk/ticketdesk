@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.Linq;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
@@ -39,7 +40,7 @@ namespace TicketDesk.Web.Client.Controllers
             var projectId = await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context);
             if (!string.IsNullOrEmpty(term))
             {
-                var model = await TdSearchContext.Current.SearchAsync(Context.Tickets, term, projectId);
+                var model = await TdSearchContext.Current.SearchAsync(Context.Tickets.Include(t => t.Project), term, projectId);
 
                 if (Context.Projects.Count() > 1)
                 {

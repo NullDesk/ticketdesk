@@ -35,10 +35,10 @@
                 Search
             </legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
-                    @if (ViewBag.IsMultiProject ?? false)
-                    {
-                        <div class="alert alert-info ">@ViewBag.SearchProjectName</div>
-                    }
+                @if (ViewBag.IsMultiProject ?? false)
+                {
+                    <div class="alert alert-info ">@ViewBag.SearchProjectName</div>
+                }
                 @foreach (var item in Model)
                 {
                     <div id="ticketDetailPanel" class="panel panel-info clickable">
@@ -63,12 +63,28 @@
                             <div class="row row-no-padding row-same-height row-full-height">
                                 <div class="col-sm-12 col-xs-height col-full-height ">
                                     <div class="" style="border-bottom: 1px solid #B3CBDF; padding: 3px; background-color: #F7F7F7;">
-                                        <ul class="pull-right">
-                                            @foreach (var tag in item.TicketTags)
+                                        <div class="pull-right">
+                                            @if (ViewBag.IsMultiProject ?? false)
                                             {
-                                                <li class="label label-default">@tag.TagName</li>
+                                                <div class="text-primary">
+                                                    <i class="fa fa-book"></i>
+                                                    @item.Project.ProjectName
+                                                </div>
                                             }
-                                        </ul>
+                                            @if (!string.IsNullOrEmpty(item.TagList))
+                                            {
+                                                <div class="text-muted text-default">
+
+                                                    @foreach (var tag in item.TagList.Split(','))
+                                                    {
+                                                        <div><i class="fa fa-tag"></i> @tag</div>
+                                                    }
+                                                </div>
+                                            }
+
+
+                                        </div>
+                                        
                                         <div>
                                             <div>@item.Priority Priority @item.Category @item.TicketType</div>
                                             <div>
@@ -110,5 +126,6 @@
                                                 }
             </div>
         </fieldset>
+
     </div>
 </main>
