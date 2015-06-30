@@ -55,6 +55,7 @@
       <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\TicketAttachment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TdLegacyDatabaseInitializer.cs" />
   </ItemGroup>

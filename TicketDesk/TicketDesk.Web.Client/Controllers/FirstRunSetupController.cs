@@ -11,13 +11,23 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Data.Entity;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Migrations;
+using TicketDesk.Domain.Model;
+using TicketDesk.IO;
 using TicketDesk.PushNotifications;
+using TicketDesk.Search.Common;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 
@@ -39,7 +49,7 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("index")]
         public ActionResult Index()
         {
-         
+
             return View();
         }
 
@@ -57,29 +67,95 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Route("upgrade-database")]
-        public ActionResult UpgradeDatabase()
+        public async Task<ActionResult> UpgradeDatabase()
         {
-            using (var ctx = new TdDomainContext(null))
-            {
-                TdLegacyDatabaseInitializer<TdDomainContext>.InitDatabase(ctx);
 
-            }
-            using (var ctx = new TdDomainContext(null))
-            {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
-                ctx.Database.Initialize(true);
-                
-            }
 
-            var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
-            if (filter != null)
+            LegacyBackgroundMigrator.BeginMigration(new LegacyMigrator());
+
+            await Task.FromResult(true);
+
+
+
+           
+            return RedirectToAction("CheckUpgradeProgress");
+        }
+
+        
+
+
+        [Route("check-upgrade-progress")]
+        public ActionResult CheckUpgradeProgress()
+        {
+
+            if (LegacyBackgroundMigrator.MigrationTask != null)
             {
-                GlobalFilters.Filters.Remove(filter.Instance);
+                ViewBag.Refresh = "True";
+                ViewBag.Messages = LegacyBackgroundMigrator.MessageStack.ToString()
+                    .Replace(System.Environment.NewLine, "<br />");
+                var upgradeSuccess = false;
+                switch (LegacyBackgroundMigrator.MigrationTask.Status)
+                {
+                    case TaskStatus.Running:
+                    case TaskStatus.WaitingForChildrenToComplete:
+                    case TaskStatus.WaitingToRun:
+                    case TaskStatus.WaitingForActivation:
+                        ViewBag.Status = "Running";
+                        ViewBag.Alert = "alert-info";
+                        break;
+                    case TaskStatus.Canceled:
+                        ViewBag.Status = "Canceled";
+                        ViewBag.Alert = "alert-error";
+                        ViewBag.Refresh = "False";
+                        LegacyBackgroundMigrator.Reset();
+                        break;
+                    case TaskStatus.Faulted:
+                        ViewBag.Status = "Failed";
+                        ViewBag.Alert = "alert-error";
+                        ViewBag.Refresh = "False";
+                        LegacyBackgroundMigrator.Reset();
+                        break;
+                    case TaskStatus.RanToCompletion:
+                        ViewBag.Status = "Completed";
+                        ViewBag.Alert = "alert-success";
+                        ViewBag.Refresh = "False";
+                        upgradeSuccess = true;
+                        LegacyBackgroundMigrator.Reset();
+                        break;
+                    default:
+                        ViewBag.Status = LegacyBackgroundMigrator.MigrationTask.Status.ToString();
+                        ViewBag.Alert = "alert-warning";
+                        break;
+                }
+
+                if (upgradeSuccess)
+                {
+                    var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
+                    if (filter != null)
+                    {
+                        GlobalFilters.Filters.Remove(filter.Instance);
+                    }
+                    Database.SetInitializer(new TdIdentityDbInitializer());
+                    Database.SetInitializer(new TdPushNotificationDbInitializer());
+                    Startup.ConfigurePushNotifications();
+                    UpdateSearchIndex();
+                }
             }
-            Database.SetInitializer(new TdIdentityDbInitializer());
-            Database.SetInitializer(new TdPushNotificationDbInitializer());
-            Startup.ConfigurePushNotifications();
-            return RedirectToAction("Index");
+            return View();
+        }
+
+        private void UpdateSearchIndex()
+        {
+            //TODO: duplicated in DatabaseConfig.cs, should refactor extension method or something... just not sure what the most appropriate place is
+            HostingEnvironment.QueueBackgroundWorkItem(async (ct) =>
+            {
+                using (var ctx = new TdDomainContext(null))
+                {
+                    await TdSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
+                    var searchItems = ctx.Tickets.Include("TicketEvents").ToSeachIndexItems();
+                    await TdSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems);
+                }
+            });
         }
 
         [Route("create-database")]
@@ -99,6 +175,7 @@ namespace TicketDesk.Web.Client.Controllers
             Database.SetInitializer(new TdIdentityDbInitializer());
             Database.SetInitializer(new TdPushNotificationDbInitializer());
             Startup.ConfigurePushNotifications();
+            UpdateSearchIndex();
             return RedirectToAction("Index");
         }
 
@@ -110,7 +187,7 @@ namespace TicketDesk.Web.Client.Controllers
                 return new EmptyResult();
             }
             return PartialView("_AzureInfo", Model);
-            
+
         }
 
         [ChildActionOnly]
@@ -129,10 +206,10 @@ namespace TicketDesk.Web.Client.Controllers
 
             if (Model.AzureInfo.IsAzureWebSite)
             {
-                    ViewBag.ErrorAzureDbDoesNotExist = !Model.DatabaseStatus.DatabaseExists;
-                    ViewBag.WarnNotAnAzureDb = !Model.AzureInfo.IsSqlAzure;
+                ViewBag.ErrorAzureDbDoesNotExist = !Model.DatabaseStatus.DatabaseExists;
+                ViewBag.WarnNotAnAzureDb = !Model.AzureInfo.IsSqlAzure;
             }
-            return View("_NewDatabase",Model);
+            return View("_NewDatabase", Model);
 
         }
 
@@ -143,7 +220,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return new EmptyResult();
             }
-             return View("_LegacyDatabase", Model);
+            return View("_LegacyDatabase", Model);
         }
 
         [ChildActionOnly]
@@ -153,7 +230,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return new EmptyResult();
             }
-            return View("_LegacySecurity",Model);
+            return View("_LegacySecurity", Model);
         }
 
         [ChildActionOnly]
@@ -167,5 +244,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View("_SetupCompleteInfo", Model);
         }
     }
-    
+
+
+
 }

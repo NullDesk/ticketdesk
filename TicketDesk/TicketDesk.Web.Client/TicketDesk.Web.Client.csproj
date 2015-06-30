@@ -280,6 +280,8 @@
     <Compile Include="Infrastructure\Identity\TicketDeskContextSecurityProvider.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
+    <Compile Include="Infrastructure\Migration\Legacy\LegacyBackgroundMigrator.cs" />
+    <Compile Include="Infrastructure\Migration\Legacy\LegacyMigrator.cs" />
     <Compile Include="Infrastructure\ModelBinders\CommaSeparatedValuesModelBinder.cs" />
     <Compile Include="Infrastructure\ModelBinders\SummernoteModelBinder.cs" />
     <Compile Include="Infrastructure\PushNotifications\InProcessPushNotificationScheduler.cs" />
@@ -297,7 +299,7 @@
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\Extensions\TicketSubscriberExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
-    <Compile Include="Infrastructure\LegacySecurityMigrator.cs" />
+    <Compile Include="Infrastructure\Migration\Legacy\LegacySecurityMigrator.cs" />
     <Compile Include="Models\ProjectListViewModel.cs" />
     <Compile Include="Models\SystemInfoViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
@@ -529,6 +531,7 @@
     <Content Include="Views\ProjectSettings\New.cshtml" />
     <Content Include="Views\Shared\_AdminMenuItems.cshtml" />
     <Content Include="Views\Shared\_ProjectMenu.cshtml" />
+    <Content Include="Views\FirstRunSetup\CheckUpgradeProgress.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

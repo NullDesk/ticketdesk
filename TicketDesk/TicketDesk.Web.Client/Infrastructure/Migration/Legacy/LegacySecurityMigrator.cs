@@ -24,7 +24,7 @@ using Microsoft.AspNet.Identity;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 
-namespace TicketDesk.Web.Client
+namespace TicketDesk.Domain.Legacy
 {
 
     /// <summary>

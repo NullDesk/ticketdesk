@@ -46,6 +46,7 @@ namespace TicketDesk.Search.Lucene
             //optimize on startup
             TdIndexWriter.Optimize();
             TdIndexWriter.Commit();
+            ShutDownWriter();
             return await Task.FromResult(true);
         }
 

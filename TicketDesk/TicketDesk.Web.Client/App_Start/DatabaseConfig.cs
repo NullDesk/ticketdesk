@@ -15,9 +15,12 @@ using System;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
+using TicketDesk.Domain.Model;
+using TicketDesk.Search.Common;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
 namespace TicketDesk.Web.Client
@@ -57,6 +60,17 @@ namespace TicketDesk.Web.Client
                     if (IsFirstRunDemoRefreshEnabled())
                     {
                         DemoDataManager.SetupDemoData(ctx);
+
+                        //TODO: duplicated in FirstRunSetup controller, should refactor extension method or something... just not sure what the most appropriate place is 
+                        HostingEnvironment.QueueBackgroundWorkItem(async (ct) =>
+                        {
+                            using (var dctx = new TdDomainContext(null))
+                            {
+                                await TdSearchContext.Current.IndexManager.RunIndexMaintenanceAsync();
+                                var searchItems = dctx.Tickets.Include("TicketEvents").ToSeachIndexItems();
+                                await TdSearchContext.Current.IndexManager.AddItemsToIndexAsync(searchItems);
+                            }
+                        });
                     }
                 }
             }

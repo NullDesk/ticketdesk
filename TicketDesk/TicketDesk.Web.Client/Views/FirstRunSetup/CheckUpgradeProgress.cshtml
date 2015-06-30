@@ -1,0 +1,86 @@
+﻿@*
+    TicketDesk - Attribution notice
+    Contributor(s):
+
+         Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+
+    This file is distributed under the terms of the Microsoft Public
+    License (Ms-PL). See http://opensource.org/licenses/MS-PL
+    for the complete terms of use.
+
+    For any distribution that contains code from this file, this notice of
+    attribution must remain intact, and a copy of the license must be
+    provided to the recipient.
+*@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>First Run Setup</title>
+    @Styles.Render("~/content/styles")
+    @Scripts.Render("~/bundles/common")
+    <script type="text/javascript">
+
+        $(window).ready(function () {
+            $("#log").scrollTop($("#log")[0].scrollHeight);
+            var time = 3;
+            if ('@ViewBag.Refresh' === 'True') {
+                setInterval(function () {
+                    time--;
+                    $('#time').html(time);
+                    if (time === 1) {
+                        location.reload();
+                    }
+                }, 3000);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <h1 class="text-center">TicketDesk - First-Run Setup</h1>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Upgrading Legacy Database - Progress Report: </div>
+                    <div class="panel-body">
+                        <div class="alert @ViewBag.Alert">
+                            <div>
+                                @ViewBag.Status
+                            </div>
+                            @if (ViewBag.Refresh == "True")
+                            {
+                                <div class="small">
+                                    <i class="fa fa-refresh fa-spin"></i> Refreshing in <span id="time">3</span>
+                                </div>
+                            }
+                        </div>
+                        @if (ViewBag.Status == "Completed")
+                        {
+                            <div class="alert alert-info">
+                                Your database has been upgraded.
+                                <br /><br />
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-success">Continue to TicketDesk</a>
+                            </div>
+                        }
+                        @if (ViewBag.Status == "Failed" || ViewBag.Status == "Cancelled")
+                        {
+                            <div class="alert alert-danger">
+                                Your database upgrade failed! If the failure occured while importing images, then you can probably re-try the upgrade. <br /><br />
+                                If the failure occured during database conversion, the database is probably corrupt now. Please restore the database from backup and retry. The next upgrade attempt will skip any images that were previously migrated.
+                                <br /><br />
+                                <a href="@Url.Action("Index", "FirstRunSetup")" class="btn btn-success">Return to First-Run-Setup</a>
+                            </div>
+                        }
+                        <div id="log" class="well" style="max-height: 400px;overflow:auto">
+                            @Html.Raw(ViewBag.Messages)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

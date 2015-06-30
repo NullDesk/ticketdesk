@@ -115,6 +115,11 @@ namespace TicketDesk.IO
             return true;
         }
 
+        public static bool FileExists(string fileName, string containerId, bool isPending)
+        {
+            return Current.FileExists(GetFilePath(fileName, containerId, isPending));
+        }
+
         private static string GetFilePath(string fileName, string containerId, bool isPending)
         {
             if (isPending)
