@@ -373,9 +373,6 @@
     <Content Include="Fonts\fontawesome-webfont.ttf" />
     <Content Include="Fonts\fontawesome-webfont.eot" />
     <Content Include="Fonts\FontAwesome.otf" />
-    <None Include="Properties\PublishProfiles\azure.pubxml">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Properties\webjobs-list.json" />
     <Content Include="Scripts\jquery.clickable-0.1.9.min.js.map">
       <DependentUpon>jquery.clickable-0.1.9.min.js</DependentUpon>
@@ -540,6 +537,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\Filters\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\ProjectSelector\" />
   </ItemGroup>
   <ItemGroup>

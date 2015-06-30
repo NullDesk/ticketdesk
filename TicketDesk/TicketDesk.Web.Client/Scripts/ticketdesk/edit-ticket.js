@@ -18,7 +18,6 @@
             config = tdConfig;
             configureDetails();
             loadActivityButtons();
-            $('[data-toggle="tooltip"]').tooltip();
 
         };
 

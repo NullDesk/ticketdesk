@@ -52,8 +52,8 @@ namespace TicketDesk.Web.Identity.Migrations
             var users = new[] { admin, staff, reguser };
             var rolesNames = new Dictionary<string, string[]>
             {
-                {"admin@example.com", new[] {"TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers"}},
-                {"staff@example.com", new[] {"TdHelpDeskUsers", "TdInternalUsers"}},
+                {"admin@example.com", new[] {"TdAdministrators"}},
+                {"staff@example.com", new[] {"TdHelpDeskUsers"}},
                 {"user@example.com", new[] {"TdInternalUsers"}}
             };
             foreach (var tdUser in users)

@@ -42,17 +42,35 @@
             </script>
         }
     }
+
 </head>
 <body>
     <nav id="mainNav" class="navbar navbar-default " role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse">
+
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand pull-left" })
+
+            <div class="pull-right" style="margin: 0 5px;">
+
+                <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"
+                   data-toggle="tooltip"
+                   data-placement="bottom"
+                   title="Ticket Center"
+                   class="@Html.IsActiveRoute("Index", "TicketCenter") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg"><i class="fa fa-ticket"></i></a>
+                <a href="@Url.Action("New", "Ticket", new {area = ""})"
+                   data-toggle="tooltip"
+                   data-placement="bottom"
+                   title="New Ticket"
+                   class="@Html.IsActiveRoute("New", "Ticket") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg "><i class="fa fa-plus"></i></a>
+            </div>
+            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+
         </div>
         <div>
             <div id="main-menu-collapse" class="collapse navbar-collapse">
@@ -103,8 +121,10 @@
     </nav>
     <div class="body-content">
         @RenderBody()
-        <footer class="">
-            <p>TicketDesk 2.5 : &copy; @DateTime.Now.Year - Stephen M. Redd</p>
+        <footer>
+            <p class="text-muted">
+                <a href="https://github.com/NullDesk/TicketDesk">TicketDesk</a> v2.5 | &copy; 2008 - @DateTime.Now.Year | NullDesk Solutions (Stephen M. Redd)
+            </p>
         </footer>
     </div>
 
@@ -112,8 +132,12 @@
     @RenderSection("scripts", required: false)
 
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
-
+    </script>
 
 
 </body>

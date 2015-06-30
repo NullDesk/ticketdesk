@@ -79,7 +79,7 @@ namespace TicketDesk.Web.Identity.Migrations
                 };
                 if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
                 {
-                    var adminRoles = new[] { "TdAdministrators", "TdHelpDeskUsers", "TdInternalUsers" };
+                    var adminRoles = new[] { "TdAdministrators"};
                     userManager.Create(admin, "123456");
 
                     foreach (var rname in adminRoles)

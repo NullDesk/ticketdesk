@@ -3,7 +3,6 @@
         var config;
         var activate = function (tdConfig) {
             config = tdConfig;
-            $('[data-toggle="tooltip"]').tooltip();
             $('#userroles').select2();
             $('#userroles').on('change', function(e) {
                 var options = $(this).find('option:selected');
