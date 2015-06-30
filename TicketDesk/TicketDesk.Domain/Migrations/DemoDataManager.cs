@@ -37,10 +37,11 @@ namespace TicketDesk.Domain.Migrations
 
         public static void SetupDemoData(TdDomainContext context)
         {
-            var dProj = context.Projects.First();
+            
             RemoveAllData(context);
             context.SaveChanges();
-
+            context.Projects.AddOrUpdate(p => p.ProjectName, new Project() {ProjectName = "NullSoft", ProjectDescription = "NullSoft Rocks"});
+            var dProj = context.Projects.First();
             context.Tickets.AddOrUpdate(t => t.Title,
                    new Ticket
                    {

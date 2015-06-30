@@ -30,7 +30,7 @@ namespace TicketDesk.Domain
             var settings = await GetSettingsForUserAsync(userId);
             settings.ListSettings = new UserTicketListSettingsCollection
             {
-                    UserTicketListSetting.GetDefaultListSettings(userId, Context.SecurityProvider.IsTdHelpDeskUser)
+                    UserTicketListSetting.GetDefaultListSettings(userId, Context.SecurityProvider.IsTdHelpDeskUser|| Context.SecurityProvider.IsTdAdministrator)
             };
         }
 
@@ -40,7 +40,7 @@ namespace TicketDesk.Domain
             if (settings == null)
             {
                 //settings for user not found, make default and save on separate context (so we don't commit other changes on this context as a side-effect).
-                settings = UserSetting.GetDefaultSettingsForUser(userId, Context.SecurityProvider.IsTdHelpDeskUser);
+                settings = UserSetting.GetDefaultSettingsForUser(userId, Context.SecurityProvider.IsTdHelpDeskUser || Context.SecurityProvider.IsTdAdministrator);
                 using (var tempCtx = new TdDomainContext())
                 {
                     tempCtx.UserSettingsManager.AddSettingsForUser(settings);

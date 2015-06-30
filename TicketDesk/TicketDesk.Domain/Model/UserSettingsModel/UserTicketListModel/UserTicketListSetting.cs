@@ -148,7 +148,7 @@ namespace TicketDesk.Domain.Model
         }
 
 
-        internal static List<UserTicketListSetting> GetDefaultListSettings(string userId, bool isHelpDeskUser)
+        internal static List<UserTicketListSetting> GetDefaultListSettings(string userId, bool isHelpDeskUserOrAdmin)
         {
             
             var settings = new List<UserTicketListSetting>();
@@ -159,7 +159,7 @@ namespace TicketDesk.Domain.Model
 
             var disOrder = 0;
 
-            if (isHelpDeskUser)
+            if (isHelpDeskUserOrAdmin)
             {
                 var unassignedSortColumns = new List<UserTicketListSortColumn>();
                 var unassignedFilterColumns = new List<UserTicketListFilterColumn>();
