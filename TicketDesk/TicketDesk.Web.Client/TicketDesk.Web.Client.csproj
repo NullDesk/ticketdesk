@@ -349,6 +349,7 @@
     <Content Include="Scripts\dropzone\dropzone.js" />
     <Content Include="Scripts\dropzone\dropzone.min.css" />
     <Content Include="Scripts\dropzone\dropzone.min.js" />
+    <None Include="Properties\PublishProfiles\filesystem-precompiled-release.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -537,7 +538,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Infrastructure\Filters\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\ProjectSelector\" />
   </ItemGroup>
   <ItemGroup>

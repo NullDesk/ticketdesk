@@ -76,6 +76,7 @@ namespace TicketDesk.Web.Client.Models
                 {
                     var conn = GetMasterCatalogConnection(connectionString);
                     var cmd = conn.CreateCommand();
+                    cmd.CommandTimeout = 5;
                     cmd.CommandText = "SELECT SERVERPROPERTY('Edition')";
                     conn.Open();
                     edition = cmd.ExecuteScalar() as string;
@@ -93,6 +94,7 @@ namespace TicketDesk.Web.Client.Models
                 {
                     var conn = GetMasterCatalogConnection(connectionString);
                     var cmd = conn.CreateCommand();
+                    cmd.CommandTimeout = 5;
                     cmd.CommandText = "SELECT SERVERPROPERTY('IsLocalDB')";
                     conn.Open();
                     var ldb = cmd.ExecuteScalar() as int?;
@@ -109,6 +111,7 @@ namespace TicketDesk.Web.Client.Models
                 var builder = new SqlConnectionStringBuilder(connectionString);
                 builder.AttachDBFilename = "";
                 builder.InitialCatalog = "Master";
+                builder.ConnectTimeout = 5;
                 return new SqlConnection(builder.ToString());
             }
         }
