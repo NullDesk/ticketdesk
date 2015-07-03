@@ -49,7 +49,7 @@ These are basic instructions for installing a [pre-compiled distribution](https:
 For more detailed instructions, and information about other deployments scenarios, including Azure deployment, please see the [GitHub wiki](https://github.com/NullDesk/TicketDesk/wiki).
 
 - Server Requirments:
-  - Make sure IIS is installed with the options necessary sub-options needed to run Asp.Net MVC 5 applications
+  - Make sure IIS is installed with the options necessary to run Asp.Net MVC 5 applications
   - Make sure .Net Framework 4.5.2 is installed on the target server
   - Make sure you have access to SQL server 2008 or higher
     - The stock web.config is pre-set to use a locally installed instance of SQL Server 2012 LocalDB
