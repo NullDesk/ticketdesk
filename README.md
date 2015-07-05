@@ -42,27 +42,9 @@ Getting started with TicketDesk development should be a "clone, open, and run" e
 - Hit F5 to run/debug the application
 - Code, Contribute, and Enjoy!
 
-Install on Windows Server & IIS
+Deployment
 -----------
 
-These are basic instructions for installing a [pre-compiled distribution](https://github.com/NullDesk/TicketDesk/releases) of TicketDesk 2.5 to a single Windows Server with IIS 8 or higher. 
-For more detailed instructions, and information about other deployments scenarios, including Azure deployment, please see the [GitHub wiki](https://github.com/NullDesk/TicketDesk/wiki).
+Please visit the [wiki](https://github.com/NullDesk/TicketDesk/wiki) for comprehensive documentation on how to deploy TicketDesk to production IIS server or Azure.
 
-- Server Requirments:
-  - Make sure IIS is installed with the options necessary to run Asp.Net MVC 5 applications
-  - Make sure .Net Framework 4.5.2 is installed on the target server
-  - Make sure you have access to SQL server 2008 or higher
-    - The stock web.config is pre-set to use a locally installed instance of SQL Server 2012 LocalDB
-    - For more information about SQL Server configuration and connection strings please refer to the [GitHub wiki](https://github.com/NullDesk/TicketDesk/wiki)
-- Create an IIS Site or right-click an existing site and select "Add Application" to create a new Virtual Directory
-  - Select or Create an application pool that uses an integrated pipeline
-  - Make sure the application pool is set for .Net Framework 4.0
-- Download the desired precompiled distribution from [GitHub releases](https://github.com/NullDesk/TicketDesk/releases) 
-- Copy the contents of the zip file into the IIS site's physical folder
-  - Make sure the application pool user has read access to the web site root folder and all sub-folders (if using the default applicaiton pool identity, just grant the '[machine]\users' group the necessary permissions)
-  - Make sure the application pool user has write access to the /app_data folder 
-- Open a web browser, and browse to the web site's root URL
-- The first-run-setup page should appear
-  - Review the settings shown; make everything is accurate before continuing
-  - Click the Create database button
-
+For experienced server admins, please see the [Quick Setup Instructions](https://github.com/NullDesk/TicketDesk/wiki/Quick-Setup-Instructions) for an abbreviated overview.
