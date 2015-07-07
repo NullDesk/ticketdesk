@@ -1,5 +1,0 @@
-C:\Projects\Personal\VS2010\TicketDesk\TicketDesk-1-branch\TicketDesk.Engine.Ajax.Extenders\bin\Debug\TicketDesk.Engine.Ajax.Extenders.dll
-C:\Projects\Personal\VS2010\TicketDesk\TicketDesk-1-branch\TicketDesk.Engine.Ajax.Extenders\bin\Debug\TicketDesk.Engine.Ajax.Extenders.pdb
-C:\Projects\Personal\VS2010\TicketDesk\TicketDesk-1-branch\TicketDesk.Engine.Ajax.Extenders\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\Personal\VS2010\TicketDesk\TicketDesk-1-branch\TicketDesk.Engine.Ajax.Extenders\obj\Debug\TicketDesk.Engine.Ajax.Extenders.dll
-C:\Projects\Personal\VS2010\TicketDesk\TicketDesk-1-branch\TicketDesk.Engine.Ajax.Extenders\obj\Debug\TicketDesk.Engine.Ajax.Extenders.pdb

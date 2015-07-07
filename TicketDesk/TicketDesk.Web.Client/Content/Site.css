@@ -1,0 +1,441 @@
+﻿/*
+ TicketDesk - Attribution notice
+ Contributor(s):
+
+      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+
+ This file is distributed under the terms of the Microsoft Public 
+ License (Ms-PL). See http://opensource.org/licenses/MS-PL
+ for the complete terms of use. 
+
+ For any distribution that contains code from this file, this notice of 
+ attribution must remain intact, and a copy of the license must be 
+ provided to the recipient.
+
+*/
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #fff;
+    font-size: 11pt;
+    font-family: Calibri, Tahoma, Verdana, Helvetica, Sans-Serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#main-menu-collapse {
+    /*margin: 0 0 0 10px;*/
+}
+
+#mainNav.navbar-fixed-top {
+    background-color: #fff;
+}
+
+#mainNav.navbar-fixed-top .container-fluid.navbar-default {
+        background-color: #f5f5f5;
+}
+
+
+#mainNav .navbar-brand {
+    width: 100px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-image: url('Images/TicketDesk-2.5-mobile.png');
+}
+
+
+
+.body-content > main {
+    min-height: 300px;
+}
+
+.body-content > footer {
+    height: 30px;
+    border-top: 1px solid #B3CBDF;
+   
+    font-size: 9pt;
+}
+
+/*Bootstrap Extensions*/
+.panel-info {
+    border-color: #B3CBDF;
+}
+
+    .panel-info > .panel-heading {
+        background-color: #b3cbdf;
+        color: #000;
+    }
+
+.form-group-xs .control-label {
+    height: 22px;
+    padding: 1px 3px;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.form-group-xs .form-control {
+    height: 22px;
+    padding: 1px 3px;
+    font-size: 11px;
+    line-height: 1.2;
+    border-radius: 2px;
+}
+
+select.form-group-xs .form-control {
+    height: 22px;
+    line-height: 18px;
+}
+
+textarea.form-group-xs .form-control,
+select[multiple].form-group-xs .form-control {
+    height: auto;
+}
+
+.form-group-xs .form-control-static {
+    height: 22px;
+    min-height: 20px;
+    padding: 1px 3px;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .form-horizontal .form-group-xs .control-label {
+        padding-top: 6px;
+    }
+}
+
+.wmd-preview {
+    min-height: 250px;
+    overflow: auto;
+}
+
+#wmd-preview-activity.wmd-preview {
+    min-height: 100px;
+    overflow: auto;
+}
+
+
+
+#eventPanel dl {
+    margin-left: 15px;
+}
+
+    #eventPanel dl dd {
+        text-indent: 1em;
+        font-family: monospace;
+        font-size: smaller;
+    }
+
+/* Set width on the form input elements since they're 100% wide by default */
+
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/*Home page*/
+.right-side-box {
+    height: 100%;
+    font-size: 10pt;
+}
+
+.left-side-box {
+    border-right: 1px solid #B3CBDF;
+}
+
+p {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+
+/*Ticket Center*/
+#ticketList {
+    border-collapse: collapse;
+    font-size: 10pt;
+}
+
+    #ticketList table td {
+        white-space: nowrap;
+    }
+
+    #ticketList table th {
+        white-space: nowrap;
+        background-color: #FFFFDD;
+    }
+
+
+#ticketList footer {
+    border: 1px dotted #B3CBDF;
+    -ms-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -ms-border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #E1EBF2;
+    padding: 0 20px;
+}
+
+    #ticketList footer .pagination,
+    #userListBody .panel-footer .pagination {
+        margin: 5px 0;
+    }
+
+#ticketList .number-select {
+    width: 55px;
+    display: inline-block;
+}
+
+.clickable {
+    cursor: pointer;
+}
+.clickable:hover .panel-heading{
+    background-color: rgba(223, 240, 216,0.4);
+}
+
+.menulist {
+    margin-right: 8px;
+    margin-left: 5px;
+}
+
+    .menulist .nav-tabs {
+        border-bottom: 0;
+        margin: 0 5px;
+    }
+
+
+
+.expanderButton {
+    cursor: pointer;
+    text-align: center;
+    color: #333;
+    background-color: #EBEBEB;
+    border: none;
+    border-bottom-left-radius: 4px;
+}
+
+    .expanderButton:hover {
+        background-color: #999999;
+    }
+
+
+/* custom inclusion of right, left and below tabs */
+
+.tabs-below {
+    border-top: 0;
+}
+
+    .tabs-below > .nav-tabs,
+    .tabs-right > .nav-tabs,
+    .tabs-left > .nav-tabs {
+        border-bottom: 0;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+    display: none;
+}
+
+.tab-content > .active,
+.pill-content > .active {
+    display: block;
+}
+
+.tabs-below > .nav-tabs > li {
+    margin-top: -1px;
+    margin-bottom: 0;
+}
+
+    .tabs-below > .nav-tabs > li > a {
+        -webkit-border-radius: 0 0 4px 4px;
+        -moz-border-radius: 0 0 4px 4px;
+        border-radius: 0 0 4px 4px;
+    }
+
+        .tabs-below > .nav-tabs > li > a:hover,
+        .tabs-below > .nav-tabs > li > a:focus {
+            border-top-color: #ddd;
+            border-bottom-color: transparent;
+        }
+
+.tabs-below > .nav-tabs > .active > a,
+.tabs-below > .nav-tabs > .active > a:hover,
+.tabs-below > .nav-tabs > .active > a:focus {
+    border-color: transparent #ddd #ddd #ddd;
+}
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+    float: none;
+}
+
+    .tabs-left > .nav-tabs > li > a,
+    .tabs-right > .nav-tabs > li > a {
+        -moz-min-width: 74px;
+        -ms-min-width: 74px;
+        -o-min-width: 74px;
+        -webkit-min-width: 74px;
+        min-width: 74px;
+        margin-right: 0;
+        margin-bottom: 3px;
+    }
+
+.tabs-left > .nav-tabs {
+    float: left;
+    margin-right: 19px;
+    border-right: 1px solid #ddd;
+}
+
+    .tabs-left > .nav-tabs > li > a {
+        margin-right: -1px;
+        -webkit-border-radius: 4px 0 0 4px;
+        -moz-border-radius: 4px 0 0 4px;
+        border-radius: 4px 0 0 4px;
+    }
+
+        .tabs-left > .nav-tabs > li > a:hover,
+        .tabs-left > .nav-tabs > li > a:focus {
+            border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+        }
+
+    .tabs-left > .nav-tabs .active > a,
+    .tabs-left > .nav-tabs .active > a:hover,
+    .tabs-left > .nav-tabs .active > a:focus {
+        border-color: #ddd transparent #ddd #ddd;
+        *border-right-color: #ffffff;
+    }
+
+.tabs-right > .nav-tabs {
+    float: right;
+    margin-left: 19px;
+    border-left: 1px solid #ddd;
+}
+
+    .tabs-right > .nav-tabs > li > a {
+        margin-left: -1px;
+        -webkit-border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        border-radius: 0 4px 4px 0;
+    }
+
+        .tabs-right > .nav-tabs > li > a:hover,
+        .tabs-right > .nav-tabs > li > a:focus {
+            border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+        }
+
+    .tabs-right > .nav-tabs .active > a,
+    .tabs-right > .nav-tabs .active > a:hover,
+    .tabs-right > .nav-tabs .active > a:focus {
+        border-color: #ddd #ddd #ddd transparent;
+        *border-left-color: #ffffff;
+    }
+
+
+
+/* Bootstrap hack to allow for same height columns */
+/* columns of same height styles */
+
+.row-no-padding > [class*="col-"] {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+.row-full-height {
+    height: 100%;
+}
+
+.col-full-height {
+    height: 100%;
+    vertical-align: middle;
+}
+
+.row-same-height {
+    display: table;
+    /* fix overflow */
+    table-layout: fixed;
+}
+
+.col-xs-height {
+    display: table-cell;
+    float: none !important;
+}
+
+@media only screen and (max-width : 480px) {
+    .pull-left-xs {
+        float: left;
+    }
+}
+@media (min-width: 768px) {
+    .col-sm-height {
+        display: table-cell;
+        float: none !important;
+    }
+
+    .pull-right-sm {
+        float: right;
+    }
+    
+}
+
+@media (min-width: 992px) {
+    .col-md-height {
+        display: table-cell;
+        float: none !important;
+    }
+    
+}
+
+@media (min-width: 1200px) {
+    .col-lg-height {
+        display: table-cell;
+        float: none !important;
+    }
+    .pull-right-md {
+        float: right;
+    }
+}
+
+.col-top {
+    vertical-align: top;
+}
+
+.col-middle {
+    vertical-align: middle;
+}
+
+.col-bottom {
+    vertical-align: bottom;
+}

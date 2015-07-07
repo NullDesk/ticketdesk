@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DBD5279B-9F1C-4915-86A9-6A8F1CF0622D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TicketDesk.Domain</RootNamespace>
+    <AssemblyName>TicketDesk.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\AsyncHelper.cs" />
+    <Compile Include="Infrastructure\CommentRequiredAttribute.cs" />
+    <Compile Include="Migrations\201412302236209_Td2.5.003.cs" />
+    <Compile Include="Migrations\201412302236209_Td2.5.003.Designer.cs">
+      <DependentUpon>201412302236209_Td2.5.003.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412310713312_Td2.5.004.cs" />
+    <Compile Include="Migrations\201412310713312_Td2.5.004.Designer.cs">
+      <DependentUpon>201412310713312_Td2.5.004.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503122158428_Td2.5.005.cs" />
+    <Compile Include="Migrations\201503122158428_Td2.5.005.Designer.cs">
+      <DependentUpon>201503122158428_Td2.5.005.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503122218434_Td2.5.006.cs" />
+    <Compile Include="Migrations\201503122218434_Td2.5.006.Designer.cs">
+      <DependentUpon>201503122218434_Td2.5.006.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503122230511_Td2.5.007.cs" />
+    <Compile Include="Migrations\201503122230511_Td2.5.007.Designer.cs">
+      <DependentUpon>201503122230511_Td2.5.007.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503130305397_Td2.5.008.cs" />
+    <Compile Include="Migrations\201503130305397_Td2.5.008.Designer.cs">
+      <DependentUpon>201503130305397_Td2.5.008.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503130334543_Td2.5.009.cs" />
+    <Compile Include="Migrations\201503130334543_Td2.5.009.Designer.cs">
+      <DependentUpon>201503130334543_Td2.5.009.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503150440288_Td2.5.010.cs" />
+    <Compile Include="Migrations\201503150440288_Td2.5.010.Designer.cs">
+      <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504020337366_Td2.5.011.cs" />
+    <Compile Include="Migrations\201504020337366_Td2.5.011.Designer.cs">
+      <DependentUpon>201504020337366_Td2.5.011.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504042002335_Td2.5.012.cs" />
+    <Compile Include="Migrations\201504042002335_Td2.5.012.Designer.cs">
+      <DependentUpon>201504042002335_Td2.5.012.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504050307022_Td2.5.013.cs" />
+    <Compile Include="Migrations\201504050307022_Td2.5.013.Designer.cs">
+      <DependentUpon>201504050307022_Td2.5.013.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505140220100_Td2.5.014.cs" />
+    <Compile Include="Migrations\201505140220100_Td2.5.014.Designer.cs">
+      <DependentUpon>201505140220100_Td2.5.014.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506072317300_Td2.5.015.cs" />
+    <Compile Include="Migrations\201506072317300_Td2.5.015.Designer.cs">
+      <DependentUpon>201506072317300_Td2.5.015.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506122207367_Td2.5.016.cs" />
+    <Compile Include="Migrations\201506122207367_Td2.5.016.Designer.cs">
+      <DependentUpon>201506122207367_Td2.5.016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506210617354_Td2.5.017.cs" />
+    <Compile Include="Migrations\201506210617354_Td2.5.017.Designer.cs">
+      <DependentUpon>201506210617354_Td2.5.017.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506240309537_Td2.5.018.cs" />
+    <Compile Include="Migrations\201506240309537_Td2.5.018.Designer.cs">
+      <DependentUpon>201506240309537_Td2.5.018.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DemoDataManager.cs" />
+    <Compile Include="Infrastructure\PropertyUtility.cs" />
+    <Compile Include="Infrastructure\TdDomainSecurityProviderBase.cs" />
+    <Compile Include="Localization\LocalizedDescrptionAttribute.cs" />
+    <Compile Include="Localization\TicketTextUtility.cs" />
+    <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
+    <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
+      <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410160155270_Td2.5.001.cs" />
+    <Compile Include="Migrations\201410160155270_Td2.5.001.Designer.cs">
+      <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412012200330_Td2.5.002.cs" />
+    <Compile Include="Migrations\201412012200330_Td2.5.002.Designer.cs">
+      <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationPermissionsSetting.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSecuritySetting.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSelectListSetting.cs" />
+    <Compile Include="Model\ApplicaitonSettingsModel\ClientSettings.cs" />
+    <Compile Include="Model\ApplicationSettings.cs" />
+    <Compile Include="Model\Extensions\ApplicationSettingExtensions.cs" />
+    <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
+    <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
+    <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\TicketEventNotification.cs" />
+    <Compile Include="Model\TicketSubscriber.cs" />
+    <Compile Include="TicketActionManager.cs" />
+    <Compile Include="Model\TicketActivity.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\ColumnSortDirection.cs" />
+    <Compile Include="Model\Extensions\UserSettingExtensions.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListSettingsCollection.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListSetting.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListFilterColumn.cs" />
+    <Compile Include="Model\UserSettingsModel\UserTicketListModel\UserTicketListSortColumn.cs" />
+    <Compile Include="Model\TicketStatus.cs" />
+    <Compile Include="Model\UserSetting.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Ticket.cs" />
+    <Compile Include="Model\TicketEvent.cs" />
+    <Compile Include="TdDomainContext.cs" />
+    <Compile Include="Model\TicketTag.cs" />
+    <Compile Include="Localization\TicketDeskDomainText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketDeskDomainText.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserSettingsManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201410100421345_InitialCreate.resx">
+      <DependentUpon>201410100421345_InitialCreate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410160155270_Td2.5.001.resx">
+      <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TicketDeskDomainText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TicketDeskDomainText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412012200330_Td2.5.002.resx">
+      <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412302236209_Td2.5.003.resx">
+      <DependentUpon>201412302236209_Td2.5.003.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412310713312_Td2.5.004.resx">
+      <DependentUpon>201412310713312_Td2.5.004.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503122158428_Td2.5.005.resx">
+      <DependentUpon>201503122158428_Td2.5.005.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503122218434_Td2.5.006.resx">
+      <DependentUpon>201503122218434_Td2.5.006.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503122230511_Td2.5.007.resx">
+      <DependentUpon>201503122230511_Td2.5.007.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503130305397_Td2.5.008.resx">
+      <DependentUpon>201503130305397_Td2.5.008.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503130334543_Td2.5.009.resx">
+      <DependentUpon>201503130334543_Td2.5.009.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503150440288_Td2.5.010.resx">
+      <DependentUpon>201503150440288_Td2.5.010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504020337366_Td2.5.011.resx">
+      <DependentUpon>201504020337366_Td2.5.011.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504042002335_Td2.5.012.resx">
+      <DependentUpon>201504042002335_Td2.5.012.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504050307022_Td2.5.013.resx">
+      <DependentUpon>201504050307022_Td2.5.013.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505140220100_Td2.5.014.resx">
+      <DependentUpon>201505140220100_Td2.5.014.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506072317300_Td2.5.015.resx">
+      <DependentUpon>201506072317300_Td2.5.015.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506122207367_Td2.5.016.resx">
+      <DependentUpon>201506122207367_Td2.5.016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506210617354_Td2.5.017.resx">
+      <DependentUpon>201506210617354_Td2.5.017.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506240309537_Td2.5.018.resx">
+      <DependentUpon>201506240309537_Td2.5.018.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Search.Common\TicketDesk.Search.Common.csproj">
+      <Project>{F8C97321-F0CC-4AF9-86E6-95E0E4840430}</Project>
+      <Name>TicketDesk.Search.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

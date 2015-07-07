@@ -1,0 +1,71 @@
+﻿@*
+    TicketDesk - Attribution notice
+    Contributor(s):
+
+         Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+
+    This file is distributed under the terms of the Microsoft Public
+    License (Ms-PL). See http://opensource.org/licenses/MS-PL
+    for the complete terms of use.
+
+    For any distribution that contains code from this file, this notice of
+    attribution must remain intact, and a copy of the license must be
+    provided to the recipient.
+*@
+
+@model TicketDesk.Web.Client.Models.TicketCenterListViewModel
+@{
+    var ajaxFilterOptions = new AjaxOptions { UpdateTargetId = "ticketList", OnBegin = "ticketCenter.filters.beginChangeFilter", OnSuccess = "ticketCenter.completeChangeList", OnFailure = "ticketCenter.completeChangeList" };
+}
+
+<div class="navbar" style="min-height: 0; margin: 0">
+    <div class="">
+        <button type="button" class="navbar-toggle collapsed" style="margin: 0; min-height: 0; padding: 0;" data-toggle="collapse" data-target="#filterbar-collapse">
+            <div class="btn btn-default btn-sm">
+                <span class="sr-only">Toggle navigation</span>
+                <span class=""><i class="fa fa-filter"></i></span>
+            </div>
+        </button>
+        <div class="collapse navbar-collapse" id="filterbar-collapse">
+            @using (Ajax.BeginForm("FilterList", "TicketCenter", new { Model.CurrentListSetting.ListName }, ajaxFilterOptions, new { id = "filterForm", @class = "form-horizontal navbar-form", role = "form" }))
+            {
+                <div class="row">
+                    <div class="form-group form-group-xs small" style="width: 100%; margin: 0;">
+                        <label class="control-label col-sm-1 text-right">
+                            Status:
+                        </label>
+                        <div class="col-sm-2">
+                            @Html.DropDownList("TicketStatus", Model.FilterBar.TicketStatusSelectList, Model.FilterBar.StatusFilterHtmlAttributes)
+                        </div>
+
+                        <label class="control-label col-sm-1 text-right form-control-static">
+                            Owner:
+                        </label>
+                        <div class="col-sm-2">
+                            @Html.DropDownList("Owner", Model.FilterBar.SubmittersSelectList, Model.FilterBar.OwnerFilterHtmlAttributes)
+                        </div>
+
+                        <label class="control-label col-sm-1 text-right form-control-static">
+                            Assigned:
+                        </label>
+                        <div class="col-sm-2">
+                            @Html.DropDownList("AssignedTo", Model.FilterBar.AssignedToSelectList, Model.FilterBar.AssignedFilterHtmlAttributes)
+                            <input type="submit" value="filter" id="filterSubmitButton" />
+                        </div>
+                        <label class="control-label col-sm-1 text-right form-control-static">
+                            Show:
+                        </label>
+                        <div class="col-sm-2" style="white-space: nowrap">
+                            @Html.DropDownList("PageSize", Model.FilterBar.ItemsPerPageSelectList, new { @class = "postback form-control number-select" })<label class="control-label form-control-static"> of @Model.Tickets.TotalItemCount</label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+       
+    </div>
+
+</div>
+

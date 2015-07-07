@@ -209,7 +209,7 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-TicketDesk-2.5/TicketDesk.Web.Client/App_Data/attachments/
-TicketDesk-2.5/TicketDesk.Web.Client/App_Data/ticketdesk-searchindex/
-TicketDesk-2.5/TicketDesk.Web.Client/App_Data/filestore/
-TicketDesk-2.5/.vs/
+TicketDesk/TicketDesk.Web.Client/App_Data/attachments/
+TicketDesk/TicketDesk.Web.Client/App_Data/ticketdesk-searchindex/
+TicketDesk/TicketDesk.Web.Client/App_Data/filestore/
+TicketDesk/.vs/

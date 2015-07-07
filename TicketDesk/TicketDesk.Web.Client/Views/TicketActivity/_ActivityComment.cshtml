@@ -1,0 +1,50 @@
+﻿@*
+    TicketDesk - Attribution notice
+    Contributor(s):
+
+         Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+
+    This file is distributed under the terms of the Microsoft Public
+    License (Ms-PL). See http://opensource.org/licenses/MS-PL
+    for the complete terms of use.
+
+    For any distribution that contains code from this file, this notice of
+    attribution must remain intact, and a copy of the license must be
+    provided to the recipient.
+*@
+
+@model TicketDesk.Domain.Model.TicketEvent
+<div class="form-group form-group-sm">
+    <label class="col-sm-2 control-label " for="wmd-input-activity">Comment</label>
+    @if (Model.IsHtml)
+    {
+        <div class="col-sm-9">
+            <textarea id="wmd-input-activity" name="Comment" data-is-required=@ViewBag.CommentRequired.ToString().ToLowerInvariant()>@Model.Comment</textarea>
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+    }
+    else
+    {
+        <div class=" col-sm-9 wmd-panel">
+            <div class="tabbable tabs-below">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab1">
+                        <div id="wmd-button-bar-activity" class="" style="display: inline-block"></div>
+                        @Html.TextAreaFor(model => model.Comment, new { id = "wmd-input-activity", @class = "wmd-input form-control", tabindex = "15", style = "height:150px", data_is_required = ViewBag.CommentRequired.ToString().ToLowerInvariant() })
+                    </div>
+                    <div class="tab-pane fade" id="tab2">
+                        <div class="row" style="min-height: 35px;"></div>
+                        <div id="wmd-preview-activity" class="wmd-panel wmd-preview form-control">
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs navbar-right">
+                    <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
+                    <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
+                </ul>
+            </div>
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+
+    }
+</div>

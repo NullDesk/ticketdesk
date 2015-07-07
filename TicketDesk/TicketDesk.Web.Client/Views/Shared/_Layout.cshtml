@@ -1,0 +1,147 @@
+﻿@*
+    TicketDesk - Attribution notice
+    Contributor(s):
+
+         Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+
+    This file is distributed under the terms of the Microsoft Public
+    License (Ms-PL). See http://opensource.org/licenses/MS-PL
+    for the complete terms of use.
+
+    For any distribution that contains code from this file, this notice of
+    attribution must remain intact, and a copy of the license must be
+    provided to the recipient.
+*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msapplication-config" content="none" />
+    <title>
+        @RenderSection("title", required: false)
+    </title>
+    <style type="text/css">
+    </style>
+    @Styles.Render("~/content/styles")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("customHeader", required: false)
+    @{
+        var insightsKey = System.Configuration.ConfigurationManager.AppSettings["ticketdesk:InsightsInstrumentationKey"];
+        if (!string.IsNullOrEmpty(insightsKey))
+        {
+            <script type="text/javascript">
+                var appInsights = window.appInsights || function (config) {
+                    function s(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u; for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;) s("track" + i.pop()); return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) { var s = u && u(config, r, f, e, o); return s !== !0 && t["_" + i](config, r, f, e, o), s }), t
+                }({
+                    instrumentationKey: "@insightsKey"
+                });
+
+                window.appInsights = appInsights;
+                appInsights.trackPageView();
+            </script>
+        }
+    }
+
+</head>
+<body>
+    <nav id="mainNav" class="navbar navbar-default " role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse">
+
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="pull-right" style="margin: 0 5px;">
+
+                <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"
+                   data-toggle="tooltip"
+                   data-placement="bottom"
+                   title="Ticket Center"
+                   class="@Html.IsActiveRoute("Index", "TicketCenter") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg"><i class="fa fa-ticket"></i></a>
+                <a href="@Url.Action("New", "Ticket", new {area = ""})"
+                   data-toggle="tooltip"
+                   data-placement="bottom"
+                   title="New Ticket"
+                   class="@Html.IsActiveRoute("New", "Ticket") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg "><i class="fa fa-plus"></i></a>
+            </div>
+            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+
+        </div>
+        <div>
+            <div id="main-menu-collapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="@Html.IsActiveRoute("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home", new {area = ""})"><i class="fa fa-home"></i> Home</a>
+                    </li>
+                    <li class="@Html.IsActiveRoute("Index", "TicketCenter")">
+                        <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"><i class="fa fa-ticket"></i> Ticket Center</a>
+                    </li>
+                    <li class="@Html.IsActiveRoute("New", "Ticket")">
+                        <a href="@Url.Action("New", "Ticket", new {area = ""})"><i class="fa fa-plus"></i> New Ticket</a>
+                    </li>
+                    <li role="separator" class="nav-divider"></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
+                    <li class="dropdown hidden-sm hidden-md hidden-lg" style="padding: 10px 15px;">
+                        @Html.Partial("_QuickSearch")
+                    </li>
+                    @Html.Partial("_UserMenu")
+                    <li class="dropdown hidden-sm hidden-md hidden-lg">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-gears"></i>
+                            <span class="">Settings</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @Html.Partial("_AdminMenuItems")
+                        </ul>
+                    </li>
+                    <li class="@Html.IsActiveRoute("About", "Home")">
+                        <a href="@Url.Action("About", "Home", new {area = ""})"><i class="fa fa-info-circle fa-lg"></i> <span class="hidden-sm">About</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="container-fluid navbar-default" style="border-top: 1px solid #e7e7e7; padding: 7px;">
+                <div class="form form-inline pull-left-xs pull-right-sm">
+                    @{ Html.RenderAction("ProjectMenu", "Navigation"); }
+                    <div class="form-group hidden-xs">
+                        @Html.Partial("_QuickSearch")
+                    </div>
+                    <span class="hidden-xs">
+                        @Html.Partial("_AdminMenu")
+                    </span>
+                </div>
+            </div>
+                        }
+    </nav>
+    <div class="body-content">
+        @RenderBody()
+        <footer>
+            <p class="text-muted">
+                <a href="https://github.com/NullDesk/TicketDesk">TicketDesk</a> v2.5 | &copy; 2008 - @DateTime.Now.Year | NullDesk Solutions (Stephen M. Redd)
+            </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/common")
+    @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+
+
+</body>
+</html>

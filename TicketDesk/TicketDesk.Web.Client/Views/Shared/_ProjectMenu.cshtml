@@ -1,0 +1,22 @@
+﻿@model System.Web.Mvc.SelectList
+
+<div class="form-group form-group-sm" style="margin-bottom: 0;">
+
+    <div class="input-group input-group-sm">
+        <span class="dropdown">
+            <span class="control-label sr-only">Project: </span>
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="fa fa-book"></i>
+                @Model.First(i => i.Selected).Text
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                @foreach (var item in Model)
+                {
+                    <li><a href="@Url.Action("ChangeProject", "Navigation", new {projectId = item.Value})">@item.Text</a></li>
+                }
+            </ul>
+        </span>
+    </div>
+</div>
