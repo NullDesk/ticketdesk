@@ -156,14 +156,22 @@ namespace TicketDesk.Domain.Model
         {
             //TODO: is this the best place to put this check? Is this one even worth the extension?
             var context = DependencyResolver.Current.GetService<TdDomainContext>();
-            return context.SecurityProvider.IsTdHelpDeskUser;
+            return (context.SecurityProvider.IsTdInternalUser && context.TicketDeskSettings.Permissions.AllowInternalUsersToSetOwner) || (context.SecurityProvider.IsTdHelpDeskUser || context.SecurityProvider.IsTdAdministrator);
+        }
+
+        public static bool AllowSetAssigned(this Ticket ticket)
+        {
+            //TODO: is this the best place to put this check? Is this one even worth the extension?
+            var context = DependencyResolver.Current.GetService<TdDomainContext>();
+            return (context.SecurityProvider.IsTdInternalUser && context.TicketDeskSettings.Permissions.AllowInternalUsersToSetAssigned) || (context.SecurityProvider.IsTdHelpDeskUser || context.SecurityProvider.IsTdAdministrator);
+
         }
 
         public static bool AllowEditPriorityList(this Ticket ticket)
         {
             //TODO: is this the best place to put this check?
             var context = DependencyResolver.Current.GetService<TdDomainContext>();
-            return context.SecurityProvider.IsTdHelpDeskUser || context.TicketDeskSettings.Permissions.AllowInternalUsersToEditPriority;
+            return (context.SecurityProvider.IsTdAdministrator || context.SecurityProvider.IsTdHelpDeskUser) || (context.SecurityProvider.IsTdInternalUser &&  context.TicketDeskSettings.Permissions.AllowInternalUsersToEditPriority);
         }
 
         /// <summary>

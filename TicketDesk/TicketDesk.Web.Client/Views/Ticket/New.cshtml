@@ -15,6 +15,7 @@
     provided to the recipient.
 *@
 
+@using System
 @using System.Configuration
 @using TicketDesk.Domain.Model
 @model Ticket
@@ -182,11 +183,14 @@
                                     @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
                                 </div>
                             }
-                            @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
-                            <div class="col-md-3 col-sm-4">
-                                @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 9 })
-                                @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
-                            </div>
+                            @if (Model.AllowSetAssigned())
+                            {
+                                @Html.LabelFor(model => model.AssignedTo, new {@class = "col-md-2 col-sm-2 control-label"})
+                                <div class="col-md-3 col-sm-4">
+                                    @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new {@class = "form-control input-sm", tabindex = 9})
+                                    @Html.ValidationMessageFor(model => model.AssignedTo, "", new {@class = "text-danger"})
+                                </div>
+                            }
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 col-sm-1 control-label">Files</label>
