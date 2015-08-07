@@ -13,6 +13,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TicketDesk.Localization;
 
 namespace TicketDesk.PushNotifications.Model
 {
@@ -23,18 +24,18 @@ namespace TicketDesk.PushNotifications.Model
         public int DestinationId { get; set; }
 
         [Index("IX_SubscriberDestination", 0, IsUnique = true)]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string SubscriberName { get; set; }
 
         [Index("IX_SubscriberDestination", 1, IsUnique = true)]
-        [StringLength(256)]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string DestinationAddress { get; set; }
 
         [Index("IX_SubscriberDestination", 2, IsUnique = true)]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string DestinationType { get; set; }
 
-        [StringLength(256)]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string SubscriberId { get; set; }
 
 

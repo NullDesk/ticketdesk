@@ -17,6 +17,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using TicketDesk.Domain.Model;
+using TicketDesk.Localization.Infrastructure;
 
 namespace TicketDesk.Web.Client
 {
@@ -53,7 +54,7 @@ namespace TicketDesk.Web.Client
                     new
                     {
                         OnMouseDown = "ticketCenter.sorts.setShiftStatus(event);",
-                        Title = "[shift+click] to add or remove columns from the sort"
+                        Title = Strings.RemoveColumnsFromSort
                     }).ToString();
 
 

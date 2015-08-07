@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TicketDesk.Domain.Localization;
+using TicketDesk.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -36,7 +37,7 @@ namespace TicketDesk.Domain.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventId { get; set; }
 
-        [StringLength(500)]
+        [StringLength(500, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string EventDescription { get; set; }
 
 
@@ -44,11 +45,11 @@ namespace TicketDesk.Domain.Model
 
         public bool IsHtml { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string EventBy { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTimeOffset EventDate { get; set; }
 

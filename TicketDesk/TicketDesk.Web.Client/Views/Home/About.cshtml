@@ -12,36 +12,17 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+@using TicketDesk.Localization.Views.Home
 
-@section title{ About }
+@section title{ @About.Title }
 @section customHeader{}
 @section scripts{}
 
 <main role="main" class="row">
     <article class="col-md-8">
         <header>
-            <h2>About TicketDesk 2.5</h2>
+            <h2>@About.Header</h2>
         </header>
-        <p>
-            <a href="https://github.com/NullDesk/TicketDesk">TicketDesk 2.5</a> is an open source project
-            hosted on <a href="https://github.com">GitHub</a>.
-        </p>
-        <p>
-            TicketDesk is designed to be a fully functional yet simplistic web based issue tracking system
-            with a focus on promoting frictionless communication between the help desk and
-            end-users. TicketDesk is designed primarily for internal use within a single organization.
-        </p>
-
-        <p>
-            TicketDesk 2.5 has been developed on the following technology stack:
-        </p>
-        <ul>
-            <li>Asp.net MVC Framework 5 on .NET 4.5.2</li>
-            <li>Entity Framework 6x</li>
-            <li>Bootstrap 3x</li>
-            <li>Aspnet.Identity Framework 2x</li>
-            <li>SQL 2008 or higher <span class="small">(Compatible with Azure SQL, SQL Express, SQL Express LocalDb and all full SQL Server editions)</span>.</li>
-        </ul>
+        @Html.Raw(About.Description)
     </article>
-    
 </main>

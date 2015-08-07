@@ -13,7 +13,10 @@
 
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using TicketDesk.Domain.Infrastructure;
+using TicketDesk.Localization;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Model
 {
@@ -24,61 +27,61 @@ namespace TicketDesk.Domain.Model
         None = 0,
 
         [CommentRequired]
-        [Description("Comment")]
+        [Display(Name = "TicketActivity_Comment", ResourceType = typeof(Strings))]
         AddComment = 1,
 
         [CommentRequired]
-        [Description("Provide Info")]
+        [Display(Name = "TicketActivity_ProvideInfo", ResourceType = typeof(Strings))]
         SupplyMoreInfo = 2,
 
-        [Description("Cancel More Info")]
+        [Display(Name = "TicketActivity_CancelMoreInfo", ResourceType = typeof(Strings))]
         CancelMoreInfo = 4,
 
         [CommentRequired]
-        [Description("Request More Info")]
+        [Display(Name = "TicketActivity_RequestMoreInfo", ResourceType = typeof(Strings))]
         RequestMoreInfo = 8,
 
-        [Description("Take Over")]
+        [Display(Name = "TicketActivity_TakeOver", ResourceType = typeof(Strings))]
         TakeOver = 16,
 
         [CommentRequired]
-        [Description("Resolve")]
+        [Display(Name = "TicketActivity_Resolve", ResourceType = typeof(Strings))]
         Resolve = 32,
 
-        [Description("Assign")]
+        [Display(Name = "TicketActivity_Assign", ResourceType = typeof(Strings))]
         Assign = 64,
 
-        [Description("Re-assign")]
+        [Display(Name = "TicketActivity_ReAssign", ResourceType = typeof(Strings))]
         ReAssign = 128,
 
-        [Description("Pass")]
+        [Display(Name = "TicketActivity_Pass", ResourceType = typeof(Strings))]
         Pass = 256,
 
-        [Description("Close")]
+        [Display(Name = "TicketActivity_Close", ResourceType = typeof(Strings))]
         Close = 512,
 
         [CommentRequired]
-        [Description("Re-open")]
+        [Display(Name = "TicketActivity_ReOpen", ResourceType = typeof(Strings))]
         ReOpen = 1024,
 
-        [Description("Give Up")]
+        [Display(Name = "TicketActivity_GiveUp", ResourceType = typeof(Strings))]
         [CommentRequired]
         GiveUp = 2048,
 
         [CommentRequired]
-        [Description("Force Close")]
+        [Display(Name = "TicketActivity_ForceClose", ResourceType = typeof(Strings))]
         ForceClose = 4096,
 
-        [Description("Edit Attachments")]
+        [Display(Name = "TicketActivity_EditAttachments", ResourceType = typeof(Strings))]
         ModifyAttachments = 8192,
 
-        [Description("Edit")]
+        [Display(Name = "TicketActivity_Edit", ResourceType = typeof(Strings))]
         EditTicketInfo = 16384,
 
-        [Description("Create")]
+        [Display(Name = "TicketActivity_Create", ResourceType = typeof(Strings))]
         Create = 32768,
 
-        [Description("Create")]
+        [Display(Name = "TicketActivity_CreateOnBehalfOf", ResourceType = typeof(Strings))]
         CreateOnBehalfOf = 65536
     }
 

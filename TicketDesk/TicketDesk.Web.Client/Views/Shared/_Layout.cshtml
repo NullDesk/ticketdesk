@@ -12,10 +12,12 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+@using TicketDesk.Localization.Views.Shared
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="msapplication-config" content="none" />
     <title>
@@ -49,7 +51,7 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse">
 
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">@_Layout.Toggle</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -60,12 +62,12 @@
                 <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"
                    data-toggle="tooltip"
                    data-placement="bottom"
-                   title="Ticket Center"
+                   title="@_Layout.TicketCenter"
                    class="@Html.IsActiveRoute("Index", "TicketCenter") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg"><i class="fa fa-ticket"></i></a>
                 <a href="@Url.Action("New", "Ticket", new {area = ""})"
                    data-toggle="tooltip"
                    data-placement="bottom"
-                   title="New Ticket"
+                   title="@_Layout.NewTicket"
                    class="@Html.IsActiveRoute("New", "Ticket") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg "><i class="fa fa-plus"></i></a>
             </div>
             @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
@@ -76,13 +78,13 @@
             <div id="main-menu-collapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="@Html.IsActiveRoute("Index", "Home")">
-                        <a href="@Url.Action("Index", "Home", new {area = ""})"><i class="fa fa-home"></i> Home</a>
+                        <a href="@Url.Action("Index", "Home", new {area = ""})"><i class="fa fa-home"></i> @_Layout.Home</a>
                     </li>
                     <li class="@Html.IsActiveRoute("Index", "TicketCenter")">
-                        <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"><i class="fa fa-ticket"></i> Ticket Center</a>
+                        <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"><i class="fa fa-ticket"></i> @_Layout.TicketCenter</a>
                     </li>
                     <li class="@Html.IsActiveRoute("New", "Ticket")">
-                        <a href="@Url.Action("New", "Ticket", new {area = ""})"><i class="fa fa-plus"></i> New Ticket</a>
+                        <a href="@Url.Action("New", "Ticket", new {area = ""})"><i class="fa fa-plus"></i> @_Layout.NewTicket</a>
                     </li>
                     <li role="separator" class="nav-divider"></li>
                 </ul>
@@ -94,15 +96,25 @@
                     <li class="dropdown hidden-sm hidden-md hidden-lg">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-gears"></i>
-                            <span class="">Settings</span>
+                            <span class="">@_Layout.Settings</span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             @Html.Partial("_AdminMenuItems")
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-language"></i>
+                            <span class="">@_Layout.Language</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @Html.Partial("_LanguageOptions")
+                        </ul>
+                    </li>
                     <li class="@Html.IsActiveRoute("About", "Home")">
-                        <a href="@Url.Action("About", "Home", new {area = ""})"><i class="fa fa-info-circle fa-lg"></i> <span class="hidden-sm">About</span></a>
+                        <a href="@Url.Action("About", "Home", new {area = ""})"><i class="fa fa-info-circle fa-lg"></i> <span class="hidden-sm">@_Layout.About</span></a>
                     </li>
                 </ul>
             </div>
@@ -131,7 +143,11 @@
         </footer>
     </div>
 
+    <script type="text/javascript">
+        window.currentCulture = '@CultureHelper.GetCurrentCulture()';
+    </script>
     @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/bundles/common_locale_" + CultureHelper.GetCurrentCulture())
     @RenderSection("scripts", required: false)
 
 
@@ -141,7 +157,6 @@
         });
 
     </script>
-
 
 </body>
 </html>

@@ -23,6 +23,7 @@ using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
+using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -90,7 +91,7 @@ namespace TicketDesk.Web.Client.Controllers
                 ticket.Details = ticket.Details.StripHtmlWhenEmpty();
                 if (string.IsNullOrEmpty(ticket.Details))
                 {
-                    ModelState.AddModelError("Details", "This field is required.");
+                    ModelState.AddModelError("Details", Strings.RequiredField);
                 }
             }
 

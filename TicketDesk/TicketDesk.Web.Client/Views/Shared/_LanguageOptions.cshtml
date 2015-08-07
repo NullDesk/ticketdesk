@@ -1,0 +1,6 @@
+﻿@foreach (var item in TicketDesk.Localization.CultureHelper.Cultures)
+{
+    <li>
+        @Html.ActionLink(item.Value, "Index", "language", new { name = item.Key }, null)
+    </li>
+}

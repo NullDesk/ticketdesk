@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Client.Models;
+using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -47,7 +48,7 @@ namespace TicketDesk.Web.Client.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            ModelState.AddModelError("", "Unable to create project, please try again.");
+            ModelState.AddModelError("", Strings.UnableToCreateProject);
             return View();
         }
 
@@ -84,7 +85,7 @@ namespace TicketDesk.Web.Client.Controllers
                 RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Unable to remove project, please try again.");
+            ModelState.AddModelError("", Strings.UnableToRemoveProject);
             return RedirectToAction("Edit", new {projectId});
         }
 

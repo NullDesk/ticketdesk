@@ -1,4 +1,5 @@
-﻿@using PagedList.Mvc
+﻿@using TicketDesk.Localization.Views.UserAdministration
+@using PagedList.Mvc
 @model PagedList.IPagedList<TicketDesk.Web.Client.Models.UserAccountInfoViewModel>
 @{
     var ajaxPagerOptions = new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "userListBody", OnBegin = "adminUsers.paging.beginChangePage", OnSuccess = "adminUsers.completeChangeList", OnFailure = "adminUsers.completeChangeList" };
@@ -10,13 +11,13 @@
                 <table class="table table-striped table-condensed table-hover ">
                     <tr>
                         <th>
-                            User
+                            @Index.User
                         </th>
                         <th>
-                            Roles
+                            @Index.Roles
                         </th>
                         <th>
-                            Status
+                            @Index.Status
                         </th>
                     </tr>
                     @foreach (var account in Model)
@@ -42,7 +43,6 @@
                     }
                 </table>
             </div>
-
         </div>
         <div class="panel-footer">
             @Html.PagedListPager(Model, page => Url.Action("PageList", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPagerOptions))

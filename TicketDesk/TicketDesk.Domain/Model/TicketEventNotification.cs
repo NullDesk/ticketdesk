@@ -13,6 +13,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TicketDesk.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -35,7 +36,7 @@ namespace TicketDesk.Domain.Model
 
         [Key]
         [Column(Order = 2)]
-        [StringLength(256)]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         [Index]
         public string SubscriberId { get; set; }
 

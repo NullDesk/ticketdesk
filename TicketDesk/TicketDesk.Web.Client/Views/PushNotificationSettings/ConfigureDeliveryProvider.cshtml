@@ -12,6 +12,7 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+@using TicketDesk.Localization.Views.PushNotificationSettings
 
 @using System.ComponentModel.DataAnnotations
 @using System.Reflection
@@ -23,7 +24,6 @@
 <main>
     <div class="container">
         <div class="col-lg-8 col-lg-offset-2  col-sm-12">
-
             @{
                 var provider = PushNotificationDeliveryManager.CreateDeliveryProviderInstance(Model);
                 var provConfigPropertyInfo = provider.Configuration.GetType().GetProperties();
@@ -33,7 +33,7 @@
                     <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Push notification settings</legend>
+                        <legend>@ConfigureDeliveryProvider.Legend</legend>
                         @Html.HiddenFor(model => model.ProviderAssemblyQualifiedName)
                         <div class="panel panel-info">
                             <div class="panel-heading">
@@ -64,7 +64,6 @@
                                                     <label class="checkbox-inline">
                                                         @Html.CheckBox(property.Name, ((bool?)property.GetValue(provider.Configuration, null)) ?? false)
                                                         @Html.PromptFor(property)
-                                                       
                                                     </label>
                                                 }
                                                 else
@@ -85,22 +84,18 @@
                                                 @Html.DescriptionFor(property, "help-block", "span")
                                             }
                                         </div>
-
-
-
-
                                     </div>
-                                                }
+                                }
                             </div>
                             <div class="panel-footer">
-
-                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>&nbsp;&nbsp;
-                                @Html.ActionLink("Back to settings", "Index")
+                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;@ConfigureDeliveryProvider.SaveOption</button>&nbsp;&nbsp;
+                                @Html.ActionLink(ConfigureDeliveryProvider.BackOption, "Index")
                             </div>
-
                         </div>
+
                     </fieldset>
-                                                }}
+                }
+            }
         </div>
     </div>
 </main>

@@ -21,7 +21,7 @@
                 ignore: ""
             });
             if (config.isHtml) {
-                $('#wmd-input-ticketDetails').summernote({ height: 200 });
+                $('#wmd-input-ticketDetails').summernote({ height: 200, lang: window.currentCulture });
 
             } else {
                 configureMarkdownEditor();

@@ -13,42 +13,44 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using TicketDesk.Localization;
+using TicketDesk.Localization.PushNotifications;
 
 namespace TicketDesk.PushNotifications.Delivery
 {
     public class SendGridDeliveryProviderConfiguration : IDeliveryProviderConfiguration
     {
-        [Display(Name = "ApiKey")]
-        [Description("The ApiKey used to authenticate with SendGrid (this provider does not support username/password credentials).")]
-        [Required]
+        [Display(Name = "ApiKey", ResourceType = typeof(Strings))]
+        [LocalizedDescription("ApiKey_Description", NameResourceType = typeof(Strings))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [DataType(DataType.Password)]
         public string ApiKey { get; set; }
 
-        [Display(Name = "From Address")]
-        [Description("The email address to use when sending email from this povider")]
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        [Display(Name = "FromAddress", ResourceType = typeof(Strings))]
+        [LocalizedDescription("FromAddress_Description", NameResourceType = typeof(Strings))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(Validation))]
         public string FromAddress { get; set; }
 
-        [Display(Name = "From Display Name")]
-        [Description("The friendly name to use in the from address")]
-        [Required]
+        [Display(Name = "FromDisplayName", ResourceType = typeof(Strings))]
+        [LocalizedDescription("FromDisplayName_Description", NameResourceType = typeof(Strings))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         public string FromDisplayName { get; set; }
 
-        [Display(Name = "Click Tracking", Prompt = "Enabled")]
-        [Description("Enables SendGrid's click tracking feature")]
+        [Display(Name = "ClickTracking", Prompt = "ClickTracking_Prompt", ResourceType = typeof(Strings))]
+        [LocalizedDescription("ClickTracking_Description", NameResourceType = typeof(Strings))]
         public bool? EnableClickTracking { get; set; }
 
-        [Display(Name = "Open Tracking", Prompt = "Enabled")]
-        [Description("Enables SendGrid's open tracking feature")]
+        [Display(Name = "OpenTracking", Prompt = "OpenTracking_Prompt", ResourceType = typeof(Strings))]
+        [LocalizedDescription("OpenTracking_Description", NameResourceType = typeof(Strings))]
         public bool? EnableOpenTracking { get; set; }
 
-        [Display(Name = "Gravatar", Prompt = "Enabled")]
-        [Description("Enables SendGrid's gravatar feature (you should make sure the from account configured here has a gravatar account)")]
+        [Display(Name = "Gravatar", Prompt = "Gravatar_Prompt", ResourceType = typeof(Strings))]
+        [LocalizedDescription("Gravatar_Description", NameResourceType = typeof(Strings))]
         public bool? EnableGravatar { get; set; }
 
-        [Display(Name = "Send to Sink", Prompt = "Enabled")]
-        [Description("Sends all emails to SendGrid's sink address (useful when testing email delivery to prevent sending mail to real recipients)")]
+        [Display(Name = "SendToSink", Prompt = "SendToSink_Prompt", ResourceType = typeof(Strings))]
+        [LocalizedDescription("SendToSink_Description", NameResourceType = typeof(Strings))]
         public bool? SendToSink { get; set; }
     }
 }

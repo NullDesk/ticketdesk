@@ -14,6 +14,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Model
 {
@@ -47,11 +48,11 @@ namespace TicketDesk.Domain.Model
             }
         }
         [NotMapped]
-        [Display(Name = "Allow users to edit priority?")]
+        [Display(Name = "AllowInternalUsersToEditPriority", ResourceType = typeof(Strings))]
         public bool AllowInternalUsersToEditPriority { get; set; }
 
         [NotMapped]
-        [Display(Name = "Allow users to edit tags?")]
+        [Display(Name = "AllowInternalUsersToEditTags", ResourceType = typeof(Strings))]
         public bool AllowInternalUsersToEditTags { get; set; }
     }
 

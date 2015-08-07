@@ -96,8 +96,20 @@ namespace TicketDesk.Web.Client
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                     "~/Scripts/modernizr-*"));
 
+            //Localization bundles en-US (empty bundles to avoid 404)
+            bundles.Add(new ScriptBundle("~/bundles/select2_locale_en-US"));
+            bundles.Add(new ScriptBundle("~/bundles/common_locale_en-US").Include(
+                    "~/Scripts/ticketdesk/locale_en-US.js"));
+            bundles.Add(new ScriptBundle("~/bundles/summernote_locale_en-US"));
 
-
+            //Localization bundles pt-BR
+            bundles.Add(new ScriptBundle("~/bundles/select2_locale_pt-BR").Include(
+                    "~/Scripts/Select2-locales/select2_locale_pt-BR.js"));
+            bundles.Add(new ScriptBundle("~/bundles/common_locale_pt-BR").Include(
+                    "~/Scripts/jQueryValidate-locales/jquery.validate_locale_pt-BR.js",
+                    "~/Scripts/ticketdesk/locale_pt-BR.js"));
+            bundles.Add(new ScriptBundle("~/bundles/summernote_locale_pt-BR").Include(
+                "~/Scripts/summernote/summernote-pt-BR.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

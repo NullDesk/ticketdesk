@@ -1,19 +1,20 @@
-﻿    <li>
-        @Html.ActionLink("Manage Users", "Index", "UserAdministration")
+﻿@using TicketDesk.Localization.Views.Shared
+    <li>
+        @Html.ActionLink(@_Layout.ManageUsers, "Index", "UserAdministration")
     </li>
     <li>
-        @Html.ActionLink("Manage Projects", "Index", "ProjectSettings")
+        @Html.ActionLink(@_Layout.ManageProjects, "Index", "ProjectSettings")
     </li>
     <li>
-        @Html.ActionLink("Application Settings", "Index", "ApplicationSettings")
+        @Html.ActionLink(@_Layout.ApplicationSettings, "Index", "ApplicationSettings")
     </li>
     <li>
-        @Html.ActionLink("Push Notification Settings", "Index", "PushNotificationSettings")
+        @Html.ActionLink(@_Layout.PushNotificationSettings, "Index", "PushNotificationSettings")
     </li>
     <li>
-        @Html.ActionLink("Demo Data Management", "Demo", "DataManagement")
+        @Html.ActionLink(@_Layout.DemoDataManagement, "Demo", "DataManagement")
     </li>
     <li>
-        @Html.ActionLink("Search Management", "Index", "SearchManager")
+        @Html.ActionLink(@_Layout.SearchManagement, "Index", "SearchManager")
     </li>
 

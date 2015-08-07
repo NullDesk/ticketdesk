@@ -12,35 +12,31 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
-
-
-
+@using TicketDesk.Localization.Views.SearchManager
 
 @section title
 {
-     Search Manager
+     @Index.Title
 }
 <div class="contentContainer">
-    <h2>Manage Search</h2>
+    <h2>@Index.Header</h2>
     <p>
         
 
     </p>
-    <div>@Html.ActionLink("Remove Search Index", "RemoveIndex")</div>
+    <div>@Html.ActionLink(Index.RemoveSearchIndex, "RemoveIndex")</div>
     <p>
         @if (ViewBag.IndexRemoved ?? false)
         {
-            <span>Removed</span>
+            <span>@Index.Removed</span>
         }
-
     </p>
    
-    <div>@Html.ActionLink("Populate Search Index", "PopulateIndex")</div>
+    <div>@Html.ActionLink(Index.PopulateSearchIndex, "PopulateIndex")</div>
     <p>
         @if (ViewBag.IndexPopulated ?? false)
         {
-            <span>Populated</span>
+            <span>@Index.Populated</span>
         }
-
     </p>
 </div>

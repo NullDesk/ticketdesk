@@ -12,6 +12,7 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+@using TicketDesk.Localization.Views.TicketCenter
 
 @using TicketDesk.Domain.Model
 @model IEnumerable<UserTicketListSetting>
@@ -24,16 +25,14 @@
         {
             var className = ((currentListSettings.ListName == list.ListName)) ? "active" : string.Empty;
             <li class="@className small">
-
                 @Html.ActionLink(list.ListDisplayName, "Index", new { ListName = list.ListName })
             </li>
-
         }
         <li data-toggle="tooltip"
                       data-placement="bottom"
-                      title="Reset all settings for all lists">
+                      title="@Index.ResetAllSettings">
             <a href="#" class="" data-toggle="modal" data-target="#reset-confirm">
-                <i class="fa fa-repeat"></i> <span class="hidden-xs hidden-sm">Reset Lists</span>
+                <i class="fa fa-repeat"></i> <span class="hidden-xs hidden-sm">@Index.ResetLists</span>
             </a>
 
 
@@ -47,17 +46,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="reset-confirm-label">Are you sure you want to reset?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="@Index.CloseOption"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="reset-confirm-label">@Index.Reset_Confirmation</h4>
             </div>
             <div class="modal-body">
                 <p class="alert alert-danger">
-                    All lists will be reset, including custom sort and filter settings. This cannot be undone!
+                    @Index.Reser_Alert
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a href="@Url.Action("ResetUserLists")" class="btn btn-primary">Reset Lists</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Index.CancelOption</button>
+                <a href="@Url.Action("ResetUserLists")" class="btn btn-primary">@Index.SaveOption</a>
             </div>
         </div>
     </div>

@@ -13,6 +13,7 @@
  provided to the recipient.
 
 */
+@-ms-viewport{width:auto!important}
 
 html {
     height: 100%;

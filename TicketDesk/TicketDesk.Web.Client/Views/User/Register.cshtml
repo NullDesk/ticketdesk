@@ -1,21 +1,22 @@
-﻿@model TicketDesk.Web.Client.Models.UserRegisterViewModel
+﻿@using TicketDesk.Localization.Views.User
+@model TicketDesk.Web.Client.Models.UserRegisterViewModel
 @section title
 {
-    Register
+    @Register.Title
 }
 @section Scripts {
 }
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Register for a new user account</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">@Register.Legend</legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 @using (Html.BeginForm("Register", "User", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                 {
                     @Html.AntiForgeryToken()
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Account Details</h2>
+                            <h2 class="panel-title">@Register.Header</h2>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary("", new {@class = "text-danger"})
@@ -43,11 +44,10 @@
                                     @Html.TextBoxFor(m => m.DisplayName, new {@class = "form-control"})
                                 </div>
                             </div>
-                          
                         </div>
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-success" tabindex="10">Register</button>&nbsp;&nbsp;
-                            @Html.ActionLink("Login with an existing account", "SignIn")
+                            <button type="submit" class="btn btn-success" tabindex="10">@Register.SaveOption</button>&nbsp;&nbsp;
+                            @Html.ActionLink(Register.BackOption, "SignIn")
                         </div>
                     </div>
                 }

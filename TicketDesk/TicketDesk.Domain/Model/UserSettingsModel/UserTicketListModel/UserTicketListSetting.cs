@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using TicketDesk.Domain.Localization;
+using TicketDesk.Localization.Domain;
 
 
 namespace TicketDesk.Domain.Model
@@ -26,6 +27,7 @@ namespace TicketDesk.Domain.Model
     /// </summary>
     public class UserTicketListSetting
     {
+        private string listDisplayName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserTicketListSetting"/> class.
@@ -90,7 +92,17 @@ namespace TicketDesk.Domain.Model
         /// Gets or sets the display name of the list view.
         /// </summary>
         /// <value>The display name of the list view.</value>
-        public string ListDisplayName { get; set; }
+        public string ListDisplayName {
+            get {
+                if (DefaultListName.ContainsKey(this.ListName))
+                    return DefaultListName[this.ListName];
+                else
+                    return this.listDisplayName;
+            }
+            set {
+                this.listDisplayName = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the list display order.
@@ -166,7 +178,7 @@ namespace TicketDesk.Domain.Model
                 unassignedSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
                 unassignedFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
                 unassignedFilterColumns.Add(new UserTicketListFilterColumn("AssignedTo", null, null, typeof(string)));
-                settings.Add(new UserTicketListSetting("unassigned", TicketDeskDomainText.DefaultListNameUnassigned, disOrder++, 20, unassignedSortColumns, unassignedFilterColumns, disableAssignedColumn));
+                settings.Add(new UserTicketListSetting("unassigned", DefaultListName["unassigned"], disOrder++, 20, unassignedSortColumns, unassignedFilterColumns, disableAssignedColumn));
 
                 var assignedToMeSortColumns = new List<UserTicketListSortColumn>();
                 var assignedToMeFilterColumns = new List<UserTicketListFilterColumn>();
@@ -174,7 +186,7 @@ namespace TicketDesk.Domain.Model
                 assignedToMeSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
                 assignedToMeFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
                 assignedToMeFilterColumns.Add(new UserTicketListFilterColumn("AssignedTo", true, userId));
-                settings.Add(new UserTicketListSetting("assignedToMe", TicketDeskDomainText.DefaultListNameAssignedToMe, disOrder++, 20, assignedToMeSortColumns, assignedToMeFilterColumns, disableAssignedColumn));
+                settings.Add(new UserTicketListSetting("assignedToMe", DefaultListName["assignedToMe"], disOrder++, 20, assignedToMeSortColumns, assignedToMeFilterColumns, disableAssignedColumn));
             }
 
             var mySortColumns = new List<UserTicketListSortColumn>();
@@ -182,7 +194,7 @@ namespace TicketDesk.Domain.Model
             mySortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             myFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
             myFilterColumns.Add(new UserTicketListFilterColumn("Owner", true, userId));
-            settings.Add(new UserTicketListSetting("mytickets", TicketDeskDomainText.DefaultListNameMyTickets, disOrder++, 20, mySortColumns, myFilterColumns, disableOwnerColumn));
+            settings.Add(new UserTicketListSetting("mytickets", DefaultListName["mytickets"], disOrder++, 20, mySortColumns, myFilterColumns, disableOwnerColumn));
 
 
             var openSortColumns = new List<UserTicketListSortColumn>();
@@ -190,7 +202,7 @@ namespace TicketDesk.Domain.Model
             openSortColumns.Add(new UserTicketListSortColumn("TicketStatus", ColumnSortDirection.Ascending));
             openSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             openFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
-            settings.Add(new UserTicketListSetting("opentickets", TicketDeskDomainText.DefaultListNameOpenTickets, disOrder++, 20, openSortColumns, openFilterColumns, disableStatusColumn));
+            settings.Add(new UserTicketListSetting("opentickets", DefaultListName["opentickets"], disOrder++, 20, openSortColumns, openFilterColumns, disableStatusColumn));
 
 
             var historyticketsSortColumns = new List<UserTicketListSortColumn>();
@@ -198,11 +210,41 @@ namespace TicketDesk.Domain.Model
             historyticketsSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             historyticketsFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", true, TicketStatus.Closed));
 
-            settings.Add(new UserTicketListSetting("historytickets", TicketDeskDomainText.DefaultListNameHistoryTickets, disOrder, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn));
+            settings.Add(new UserTicketListSetting("historytickets", DefaultListName["historytickets"], disOrder, 20, historyticketsSortColumns, historyticketsFilterColumns, disableStatusColumn));
 
             return settings;
         }
-        
+
+        internal static IDictionary<string, string> DefaultListName
+        {
+            get
+            {
+                return new Dictionary<string, string>()
+                {
+                    {
+                        "unassigned",
+                        Strings.DefaultListNameUnassigned
+                    },
+                    {
+                        "assignedToMe",
+                        Strings.DefaultListNameAssignedToMe
+                    },
+                    {
+                        "mytickets",
+                        Strings.DefaultListNameMyTickets
+                     },
+                    {
+                        "opentickets",
+                        Strings.DefaultListNameOpenTickets
+                     },
+                    {
+                        "historytickets",
+                        Strings.DefaultListNameHistoryTickets
+                     }
+                };
+            }
+        }
+
     }
 }
 

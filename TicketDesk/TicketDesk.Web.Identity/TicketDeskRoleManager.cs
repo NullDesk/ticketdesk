@@ -16,6 +16,7 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
+using TicketDesk.Localization.Identity;
 
 namespace TicketDesk.Web.Identity
 {
@@ -81,31 +82,82 @@ namespace TicketDesk.Web.Identity
                     new TicketDeskRole
                     {
                         Name = "TdAdministrators",
-                        DisplayName = "Administrator",
-                        Description = "Can manage settings, users, and access application logs"
+                        DisplayName = DefaultRolesDisplayName["TdAdministrators"],
+                        Description = DefaultRolesDescription["TdAdministrators"],
                     },
                      new TicketDeskRole
                     {
                         Name = "TdHelpDeskUsers",
-                        DisplayName = "Help Desk Staff",
-                        Description = "May be assigned tickets, have full control over all existing tickets."
+                        DisplayName = DefaultRolesDisplayName["TdHelpDeskUsers"],
+                        Description = DefaultRolesDescription["TdHelpDeskUsers"],
 
                      },
                      new TicketDeskRole
                     {
                         Name = "TdInternalUsers",
-                        DisplayName = "Internal User",
-                        Description = "Can submit tickets and view all existing tickets."
+                        DisplayName = DefaultRolesDisplayName["TdInternalUsers"],
+                        Description = DefaultRolesDescription["TdInternalUsers"],
                      },
                      new TicketDeskRole
                     {
                         Name = "TdPendingUsers",
-                        DisplayName = "Pending Approval",
-                        Description = "Users that have registered, but who's accounts have not been approved by an Administrator."
+                        DisplayName = DefaultRolesDisplayName["TdPendingUsers"],
+                        Description = DefaultRolesDescription["TdPendingUsers"],
                      }
                 };
             }
         }
 
+        public static IDictionary<string, string> DefaultRolesDisplayName
+        {
+            get
+            {
+                return new Dictionary<string, string>()
+                {
+                    {
+                        "TdAdministrators",
+                        Strings.Role_Administrator
+                    },
+                    {
+                        "TdHelpDeskUsers",
+                        Strings.Role_HelpDesk
+                     },
+                    {
+                        "TdInternalUsers",
+                        Strings.Role_InternalUser
+                     },
+                    {
+                        "TdPendingUsers",
+                        Strings.Role_PendingApproval
+                     }
+                };
+            }
+        }
+
+        public static IDictionary<string, string> DefaultRolesDescription
+        {
+            get
+            {
+                return new Dictionary<string, string>()
+                {
+                    {
+                        "TdAdministrators",
+                        Strings.Role_Administrator_Description
+                    },
+                    {
+                        "TdHelpDeskUsers",
+                        Strings.Role_HelpDesk_Description
+                     },
+                    {
+                        "TdInternalUsers",
+                        Strings.Role_InternalUser_Description
+                     },
+                    {
+                        "TdPendingUsers",
+                        Strings.Role_PendingApproval_Description
+                     }
+                };
+            }
+        }
     }
 }

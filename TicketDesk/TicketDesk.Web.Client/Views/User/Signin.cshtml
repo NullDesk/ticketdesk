@@ -1,14 +1,15 @@
-﻿@model TicketDesk.Web.Client.Models.UserSignInViewModel
+﻿@using TicketDesk.Localization.Views.User
+@model TicketDesk.Web.Client.Models.UserSignInViewModel
 @section title
 {
-    Sign In
+    @SignIn.Title
 }
 @section Scripts {
 }
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Sign In</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">@SignIn.Legend</legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 @using (Html.BeginForm("SignIn", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -16,7 +17,7 @@
 
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Enter your Sign In Credentials</h2>
+                            <h2 class="panel-title">@SignIn.Header</h2>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -35,7 +36,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <div class="col-sm-offset-2 col-sm-9">
                                     <label class="checkbox-inline">
                                         @Html.EditorFor(m => m.RememberMe)
@@ -43,11 +43,10 @@
                                     </label>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-success" tabindex="10">Sign In</button>&nbsp;&nbsp;
-                            @Html.ActionLink("Register as a new user", "Register")
+                            <button type="submit" class="btn btn-success" tabindex="10">@SignIn.SaveOption</button>&nbsp;&nbsp;
+                            @Html.ActionLink(SignIn.BackOption, "Register")
                         </div>
                     </div>
                 }

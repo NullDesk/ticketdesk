@@ -13,6 +13,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TicketDesk.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -23,8 +24,8 @@ namespace TicketDesk.Domain.Model
 
         public int TicketTagId { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [StringLength(100, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string TagName { get; set; }
 
         public int TicketId { get; set; }

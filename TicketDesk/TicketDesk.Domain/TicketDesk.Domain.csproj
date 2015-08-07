@@ -134,7 +134,6 @@
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
     <Compile Include="Infrastructure\TdDomainSecurityProviderBase.cs" />
-    <Compile Include="Localization\LocalizedDescrptionAttribute.cs" />
     <Compile Include="Localization\TicketTextUtility.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.cs" />
     <Compile Include="Migrations\201410100421345_InitialCreate.Designer.cs">
@@ -178,11 +177,6 @@
     <Compile Include="Model\TicketEvent.cs" />
     <Compile Include="TdDomainContext.cs" />
     <Compile Include="Model\TicketTag.cs" />
-    <Compile Include="Localization\TicketDeskDomainText.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TicketDeskDomainText.resx</DependentUpon>
-    </Compile>
     <Compile Include="UserSettingsManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -198,10 +192,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410160155270_Td2.5.001.resx">
       <DependentUpon>201410160155270_Td2.5.001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Localization\TicketDeskDomainText.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>TicketDeskDomainText.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412012200330_Td2.5.002.resx">
       <DependentUpon>201412012200330_Td2.5.002.cs</DependentUpon>
@@ -257,6 +247,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicketDesk.Localization\TicketDesk.Localization.csproj">
+      <Project>{be8715f9-e858-473e-a2b6-561c9edca416}</Project>
+      <Name>TicketDesk.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Search.Common\TicketDesk.Search.Common.csproj">
       <Project>{F8C97321-F0CC-4AF9-86E6-95E0E4840430}</Project>
       <Name>TicketDesk.Search.Common</Name>

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -36,7 +37,7 @@ namespace TicketDesk.Web.Client.Controllers
             var projectId = AsyncHelper.RunSync(() => Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context));
 
             //add the "all projects item" then get a select list to render
-            modelProjects.Insert(0, new Project {ProjectId = 0, ProjectName = "All Projects", ProjectDescription = string.Empty});
+            modelProjects.Insert(0, new Project { ProjectId = 0, ProjectName = Strings.ModelProjects_DefaultOption, ProjectDescription = string.Empty });
             var model = modelProjects.ToSelectList(p => p.ProjectId.ToString(), p => p.ProjectName, projectId, false);
             
             return PartialView("_ProjectMenu", model);

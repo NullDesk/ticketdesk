@@ -1,20 +1,21 @@
-﻿@section title
+﻿@using TicketDesk.Localization.Views.DataManagement
+@section title
 {
-    Database Configuration
+    @Index.Title
 }
 
 
-<h2>Current Status:</h2>
+<h2>@Index.Header</h2>
 
 <ul>
 
     <li>
-        Db Empty = @ViewBag.IsDatabaseEmpty
+        @Index.DbEmpty = @ViewBag.IsDatabaseEmpty
     </li>
     <li>
-        Db Is Legacy TicketDesk 2.1x database = @ViewBag.IsLegacyDatabase
+        @Index.DbIsLegacy = @ViewBag.IsLegacyDatabase
     </li>
     <li>
-        DB Is Ready = @ViewBag.IsDatabaseReady
+        @Index.DbIsReady = @ViewBag.IsDatabaseReady
     </li>
 </ul>

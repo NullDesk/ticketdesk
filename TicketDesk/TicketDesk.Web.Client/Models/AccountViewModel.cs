@@ -19,38 +19,40 @@ using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
+using TicketDesk.Localization.Models;
+using TicketDesk.Localization;
 
 namespace TicketDesk.Web.Client.Models
 {
     public class AccountPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "CurrentPassword", ResourceType = typeof(Strings))]
         public string OldPassword { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [StringLength(100, ErrorMessageResourceName = "FieldMinimumLength", ErrorMessageResourceType = typeof(Validation), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "NewPassword", ResourceType = typeof(Strings))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "ConfirmNewPassword", ResourceType = typeof(Strings))]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceName = "NewConfirmationDoNotMatch", ErrorMessageResourceType = typeof(Strings))]
         public string ConfirmPassword { get; set; }
     }
 
     public class AccountProfileViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(Validation))]
+        [Display(Name = "Email", ResourceType = typeof(Strings))]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Display Name")]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [StringLength(100, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
+        [Display(Name = "DisplayName", ResourceType = typeof(Strings))]
         public string DisplayName { get; set; }
     }
 
@@ -72,13 +74,12 @@ namespace TicketDesk.Web.Client.Models
 
         public TicketDeskUser User { get; set; }
 
-        [Display(Name = "Locked", Prompt = "Locked")]
-        [Description(
-            "Determines if the account has been locked. Temporary locks are created by invalid login attempts.")]
+        [Display(Name = "Locked", Prompt = "Locked_Prompt", ResourceType = typeof(Strings))]
+        [LocalizedDescription("IsLocked_Description", NameResourceType = typeof(Strings))]
         public bool IsLocked { get; set; }
 
-        [Display(Name = "Disabled", Prompt = "Disabled")]
-        [Description("Determines if the account has been disabled by an administrator.")]
+        [Display(Name = "Disabled", Prompt = "Disabled_Prompt", ResourceType = typeof(Strings))]
+        [LocalizedDescription("IsDisabled_Description", NameResourceType = typeof(Strings))]
         public bool IsDisabled { get; set; }
 
         public IEnumerable<string> Roles { get; set; }

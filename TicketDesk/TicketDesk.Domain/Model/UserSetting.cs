@@ -14,6 +14,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using TicketDesk.Localization;
 
 namespace TicketDesk.Domain.Model
 {
@@ -21,7 +22,7 @@ namespace TicketDesk.Domain.Model
     public class UserSetting
     {
         [Key]
-        [StringLength(256)]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string UserId { get; set; }
 
         public virtual UserTicketListSettingsCollection ListSettings { get; internal set; }

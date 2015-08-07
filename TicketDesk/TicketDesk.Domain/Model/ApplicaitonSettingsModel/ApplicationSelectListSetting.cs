@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Model
 {
@@ -50,15 +51,15 @@ namespace TicketDesk.Domain.Model
         }
 
         [NotMapped]
-        [Display(Name = "Categories")]
+        [Display(Name = "SelectList_Categories", ResourceType = typeof(Strings))]
         public ICollection<string> CategoryList { get; set; }
 
         [NotMapped]
-        [Display(Name="Priorities")]
+        [Display(Name = "SelectList_Priorities", ResourceType = typeof(Strings))]
         public ICollection<string> PriorityList { get; set; }
 
         [NotMapped]
-        [Display(Name = "Ticket Types")]
+        [Display(Name = "SelectList_TicketTypes", ResourceType = typeof(Strings))]
         public ICollection<string> TicketTypesList { get; set; }
     }
 

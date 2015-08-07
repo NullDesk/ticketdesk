@@ -33,7 +33,7 @@ namespace TicketDesk.Web.Client
             var attr = (DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
             var prompt = attr == null
                 ? property.Name
-                : attr.Prompt ?? (attr.Name ?? property.Name); 
+                : attr.GetPrompt() ?? (attr.GetName() ?? property.Name); 
             return new MvcHtmlString(prompt);
         }
     }

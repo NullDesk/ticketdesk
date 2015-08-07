@@ -1,15 +1,16 @@
-﻿@section title
+﻿@using TicketDesk.Localization.Views.User
+@section title
 {
-    Locked Out
+    @Lockout.Title
 }
 @section Scripts {
 }
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Sign In</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">@Lockout.Legend</legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
-                <div class="alert alert-danger">Your account has been locked out. Please wait a few minutes and try again.</div>
+                <div class="alert alert-danger">@Lockout.Lockedout</div>
             </div>
         </fieldset>
     </div>

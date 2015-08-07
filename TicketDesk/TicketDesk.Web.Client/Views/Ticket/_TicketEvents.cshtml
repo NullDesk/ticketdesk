@@ -27,8 +27,8 @@
             <div><strong>@evt.GetEventByInfo().DisplayName</strong> @evt.EventDescription</div>
 
             <div class="text-muted small" style="text-indent: 1em;">
-                @evt.EventDate.Date.ToLongDateString()
-                @evt.EventDate.Date.ToShortTimeString()
+                @evt.EventDate.ToString("D")
+                @evt.EventDate.ToString("t")
             </div>
         </div>
         @{

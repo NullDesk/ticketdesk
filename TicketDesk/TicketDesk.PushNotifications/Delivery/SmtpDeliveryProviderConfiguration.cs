@@ -13,6 +13,8 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using TicketDesk.Localization;
+using TicketDesk.Localization.PushNotifications;
 
 namespace TicketDesk.PushNotifications.Delivery
 {
@@ -26,34 +28,34 @@ namespace TicketDesk.PushNotifications.Delivery
             SmtpFromDisplayName = "TicketDesk";
         }
 
-        [Display(Name = "SMTP Server Name")]
-        [Required]
+        [Display(Name = "SMTPServerName", ResourceType = typeof(Strings))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         public string SmtpServer { get; set; }
 
-        [Display(Name = "SMTP Port")]
+        [Display(Name = "SMTPPort", ResourceType = typeof(Strings))]
         public int? SmtpPort { get; set; }
 
-        [Display(Name = "Enable SSL")]
+        [Display(Name = "EnableSSL", ResourceType = typeof(Strings))]
         public bool? EnableSsl { get; set; }
 
-        [Display(Name = "SMTP User Name")]
-        [Description("Leave empty if authentication is not required")]
+        [Display(Name = "SMTPUserName", ResourceType = typeof(Strings))]
+        [LocalizedDescription("SMTPUserName_Description", NameResourceType = typeof(Strings))]
         public string SmtpUserName { get; set; }
 
-        [Display(Name = "SMTP Password")]
-        [Description("Leave empty if authentication is not required")]
+        [Display(Name = "SMTPPassword", ResourceType = typeof(Strings))]
+        [LocalizedDescription("SMTPPassword_Description", NameResourceType = typeof(Strings))]
         [DataType(DataType.Password)]
         public string SmtpPassword { get; set; }
 
-        [Display(Name = "SMTP From Address")]
-        [Description("The email address to use when sending email from this povider")]
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        [Display(Name = "SMTPFromAddress", ResourceType = typeof(Strings))]
+        [LocalizedDescription("SMTPFromAddress_Description", NameResourceType = typeof(Strings))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(Validation))]
         public string SmtpFromAddress { get; set; }
 
-        [Display(Name = "SMTP From Display Name")]
-        [Description("The friendly name to use in the from address")]
-        [Required]
+        [Display(Name = "SMTPFromDisplayName", ResourceType = typeof(Strings))]
+        [LocalizedDescription("SMTPFromDisplayName_Description", NameResourceType = typeof(Strings))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         public string SmtpFromDisplayName { get; set; }
 
     }
