@@ -1,4 +1,4 @@
-﻿// TicketDesk - Attribution notice
+// TicketDesk - Attribution notice
 // Contributor(s):
 //
 //      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
@@ -27,6 +27,8 @@ namespace TicketDesk.Domain.Model
             //  entire instance, make sure all default settings are initialized in the ctor
             AllowInternalUsersToEditPriority = false;
             AllowInternalUsersToEditTags = true;
+            AllowInternalUsersToSetAssigned = false;
+            AllowInternalUsersToSetOwner = false;
         }
 
         [JsonIgnore]
@@ -45,6 +47,8 @@ namespace TicketDesk.Domain.Model
                 var jData = JsonConvert.DeserializeObject<ApplicationPermissionsSetting>(value, jsettings);
                 AllowInternalUsersToEditPriority = jData.AllowInternalUsersToEditPriority;
                 AllowInternalUsersToEditTags = jData.AllowInternalUsersToEditTags;
+                AllowInternalUsersToSetAssigned = jData.AllowInternalUsersToSetAssigned;
+                AllowInternalUsersToSetOwner = jData.AllowInternalUsersToSetOwner;
             }
         }
         [NotMapped]
@@ -54,6 +58,14 @@ namespace TicketDesk.Domain.Model
         [NotMapped]
         [Display(Name = "AllowInternalUsersToEditTags", ResourceType = typeof(Strings))]
         public bool AllowInternalUsersToEditTags { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Allow internal users to set the assigned to field (new ticket creation only)?")]
+        public bool AllowInternalUsersToSetAssigned { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Allow internal users to set or change the ticket owner?")]
+        public bool AllowInternalUsersToSetOwner { get; set; }
     }
 
 }
