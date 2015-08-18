@@ -18,6 +18,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Identity;
+using TicketDesk.Localization.Models;
 
 namespace TicketDesk.Web.Client.Models
 {
@@ -62,13 +63,13 @@ namespace TicketDesk.Web.Client.Models
             get
             {
 
-                string selectedStatus = "any";
+                string selectedStatus = "Any";
                 var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "TicketStatus");
                 if (fColumn != null)
                 {
                     if (!fColumn.ColumnValue.ToString().Equals("Closed", StringComparison.InvariantCultureIgnoreCase)) 
                     {
-                        selectedStatus = fColumn.ColumnValue.ToString().ToLowerInvariant();
+                        selectedStatus = fColumn.ColumnValue.ToString();
                     }
                     else
                     {
@@ -79,12 +80,12 @@ namespace TicketDesk.Web.Client.Models
                 return new SelectList(
                     new[] 
                     {   
-                        new { Text="-- any --", Value="Any"}, 
-                        new { Text="-- open --", Value="Open"},
-                        new { Text="Active", Value="Active"},
-                        new { Text="More Info", Value="MoreInfo"},
-                        new { Text="Resolved", Value="Resolved"},
-                        new { Text="Closed", Value="Closed"}
+                        new { Text=Strings.TicketStatus_Any, Value="Any"}, 
+                        new { Text=Strings.TicketStatus_Open, Value="Open"},
+                        new { Text=Strings.TicketStatus_Active, Value="Active"},
+                        new { Text=Strings.TicketStatus_MoreInfo, Value="MoreInfo"},
+                        new { Text=Strings.TicketStatus_Resolved, Value="Resolved"},
+                        new { Text=Strings.TicketStatus_Closed, Value="Closed"}
                     },
                 "Value",
                 "Text",
@@ -123,7 +124,7 @@ namespace TicketDesk.Web.Client.Models
                 }
                
                 var lusers = GetUsersInRole("TdInternalUsers");
-                lusers.Insert(0, new UserItem { Name = "anyone", DisplayName = "-- anyone --" });
+                lusers.Insert(0, new UserItem { Name = "anyone", DisplayName = Strings.AssignedTo_Anyone });
 
                 return new SelectList(lusers, "Name", "DisplayName", selectedUserName);
             }
@@ -145,8 +146,8 @@ namespace TicketDesk.Web.Client.Models
                 }
 
                 var lusers = GetUsersInRole("TdHelpDeskUsers");
-                lusers.Insert(0, new UserItem { Name = "anyone", DisplayName = "-- anyone --" });
-                lusers.Insert(1, new UserItem { Name = "unassigned", DisplayName = "-- unassigned --" });
+                lusers.Insert(0, new UserItem { Name = "anyone", DisplayName = Strings.AssignedTo_Anyone });
+                lusers.Insert(1, new UserItem { Name = "unassigned", DisplayName = Strings.AssignedTo_Unassigned });
 
                 return new SelectList(lusers, "Name", "DisplayName", selectedUserName);
             }

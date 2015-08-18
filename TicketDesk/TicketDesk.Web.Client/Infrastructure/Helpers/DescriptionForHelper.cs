@@ -18,6 +18,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
+using TicketDesk.Localization;
+using TicketDesk.Localization.Infrastructure;
 
 namespace TicketDesk.Web.Client
 {
@@ -42,7 +44,9 @@ namespace TicketDesk.Web.Client
             string tagName = "div"
             )
         {
-            var attr = (DescriptionAttribute)modelType.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
+            var attr = (DescriptionAttribute)modelType.GetCustomAttributes(typeof(LocalizedDescriptionAttribute), false).FirstOrDefault();
+            if (attr == null)
+                attr = (DescriptionAttribute)modelType.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
             return GetDescriptionFromAttribute(cssClassName, tagName, attr);
 
         }
@@ -57,10 +61,12 @@ namespace TicketDesk.Web.Client
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
             {
-                throw new InvalidOperationException("Expression must be a member expression");
+                throw new InvalidOperationException(Strings.MemberExpression);
             }
             var prop = memberExpression.Member;
-            var attr = (DescriptionAttribute)prop.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
+            var attr = (DescriptionAttribute)prop.GetCustomAttributes(typeof(LocalizedDescriptionAttribute), false).FirstOrDefault();
+            if (attr == null)
+                attr = (DescriptionAttribute)prop.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault();
             return GetDescriptionFromAttribute(cssClassName, tagName, attr);
         }
 

@@ -20,6 +20,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using TicketDesk.Localization.Infrastructure;
 
 namespace TicketDesk.Web.Client
 {
@@ -36,7 +37,7 @@ namespace TicketDesk.Web.Client
             if (JsonRequestBehavior == JsonRequestBehavior.DenyGet &&
                 string.Equals(context.HttpContext.Request.HttpMethod, "GET", StringComparison.OrdinalIgnoreCase))
             {
-                throw new InvalidOperationException("GET request not allowed");
+                throw new InvalidOperationException(Strings.GETNotAllowed);
             }
 
             var response = context.HttpContext.Response;

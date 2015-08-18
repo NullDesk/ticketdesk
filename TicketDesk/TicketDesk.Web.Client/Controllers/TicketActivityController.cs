@@ -23,6 +23,7 @@ using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
+using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -164,7 +165,7 @@ namespace TicketDesk.Web.Client.Controllers
                {
                    sb.AppendLine();
                    sb.AppendLine("<dl><dt>");
-                   sb.AppendLine("Removed Files:");
+                   sb.AppendLine(Strings.RemovedFiles);
                    sb.AppendLine("</dt>");
 
 
@@ -181,7 +182,7 @@ namespace TicketDesk.Web.Client.Controllers
                {
                    sb.AppendLine();
                    sb.AppendLine("<dl><dt>");
-                   sb.AppendLine("New files:");
+                   sb.AppendLine(Strings.NewFiles);
                    sb.AppendLine("</dt>");
 
                    foreach (var file in filesAdded)

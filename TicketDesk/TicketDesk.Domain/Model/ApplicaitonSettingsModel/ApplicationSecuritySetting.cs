@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Model
 {
@@ -35,7 +36,7 @@ namespace TicketDesk.Domain.Model
 
 
         [NotMapped]
-        [Display(Name = "Default New User Roles")]
+        [Display(Name = "DefaultNewUserRoles", ResourceType = typeof(Strings))]
         public ICollection<string> DefaultNewUserRoles
         {
             get { return defaultNewUserRoles;}

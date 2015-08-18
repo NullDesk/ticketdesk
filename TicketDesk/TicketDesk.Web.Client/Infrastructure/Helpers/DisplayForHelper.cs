@@ -25,8 +25,8 @@ namespace TicketDesk.Web.Client
         public static MvcHtmlString DisplayNameFor(this HtmlHelper helper, PropertyInfo property)
         {
             var attr = (DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
-            
-            return new MvcHtmlString(attr == null || attr.Name == null?  property.Name: attr.Name);
+
+            return new MvcHtmlString(attr == null || attr.Name == null ? property.Name : attr.GetName());
         }
     }
 }

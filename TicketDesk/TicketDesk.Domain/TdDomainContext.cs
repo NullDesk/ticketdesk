@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain
 {
@@ -213,7 +214,7 @@ namespace TicketDesk.Domain
                 {
                     result.ValidationErrors.Add(new
                         DbValidationError("authorization",
-                        TicketDeskDomainText.ExceptionSecurityUserCannotCreateNewTicket));
+                        Strings.ExceptionSecurityUserCannotCreateNewTicket));
                 }
             }
             return result.ValidationErrors.Count > 0 ? result : base.ValidateEntity(entityEntry, items);

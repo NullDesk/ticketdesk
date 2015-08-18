@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApiKey" xml:space="preserve">
+    <value>ApiKey</value>
+  </data>
+  <data name="ApiKey_Description" xml:space="preserve">
+    <value>The ApiKey used to authenticate with SendGrid (this provider does not support username/password credentials).</value>
+  </data>
+  <data name="ClickTracking" xml:space="preserve">
+    <value>Click Tracking</value>
+  </data>
+  <data name="ClickTracking_Description" xml:space="preserve">
+    <value>Enables SendGrid's click tracking feature</value>
+  </data>
+  <data name="ClickTracking_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="ConsolidateNotifications" xml:space="preserve">
+    <value>Consolidate notifications</value>
+  </data>
+  <data name="ConsolidateNotifications_Description" xml:space="preserve">
+    <value>Consolidation allows push notifications for an event to be delayed for a short time. If additional events occur for the same subscriber and ticket, they will be grouped into a single message instead of being sent separately. This reduces spam in cases where many chages are made to a ticket in rapid succession.</value>
+  </data>
+  <data name="ConsolidateNotifications_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="DeliveryAttemptInterval" xml:space="preserve">
+    <value>Delivery Attempt Interval (minutes)</value>
+  </data>
+  <data name="DeliveryAttemptInterval_Description" xml:space="preserve">
+    <value>How often to check for push notifications that are ready to be sent.</value>
+  </data>
+  <data name="DeliveryProviders" xml:space="preserve">
+    <value>Delivery Providers</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Enable SSL</value>
+  </data>
+  <data name="ExcludeSubscribersOwnEvents" xml:space="preserve">
+    <value>Exclude subscriber's own events</value>
+  </data>
+  <data name="ExcludeSubscribersOwnEvents_Description" xml:space="preserve">
+    <value>HIGHLY RECOMMENDED! This prevents push notifications from being sent to the same user whose action triggered the notification.</value>
+  </data>
+  <data name="ExcludeSubscribersOwnEvents_Prompt" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="FromAddress" xml:space="preserve">
+    <value>From Address</value>
+  </data>
+  <data name="FromAddress_Description" xml:space="preserve">
+    <value>The email address to use when sending email from this povider</value>
+  </data>
+  <data name="FromDisplayName" xml:space="preserve">
+    <value>From Display Name</value>
+  </data>
+  <data name="FromDisplayName_Description" xml:space="preserve">
+    <value>The friendly name to use in the from address</value>
+  </data>
+  <data name="Gravatar" xml:space="preserve">
+    <value>Gravatar</value>
+  </data>
+  <data name="Gravatar_Description" xml:space="preserve">
+    <value>Enables SendGrid's gravatar feature (you should make sure the from account configured here has a gravatar account)</value>
+  </data>
+  <data name="Gravatar_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="InitialConsolidationDelay" xml:space="preserve">
+    <value>Initial consolidation delay (minutes)</value>
+  </data>
+  <data name="InitialConsolidationDelay_Description" xml:space="preserve">
+    <value>The initial number of minutes to wait. If new events occur for the same subscriber and ticket, the system will consolidate the messages into a single notification. Subsequent events will increase the delay until either no further events occur, or the maximum delay period has expired.</value>
+  </data>
+  <data name="InitialRetryInterval" xml:space="preserve">
+    <value>Initial Retry Interval (minutes)</value>
+  </data>
+  <data name="InitialRetryInterval_Description" xml:space="preserve">
+    <value>Number of minutes to wait before the first retry attempt. Subsequent retry attempts occur at interval raised to the number of retry attempts. Example: interval = 2 and retry = 3, next attempt will be in 8 minutes</value>
+  </data>
+  <data name="MaximumConsolidationDelay" xml:space="preserve">
+    <value>Maximum consolidation delay (minutes)</value>
+  </data>
+  <data name="MaximumConsolidationDelay_Description" xml:space="preserve">
+    <value>The maximum amount of time to delay sending a notification.</value>
+  </data>
+  <data name="NotificationsEnabled" xml:space="preserve">
+    <value>Notifications Enabled</value>
+  </data>
+  <data name="NotificationsEnabled_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="NumberOfRetryAttempts" xml:space="preserve">
+    <value>Number of Retry Attempts</value>
+  </data>
+  <data name="NumberOfRetryAttempts_Description" xml:space="preserve">
+    <value>When things go wrong, this determines the number of attempts to make before marking a message as failed.</value>
+  </data>
+  <data name="OpenTracking" xml:space="preserve">
+    <value>Open Tracking</value>
+  </data>
+  <data name="OpenTracking_Description" xml:space="preserve">
+    <value>Enables SendGrid's open tracking feature</value>
+  </data>
+  <data name="OpenTracking_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Provider</value>
+  </data>
+  <data name="Provider_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="SendGridProvider" xml:space="preserve">
+    <value>SendGrid Provider (Email)</value>
+  </data>
+  <data name="SendToSink" xml:space="preserve">
+    <value>Send to Sink</value>
+  </data>
+  <data name="SendToSink_Description" xml:space="preserve">
+    <value>Sends all emails to SendGrid's sink address (useful when testing email delivery to prevent sending mail to real recipients)</value>
+  </data>
+  <data name="SendToSink_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="SMTPFromAddress" xml:space="preserve">
+    <value>SMTP From Address</value>
+  </data>
+  <data name="SMTPFromAddress_Description" xml:space="preserve">
+    <value>The email address to use when sending email from this povider</value>
+  </data>
+  <data name="SMTPFromDisplayName" xml:space="preserve">
+    <value>SMTP From Display Name</value>
+  </data>
+  <data name="SMTPFromDisplayName_Description" xml:space="preserve">
+    <value>The friendly name to use in the from address</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>SMTP Password</value>
+  </data>
+  <data name="SMTPPassword_Description" xml:space="preserve">
+    <value>Leave empty if authentication is not required</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>SMTP Port</value>
+  </data>
+  <data name="SMTPProvider" xml:space="preserve">
+    <value>SMTP Provider (Email)</value>
+  </data>
+  <data name="SMTPServerName" xml:space="preserve">
+    <value>SMTP Server Name</value>
+  </data>
+  <data name="SMTPUserName" xml:space="preserve">
+    <value>SMTP User Name</value>
+  </data>
+  <data name="SMTPUserName_Description" xml:space="preserve">
+    <value>Leave empty if authentication is not required</value>
+  </data>
+</root>

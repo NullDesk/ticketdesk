@@ -24,6 +24,7 @@ using TicketDesk.Web.Client;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
+using TicketDesk.Localization.Models;
 
 
 namespace TicketDesk.Domain.Model
@@ -142,7 +143,7 @@ namespace TicketDesk.Domain.Model
             {
                 all = all.Where(u => u.Id != ticket.AssignedTo);
             }
-            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, "-- unassigned --") : all.ToUserSelectList(false, ticket.AssignedTo);
+            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, Strings.AssignedTo_Unassigned) : all.ToUserSelectList(false, ticket.AssignedTo);
         }
 
         public static bool AllowEditTags(this Ticket ticket)

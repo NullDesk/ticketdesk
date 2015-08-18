@@ -104,7 +104,7 @@
             });
             if (config.isEditorDefaultHtml) {
                 jelem = $('#wmd-input-activity');
-                jelem.summernote({ height: 200 });
+                jelem.summernote({ height: 200, lang: window.currentCulture });
                 if (jelem.length > 0) {
 
                     if (jelem.data('is-required')) {
@@ -228,8 +228,8 @@
             var icon = $('#watch > i');
             var iconClass = isSubscribed ? 'fa-eye-slash' : 'fa-eye';
             icon.removeClass('fa-eye fa-eye-slash').addClass(iconClass);
-            $('#watch>span').text((isSubscribed ? 'Unwatch' : 'Watch'));
-            $('#watch').attr('title', (isSubscribed ? 'Unwatch' : 'Watch') + ' Ticket');
+            $('#watch>span').text(window.i18n.formatWatch(isSubscribed));
+            $('#watch').attr('title', window.i18n.formatWatchTitle(isSubscribed));
             $('#watch[data-toggle="tooltip"]').tooltip();
             config.isSubscribed = isSubscribed;
         }

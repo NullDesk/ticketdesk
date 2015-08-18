@@ -14,6 +14,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TicketDesk.Localization;
 
 namespace TicketDesk.PushNotifications.Model
 {
@@ -29,17 +30,17 @@ namespace TicketDesk.PushNotifications.Model
         [Column(Order = 0)]
         public int ContentSourceId { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [Index("IX_PushNotificationTarget", 1)]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string ContentSourceType { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [Index("IX_PushNotificationTarget", 2)]
-        [StringLength(256)]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string SubscriberId { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [Index("IX_PushNotificationTarget", 3)]
         public int DestinationId { get; set; }
 

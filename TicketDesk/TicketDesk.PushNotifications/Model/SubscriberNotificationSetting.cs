@@ -14,6 +14,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TicketDesk.Localization;
+using TicketDesk.Localization.PushNotifications;
 
 namespace TicketDesk.PushNotifications.Model
 {
@@ -26,10 +28,10 @@ namespace TicketDesk.PushNotifications.Model
         }
 
         [Key]
-        [StringLength(256)]
+        [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string SubscriberId { get; set; }
 
-        [Display(Name = "Notifications Enabled?")]
+        [Display(Name = "NotificationsEnabled", Prompt = "NotificationsEnabled_Prompt", ResourceType = typeof(Strings))]
         public bool IsEnabled { get; set; }
 
 

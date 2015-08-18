@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotification
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.PushNotifications.Job", "TicketDesk.PushNotifications.Job\TicketDesk.PushNotifications.Job.csproj", "{508F4CF5-960F-4779-A05F-C9B60986D279}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Localization", "TicketDesk.Localization\TicketDesk.Localization.csproj", "{BE8715F9-E858-473E-A2B6-561C9EDCA416}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{508F4CF5-960F-4779-A05F-C9B60986D279}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508F4CF5-960F-4779-A05F-C9B60986D279}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508F4CF5-960F-4779-A05F-C9B60986D279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE8715F9-E858-473E-A2B6-561C9EDCA416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8715F9-E858-473E-A2B6-561C9EDCA416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8715F9-E858-473E-A2B6-561C9EDCA416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8715F9-E858-473E-A2B6-561C9EDCA416}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,20 +12,21 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+@using TicketDesk.Localization.Views.TicketActivity
 
 @model TicketDesk.Domain.Model.TicketEvent
 <div class="form-group form-group-sm">
-    <label class="col-sm-2 control-label " for="wmd-input-activity">Comment</label>
+    <label class="col-sm-2 control-label " for="wmd-input-activity">@Strings.Comment_Label</label>
     @if (Model.IsHtml)
     {
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             <textarea id="wmd-input-activity" name="Comment" data-is-required=@ViewBag.CommentRequired.ToString().ToLowerInvariant()>@Model.Comment</textarea>
             @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
         </div>
     }
     else
     {
-        <div class=" col-sm-9 wmd-panel">
+        <div class=" col-sm-8 wmd-panel">
             <div class="tabbable tabs-below">
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="tab1">
@@ -39,8 +40,8 @@
                     </div>
                 </div>
                 <ul class="nav nav-tabs navbar-right">
-                    <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;Edit</a></li>
-                    <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;Preview</a></li>
+                    <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;@Strings.Comment_EditOption</a></li>
+                    <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye"></i>&nbsp;@Strings.Comment_PreviewOption</a></li>
                 </ul>
             </div>
             @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })

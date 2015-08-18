@@ -1,14 +1,16 @@
-﻿@model TicketDesk.Web.Client.Models.UserAccountInfoViewModel
+﻿@using TicketDesk.Localization.Views.UserAdministration
+@model TicketDesk.Web.Client.Models.UserAccountInfoViewModel
 
 @section title
 {
-    Edit User Account
+    @Edit.Title
 }
 @section scripts
 {
     @Styles.Render("~/content/select2")
     @Scripts.Render("~/bundles/select2")
-    @Scripts.Render("~/bundles/admin-edit-user");
+    @Scripts.Render("~/bundles/select2_locale_" + CultureHelper.GetCurrentCulture())
+    @Scripts.Render("~/bundles/admin-edit-user")
     <script type="text/javascript">
         $(document).ready(function () {
             window.adminEditUser.activate({ pendingOptionId: '@ViewBag.TdPendingUsersRoleId' });
@@ -18,7 +20,7 @@
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Manage user account</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">@Edit.Legend</legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 @using (Html.BeginForm("Edit", "UserAdministration", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -26,7 +28,7 @@
                     @Html.HiddenFor(m => m.User.Id);
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Account Details</h2>
+                            <h2 class="panel-title">@Edit.Header</h2>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -36,7 +38,6 @@
                                     @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 @Html.LabelFor(m => m.User.DisplayName, new { @class = "col-sm-3 control-label" })
                                 <div class="col-sm-9">
@@ -71,11 +72,9 @@
                                     @Html.DescriptionFor(model => model.IsDisabled, "help-block", "span")
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Roles, new { @class = "col-sm-3 control-label" })
                                 <div class="col-sm-9">
-
                                     <div class="input-group input-group-sm">
                                         @Html.ListBoxFor(model => model.Roles, Model.UserRolesList, new { id = "userroles", @class = "form-control input-sm" })
                                         @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
@@ -83,10 +82,9 @@
                                         <span class="input-group-btn"  
                                               data-toggle="tooltip"
                                               data-placement="top"
-                                              title="Show role descriptions">
+                                              title="@Edit.ShowRoleDescriptions">
                                             <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" href="#collapseRoleDescription" aria-expanded="false" aria-controls="collapseRoleDescription">
-                                                <i class="fa fa-info"
-                                                  ></i>
+                                                <i class="fa fa-info"></i>
                                             </button>
                                         </span>
                                     </div>
@@ -94,28 +92,28 @@
                                         <div class="well" style="margin-top: 5px;">
                                             <dl class="list list-inline">
                                                 <dt>
-                                                    Pending Approval
+                                                    @Edit.PendingApproval
                                                 </dt>
                                                 <dd class="text-muted">
-                                                    Unless configured differently in application settings, this is the default role users are assigned during registration. This role has no privledges within TicketDesk. It is intended as a marker to help administrators quickly locate new accounts before promoting them to a different role.
+                                                    @Edit.PendingApproval_Description
                                                 </dd>
                                                 <dt>
-                                                    Internal Users
+                                                    @Edit.InternalUsers
                                                 </dt>
                                                 <dd class="text-muted">
-                                                    This role is for end-users. They can submit tickets, can be set as a ticket's owner, and can perform a limited set of operations against owned tickets.
+                                                    @Edit.InternalUsers_Description
                                                 </dd>
                                                 <dt>
-                                                    Help Desk Staff
+                                                    @Edit.HelpDeskStaff
                                                 </dt>
                                                 <dd class="text-muted">
-                                                    Privledged users to whom tickets will be assigned. This role has access to the full set of ticket activities. This role also includes all permissions of the Intnerl User role.
+                                                    @Edit.HelpDeskStaff_Description
                                                 </dd>
                                                 <dt>
-                                                    Administrators
+                                                    @Edit.Administrators
                                                 </dt>
                                                 <dd class="text-muted">
-                                                    Users who will manage TicketDesk's settings, and can manage user accounts and permissions. This role also includes all permissions from Help Desk Staff and Internal User roles.
+                                                    @Edit.Administrators_Description
                                                 </dd>
                                             </dl>
                                         </div>
@@ -125,15 +123,13 @@
                         </div>
                         <div class="panel-footer">
                             <div class="">
-                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>&nbsp;&nbsp;
-                                @Html.ActionLink("Back to users", "Index")
+                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;@Edit.SaveOption</button>&nbsp;&nbsp;
+                                @Html.ActionLink(Edit.BackOption, "Index")
                             </div>
                         </div>
                     </div>
-
                 }
             </div>
         </fieldset>
-
     </div>
 </main>

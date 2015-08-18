@@ -14,23 +14,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace TicketDesk.Domain
 {
     public static class EnumExtensions
     {
-        //TODO: consider changing this to use Display(description="") instead? Keep same as mvc helper in web client
-          
-
         /// <summary>
-        /// Gets the description for an enum.
+        /// Gets the display name for an enum.
         /// </summary>
         /// <param name="enumeration">The enumeration.</param>
-        /// <returns>The text of the DescriptionAttribute if applicable, otherwise returns the value as a string.</returns>
-        /// <remarks>If used on a sepcifc value from the enumeration, will return the description for that value.
-        /// If used on an enum as a whole, will return the description of the enum itself.</remarks>
-        public static string GetDescription(this Enum enumeration)
+        /// <returns>The text of the DisplayAttribute if applicable, otherwise returns the value as a string.</returns>
+        /// <remarks>If used on a sepcifc value from the enumeration, will return the display name for that value.
+        /// If used on an enum as a whole, will return the display name of the enum itself.</remarks>
+        public static string GetDisplayName(this Enum enumeration)
         {
              var type = enumeration.GetType();
             var memberInfo = type.GetMember(enumeration.ToString());
@@ -38,11 +36,11 @@ namespace TicketDesk.Domain
             //if there is member information
             if (memberInfo.Length > 0)
             {
-                var attributes = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+                var attributes = memberInfo[0].GetCustomAttributes(typeof(DisplayAttribute), false);
 
                 if (attributes.Length > 0)
                 {
-                    return ((DescriptionAttribute)attributes.First()).Description;
+                    return ((DisplayAttribute)attributes.First()).GetName();
                 }
             }
             return enumeration.ToString();
@@ -50,12 +48,12 @@ namespace TicketDesk.Domain
 
 
         /// <summary>
-        /// Gets the enumerator from the description passed in
+        /// Gets the enumerator from the display name passed in
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="description">The description.</param>
+        /// <param name="displayName">The display name.</param>
         /// <returns>T.</returns>
-        public static T GetEnumFromDescription<T>(this string description)
+        public static T GetEnumFromDisplayName<T>(this string displayName)
         {
             //get the member info of the enum
             var memberInfos = typeof(T).GetMembers();
@@ -66,17 +64,17 @@ namespace TicketDesk.Domain
                 foreach (var memberInfo in memberInfos)
                 {
                     //get the custom attributes of the member info
-                    object[] attributes = memberInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                    object[] attributes = memberInfo.GetCustomAttributes(typeof(DisplayAttribute), false);
 
                     //if there are attributes
                     if (attributes.Length > 0)
-                        //if the description attribute is equal to the description, return the enum
-                        if (((DescriptionAttribute)attributes[0]).Description == description)
+                        //if the display attribute is equal to the display name, return the enum
+                        if (((DisplayAttribute)attributes[0]).GetName() == displayName)
                             return (T)Enum.Parse(typeof(T), memberInfo.Name);
                 }
             }
 
-            //this means the enum was not found from the description, so return the default
+            //this means the enum was not found from the display name, so return the default
             return default(T);
         }
 

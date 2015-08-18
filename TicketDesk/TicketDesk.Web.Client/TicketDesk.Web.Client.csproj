@@ -265,6 +265,9 @@
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\UserAdministrationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
@@ -337,6 +340,7 @@
     <Content Include="Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Global.asax" />
     <Content Include="Icon.png" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -359,10 +363,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\summernote\summernote-pt-BR.js" />
     <Content Include="Scripts\summernote\summernote.css" />
     <Content Include="Scripts\summernote\summernote.js" />
     <Content Include="Scripts\summernote\summernote.min.js" />
     <Content Include="Scripts\ticketdesk\admin-edit-user.js" />
+    <Content Include="Scripts\ticketdesk\locale_pt-BR.js" />
+    <Content Include="Scripts\ticketdesk\locale_en-US.js" />
     <Content Include="Scripts\ticketdesk\search.js" />
     <Content Include="Scripts\ticketdesk\admin-users.js" />
     <Content Include="Scripts\ticketdesk\application-settings.js" />
@@ -530,6 +537,9 @@
     <Content Include="Views\Shared\_AdminMenuItems.cshtml" />
     <Content Include="Views\Shared\_ProjectMenu.cshtml" />
     <Content Include="Views\FirstRunSetup\CheckUpgradeProgress.cshtml" />
+    <Content Include="Views\Shared\_LanguageOptions.cshtml" />
+    <Content Include="Scripts\jQueryValidate-locales\jquery.validate_locale_pt-BR.js" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -559,6 +569,10 @@
     <ProjectReference Include="..\TicketDesk.IO\TicketDesk.IO.csproj">
       <Project>{d9477c13-68c4-43e0-a30b-f06f444c5358}</Project>
       <Name>TicketDesk.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Localization\TicketDesk.Localization.csproj">
+      <Project>{be8715f9-e858-473e-a2b6-561c9edca416}</Project>
+      <Name>TicketDesk.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.PushNotifications\TicketDesk.PushNotifications.csproj">
       <Project>{6e3b1af8-762d-4b69-84c3-c79e74aa9c82}</Project>

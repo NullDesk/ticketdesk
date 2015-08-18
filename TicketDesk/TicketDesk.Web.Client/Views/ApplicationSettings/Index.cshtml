@@ -1,15 +1,17 @@
-﻿@using TicketDesk.Domain.Model
+﻿@using TicketDesk.Localization.Views.ApplicationSettings
+@using TicketDesk.Domain.Model
 @model TicketDesk.Domain.Model.ApplicationSetting
 
 @section title
 {
-    Application Settings
+    @Index.Title
 }
 
 @section scripts
 {
     @Styles.Render("~/content/select2")
     @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/select2_locale_" + CultureHelper.GetCurrentCulture())
     @Scripts.Render("~/bundles/application-settings")
 
     <script type="text/javascript">
@@ -25,19 +27,17 @@
         <fieldset>
             <!-- Form Name -->
             <legend class="col-lg-9 col-lg-offset-1 col-sm-12">
-                Application settings
+                @Index.Legend
             </legend>
 
             @using (Html.BeginForm("Index", "ApplicationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
             {
-                <div class="col-lg-8 col-lg-offset-2  col-sm-12">
+                <div class="col-lg-9 col-lg-offset-1  col-sm-12">
                     @Html.AntiForgeryToken()
-
-
 
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Global permissions</h2>
+                            <h2 class="panel-title">@Index.Global_Header</h2>
                         </div>
                         <div class="panel-body ">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -45,7 +45,7 @@
                             @Html.HiddenFor(model => model.ApplicationName)
 
                             <div class="form-group">
-                                <label class="col-md-4 col-sm-4 control-label">Priority</label>
+                                <label class="col-md-4 col-sm-4 control-label">@Index.Global_Priority</label>
                                 <div class="col-md-8 col-sm-8">
                                     <label class="checkbox-inline">
                                         @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditPriority, new { htmlAttributes = new { @class = "form-control" } })
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 col-sm-4 control-label">Tags</label>
+                                <label class="col-md-4 col-sm-4 control-label">@Index.Global_Tags</label>
                                 <div class="col-md-8 col-sm-8">
                                     <label class="checkbox-inline">
                                         @Html.CheckBoxFor(model => model.Permissions.AllowInternalUsersToEditTags, new {htmlAttributes = new {@class = "form-control"}})
@@ -81,55 +81,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h2 class="panel-title">General Settings</h2>
-                            </div>
-                            <div class="panel-body ">
-                                <div class="form-group">
-
-
-                                   
-
-                                    <label class="col-md-4 col-sm-4 control-label">Text Editor</label>
-                                    <div class="col-md-8 col-sm-8">
-                                        <div class="radio">
-                                            <label class="checkbox-inline">
-                                                @Html.RadioButton("DefaultTextEditorType", "summernote", (Model.ClientSettings.GetDefaultTextEditorType() == "summernote"), new { id = "IsSummernote" })
-                                                Summernote (HTML Editor)
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label class="checkbox-inline">
-                                                @Html.RadioButton("DefaultTextEditorType", "pagedown", (Model.ClientSettings.GetDefaultTextEditorType() == "pagedown"), new { id = "IsPagedown" })
-                                                Pagedown (Markdown Editor)
-                                            </label>
-                                        </div>
-                                        <div class="help-block">
-                                            <p>
-                                                Ticketdesk includes two choices for rich text editing.
-                                            </p>
-                                            <p>
-                                                Ticketdesk will sanitize HTML content from either editor to help prevent script injection
-                                                attacks. The Markdown editor is recommended, but for less technical users an HTML based editor
-                                                may be more intuative.
-                                            </p>
-                                        </div>
+                        <div class="panel-heading">
+                            <h2 class="panel-title">@Index.Settings_Header</h2>
+                        </div>
+                        <div class="panel-body ">
+                            <div class="form-group">
+                                <label class="col-md-4 col-sm-4 control-label">@Index.Settings_Editor</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="radio">
+                                        <label class="checkbox-inline">
+                                            @Html.RadioButton("DefaultTextEditorType", "summernote", (Model.ClientSettings.GetDefaultTextEditorType() == "summernote"), new { id = "IsSummernote" })
+                                            @Index.Settings_Editor_HTML
+                                        </label>
                                     </div>
-
-
-
-
-
-
-
-
-
+                                    <div class="radio">
+                                        <label class="checkbox-inline">
+                                            @Html.RadioButton("DefaultTextEditorType", "pagedown", (Model.ClientSettings.GetDefaultTextEditorType() == "pagedown"), new { id = "IsPagedown" })
+                                            @Index.Settings_Editor_Markdown
+                                        </label>
+                                    </div>
+                                    <div class="help-block">
+                                        @Html.Raw(Index.Settings_Editor_Help)
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-heading">
-                            <h2 class="panel-title">List settings</h2>
+                            <h2 class="panel-title">@Index.List_Header</h2>
                         </div>
                         <div class="panel-body ">
                             <div class="form-group">
@@ -152,7 +130,7 @@
                             </div>
                         </div>
                         <div class="panel-heading">
-                            <h2 class="panel-title">Security settings</h2>
+                            <h2 class="panel-title">@Index.Security_Header</h2>
                         </div>
                         <div class="panel-body ">
                             <div class="form-group">
@@ -165,14 +143,14 @@
                         </div>
                         <div class="panel-footer">
                             <div class="">
-                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>&nbsp;&nbsp;
+                                <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;@Index.SaveOption</button>&nbsp;&nbsp;
 
                             </div>
                         </div>
 
                     </div>
                 </div>
-                                        }
+            }
         </fieldset>
     </div>
 </main>

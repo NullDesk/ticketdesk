@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllowInternalUsersToEditPriority" xml:space="preserve">
+    <value>Allow users to edit priority?</value>
+  </data>
+  <data name="AllowInternalUsersToEditTags" xml:space="preserve">
+    <value>Allow users to edit tags?</value>
+  </data>
+  <data name="Changes_From_To" xml:space="preserve">
+    <value>{0}: from "{1}" to "{2}"</value>
+  </data>
+  <data name="Changes_Title" xml:space="preserve">
+    <value>Changes:</value>
+  </data>
+  <data name="CheckSecurity_NotAuthorized" xml:space="preserve">
+    <value>User is not authorized to perform this activity.</value>
+  </data>
+  <data name="DefaultNewUserRoles" xml:space="preserve">
+    <value>Default New User Roles</value>
+  </data>
+  <data name="Project_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Project_Name" xml:space="preserve">
+    <value>Project Name</value>
+  </data>
+  <data name="SelectList_Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="SelectList_Priorities" xml:space="preserve">
+    <value>Priorities</value>
+  </data>
+  <data name="SelectList_TicketTypes" xml:space="preserve">
+    <value>Ticket Types</value>
+  </data>
+  <data name="TicketActivity_Assign" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="TicketActivity_CancelMoreInfo" xml:space="preserve">
+    <value>Cancel More Info</value>
+  </data>
+  <data name="TicketActivity_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TicketActivity_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="TicketActivity_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="TicketActivity_CreateOnBehalfOf" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="TicketActivity_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="TicketActivity_EditAttachments" xml:space="preserve">
+    <value>Edit Attachments</value>
+  </data>
+  <data name="TicketActivity_ForceClose" xml:space="preserve">
+    <value>Force Close</value>
+  </data>
+  <data name="TicketActivity_GiveUp" xml:space="preserve">
+    <value>Give Up</value>
+  </data>
+  <data name="TicketActivity_Pass" xml:space="preserve">
+    <value>Pass</value>
+  </data>
+  <data name="TicketActivity_ProvideInfo" xml:space="preserve">
+    <value>Provide Info</value>
+  </data>
+  <data name="TicketActivity_ReAssign" xml:space="preserve">
+    <value>Re-assign</value>
+  </data>
+  <data name="TicketActivity_ReOpen" xml:space="preserve">
+    <value>Re-open</value>
+  </data>
+  <data name="TicketActivity_RequestMoreInfo" xml:space="preserve">
+    <value>Request More Info</value>
+  </data>
+  <data name="TicketActivity_Resolve" xml:space="preserve">
+    <value>Resolve</value>
+  </data>
+  <data name="TicketActivity_TakeOver" xml:space="preserve">
+    <value>Take Over</value>
+  </data>
+  <data name="TicketActivityAddComment" xml:space="preserve">
+    <value>added comment</value>
+  </data>
+  <data name="TicketActivityAssign" xml:space="preserve">
+    <value>assigned the ticket to {0}</value>
+    <comment>{0} = user</comment>
+  </data>
+  <data name="TicketActivityCancelMoreInfo" xml:space="preserve">
+    <value>has cancelled the request for more information</value>
+  </data>
+  <data name="TicketActivityClose" xml:space="preserve">
+    <value>closed the ticket</value>
+  </data>
+  <data name="TicketActivityCreate" xml:space="preserve">
+    <value>created the ticket</value>
+  </data>
+  <data name="TicketActivityCreateOnBehalfOf" xml:space="preserve">
+    <value>created the ticket on behalf of {0}</value>
+    <comment>{0} = user</comment>
+  </data>
+  <data name="TicketActivityEditTicketInfo" xml:space="preserve">
+    <value>modified ticket</value>
+  </data>
+  <data name="TicketActivityForceClose" xml:space="preserve">
+    <value>closed the ticket by force</value>
+  </data>
+  <data name="TicketActivityGiveUp" xml:space="preserve">
+    <value>has given up on the ticket</value>
+  </data>
+  <data name="TicketActivityModifyAttachments" xml:space="preserve">
+    <value>modified ticket attachments</value>
+  </data>
+  <data name="TicketActivityPass" xml:space="preserve">
+    <value>passed the ticket to {0}</value>
+    <comment>{0} = user</comment>
+  </data>
+  <data name="TicketActivityReactivate" xml:space="preserve">
+    <value>and reactivated the ticket.</value>
+  </data>
+  <data name="TicketActivityReAssign" xml:space="preserve">
+    <value>reassigned the ticket to {0}</value>
+    <comment>{0} = user</comment>
+  </data>
+  <data name="TicketActivityReOpen" xml:space="preserve">
+    <value>re-opened the ticket</value>
+  </data>
+  <data name="TicketActivityRequestMoreInfo" xml:space="preserve">
+    <value>has requested more information</value>
+  </data>
+  <data name="TicketActivityResolve" xml:space="preserve">
+    <value>resolved the ticket</value>
+  </data>
+  <data name="TicketActivitySupplyMoreInfo" xml:space="preserve">
+    <value>has provided more information</value>
+  </data>
+  <data name="TicketActivityTakeOver" xml:space="preserve">
+    <value>has taken over the ticket</value>
+  </data>
+  <data name="DefaultListNameHistoryTickets" xml:space="preserve">
+    <value>Ticket History</value>
+  </data>
+  <data name="DefaultListNameMyTickets" xml:space="preserve">
+    <value>My Tickets</value>
+  </data>
+  <data name="DefaultListNameOpenTickets" xml:space="preserve">
+    <value>Open Tickets</value>
+  </data>
+  <data name="ExceptionSecurityUserCannotCreateNewTicket" xml:space="preserve">
+    <value>User is not authorized to create new tickets</value>
+  </data>
+  <data name="ExceptionSettingsTypeConversionError" xml:space="preserve">
+    <value>Setting type conversion error: unable to convert SettingName [{0}] to specified SettingType [{1}]</value>
+  </data>
+  <data name="TicketAffectsCustomer" xml:space="preserve">
+    <value>Affects Customer</value>
+  </data>
+  <data name="TicketAffectsCustomerShort" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="TicketAssignedTo" xml:space="preserve">
+    <value>Assigned To</value>
+  </data>
+  <data name="TicketAssignedToShort" xml:space="preserve">
+    <value>Assigned</value>
+  </data>
+  <data name="TicketCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TicketCategoryShort" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TicketCreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="TicketCreatedByShort" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="TicketCreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="TicketCreatedDateShort" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="TicketCurrentStatusDate" xml:space="preserve">
+    <value>Status Date</value>
+  </data>
+  <data name="TicketCurrentStatusDateShort" xml:space="preserve">
+    <value>Status Date</value>
+  </data>
+  <data name="TicketCurrentStatusSetBy" xml:space="preserve">
+    <value>Status By</value>
+  </data>
+  <data name="TicketCurrentStatusSetByShort" xml:space="preserve">
+    <value>Status By</value>
+  </data>
+  <data name="TicketDetails" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="TicketDetailsShort" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="TicketIsHtml" xml:space="preserve">
+    <value>Is Html</value>
+  </data>
+  <data name="TicketIsHtmlShort" xml:space="preserve">
+    <value>Is Html</value>
+  </data>
+  <data name="TicketLastUpdateBy" xml:space="preserve">
+    <value>Updated By</value>
+  </data>
+  <data name="TicketLastUpdateByShort" xml:space="preserve">
+    <value>Updated By</value>
+  </data>
+  <data name="TicketLastUpdateDate" xml:space="preserve">
+    <value>Updated Date</value>
+  </data>
+  <data name="TicketLastUpdateDateShort" xml:space="preserve">
+    <value>Updated Date</value>
+  </data>
+  <data name="TicketOwner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="TicketOwnerShort" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="TicketPriority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="TicketPriorityShort" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="TicketStatusActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="TicketStatusClosed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="TicketStatusMoreInfo" xml:space="preserve">
+    <value>More Info</value>
+  </data>
+  <data name="TicketStatusResolved" xml:space="preserve">
+    <value>Resolved</value>
+  </data>
+  <data name="TicketTagList" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TicketTagListShort" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TicketTicketId" xml:space="preserve">
+    <value>Ticket Id</value>
+  </data>
+  <data name="TicketTicketIdShort" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="TicketTicketStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TicketTicketStatusShort" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TicketTicketType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TicketTicketTypeShort" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TicketTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TicketTitleShort" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TicketActivityPriority" xml:space="preserve">
+    <value> at a priority of {0}</value>
+    <comment>leading space</comment>
+  </data>
+  <data name="DefaultListNameAssignedToMe" xml:space="preserve">
+    <value>My Assigned</value>
+  </data>
+  <data name="DefaultListNameUnassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+  <data name="TicketProject" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="TicketProjectShort" xml:space="preserve">
+    <value>Project</value>
+  </data>
+</root>

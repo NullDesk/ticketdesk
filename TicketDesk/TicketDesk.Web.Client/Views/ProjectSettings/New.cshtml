@@ -1,13 +1,14 @@
-﻿@model TicketDesk.Domain.Model.Project
+﻿@using TicketDesk.Localization.Views.ProjectSettings
+@model TicketDesk.Domain.Model.Project
 
 @section title
 {
-    New Project
+    @New.Title
 }
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Create Project</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">@New.Legend</legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 @using (Html.BeginForm("New", "ProjectSettings", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -15,7 +16,7 @@
                    
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Project Details</h2>
+                            <h2 class="panel-title">@New.Header</h2>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -38,9 +39,9 @@
                         <div class="panel-footer">
                             <div class="">
                                 <button type="submit" class="btn btn-success" tabindex="10">
-                                    <i class="fa fa-plus"></i>&nbsp;&nbsp;Create
+                                    <i class="fa fa-plus"></i>&nbsp;&nbsp;@New.SaveOption
                                 </button>&nbsp;&nbsp;
-                                @Html.ActionLink("Back to projects", "Index")
+                                @Html.ActionLink(New.BackOption, "Index")
 
                             </div>
                         </div>

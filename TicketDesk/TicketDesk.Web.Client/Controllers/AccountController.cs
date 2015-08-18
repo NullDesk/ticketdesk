@@ -11,6 +11,7 @@ using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
+using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -34,9 +35,9 @@ namespace TicketDesk.Web.Client.Controllers
         public ActionResult Manage(AccountMessageId? message)
         {
             ViewBag.StatusMessage =
-               message == AccountMessageId.ChangePasswordSuccess ? "Your password has been changed."
-               : message == AccountMessageId.Error ? "An error has occurred."
-               : message == AccountMessageId.ProfileSaveSuccess ? "Your profile has been updated."
+               message == AccountMessageId.ChangePasswordSuccess ? Strings.ChangePasswordSuccess
+               : message == AccountMessageId.Error ? Strings.Error
+               : message == AccountMessageId.ProfileSaveSuccess ? Strings.ProfileSaveSuccess
                : "";
             return View();
         }

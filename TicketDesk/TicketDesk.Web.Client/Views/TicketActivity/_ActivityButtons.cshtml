@@ -21,6 +21,6 @@
         foreach (var activity in activities)
         {
             var clickHandler = string.Format("window.editTicket.loadActivity('{0}');", activity);
-            <button type="button" data-ticket-activity="@activity.ToString()" class="btn btn-default btn-sm" onclick="@clickHandler">@activity.GetDescription()</button>
+            <button type="button" data-ticket-activity="@activity.ToString()" class="btn btn-default btn-sm" onclick="@clickHandler">@activity.GetDisplayName()</button>
         }
     }

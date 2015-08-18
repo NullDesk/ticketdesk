@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TicketDesk.Domain;
+using TicketDesk.Localization.Models;
 
 namespace TicketDesk.Web.Client
 {
@@ -25,7 +26,7 @@ namespace TicketDesk.Web.Client
     /// </summary>
     public static class SelectListExtensions
     {
-        private const string DefaultItemText = "-- select --";
+        private static string DefaultItemText { get { return Strings.SelectList_DefaultItem; } }
 
         #region general select list
 
@@ -130,8 +131,8 @@ namespace TicketDesk.Web.Client
         /// Gets a select list from an enumeration.
         /// </summary>
         /// <remarks>
-        /// If a DescriptionAttribute is applied to the items within the enum then
-        /// this method will use the description for the text property in the SelectList
+        /// If a DisplayAttribute is applied to the items within the enum then
+        /// this method will use the display name for the text property in the SelectList
         /// </remarks>
         /// <example>
         /// var sList = new MyEnum().ToSelectList()
@@ -147,7 +148,7 @@ namespace TicketDesk.Web.Client
                        {
                            // ReSharper disable once AssignNullToNotNullAttribute
                            ID = Enum.Parse(enumeration.GetType(), Enum.GetName(enumeration.GetType(), e)),
-                           Name = e.GetDescription()
+                           Name = e.GetDisplayName()
                        };
             return list.ToSelectList(i => i.ID, i => i.Name, selectedValue, includeDefaultItem);
         }
@@ -159,7 +160,7 @@ namespace TicketDesk.Web.Client
                        {
                            // ReSharper disable once AssignNullToNotNullAttribute
                            ID = Enum.Parse(enumeration.GetType(), Enum.GetName(enumeration.GetType(), e)),
-                           Name = e.GetDescription()
+                           Name = e.GetDisplayName()
                        };
             return list.ToSelectList(i => i.ID, i => i.Name, selectedValues, includeDefaultItem);
         }

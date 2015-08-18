@@ -21,10 +21,12 @@ using Newtonsoft.Json.Linq;
 using S22.Mail;
 using SendGrid;
 using TicketDesk.PushNotifications.Model;
+using TicketDesk.Localization;
+using TicketDesk.Localization.PushNotifications;
 
 namespace TicketDesk.PushNotifications.Delivery
 {
-    [Description("SendGrid Provider (Email)")]
+    [LocalizedDescription("SendGridProvider", NameResourceType = typeof(Strings))]
     public sealed class SendGridDeliveryProvider : EmailDeliveryProviderBase
     {
         public SendGridDeliveryProvider(JToken configuration)

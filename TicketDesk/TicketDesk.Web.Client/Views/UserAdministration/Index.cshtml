@@ -1,10 +1,11 @@
-﻿@model PagedList.IPagedList<TicketDesk.Web.Client.Models.UserAccountInfoViewModel>
+﻿@using TicketDesk.Localization.Views.UserAdministration
+@model PagedList.IPagedList<TicketDesk.Web.Client.Models.UserAccountInfoViewModel>
 @section title{
-    User Management
+    @Index.Title
 }
 @section scripts
 {
-    @Scripts.Render("~/bundles/admin-users");
+    @Scripts.Render("~/bundles/admin-users")
     <script type="text/javascript">
         $(document).ready(function () {
             window.adminUsers.activate();
@@ -14,10 +15,9 @@
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-sm-12">Manage User Accounts</legend>
+            <legend class="col-sm-12">@Index.Legend</legend>
             <div class="col-sm-12">
                 @Html.Partial("_UserList", Model)
-
             </div>
         </fieldset>
     </div>

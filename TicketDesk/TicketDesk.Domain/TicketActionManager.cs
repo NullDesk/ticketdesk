@@ -15,6 +15,7 @@ using System;
 using System.Security;
 using System.Text;
 using TicketDesk.Domain.Model;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain
 {
@@ -132,7 +133,7 @@ namespace TicketDesk.Domain
                     sb.AppendLine();
                    
                     sb.AppendLine("<dl><dt>");
-                    sb.AppendLine("Changes:");
+                    sb.AppendLine(Strings.Changes_Title);
                     sb.AppendLine("</dt>");
 
                     //TODO: resource these strings!
@@ -143,7 +144,7 @@ namespace TicketDesk.Domain
                     }
                     if (ticket.ProjectId != projectId)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}: from \"{1}\" to \"{2}\"</dd>", 
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", 
                             PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ProjectId),
                             ticket.Project.ProjectName,
                             projectName));
@@ -161,22 +162,22 @@ namespace TicketDesk.Domain
                     }
                     if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}: from \"{1}\" to \"{2}\"</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
                         ticket.Priority = priority;
                     }
                     if (ticket.TicketType != ticketType)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}: from \"{1}\" to \"{2}\"</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
                         ticket.TicketType = ticketType;
                     }
                     if (ticket.Category != category)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}: from \"{1}\" to \"{2}\"</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
                         ticket.Category = category;
                     }
                     if (SecurityProvider.IsTdHelpDeskUser && ticket.Owner != owner)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}: from \"{1}\" to \"{2}\"</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Owner), SecurityProvider.GetUserDisplayName(ticket.Owner), SecurityProvider.GetUserDisplayName(owner)));
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Owner), SecurityProvider.GetUserDisplayName(ticket.Owner), SecurityProvider.GetUserDisplayName(owner)));
                         ticket.Owner = owner;
                     }
                     sb.AppendLine("</dl>");
@@ -353,7 +354,7 @@ namespace TicketDesk.Domain
         {
             if (!IsTicketActivityValid(ticket, activity))
             {
-                throw new SecurityException("User is not authorized to perform this activity.");
+                throw new SecurityException(Strings.CheckSecurity_NotAuthorized);
             }
             return true;
         }

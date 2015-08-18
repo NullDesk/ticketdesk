@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketDesk.Localization;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Model
 {
@@ -13,13 +15,13 @@ namespace TicketDesk.Domain.Model
         [Key]
         public int ProjectId { get; set; }
 
-        [StringLength(100)]
-        [Required]
-        [Display(Name = "Project Name")]
+        [StringLength(100, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [Display(Name = "Project_Name", ResourceType = typeof(Strings))]
         public string ProjectName { get; set; }
 
-        [StringLength(500)]
-        [Display(Name = "Description")]
+        [StringLength(500, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
+        [Display(Name = "Project_Description", ResourceType = typeof(Strings))]
         public string ProjectDescription { get; set; }
 
         [Column(TypeName = "timestamp")]

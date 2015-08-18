@@ -1,14 +1,15 @@
-﻿@model TicketDesk.Domain.Model.Project
+﻿@using TicketDesk.Localization.Views.ProjectSettings
+@model TicketDesk.Domain.Model.Project
 
 @section title
 {
-    Edit Project
+    @Edit.Title
 }
 
 <main>
     <div class="container">
         <fieldset>
-            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">Edit Project</legend>
+            <legend class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-12">@Edit.Legend</legend>
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 @using (Html.BeginForm("Edit", "ProjectSettings", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -17,7 +18,7 @@
                     ;
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Project Details</h2>
+                            <h2 class="panel-title">@Edit.Header</h2>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -41,7 +42,7 @@
                                 @if (ViewBag.EnableDelete ?? false)
                                 {
                                     <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirm">
-                                        <i class="fa fa-remove"></i>&nbsp;&nbsp;Delete
+                                        <i class="fa fa-remove"></i>&nbsp;&nbsp;@Edit.DeleteOption
                                     </a>
                                 }
 
@@ -49,9 +50,9 @@
                             </div>
                             <div class="">
                                 <button type="submit" class="btn btn-success" tabindex="10">
-                                    <i class="fa fa-save"></i>&nbsp;&nbsp;Save
+                                    <i class="fa fa-save"></i>&nbsp;&nbsp;@Edit.SaveOption
                                 </button>&nbsp;&nbsp;
-                                @Html.ActionLink("Back to projects", "Index")
+                                @Html.ActionLink(Edit.BackOption, "Index")
 
                             </div>
                         </div>
@@ -68,29 +69,29 @@
             {
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="delete-confirm-label">Are you sure you want to delete this project?</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="@Edit.CloseOption"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="delete-confirm-label">@Edit.DeleteConfirmation</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="alert alert-danger">
-                                This action cannot be undone.
+                                @Edit.DeleteAlert
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Reassign tickets to project:</label>
+                            <label class="control-label">@Edit.ReassignTickets</label>
                             <div class="">
-                                @Html.DropDownList("ReassignTo", (System.Web.Mvc.SelectList)ViewBag.ProjectReassignList, new { @class = "form-control", data_val = "true", data_val_required = "Please select a project.", })
+                                @Html.DropDownList("ReassignTo", (System.Web.Mvc.SelectList)ViewBag.ProjectReassignList, new { @class = "form-control", data_val = "true", data_val_required = Edit.ProjectRequired, })
                                 @Html.ValidationMessage("ReassignTo", "", new { @class = "text-danger" })
-                                <span class="help-block">All tickets in this project will be reassigned to the selected project.</span>
+                                <span class="help-block">@Edit.ReassignTickets_Help</span>
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Edit.CancelOption</button>
+                        <button type="submit" class="btn btn-primary">@Edit.DeleteOption</button>
 
                     </div>
                 </div>

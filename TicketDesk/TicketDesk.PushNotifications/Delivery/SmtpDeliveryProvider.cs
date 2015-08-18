@@ -19,10 +19,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using S22.Mail;
 using TicketDesk.PushNotifications.Model;
+using TicketDesk.Localization;
+using TicketDesk.Localization.PushNotifications;
 
 namespace TicketDesk.PushNotifications.Delivery
 {
-    [Description("SMTP Provider (Email)")]
+    [LocalizedDescription("SMTPProvider", NameResourceType = typeof(Strings))]
     public sealed class SmtpDeliveryProvider : EmailDeliveryProviderBase
     {
         public SmtpDeliveryProvider(JToken configuration)

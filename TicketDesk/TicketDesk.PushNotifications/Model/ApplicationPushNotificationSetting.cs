@@ -18,6 +18,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TicketDesk.PushNotifications.Delivery;
+using TicketDesk.Localization;
+using TicketDesk.Localization.PushNotifications;
 
 namespace TicketDesk.PushNotifications.Model
 {
@@ -66,26 +68,26 @@ namespace TicketDesk.PushNotifications.Model
         }
 
         [NotMapped]
-        [Display(Name="Delivery Providers")]
+        [Display(Name = "DeliveryProviders", ResourceType = typeof(Strings))]
         public virtual ICollection<PushNotificationDeliveryProviderSetting> DeliveryProviderSettings { get; set; }
             
         [NotMapped]
-        [Display(Name = "Notifications Enabled", Prompt = "Enabled")]
+        [Display(Name = "NotificationsEnabled", Prompt = "NotificationsEnabled_Prompt", ResourceType = typeof(Strings))]
         public bool IsEnabled { get; set; }
 
         [NotMapped]
-        [Display(Name = "Delivery Attempt Interval (minutes)")]
-        [Description("How often to check for push notifications that are ready to be sent.")]
+        [Display(Name = "DeliveryAttemptInterval", ResourceType = typeof(Strings))]
+        [LocalizedDescription("DeliveryAttemptInterval_Description", NameResourceType = typeof(Strings))]
         public int DeliveryIntervalMinutes { get; set; }
 
         [NotMapped]
-        [Display(Name = "Number of Retry Attempts")]
-        [Description("When things go wrong, this determines the number of attempts to make before marking a message as failed.")]
+        [Display(Name = "NumberOfRetryAttempts", ResourceType = typeof(Strings))]
+        [LocalizedDescription("NumberOfRetryAttempts_Description", NameResourceType = typeof(Strings))]
         public int RetryAttempts { get; set; }
 
         [NotMapped]
-        [Display(Name = "Initial Retry Interval (minutes)")]
-        [Description(@"Number of minutes to wait before the first retry attempt. Subsequent retry attempts occur at interval raised to the number of retry attempts. Example: interval = 2 and retry = 3, next attempt will be in 8 minutes")]
+        [Display(Name = "InitialRetryInterval", ResourceType = typeof(Strings))]
+        [LocalizedDescription("InitialRetryInterval_Description", NameResourceType = typeof(Strings))]
         public int RetryIntervalMinutes { get; set; }
 
         [NotMapped]
@@ -103,7 +105,7 @@ namespace TicketDesk.PushNotifications.Model
             public string ProviderAssemblyQualifiedName { get; set; }
 
             [NotMapped]
-            [Display(Name = "Provider", Prompt = "Enabled")]
+            [Display(Name = "Provider", Prompt = "Provider_Prompt", ResourceType = typeof(Strings))]
             public bool IsEnabled { get; set; }
 
             [NotMapped]
@@ -132,23 +134,23 @@ namespace TicketDesk.PushNotifications.Model
             }
 
             [NotMapped]
-            [Display(Name = "Consolidate notifications", Prompt = "Enabled")]
-            [Description("Consolidation allows push notifications for an event to be delayed for a short time. If additional events occur for the same subscriber and ticket, they will be grouped into a single message instead of being sent separately. This reduces spam in cases where many chages are made to a ticket in rapid succession.")]
+            [Display(Name = "ConsolidateNotifications", Prompt = "ConsolidateNotifications_Prompt", ResourceType = typeof(Strings))]
+            [LocalizedDescription("ConsolidateNotifications_Description", NameResourceType = typeof(Strings))]
             public bool IsConsolidationEnabled { get; set; }
 
             [NotMapped]
-            [Display(Name = "Initial consolidation delay (minutes)")]
-            [Description("The initial number of minutes to wait. If new events occur for the same subscriber and ticket, the system will consolidate the messages into a single notification. Subsequent events will increase the delay until either no further events occur, or the maximum delay period has expired.")]
+            [Display(Name = "InitialConsolidationDelay", ResourceType = typeof(Strings))]
+            [LocalizedDescription("InitialConsolidationDelay_Description", NameResourceType = typeof(Strings))]
             public int InitialConsolidationDelayMinutes { get; set; }
 
             [NotMapped]
-            [Display(Name = "Maximum consolidation delay (minutes)")]
-            [Description("The maximum amount of time to delay sending a notification.")]
+            [Display(Name = "MaximumConsolidationDelay", ResourceType = typeof(Strings))]
+            [LocalizedDescription("MaximumConsolidationDelay_Description", NameResourceType = typeof(Strings))]
             public int MaxConsolidationDelayMinutes { get; set; }
 
             [NotMapped]
-            [Display(Name = "Exclude subscriber's own events", Prompt = "Exclude")]
-            [Description("HIGHLY RECOMMENDED! This prevents push notifications from being sent to the same user whose action triggered the notification.")]
+            [Display(Name = "ExcludeSubscribersOwnEvents", Prompt = "ExcludeSubscribersOwnEvents_Prompt", ResourceType = typeof(Strings))]
+            [LocalizedDescription("ExcludeSubscribersOwnEvents_Description", NameResourceType = typeof(Strings))]
             public bool ExcludeSubscriberEvents { get; set; }
         }
     }

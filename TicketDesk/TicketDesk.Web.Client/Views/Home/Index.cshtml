@@ -12,6 +12,7 @@
     attribution must remain intact, and a copy of the license must be
     provided to the recipient.
 *@
+@using TicketDesk.Localization.Views.Home
 
 @section title{ TicketDesk }
 @section customHeader{}
@@ -19,82 +20,26 @@
 
 <main role="main" class="row">
     <article class="col-md-8 left-side-box">
-        <a class="hidden-md hidden-lg" href="https://github.com/nulldesk/ticketdesk"><img style="position: absolute; top: -20px; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+        <a class="hidden-md hidden-lg" href="https://github.com/nulldesk/ticketdesk">@Html.Raw(Index.ForkMe)</a>
 
         <div class="container-responsive">
             <fieldset style="min-height: 350px; padding-right: 25px;">
                 <legend>
-                    Welcome to TicketDesk 2.5 <span class="small">(beta)</span>
+                    @Html.Raw(Index.Welcome)
                 </legend>
                 @if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
                 {
                     <div class="alert alert-info">
-                        <h5>Congratulations! You appear to be running in Azure.</h5>
+                        <h5>@Index.Congrat_Azure</h5>
                     </div>
                 }
-                <p>
-                    It has been a long road, but at last TicketDesk 2.5 is nearly ready for production use. The beta should be stable enough to evaluate and test. There are a number of rough edges still, but we are working hard to fix those up before the final release.
-                </p>
-                <div class="">
-
-                    <p>Please keep the following in mind while evaluating the beta:</p>
-                    <ul class="text-muted">
-                        <li>
-                            TicketDesk 2.5 can upgrade v2.1.4 databases, but please make a backup first!
-                        </li>
-                        <li>
-                            TicketDesk 2.5 does not support Active Directory integration.
-                        </li>
-                        <li>
-                            If you find bugs, please log the issue on the
-                            <a href="https://github.com/NullDesk/TicketDesk/issues">TicketDesk GitHub issue tracker</a>
-                        </li>
-                        <li>This page will be replaced with a simple user-dashboard before the final release.</li>
-                    </ul>
-                    <div>
-                        <p>
-                            For documentation and configuration information, please visit the <a href="https://github.com/NullDesk/TicketDesk/wiki">GitHub Wiki</a>
-                        </p>
-                        <hr/>
-                        <p>
-                            TicketDesk 2.5 is scheduled for final release on August 1<sup>st</sup> 2015.
-                        </p>
-
-                    </div>
-                </div>
-
-
+                @Html.Raw(Index.Instructions)
             </fieldset>
-
           
         </div>
     </article>
     <aside class="col-md-4 right-side-box">
-        <a class="hidden-xs hidden-sm" href="https://github.com/nulldesk/ticketdesk"><img style="position: absolute; top: -20px; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-        <h3>TD 2.5 Change List</h3>
-        <strong>Feature Updates</strong>
-        <ul>
-            <li>Online Setup (frist-run-setup)</li>
-            <li>Multiple Projects</li>
-            <li>Multiple rich text editor options</li>
-            <li>Responsive UI (small screen device support)</li>
-        </ul>
-        <strong>Technology Update</strong>
-        <ul>
-            <li>Entity Framework 6x code-first</li>
-            <li>MVC 5x - Razor View Engine</li>
-            <li>Bootstrap 3</li>
-            <li>Simple Injector (IoC / DI)</li>
-            <li>Aspnet.Identity 2.x</li>
-            <li>
-                Deployable to Azure
-                <ul>
-                    <li>Azure WebSite</li>
-                    <li>Azure Storage</li>
-                    <li>Azure Search Services</li>
-                    <li>Azure SQL Database</li>
-                </ul>
-            </li>
-        </ul>
+        <a class="hidden-xs hidden-sm" href="https://github.com/nulldesk/ticketdesk">@Html.Raw(Index.ForkMe)</a>
+        @Html.Raw(Index.ChangeList)
     </aside>
 </main>

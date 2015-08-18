@@ -95,6 +95,10 @@
       <Project>{ca72a1aa-6f1a-4d5f-b98b-fd73f5407563}</Project>
       <Name>S22.Mail</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Localization\TicketDesk.Localization.csproj">
+      <Project>{be8715f9-e858-473e-a2b6-561c9edca416}</Project>
+      <Name>TicketDesk.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

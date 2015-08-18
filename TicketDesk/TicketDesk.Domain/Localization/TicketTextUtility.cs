@@ -13,6 +13,7 @@
 
 using System;
 using TicketDesk.Domain.Model;
+using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Localization
 {
@@ -30,8 +31,8 @@ namespace TicketDesk.Domain.Localization
         {
             //no real perf advantage to a stringbuilder here
             var n = Enum.GetName(typeof(TicketActivity), ticketEvent);
-            var val = TicketDeskDomainText.ResourceManager.GetString("TicketActivity" + n);
-            var pval = TicketDeskDomainText.ResourceManager.GetString("TicketActivityPriority");
+            var val = Strings.ResourceManager.GetString("TicketActivity" + n);
+            var pval = Strings.ResourceManager.GetString("TicketActivityPriority");
             if (string.IsNullOrEmpty(val) || string.IsNullOrEmpty(pval))
             {
                 throw new NullReferenceException();
