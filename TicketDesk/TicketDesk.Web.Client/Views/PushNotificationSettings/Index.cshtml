@@ -29,6 +29,14 @@
             $('#useCurrentUrlButton').on('click', function () {
                 $('#siteRootUrl').val('@ViewBag.CurrentRootUrl');
             });
+
+            //Fix local url validation
+            var originalMethods = {
+                url: $.validator.methods.url
+            };
+            $.validator.methods.url = function (value, element) {
+                return this.optional(element) || (/^http:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\w]*)*$/).test(value);
+            };
         });
     </script>
 }

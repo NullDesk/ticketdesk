@@ -15,7 +15,7 @@ namespace TicketDesk.Localization
 
         // Include ONLY cultures you are implementing
         private static readonly Dictionary<string, string> _cultures = new Dictionary<string, string> {
-            {"en-US", "English"}, // first culture is the DEFAULT
+            {"en-US", "English"}, // United States English culture
             {"pt-BR", "Português do Brasil"}  // Brazilian Portuguese culture
         };
 
@@ -30,7 +30,7 @@ namespace TicketDesk.Localization
                 {
                     var section = config.GetSection("system.web/globalization") as GlobalizationSection;
                     if (section != null)
-                        name = GetImplementedCulture(section.Culture);
+                        name = GetImplementedCulture(section.Culture, name);
                 }
                 return name;
             }
@@ -53,17 +53,27 @@ namespace TicketDesk.Localization
         }
 
         /// <summary>
-        /// Returns a valid culture name based on "name" parameter. If "name" is not valid, it returns the default culture "en-US"
+        /// Returns a valid culture name based on "name" parameter. If "name" is not valid, it returns the default culture
         /// </summary>
         /// <param name="name" />Culture's name (e.g. en-US)</param>
         public static string GetImplementedCulture(string name)
         {
+            return GetImplementedCulture(name, GetDefaultCulture());
+        }
+
+        /// <summary>
+        /// Returns a valid culture name based on "name" parameter. If "name" is not valid, it returns the "defaultCulture" parameter.
+        /// </summary>
+        /// <param name="name" />Culture's name (e.g. en-US)</param>
+        /// <param name="defaultCulture" />Default culture (e.g. en-US)</param>
+        public static string GetImplementedCulture(string name, string defaultCulture)
+        {
             // make sure it's not null
             if (string.IsNullOrEmpty(name))
-                return GetDefaultCulture(); // return Default culture
+                return defaultCulture; // return Default culture
             // make sure it is a valid culture first
             if (_validCultures.Where(c => c.Equals(name, StringComparison.InvariantCultureIgnoreCase)).Count() == 0)
-                return GetDefaultCulture(); // return Default culture if it is invalid
+                return defaultCulture; // return Default culture if it is invalid
             // if it is implemented, accept it
             if (_cultures.Keys.Where(c => c.Equals(name, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 return name; // accept it
@@ -75,9 +85,9 @@ namespace TicketDesk.Localization
                     return c;
             // else 
             // It is not implemented
-            return GetDefaultCulture(); // return Default culture as no match found
+            return defaultCulture; // return Default culture as no match found
         }
-
+        
         /// <summary>
         /// Returns default culture name which is the first name decalared (e.g. en-US)
         /// </summary>

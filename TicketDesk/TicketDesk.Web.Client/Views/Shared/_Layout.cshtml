@@ -148,6 +148,19 @@
     </script>
     @Scripts.Render("~/bundles/common")
     @Scripts.Render("~/bundles/common_locale_" + CultureHelper.GetCurrentCulture())
+    <script type="text/javascript">
+        Globalize.culture(window.currentCulture);
+
+        //Fix to decimal separator validation
+        var _number = $.validator.methods.number;
+        $.validator.methods.number = function (value, element) {
+            return _number.call(this, Globalize.parseFloat(value), element);
+        };
+        var _range = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            return _range.call(this, Globalize.parseFloat(value), element, param);
+        };
+    </script>
     @RenderSection("scripts", required: false)
 
 

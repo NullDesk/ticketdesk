@@ -410,4 +410,10 @@
   <data name="TicketProjectShort" xml:space="preserve">
     <value>Project</value>
   </data>
+  <data name="AllowInternalUsersToSetAssigned" xml:space="preserve">
+    <value>Allow internal users to set the assigned to field (new ticket creation only)?</value>
+  </data>
+  <data name="AllowInternalUsersToSetOwner" xml:space="preserve">
+    <value>Allow internal users to set or change the ticket owner?</value>
+  </data>
 </root>

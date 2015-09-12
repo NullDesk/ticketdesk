@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.Web.Mvc;
+using TicketDesk.Web.Client.Infrastructure.Filters;
 
 namespace TicketDesk.Web.Client
 {
@@ -19,6 +20,7 @@ namespace TicketDesk.Web.Client
     {
         public void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new LocalizationFilter());
             filters.Add(new HandleErrorAttribute());
         }
     }

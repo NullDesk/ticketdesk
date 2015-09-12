@@ -127,7 +127,7 @@
     <value>Fechar</value>
   </data>
   <data name="Owner" xml:space="preserve">
-    <value>Proprietário:</value>
+    <value>Solicitante:</value>
   </data>
   <data name="Reser_Alert" xml:space="preserve">
     <value>Todas as configurações de listas serão redefinidas, incluindo ordenação personalizada e configurações de filtro. Isso não pode ser desfeito!</value>
@@ -163,7 +163,7 @@
     <value>ID</value>
   </data>
   <data name="TicketList_Owner" xml:space="preserve">
-    <value>Priprietário</value>
+    <value>Solicitante</value>
   </data>
   <data name="TicketList_Priority" xml:space="preserve">
     <value>Prioridade</value>

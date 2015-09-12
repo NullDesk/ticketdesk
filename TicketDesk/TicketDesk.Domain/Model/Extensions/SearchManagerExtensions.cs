@@ -24,12 +24,17 @@ namespace TicketDesk.Domain.Model
         public static async Task<IEnumerable<Ticket>> SearchAsync(this TdSearchContext manager, IQueryable<Ticket> ticketQuery,
             string searchText, int projectId)
         {
-            var results = await manager.IndexSearcher.SearchAsync(searchText,projectId);
-            
-            return from i in results
-                   join t in ticketQuery
-                   on i.Id equals t.TicketId
-                   orderby i.SearchScore descending 
+            var results = await manager.IndexSearcher.SearchAsync(searchText, projectId);
+
+            var inFilter = results.Select(r => r.Id).ToList();
+
+            return from t in
+                       (from t in ticketQuery
+                        where inFilter.Contains(t.TicketId)
+                        select t).ToList()
+                   join i in results
+                   on t.TicketId equals i.Id
+                   orderby i.SearchScore descending
                    select t;
         } 
     }

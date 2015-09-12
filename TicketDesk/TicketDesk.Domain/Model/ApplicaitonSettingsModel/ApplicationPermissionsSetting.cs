@@ -60,11 +60,11 @@ namespace TicketDesk.Domain.Model
         public bool AllowInternalUsersToEditTags { get; set; }
 
         [NotMapped]
-        [Display(Name = "Allow internal users to set the assigned to field (new ticket creation only)?")]
+        [Display(Name = "AllowInternalUsersToSetAssigned", ResourceType = typeof(Strings))]
         public bool AllowInternalUsersToSetAssigned { get; set; }
 
         [NotMapped]
-        [Display(Name = "Allow internal users to set or change the ticket owner?")]
+        [Display(Name = "AllowInternalUsersToSetOwner", ResourceType = typeof(Strings))]
         public bool AllowInternalUsersToSetOwner { get; set; }
     }
 

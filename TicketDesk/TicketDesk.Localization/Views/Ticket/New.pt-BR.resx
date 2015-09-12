@@ -125,7 +125,7 @@
                                              &lt;p&gt;Para desativar o modo de demonstração, por favor altere a configuração nas configurações do aplicativo.&lt;/p&gt;</value>
   </data>
   <data name="Attachment_Instructions" xml:space="preserve">
-    <value>Solte os arquivos aqui, ou clique para selecionar.</value>
+    <value>Solte os arquivos aqui ou clique para selecionar.</value>
   </data>
   <data name="BackOption" xml:space="preserve">
     <value>Voltar para Lista</value>

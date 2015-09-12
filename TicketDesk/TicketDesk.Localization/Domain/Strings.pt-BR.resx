@@ -341,10 +341,10 @@
     <value>Atualizado Em</value>
   </data>
   <data name="TicketOwner" xml:space="preserve">
-    <value>Proprietário</value>
+    <value>Solicitante</value>
   </data>
   <data name="TicketOwnerShort" xml:space="preserve">
-    <value>Proprietário</value>
+    <value>Solicitante</value>
   </data>
   <data name="TicketPriority" xml:space="preserve">
     <value>Prioridade</value>
@@ -409,5 +409,11 @@
   </data>
   <data name="TicketProjectShort" xml:space="preserve">
     <value>Projeto</value>
+  </data>
+  <data name="AllowInternalUsersToSetAssigned" xml:space="preserve">
+    <value>Permitir que os usuários definam o responsável pelo chamado (apenas quando estiver criando um novo chamado)?</value>
+  </data>
+  <data name="AllowInternalUsersToSetOwner" xml:space="preserve">
+    <value>Permitir que usuários definam ou alterem o usuário que solicitou o chamado?</value>
   </data>
 </root>
