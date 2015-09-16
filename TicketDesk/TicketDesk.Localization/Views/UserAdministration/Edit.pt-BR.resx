@@ -139,7 +139,7 @@
     <value>Usuários Internos</value>
   </data>
   <data name="InternalUsers_Description" xml:space="preserve">
-    <value>Este perfil é para usuários finais. Eles podem abrir chamados, podem ser definidos como o proprietário de um chamado, e pode executar um conjunto limitado de operações nos chamados onde o mesmo for o proprietário.</value>
+    <value>Este perfil é para usuários finais. Eles podem abrir chamados, podem ser definidos como o solicitante de um chamado, e pode executar um conjunto limitado de operações nos chamados onde o mesmo for o proprietário.</value>
   </data>
   <data name="Legend" xml:space="preserve">
     <value>Gerenciar contas de usuário</value>

@@ -87,7 +87,17 @@ namespace TicketDesk.Web.Client
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                     "~/Scripts/jquery-{version}.js",
                     "~/Scripts/jquery.unobtrusive-ajax.js",
-                    "~/Scripts/jquery.validate*",
+#if (DEBUG)
+                    "~/Scripts/jquery.validate.js",
+                    "~/Scripts/jquery.validate.unobtrusive.js",
+#else
+                    "~/Scripts/jquery.validate.min.js",
+                    "~/Scripts/jquery.validate.unobtrusive.min.js",
+#endif
+                    "~/Scripts/cldr.js",
+                    "~/Scripts/cldr/event.js",
+                    "~/Scripts/cldr/supplemental.js",
+                    "~/Scripts/jquery.globalize/globalize.js",
                     "~/Scripts/bootstrap.js"));
 
 
@@ -99,6 +109,7 @@ namespace TicketDesk.Web.Client
             //Localization bundles en-US (empty bundles to avoid 404)
             bundles.Add(new ScriptBundle("~/bundles/select2_locale_en-US"));
             bundles.Add(new ScriptBundle("~/bundles/common_locale_en-US").Include(
+                    "~/Scripts/jquery.globalize/cultures/globalize.culture.en-US.js",
                     "~/Scripts/ticketdesk/locale_en-US.js"));
             bundles.Add(new ScriptBundle("~/bundles/summernote_locale_en-US"));
 
@@ -107,6 +118,7 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/Select2-locales/select2_locale_pt-BR.js"));
             bundles.Add(new ScriptBundle("~/bundles/common_locale_pt-BR").Include(
                     "~/Scripts/jQueryValidate-locales/jquery.validate_locale_pt-BR.js",
+                    "~/Scripts/jquery.globalize/cultures/globalize.culture.pt-BR.js",
                     "~/Scripts/ticketdesk/locale_pt-BR.js"));
             bundles.Add(new ScriptBundle("~/bundles/summernote_locale_pt-BR").Include(
                 "~/Scripts/summernote/summernote-pt-BR.js"));

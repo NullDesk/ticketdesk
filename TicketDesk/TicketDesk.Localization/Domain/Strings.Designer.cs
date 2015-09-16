@@ -79,6 +79,24 @@ namespace TicketDesk.Localization.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow internal users to set the assigned to field (new ticket creation only)?.
+        /// </summary>
+        public static string AllowInternalUsersToSetAssigned {
+            get {
+                return ResourceManager.GetString("AllowInternalUsersToSetAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow internal users to set or change the ticket owner?.
+        /// </summary>
+        public static string AllowInternalUsersToSetOwner {
+            get {
+                return ResourceManager.GetString("AllowInternalUsersToSetOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: from &quot;{1}&quot; to &quot;{2}&quot;.
         /// </summary>
         public static string Changes_From_To {
