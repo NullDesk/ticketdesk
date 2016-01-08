@@ -1,7 +1,7 @@
 ﻿// TicketDesk - Attribution notice
 // Contributor(s):
 //
-//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//      Stephen Redd (https://github.com/stephenredd)
 //
 // This file is distributed under the terms of the Microsoft Public 
 // License (Ms-PL). See http://opensource.org/licenses/MS-PL
@@ -61,21 +61,11 @@ namespace TicketDesk.Domain.Model
                 var fParams = new ObjectParameter[filterColumns.Count];
                 for (var i = 0; i < filterColumns.Count; i++)
                 {
-                    string optr;
                     var filterColumn = filterColumns[i];
 
-                    if (filterColumn.ColumnValue == DBNull.Value)
-                    {
-                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value)
-                            ? "IS NOT"
-                            : "IS";
-                    }
-                    else
-                    {
-                        optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value)
-                            ? "!="
-                            : "=";
-                    }
+                    var optr = (filterColumn.UseEqualityComparison.HasValue && !filterColumn.UseEqualityComparison.Value)
+                        ? "!="
+                        : "=";
 
                     fkeys[i] = string.Format("it.{0} {1} {2}", filterColumn.ColumnName, optr, "@" + filterColumn.ColumnName);
 
