@@ -59,12 +59,14 @@ namespace TicketDesk.Web.Identity.Migrations
             foreach (var tdUser in users)
             {
 
-                var user = userManager.FindByName(tdUser.UserName);
-                if (user == null)
+                var user = userManager.FindById(tdUser.Id);
+                if (user != null)
                 {
-                    user = tdUser;
-                    userManager.Create(user, "123456");
+                    userManager.Delete(user);
                 }
+                user = tdUser;
+                userManager.Create(user, "123456");
+                
                 var rnames = rolesNames[user.UserName];
                 var rolesForUser = userManager.GetRoles(user.Id);
                 foreach (var rname in rnames.Where(rname => !rolesForUser.Contains(rname)))
