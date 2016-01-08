@@ -1,7 +1,7 @@
 ﻿// TicketDesk - Attribution notice
 // Contributor(s):
 //
-//      Stephen Redd (stephen@reddnet.net, http://www.reddnet.net)
+//      Stephen Redd (https://github.com/stephenredd)
 //      Wootz (https://github.com/Wootz)
 //
 // This file is distributed under the terms of the Microsoft Public 

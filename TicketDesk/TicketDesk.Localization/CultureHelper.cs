@@ -1,9 +1,21 @@
-﻿using System;
+﻿// TicketDesk - Attribution notice
+// Contributor(s):
+//      Arley Andrada Maria (https://github.com/arleyandrada)
+//      zakbor0 (https://github.com/zakbor0)
+//      Stephen Redd (https://github.com/stephenredd)
+//
+// This file is distributed under the terms of the Microsoft Public 
+// License (Ms-PL). See http://opensource.org/licenses/MS-PL
+// for the complete terms of use. 
+//
+// For any distribution that contains code from this file, this notice of 
+// attribution must remain intact, and a copy of the license must be 
+// provided to the recipient.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Configuration;
 
 namespace TicketDesk.Localization
@@ -26,11 +38,11 @@ namespace TicketDesk.Localization
             {
                 var name = "en-US";
                 var config = WebConfigurationManager.OpenWebConfiguration("/");
-                if (config != null)
+
+                var section = config.GetSection("system.web/globalization") as GlobalizationSection;
+                if (section != null)
                 {
-                    var section = config.GetSection("system.web/globalization") as GlobalizationSection;
-                    if (section != null)
-                        name = GetImplementedCulture(section.Culture, name);
+                    name = GetImplementedCulture(section.Culture, name);
                 }
                 return name;
             }
@@ -87,7 +99,7 @@ namespace TicketDesk.Localization
             // It is not implemented
             return defaultCulture; // return Default culture as no match found
         }
-        
+
         /// <summary>
         /// Returns default culture name which is the first name decalared (e.g. en-US)
         /// </summary>
