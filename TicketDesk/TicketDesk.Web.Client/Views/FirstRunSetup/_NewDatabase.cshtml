@@ -13,36 +13,64 @@
     provided to the recipient.
 *@
 @model TicketDesk.Web.Client.Models.SystemInfoViewModel
+@using (Html.BeginForm("CreateDatabase", "FirstRunSetup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-heading">Create Database</div>
+        <div class="panel-body">
+            @if (ViewBag.WarnNotAnAzureDb ?? false)
+            {
+                <p class="alert alert-warning">
+                    TicketDesk appears to be running as a Microsoft Azure WebSite, but the database is not
+                    configured for Azure SQL Server. Azure SQL is not required, but please make sure the configured SQL Server
+                    connection information is correct and accessible from your Azure WebSite before continuing.
+                </p>
+            }
+            @if (ViewBag.ErrorAzureDbDoesNotExist ?? false)
+            {
+                <p class="alert alert-danger">
+                    TicketDesk appears to be running as a Microsoft Azure WebSite and the database appears
+                    to be configured for Azure SQL Server, but the configured database does not appear to have been provisioned in Azure SQL yet.
+                    <br/><br/>
+                    For security reasons, TicketDesk cannot provision Azure SQL databases automatically. You must provision the Azure SQL
+                    Database using Azure Powershell or through the online Azure Management Portal. <br/><br/>
+                    Once the database has been provisioned, this utility can create the TicketDesk objects in the database for you automatically.
+                </p>
+            }
+            @if (!(ViewBag.ErrorAzureDbDoesNotExist ?? false))
+            {
+                <div class="col-lg-7 col-md-8 col-sm-12">
+                    <p class="alert alert-warning">
+                        Enter credentials for the initial administrator user account.
+                    </p>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Create Database</div>
-    <div class="panel-body">
-        @if (ViewBag.WarnNotAnAzureDb ?? false)
-        {
-            <p class="alert alert-warning">
-                TicketDesk appears to be running as a Microsoft Azure WebSite, but the database is not
-                configured for Azure SQL Server. Azure SQL is not required, but please make sure the configured SQL Server
-                connection information is correct and accessible from your Azure WebSite before continuing.
-            </p>
-        }
-        @if (ViewBag.ErrorAzureDbDoesNotExist ?? false)
-        {
-            <p class="alert alert-danger">
-                TicketDesk appears to be running as a Microsoft Azure WebSite and the database appears
-                to be configured for Azure SQL Server, but the configured database does not appear to have been provisioned in Azure SQL yet.
-                <br /><br />
-                For security reasons, TicketDesk cannot provision Azure SQL databases automatically. You must provision the Azure SQL
-                Database using Azure Powershell or through the online Azure Management Portal. <br /><br />
-                Once the database has been provisioned, this utility can create the TicketDesk objects in the database for you automatically.
-            </p>
-        }
-        @if (!(ViewBag.ErrorAzureDbDoesNotExist ?? false))
-        {
-            <p>
-                Would you like to create a new TicketDesk database now?
-                <br /><br />
-                @Html.ActionLink("Create Database", "CreateDatabase", null, new {@class = "btn btn-primary"})
-            </p>
-        }
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("Email", null, new {type = "email", @class = "form-control", required = "required"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("Password", null, new {type = "password", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Display Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBox("DisplayName", null, new {@class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+        </div>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-success" tabindex="10">Create Database</button>
+        </div>
     </div>
-</div>
+}

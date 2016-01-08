@@ -33,7 +33,7 @@ namespace TicketDesk.Web.Identity.Migrations
             }
             context.SaveChanges();
 
-            Configuration.InitializeStockUsers(context);
+            Configuration.InitializeStockRoles(context);
             context.SaveChanges();
         }
 

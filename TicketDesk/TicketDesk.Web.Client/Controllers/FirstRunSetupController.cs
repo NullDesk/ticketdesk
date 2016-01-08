@@ -30,17 +30,27 @@ using TicketDesk.PushNotifications;
 using TicketDesk.Search.Common;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
+using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Client.Controllers
 {
+
+
     [RoutePrefix("first-run-setup")]
     [Route("{action=index}")]
     [WhenSetupEnabled]
     public class FirstRunSetupController : Controller
     {
+        private TicketDeskUserManager UserManager { get; set; }
+        private TicketDeskSignInManager SignInManager { get; set; }
+
         private SystemInfoViewModel Model { get; set; }
-        public FirstRunSetupController()
+        public FirstRunSetupController(
+            TicketDeskUserManager userManager,
+            TicketDeskSignInManager signInManager)
         {
+            UserManager = userManager;
+            SignInManager = signInManager;
             Model = new SystemInfoViewModel();
         }
 
@@ -158,8 +168,9 @@ namespace TicketDesk.Web.Client.Controllers
             });
         }
 
+        [HttpPost]
         [Route("create-database")]
-        public ActionResult CreateDatabase()
+        public async Task<ActionResult> CreateDatabase(string email, string password, string displayName)
         {
             using (var ctx = new TdDomainContext(null))
             {
@@ -167,13 +178,22 @@ namespace TicketDesk.Web.Client.Controllers
                     new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
                 ctx.Database.Initialize(true);
             }
+          
+
+          
+
             var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
             if (filter != null)
             {
                 GlobalFilters.Filters.Remove(filter.Instance);
             }
+
             Database.SetInitializer(new TdIdentityDbInitializer());
+            var user = new TicketDeskUser { UserName = email, Email = email, DisplayName = displayName };
+            await UserManager.CreateAsync(user, password);
+
             Database.SetInitializer(new TdPushNotificationDbInitializer());
+
             Startup.ConfigurePushNotifications();
             UpdateSearchIndex();
             return RedirectToAction("Index");

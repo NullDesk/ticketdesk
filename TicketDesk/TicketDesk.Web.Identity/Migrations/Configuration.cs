@@ -13,8 +13,6 @@
 
 using System;
 using System.Configuration;
-using System.Linq;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TicketDesk.Web.Identity.Model;
 using System.Data.Entity.Migrations;
@@ -48,46 +46,46 @@ namespace TicketDesk.Web.Identity.Migrations
             }
             else
             {
-                InitializeStockUsers(context);
+                InitializeStockRoles(context);
             }
         }
 
 
-        public static void InitializeStockUsers(TdIdentityContext context)
+        public static void InitializeStockRoles(TdIdentityContext context)
         {
 
             //create the standard roles and default admin account
-            var userStore = new UserStore<TicketDeskUser>(context);
+            //var userStore = new UserStore<TicketDeskUser>(context);
             var roleStore = new RoleStore<TicketDeskRole>(context);
 
-            var userManager = new TicketDeskUserManager(userStore);
+            //var userManager = new TicketDeskUserManager(userStore);
             var roleManager = new TicketDeskRoleManager(roleStore);
             roleManager.EnsureDefaultRolesExist();
             
 
-            var existingAdminRole = roleManager.FindByName("TdAdministrators");
+            //var existingAdminRole = roleManager.FindByName("TdAdministrators");
             //only create default admin user if no other user exists with the admin role
-            if (existingAdminRole != null &&
-                !userManager.Users.Any(u => u.Roles.Any(r => r.RoleId == existingAdminRole.Id)))
-            {
-                var admin = new TicketDeskUser
-                {
-                    Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-                    UserName = "admin@example.com",
-                    Email = "admin@example.com",
-                    DisplayName = "Admin User",
-                };
-                if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
-                {
-                    var adminRoles = new[] { "TdAdministrators"};
-                    userManager.Create(admin, "123456");
+            //if (existingAdminRole != null &&
+            //    !userManager.Users.Any(u => u.Roles.Any(r => r.RoleId == existingAdminRole.Id)))
+            //{
+            //    var admin = new TicketDeskUser
+            //    {
+            //        Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
+            //        UserName = "admin@example.com",
+            //        Email = "admin@example.com",
+            //        DisplayName = "Admin User",
+            //    };
+            //    if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
+            //    {
+            //        var adminRoles = new[] { "TdAdministrators"};
+            //        userManager.Create(admin, "123456");
 
-                    foreach (var rname in adminRoles)
-                    {
-                        userManager.AddToRole(admin.Id, rname);
-                    }
-                }
-            }
+            //        foreach (var rname in adminRoles)
+            //        {
+            //            userManager.AddToRole(admin.Id, rname);
+            //        }
+            //    }
+            //}
         }
     }
 }

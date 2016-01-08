@@ -25,10 +25,7 @@
                 Open web.config from the root of the application in a text editor. Locate the &lt;appSettings&gt; section, then change the value of ticketdesk:SetupEnabled to false. If runing as an Azure WebSite, you can also set this value in your website settings with the online Azure Management Portal.
             </span>
         </p>
-        <p class="alert alert-info">
-            Login to TicketDesk using the email address "admin@example.com" with password "123456". <br /><br />
-            Please remember to change the password.
-        </p>
+        
         @Html.ActionLink("Go to TicketDesk", "Index", "Home", null, new {@class = "btn btn-success"})
 
 
