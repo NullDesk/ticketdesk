@@ -34,6 +34,7 @@ namespace TicketDesk.Web.Identity
 
             modelBuilder.Entity<TicketDeskUser>().ToTable("IdentityUsers");
             modelBuilder.Entity<TicketDeskRole>().ToTable("IdentityRoles");
+            modelBuilder.Entity<IdentityRole>().ToTable("IdentityRoles");
             modelBuilder.Entity<IdentityUserRole>().ToTable("IdentityUserRoles");
             modelBuilder.Entity<IdentityUserLogin>().ToTable("IdentityUserLogins");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("IdentityUserClaims");
