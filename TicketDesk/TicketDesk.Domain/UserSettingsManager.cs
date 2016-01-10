@@ -12,6 +12,7 @@
 // provided to the recipient.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Model;
 
@@ -28,6 +29,7 @@ namespace TicketDesk.Domain
         public async Task ResetAllListSettingsForUserAsync(string userId)
         {
             var settings = await GetSettingsForUserAsync(userId);
+            
             settings.ListSettings = new UserTicketListSettingsCollection
             {
                     UserTicketListSetting.GetDefaultListSettings(userId, Context.SecurityProvider.IsTdHelpDeskUser|| Context.SecurityProvider.IsTdAdministrator)
@@ -36,23 +38,49 @@ namespace TicketDesk.Domain
 
         public async Task<UserSetting> GetSettingsForUserAsync(string userId)
         {
+            var isHelpDeskUser = Context.SecurityProvider.IsTdHelpDeskUser ||
+                                    Context.SecurityProvider.IsTdAdministrator;
             var settings = await Context.UserSettings.FindAsync(userId);
-            if (settings == null)
+
+            //ensure settings exist
+            if (settings == null )
             {
-                //settings for user not found, make default and save on separate context (so we don't commit other changes on this context as a side-effect).
-                settings = UserSetting.GetDefaultSettingsForUser(userId, Context.SecurityProvider.IsTdHelpDeskUser || Context.SecurityProvider.IsTdAdministrator);
+                settings = UserSetting.GetDefaultSettingsForUser(userId, isHelpDeskUser);
                 using (var tempCtx = new TdDomainContext())
                 {
-                    tempCtx.UserSettingsManager.AddSettingsForUser(settings);
+                    await tempCtx.UserSettingsManager.AddOrUpdateSettingsForUser(settings);
+                    await tempCtx.SaveChangesAsync();
+                }
+            }
+            //ensure that the user has all required lists for their role, if not blow away list settings and recreate
+            if (!settings.ListSettings.HasRequiredDefaultListSettings(isHelpDeskUser))
+            {
+                settings.ListSettings = new UserTicketListSettingsCollection
+                {
+                    UserTicketListSetting.GetDefaultListSettings(userId, isHelpDeskUser)
+                };
+                using (var tempCtx = new TdDomainContext())
+                {
+                    await tempCtx.UserSettingsManager.AddOrUpdateSettingsForUser(settings);
                     await tempCtx.SaveChangesAsync();
                 }
             }
             return settings;
         }
 
-        public void AddSettingsForUser(UserSetting settings)
+        public async Task AddOrUpdateSettingsForUser(UserSetting settings)
         {
-            Context.UserSettings.Add(settings);
+            var existing = await Context.UserSettings.FindAsync(settings.UserId);
+            if (existing != null)
+            {
+                //replace existing with new settings
+                // ReSharper disable once RedundantAssignment
+                existing = settings;
+            }
+            else
+            {
+                Context.UserSettings.Add(settings);
+            }
         }
 
         public async Task<ICollection<UserTicketListSetting>> GetUserListSettingsAsync(string userId)

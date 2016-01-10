@@ -159,6 +159,7 @@ namespace TicketDesk.Domain.Model
             }
         }
 
+        
 
         internal static List<UserTicketListSetting> GetDefaultListSettings(string userId, bool isHelpDeskUserOrAdmin)
         {

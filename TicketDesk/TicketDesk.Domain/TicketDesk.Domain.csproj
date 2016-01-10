@@ -159,6 +159,7 @@
     <Compile Include="Model\Extensions\TicketEventExtensions.cs" />
     <Compile Include="Model\Extensions\TicketTagExtensions.cs" />
     <Compile Include="Model\Extensions\UserTicketListFilterColumnExtensions.cs" />
+    <Compile Include="Model\Extensions\UserTicketListSettingsCollectionExtensions.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\TicketEventNotification.cs" />
     <Compile Include="Model\TicketSubscriber.cs" />
