@@ -29,7 +29,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("ticket-activity")]
     [Route("{action}")]
-    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
+    [TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     [ValidateInput(false)]
     public class TicketActivityController : Controller
     {

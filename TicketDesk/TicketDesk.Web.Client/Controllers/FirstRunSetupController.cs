@@ -191,6 +191,7 @@ namespace TicketDesk.Web.Client.Controllers
             Database.SetInitializer(new TdIdentityDbInitializer());
             var user = new TicketDeskUser { UserName = email, Email = email, DisplayName = displayName };
             await UserManager.CreateAsync(user, password);
+            await UserManager.AddToRoleAsync(user.Id, "TdAdministrators");
 
             Database.SetInitializer(new TdPushNotificationDbInitializer());
 

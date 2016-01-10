@@ -24,7 +24,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("search")]
     [Route("{action=index")]
-    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
+    [TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class SearchController : Controller
     {
         private TdDomainContext Context { get; set; }

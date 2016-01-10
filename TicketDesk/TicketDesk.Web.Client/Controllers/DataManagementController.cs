@@ -24,7 +24,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("admin/data-management")]
     [Route("{action=index}")]
-    [Authorize(Roles = "TdAdministrators")]
+    [TdAuthorize(Roles = "TdAdministrators")]
     public class DataManagementController : Controller
     {
         private TdIdentityContext IdentityContext { get; set; }

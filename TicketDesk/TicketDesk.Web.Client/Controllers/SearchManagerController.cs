@@ -21,7 +21,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("admin/search-manager")]
     [Route("{action=index}")]
-    [Authorize(Roles = "TdAdministrators")]
+    [TdAuthorize(Roles = "TdAdministrators")]
     public class SearchManagerController : Controller
     {
         

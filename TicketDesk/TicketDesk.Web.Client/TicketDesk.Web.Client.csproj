@@ -271,6 +271,7 @@
     <Compile Include="Infrastructure\Extensions\PagedListExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\SummerNoteStringExtensions.cs" />
     <Compile Include="Infrastructure\Filters\LocalizationFilter.cs" />
+    <Compile Include="Infrastructure\Filters\TdAuthorizeAttribute.cs" />
     <Compile Include="Infrastructure\Helpers\DescriptionForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\DisplayForHelper.cs" />
     <Compile Include="Infrastructure\Helpers\JsonCamelCaseResult.cs" />
@@ -898,6 +899,7 @@
     <Content Include="Scripts\jQueryValidate-locales\jquery.validate_locale_pt-BR.js" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Scripts\jquery.validate.globalize.min.js.map" />
+    <Content Include="Views\Home\AccessDenied.cshtml" />
     <None Include="Web.azure.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

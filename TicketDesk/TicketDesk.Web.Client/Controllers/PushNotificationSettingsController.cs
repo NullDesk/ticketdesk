@@ -28,7 +28,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("admin/push-notification-settings")]
     [Route("{action=index}")]
-    [Authorize(Roles = "TdAdministrators")]
+    [TdAuthorize(Roles = "TdAdministrators")]
     public class PushNotificationSettingsController : Controller
     {
         private TdPushNotificationContext NoteContext { get; set; }

@@ -29,7 +29,7 @@ using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
-    [Authorize]
+    [TdAuthorize]
     [RoutePrefix("user")]
     [Route("{action}")]
     public class UserController : Controller
@@ -67,8 +67,8 @@ namespace TicketDesk.Web.Client.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     await UserManager.AddToRolesAsync(user.Id, DomainContext.TicketDeskSettings.SecuritySettings.DefaultNewUserRoles.ToArray());
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     HostingEnvironment.QueueBackgroundWorkItem(ct =>
                     {
                         using

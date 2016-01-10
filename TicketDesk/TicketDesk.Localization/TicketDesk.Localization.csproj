@@ -197,6 +197,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>About.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\AccessDenied.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccessDenied.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Index.pt-BR.Designer.cs">
       <DependentUpon>Index.pt-BR.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -532,6 +537,10 @@
     <EmbeddedResource Include="Views\Home\About.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>About.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\AccessDenied.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccessDenied.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Index.pt-BR.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

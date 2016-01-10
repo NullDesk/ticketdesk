@@ -15,7 +15,7 @@ using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
-    [Authorize]
+    [TdAuthorizeAttribute]
     [RoutePrefix("account")]
     [Route("{action=manage}")]
     public class AccountController : Controller

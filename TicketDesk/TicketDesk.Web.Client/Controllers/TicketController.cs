@@ -32,7 +32,7 @@ namespace TicketDesk.Web.Client.Controllers
     /// </summary>
     [RoutePrefix("ticket")]
     [Route("{action=index}")]
-    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
+    [TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketController : Controller
     {
         private TdDomainContext Context { get; set; }

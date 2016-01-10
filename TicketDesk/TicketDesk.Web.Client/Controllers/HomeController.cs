@@ -50,5 +50,11 @@ namespace TicketDesk.Web.Client.Controllers
         {
             return View();
         }
+
+        [Route("access-denied", Name = "AccessDenied")]
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

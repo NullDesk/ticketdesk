@@ -14,7 +14,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Client.Models;
@@ -23,7 +22,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("tickets")]
     [Route("{action=index}")]
-    [Authorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
+    [TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketCenterController : Controller
     {
         private TdDomainContext Context { get; set; }

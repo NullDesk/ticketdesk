@@ -23,7 +23,7 @@ namespace TicketDesk.Web.Client.Controllers
 {
     [RoutePrefix("admin/application-settings")]
     [Route("{action=index}")]
-    [Authorize(Roles = "TdAdministrators")]
+    [TdAuthorizeAttribute(Roles = "TdAdministrators")]
     public class ApplicationSettingsController : Controller
     {
         private TdDomainContext Context { get; set; }
