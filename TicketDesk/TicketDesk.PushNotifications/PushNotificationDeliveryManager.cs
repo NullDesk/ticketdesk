@@ -77,7 +77,7 @@ namespace TicketDesk.PushNotifications
         }
 
 
-        public static async Task SendNotification
+        public static async Task SendNotificationAsync
         (
             int contentSourceId,
             string contentSourceType,
@@ -106,7 +106,7 @@ namespace TicketDesk.PushNotifications
             }
         }
 
-        public static async Task<int> SendNextReadyNotification(CancellationToken ct)
+        public static async Task<int> SendNextReadyNotificationAsync(CancellationToken ct)
         {
             using (var context = new TdPushNotificationContext())
             {

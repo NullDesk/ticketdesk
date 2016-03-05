@@ -27,11 +27,11 @@ public class PagedListAsync<T> : BasePagedList<T>
     public static async Task<IPagedList<T>> Create(IQueryable<T> superset, int pageNumber, int pageSize)
     {
         var list = new PagedListAsync<T>();
-        await list.Init(superset, pageNumber, pageSize);
+        await list.InitAsync(superset, pageNumber, pageSize);
         return list;
     }
 
-    async Task Init(IQueryable<T> superset, int pageNumber, int pageSize)
+    async Task InitAsync(IQueryable<T> superset, int pageNumber, int pageSize)
     {
         if (pageNumber < 1)
             throw new ArgumentOutOfRangeException("pageNumber", pageNumber, Strings.PageNumberBelow);

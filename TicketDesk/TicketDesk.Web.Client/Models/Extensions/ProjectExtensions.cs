@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Identity;
+using System.Data.Entity;
 
 namespace TicketDesk.Domain.Model
 {
@@ -26,11 +27,11 @@ namespace TicketDesk.Domain.Model
 
             //if user's selected project points to a project that no longer exists, reset
             //  normally this wouldn't happen since the dbcontext will update user settings when projects are deleted 
-            if (projectId != 0 && projects.All(p => p.ProjectId != projectId))
+            if (projectId != 0 && await projects.AllAsync(p => p.ProjectId != projectId))
             {
                 projectId = 0;
                 await UpdateUserSelectedProjectAsync(userSettingsManager, projectId, context.SecurityProvider.CurrentUserId);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             return projectId;
 

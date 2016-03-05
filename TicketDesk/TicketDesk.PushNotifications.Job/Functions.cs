@@ -14,7 +14,7 @@ namespace TicketDesk.PushNotifications.Job
             var i = 1;
             while (i > 0)
             {
-                var task = PushNotificationDeliveryManager.SendNextReadyNotification(CancellationToken.None);
+                var task = PushNotificationDeliveryManager.SendNextReadyNotificationAsync(CancellationToken.None);
                 i = task.Result;
                 if (i > 0) { Console.Out.WriteLine("one message delivered"); }
             }

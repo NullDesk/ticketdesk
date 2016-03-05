@@ -98,7 +98,7 @@ namespace TicketDesk.PushNotifications
             }
         }
 
-        public async Task<bool> AddNotifications(IEnumerable<TicketPushNotificationEventInfo> infoItems)
+        public async Task<bool> AddNotificationsAsync(IEnumerable<TicketPushNotificationEventInfo> infoItems)
         {
             foreach (var item in infoItems)
             {

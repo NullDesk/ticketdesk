@@ -70,7 +70,7 @@ namespace TicketDesk.Web.Client.Controllers
                 IsHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote"
             };
 
-            await SetProjectInfoForModel(model);
+            await SetProjectInfoForModelAsync(model);
 
             ViewBag.TempId = Guid.NewGuid();
 
@@ -113,7 +113,7 @@ namespace TicketDesk.Web.Client.Controllers
 
             }
             ViewBag.TempId = tempId;
-            await SetProjectInfoForModel(ticket);
+            await SetProjectInfoForModelAsync(ticket);
             return View(ticket);
         }
 
@@ -136,7 +136,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> TicketDetails(int ticketId)
         {
             var ticket = await Context.Tickets.FindAsync(ticketId);
-            ViewBag.DisplayProjects = Context.Projects.Count() > 1;
+            ViewBag.DisplayProjects = await Context.Projects.CountAsync() > 1;
 
             return PartialView("_TicketDetails", ticket);
         }
@@ -167,16 +167,16 @@ namespace TicketDesk.Web.Client.Controllers
             return new JsonCamelCaseResult { Data = new { IsSubscribed = isSubscribed } };
         }
 
-        private async Task SetProjectInfoForModel(Ticket ticket)
+        private async Task SetProjectInfoForModelAsync(Ticket ticket)
         {
             if (ticket.ProjectId == default(int))
             {
-                var projects = await Context.Projects.ToListAsync();
+                var projects = await Context.Projects.Select(s=>s.ProjectId).ToListAsync();
                 var isMulti = (projects.Count > 1);
                 ViewBag.IsMultiProject = isMulti;
                
                 //set to first project if only one project exists, otherwise use user's selected project
-                ticket.ProjectId = (isMulti) ? await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context) : projects.First().ProjectId; 
+                ticket.ProjectId = (isMulti) ? await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context) : projects.FirstOrDefault(); 
             }
         }
 
