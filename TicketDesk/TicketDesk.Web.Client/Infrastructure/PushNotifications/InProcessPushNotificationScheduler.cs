@@ -36,7 +36,7 @@ namespace TicketDesk.Web.Client.Infrastructure
                     var i = 1;
                         while (i > 0)
                     {
-                        i = await PushNotificationDeliveryManager.SendNextReadyNotification(ct);
+                        i = await PushNotificationDeliveryManager.SendNextReadyNotificationAsync(ct);
                     }
                 });
 

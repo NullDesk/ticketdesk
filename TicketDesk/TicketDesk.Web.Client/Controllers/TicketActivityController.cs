@@ -50,15 +50,15 @@ namespace TicketDesk.Web.Client.Controllers
             ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
             if (activity == TicketActivity.EditTicketInfo)
             {
-                await SetProjectInfoForModel(ticket);
+                await SetProjectInfoForModelAsync(ticket);
             }
             return PartialView("_ActivityForm", ticket);
         }
 
-        private async Task SetProjectInfoForModel(Ticket ticket)
+        private async Task SetProjectInfoForModelAsync(Ticket ticket)
         {
-            var projects = await Context.Projects.ToListAsync();
-            var isMulti = (projects.Count > 1);
+            var projectCount = await Context.Projects.CountAsync();
+            var isMulti = (projectCount > 1);
             ViewBag.IsMultiProject = isMulti;
         }
 
@@ -122,7 +122,7 @@ namespace TicketDesk.Web.Client.Controllers
             string tagList)
         {
             details = details.StripHtmlWhenEmpty();
-            var projectName = Context.Projects.First(p => p.ProjectId == projectId).ProjectName;
+            var projectName = await Context.Projects.Where(p => p.ProjectId == projectId).Select(s=>s.ProjectName).FirstOrDefaultAsync();
             var activityFn = Context.TicketActions.EditTicketInfo(comment, projectId, projectName, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }

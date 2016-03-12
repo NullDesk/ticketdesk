@@ -107,7 +107,7 @@ namespace TicketDesk.Web.Client.Controllers
         private async Task ResetMailEmailDestination(TicketDeskUser user, string oldEmail)
         {
             var noteSettings =
-                await NotificationContext.SubscriberPushNotificationSettingsManager.GetSettingsForSubscriber(user.Id);
+                await NotificationContext.SubscriberPushNotificationSettingsManager.GetSettingsForSubscriberAsync(user.Id);
             var dest = noteSettings.PushNotificationDestinations.FirstOrDefault(
                 d => d.DestinationType == "email" && d.DestinationAddress == oldEmail);
             if (dest == null)

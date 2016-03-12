@@ -32,7 +32,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> Index(int? page)
         {
             ViewBag.AllRolesList = await RoleManager.Roles.ToListAsync();
-            var users = await GetUsersForList(page ?? 1);
+            var users = await GetUsersForListAsync(page ?? 1);
             return View(users);
         }
 
@@ -40,7 +40,7 @@ namespace TicketDesk.Web.Client.Controllers
         public async Task<ActionResult> PageList(int? page = 1)
         {
             ViewBag.AllRolesList = await RoleManager.Roles.ToListAsync();
-            var users = await GetUsersForList(page ?? 1);
+            var users = await GetUsersForListAsync(page ?? 1);
             return PartialView("_UserList",users);
 
         }
@@ -115,7 +115,7 @@ namespace TicketDesk.Web.Client.Controllers
             return View(model);
         }
 
-        private async Task<IPagedList<UserAccountInfoViewModel>> GetUsersForList(int page)
+        private async Task<IPagedList<UserAccountInfoViewModel>> GetUsersForListAsync(int page)
         {
             var users = await UserManager.Users
                 .OrderBy(u => u.DisplayName)
