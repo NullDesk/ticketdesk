@@ -538,6 +538,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>About.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\AccessDenied.pt-BR.resx" />
     <EmbeddedResource Include="Views\Home\AccessDenied.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccessDenied.Designer.cs</LastGenOutput>
