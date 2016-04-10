@@ -118,25 +118,30 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Route("ticket-files")]
+        [ChildActionOnly]
         public ActionResult TicketFiles(int ticketId)
         {
+            //WARNING! This is also used as a child action and cannot be made async in MVC 5
             var attachments = TicketDeskFileStore.ListAttachmentInfo(ticketId.ToString(CultureInfo.InvariantCulture), false);
             ViewBag.TicketId = ticketId;
             return PartialView("_TicketFiles", attachments);
         }
 
         [Route("ticket-events")]
-        public async Task<ActionResult> TicketEvents(int ticketId)
+        [ChildActionOnly]
+        public ActionResult TicketEvents(int ticketId)
         {
-            var ticket = await Context.Tickets.FindAsync(ticketId);
+            //WARNING! This is also used as a child action and cannot be made async in MVC 5
+            var ticket = Context.Tickets.Find(ticketId);
             return PartialView("_TicketEvents", ticket.TicketEvents);
         }
 
         [Route("ticket-details")]
-        public async Task<ActionResult> TicketDetails(int ticketId)
+        public ActionResult TicketDetails(int ticketId)
         {
-            var ticket = await Context.Tickets.FindAsync(ticketId);
-            ViewBag.DisplayProjects = await Context.Projects.CountAsync() > 1;
+            //WARNING! This is also used as a child action and cannot be made async in MVC 5
+            var ticket = Context.Tickets.Find(ticketId);
+            ViewBag.DisplayProjects = Context.Projects.Any();
 
             return PartialView("_TicketDetails", ticket);
         }

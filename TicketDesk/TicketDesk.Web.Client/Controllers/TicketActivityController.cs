@@ -63,9 +63,10 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Route("activity-buttons")]
-        public async Task<ActionResult> ActivityButtons(int ticketId)
+        public ActionResult ActivityButtons(int ticketId)
         {
-            var ticket = await Context.Tickets.FindAsync(ticketId);
+            //WARNING! This is also used as a child action and cannot be made async in MVC 5
+            var ticket = Context.Tickets.Find(ticketId);
             var activities = Context.TicketActions.GetValidTicketActivities(ticket);
             return PartialView("_ActivityButtons", activities);
         }
