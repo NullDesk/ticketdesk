@@ -46,7 +46,7 @@ namespace TicketDesk.Web.Client
         {
             var container = new Container();
 
-            container.RegisterSingle(app);
+            container.RegisterSingleton(app);
 
 
             //allows objects to be reused when inside web request, or created fresh when used on background threads or outside a request context
@@ -96,7 +96,7 @@ namespace TicketDesk.Web.Client
 
             container.RegisterPerWebRequest<SignInManager<TicketDeskUser, string>, TicketDeskSignInManager>();
 
-            container.RegisterPerWebRequest<TicketDeskRoleManager>();
+            container.Register<TicketDeskRoleManager>(hybridLifestyle);
 
             container.RegisterInitializer<TicketDeskUserManager>(manager =>
                 manager.ConfigureDataProtection(app));

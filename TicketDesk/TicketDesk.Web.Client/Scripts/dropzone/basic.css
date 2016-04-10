@@ -15,14 +15,14 @@
     .dropzone .dz-preview .dz-progress {
       display: block;
       height: 15px;
-      border: 1px solid #CCCCCC; }
+      border: 1px solid #aaa; }
       .dropzone .dz-preview .dz-progress .dz-upload {
         display: block;
         height: 100%;
         width: 0;
-        background: #008000; }
+        background: green; }
     .dropzone .dz-preview .dz-error-message {
-      color: #FF0000;
+      color: red;
       display: none; }
     .dropzone .dz-preview.dz-error .dz-error-message, .dropzone .dz-preview.dz-error .dz-error-mark {
       display: block; }

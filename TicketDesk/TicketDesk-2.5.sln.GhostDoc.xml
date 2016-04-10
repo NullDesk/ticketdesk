@@ -14,6 +14,7 @@
 <HelpConfigurations selected="HelpFile">
   <HelpConfiguration name="HelpFile">
     <OutputPath>C:\Users\stephenr.WEBER\Documents\Projects\Personal\TicketDesk2.5\TicketDesk-2.5\Help</OutputPath>
+    <CleanupOutputPath>true</CleanupOutputPath>
     <ImageFolderPath />
     <HtmlFormats>
       <HtmlHelp>true</HtmlHelp>
@@ -31,10 +32,17 @@
       <EnableTags>false</EnableTags>
       <TagList />
     </IncludeScopes>
+    <SyntaxLanguages>
+      <CSharp>true</CSharp>
+      <VisualBasic>true</VisualBasic>
+      <CPlusPlus>true</CPlusPlus>
+    </SyntaxLanguages>
     <ResolveCrefLinks>true</ResolveCrefLinks>
     <HeaderText />
     <FooterText />
     <SelectedProjects />
   </HelpConfiguration>
 </HelpConfigurations>
+<GeneralProperties>
+</GeneralProperties>
 </GhostDoc>
