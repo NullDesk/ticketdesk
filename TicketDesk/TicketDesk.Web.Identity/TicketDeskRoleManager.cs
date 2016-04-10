@@ -31,29 +31,37 @@ namespace TicketDesk.Web.Identity
 
         public IOrderedEnumerable<TicketDeskUser> GetTdInternalUsers(TicketDeskUserManager userManager)
         {
-            return GetUsersInRole("TdInternalUsers", userManager);
+            return GetUsersInRole(new[] {"TdInternalUsers", "TdHelpDeskUsers", "TdAdministrators" }, userManager);
         }
         public IOrderedEnumerable<TicketDeskUser> GetTdTdAdministrators(TicketDeskUserManager userManager)
         {
-            return GetUsersInRole("", userManager);
+            return GetUsersInRole(new[] {"TdAdministrators"}, userManager);
         }
 
         public IOrderedEnumerable<TicketDeskUser> GetTdHelpDeskUsers(TicketDeskUserManager userManager)
         {
-            return GetUsersInRole("TdHelpDeskUsers", userManager);
+            return GetUsersInRole(new[] {"TdHelpDeskUsers", "TdAdministrators" }, userManager);
         }
         public IOrderedEnumerable<TicketDeskUser> GetTdPendingUsers(TicketDeskUserManager userManager)
         {
-            return GetUsersInRole("TdPendingUsers", userManager);
+            return GetUsersInRole(new[] {"TdPendingUsers"}, userManager);
         }
 
-        public IOrderedEnumerable<TicketDeskUser> GetUsersInRole(string roleName, TicketDeskUserManager userManager)
+        public IOrderedEnumerable<TicketDeskUser> GetUsersInRole(string[] roleNames, TicketDeskUserManager userManager)
         {
-            return this
-                 .FindByName(roleName)
-                 .Users
-                 .GetUsersInRole(userManager)
-                 .OrderBy(u => u.DisplayName);
+            var foundUsers = new List<TicketDeskUser>();
+
+            foreach (var roleName in roleNames)
+            {
+                foundUsers.AddRange(
+                    this
+                        .FindByName(roleName)
+                        .Users
+                        .GetUsersInRole(userManager)
+                        .Where(u => foundUsers.All(f => f.Id != u.Id))
+                    );
+            }
+            return foundUsers.OrderBy(u => u.DisplayName);
         }
 
         /// <summary>

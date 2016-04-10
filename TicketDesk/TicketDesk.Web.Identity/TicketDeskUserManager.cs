@@ -29,12 +29,12 @@ namespace TicketDesk.Web.Identity
 
         public bool IsTdHelpDeskUser(string userId)
         {
-            return this.IsInRole(userId, "TdHelpDeskUsers");
+            return this.IsInRole(userId, "TdHelpDeskUsers") || IsTdAdministrator(userId) ;
         }
 
         public bool IsTdInternalUser(string userId)
         {
-            return this.IsInRole(userId, "TdInternalUsers");
+            return this.IsInRole(userId, "TdInternalUsers") || IsTdHelpDeskUser(userId);
         }
 
         public bool IsTdAdministrator(string userId)

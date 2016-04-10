@@ -118,7 +118,6 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Route("ticket-files")]
-        [ChildActionOnly]
         public ActionResult TicketFiles(int ticketId)
         {
             //WARNING! This is also used as a child action and cannot be made async in MVC 5
@@ -128,7 +127,6 @@ namespace TicketDesk.Web.Client.Controllers
         }
 
         [Route("ticket-events")]
-        [ChildActionOnly]
         public ActionResult TicketEvents(int ticketId)
         {
             //WARNING! This is also used as a child action and cannot be made async in MVC 5
