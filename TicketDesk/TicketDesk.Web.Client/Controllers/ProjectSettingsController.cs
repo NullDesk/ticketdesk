@@ -97,13 +97,11 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.EnableDelete = await Context.Projects.CountAsync() > 1;
-            ViewBag.ProjectReassignList = Context.Projects
-                .Where(p => p.ProjectId != projectId)
-                .ToSelectList(p => p.ProjectId.ToString(), p => p.ProjectName);
+            await AddViewDataForEdit(projectId);
             return View(project);
         }
 
+      
         [Route("project/{projectId:int}")]
         [HttpPost]
         public async Task<ActionResult> Edit(Project project, int projectId)
@@ -117,11 +115,20 @@ namespace TicketDesk.Web.Client.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            ViewBag.EnableDelete = await Context.Projects.CountAsync() > 1;
+            await AddViewDataForEdit(projectId);
             return View(project);
         
         }
+
+        private async Task AddViewDataForEdit(int projectId)
+        {
+            ViewBag.EnableDelete = await Context.Projects.CountAsync() > 1;
+            ViewBag.ProjectReassignList = Context.Projects
+                .Where(p => p.ProjectId != projectId)
+                .ToSelectList(p => p.ProjectId.ToString(), p => p.ProjectName);
+        }
+
     }
-    
-    
+
+
 }
