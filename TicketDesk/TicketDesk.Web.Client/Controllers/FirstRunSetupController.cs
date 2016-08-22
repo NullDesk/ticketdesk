@@ -19,6 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
@@ -257,7 +258,8 @@ namespace TicketDesk.Web.Client.Controllers
         [ChildActionOnly]
         public ActionResult SetupCompleteInfo()
         {
-
+            HttpContext.GetOwinContext().Authentication.SignOut();
+            
             if (!Model.DatabaseStatus.IsDatabaseReady || !Model.DatabaseStatus.IsCompatibleWithEfModel || Model.DatabaseStatus.HasLegacySecurityObjects)
             {
                 return new EmptyResult();

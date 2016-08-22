@@ -80,7 +80,7 @@ namespace TicketDesk.Web.Client
 
             if (DatabaseConfig.IsFirstRunDemoRefreshEnabled())
             {
-                DemoIdentityDataManager.SetupDemoIdentityData(container.GetInstance<TdIdentityContext>());
+                DemoIdentityDataManager.SetupDemoIdentityData(container.GetInstance<TdIdentityContext>(), null);
             }
 
         }

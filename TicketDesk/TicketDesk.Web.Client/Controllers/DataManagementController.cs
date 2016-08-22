@@ -13,6 +13,7 @@
 
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.PushNotifications;
@@ -28,11 +29,16 @@ namespace TicketDesk.Web.Client.Controllers
     public class DataManagementController : Controller
     {
         private TdIdentityContext IdentityContext { get; set; }
+
         private TdPushNotificationContext PushNotificationContext { get; set; }
-        public DataManagementController(TdIdentityContext identityContext, TdPushNotificationContext pushNotificationContext)
+
+        private TicketDeskSignInManager SignInManager { get; set; }
+
+        public DataManagementController(TdIdentityContext identityContext, TdPushNotificationContext pushNotificationContext, TicketDeskSignInManager signInManager)
         {
             IdentityContext = identityContext;
             PushNotificationContext = pushNotificationContext;
+            SignInManager = signInManager;
         }
 
         [Route("demo")]
@@ -48,7 +54,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 DemoDataManager.RemoveAllData(ctx);
             }
-            DemoIdentityDataManager.RemoveAllIdentity(IdentityContext);
+            DemoIdentityDataManager.RemoveIdentity(IdentityContext, User.Identity.GetUserId());
             DemoPushNotificationDataManager.RemoveAllPushNotificationData(PushNotificationContext);
             ViewBag.DemoDataRemoved = true;
             return View("Demo");
@@ -61,7 +67,7 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 DemoDataManager.SetupDemoData(ctx);
             }
-            DemoIdentityDataManager.SetupDemoIdentityData(IdentityContext);
+            DemoIdentityDataManager.SetupDemoIdentityData(IdentityContext, User.Identity.GetUserId());
             DemoPushNotificationDataManager.SetupDemoPushNotificationData(PushNotificationContext);
             ViewBag.DemoDataCreated = true;
             return View("Demo");

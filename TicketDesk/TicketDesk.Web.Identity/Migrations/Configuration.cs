@@ -42,7 +42,7 @@ namespace TicketDesk.Web.Identity.Migrations
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"];
             if (!string.IsNullOrEmpty(demoMode) && demoMode.Equals("true", StringComparison.InvariantCultureIgnoreCase))
             {
-                DemoIdentityDataManager.SetupDemoIdentityData(context);
+                DemoIdentityDataManager.SetupDemoIdentityData(context, null);
             }
             else
             {
@@ -61,31 +61,7 @@ namespace TicketDesk.Web.Identity.Migrations
             //var userManager = new TicketDeskUserManager(userStore);
             var roleManager = new TicketDeskRoleManager(roleStore);
             roleManager.EnsureDefaultRolesExist();
-            
-
-            //var existingAdminRole = roleManager.FindByName("TdAdministrators");
-            //only create default admin user if no other user exists with the admin role
-            //if (existingAdminRole != null &&
-            //    !userManager.Users.Any(u => u.Roles.Any(r => r.RoleId == existingAdminRole.Id)))
-            //{
-            //    var admin = new TicketDeskUser
-            //    {
-            //        Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-            //        UserName = "admin@example.com",
-            //        Email = "admin@example.com",
-            //        DisplayName = "Admin User",
-            //    };
-            //    if (userManager.FindById("64165817-9cb5-472f-8bfb-6a35ca54be6a") == null)
-            //    {
-            //        var adminRoles = new[] { "TdAdministrators"};
-            //        userManager.Create(admin, "123456");
-
-            //        foreach (var rname in adminRoles)
-            //        {
-            //            userManager.AddToRole(admin.Id, rname);
-            //        }
-            //    }
-            //}
+           
         }
     }
 }
