@@ -99,7 +99,7 @@ namespace TicketDesk.Web.Client.Controllers
             var oldEmail = user.Email;
 
             var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
-            if (demoMode && oldEmail != model.Email)
+            if (demoMode && oldEmail.EndsWith("@example.com", StringComparison.InvariantCultureIgnoreCase))
             {
                 ModelState.AddModelError("Email", Strings.UnableToChangeDemoUser);
             }

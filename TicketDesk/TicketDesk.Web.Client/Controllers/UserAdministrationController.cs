@@ -74,9 +74,9 @@ namespace TicketDesk.Web.Client.Controllers
             var user = await UserManager.FindByIdAsync(model.User.Id);
             var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
 
-            if (demoMode && user.Email != model.User.Email)
+            if (demoMode && model.User.Email.EndsWith("@example.com", StringComparison.InvariantCultureIgnoreCase))
             {
-                ModelState.AddModelError("Email", Strings.UnableToChangeDemoUser);
+                ModelState.AddModelError("Profile", Strings.UnableToChangeDemoUser);
             }
             else
             {
@@ -114,13 +114,14 @@ namespace TicketDesk.Web.Client.Controllers
                         }
                     }
                 }
-                //Since the above operations could be partially committed before a failure, 
-                //  we will re-get the user so we are sure the screen will accurately show 
-                //  the current data. Model errors will have been added by the respective 
-                //  update operations that failed
-                user = await UserManager.FindByIdAsync(model.User.Id);
-                model = new UserAccountInfoViewModel(user, user.Roles.Select(r => r.RoleId));
+               
             }
+            //Since the above operations could be partially committed before a failure, 
+            //  we will re-get the user so we are sure the screen will accurately show 
+            //  the current data. Model errors will have been added by the respective 
+            //  update operations that failed
+            user = await UserManager.FindByIdAsync(model.User.Id);
+            model = new UserAccountInfoViewModel(user, user.Roles.Select(r => r.RoleId));
             return View(model);
         }
 
