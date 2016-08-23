@@ -68,7 +68,7 @@ namespace TicketDesk.Web.Identity.Migrations
                 {"user@example.com", new[] {"TdInternalUsers"}}
             };
 
-            if (currentUserId == null)
+            if (currentUserId == null && userManager.FindByName("admin@example.com") == null)
             {
                 users.Add( new TicketDeskUser
                 {
@@ -77,7 +77,7 @@ namespace TicketDesk.Web.Identity.Migrations
                     Email = "admin@example.com",
                     DisplayName = "Admin User"
                 });
-                rolesNames.Add("64165817-9cb5-472f-8bfb-6a35ca54be6a", new[] { "TdAdministrators" });
+                rolesNames.Add("admin@example.com", new[] { "TdAdministrators" });
             }
 
 
