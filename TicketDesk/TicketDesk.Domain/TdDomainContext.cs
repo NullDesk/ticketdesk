@@ -19,7 +19,6 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using TicketDesk.Domain.Localization;
 using TicketDesk.Domain.Model;
 using TicketDesk.Localization.Domain;
 

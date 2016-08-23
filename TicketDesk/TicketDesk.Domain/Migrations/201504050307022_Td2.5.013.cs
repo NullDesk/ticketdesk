@@ -1,6 +1,5 @@
 namespace TicketDesk.Domain.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class Td25013 : DbMigration

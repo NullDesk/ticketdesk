@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -56,17 +56,27 @@ namespace TicketDesk.Web.Client.Controllers
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
+            var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            if (demoMode)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInAsync(user, isPersistent: false);
-                }
-                return RedirectToAction("Manage", new { Message = AccountMessageId.ChangePasswordSuccess });
+                ModelState.AddModelError("Password", Strings.UnableToChangeDemoUser);
             }
-            AddErrors(result);
+            else { 
+            var result =
+                    await
+                        UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInAsync(user, isPersistent: false);
+                    }
+                    return RedirectToAction("Manage", new {Message = AccountMessageId.ChangePasswordSuccess});
+                }
+                AddErrors(result);
+            }
+            
             return View(model);
         }
 
@@ -87,19 +97,30 @@ namespace TicketDesk.Web.Client.Controllers
             }
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             var oldEmail = user.Email;
-            user.UserName = model.Email;
-            user.Email = model.Email;
-            user.DisplayName = model.DisplayName;
-            var result = await UserManager.UpdateAsync(user);
 
-            if (result.Succeeded)
+            var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            if (demoMode && oldEmail != model.Email)
             {
-                await ResetMailEmailDestination(user, oldEmail);
+                ModelState.AddModelError("Email", Strings.UnableToChangeDemoUser);
+            }
+            else
+            {
 
-                AuthenticationManager.SignOut();
-                await SignInManager.SignInAsync(user, false, false);//.SignIn(new AuthenticationProperties { IsPersistent = false }, 
-                //await user.GenerateUserIdentityAsync(UserManager);
-                return RedirectToAction("Manage", new { Message = AccountMessageId.ProfileSaveSuccess });
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                user.DisplayName = model.DisplayName;
+                var result = await UserManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    await ResetMailEmailDestination(user, oldEmail);
+
+                    AuthenticationManager.SignOut();
+                    await SignInManager.SignInAsync(user, false, false);
+                        //.SignIn(new AuthenticationProperties { IsPersistent = false }, 
+                    //await user.GenerateUserIdentityAsync(UserManager);
+                    return RedirectToAction("Manage", new {Message = AccountMessageId.ProfileSaveSuccess});
+                }
             }
             return View(model);
         }

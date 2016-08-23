@@ -11,7 +11,6 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using TicketDesk.Localization;
 using TicketDesk.Localization.PushNotifications;

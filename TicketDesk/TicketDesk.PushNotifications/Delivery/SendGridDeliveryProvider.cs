@@ -11,7 +11,6 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;

@@ -12,8 +12,6 @@
 // provided to the recipient.
 
 using System.ComponentModel.DataAnnotations;
-using TicketDesk.Domain.Localization;
-using TicketDesk.Localization;
 using TicketDesk.Localization.Domain;
 
 namespace TicketDesk.Domain.Model

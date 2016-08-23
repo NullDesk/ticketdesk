@@ -12,7 +12,6 @@
 // provided to the recipient.
 
 using System;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using TicketDesk.Localization;

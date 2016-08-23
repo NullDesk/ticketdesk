@@ -147,6 +147,9 @@
   <data name="ShowingFromProject" xml:space="preserve">
     <value>Showing results from project: {0}</value>
   </data>
+  <data name="UnableToChangeDemoUser" xml:space="preserve">
+    <value>Unable to change profile details for demo user.</value>
+  </data>
   <data name="UnableToCreateProject" xml:space="preserve">
     <value>Unable to create project, please try again.</value>
   </data>

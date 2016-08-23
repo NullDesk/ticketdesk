@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using Microsoft.AspNet.Identity;
-using TicketDesk.Web.Identity.Model;
 
 namespace TicketDesk.Web.Identity.Model
 {

@@ -151,6 +151,15 @@ namespace TicketDesk.Localization.Controllers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to change profile details for demo user..
+        /// </summary>
+        public static string UnableToChangeDemoUser {
+            get {
+                return ResourceManager.GetString("UnableToChangeDemoUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to create project, please try again..
         /// </summary>
         public static string UnableToCreateProject {

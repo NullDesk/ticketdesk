@@ -147,6 +147,10 @@
   <data name="ShowingFromProject" xml:space="preserve">
     <value>Mostrando resultados do projeto: {0}</value>
   </data>
+  <data name="UnableToChangeDemoUser" xml:space="preserve">
+    <value>Unable to change profile details for demo user.</value>
+    <comment>needs translation</comment>
+  </data>
   <data name="UnableToCreateProject" xml:space="preserve">
     <value>Não foi possível criar o projeto, por favor tente novamente.</value>
   </data>

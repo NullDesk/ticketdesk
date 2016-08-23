@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using TicketDesk.Domain;
-using TicketDesk.Domain.Model;
-using TicketDesk.Web.Identity;
+﻿using System.Threading.Tasks;
 using System.Data.Entity;
 
 namespace TicketDesk.Domain.Model

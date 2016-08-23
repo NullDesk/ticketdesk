@@ -14,7 +14,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Identity;
-using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
 using TicketDesk.Localization.Identity;
 

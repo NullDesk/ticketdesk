@@ -13,8 +13,6 @@
 
 using System;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;

@@ -11,7 +11,6 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;

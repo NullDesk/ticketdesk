@@ -11,22 +11,17 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
-using System;
 using System.Data.Entity;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.Domain.Model;
-using TicketDesk.IO;
 using TicketDesk.PushNotifications;
 using TicketDesk.Search.Common;
 using TicketDesk.Web.Client.Models;
@@ -190,10 +185,26 @@ namespace TicketDesk.Web.Client.Controllers
             }
 
             Database.SetInitializer(new TdIdentityDbInitializer());
-            var user = new TicketDeskUser { UserName = email, Email = email, DisplayName = displayName };
-            await UserManager.CreateAsync(user, password);
-            await UserManager.AddToRoleAsync(user.Id, "TdAdministrators");
-
+            var existingUser = UserManager.FindByName(email);
+            if (existingUser == null)
+            {
+                var user = new TicketDeskUser {UserName = email, Email = email, DisplayName = displayName};
+                await UserManager.CreateAsync(user, password);
+                await UserManager.AddToRoleAsync(user.Id, "TdAdministrators");
+            }
+            else
+            {
+                //should only happen if user entered one of the demo user names when setting up the DB
+                //reset the password to the one the user entered here, and set the admin role if needed
+                var token = await UserManager.GeneratePasswordResetTokenAsync(existingUser.Id);
+                await UserManager.ResetPasswordAsync(existingUser.Id, token, password);
+                existingUser.DisplayName = displayName;
+                await UserManager.UpdateAsync(existingUser);
+                if (!UserManager.IsTdAdministrator(existingUser.Id))
+                {
+                    await UserManager.AddToRoleAsync(existingUser.Id, "TdAdministrators");
+                }
+            }
             Database.SetInitializer(new TdPushNotificationDbInitializer());
 
             Startup.ConfigurePushNotifications();

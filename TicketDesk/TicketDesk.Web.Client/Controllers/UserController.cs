@@ -11,6 +11,8 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -109,6 +111,8 @@ namespace TicketDesk.Web.Client.Controllers
         public ActionResult SignIn(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.IsDemoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
+
             return View();
         }
 

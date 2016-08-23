@@ -18,7 +18,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using RedDog.Search.Model;
-using TicketDesk.IO;
 using TicketDesk.Search.Common;
 
 namespace TicketDesk.Search.Azure

@@ -12,8 +12,6 @@
 // provided to the recipient.
 
 using System.Linq;
-using System.Linq.Expressions;
-using TicketDesk.Domain.Localization;
 
 namespace TicketDesk.Domain.Model
 {

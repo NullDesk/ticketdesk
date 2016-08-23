@@ -12,7 +12,6 @@
 // provided to the recipient.
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TicketDesk.Domain.Model;
 

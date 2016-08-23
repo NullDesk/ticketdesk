@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +10,7 @@ using PagedList;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
 using TicketDesk.Web.Identity.Model;
+using TicketDesk.Localization.Controllers;
 
 namespace TicketDesk.Web.Client.Controllers
 {
@@ -72,46 +72,55 @@ namespace TicketDesk.Web.Client.Controllers
                 return View(model);
             }
             var user = await UserManager.FindByIdAsync(model.User.Id);
-           
-            //deal with locks first
-            if (await SetLockout(model, user))
-            {
-                //do user info updates
-                if (await UpdateUserInfo(user, model))
-                {
-                  
-                    //if any roles other than pending are selected, make sure we remove the pending role from the model first
-                    if (tdPendingRole != null)
-                    {
-                        if (model.Roles.Any(r => r != tdPendingRole.Id))
-                        {
-                            var mRoles = model.Roles.ToList();
-                            mRoles.Remove(tdPendingRole.Id);
-                            model.Roles = mRoles;
-                        }
-                    }
+            var demoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
 
-                    //get role changes
-                    var roleIdsToRemove = user.Roles.Select(ur => ur.RoleId).Except(model.Roles).ToList();
-                    var roleIdsToAdd = model.Roles.Except(user.Roles.Select(ur => ur.RoleId)).ToList();
-                    //do role removes
-                    if (await RemoveRoles(roleIdsToRemove, user))
+            if (demoMode && user.Email != model.User.Email)
+            {
+                ModelState.AddModelError("Email", Strings.UnableToChangeDemoUser);
+            }
+            else
+            {
+
+                //deal with locks first
+                if (await SetLockout(model, user))
+                {
+                    //do user info updates
+                    if (await UpdateUserInfo(user, model))
                     {
-                        //do role adds
-                        if (await AddRoles(roleIdsToAdd, user))
+
+                        //if any roles other than pending are selected, make sure we remove the pending role from the model first
+                        if (tdPendingRole != null)
                         {
-                            //everything worked, return to index (if anything failed, will return to the edit user view)
-                            return RedirectToAction("Index");
+                            if (model.Roles.Any(r => r != tdPendingRole.Id))
+                            {
+                                var mRoles = model.Roles.ToList();
+                                mRoles.Remove(tdPendingRole.Id);
+                                model.Roles = mRoles;
+                            }
+                        }
+
+                        //get role changes
+                        var roleIdsToRemove = user.Roles.Select(ur => ur.RoleId).Except(model.Roles).ToList();
+                        var roleIdsToAdd = model.Roles.Except(user.Roles.Select(ur => ur.RoleId)).ToList();
+                        //do role removes
+                        if (await RemoveRoles(roleIdsToRemove, user))
+                        {
+                            //do role adds
+                            if (await AddRoles(roleIdsToAdd, user))
+                            {
+                                //everything worked, return to index (if anything failed, will return to the edit user view)
+                                return RedirectToAction("Index");
+                            }
                         }
                     }
                 }
+                //Since the above operations could be partially committed before a failure, 
+                //  we will re-get the user so we are sure the screen will accurately show 
+                //  the current data. Model errors will have been added by the respective 
+                //  update operations that failed
+                user = await UserManager.FindByIdAsync(model.User.Id);
+                model = new UserAccountInfoViewModel(user, user.Roles.Select(r => r.RoleId));
             }
-            //Since the above operations could be partially committed before a failure, 
-            //  we will re-get the user so we are sure the screen will accurately show 
-            //  the current data. Model errors will have been added by the respective 
-            //  update operations that failed
-            user = await UserManager.FindByIdAsync(model.User.Id);
-            model = new UserAccountInfoViewModel(user, user.Roles.Select(r => r.RoleId));
             return View(model);
         }
 

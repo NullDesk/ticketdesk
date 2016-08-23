@@ -13,9 +13,7 @@
 
 
 using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
-using TicketDesk.Domain.Localization;
 using TicketDesk.Localization.Domain;
 
 

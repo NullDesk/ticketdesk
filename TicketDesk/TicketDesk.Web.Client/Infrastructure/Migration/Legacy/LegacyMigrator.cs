@@ -5,8 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using TicketDesk.Domain;
 using TicketDesk.Domain.Legacy.Model;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.IO;
