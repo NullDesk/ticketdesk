@@ -1,15 +1,15 @@
 /**
- * CLDR JavaScript Library v0.4.1
+ * CLDR JavaScript Library v0.4.4
  * http://jquery.com/
  *
  * Copyright 2013 Rafael Xavier de Souza
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2015-02-25T13:51Z
+ * Date: 2016-01-18T12:25Z
  */
 /*!
- * CLDR JavaScript Library v0.4.1 2015-02-25T13:51Z MIT license © Rafael Xavier
+ * CLDR JavaScript Library v0.4.4 2016-01-18T12:25Z MIT license © Rafael Xavier
  * http://git.io/h4lmVg
  */
 (function( root, factory ) {
@@ -123,12 +123,13 @@
 			language = subtags[ 0 ],
 			script = subtags[ 1 ],
 			sep = Cldr.localeSep,
-			territory = subtags[ 2 ];
+			territory = subtags[ 2 ],
+			variantsAndUnicodeLocaleExtensions = subtags.slice( 3, 4 );
 		options = options || {};
 
 		// Skip if (language, script, territory) is not empty [3.3]
 		if ( language !== "und" && script !== "Zzzz" && territory !== "ZZ" ) {
-			return [ language, script, territory ];
+			return [ language, script, territory ].concat( variantsAndUnicodeLocaleExtensions );
 		}
 
 		// Skip if no supplemental likelySubtags data is present
@@ -155,7 +156,9 @@
 				language !== "und" ? language : match[ 0 ],
 				script !== "Zzzz" ? script : match[ 1 ],
 				territory !== "ZZ" ? territory : match[ 2 ]
-			];
+			].concat(
+				variantsAndUnicodeLocaleExtensions
+			);
 		} else if ( options.force ) {
 			// [3.1.2]
 			return cldr.get( "supplemental/likelySubtags/und" ).split( sep );
@@ -183,7 +186,8 @@
 		var match, matchFound,
 			language = maxLanguageId[ 0 ],
 			script = maxLanguageId[ 1 ],
-			territory = maxLanguageId[ 2 ];
+			territory = maxLanguageId[ 2 ],
+			variants = maxLanguageId[ 3 ];
 
 		// [3]
 		matchFound = arraySome([
@@ -198,8 +202,15 @@
 				result[ 2 ] === maxLanguageId[ 2 ];
 		});
 
+		if ( matchFound ) {
+			if ( variants ) {
+				match.push( variants );
+			}
+			return match;
+		}
+
 		// [4]
-		return matchFound ?  match : maxLanguageId;
+		return maxLanguageId;
 	};
 
 
@@ -235,14 +246,16 @@
 		//     (sep unicode_variant_subtag)* ;
 		//
 		// Although unicode_language_subtag = alpha{2,8}, I'm using alpha{2,3}. Because, there's no language on CLDR lengthier than 3.
-		aux = unicodeLanguageId.match( /^(([a-z]{2,3})(-([A-Z][a-z]{3}))?(-([A-Z]{2}|[0-9]{3}))?)(-[a-zA-Z0-9]{5,8}|[0-9][a-zA-Z0-9]{3})*$|^(root)$/ );
+		aux = unicodeLanguageId.match( /^(([a-z]{2,3})(-([A-Z][a-z]{3}))?(-([A-Z]{2}|[0-9]{3}))?)((-([a-zA-Z0-9]{5,8}|[0-9][a-zA-Z0-9]{3}))*)$|^(root)$/ );
 		if ( aux === null ) {
 			return [ "und", "Zzzz", "ZZ" ];
 		}
-		subtags[ 0 /* language */ ] = aux[ 9 ] /* root */ || aux[ 2 ] || "und";
+		subtags[ 0 /* language */ ] = aux[ 10 ] /* root */ || aux[ 2 ] || "und";
 		subtags[ 1 /* script */ ] = aux[ 4 ] || "Zzzz";
 		subtags[ 2 /* territory */ ] = aux[ 6 ] || "ZZ";
-		subtags[ 3 /* variant */ ] = aux[ 7 ];
+		if ( aux[ 7 ] && aux[ 7 ].length ) {
+			subtags[ 3 /* variant */ ] = aux[ 7 ].slice( 1 ) /* remove leading "-" */;
+		}
 
 		// 0: language
 		// 1: script
@@ -285,7 +298,7 @@
 			arrayForEach( availableBundleMapQueue, function( bundle ) {
 				var existing, maxBundle, minBundle, subtags;
 				subtags = coreSubtags( bundle );
-				maxBundle = coreLikelySubtags( Cldr, cldr, subtags, { force: true } ) || subtags;
+				maxBundle = coreLikelySubtags( Cldr, cldr, subtags );
 				minBundle = coreRemoveLikelySubtags( Cldr, cldr, maxBundle );
 				minBundle = minBundle.join( Cldr.localeSep );
 				existing = availableBundleMapQueue[ minBundle ];
@@ -433,7 +446,8 @@
 
 		if ( main ) {
 			for ( bundle in main ) {
-				if ( main.hasOwnProperty( bundle ) && bundle !== "root" ) {
+				if ( main.hasOwnProperty( bundle ) && bundle !== "root" &&
+							availableBundleMapQueue.indexOf( bundle ) === -1 ) {
 					availableBundleMapQueue.push( bundle );
 				}
 			}
@@ -463,12 +477,7 @@
 		arrayForEach( sources, function( source ) {
 			var prop;
 			for ( prop in source ) {
-				if ( prop in destination && arrayIsArray( destination[ prop ] ) ) {
-
-					// Concat Arrays
-					destination[ prop ] = destination[ prop ].concat( source[ prop ] );
-
-				} else if ( prop in destination && typeof destination[ prop ] === "object" ) {
+				if ( prop in destination && typeof destination[ prop ] === "object" && !arrayIsArray( destination[ prop ] ) ) {
 
 					// Merge Objects
 					destination[ prop ] = merge( destination[ prop ], source[ prop ] );
