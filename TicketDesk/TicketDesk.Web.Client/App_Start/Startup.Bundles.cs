@@ -74,6 +74,7 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                     "~/Scripts/select2.js",
+                   
                     "~/Scripts/jquery.ui.sortable/jquery-ui-custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/summernote").Include(

@@ -16,6 +16,8 @@
 
         var config = {};
        
+
+
         var cofigureTags = function () {
             $('#ticketTags').select2({
                 tags: [],
