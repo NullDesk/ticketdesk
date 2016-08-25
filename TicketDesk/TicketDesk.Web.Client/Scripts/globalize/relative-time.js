@@ -1,5 +1,5 @@
 /**
- * Globalize v1.1.1
+ * Globalize v1.0.0
  *
  * http://github.com/jquery/globalize
  *
@@ -7,10 +7,10 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-02-04T12:01Z
+ * Date: 2015-04-23T12:02Z
  */
 /*!
- * Globalize v1.1.1 2016-02-04T12:01Z Released under the MIT license
+ * Globalize v1.0.0 2015-04-23T12:02Z Released under the MIT license
  * http://git.io/TrdQbw
  */
 (function( root, factory ) {
@@ -39,7 +39,6 @@
 }(this, function( Cldr, Globalize ) {
 
 var formatMessage = Globalize._formatMessage,
-	runtimeBind = Globalize._runtimeBind,
 	validateCldr = Globalize._validateCldr,
 	validateDefaultLocale = Globalize._validateDefaultLocale,
 	validateParameterPresence = Globalize._validateParameterPresence,
@@ -76,19 +75,6 @@ var relativeTimeFormat = function( value, numberFormatter, pluralGenerator, prop
 
 	message = relativeTime[ "relativeTimePattern-count-" + pluralGenerator( value ) ];
 	return formatMessage( message, [ numberFormatter( value ) ] );
-};
-
-
-
-
-var relativeTimeFormatterFn = function( numberFormatter, pluralGenerator, properties ) {
-	return function relativeTimeFormatter( value ) {
-		validateParameterPresence( value, "value" );
-		validateParameterTypeNumber( value, "value" );
-
-		return relativeTimeFormat( value, numberFormatter, pluralGenerator, properties );
-	};
-
 };
 
 
@@ -148,6 +134,7 @@ var relativeTimeProperties = function( unit, cldr, options ) {
  */
 Globalize.formatRelativeTime =
 Globalize.prototype.formatRelativeTime = function( value, unit, options ) {
+
 	validateParameterPresence( value, "value" );
 	validateParameterTypeNumber( value, "value" );
 
@@ -167,15 +154,13 @@ Globalize.prototype.formatRelativeTime = function( value, unit, options ) {
  */
 Globalize.relativeTimeFormatter =
 Globalize.prototype.relativeTimeFormatter = function( unit, options ) {
-	var args, cldr, numberFormatter, pluralGenerator, properties, returnFn;
+	var cldr, numberFormatter, pluralGenerator, properties;
 
 	validateParameterPresence( unit, "unit" );
 	validateParameterTypeString( unit, "unit" );
 
 	cldr = this.cldr;
 	options = options || {};
-
-	args = [ unit, options ];
 
 	validateDefaultLocale( cldr );
 
@@ -186,11 +171,12 @@ Globalize.prototype.relativeTimeFormatter = function( unit, options ) {
 	numberFormatter = this.numberFormatter( options );
 	pluralGenerator = this.pluralGenerator();
 
-	returnFn = relativeTimeFormatterFn( numberFormatter, pluralGenerator, properties );
+	return function( value ) {
+		validateParameterPresence( value, "value" );
+		validateParameterTypeNumber( value, "value" );
 
-	runtimeBind( args, cldr, returnFn, [ numberFormatter, pluralGenerator, properties ] );
-
-	return returnFn;
+		return relativeTimeFormat( value, numberFormatter, pluralGenerator, properties );
+	};
 };
 
 return Globalize;

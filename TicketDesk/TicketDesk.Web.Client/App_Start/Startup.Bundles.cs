@@ -79,16 +79,12 @@ namespace TicketDesk.Web.Client
             bundles.Add(new ScriptBundle("~/bundles/summernote").Include(
                 "~/Scripts/summernote/summernote.js"));
 
-            bundles
-                .Add(new ScriptBundle("~/bundles/markdown")
-                .Include(
+            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
                     "~/Scripts/pagedown/Markdown.Converter.js",
                     "~/Scripts/pagedown/Markdown.Sanitizer.js",
                     "~/Scripts/pagedown/Markdown.Editor.js"));
 
-            bundles
-                .Add(new ScriptBundle("~/bundles/common")
-                .Include(
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
                     "~/Scripts/jquery-{version}.js",
                     "~/Scripts/jquery.unobtrusive-ajax.js",
 #if (DEBUG)
@@ -99,11 +95,9 @@ namespace TicketDesk.Web.Client
                     "~/Scripts/jquery.validate.unobtrusive.min.js",
 #endif
                     "~/Scripts/cldr.js",
-                    
-
                     "~/Scripts/cldr/event.js",
                     "~/Scripts/cldr/supplemental.js",
-                    "~/Scripts/globalize.js",
+                    "~/Scripts/jquery.globalize/globalize.js",
                     "~/Scripts/bootstrap.js"));
 
 

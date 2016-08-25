@@ -1,5 +1,5 @@
 /**
- * Globalize v1.1.1
+ * Globalize v1.0.0
  *
  * http://github.com/jquery/globalize
  *
@@ -7,10 +7,10 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-02-04T12:01Z
+ * Date: 2015-04-23T12:02Z
  */
 /*!
- * Globalize v1.1.1 2016-02-04T12:01Z Released under the MIT license
+ * Globalize v1.0.0 2015-04-23T12:02Z Released under the MIT license
  * http://git.io/TrdQbw
  */
 (function( root, factory ) {
@@ -36,8 +36,7 @@
 	}
 }(this, function( Cldr, Globalize ) {
 
-var runtimeBind = Globalize._runtimeBind,
-	validateCldr = Globalize._validateCldr,
+var validateCldr = Globalize._validateCldr,
 	validateDefaultLocale = Globalize._validateDefaultLocale,
 	validateParameterPresence = Globalize._validateParameterPresence,
 	validateParameterType = Globalize._validateParameterType,
@@ -45,7 +44,7 @@ var runtimeBind = Globalize._runtimeBind,
 var MakePlural;
 /* jshint ignore:start */
 MakePlural = (function() {
-'use strict';
+
 
 var _toArray = function (arr) { return Array.isArray(arr) ? arr : Array.from(arr); };
 
@@ -289,18 +288,6 @@ var validateParameterTypePluralType = function( value, name ) {
 
 
 
-var pluralGeneratorFn = function( plural ) {
-	return function pluralGenerator( value ) {
-		validateParameterPresence( value, "value" );
-		validateParameterTypeNumber( value, "value" );
-
-		return plural( value );
-	};
-};
-
-
-
-
 /**
  * .plural( value )
  *
@@ -330,15 +317,13 @@ Globalize.prototype.plural = function( value, options ) {
  */
 Globalize.pluralGenerator =
 Globalize.prototype.pluralGenerator = function( options ) {
-	var args, cldr, isOrdinal, plural, returnFn, type;
+	var cldr, isOrdinal, plural, type;
 
 	validateParameterTypePlainObject( options, "options" );
 
 	options = options || {};
-	cldr = this.cldr;
-
-	args = [ options ];
 	type = options.type || "cardinal";
+	cldr = this.cldr;
 
 	validateParameterTypePluralType( options.type, "options.type" );
 
@@ -358,11 +343,12 @@ Globalize.prototype.pluralGenerator = function( options ) {
 		"cardinals": !isOrdinal
 	});
 
-	returnFn = pluralGeneratorFn( plural );
+	return function( value ) {
+		validateParameterPresence( value, "value" );
+		validateParameterTypeNumber( value, "value" );
 
-	runtimeBind( args, cldr, returnFn, [ plural ] );
-
-	return returnFn;
+		return plural( value );
+	};
 };
 
 return Globalize;

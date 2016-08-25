@@ -1,5 +1,5 @@
 /**
- * Globalize v1.1.1
+ * Globalize v1.0.0
  *
  * http://github.com/jquery/globalize
  *
@@ -7,10 +7,10 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-02-04T12:01Z
+ * Date: 2015-04-23T12:02Z
  */
 /*!
- * Globalize v1.1.1 2016-02-04T12:01Z Released under the MIT license
+ * Globalize v1.0.0 2015-04-23T12:02Z Released under the MIT license
  * http://git.io/TrdQbw
  */
 (function( root, factory ) {
@@ -36,11 +36,9 @@
 }(this, function( Cldr, Globalize ) {
 
 var alwaysArray = Globalize._alwaysArray,
-	createError = Globalize._createError,
 	isPlainObject = Globalize._isPlainObject,
-	runtimeBind = Globalize._runtimeBind,
-	validateDefaultLocale = Globalize._validateDefaultLocale,
 	validate = Globalize._validate,
+	validateDefaultLocale = Globalize._validateDefaultLocale,
 	validateParameterPresence = Globalize._validateParameterPresence,
 	validateParameterType = Globalize._validateParameterType,
 	validateParameterTypePlainObject = Globalize._validateParameterTypePlainObject;
@@ -1406,7 +1404,7 @@ MessageFormat._parse = (function() {
     SyntaxError: SyntaxError,
     parse:       parse
   };
-}()).parse;
+})().parse;
 
 
 /** @file messageformat.js - ICU PluralFormat + SelectFormat for JavaScript
@@ -1862,13 +1860,6 @@ return MessageFormat;
 /* jshint ignore:end */
 
 
-var createErrorPluralModulePresence = function() {
-	return createError( "E_MISSING_PLURAL_MODULE", "Plural module not loaded." );
-};
-
-
-
-
 var validateMessageBundle = function( cldr ) {
 	validate(
 		"E_MISSING_MESSAGE_BUNDLE",
@@ -1920,66 +1911,26 @@ var validateParameterTypeMessageVariables = function( value, name ) {
 
 
 
-var messageFormatterFn = function( formatter ) {
-	return function messageFormatter( variables ) {
-		if ( typeof variables === "number" || typeof variables === "string" ) {
-			variables = [].slice.call( arguments, 0 );
-		}
-		validateParameterTypeMessageVariables( variables, "variables" );
-		return formatter( variables );
-	};
-};
-
-
-
-
-var messageFormatterRuntimeBind = function( cldr, messageformatter ) {
-	var locale = cldr.locale,
-		origToString = messageformatter.toString;
-
-	messageformatter.toString = function() {
-		var argNames, argValues, output,
-			args = {};
-
-		// Properly adjust SlexAxton/messageformat.js compiled variables with Globalize variables:
-		output = origToString.call( messageformatter );
-
-		if ( /number\(/.test( output ) ) {
-			args.number = "messageFormat.number";
-		}
-
-		if ( /plural\(/.test( output ) ) {
-			args.plural = "messageFormat.plural";
-		}
-
-		if ( /select\(/.test( output ) ) {
-			args.select = "messageFormat.select";
-		}
-
-		output.replace( /pluralFuncs(\[([^\]]+)\]|\.([a-zA-Z]+))/, function( match ) {
-			args.pluralFuncs = "{" +
-				"\"" + locale + "\": Globalize(\"" + locale + "\").pluralGenerator()" +
-				"}";
-			return match;
-		});
-
-		argNames = Object.keys( args ).join( ", " );
-		argValues = Object.keys( args ).map(function( key ) {
-			return args[ key ];
-		}).join( ", " );
-
-		return "(function( " + argNames + " ) {\n" +
-			"  return " + output + "\n" +
-			"})(" + argValues + ")";
-	};
-
-	return messageformatter;
+var validatePluralModulePresence = function() {
+	validate( "E_MISSING_PLURAL_MODULE", "Plural module not loaded.",
+		Globalize.plural !== undefined, {} );
 };
 
 
 
 
 var slice = [].slice;
+
+function MessageFormatInit( globalize, cldr ) {
+	var plural;
+	return new MessageFormat( cldr.locale, function( value ) {
+		if ( !plural ) {
+			validatePluralModulePresence();
+			plural = globalize.pluralGenerator();
+		}
+		return plural( value );
+	});
+}
 
 /**
  * .loadMessages( json )
@@ -2017,8 +1968,7 @@ Globalize.loadMessages = function( json ) {
  */
 Globalize.messageFormatter =
 Globalize.prototype.messageFormatter = function( path ) {
-	var cldr, formatter, message, pluralGenerator, returnFn,
-		args = slice.call( arguments, 0 );
+	var cldr, formatter, message;
 
 	validateParameterPresence( path, "path" );
 	validateParameterType( path, "path", typeof path === "string" || Array.isArray( path ),
@@ -2039,19 +1989,15 @@ Globalize.prototype.messageFormatter = function( path ) {
 	}
 	validateMessageType( path, message );
 
-	// Is plural module present? Yes, use its generator. Nope, use an error generator.
-	pluralGenerator = this.plural !== undefined ?
-		this.pluralGenerator() :
-		createErrorPluralModulePresence;
+	formatter = MessageFormatInit( this, cldr ).compile( message );
 
-	formatter = new MessageFormat( cldr.locale, pluralGenerator ).compile( message );
-
-	returnFn = messageFormatterFn( formatter );
-
-	runtimeBind( args, cldr, returnFn,
-		[ messageFormatterRuntimeBind( cldr, formatter ), pluralGenerator ] );
-
-	return returnFn;
+	return function( variables ) {
+		if ( typeof variables === "number" || typeof variables === "string" ) {
+			variables = slice.call( arguments, 0 );
+		}
+		validateParameterTypeMessageVariables( variables, "variables" );
+		return formatter( variables );
+	};
 };
 
 /**

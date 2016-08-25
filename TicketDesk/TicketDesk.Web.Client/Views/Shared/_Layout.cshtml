@@ -149,41 +149,17 @@
     @Scripts.Render("~/bundles/common")
     @Scripts.Render("~/bundles/common_locale_" + CultureHelper.GetCurrentCulture())
     <script type="text/javascript">
+        Globalize.culture(window.currentCulture);
 
-        $.when(
-          $.get('@Href("~/scripts/cldr/supplemental/likelySubtags.json")'),
-          $.get('@Href("~/scripts/cldr/supplemental/numberingSystems.json")'),
-          $.get('@Href("~/scripts/cldr/supplemental/timeData.json")'),
-          $.get('@Href("~/scripts/cldr/supplemental/weekData.json")')
-        ).then(function () {
-
-            // Normalize $.get results, we only need the JSON, not the request statuses.
-            return [].slice.apply(arguments, [0]).map(function (result) {
-                return result[0];
-            });
-
-        }).then(Globalize.load).then(function () {
-
-            Globalize.locale(window.currentCulture);
-
-            //Fix to decimal separator validation
-            var _number = $.validator.methods.number;
-            $.validator.methods.number = function (value, element) {
-                return _number.call(this, Globalize.parseFloat(value), element);
-            };
-            var _range = $.validator.methods.range;
-            $.validator.methods.range = function (value, element, param) {
-                return _range.call(this, Globalize.parseFloat(value), element, param);
-            };
-
-        });
-
-
-
-
-
-
-
+        //Fix to decimal separator validation
+        var _number = $.validator.methods.number;
+        $.validator.methods.number = function (value, element) {
+            return _number.call(this, Globalize.parseFloat(value), element);
+        };
+        var _range = $.validator.methods.range;
+        $.validator.methods.range = function (value, element, param) {
+            return _range.call(this, Globalize.parseFloat(value), element, param);
+        };
     </script>
     @RenderSection("scripts", required: false)
 
