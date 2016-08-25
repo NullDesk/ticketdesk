@@ -64,7 +64,7 @@ namespace TicketDesk.Localization.Views.Home {
         ///   Looks up a localized string similar to &lt;h3&gt;TD 2.5 Change List&lt;/h3&gt;
         ///        &lt;strong&gt;Feature Updates&lt;/strong&gt;
         ///        &lt;ul&gt;
-        ///            &lt;li&gt;Online Setup (frist-run-setup)&lt;/li&gt;
+        ///            &lt;li&gt;Online Setup (first-run-setup)&lt;/li&gt;
         ///            &lt;li&gt;Multiple Projects&lt;/li&gt;
         ///            &lt;li&gt;Multiple rich text editor options&lt;/li&gt;
         ///            &lt;li&gt;Responsive UI (small screen device support)&lt;/li&gt;
