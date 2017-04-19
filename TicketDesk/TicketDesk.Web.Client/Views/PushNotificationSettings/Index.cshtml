@@ -35,7 +35,7 @@
                 url: $.validator.methods.url
             };
             $.validator.methods.url = function (value, element) {
-                return this.optional(element) || (/^http:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\w]*)*$/).test(value);
+                return this.optional(element) || (/^https?:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\w]*)*$/).test(value);
             };
         });
     </script>

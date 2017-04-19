@@ -15,6 +15,7 @@
   <HelpConfiguration name="HelpFile">
     <OutputPath>C:\Users\stephenr.WEBER\Documents\Projects\Personal\TicketDesk2.5\TicketDesk-2.5\Help</OutputPath>
     <CleanupOutputPath>true</CleanupOutputPath>
+    <HelpFileNamingMethod>MemberName</HelpFileNamingMethod>
     <ImageFolderPath />
     <HtmlFormats>
       <HtmlHelp>true</HtmlHelp>
