@@ -45,17 +45,17 @@ namespace TicketDesk.Web.Client
         public Container GetInitializedContainer(IAppBuilder app)
         {
             var container = new Container();
+            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
             container.RegisterSingleton(app);
 
-
+            
             //allows objects to be reused when inside web request, or created fresh when used on background threads or outside a request context
             var hybridLifestyle = Lifestyle.CreateHybrid(
                 () => HttpContext.Current != null, new WebRequestLifestyle(), Lifestyle.Transient);
 
-            container.RegisterPerWebRequest<TicketDeskContextSecurityProvider>();
+            container.Register<TicketDeskContextSecurityProvider>(Lifestyle.Scoped);
 
-            container.Register(() => new TdPushNotificationContext(), hybridLifestyle);
 
             container.Register(() => HttpContext.Current != null ?
                     new TdDomainContext(container.GetInstance<TicketDeskContextSecurityProvider>()) :
@@ -73,7 +73,7 @@ namespace TicketDesk.Web.Client
                 hybridLifestyle);
 
 
-            container.RegisterPerWebRequest(() =>
+            container.Register(() =>
             {
                 IOwinContext context;
                 try
@@ -91,10 +91,10 @@ namespace TicketDesk.Web.Client
                 }
 
                 return context.Authentication;
-            }
-                );
+            },
+            Lifestyle.Scoped);
 
-            container.RegisterPerWebRequest<SignInManager<TicketDeskUser, string>, TicketDeskSignInManager>();
+            container.Register<SignInManager<TicketDeskUser, string>, TicketDeskSignInManager>(Lifestyle.Scoped);
 
             container.Register<TicketDeskRoleManager>(hybridLifestyle);
 

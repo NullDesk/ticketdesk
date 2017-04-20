@@ -12,13 +12,6 @@ namespace TicketDesk.Web.Client.Models
 
         public string SiteRootUrl { get; set; }
 
-        public bool IsMultiProject
-        {
-            get
-            {
-                var context = DependencyResolver.Current.GetService<TdDomainContext>();
-                return context.Projects.Count() > 1;
-            }
-        }
+        public bool IsMultiProject { get; set; }
     }
 }

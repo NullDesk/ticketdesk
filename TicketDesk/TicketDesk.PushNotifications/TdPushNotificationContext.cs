@@ -98,7 +98,7 @@ namespace TicketDesk.PushNotifications
             }
         }
 
-        public async Task<bool> AddNotificationsAsync(IEnumerable<TicketPushNotificationEventInfo> infoItems)
+        public bool AddNotifications(IEnumerable<TicketPushNotificationEventInfo> infoItems)
         {
             foreach (var item in infoItems)
             {
@@ -107,13 +107,14 @@ namespace TicketDesk.PushNotifications
                 var appSettings = TicketDeskPushNotificationSettings;
 
                 //get items already in db that haven't been sent yet
-                var existingItems =
-                    await
-                        TicketPushNotificationItems.Include(t => t.PushNotificationItem).Include(t => t.PushNotificationItem.Destination).Where(n =>
-                            n.PushNotificationItem.ContentSourceId == citem.TicketId &&
-                            n.PushNotificationItem.ContentSourceType == "ticket" &&
-                            n.PushNotificationItem.SubscriberId == citem.SubscriberId &&
-                            n.PushNotificationItem.DeliveryStatus == PushNotificationItemStatus.Scheduled).ToArrayAsync();
+                var existingItems =TicketPushNotificationItems
+                    .Include(t => t.PushNotificationItem)
+                    .Include(t => t.PushNotificationItem.Destination)
+                    .Where(n =>
+                        n.PushNotificationItem.ContentSourceId == citem.TicketId &&
+                        n.PushNotificationItem.ContentSourceType == "ticket" &&
+                        n.PushNotificationItem.SubscriberId == citem.SubscriberId &&
+                        n.PushNotificationItem.DeliveryStatus == PushNotificationItemStatus.Scheduled);
                 
                 //for already scheduled, just add the new event
                 foreach (var existingItem in existingItems)
@@ -126,7 +127,7 @@ namespace TicketDesk.PushNotifications
                 foreach (var schedNote in schedNotes)
                 {
                     //if no item for this destination in existing scheduled items list, add a new note for that destination
-                    if (!existingItems.Any(i => i.PushNotificationItem.DestinationId == schedNote.PushNotificationItem.DestinationId))
+                    if (existingItems.All(i => i.PushNotificationItem.DestinationId != schedNote.PushNotificationItem.DestinationId))
                     {
                         if (schedNote.TicketEventsList.Any())
                         {

@@ -12,7 +12,9 @@
 // provided to the recipient.
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,12 +22,16 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications;
 using TicketDesk.PushNotifications.Migrations;
+using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Infrastructure;
 
 namespace TicketDesk.Web.Client
 {
     public partial class Startup
     {
+        /// <summary>
+        /// Configures the push notifications.
+        /// </summary>
         public static void ConfigurePushNotifications()
         {
             var demoMode = ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false";
@@ -58,32 +64,48 @@ namespace TicketDesk.Web.Client
                 //register for static notifications created event handler 
                 TdDomainContext.NotificationsCreated += (sender, notifications) =>
                 {
-                    // ReSharper disable once EmptyGeneralCatchClause
-                    try
+                    HostingEnvironment.QueueBackgroundWorkItem(ct =>
                     {
-                        var notes = notifications as TicketEventNotification[] ?? notifications.ToArray();
-                        if (notes.Any())
+                        // ReSharper disable once EmptyGeneralCatchClause
+                        try
                         {
-                            HostingEnvironment.QueueBackgroundWorkItem(
-                                async ct =>
+                            var notificationIds = notifications.Select(n => n.EventId).ToArray();
+                            var domainContext = DependencyResolver.Current.GetService<TdDomainContext>();
+                            var multiProject = domainContext.Projects.Count() > 1;
+                            //fetch these back and make sure all dependent entities we need are loaded
+                            var notes = domainContext.TicketEventNotifications
+                                .Include(t => t.TicketEvent)
+                                .Include(t => t.TicketEvent.Ticket)
+                                .Include(t => t.TicketEvent.Ticket.Project)
+                                .Include(t => t.TicketSubscriber)
+                                .Where(t => notificationIds.Contains(t.EventId))
+                                .ToArray();
+
+                            if (notes.Any())
+                            {
+                                using (var noteContext = new TdPushNotificationContext())
                                 {
-                                    var noteContext = DependencyResolver.Current.GetService<TdPushNotificationContext>();
                                     var subscriberExclude =
-                                        noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings.ExcludeSubscriberEvents;
-                                    await noteContext.AddNotificationsAsync(notes.ToNotificationEventInfoCollection(subscriberExclude));
-                                    
-                                    await noteContext.SaveChangesAsync(ct);
-                                    
-                                });
+                                        noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings
+                                            .ExcludeSubscriberEvents;
+
+                                    var noteEvents = notes.ToNotificationEventInfoCollection(subscriberExclude,
+                                        multiProject);
+
+                                    noteContext.AddNotifications(noteEvents);
+
+                                    noteContext.SaveChanges();
+                                }
+                            }
                         }
-                    }
-                    catch
-                    {
-                        //TODO: Log this somewhere
-                    }
+                        catch
+                        {
+                            //TODO: Log this somewhere
+                        }
+                    });
                 };
             }
         }
-        
+
     }
 }

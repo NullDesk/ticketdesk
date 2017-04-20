@@ -40,27 +40,33 @@ namespace TicketDesk.Domain.Model
                 }
                 return _rootUrl;
             }
-           
+
         }
 
         public static IEnumerable<TicketPushNotificationEventInfo> ToNotificationEventInfoCollection(
-            this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude)
+            this IEnumerable<TicketEventNotification> eventNotifications, bool subscriberExclude, bool multiProject)
         {
 
-            return eventNotifications.Select(note => new TicketPushNotificationEventInfo()
+            return eventNotifications.Select(note =>
             {
-                TicketId = note.TicketId,
-                SubscriberId = note.SubscriberId,
-                EventId = note.EventId,
-                CancelNotification = subscriberExclude && note.IsRead,
-                MessageContent = GetEmailForNote(note)
+                
+                return new TicketPushNotificationEventInfo()
+                {
+                    TicketId = note.TicketId,
+                    SubscriberId = note.SubscriberId,
+                    EventId = note.EventId,
+                    CancelNotification = subscriberExclude && note.IsRead,
+                    MessageContent = GetEmailForNote(note, multiProject)
+                };
+
             });
 
         }
 
-        private static string GetEmailForNote(TicketEventNotification note)
+        private static string GetEmailForNote(TicketEventNotification note, bool multiProject)
         {
-            var email = new TicketEmail { Ticket = note.TicketEvent.Ticket, SiteRootUrl = RootUrl};
+
+            var email = new TicketEmail { Ticket = note.TicketEvent.Ticket, SiteRootUrl = RootUrl, IsMultiProject = multiProject };
             var mailService = new EmailService();
             SerializableMailMessage message = mailService.CreateMailMessage(email);
             using (var ms = new MemoryStream())

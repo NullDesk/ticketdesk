@@ -73,10 +73,7 @@ namespace TicketDesk.Web.Client.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     HostingEnvironment.QueueBackgroundWorkItem(ct =>
                     {
-                        using
-                        (
-                           var notificationContext = DependencyResolver.Current.GetService<TdPushNotificationContext>()
-                        )
+                        using(var notificationContext = new TdPushNotificationContext())
                         {
                             notificationContext.SubscriberPushNotificationSettingsManager.AddSettingsForSubscriber(
                                 new SubscriberNotificationSetting
