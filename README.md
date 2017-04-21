@@ -16,9 +16,7 @@ Documentation can be found in the [TicketDesk GitHub Wiki](https://github.com/St
 Project Status:
 ===========
 
-[TicketDesk 2.5 is in beta](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.5.0). Development should resume in December 2015 towards a stable release version. 
-
-View a working [demo of TicketDesk 2.5 here](http://ticketdesk2.azurewebsites.net/). The demo is automatically deployed by continuous integration from the development branch.
+[TicketDesk 2.5 is in beta](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.5.1). 
 
 The current stable version is [TicektDesk 2.1](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.1.3). 
 
