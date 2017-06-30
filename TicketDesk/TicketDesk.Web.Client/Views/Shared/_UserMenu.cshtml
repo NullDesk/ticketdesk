@@ -35,7 +35,10 @@
         }
         else
         {
-            <li>@Html.ActionLink(@_Layout.Register, "Register", "User", null, new { id = "registerLink" })</li>
+            if (ApplicationConfig.RegisterEnabled)
+            {
+                <li>@Html.ActionLink(@_Layout.Register, "Register", "User", null, new { id = "registerLink" })</li>
+            }
             <li>@Html.ActionLink(@_Layout.SignIn, "SignIn", "User", null, new { id = "loginLink" })</li>
         }
     </ul>

@@ -54,7 +54,14 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("register")]
         public ActionResult Register()
         {
-            return View();
+            if (ApplicationConfig.RegisterEnabled)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
