@@ -29,13 +29,15 @@ namespace TicketDesk.PushNotifications.Migrations
 
             context.SaveChanges();
 
-            Configuration.InitializeStockUserSettings(context);
-            context.SaveChanges();
+
         }
         public static void SetupDemoPushNotificationData(TdPushNotificationContext context)
         {
-            if (!context.SubscriberPushNotificationSettings.Any(
-                    s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
+            if (!context.SubscriberPushNotificationSettings.Any(s => 
+                    s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"
+                 || s.PushNotificationDestinations.Any(d => 
+                                   d.DestinationAddress == "admin@example.com"
+                                && d.DestinationType == "email")))
             {
                 context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
                 {
@@ -52,8 +54,11 @@ namespace TicketDesk.PushNotifications.Migrations
                     }
                 });
             }
-            if (!context.SubscriberPushNotificationSettings.Any(
-                s => s.SubscriberId == "72bdddfb-805a-4883-94b9-aa494f5f52dc"))
+            if (!context.SubscriberPushNotificationSettings.Any(s => 
+                        s.SubscriberId == "72bdddfb-805a-4883-94b9-aa494f5f52dc"
+                     || s.PushNotificationDestinations.Any(d =>
+                            d.DestinationAddress == "staff@example.com"
+                         && d.DestinationType == "email")))
             {
                 context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
                 {
@@ -71,8 +76,11 @@ namespace TicketDesk.PushNotifications.Migrations
                 });
             }
 
-            if (!context.SubscriberPushNotificationSettings.Any(
-                s => s.SubscriberId == "17f78f38-fa68-445f-90de-38896140db28"))
+            if (!context.SubscriberPushNotificationSettings.Any(s => 
+                    s.SubscriberId == "17f78f38-fa68-445f-90de-38896140db28"
+                 || s.PushNotificationDestinations.Any(d =>
+                           d.DestinationAddress == "user@example.com"
+                        && d.DestinationType == "email")))
             {
                 context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
                 {

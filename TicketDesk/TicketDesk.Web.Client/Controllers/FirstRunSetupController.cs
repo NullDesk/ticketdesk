@@ -23,6 +23,7 @@ using TicketDesk.Domain.Legacy;
 using TicketDesk.Domain.Migrations;
 using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications;
+using TicketDesk.PushNotifications.Model;
 using TicketDesk.Search.Common;
 using TicketDesk.Web.Client.Models;
 using TicketDesk.Web.Identity;
@@ -83,11 +84,11 @@ namespace TicketDesk.Web.Client.Controllers
 
 
 
-           
+
             return RedirectToAction("CheckUpgradeProgress");
         }
 
-        
+
 
 
         [Route("check-upgrade-progress")]
@@ -174,9 +175,9 @@ namespace TicketDesk.Web.Client.Controllers
                     new MigrateDatabaseToLatestVersion<TdDomainContext, Configuration>(true));
                 ctx.Database.Initialize(true);
             }
-          
 
-          
+
+
 
             var filter = GlobalFilters.Filters.FirstOrDefault(f => f.Instance is DbSetupFilter);
             if (filter != null)
@@ -186,11 +187,14 @@ namespace TicketDesk.Web.Client.Controllers
 
             Database.SetInitializer(new TdIdentityDbInitializer());
             var existingUser = UserManager.FindByName(email);
+            TicketDeskUser newUser = null;
             if (existingUser == null)
             {
-                var user = new TicketDeskUser {UserName = email, Email = email, DisplayName = displayName};
-                await UserManager.CreateAsync(user, password);
-                await UserManager.AddToRoleAsync(user.Id, "TdAdministrators");
+                newUser = new TicketDeskUser { UserName = email, Email = email, DisplayName = displayName };
+                await UserManager.CreateAsync(newUser, password);
+                await UserManager.AddToRoleAsync(newUser.Id, "TdAdministrators");
+               
+
             }
             else
             {
@@ -208,6 +212,28 @@ namespace TicketDesk.Web.Client.Controllers
             Database.SetInitializer(new TdPushNotificationDbInitializer());
 
             Startup.ConfigurePushNotifications();
+            if (newUser != null)
+            {
+                using (var notificationContext = new TdPushNotificationContext())
+                {
+                    notificationContext.SubscriberPushNotificationSettingsManager.AddSettingsForSubscriber(
+                        new SubscriberNotificationSetting
+                        {
+                            SubscriberId = newUser.Id,
+                            IsEnabled = true,
+                            PushNotificationDestinations = new[]
+                            {
+                                new PushNotificationDestination()
+                                {
+                                    DestinationType = "email",
+                                    DestinationAddress = newUser.Email,
+                                    SubscriberName = newUser.DisplayName
+                                }
+                            }
+                        });
+                    notificationContext.SaveChanges();
+                }
+            }
             UpdateSearchIndex();
             return RedirectToAction("Index");
         }
@@ -270,7 +296,7 @@ namespace TicketDesk.Web.Client.Controllers
         public ActionResult SetupCompleteInfo()
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
-            
+
             if (!Model.DatabaseStatus.IsDatabaseReady || !Model.DatabaseStatus.IsCompatibleWithEfModel || Model.DatabaseStatus.HasLegacySecurityObjects)
             {
                 return new EmptyResult();

@@ -63,6 +63,9 @@ namespace TicketDesk.Web.Client.Controllers
             }
             ViewBag.CurrentRootUrl = GetCurrentRootUrl();
             ViewBag.SiteRootUrl = GetRootUrlSetting();
+
+            Task.Delay(500).ContinueWith(t => System.Web.HttpRuntime.UnloadAppDomain()).ConfigureAwait(false);
+
             return View(dbSetting);
         }
 
