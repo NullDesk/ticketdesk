@@ -83,6 +83,18 @@
                                             }
                                         </div>
                                     </div>
+                                    
+                                     <div class="form-group">
+                                        @Html.LabelFor(model => model.IsBackgroundQueueEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
+                                        <div class="col-md-8 col-sm-8">
+                                            <label class="checkbox-inline">
+                                                @Html.EditorFor(model => model.IsBackgroundQueueEnabled)
+                                                @Html.PromptFor(model => model.IsBackgroundQueueEnabled)
+                                            </label>
+                                            @Html.DescriptionFor(model => model.IsBackgroundQueueEnabled, "help-block", "span")
+                                            
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="siteRootUrl" class="col-md-4 col-sm-4 control-label">@Index.SiteRootUrl</label>

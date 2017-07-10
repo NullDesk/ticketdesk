@@ -16,13 +16,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.PushNotifications;
 using TicketDesk.PushNotifications.Migrations;
-using TicketDesk.PushNotifications.Model;
 using TicketDesk.Web.Client.Infrastructure;
 
 namespace TicketDesk.Web.Client
@@ -59,53 +59,68 @@ namespace TicketDesk.Web.Client
                 {
                     InProcessPushNotificationScheduler.Start(context.TicketDeskPushNotificationSettings.DeliveryIntervalMinutes);
                 }
+
+                if (context.TicketDeskPushNotificationSettings.IsBackgroundQueueEnabled)
+                {
+                    //register for static notifications created event handler 
+                    TdDomainContext.NotificationsCreated += (sender, notifications) =>
+                    {
+                        HostingEnvironment.QueueBackgroundWorkItem(CreateNotifications(notifications));
+                    };
+                }
+                else
+                {
+                    TdDomainContext.NotificationsCreated += (sender, notifications) =>
+                    {
+                        CreateNotifications(notifications)(CancellationToken.None);
+                    };
+                }
                 context.Dispose();//ensure that no one accidentally holds a reference to this in closure
 
-                //register for static notifications created event handler 
-                TdDomainContext.NotificationsCreated += (sender, notifications) =>
-                {
-                    HostingEnvironment.QueueBackgroundWorkItem(ct =>
-                    {
-                        // ReSharper disable once EmptyGeneralCatchClause
-                        try
-                        {
-                            var notificationIds = notifications.Select(n => n.EventId).ToArray();
-                            var domainContext = DependencyResolver.Current.GetService<TdDomainContext>();
-                            var multiProject = domainContext.Projects.Count() > 1;
-                            //fetch these back and make sure all dependent entities we need are loaded
-                            var notes = domainContext.TicketEventNotifications
-                                .Include(t => t.TicketEvent)
-                                .Include(t => t.TicketEvent.Ticket)
-                                .Include(t => t.TicketEvent.Ticket.Project)
-                                .Include(t => t.TicketSubscriber)
-                                .Where(t => notificationIds.Contains(t.EventId))
-                                .ToArray();
-
-                            if (notes.Any())
-                            {
-                                using (var noteContext = new TdPushNotificationContext())
-                                {
-                                    var subscriberExclude =
-                                        noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings
-                                            .ExcludeSubscriberEvents;
-
-                                    var noteEvents = notes.ToNotificationEventInfoCollection(subscriberExclude,
-                                        multiProject);
-
-                                    noteContext.AddNotifications(noteEvents);
-
-                                    noteContext.SaveChanges();
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            //TODO: Log this somewhere
-                        }
-                    });
-                };
             }
         }
 
+        private static Action<CancellationToken> CreateNotifications(IEnumerable<TicketEventNotification> notifications)
+        {
+            return ct =>
+            {
+                // ReSharper disable once EmptyGeneralCatchClause
+                try
+                {
+                    var notificationIds = notifications.Select(n => n.EventId).ToArray();
+                    var domainContext = DependencyResolver.Current.GetService<TdDomainContext>();
+                    var multiProject = domainContext.Projects.Count() > 1;
+                    //fetch these back and make sure all dependent entities we need are loaded
+                    var notes = domainContext.TicketEventNotifications
+                        .Include(t => t.TicketEvent)
+                        .Include(t => t.TicketEvent.Ticket)
+                        .Include(t => t.TicketEvent.Ticket.Project)
+                        .Include(t => t.TicketSubscriber)
+                        .Where(t => notificationIds.Contains(t.EventId))
+                        .ToArray();
+
+                    if (notes.Any())
+                    {
+                        using (var noteContext = new TdPushNotificationContext())
+                        {
+                            var subscriberExclude =
+                                noteContext.TicketDeskPushNotificationSettings.AntiNoiseSettings
+                                    .ExcludeSubscriberEvents;
+
+                            var noteEvents = notes.ToNotificationEventInfoCollection(subscriberExclude,
+                                multiProject);
+
+                            noteContext.AddNotifications(noteEvents);
+
+                            noteContext.SaveChanges();
+                        }
+                    }
+                }
+                catch
+                {
+                    //TODO: Log this somewhere
+                }
+            };
+        }
     }
 }

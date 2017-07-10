@@ -273,4 +273,13 @@
   <data name="SMTPUserName_Description" xml:space="preserve">
     <value>Leave empty if authentication is not required</value>
   </data>
+  <data name="BackgroundQueueEnabled" xml:space="preserve">
+    <value>Enable background notification queues</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Description" xml:space="preserve">
+    <value>When turned off, disables use of background task threads to queue pending notifications. Use if you are having problems with email notifications.</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
 </root>

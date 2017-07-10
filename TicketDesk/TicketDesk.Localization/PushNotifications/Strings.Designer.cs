@@ -79,6 +79,33 @@ namespace TicketDesk.Localization.PushNotifications {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable background notification queues.
+        /// </summary>
+        public static string BackgroundQueueEnabled {
+            get {
+                return ResourceManager.GetString("BackgroundQueueEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When turned off, disables use of background task threads to queue pending notifications. Use if you are having problems with email notifications..
+        /// </summary>
+        public static string BackgroundQueueEnabled_Description {
+            get {
+                return ResourceManager.GetString("BackgroundQueueEnabled_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string BackgroundQueueEnabled_Prompt {
+            get {
+                return ResourceManager.GetString("BackgroundQueueEnabled_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click Tracking.
         /// </summary>
         public static string ClickTracking {

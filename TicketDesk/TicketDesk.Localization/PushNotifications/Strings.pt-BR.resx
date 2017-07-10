@@ -273,4 +273,10 @@
   <data name="SMTPUserName_Description" xml:space="preserve">
     <value>Deixe em branco se a autenticação não for necessária</value>
   </data>
+  <data name="BackgroundQueueEnabled" xml:space="preserve">
+    <value>Ativar filas de notificação em segundo plano</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Prompt" xml:space="preserve">
+    <value>Ativado</value>
+  </data>
 </root>

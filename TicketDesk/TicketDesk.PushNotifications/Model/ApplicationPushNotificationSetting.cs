@@ -30,11 +30,13 @@ namespace TicketDesk.PushNotifications.Model
         {
             ApplicationName = "TicketDesk";
             IsEnabled = false;
+            IsBackgroundQueueEnabled = true;
             DeliveryIntervalMinutes = 2;
             AntiNoiseSettings = new AntiNoiseSetting();
             RetryAttempts = 5;
             RetryIntervalMinutes = 2;
-            DeliveryProviderSettings = new List<PushNotificationDeliveryProviderSetting> { };
+            // ReSharper disable once VirtualMemberCallInConstructor
+            DeliveryProviderSettings = new List<PushNotificationDeliveryProviderSetting>();
         }
 
         [Key]
@@ -58,6 +60,7 @@ namespace TicketDesk.PushNotifications.Model
                 var jsettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
                 var jData = JsonConvert.DeserializeObject<ApplicationPushNotificationSetting>(value, jsettings);
                 IsEnabled = jData.IsEnabled;
+                IsBackgroundQueueEnabled = jData.IsBackgroundQueueEnabled;
                 DeliveryIntervalMinutes = jData.DeliveryIntervalMinutes;
                 RetryAttempts = jData.RetryAttempts;
                 RetryIntervalMinutes = jData.RetryIntervalMinutes;
@@ -73,6 +76,12 @@ namespace TicketDesk.PushNotifications.Model
         [NotMapped]
         [Display(Name = "NotificationsEnabled", Prompt = "NotificationsEnabled_Prompt", ResourceType = typeof(Strings))]
         public bool IsEnabled { get; set; }
+
+        [NotMapped]
+        [Display(Name = "BackgroundQueueEnabled", Prompt = "BackgroundQueueEnabled_Prompt",
+            ResourceType = typeof(Strings))]
+        [LocalizedDescription("BackgroundQueueEnabled_Description", NameResourceType = typeof(Strings))]
+        public bool IsBackgroundQueueEnabled { get; set; }
 
         [NotMapped]
         [Display(Name = "DeliveryAttemptInterval", ResourceType = typeof(Strings))]
@@ -127,8 +136,8 @@ namespace TicketDesk.PushNotifications.Model
             public AntiNoiseSetting()
             {
                 IsConsolidationEnabled = true;
-                InitialConsolidationDelayMinutes = 6;
-                MaxConsolidationDelayMinutes = 16;
+                InitialConsolidationDelayMinutes = 2;
+                MaxConsolidationDelayMinutes = 10;
                 ExcludeSubscriberEvents = true;
             }
 
