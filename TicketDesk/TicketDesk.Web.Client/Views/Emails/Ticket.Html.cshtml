@@ -62,20 +62,19 @@ Content-Type: text/html; charset=utf-8
     <div style="border: 1px solid #dcdcdc;">
         <table style="background-color: #B3CBDF;width: 100%;">
             <tr>
-                <td style="width: 55px; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
+                <td style="width: 55px; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;">
                     <a href="@((Model.SiteRootUrl??string.Empty).TrimEnd('/'))@Url.Action("Index", "Ticket", new {Id = Model.Ticket.TicketId })">
                         @Model.Ticket.TicketStatus.GetDisplayName()
                     </a>
                 </td>
-                <td style="width: 40px; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;" rowspan="2">
+                <td style="width: 40px; font-weight: bold; border-right: 1px solid #dcdcdc; text-align: center;">
                     <a href="@((Model.SiteRootUrl??string.Empty).TrimEnd('/'))@Url.Action("Index", "Ticket", new {Id = Model.Ticket.TicketId })">
                         #@Model.Ticket.TicketId
                     </a>
 
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-weight: bold;">
+           
+                <td style="font-weight: bold; text-align: left;">
                     <a href="@((Model.SiteRootUrl??string.Empty).TrimEnd('/'))@Url.Action("Index", "Ticket", new {Id = Model.Ticket.TicketId })">
                         @Model.Ticket.Title
                     </a>
