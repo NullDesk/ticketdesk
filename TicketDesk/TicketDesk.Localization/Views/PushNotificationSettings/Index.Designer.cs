@@ -70,6 +70,15 @@ namespace TicketDesk.Localization.Views.PushNotificationSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Ticket Notifications.
+        /// </summary>
+        public static string BroadcastNotification_Header {
+            get {
+                return ResourceManager.GetString("BroadcastNotification_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery providers.
         /// </summary>
         public static string Delivery_Header {
@@ -112,6 +121,15 @@ namespace TicketDesk.Localization.Views.PushNotificationSettings {
         public static string RequiredProvider {
             get {
                 return ResourceManager.GetString("RequiredProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings saved!.
+        /// </summary>
+        public static string Saved_Alert {
+            get {
+                return ResourceManager.GetString("Saved_Alert", resourceCulture);
             }
         }
         

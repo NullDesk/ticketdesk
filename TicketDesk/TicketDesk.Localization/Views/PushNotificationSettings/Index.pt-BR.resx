@@ -120,6 +120,9 @@
   <data name="AntiNoise_Header" xml:space="preserve">
     <value>Configurações de anti-ruído</value>
   </data>
+  <data name="BroadcastNotification_Header" xml:space="preserve">
+    <value>Novas Notificações de Bilhetes</value>
+  </data>
   <data name="Delivery_Header" xml:space="preserve">
     <value>Provedores de entrega</value>
   </data>
@@ -135,6 +138,9 @@
   </data>
   <data name="RequiredProvider" xml:space="preserve">
     <value>Pelo menos um provedor deve estar habilitado para que as mensagens sejam enviadas.</value>
+  </data>
+  <data name="Saved_Alert" xml:space="preserve">
+    <value>Configurações salvas!</value>
   </data>
   <data name="SaveOption" xml:space="preserve">
     <value>Salvar</value>

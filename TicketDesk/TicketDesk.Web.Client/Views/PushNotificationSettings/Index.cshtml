@@ -37,6 +37,7 @@
             $.validator.methods.url = function (value, element) {
                 return this.optional(element) || (/^https?:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\w]*)*$/).test(value);
             };
+
         });
     </script>
 }
@@ -54,13 +55,30 @@
                             @Html.Raw(Index.DemoMode_Alert)
                         </div>
                     }
+                     
                     else
                     {
+                        if (ViewBag.Saved)
+                        {
+                            <div class="alert alert-success">
+                                @Html.Raw(Index.Saved_Alert)
+                                <div class="text-muted">The server has been restarted, there may be a brief delay while the system re-initializes. </div>
+                            </div>
+                        }
                         using (Html.BeginForm("Index", "PushNotificationSettings", FormMethod.Post, new { @class = "form-horizontal" }))
                         {
 
                             @Html.AntiForgeryToken()
                             <div class="panel panel-info">
+
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">@Index.Delivery_Header</h2>
+                                </div>
+                                <div class="panel-body">
+                                    @Html.Action("ListDeliveryProviderSettings")
+                                </div>
+
+
                                 <div class="panel-heading">
                                     <h2 class="panel-title">@Index.General_Header</h2>
                                 </div>
@@ -83,8 +101,8 @@
                                             }
                                         </div>
                                     </div>
-                                    
-                                     <div class="form-group">
+
+                                    <div class="form-group">
                                         @Html.LabelFor(model => model.IsBackgroundQueueEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
                                         <div class="col-md-8 col-sm-8">
                                             <label class="checkbox-inline">
@@ -92,7 +110,7 @@
                                                 @Html.PromptFor(model => model.IsBackgroundQueueEnabled)
                                             </label>
                                             @Html.DescriptionFor(model => model.IsBackgroundQueueEnabled, "help-block", "span")
-                                            
+
                                         </div>
                                     </div>
 
@@ -106,7 +124,7 @@
                                                        type="url"
                                                        data-val="true"
                                                        data-val-url="@Index.SiteRootUrl_Validation"
-                                                       value="@ViewBag.SiteRootUrl"/>
+                                                       value="@ViewBag.SiteRootUrl" />
                                                 <span class="input-group-btn">
                                                     <button id="useCurrentUrlButton"
                                                             type="button"
@@ -149,6 +167,58 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">@Index.BroadcastNotification_Header</h2>
+                                </div>
+                                <div class="panel-body ">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BroadcastSettings.IsBroadcastEnabled, new { @class = "col-md-4 col-sm-4 control-label" })
+                                        <div class="col-md-8 col-sm-8">
+                                            <label class="checkbox-inline">
+                                                @Html.EditorFor(model => model.BroadcastSettings.IsBroadcastEnabled)
+                                                @Html.PromptFor(model => model.BroadcastSettings.IsBroadcastEnabled)
+                                            </label>
+                                            @Html.DescriptionFor(model => model.BroadcastSettings.IsBroadcastEnabled, "help-block", "span")
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BroadcastSettings.BroadcastMode, new { @class = "col-md-4 col-sm-4 control-label" })
+                                        <div class="col-md-8 col-sm-8">
+
+                                            @Html.EnumDropDownListFor(model => model.BroadcastSettings.BroadcastMode, new { @class = "form-control" })
+
+                                            @Html.DescriptionFor(model => model.BroadcastSettings.BroadcastMode, "help-block", "span")
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BroadcastSettings.SendToCustomEmailDisplayName, new { @class = "col-md-4 col-sm-4 control-label" })
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.EditorFor(model => model.BroadcastSettings.SendToCustomEmailDisplayName, new { htmlAttributes = new { @class = "form-control input-sm" } })
+
+                                            @Html.DescriptionFor(model => model.BroadcastSettings.SendToCustomEmailDisplayName, "help-block", "span")
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BroadcastSettings.SendToCustomEmailAddress, new { @class = "col-md-4 col-sm-4 control-label" })
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.EditorFor(model => model.BroadcastSettings.SendToCustomEmailAddress, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                            @Html.ValidationMessageFor(model => model.BroadcastSettings.SendToCustomEmailDisplayName, "", new { @class = "text-danger" })
+
+                                            @Html.DescriptionFor(model => model.BroadcastSettings.SendToCustomEmailAddress, "help-block", "span")
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
                                 <div class="panel-heading">
                                     <h2 class="panel-title">@Index.AntiNoise_Header</h2>
                                 </div>
@@ -192,12 +262,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel-heading">
-                                    <h2 class="panel-title">@Index.Delivery_Header</h2>
-                                </div>
-                                <div class="panel-body">
-                                    @Html.Action("ListDeliveryProviderSettings")
-                                </div>
+
                                 <div class="panel-footer">
                                     <div class="">
                                         <button type="submit" class="btn btn-success" tabindex="10"><i class="fa fa-save"></i>&nbsp;&nbsp;@Index.SaveOption</button>&nbsp;&nbsp;

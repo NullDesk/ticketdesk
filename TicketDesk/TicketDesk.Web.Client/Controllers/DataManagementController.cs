@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
@@ -56,6 +57,8 @@ namespace TicketDesk.Web.Client.Controllers
             DemoIdentityDataManager.RemoveIdentity(IdentityContext, User.Identity.GetUserId());
             DemoPushNotificationDataManager.RemoveAllPushNotificationData(PushNotificationContext);
             ViewBag.DemoDataRemoved = true;
+            Task.Delay(500).ContinueWith(t => System.Web.HttpRuntime.UnloadAppDomain()).ConfigureAwait(false);
+
             return View("Demo");
         }
 
@@ -69,6 +72,8 @@ namespace TicketDesk.Web.Client.Controllers
             DemoIdentityDataManager.SetupDemoIdentityData(IdentityContext, User.Identity.GetUserId());
             DemoPushNotificationDataManager.SetupDemoPushNotificationData(PushNotificationContext);
             ViewBag.DemoDataCreated = true;
+            Task.Delay(500).ContinueWith(t => System.Web.HttpRuntime.UnloadAppDomain()).ConfigureAwait(false);
+
             return View("Demo");
         }
     }

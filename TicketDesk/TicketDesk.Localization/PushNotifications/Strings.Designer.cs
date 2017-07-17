@@ -88,7 +88,7 @@ namespace TicketDesk.Localization.PushNotifications {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When turned off, disables use of background task threads to queue pending notifications. Use if you are having problems with email notifications..
+        ///   Looks up a localized string similar to Enables background queuing of notifications.&lt;br&gt;&lt;br&gt;Affects localizaton! When background queue is enabled, all email notificaitons are localized using the server&apos;s default culture and language. When disabled, the user&apos;s language choices will be used to generate emails..
         /// </summary>
         public static string BackgroundQueueEnabled_Description {
             get {
@@ -102,6 +102,24 @@ namespace TicketDesk.Localization.PushNotifications {
         public static string BackgroundQueueEnabled_Prompt {
             get {
                 return ResourceManager.GetString("BackgroundQueueEnabled_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broadcast Mode.
+        /// </summary>
+        public static string BroadcastMode {
+            get {
+                return ResourceManager.GetString("BroadcastMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send new ticket notifications to a custom email distrubution list, or to all TicketDesk admin and staff users..
+        /// </summary>
+        public static string BroadcastMode_Description {
+            get {
+                return ResourceManager.GetString("BroadcastMode_Description", resourceCulture);
             }
         }
         
@@ -322,6 +340,24 @@ namespace TicketDesk.Localization.PushNotifications {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Ticket Notificatons Enabled.
+        /// </summary>
+        public static string IsBroadcastEnabled {
+            get {
+                return ResourceManager.GetString("IsBroadcastEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string IsBroadcastEnabled_Prompt {
+            get {
+                return ResourceManager.GetString("IsBroadcastEnabled_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum consolidation delay (minutes).
         /// </summary>
         public static string MaximumConsolidationDelay {
@@ -421,11 +457,65 @@ namespace TicketDesk.Localization.PushNotifications {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send to all administrators and help desk staff.
+        /// </summary>
+        public static string PushNotificationBroadcastModeAllStaff {
+            get {
+                return ResourceManager.GetString("PushNotificationBroadcastModeAllStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send to specified email address.
+        /// </summary>
+        public static string PushNotificationBroadcastModeCustomAddress {
+            get {
+                return ResourceManager.GetString("PushNotificationBroadcastModeCustomAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SendGrid Provider (Email).
         /// </summary>
         public static string SendGridProvider {
             get {
                 return ResourceManager.GetString("SendGridProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Email Address.
+        /// </summary>
+        public static string SendToCustomEmailAddress {
+            get {
+                return ResourceManager.GetString("SendToCustomEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email recipient address. Used only when the mode is set to use a custom email address.
+        /// </summary>
+        public static string SendToCustomEmailAddress_Description {
+            get {
+                return ResourceManager.GetString("SendToCustomEmailAddress_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Email Display Name.
+        /// </summary>
+        public static string SendToCustomEmailDisplayName {
+            get {
+                return ResourceManager.GetString("SendToCustomEmailDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The display name for the email recipient. Used only when the mode is set to use a custom email address.
+        /// </summary>
+        public static string SendToCustomEmailDisplayName_Description {
+            get {
+                return ResourceManager.GetString("SendToCustomEmailDisplayName_Description", resourceCulture);
             }
         }
         

@@ -36,6 +36,8 @@ namespace TicketDesk.Web.Client.Controllers
 
         public PushNotificationSettingsController(TdPushNotificationContext noteContext, TdDomainContext domainContext)
         {
+            ViewBag.Saved = false;
+
             NoteContext = noteContext;
             DomainContext = domainContext;
         }
@@ -60,6 +62,7 @@ namespace TicketDesk.Web.Client.Controllers
                 NoteContext.SaveChanges();
                 DomainContext.TicketDeskSettings.ClientSettings.Settings["DefaultSiteRootUrl"] = siteRootUrl.TrimEnd('/');
                 DomainContext.SaveChanges();
+                ViewBag.Saved = true;
             }
             ViewBag.CurrentRootUrl = GetCurrentRootUrl();
             ViewBag.SiteRootUrl = GetRootUrlSetting();

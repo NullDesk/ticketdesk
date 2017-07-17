@@ -66,6 +66,7 @@
     <Compile Include="Model\TicketDeskRole.cs" />
     <Compile Include="Model\TicketDeskUser.cs" />
     <Compile Include="Model\UserDisplayInfoCache.cs" />
+    <Compile Include="Model\UserEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TdIdentityContext.cs" />
     <Compile Include="Infrastructure\TdIdentityDbInitializer.cs" />

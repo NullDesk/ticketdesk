@@ -77,6 +77,7 @@
     <Compile Include="Delivery\SendGridDeliveryProviderConfiguration.cs" />
     <Compile Include="Delivery\SmtpDeliveryProviderConfiguration.cs" />
     <Compile Include="Delivery\Base\IDeliveryProviderConfiguration.cs" />
+    <Compile Include="Model\NewTicketPushNotificationInfo.cs" />
     <Compile Include="Model\TicketPushNotificationItem.cs" />
     <Compile Include="PushNotificationDeliveryManager.cs" />
     <Compile Include="Migrations\DemoPushNotificationDataManager.cs" />

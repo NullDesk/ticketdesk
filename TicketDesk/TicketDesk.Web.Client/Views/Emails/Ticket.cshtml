@@ -15,5 +15,5 @@
 @using TicketDesk.Localization.Views.Emails
 
 @model TicketDesk.Web.Client.Models.TicketEmail
-Subject: @string.Format(Strings.Subject, Model.Ticket.TicketId, Model.Ticket.Title)
+Subject: @((Model.ForNewTicket)? string.Format("[{0}]", Strings.New) : string.Empty) @string.Format(Strings.Subject, Model.Ticket.TicketId, Model.Ticket.Title)
 Views: Text, Html

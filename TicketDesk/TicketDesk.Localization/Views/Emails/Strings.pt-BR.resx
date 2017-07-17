@@ -126,6 +126,9 @@
   <data name="Details" xml:space="preserve">
     <value>Detalhes</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>Novo</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Solicitante: {0}</value>
   </data>
