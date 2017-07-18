@@ -117,40 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity" xml:space="preserve">
-    <value>Activity</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="AssignedTo" xml:space="preserve">
-    <value>Assigned To: {0}</value>
-  </data>
-  <data name="Details" xml:space="preserve">
-    <value>Details</value>
-  </data>
-  <data name="New" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="Owner" xml:space="preserve">
-    <value>Owner: {0}</value>
-  </data>
-  <data name="Priority" xml:space="preserve">
-    <value>{0} Priority</value>
-  </data>
-  <data name="Project" xml:space="preserve">
-    <value>Project: {0}</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status: {0}</value>
-  </data>
-  <data name="Subject" xml:space="preserve">
-    <value>Ticket #{0} : {1}</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Ticket #{0}</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Unassigned</value>
-  </data>
-  <data name="UpdatedBy" xml:space="preserve">
-    <value>Updated by: {0} at {1} {2}</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>

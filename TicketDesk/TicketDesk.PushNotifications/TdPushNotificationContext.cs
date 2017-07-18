@@ -98,14 +98,26 @@ namespace TicketDesk.PushNotifications
             }
         }
 
+        public bool AddNotifications(IEnumerable<NewTicketPushNotificationInfo> infoItems)
+        {
+            var userSettings = SubscriberPushNotificationSettings.GetSettingsForUser("new ticket broadcast");
+            
+            foreach (var item in infoItems)
+            {
+                PushNotificationItems.AddRange(item.ToPushNotificationItems(userSettings));
+            }
+            return true;
+        }
+
         public bool AddNotifications(IEnumerable<TicketPushNotificationEventInfo> infoItems)
         {
+            var appSettings = TicketDeskPushNotificationSettings;
+
             foreach (var item in infoItems)
             {
                 var citem = item; //foreach closure workaround
                 var userSettings = SubscriberPushNotificationSettings.GetSettingsForUser(citem.SubscriberId);
-                var appSettings = TicketDeskPushNotificationSettings;
-
+               
                 //get items already in db that haven't been sent yet
                 var existingItems =TicketPushNotificationItems
                     .Include(t => t.PushNotificationItem)

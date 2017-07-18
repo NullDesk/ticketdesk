@@ -273,4 +273,43 @@
   <data name="SMTPUserName_Description" xml:space="preserve">
     <value>Leave empty if authentication is not required</value>
   </data>
+  <data name="BackgroundQueueEnabled" xml:space="preserve">
+    <value>Enable background notification queues</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Description" xml:space="preserve">
+    <value>Enables background queuing of notifications.&lt;br&gt;&lt;br&gt;Affects localizaton! When background queue is enabled, all email notificaitons are localized using the server's default culture and language. When disabled, the user's language choices will be used to generate emails.</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="BroadcastMode" xml:space="preserve">
+    <value>Broadcast Mode</value>
+  </data>
+  <data name="BroadcastMode_Description" xml:space="preserve">
+    <value>Send new ticket notifications to a custom email distrubution list, or to all TicketDesk admin and staff users.</value>
+  </data>
+  <data name="IsBroadcastEnabled" xml:space="preserve">
+    <value>New Ticket Notificatons Enabled</value>
+  </data>
+  <data name="IsBroadcastEnabled_Prompt" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="PushNotificationBroadcastModeAllStaff" xml:space="preserve">
+    <value>Send to all administrators and help desk staff</value>
+  </data>
+  <data name="PushNotificationBroadcastModeCustomAddress" xml:space="preserve">
+    <value>Send to specified email address</value>
+  </data>
+  <data name="SendToCustomEmailAddress" xml:space="preserve">
+    <value>To Email Address</value>
+  </data>
+  <data name="SendToCustomEmailAddress_Description" xml:space="preserve">
+    <value>The email recipient address. Used only when the mode is set to use a custom email address</value>
+  </data>
+  <data name="SendToCustomEmailDisplayName" xml:space="preserve">
+    <value>To Email Display Name</value>
+  </data>
+  <data name="SendToCustomEmailDisplayName_Description" xml:space="preserve">
+    <value>The display name for the email recipient. Used only when the mode is set to use a custom email address</value>
+  </data>
 </root>

@@ -62,6 +62,8 @@ namespace TicketDesk.Domain.Model
 
         public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
 
+        public TicketActivity ForActivity { get; set; }
+
 
         /// <summary>
         /// Creates the activity event.
@@ -81,6 +83,7 @@ namespace TicketDesk.Domain.Model
         {
             var tc = new TicketEvent
             {
+                ForActivity = activity,
                 Comment = comment,
                 EventBy = eventByUserId,
                 EventDate = DateTime.Now,
@@ -95,6 +98,7 @@ namespace TicketDesk.Domain.Model
         /// </summary>
         public void CreateSubscriberEventNotifications()
         {
+            
             foreach (var subscriber in Ticket.TicketSubscribers)
             {
                 var isSubscriberEvent = EventBy == subscriber.SubscriberId;

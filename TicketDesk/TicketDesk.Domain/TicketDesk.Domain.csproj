@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TicketDesk.Domain</RootNamespace>
     <AssemblyName>TicketDesk.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <TargetFrameworkProfile />
@@ -46,9 +46,8 @@
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -130,6 +129,10 @@
     <Compile Include="Migrations\201506240309537_Td2.5.018.cs" />
     <Compile Include="Migrations\201506240309537_Td2.5.018.Designer.cs">
       <DependentUpon>201506240309537_Td2.5.018.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707150459325_Td2.5.019.cs" />
+    <Compile Include="Migrations\201707150459325_Td2.5.019.Designer.cs">
+      <DependentUpon>201707150459325_Td2.5.019.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DemoDataManager.cs" />
     <Compile Include="Infrastructure\PropertyUtility.cs" />
@@ -245,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506240309537_Td2.5.018.resx">
       <DependentUpon>201506240309537_Td2.5.018.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707150459325_Td2.5.019.resx">
+      <DependentUpon>201707150459325_Td2.5.019.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -39,27 +39,30 @@ namespace TicketDesk.Domain
         ///</remarks>
         public static event EventHandler<IEnumerable<Ticket>> TicketsChanged;
 
+        public static event EventHandler<IEnumerable<Ticket>> TicketsCreated;
+
+        private static void RaiseTicketsCreated(TdDomainContext sender, IEnumerable<Ticket> tickets)
+        {
+            //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
+            TicketsCreated?.Invoke(sender, tickets);
+        }
+
         private static void RaiseTicketsChanged(TdDomainContext sender, IEnumerable<Ticket> tickets)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
-            if (TicketsChanged != null)
-            {
-                TicketsChanged(sender, tickets);
-            }
+            TicketsChanged?.Invoke(sender, tickets);
         }
 
         public static event EventHandler<IEnumerable<TicketEventNotification>> NotificationsCreated;
+
         private static void RaiseNotificationsCreated(TdDomainContext sender, IEnumerable<TicketEventNotification> notifications)
         {
             //TODO: Static events have their (rare) uses, but this should use a service bus or formal pub/sub mechanism eventually
-            if (NotificationsCreated != null)
-            {
-                NotificationsCreated(sender, notifications);
-            }
+            NotificationsCreated?.Invoke(sender, notifications);
         }
 
-
         public TdDomainSecurityProviderBase SecurityProvider { get; private set; }
+
         public TicketActionManager TicketActions { get; private set; }
 
 
@@ -244,15 +247,18 @@ namespace TicketDesk.Domain
 
         private void RaiseEntityChangeEvents(PendingEventEntities pendingEntityChanges)
         {
+            RaiseTicketsCreated(this, pendingEntityChanges.PendingNewTickets);
             RaiseTicketsChanged(this, pendingEntityChanges.PendingTicketChanges);
             RaiseNotificationsCreated(this, pendingEntityChanges.PendingEventNotificationChanges);
         }
 
         private PendingEventEntities OnSaving()
         {
-            var pending = new PendingEventEntities();
-            pending.PendingTicketChanges = GetTicketChanges();
-            
+            var pending = new PendingEventEntities
+            {
+                PendingTicketChanges = GetTicketChanges(),
+                PendingNewTickets = GetNewTickets()
+            };
             if (SecurityProvider != null)
             {
                 ProcessDeletedProjects();
@@ -385,7 +391,16 @@ namespace TicketDesk.Domain
             newTicket.EnsureSubscribers();
         }
 
-        
+        private IEnumerable<Ticket> GetNewTickets()
+        {
+            
+            return ChangeTracker.Entries<Ticket>()
+                .Where(t => t.State == EntityState.Added)
+                .Select(t => t.Entity)
+                .ToArray(); //execute now, because after save changes this query will return no results
+        }
+
+
 
         private IEnumerable<Ticket> GetTicketChanges()
         {
@@ -420,6 +435,8 @@ namespace TicketDesk.Domain
 
         private class PendingEventEntities
         {
+
+            public IEnumerable<Ticket> PendingNewTickets { get; set; }
             public IEnumerable<Ticket> PendingTicketChanges { get; set; }
             public IEnumerable<TicketEventNotification> PendingEventNotificationChanges { get; set; }
 

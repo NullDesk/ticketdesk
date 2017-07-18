@@ -34,33 +34,10 @@ namespace TicketDesk.PushNotifications.Migrations
             {
                 DemoPushNotificationDataManager.SetupDemoPushNotificationData(context);
             }
-            else
-            {
-                InitializeStockUserSettings(context);
-            }
+          
             base.Seed(context);
         }
 
-        public static void InitializeStockUserSettings(TdPushNotificationContext context)
-        {
-
-            if (!context.SubscriberPushNotificationSettings.Any(s => s.SubscriberId == "64165817-9cb5-472f-8bfb-6a35ca54be6a"))
-            {
-                context.SubscriberPushNotificationSettings.Add(new SubscriberNotificationSetting()
-                {
-                    SubscriberId = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-                    IsEnabled = true,
-                    PushNotificationDestinations = new[]
-                    {
-                            new PushNotificationDestination()
-                            {
-                                SubscriberName = "Admin User",
-                                DestinationAddress = "admin@example.com",
-                                DestinationType = "email"
-                            }
-                        }
-                });
-            }
-        }
+       
     }
 }

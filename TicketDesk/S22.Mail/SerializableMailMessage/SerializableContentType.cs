@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Net.Mime;
+#pragma warning disable 1591
 
 namespace S22.Mail {
 	[Serializable]
@@ -44,3 +45,4 @@ namespace S22.Mail {
 		public StringDictionary Parameters { get; private set; }
 	}
 }
+#pragma warning restore 1591
