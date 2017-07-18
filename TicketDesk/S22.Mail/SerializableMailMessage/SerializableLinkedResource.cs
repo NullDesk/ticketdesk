@@ -5,6 +5,7 @@ using System.Net.Mime;
 
 namespace S22.Mail {
 	[Serializable]
+#pragma warning disable 1591
 	public class SerializableLinkedResource {
 		public static implicit operator LinkedResource(SerializableLinkedResource resource) {
 			if (resource == null)
@@ -39,4 +40,6 @@ namespace S22.Mail {
 		public SerializableContentType ContentType { get; set; }
 		public TransferEncoding TransferEncoding { get; set; }
 	}
+#pragma warning restore 1591
+
 }
