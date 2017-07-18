@@ -104,7 +104,21 @@
             });
             if (config.isEditorDefaultHtml) {
                 jelem = $('#wmd-input-activity');
-                jelem.summernote({ height: 200, lang: window.currentCulture });
+                jelem.summernote({
+                    height: 200,
+                    lang: window.currentCulture,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic']],
+                        ['fontname', ['fontname']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['insert', ['link', 'hr']],
+                        ['view', ['fullscreen']],
+                        ['help', ['help']]
+                    ]
+                });
                 if (jelem.length > 0) {
 
                     if (jelem.data('is-required')) {

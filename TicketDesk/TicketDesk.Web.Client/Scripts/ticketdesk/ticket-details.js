@@ -21,7 +21,21 @@
                 ignore: ""
             });
             if (config.isHtml) {
-                $('#wmd-input-ticketDetails').summernote({ height: 200, lang: window.currentCulture });
+                $('#wmd-input-ticketDetails').summernote({
+                    height: 200,
+                    lang: window.currentCulture,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'italic']],
+                        ['fontname', ['fontname']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['insert', ['link', 'hr']],
+                        ['view', ['fullscreen']],
+                        ['help', ['help']]
+                    ]
+                });
 
             } else {
                 configureMarkdownEditor();
