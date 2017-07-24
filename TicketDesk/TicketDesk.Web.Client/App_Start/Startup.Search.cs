@@ -11,6 +11,7 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
 using System.Linq;
 using System.Web.Hosting;
 using TicketDesk.Domain;
@@ -53,9 +54,10 @@ namespace TicketDesk.Web.Client
 
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    //TODO: Log this somewhere
+                    //TODO: log this somewhere
+                    throw new Exception("", ex);
                 }
             };
         }

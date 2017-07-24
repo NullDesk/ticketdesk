@@ -17,6 +17,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Lucene.Net.Index;
 using TicketDesk.Search.Common;
+using System;
 
 namespace TicketDesk.Search.Lucene
 {
@@ -63,9 +64,10 @@ namespace TicketDesk.Search.Lucene
                     }
                     TdIndexWriter.Commit();
                 } // ReSharper disable once EmptyGeneralCatchClause
-                catch 
-                { 
+                catch (Exception ex)
+                {
                     //TODO: log this somewhere
+                    throw new Exception("", ex);
                 }
                 return true;
             });
@@ -83,9 +85,10 @@ namespace TicketDesk.Search.Lucene
                 ShutDownWriter();
                 
             } // ReSharper disable once EmptyGeneralCatchClause
-            catch
+            catch (Exception ex)
             {
                 //TODO: log this somewhere
+                throw new Exception("", ex);
             }
             return Task.FromResult(true);
         }

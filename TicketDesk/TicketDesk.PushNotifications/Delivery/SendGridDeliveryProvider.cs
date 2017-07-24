@@ -22,6 +22,9 @@ using SendGrid;
 using TicketDesk.PushNotifications.Model;
 using TicketDesk.Localization;
 using TicketDesk.Localization.PushNotifications;
+using System;
+using SendGrid.Helpers.Mail;
+using System.Collections.Generic;
 
 namespace TicketDesk.PushNotifications.Delivery
 {
@@ -49,42 +52,59 @@ namespace TicketDesk.PushNotifications.Delivery
                     var tView = smsg.AlternateViews.First(v => v.ContentType.MediaType == "text/plain");
                     var sendGridMessage = new SendGridMessage
                     {
-                        To = new[]
-                        {
-                            new MailAddress(notificationItem.Destination.DestinationAddress,
-                                notificationItem.Destination.SubscriberName)
-                        },
-                        From = new MailAddress(cfg.FromAddress, cfg.FromDisplayName),
+                        From = new EmailAddress(cfg.FromAddress, cfg.FromDisplayName),
                         Subject = smsg.Subject,
-                        Html = hView.ContentStream.ReadToString(),
-                        Text = tView.ContentStream.ReadToString()
+                        Contents = new List<Content>() {
+                            new Content("text/html", hView.ContentStream.ReadToString()),
+                            //new Content("text", tView.ContentStream.ReadToString())
+                        },
+                        Personalizations = new List<Personalization>()
+                        {
+                            new Personalization
+                            {
+                                Tos = new List<EmailAddress>()
+                                {
+                                    new EmailAddress(notificationItem.Destination.DestinationAddress, notificationItem.Destination.SubscriberName)
+                                }                                
+                            }
+                        },
+                    };
+
+                    sendGridMessage.TrackingSettings = new TrackingSettings()
+                    {
+                        ClickTracking = new ClickTracking()
                     };
 
                     if (cfg.EnableClickTracking ?? false)
                     {
-                        sendGridMessage.EnableClickTracking();
+                        sendGridMessage.TrackingSettings.ClickTracking.Enable = true;;
                     }
                     if (cfg.EnableGravatar ?? false)
                     {
-                        sendGridMessage.EnableGravatar();
+                        //sendGridMessage.MailSettings.EnableGravatar();
                     }
                     if (cfg.EnableOpenTracking ?? false)
                     {
-                        sendGridMessage.EnableOpenTracking();
+                        sendGridMessage.TrackingSettings.OpenTracking.Enable = true;;
                     }
                     if (cfg.SendToSink ?? false)
-                    {
-                        sendGridMessage.SendToSink();
+                    {                        
+                        //sendGridMessage.SendToSink();
                     }
 
-                    var transport = new Web(cfg.ApiKey);
-                    await transport.DeliverAsync(sendGridMessage);
+                    //var transport = new Web(cfg.ApiKey);
+                    //await transport.DeliverAsync(sendGridMessage);
+                    //sent = true;
+
+                    var sg = new SendGridClient(cfg.ApiKey);
+                    var response = await sg.SendEmailAsync(sendGridMessage);
                     sent = true;
                 }
-                catch
+                catch (Exception ex)
                 {
                     sent = false;
                     //TODO: log this somewhere
+                    throw new Exception("", ex);
                 }
 
             }
