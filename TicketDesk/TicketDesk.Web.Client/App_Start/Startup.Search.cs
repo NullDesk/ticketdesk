@@ -54,10 +54,9 @@ namespace TicketDesk.Web.Client
 
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    //TODO: log this somewhere
-                    throw new Exception("", ex);
+                    //TODO: log this somewhere                    
                 }
             };
         }

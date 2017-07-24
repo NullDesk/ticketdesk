@@ -206,10 +206,9 @@ namespace TicketDesk.Web.Client
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    //TODO: log this somewhere
-                    throw new Exception("", ex);
+                    //TODO: log this somewhere                    
                 }
             };
         }
@@ -251,10 +250,9 @@ namespace TicketDesk.Web.Client
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    //TODO: Log this somewhere
-                    throw new Exception("", ex);
+                    //TODO: Log this somewhere                    
                 }
             };
         }

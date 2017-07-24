@@ -64,10 +64,9 @@ namespace TicketDesk.Search.Lucene
                     }
                     TdIndexWriter.Commit();
                 } // ReSharper disable once EmptyGeneralCatchClause
-                catch (Exception ex)
+                catch
                 {
-                    //TODO: log this somewhere
-                    throw new Exception("", ex);
+                    //TODO: log this somewhere                    
                 }
                 return true;
             });
@@ -85,10 +84,9 @@ namespace TicketDesk.Search.Lucene
                 ShutDownWriter();
                 
             } // ReSharper disable once EmptyGeneralCatchClause
-            catch (Exception ex)
+            catch
             {
-                //TODO: log this somewhere
-                throw new Exception("", ex);
+                //TODO: log this somewhere                
             }
             return Task.FromResult(true);
         }

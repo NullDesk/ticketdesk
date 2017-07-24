@@ -100,11 +100,10 @@ namespace TicketDesk.PushNotifications.Delivery
                     var response = await sg.SendEmailAsync(sendGridMessage);
                     sent = true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     sent = false;
-                    //TODO: log this somewhere
-                    throw new Exception("", ex);
+                    //TODO: log this somewhere                    
                 }
 
             }
