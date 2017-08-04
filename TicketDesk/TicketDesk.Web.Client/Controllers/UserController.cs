@@ -126,6 +126,8 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("sign-in")]
         public async Task<ActionResult> SignIn(UserSignInViewModel model, string returnUrl)
         {
+            ViewBag.IsDemoMode = (ConfigurationManager.AppSettings["ticketdesk:DemoModeEnabled"] ?? "false").Equals("true", StringComparison.InvariantCultureIgnoreCase);
+
             if (!ModelState.IsValid)
             {
                 return View(model);

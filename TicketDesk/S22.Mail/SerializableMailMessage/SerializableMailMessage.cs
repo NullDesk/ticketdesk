@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Net.Mail;
 using System.Text;
+#pragma warning disable 1591
 
 namespace S22.Mail {
 	/// <summary>
@@ -98,3 +99,4 @@ namespace S22.Mail {
 		public SerializableMailAddressCollection To { get; private set; }
 	}
 }
+#pragma warning restore 1591

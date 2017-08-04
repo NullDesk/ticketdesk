@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
+#pragma warning disable 1591
 
 namespace S22.Mail {
 	[Serializable]
@@ -59,3 +60,4 @@ namespace S22.Mail {
 		public TransferEncoding TransferEncoding { get; set; }
 	}
 }
+#pragma warning restore 1591

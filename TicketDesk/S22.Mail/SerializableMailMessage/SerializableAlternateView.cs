@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
+#pragma warning disable 1591
 
 namespace S22.Mail {
     [Serializable]
@@ -61,3 +62,4 @@ namespace S22.Mail {
         }
     }
 }
+#pragma warning restore 1591

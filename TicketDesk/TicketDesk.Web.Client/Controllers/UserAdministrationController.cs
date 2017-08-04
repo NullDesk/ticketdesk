@@ -140,6 +140,14 @@ namespace TicketDesk.Web.Client.Controllers
 
                         //get role changes
                         var roleIdsToRemove = user.Roles.Select(ur => ur.RoleId).Except(model.Roles).ToList();
+
+                        if (User.Identity.GetUserId() == user.Id)
+                        {
+                            //stop current user from removing their own admin role
+                            roleIdsToRemove = roleIdsToRemove.Except(RoleManager.Roles.Where(r => r.Name == "tdAdministrators").Select(r => r.Id)).ToList();
+                        }
+
+
                         var roleIdsToAdd = model.Roles.Except(user.Roles.Select(ur => ur.RoleId)).ToList();
                         //do role removes
                         if (await RemoveRoles(roleIdsToRemove, user))

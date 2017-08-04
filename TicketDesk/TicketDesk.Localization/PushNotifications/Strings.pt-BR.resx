@@ -273,4 +273,43 @@
   <data name="SMTPUserName_Description" xml:space="preserve">
     <value>Deixe em branco se a autenticação não for necessária</value>
   </data>
+  <data name="BackgroundQueueEnabled" xml:space="preserve">
+    <value>Permite a fila em segundo plano de notificações.</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Prompt" xml:space="preserve">
+    <value>Ativado</value>
+  </data>
+  <data name="BackgroundQueueEnabled_Description" xml:space="preserve">
+    <value>Permite fila em segundo plano de notificações&lt;br&gt;&lt;br&gt;Afeta localizaton! Quando a fila de fundo está ativada, todas as notificações de email são localizadas usando a cultura e o idioma padrão do servidor. Quando desativado, as opções de idioma do usuário serão usadas para gerar emails.</value>
+  </data>
+  <data name="BroadcastMode" xml:space="preserve">
+    <value>Modo</value>
+  </data>
+  <data name="BroadcastMode_Description" xml:space="preserve">
+    <value>Envie novas notificações de ingresso para uma lista de distribuição de e-mail personalizada ou para todos os usuários do administrador e da equipe do TicketDesk.</value>
+  </data>
+  <data name="IsBroadcastEnabled" xml:space="preserve">
+    <value>Novas notificações de boletim habilitadas</value>
+  </data>
+  <data name="IsBroadcastEnabled_Prompt" xml:space="preserve">
+    <value>Ativado</value>
+  </data>
+  <data name="PushNotificationBroadcastModeAllStaff" xml:space="preserve">
+    <value>Enviar para todos os administradores e funcionários da mesa de ajuda</value>
+  </data>
+  <data name="PushNotificationBroadcastModeCustomAddress" xml:space="preserve">
+    <value>Enviar para o endereço de e-mail especificado</value>
+  </data>
+  <data name="SendToCustomEmailAddress" xml:space="preserve">
+    <value>Para endereço de e-mail</value>
+  </data>
+  <data name="SendToCustomEmailAddress_Description" xml:space="preserve">
+    <value>O endereço do destinatário do e-mail. Usado somente quando o modo está configurado para usar um endereço de e-mail personalizado</value>
+  </data>
+  <data name="SendToCustomEmailDisplayName" xml:space="preserve">
+    <value>Para Nome de exibição de e-mail</value>
+  </data>
+  <data name="SendToCustomEmailDisplayName_Description" xml:space="preserve">
+    <value>O nome de exibição para o destinatário do e-mail. Usado somente quando o modo está configurado para usar um endereço de e-mail personalizado</value>
+  </data>
 </root>

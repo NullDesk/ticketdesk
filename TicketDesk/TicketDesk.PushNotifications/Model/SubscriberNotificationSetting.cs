@@ -25,6 +25,7 @@ namespace TicketDesk.PushNotifications.Model
         public SubscriberNotificationSetting()
         {
             IsEnabled = true;
+            PushNotificationDestinations = new List<PushNotificationDestination>();
         }
 
         [Key]

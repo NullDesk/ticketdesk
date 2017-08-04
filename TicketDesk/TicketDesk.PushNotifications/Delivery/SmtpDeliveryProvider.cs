@@ -35,15 +35,14 @@ namespace TicketDesk.PushNotifications.Delivery
 
         public override Task<bool> SendNotificationAsync(PushNotificationItem notificationItem, object message, CancellationToken ct)
         {
-            var cfg = (SmtpDeliveryProviderConfiguration)Configuration;
-            var sent = false;
-           
-            var smsg = message as SerializableMailMessage;
-            if (smsg != null)
+            SmtpDeliveryProviderConfiguration cfg = (SmtpDeliveryProviderConfiguration)Configuration;
+            bool sent = false;
+
+            if (message is SerializableMailMessage smsg)
             {
                 try
                 {
-                    var client = new SmtpClient()
+                    SmtpClient client = new SmtpClient()
                     {
                         Host = cfg.SmtpServer,
                         Port = cfg.SmtpPort ?? 25,

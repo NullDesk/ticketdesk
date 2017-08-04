@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+#pragma warning disable 1591
 
 namespace S22.Mail {
 	[Serializable]
@@ -7,3 +8,4 @@ namespace S22.Mail {
 		public void Dispose() { }
 	}
 }
+#pragma warning restore 1591

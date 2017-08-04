@@ -35,6 +35,7 @@ namespace TicketDesk.PushNotifications.Model
         [StringLength(50, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string DestinationType { get; set; }
 
+        [Index("IX_SubscriberDestination", 3, IsUnique = true)]
         [StringLength(256, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         public string SubscriberId { get; set; }
 

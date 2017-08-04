@@ -30,11 +30,14 @@ namespace TicketDesk.PushNotifications.Model
         {
             ApplicationName = "TicketDesk";
             IsEnabled = false;
+            IsBackgroundQueueEnabled = true;
             DeliveryIntervalMinutes = 2;
             AntiNoiseSettings = new AntiNoiseSetting();
             RetryAttempts = 5;
             RetryIntervalMinutes = 2;
-            DeliveryProviderSettings = new List<PushNotificationDeliveryProviderSetting> { };
+            // ReSharper disable once VirtualMemberCallInConstructor
+            DeliveryProviderSettings = new List<PushNotificationDeliveryProviderSetting>();
+            BroadcastSettings = new BroadcastSetting();
         }
 
         [Key]
@@ -48,7 +51,7 @@ namespace TicketDesk.PushNotifications.Model
         [ScaffoldColumn(false)]
         public string Serialized
         {
-            get { return JsonConvert.SerializeObject(this); }
+            get => JsonConvert.SerializeObject(this);
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -58,21 +61,29 @@ namespace TicketDesk.PushNotifications.Model
                 var jsettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
                 var jData = JsonConvert.DeserializeObject<ApplicationPushNotificationSetting>(value, jsettings);
                 IsEnabled = jData.IsEnabled;
+                IsBackgroundQueueEnabled = jData.IsBackgroundQueueEnabled;
                 DeliveryIntervalMinutes = jData.DeliveryIntervalMinutes;
                 RetryAttempts = jData.RetryAttempts;
                 RetryIntervalMinutes = jData.RetryIntervalMinutes;
                 DeliveryProviderSettings = jData.DeliveryProviderSettings;
                 AntiNoiseSettings = jData.AntiNoiseSettings;
+                BroadcastSettings = jData.BroadcastSettings;
             }
         }
 
         [NotMapped]
         [Display(Name = "DeliveryProviders", ResourceType = typeof(Strings))]
         public virtual ICollection<PushNotificationDeliveryProviderSetting> DeliveryProviderSettings { get; set; }
-            
+
         [NotMapped]
         [Display(Name = "NotificationsEnabled", Prompt = "NotificationsEnabled_Prompt", ResourceType = typeof(Strings))]
         public bool IsEnabled { get; set; }
+
+        [NotMapped]
+        [Display(Name = "BackgroundQueueEnabled", Prompt = "BackgroundQueueEnabled_Prompt",
+            ResourceType = typeof(Strings))]
+        [LocalizedDescription("BackgroundQueueEnabled_Description", NameResourceType = typeof(Strings))]
+        public bool IsBackgroundQueueEnabled { get; set; }
 
         [NotMapped]
         [Display(Name = "DeliveryAttemptInterval", ResourceType = typeof(Strings))]
@@ -92,6 +103,38 @@ namespace TicketDesk.PushNotifications.Model
         [NotMapped]
         public AntiNoiseSetting AntiNoiseSettings { get; set; }
 
+        [NotMapped]
+        public BroadcastSetting BroadcastSettings { get; set; }
+
+
+        public class BroadcastSetting
+        {
+            public BroadcastSetting()
+            {
+                BroadcastMode = PushNotificationBroadcastMode.AllStaff;
+                IsBroadcastEnabled = true;
+            }
+
+            [NotMapped]
+            [Display(Name = "BroadcastMode", ResourceType = typeof(Strings))]
+            [LocalizedDescription("BroadcastMode_Description", NameResourceType = typeof(Strings))]
+            public PushNotificationBroadcastMode BroadcastMode { get; set; }
+
+            [NotMapped]
+            [Display(Name = "IsBroadcastEnabled", Prompt = "IsBroadcastEnabled_Prompt", ResourceType = typeof(Strings))]
+            public bool IsBroadcastEnabled { get; set; }
+
+            [NotMapped]
+            [EmailAddress]
+            [Display(Name = "SendToCustomEmailAddress", ResourceType = typeof(Strings))]
+            [LocalizedDescription("SendToCustomEmailAddress_Description", NameResourceType = typeof(Strings))]
+            public string SendToCustomEmailAddress { get; set; }
+
+            [NotMapped]
+            [Display(Name = "SendToCustomEmailDisplayName", ResourceType = typeof(Strings))]
+            [LocalizedDescription("SendToCustomEmailDisplayName_Description", NameResourceType = typeof(Strings))]
+            public string SendToCustomEmailDisplayName { get; set; }
+        }
 
         public class PushNotificationDeliveryProviderSetting
         {
@@ -127,8 +170,8 @@ namespace TicketDesk.PushNotifications.Model
             public AntiNoiseSetting()
             {
                 IsConsolidationEnabled = true;
-                InitialConsolidationDelayMinutes = 6;
-                MaxConsolidationDelayMinutes = 16;
+                InitialConsolidationDelayMinutes = 2;
+                MaxConsolidationDelayMinutes = 10;
                 ExcludeSubscriberEvents = true;
             }
 
@@ -151,6 +194,15 @@ namespace TicketDesk.PushNotifications.Model
             [Display(Name = "ExcludeSubscribersOwnEvents", Prompt = "ExcludeSubscribersOwnEvents_Prompt", ResourceType = typeof(Strings))]
             [LocalizedDescription("ExcludeSubscribersOwnEvents_Description", NameResourceType = typeof(Strings))]
             public bool ExcludeSubscriberEvents { get; set; }
+        }
+
+        public enum PushNotificationBroadcastMode
+        {
+            [Display(Name = "PushNotificationBroadcastModeAllStaff", ResourceType = typeof(Strings))]
+            AllStaff,
+            [Display(Name = "PushNotificationBroadcastModeCustomAddress", ResourceType = typeof(Strings))]
+
+            CustomAddress
         }
     }
 }

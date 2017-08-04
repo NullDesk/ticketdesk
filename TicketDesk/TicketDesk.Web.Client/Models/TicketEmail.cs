@@ -13,5 +13,7 @@ namespace TicketDesk.Web.Client.Models
         public string SiteRootUrl { get; set; }
 
         public bool IsMultiProject { get; set; }
+
+        public bool ForNewTicket { get; set; }
     }
 }
