@@ -129,7 +129,7 @@ namespace TicketDesk.Web.Client
             }
             else
             {
-                
+
 
                 var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
                 var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
@@ -208,7 +208,7 @@ namespace TicketDesk.Web.Client
                 }
                 catch
                 {
-                    //TODO: Log this somewhere
+                    //TODO: log this somewhere                    
                 }
             };
         }
@@ -252,7 +252,7 @@ namespace TicketDesk.Web.Client
                 }
                 catch
                 {
-                    //TODO: Log this somewhere
+                    //TODO: Log this somewhere                    
                 }
             };
         }
