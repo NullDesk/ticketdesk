@@ -20,6 +20,7 @@ using S22.Mail;
 using TicketDesk.PushNotifications.Model;
 using TicketDesk.Localization;
 using TicketDesk.Localization.PushNotifications;
+using System;
 
 namespace TicketDesk.PushNotifications.Delivery
 {
@@ -59,10 +60,11 @@ namespace TicketDesk.PushNotifications.Delivery
                     client.Send(smsg);
                     sent = true;
                 }
-                catch
+                catch(Exception ex)
                 {
                     sent = false;
                     //TODO: log this somewhere
+                    throw new Exception("", ex);
                 }
 
             }
