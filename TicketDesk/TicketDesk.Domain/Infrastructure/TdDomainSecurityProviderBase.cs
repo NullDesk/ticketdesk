@@ -104,6 +104,12 @@ namespace TicketDesk.Domain
                 : IsTdHelpDeskUser
                     ? GetHelpDeskUserPermissions()
                     : GetInternalUserPermissions();
+            if (IsTdAdministrator)
+            {
+                //// Enables administrators to act upon ticket as the owner.
+                validTicketActivities |= ticket.GetAvailableActivites(ticket.Owner);
+            }
+
             return (validTicketActivities & allowedActivities);
         }
 

@@ -61,6 +61,15 @@ namespace TicketDesk.Localization.Controllers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot remove current user..
+        /// </summary>
+        public static string CannotRemoveCurrentUser {
+            get {
+                return ResourceManager.GetString("CannotRemoveCurrentUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your password has been changed..
         /// </summary>
         public static string ChangePasswordSuccess {
@@ -174,6 +183,15 @@ namespace TicketDesk.Localization.Controllers {
         public static string UnableToRemoveProject {
             get {
                 return ResourceManager.GetString("UnableToRemoveProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to remove user, please try again..
+        /// </summary>
+        public static string UnableToRemoveUser {
+            get {
+                return ResourceManager.GetString("UnableToRemoveUser", resourceCulture);
             }
         }
     }
