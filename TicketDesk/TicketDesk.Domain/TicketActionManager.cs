@@ -117,6 +117,7 @@ namespace TicketDesk.Domain
             string title,
             string details,
             string priority,
+            string dueDateAsString,
             string ticketType,
             string category,
             string owner,
@@ -164,6 +165,15 @@ namespace TicketDesk.Domain
                     {
                         sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
                         ticket.Priority = priority;
+                    }
+                    if (ticket.DueDateAsString != dueDateAsString)
+                    {
+                        sb.AppendLine(
+                            string.Format("<dd>    " + 
+                            Strings.Changes_From_To + 
+                            "</dd>", 
+                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.DueDate), ticket.DueDateAsString, dueDateAsString));
+                        ticket.DueDateAsString = dueDateAsString;
                     }
                     if (ticket.TicketType != ticketType)
                     {

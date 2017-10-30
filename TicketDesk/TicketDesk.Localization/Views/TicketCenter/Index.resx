@@ -159,6 +159,9 @@
   <data name="TicketList_Created" xml:space="preserve">
     <value>Created</value>
   </data>
+  <data name="TicketList_Due" xml:space="preserve">
+    <value>Due</value>
+  </data>
   <data name="TicketList_ID" xml:space="preserve">
     <value>ID</value>
   </data>

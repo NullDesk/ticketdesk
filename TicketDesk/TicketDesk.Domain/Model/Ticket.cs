@@ -30,6 +30,7 @@ namespace TicketDesk.Domain.Model
             TicketEvents = new HashSet<TicketEvent>();
             TicketSubscribers = new HashSet<TicketSubscriber>();
             TicketTags = new HashSet<TicketTag>();
+            DueDate = null;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
         [Key]
@@ -76,6 +77,48 @@ namespace TicketDesk.Domain.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(ResourceType = typeof(Strings), Name = "TicketCreatedDate", ShortName = "TicketCreatedDateShort")]
         public DateTimeOffset CreatedDate { get; set; }
+
+
+        [Display(ResourceType = typeof(Strings), Name = "TicketDueDate", ShortName = "TicketDueDateShort")]
+        public DateTimeOffset? DueDate { get; set; }
+
+        [NotMapped]
+        public string DueDateAsString
+        {
+            get
+            {
+                return DueDate.HasValue ? DueDate.Value.Date.ToShortDateString() : string.Empty;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty((value ?? string.Empty).Trim()))
+                {
+                    this.DueDate = null;
+                }
+                else
+                {
+                    DateTime dt;
+                    if (DateTime.TryParse(value, out dt))
+                    {
+                        this.DueDate = dt;
+                    }
+                }
+            }
+        }
+
+        [NotMapped]
+        public bool IsOverDue
+        {
+            get
+            {
+                if (this.IsOpen && this.DueDate.HasValue)
+                {
+                    return this.DueDate.Value.DateTime < DateTime.Today.Date.AddDays(1.0);
+                }
+
+                return false;
+            }
+        }
 
         private string _owner;
 
