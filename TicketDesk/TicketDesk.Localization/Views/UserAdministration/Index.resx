@@ -120,6 +120,9 @@
   <data name="Legend" xml:space="preserve">
     <value>Manage User Accounts</value>
   </data>
+  <data name="NewUser" xml:space="preserve">
+    <value>New User</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
   </data>

@@ -76,7 +76,7 @@
                         @Html.HiddenFor(model => model.IsHtml)
                         <input type="hidden" name="tempId" value="@ViewBag.TempId" />
 
-                        @if (ViewBag.IsMultiProject)
+                        @if (ViewBag.IsMultiProject ?? false)
                         {
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProjectId, new { @class = "col-md-2 col-sm-1 control-label" })

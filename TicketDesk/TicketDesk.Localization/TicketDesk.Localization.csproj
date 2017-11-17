@@ -400,6 +400,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Lockout.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserAdministration\New.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\Register.pt-BR.Designer.cs">
       <DependentUpon>Register.pt-BR.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -695,6 +700,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserAdministration\New.pt-BR.resx" />
     <EmbeddedResource Include="Views\User\Lockout.pt-BR.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Lockout.pt-BR.Designer.cs</LastGenOutput>
@@ -702,6 +708,10 @@
     <EmbeddedResource Include="Views\User\Lockout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Lockout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserAdministration\New.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>New.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\User\Register.pt-BR.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

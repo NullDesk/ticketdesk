@@ -117,61 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Administrators" xml:space="preserve">
-    <value>Administradores</value>
-  </data>
-  <data name="Administrators_Description" xml:space="preserve">
-    <value>Usuários que irão gerenciar as configurações do TicketDesk, e também podem gerenciar contas de usuários e permissões. Esse perfil também inclui todas as permissões dos perfis de Equipe de Atendimento e de Usuários Internos.</value>
-  </data>
-  <data name="BackOption" xml:space="preserve">
-    <value>Voltar para usuários</value>
-  </data>
-  <data name="CancelOption" xml:space="preserve">
-    <value>Cancelar</value>
-  </data>
-  <data name="CloseOption" xml:space="preserve">
-    <value>Fechar</value>
-  </data>
-  <data name="DeleteAlert" xml:space="preserve">
-    <value>Essa ação não pode ser desfeita.</value>
-  </data>
-  <data name="DeleteConfirmation" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir esta conta?</value>
-  </data>
-  <data name="DeleteOption" xml:space="preserve">
-    <value>Excluir</value>
-  </data>
   <data name="Header" xml:space="preserve">
-    <value>Detalhes da Conta</value>
-  </data>
-  <data name="HelpDeskStaff" xml:space="preserve">
-    <value>Equipe de Atendimento</value>
-  </data>
-  <data name="HelpDeskStaff_Description" xml:space="preserve">
-    <value>Usuários privilegiados a quem os chamados serão atribuídos. Este perfil tem acesso a todo o conjunto de atividades de chamados. Esse perfil também inclui todas as permissões do perfil de Usuários Internos.</value>
-  </data>
-  <data name="InternalUsers" xml:space="preserve">
-    <value>Usuários Internos</value>
-  </data>
-  <data name="InternalUsers_Description" xml:space="preserve">
-    <value>Este perfil é para usuários finais. Eles podem abrir chamados, podem ser definidos como o solicitante de um chamado, e pode executar um conjunto limitado de operações nos chamados onde o mesmo for o proprietário.</value>
+    <value>Account Details</value>
   </data>
   <data name="Legend" xml:space="preserve">
-    <value>Gerenciar contas de usuário</value>
-  </data>
-  <data name="PendingApproval" xml:space="preserve">
-    <value>Aprovação Pendente</value>
-  </data>
-  <data name="PendingApproval_Description" xml:space="preserve">
-    <value>A menos que a configuração do aplicativo tenha sido alterada, este é o perfil padrão atribuído aos novos usuários. Este perfil não tem privilégios dentro do TicketDesk. O objetivo é que funcione como um marcador para ajudar os administradores a localizar rapidamente novas contas de usuário antes de promovê-los para um perfil diferente.</value>
+    <value>Create User</value>
   </data>
   <data name="SaveOption" xml:space="preserve">
-    <value>Salvar</value>
-  </data>
-  <data name="ShowRoleDescriptions" xml:space="preserve">
-    <value>Exibir descrição dos perfis</value>
+    <value>Create</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Alterar Conta do Usuário</value>
+    <value>New User</value>
   </data>
 </root>

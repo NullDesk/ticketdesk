@@ -19,8 +19,9 @@
     <label class="col-sm-2 control-label " for="wmd-input-activity">@Strings.Comment_Label</label>
     @if (Model.IsHtml)
     {
+        var commentRequired = ViewBag.CommentRequired == null ? string.Empty : ViewBag.CommentRequired.ToString().ToLowerInvariant();
         <div class="col-sm-8">
-            <textarea id="wmd-input-activity" name="Comment" data-is-required=@ViewBag.CommentRequired.ToString().ToLowerInvariant()>@Model.Comment</textarea>
+            <textarea id="wmd-input-activity" name="Comment" data-is-required=@commentRequired>@Model.Comment</textarea>
             @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
         </div>
     }

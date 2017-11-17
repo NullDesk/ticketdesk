@@ -17,7 +17,7 @@
 @using TicketDesk.Domain.Model
 @model  Ticket
 
-@if (ViewBag.IsMultiProject)
+@if (ViewBag.IsMultiProject ?? false)
 {
 <div class="form-group">
     @Html.LabelFor(model => model.ProjectId, new {@class = "col-sm-2 control-label"})
