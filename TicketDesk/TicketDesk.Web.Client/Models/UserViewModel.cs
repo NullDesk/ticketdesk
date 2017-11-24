@@ -20,6 +20,11 @@ namespace TicketDesk.Web.Client.Models
     public class UserRegisterViewModel
     {
         [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [StringLength(100, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
+        [Display(Name = "UserName", ResourceType = typeof(Strings))]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(Validation))]
         [Display(Name = "Email", ResourceType = typeof(Strings))]
         public string Email { get; set; }
@@ -44,9 +49,8 @@ namespace TicketDesk.Web.Client.Models
     public class UserSignInViewModel
     {
         [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
-        [Display(Name = "Email", ResourceType = typeof(Strings))]
-        [EmailAddress(ErrorMessage = null, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(Validation))]
-        public string Email { get; set; }
+        [Display(Name = "UserNameOrEmail", ResourceType = typeof(Strings))]
+        public string UserNameOrEmail { get; set; }
 
         [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [DataType(DataType.Password)]

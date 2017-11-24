@@ -19,7 +19,7 @@ namespace TicketDesk.Localization.Models {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -282,6 +282,24 @@ namespace TicketDesk.Localization.Models {
         public static string TicketStatus_Resolved {
             get {
                 return ResourceManager.GetString("TicketStatus_Resolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username / Email.
+        /// </summary>
+        public static string UserNameOrEmail {
+            get {
+                return ResourceManager.GetString("UserNameOrEmail", resourceCulture);
             }
         }
     }

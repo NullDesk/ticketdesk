@@ -33,6 +33,12 @@
                         <div class="panel-body">
                             @Html.ValidationSummary("", new { @class = "text-danger" })
                             <div class="form-group">
+                                @Html.LabelFor(m => m.User.UserName, new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(m => m.User.UserName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 @Html.LabelFor(m => m.User.Email, new { @class = "col-sm-3 control-label" })
                                 <div class="col-sm-9">
                                     @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
