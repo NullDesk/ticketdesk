@@ -222,6 +222,11 @@ p {
     background-color: rgba(223, 240, 216,0.4);
 }
 
+.overdue, .overdue a, .overdue span {
+    color: red;
+    font-weight: bolder;
+}
+
 .menulist {
     margin-right: 8px;
     margin-left: 5px;

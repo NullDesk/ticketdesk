@@ -192,4 +192,10 @@
   <data name="TicketStatus_Resolved" xml:space="preserve">
     <value>Resolved</value>
   </data>
+  <data name="UserNameOrEmail" xml:space="preserve">
+    <value>Username / Email</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

@@ -72,7 +72,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new TicketDeskUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName };
+                var user = new TicketDeskUser { UserName = model.UserName, Email = model.Email, DisplayName = model.DisplayName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -133,7 +133,16 @@ namespace TicketDesk.Web.Client.Controllers
                 return View(model);
             }
 
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
+            var result = await SignInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, true);
+            if (result != SignInStatus.Success && model.UserNameOrEmail.Contains("@"))
+            {
+                var user = await UserManager.FindByEmailAsync(model.UserNameOrEmail);
+                if (user!=null)
+                {
+                    result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, true);
+                }
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:

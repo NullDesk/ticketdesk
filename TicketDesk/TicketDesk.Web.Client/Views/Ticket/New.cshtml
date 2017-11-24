@@ -26,6 +26,7 @@
     @Styles.Render("~/content/editor")
     @Styles.Render("~/content/select2")
     @Styles.Render("~/content/summernote")
+    @Styles.Render("~/content/datepicker")
 
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/select2_locale_" + CultureHelper.GetCurrentCulture())
@@ -33,6 +34,7 @@
     @Scripts.Render("~/bundles/summernote")
     @Scripts.Render("~/bundles/summernote_locale_" + CultureHelper.GetCurrentCulture())
     @Scripts.Render("~/bundles/editor")
+    @Scripts.Render("~/bundles/datepicker")
 
     <script type="text/javascript">
 
@@ -54,6 +56,7 @@
             window.ticketTags.activate(tagsConfig);
             window.ticketDetails.activate(detailsConfig);
             window.ticketFileUploader.activate(uploaderConfig);
+            $("#DueDateAsString").datepicker({ autoclose: true, clearBtn:true });
         })();
     </script>
 }
@@ -121,22 +124,26 @@
                             }
                         </div>
                         <div class="form-group">
-                            <div class="col-md-2 col-md-offset-2 col-sm-3 col-sm-offset-1">
+                            <div class="col-md-2 col-md-offset-2 col-sm-1 col-sm-offset-1">
                                 <label class="checkbox-inline" for="affectsCustomer">
                                     <input class="" type="checkbox" name="affectsCustomer" id="affectsCustomer" value="true" tabindex="5" />
                                     @New.AffectsCustomer
                                 </label>
                             </div>
-                            @if (Model.AllowEditTags())
-                            {
-
-                                @Html.LabelFor(model => model.TagList, new { @class = "col-md-1 col-sm-1 control-label" })
-                                <div class="col-md-5 col-sm-5">
-                                    @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 6 })
-                                </div>
-                            }
-
+                            @Html.LabelFor(model => model.DueDate, new { @class = "col-md-2 col-sm-2 control-label" })
+                            <div class="col-md-4 col-sm-6">
+                                @Html.TextBoxFor(model => model.DueDateAsString, new { @class = "form-control input-sm", tabindex = 6 })
+                            </div>
                         </div>
+                        @if (Model.AllowEditTags())
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TagList, new { @class = "col-md-2 col-sm-1 control-label" })
+                                <div class="col-md-8 col-sm-11">
+                                    @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 7 })
+                                </div>
+                            </div>
+                        }
                         @if (Model.IsHtml)//TODO: Refactor into a partial or mvc editorfor view
                         {
                             <div class="form-group">
@@ -156,7 +163,7 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab1">
                                                 <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                                                @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required = "", data_val = "true", cols = "92", rows = "15", style = "height:200px", tabindex = 7 })
+                                                @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required = "", data_val = "true", cols = "92", rows = "15", style = "height:200px", tabindex = 8 })
 
                                             </div>
                                             <div class="tab-pane fade" id="tab2">
@@ -181,16 +188,16 @@
                             {
                                 @Html.LabelFor(model => model.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
                                 <div class="col-md-3 col-sm-5">
-                                    @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 8 })
+                                    @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 9 })
                                     @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
                                 </div>
                             }
                             @if (Model.AllowSetAssigned())
                             {
-                                @Html.LabelFor(model => model.AssignedTo, new {@class = "col-md-2 col-sm-2 control-label"})
+                                @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                                 <div class="col-md-3 col-sm-4">
-                                    @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new {@class = "form-control input-sm", tabindex = 9})
-                                    @Html.ValidationMessageFor(model => model.AssignedTo, "", new {@class = "text-danger"})
+                                    @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 10 })
+                                    @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
                                 </div>
                             }
                         </div>

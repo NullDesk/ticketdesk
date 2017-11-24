@@ -28,6 +28,8 @@ namespace TicketDesk.Web.Client
                     "~/Content/site.css",
                     "~/Content/font-awesome.css"));
 
+            bundles.Add(new StyleBundle("~/content/datepicker").Include("~/Content/bootstrap-datepicker.css"));
+
             bundles.Add(new StyleBundle("~/content/wizard").Include("~/Content/wizard.css"));
 
             bundles.Add(new StyleBundle("~/content/select2")
@@ -40,6 +42,9 @@ namespace TicketDesk.Web.Client
 
             bundles.Add(new StyleBundle("~/content/summernote").Include(
                     "~/Scripts/summernote/summernote.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datepicker")
+                .Include("~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/editticket")
                 .Include("~/Scripts/ticketdesk/edit-ticket.js"));

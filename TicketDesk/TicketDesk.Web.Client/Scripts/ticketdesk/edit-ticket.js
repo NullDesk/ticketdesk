@@ -18,7 +18,7 @@
             config = tdConfig;
             configureDetails();
             loadActivityButtons();
-
+            
         };
 
         var beginActivity = function () {
@@ -67,7 +67,7 @@
                                 $(event.target).parent().trigger('click');
                             });
                     }
-                });
+                });                
             }
 
 
@@ -197,8 +197,7 @@
         }
         var loadDetails = function () {
             $('#ticketDetailPanel').parent().animate({ opacity: 0.5 }, 200);
-            $.get(config.loadDetailsUrl, renderDetailsPanel);
-
+            $.get(config.loadDetailsUrl, renderDetailsPanel);            
         };
 
         var loadEventPanel = function () {
@@ -223,6 +222,7 @@
             if ($('#wmd-input-activity').length) {
                 configureCommentEditor();
             }
+            $("#DueDateAsString").datepicker({ autoclose: true, clearBtn: true });
         };
 
         var renderDetailsPanel = function (data) {

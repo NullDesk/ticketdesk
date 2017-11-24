@@ -184,7 +184,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new TicketDeskUser { UserName = model.Email, Email = model.Email, DisplayName = model.DisplayName };
+                var user = new TicketDeskUser { UserName = model.UserName, Email = model.Email, DisplayName = model.DisplayName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -239,7 +239,7 @@ namespace TicketDesk.Web.Client.Controllers
 
         private async Task<bool> UpdateUserInfo(TicketDeskUser user, UserAccountInfoViewModel model)
         {
-            user.UserName = model.User.Email;
+            user.UserName = model.User.UserName;
             user.Email = model.User.Email;
             user.DisplayName = model.User.DisplayName;
             var result = await UserManager.UpdateAsync(user);

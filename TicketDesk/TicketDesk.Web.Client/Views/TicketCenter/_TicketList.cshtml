@@ -55,6 +55,9 @@
                         <th class="hidden-sm hidden-xs">
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "Priority", Index.TicketList_Priority, ajaxSortOptions)
                         </th>
+                        <th>
+                            @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "DueDate", Index.TicketList_Due, ajaxSortOptions)
+                        </th>
                         <th class="hidden-sm hidden-xs">
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "CreatedDate", Index.TicketList_Created, ajaxSortOptions)
                         </th>
@@ -67,7 +70,7 @@
 
                     @foreach (var item in tickets)
                     {
-                        <tr class="clickable">
+                        <tr class="clickable @(item.IsOverDue ? "overdue" : string.Empty)">
                             <td colspan="2" style="white-space: normal;">
                                 <a href="@Url.Action("Index", "Ticket", new {area = "", id = item.TicketId})", style="margin-right: 1ex;">
                                     #@item.TicketId
@@ -100,6 +103,9 @@
                             </td>
                             <td class="hidden-sm hidden-xs">
                                 @Html.DisplayFor(modelItem => item.Priority)
+                            </td>
+                            <td class="hidden-sm hidden-xs">
+                                @Html.DisplayFor(modelItem => item.DueDateAsString)
                             </td>
                             <td class="hidden-sm hidden-xs">
                                 @item.CreatedDate.ToString("d")<br />

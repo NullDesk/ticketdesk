@@ -416,4 +416,10 @@
   <data name="AllowInternalUsersToSetOwner" xml:space="preserve">
     <value>Allow internal users to set or change the ticket owner?</value>
   </data>
+  <data name="TicketDueDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="TicketDueDateShort" xml:space="preserve">
+    <value>Due</value>
+  </data>
 </root>

@@ -416,4 +416,10 @@
   <data name="AllowInternalUsersToSetOwner" xml:space="preserve">
     <value>Permitir que usuários definam ou alterem o usuário que solicitou o chamado?</value>
   </data>
+  <data name="TicketDueDate" xml:space="preserve">
+    <value>Data de Vencimento</value>
+  </data>
+  <data name="TicketDueDateShort" xml:space="preserve">
+    <value>Data de Vencimento</value>
+  </data>
 </root>
