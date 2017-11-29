@@ -107,13 +107,27 @@ namespace TicketDesk.Domain.Model
         }
 
         [NotMapped]
+        public bool IsDue
+        {
+            get
+            {
+                if (this.IsOpen && this.DueDate.HasValue)
+                {
+                    return this.DueDate.Value.DateTime.Date == DateTime.Today.Date;
+                }
+
+                return false;
+            }
+        }
+
+        [NotMapped]
         public bool IsOverDue
         {
             get
             {
                 if (this.IsOpen && this.DueDate.HasValue)
                 {
-                    return this.DueDate.Value.DateTime < DateTime.Today.Date.AddDays(1.0);
+                    return this.DueDate.Value.DateTime.Date < DateTime.Today.Date;
                 }
 
                 return false;

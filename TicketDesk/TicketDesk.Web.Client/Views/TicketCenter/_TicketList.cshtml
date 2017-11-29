@@ -70,7 +70,7 @@
 
                     @foreach (var item in tickets)
                     {
-                        <tr class="clickable @(item.IsOverDue ? "overdue" : string.Empty)">
+                        <tr class="clickable @(item.IsDue ? "due" : (item.IsOverDue ? "overdue" : string.Empty))">
                             <td colspan="2" style="white-space: normal;">
                                 <a href="@Url.Action("Index", "Ticket", new {area = "", id = item.TicketId})", style="margin-right: 1ex;">
                                     #@item.TicketId

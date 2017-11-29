@@ -222,6 +222,11 @@ p {
     background-color: rgba(223, 240, 216,0.4);
 }
 
+.due, .due a, .due span {
+    color: darkorange;
+    font-weight: bolder;
+}
+
 .overdue, .overdue a, .overdue span {
     color: red;
     font-weight: bolder;
