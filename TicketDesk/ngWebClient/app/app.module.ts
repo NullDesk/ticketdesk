@@ -11,8 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         AppComponent,
     ],
     imports: [
-        BrowserModule,
-        NgbModule.forRoot()
+        BrowserModule
     ],
     providers: [],
     bootstrap: [AppComponent]
