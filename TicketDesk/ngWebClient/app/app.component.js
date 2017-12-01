@@ -9,15 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'app';
     }
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'my-app',
         templateUrl: './app.component.html',
-        styleUrls: ['./app.component.css']
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

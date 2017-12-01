@@ -21,8 +21,8 @@ AppModule = __decorate([
             app_component_1.AppComponent,
         ],
         imports: [
-            platform_browser_1.BrowserModule,
-            ng_bootstrap_1.NgbModule.forRoot()
+            ng_bootstrap_1.NgbModule.forRoot(),
+            platform_browser_1.BrowserModule
         ],
         providers: [],
         bootstrap: [app_component_1.AppComponent]
