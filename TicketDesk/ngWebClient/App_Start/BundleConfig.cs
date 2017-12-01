@@ -20,11 +20,11 @@ namespace ngWebClient
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/node_module/@ng-bootstrap/ng-bootstrap/index.js",
+                      "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/node_module/bootstrap/bootstrap.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }
     }
