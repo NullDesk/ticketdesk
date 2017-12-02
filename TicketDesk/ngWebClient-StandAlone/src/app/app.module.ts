@@ -7,6 +7,7 @@ import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { FoobarComponent } from './foobar/foobar.component';
 
+import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detail-editor.component';
 import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
@@ -21,9 +22,10 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     FoobarComponent,
-	  NotFoundComponent,
 	  TicketDetailEditorComponent,
 	  TicketSubmitComponent,
+    NotFoundComponent,
+	  IndividualTicketViewComponent,
   ],
   imports: [
     BrowserModule,
