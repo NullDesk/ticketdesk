@@ -10,15 +10,15 @@ import { FoobarComponent } from './foobar/foobar.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 const appRoutes: Routes = [
-	{ path: '', component: FoobarComponent },
-	{ path: '**', component: NotFoundComponent }
+  { path: '', component: FoobarComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     FoobarComponent,
-	  NotFoundComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
