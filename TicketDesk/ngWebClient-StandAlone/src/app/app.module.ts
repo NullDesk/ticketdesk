@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { FoobarComponent } from './foobar/foobar.component';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
 
 const appRoutes: Routes = [
   { path: '', component: FoobarComponent },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     AppComponent,
     FoobarComponent,
     NotFoundComponent,
+	  IndividualTicketViewComponent,
   ],
   imports: [
     BrowserModule,
