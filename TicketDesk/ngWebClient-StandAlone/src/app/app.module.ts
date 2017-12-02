@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
-import { FoobarComponent } from './foobar.component';
+import { FoobarComponent } from './foobar/foobar.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: FoobarComponent },
@@ -15,11 +15,13 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    FoobarComponent,
 	  NotFoundComponent,
   ],
   imports: [
     BrowserModule,
-	  NgbModule.forRoot(),
+    NgbModule.forRoot(),
+    RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
   providers: [],
   bootstrap: [AppComponent]
