@@ -8,8 +8,11 @@ import { AppComponent } from './app.component';
 import { FoobarComponent } from './foobar/foobar.component';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detail-editor.component';
+import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 
 const appRoutes: Routes = [
+	{ path: 'submit', component: TicketSubmitComponent },
 	{ path: '', component: FoobarComponent },
 	{ path: '**', component: NotFoundComponent }
 ];
@@ -19,6 +22,8 @@ const appRoutes: Routes = [
     AppComponent,
     FoobarComponent,
 	  NotFoundComponent,
+	  TicketDetailEditorComponent,
+	  TicketSubmitComponent,
   ],
   imports: [
     BrowserModule,

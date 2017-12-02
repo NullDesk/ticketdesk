@@ -1,6 +1,5 @@
 <base href="/">
 
-<!--The content below is only a placeholder and can be replaced.-->
 <div> 
   <h1>
     Welcome to {{ title }}!
@@ -15,10 +14,17 @@ nav stuff goes here, so.... <a routerLink="/this_dont_exist">this one don't exis
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav navbar-nav mr-auto mt-2 mt-md-0">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-plus" aria-hidden="true"></i> </a>
+                <a class="nav-link" routerLink="/submit">
+		<button type="button" class="btn btn-primary">Submit a ticket	
+			<i class="fa fa-plus" aria-hidden="true"></i> 
+		</button>
+		</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            </li>
+	    <li class="nav-item">
+		    <a class="nav-link" routerLink="/submit">Submit</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Reports</a>
