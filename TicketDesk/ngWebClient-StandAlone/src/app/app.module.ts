@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     AppComponent,
     FoobarComponent,
     NotFoundComponent,
-	  IndividualTicketViewComponent,
+    IndividualTicketViewComponent,
   ],
   imports: [
     BrowserModule,
