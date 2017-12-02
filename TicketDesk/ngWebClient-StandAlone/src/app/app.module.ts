@@ -13,6 +13,7 @@ import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detai
 import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 
 const appRoutes: Routes = [
+	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
 	{ path: 'submit', component: TicketSubmitComponent },
 	{ path: '', component: FoobarComponent },
 	{ path: '**', component: NotFoundComponent }
