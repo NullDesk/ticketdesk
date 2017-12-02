@@ -214,3 +214,11 @@ TicketDesk/TicketDesk.Web.Client/App_Data/filestore/
 TicketDesk/.vs/
 **/*.vsext.disable
 /.vs/ProjectSettings.json
+/TicketDesk/ngWebClient/app/app.component.js
+/TicketDesk/ngWebClient/app/app.component.js.map
+/TicketDesk/ngWebClient/app/app.component.spec.js
+/TicketDesk/ngWebClient/app/app.component.spec.js.map
+/TicketDesk/ngWebClient/app/app.module.js
+/TicketDesk/ngWebClient/app/app.module.js.map
+/TicketDesk/ngWebClient/app/main.js
+/TicketDesk/ngWebClient/app/main.js.map
