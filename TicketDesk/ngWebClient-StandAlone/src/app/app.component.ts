@@ -11,6 +11,4 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
   title = 'TITLE TKTKTKTKTK';
-	
-
 }

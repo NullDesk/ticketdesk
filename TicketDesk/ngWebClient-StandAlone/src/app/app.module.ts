@@ -11,15 +11,15 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
 
 const appRoutes: Routes = [
-	{ path: '', component: FoobarComponent },
-	{ path: '**', component: NotFoundComponent }
+  { path: '', component: FoobarComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     FoobarComponent,
-	  NotFoundComponent,
+    NotFoundComponent,
 	  IndividualTicketViewComponent,
   ],
   imports: [
