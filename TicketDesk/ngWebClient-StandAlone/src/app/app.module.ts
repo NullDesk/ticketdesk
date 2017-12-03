@@ -13,27 +13,29 @@ import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detai
 import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 import { ReportViewComponent } from './report-view/report-view.component';
 import { TicketCenterComponent } from './ticket-center/ticket-center.component';
+import { SettingsViewComponent } from './settings-view/settings-view.component';
 
 const appRoutes: Routes = [
 	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
 	{ path: 'submit', component: TicketSubmitComponent },
 	{ path: 'center', component: TicketCenterComponent },
+	{ path: 'report', component: ReportViewComponent },
+	{ path: 'settings', component: SettingsViewComponent },
 	{ path: '', component: FoobarComponent },
-	{ path: '**', component: NotFoundComponent },
-	{ path: 'report', component: ReportViewComponent }
+	{ path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     FoobarComponent,
-	  TicketDetailEditorComponent,
-	  TicketSubmitComponent,
+	TicketDetailEditorComponent,
+	TicketSubmitComponent,
     NotFoundComponent,
     IndividualTicketViewComponent,
     TicketCenterComponent,
-	  IndividualTicketViewComponent,
-	  ReportViewComponent,
+	ReportViewComponent,
+	SettingsViewComponent,
   ],
   imports: [
     BrowserModule,
