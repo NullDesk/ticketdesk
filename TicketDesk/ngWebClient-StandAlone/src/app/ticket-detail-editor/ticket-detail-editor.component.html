@@ -1,4 +1,25 @@
+<form [formGroup]="form" class="row">
+	
+
+		<div class="col-md-5" formGroupName="categoryTree">
+	      <label for="category">Category</label>
+	      <select formControlName="category">
+		      <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+	      </select>
+	      <label for="subcategory">Subcategory</label>
+	      <select formControlName="subcategory">
+		      <option *ngFor="let subcat of displayedSubcategories" [value]="subcat">{{subcat}}</option>
+	      </select>
+	</div>	
+	
+	<div class="col-md-5" formGroupName="freeEntry">
+	      <input formControlName="title" placeholder="Title">
+	      <textarea formControlName="description" placeholder="Description"></textarea>
+	</div>
+	<div class="col-md-2">
+	<button type="button">Submit</button>
+	</div>
+</form>
 <p>
-  ticket-detail-editor works!
-  i am the detail-editor.
+this might show something: {{ form.value | json }}
 </p>
