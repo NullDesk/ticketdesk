@@ -3,29 +3,23 @@
   <div class="card">
     <div class="card-header">
       <div class="row"> 
-        <div class="col-sm-2" style="border-right: 1px solid #dcdcdc;">
+        <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
           <h6 class="card-title">Active   <i class="fa fa-envelope-open" aria-hidden="true"></i></h6> 
           <h6 class="card-title"><a href="#">11-14-17-0001</a></h6>
         </div>
-        <div class="col-sm-2" style="border-right: 1px solid #dcdcdc;">
-          
+        <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
           <h6 class="card-title">Assigned To: <button type="button" class="btn btn-warning">Unassigned</button></h6>
         </div>
-        <div class="col-sm-3" style="border-right: 1px solid #dcdcdc;">
-            <div class="card-block">
-								<h4 class="card-title"><i class="fa fa-address-book-o" aria-hidden="true"></i> Daniel Maida</h4>
-								<h6 class="card-subtitle mb-2 text-muted">	360-823-8585</h6>
-								<p class="card-text">	danielmaida2@gmail.com</p>
-							</div>
+        <div class="col-lg-3" style="border-right: 1px solid #dcdcdc;">
+          <app-contact-info></app-contact-info>
         </div>
-
-        <div class="col-sm-2" style="border-right: 1px solid #dcdcdc;">
-            <h6 class="card-subtitle mb-2 text-muted">Hardware</h6>
-            <h6 class="card-subtitle mb-2 text-muted">Graphics card</h6>
+        <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
+          <h6 class="card-subtitle mb-2 text-muted">Hardware</h6>
+          <h6 class="card-subtitle mb-2 text-muted">Graphics card</h6>
         </div>
-        <div class="col-sm-3">
-            <h6 class="card-subtitle mb-2 text-muted">asdfasdfads</h6>
-            <h6 class="card-subtitle mb-2 text-muted">asdfasdfsadfasd</h6>
+        <div class="col-lg-3">
+          <h6 class="card-subtitle mb-2 text-muted">asdfasdfads</h6>
+          <h6 class="card-subtitle mb-2 text-muted">asdfasdfsadfasd</h6>
         </div>
       </div>
     </div>
@@ -48,15 +42,9 @@
       </ngb-tab>
       <ngb-tab id="tab-selectbyid2" title="Activity">
         <ng-template ngbTabContent>
-          <div class="card-body" style="border-right: 0;border-left: 0; border-top: 0;">
-            <div class="card"  style="border: 0;">
-              
-            </div>
-          </div>
+          <app-activity-log></app-activity-log>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
-    <div class="card-block">
-    </div>
   </div>  
 </div>
