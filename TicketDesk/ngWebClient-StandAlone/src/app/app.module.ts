@@ -12,9 +12,12 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detail-editor.component';
 import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 import { ReportViewComponent } from './report-view/report-view.component';
+import { TicketCenterComponent } from './ticket-center/ticket-center.component';
 
 const appRoutes: Routes = [
+	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
 	{ path: 'submit', component: TicketSubmitComponent },
+	{ path: 'center', component: TicketCenterComponent },
 	{ path: '', component: FoobarComponent },
 	{ path: '**', component: NotFoundComponent },
 	{ path: 'report', component: ReportViewComponent }
@@ -27,6 +30,8 @@ const appRoutes: Routes = [
 	  TicketDetailEditorComponent,
 	  TicketSubmitComponent,
     NotFoundComponent,
+    IndividualTicketViewComponent,
+    TicketCenterComponent,
 	  IndividualTicketViewComponent,
 	  ReportViewComponent,
   ],
