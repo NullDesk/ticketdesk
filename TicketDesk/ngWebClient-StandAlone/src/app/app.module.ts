@@ -14,6 +14,9 @@ import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 import { ReportViewComponent } from './report-view/report-view.component';
 import { TicketCenterComponent } from './ticket-center/ticket-center.component';
 import { SettingsViewComponent } from './settings-view/settings-view.component';
+import { TicketListRowComponent } from './ticket-list-row/ticket-list-row.component';
+import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
 	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
@@ -36,9 +39,12 @@ const appRoutes: Routes = [
     TicketCenterComponent,
 	ReportViewComponent,
 	SettingsViewComponent,
+	TicketListRowComponent,
+	TicketListComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true})
