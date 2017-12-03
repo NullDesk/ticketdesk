@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     BrowserModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
+	  ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
   providers: [],
