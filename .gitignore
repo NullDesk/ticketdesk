@@ -215,3 +215,5 @@ TicketDesk/.vs/
 **/*.vsext.disable
 /.vs/ProjectSettings.json
 /package-lock.json
+/TicketDesk/ngWebClient-StandAlone/src/app/newservicehere.service.spec.ts
+/TicketDesk/ngWebClient-StandAlone/src/app/newservicehere.service.ts
