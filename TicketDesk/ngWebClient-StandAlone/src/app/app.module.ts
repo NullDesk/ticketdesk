@@ -7,6 +7,8 @@ import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { FoobarComponent } from './foobar/foobar.component';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 const appRoutes: Routes = [
 	{ path: '', component: FoobarComponent },
 	{ path: '**', component: NotFoundComponent }
@@ -21,6 +23,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    AngularFontAwesomeModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
   providers: [],
