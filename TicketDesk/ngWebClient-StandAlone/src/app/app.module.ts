@@ -7,18 +7,23 @@ import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { FoobarComponent } from './foobar/foobar.component';
 
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detail-editor.component';
+import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 
 const appRoutes: Routes = [
-  { path: '', component: FoobarComponent },
-  { path: '**', component: NotFoundComponent }
+	{ path: 'submit', component: TicketSubmitComponent },
+	{ path: '', component: FoobarComponent },
+	{ path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     FoobarComponent,
+	  TicketDetailEditorComponent,
+	  TicketSubmitComponent,
     NotFoundComponent,
 	  IndividualTicketViewComponent,
   ],
