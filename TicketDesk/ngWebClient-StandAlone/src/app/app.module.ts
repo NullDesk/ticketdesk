@@ -14,6 +14,9 @@ import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 import { ReportViewComponent } from './report-view/report-view.component';
 import { TicketCenterComponent } from './ticket-center/ticket-center.component';
 import { SettingsViewComponent } from './settings-view/settings-view.component';
+import { ActivitylogComponent } from './activitylog/activitylog.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ContactInfoComponent } from './contact-info/contact-info.component';
 
 const appRoutes: Routes = [
 	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
@@ -36,6 +39,8 @@ const appRoutes: Routes = [
     TicketCenterComponent,
 	ReportViewComponent,
 	SettingsViewComponent,
+	ActivityLogComponent,
+	ContactInfoComponent,
   ],
   imports: [
     BrowserModule,
