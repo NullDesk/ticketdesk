@@ -25,7 +25,7 @@ export class TicketDetailEditorComponent implements OnInit {
 	    freeEntry: fb.group({title: '', description: ''})
 	    
     });
-	  this.form.controls['categoryTree'].controls["category"].valueChanges.subscribe(
+	  this.form.get('categoryTree').get("category").valueChanges.subscribe(
 	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue];}
 	  );
 
