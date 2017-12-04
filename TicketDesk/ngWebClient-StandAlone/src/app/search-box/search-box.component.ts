@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBoxComponent implements OnInit {
 
-  constructor() { }
+  searchBox: FormControl;	
+
+	constructor() {
+	this.searchBox = new FormControl('');
+	}
 
   ngOnInit() {
   }

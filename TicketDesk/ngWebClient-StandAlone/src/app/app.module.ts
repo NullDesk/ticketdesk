@@ -18,7 +18,6 @@ import { TicketCenterComponent } from './ticket-center/ticket-center.component';
 import { SettingsViewComponent } from './settings-view/settings-view.component';
 import { TicketListRowComponent } from './ticket-list-row/ticket-list-row.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
-import { FormsModule } from '@angular/forms';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
@@ -53,7 +52,6 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
 	  ReactiveFormsModule,
