@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
@@ -14,6 +16,12 @@ import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 import { ReportViewComponent } from './report-view/report-view.component';
 import { TicketCenterComponent } from './ticket-center/ticket-center.component';
 import { SettingsViewComponent } from './settings-view/settings-view.component';
+import { TicketListRowComponent } from './ticket-list-row/ticket-list-row.component';
+import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ContactInfoComponent } from './contact-info/contact-info.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
+
 
 const appRoutes: Routes = [
 	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
@@ -36,11 +44,17 @@ const appRoutes: Routes = [
     TicketCenterComponent,
 	ReportViewComponent,
 	SettingsViewComponent,
+	TicketListRowComponent,
+	TicketListComponent,
+	ActivityLogComponent,
+	ContactInfoComponent,
+	SearchBoxComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
+	  ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
   providers: [],
