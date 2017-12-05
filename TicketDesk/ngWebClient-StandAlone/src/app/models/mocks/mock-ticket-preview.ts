@@ -1,6 +1,6 @@
 import { TicketPreview } from '../ticket-preview';
 
-export const TICKET: TicketPreview = {
+export const TICKETS: TicketPreview[] = [{
     ticketId: 120217001,
     title: "Broken Computer",
 	status: "Active", 
@@ -10,4 +10,14 @@ export const TICKET: TicketPreview = {
 	category: "Software", 
     subcategory: "Windows",		
 	createdDate: 30
-};
+},{
+	ticketId: 120217002,
+	title: "Broken Monitor",
+	status: "Active", 
+	priority: "3", 
+	owner: "Timmy", 
+	assigned: "Sandra",
+	category: "Hardware", 
+	subcategory: "Display",		
+	createdDate: 30
+}];

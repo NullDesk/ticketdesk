@@ -1,10 +1,4 @@
 <div class="container">
-  <div class="row">
-    Put Header here
-  </div>
-  <div class="row"> 
-  <app-ticket-list-row {{*ngFor="let ticket of ticketList"
-            [ticket]="ticket"}}>
-   </app-ticket-list-row>
-   </div>
+    <app-ticket-list-row  *ngFor="let ticket  of ticketList"
+    [ticket]="ticket"> </app-ticket-list-row> 
 </div>
