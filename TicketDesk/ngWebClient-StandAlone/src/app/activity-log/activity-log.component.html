@@ -1,30 +1,9 @@
 <div class="card-body">
-    <div class="card" style="border-right: 0;border-left: 0; border-top: 0;">
+    <div class="card" style="border-right: 0;border-left: 0; border-top: 0;" *ngFor="let log of ticket_log">
       <div class="card-block">
-        <h5 class="card-title"><strong>Tech #123</strong> closed ticket</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><div class="text-muted small"> Tuesday, November 14, 2017 9:00 PM</div></h6>
-        <p class="card-text">To be, or not to be: that is the question: Whether ‘tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end</p>
-      </div>
-    </div>
-    <div class="card" style="border-right: 0;border-left: 0; border-top: 0;">
-      <div class="card-block">
-        <h5 class="card-title"><strong>Tech #123</strong> started work on ticket</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><div class="text-muted small"> Tuesday, November 14, 2017 8:45 PM</div></h6>
-        <p class="card-text">I am looking into why the graphics card is not working. Maybe not it's plugged in?</p>
-      </div>
-    </div>
-    <div class="card" style="border-right: 0;border-left: 0; border-top: 0">
-      <div class="card-block">
-        <h5 class="card-title"><strong>Admin</strong> assigned to tech</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><div class="text-muted small"> Tuesday, November 14, 2017 8:30 PM</div></h6>
-        <p class="card-text">I am assigning tech #123 because he is the most knowlege about graphics cards</p>
-      </div>
-    </div>
-    <div class="card" style="border-right: 0;border-left: 0; border-bottom: 0; border-top: 0;">
-      <div class="card-block">
-        <h5 class="card-title"><strong>Regular</strong> user created the ticket</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div></h6>
-        <p class="card-text">Two weeks ago, my EVGA GTX 780 Ti of 3.5 years started to malfunction (artifacts, display disruptions, etc.) and shortly after that, finally died.</p>
+        <h5 class="card-title"><strong>{{log.owner}}</strong> {{log.status_change}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><div class="text-muted small">{{log.date}}</div></h6>
+        <p class="card-text">{{log.description}}</p>
       </div>
     </div>
   </div>

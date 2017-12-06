@@ -10,7 +10,7 @@ export let tickets:[Ticket] = [
     "subcategory": "Graphics Card", 
     "owner" : "122902", 
     "tagList": ["tag1", "tag2"]
-}/*,
+},
 
     {"ticketId": 10, 
     "projectId": 11,
@@ -22,10 +22,10 @@ export let tickets:[Ticket] = [
           "subcategory": "subcategory test 1",
            "owner": "owner test 1",
             "tagList": ["tagList test 1"] }
-*/
+
 ];
 
-let logs:[Logs] = [
+export let logs:[Logs] = [
 	{"ticketId": 123456,
 	"entries" : [
 	{	"owner" : "Tech #123",
@@ -61,12 +61,3 @@ let logs:[Logs] = [
 	}
 
 ];
-
-/*export let user:{} = {
-	"user_id" : "122902"
-	"first" : "Daniel",
-	"last" : "Maida",
-	"phone" : "360-823-8585",
-	"email" : "daielmaida2@gmail.com"
-
-};*/

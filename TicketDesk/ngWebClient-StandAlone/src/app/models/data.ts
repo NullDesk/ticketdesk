@@ -7,17 +7,17 @@ export interface Ticket {
 	priority?: string, 
 	ticketType: string, 
 	category: string, 
-        subcategory: string,	
+    subcategory: string,	
 	owner: string, 
 	tagList: [string]	
 }
 
 export interface Logs {
-	"ticketId" : number,
-	"entries" : [entry]
+	ticketId : number,
+	entries : [Entry]
 }
 
-interface entry{
+export interface Entry{
 	owner: string,
 	description : string,
 	date : string,
