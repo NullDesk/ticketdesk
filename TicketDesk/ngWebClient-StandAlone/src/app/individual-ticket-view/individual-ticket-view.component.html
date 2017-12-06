@@ -5,21 +5,22 @@
       <div class="row"> 
         <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
           <h6 class="card-title">Active   <i class="fa fa-envelope-open" aria-hidden="true"></i></h6> 
-          <h6 class="card-title"><a href="#">11-14-17-0001</a></h6>
+          <h6 class="card-title"><a href="ticket/{{single_ticket.ticketId}}">{{single_ticket.ticketId}}</a></h6>
         </div>
         <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
-          <h6 class="card-title">Assigned To: <button type="button" class="btn btn-warning">Unassigned</button></h6>
+          <h6 class="card-title">Assigned To:</h6>
+          <h6 class="card-subtitle mb-2">Nazar Stelmakh</h6>
         </div>
         <div class="col-lg-3" style="border-right: 1px solid #dcdcdc;">
           <app-contact-info></app-contact-info>
         </div>
         <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
-          <h6 class="card-subtitle mb-2 text-muted">Hardware</h6>
-          <h6 class="card-subtitle mb-2 text-muted">Graphics card</h6>
+            <h6 class="card-title">Categories</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.category}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.subcategory}}</h6>
         </div>
         <div class="col-lg-3">
-          <h6 class="card-subtitle mb-2 text-muted">asdfasdfads</h6>
-          <h6 class="card-subtitle mb-2 text-muted">asdfasdfsadfasd</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.tagList}}</h6>
         </div>
       </div>
     </div>
@@ -28,13 +29,12 @@
         <ng-template ngbTabContent>
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">My Computer is broken.</h4>
+              <h4 class="card-title">{{single_ticket.title}}</h4>
               <div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div>
-              <p class="card-text">Two weeks ago, my EVGA GTX 780 Ti of 3.5 years started to malfunction (artifacts, display disruptions, etc.) and shortly after that, finally died. This was especially annoying because it was only half a year after EVGA's warranty expired. So I researched online and bought an EVGA GTX 1080 Ti (which I can still return). This card is overkill for my setup, I do know that, especially for gaming with 1920x1080. However, I intend to buy a second monitor with either a 2k or 4k resolution which should be enough to keep up with this beast.</p>
+              <p class="card-text">{{single_ticket.details}}</p>
               <a href="#" class="btn btn-dark">Comment</a>
               <a href="#" class="btn btn-dark">Assign</a>
               <a href="#" class="btn btn-dark">Take Over</a>
-              <a href="#" class="btn btn-dark">Assign</a>
               <a href="#" class="btn btn-dark">Edit</a>
             </div>
           </div>
