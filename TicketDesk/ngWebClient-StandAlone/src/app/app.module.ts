@@ -22,6 +22,8 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 
+import { SingleTicketService } from './services/single-ticket.service';
+
 
 const appRoutes: Routes = [
 	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
@@ -57,7 +59,7 @@ const appRoutes: Routes = [
 	  ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
-  providers: [],
+  providers: [SingleTicketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
