@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Ticket, Logs } from '../models/data';
-import { tickets, logs } from './ticket_db'
+import { Ticket } from '../models/data';
+import { tickets } from './ticket_db'
 @Injectable()
 export class SingleTicketService {
 
@@ -23,8 +23,8 @@ export class SingleTicketService {
 
   }
 
-  getTicketLog(ticketId: number):Log.entries{
-    let get_log:Log.entries = null;
+  getTicketLog(ticketId: number){
+    /*let get_log:Logs = null;
 
     for(let log of logs){
       if(log.ticketId == ticketId){
@@ -33,7 +33,7 @@ export class SingleTicketService {
       }
     }
 
-    return get_log;
+    return get_log;*/
 
   };
 
