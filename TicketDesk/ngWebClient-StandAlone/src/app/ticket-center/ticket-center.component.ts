@@ -13,18 +13,18 @@ import { tickets } from '../services/ticket_db';
 
 export class TicketCenterComponent implements OnInit {
   tabNames: string[] = ["Open", "Assigned", "All", "Submitted", "Closed" ] //MAKE input/ settings at some point
-  ticketList: Ticket[];
+  ticketList: {"list":Ticket[], "maxPages" : number};
   listName: string;
   constructor(private multiTicketService : MultiTicketService) { 
     
   }
   setListName(tabName : string){
     this.listName = tabName;
-    this.ticketList = this.multiTicketService.FilterList(this.listName);
+    this.ticketList = this.multiTicketService.filterList(this.listName);
   }
 
   ngOnInit() { 
-    this.ticketList = this.multiTicketService.FilterList(this.listName);
+    this.ticketList = this.multiTicketService.filterList(this.listName);
   }
 
 }
