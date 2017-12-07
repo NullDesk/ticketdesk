@@ -4,16 +4,18 @@ import { tickets } from './ticket_db'
 @Injectable()
 export class SingleTicketService {
 
-  constructor() { };
+  constructor() {
+   };
   getTicketDetails(ticketId: number):Ticket{
     let get_ticket:Ticket = null; // 
-    let ticket:any;
-    for(ticket in tickets){ // "search" database here to match ticketId
+
+    for(let ticket of tickets){ // "search" database here to match ticketId
       if(ticket.ticketId == ticketId){
         get_ticket = ticket;
         break;
       }
     };
+    
 	 return get_ticket; 
   }
 
@@ -28,7 +30,5 @@ export class SingleTicketService {
   changeTicketSubscription(ticketID: number){
 
   }
-
-
 
 }
