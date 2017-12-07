@@ -1,5 +1,5 @@
-export interface TicketPreview {
-    ticketId: number;
+export class TicketPreview {
+    ticketid: number;
 	title: string;
 	status: string; 
 	priority?: string; 
