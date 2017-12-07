@@ -15,7 +15,7 @@
           <app-contact-info></app-contact-info>
         </div>
         <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
-            <h6 class="card-title">Categories</h6>
+          <h6 class="card-title">Categories</h6>
           <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.category}}</h6>
           <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.subcategory}}</h6>
         </div>
@@ -35,26 +35,26 @@
               <span *ngFor="let button of buttonTitles">
                 <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
                 <button type="button" class="btn btn-dark" (click)="isCollapsed = !isCollapsed"
-                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-                  {{ button }}
-                </button>
-              </span>
-              <div id="collapseExample" [ngbCollapse]="isCollapsed">
-                  <div class="card">
-                    <div class="card-body">
-                      You can collapse this card by clicking a button
-                    </div>
-                  </div>
-                </div>    
-            </div>
+                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                {{ button }}
+              </button>
+            </span>
+            <div id="collapseExample" [ngbCollapse]="isCollapsed">
+              <div class="card">
+                <div class="card-body">
+                
+                </div>
+              </div>
+            </div>    
           </div>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab id="tab-selectbyid2" title="Activity">
-        <ng-template ngbTabContent>
-          <app-activity-log></app-activity-log>
-        </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
-  </div>  
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab id="tab-selectbyid2" title="Activity">
+      <ng-template ngbTabContent>
+        <app-activity-log></app-activity-log>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>  
 </div>
