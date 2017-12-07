@@ -1,5 +1,6 @@
 export interface User_Details {
-	emp_name : string,
+	first_name : string,
+	last_name : string,
 	phone_number : string,
 	e_mail : string
 }
