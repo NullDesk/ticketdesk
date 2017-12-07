@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ServicesModule } from './services/services.module';
 
 import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { FoobarComponent } from './foobar/foobar.component';
-
+import { AttachFileComponent } from './attach-file/attach-file.component';
 import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detail-editor.component';
@@ -21,8 +21,6 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
-
-import { SingleTicketService } from './services/single-ticket.service';
 
 
 const appRoutes: Routes = [
@@ -51,15 +49,17 @@ const appRoutes: Routes = [
 	ActivityLogComponent,
 	ContactInfoComponent,
 	SearchBoxComponent,
+	AttachFileComponent,
   ],
   imports: [
+	  ServicesModule,
     BrowserModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
 	  ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
-  providers: [SingleTicketService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
