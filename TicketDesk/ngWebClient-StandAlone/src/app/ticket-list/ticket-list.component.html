@@ -28,19 +28,11 @@
             <ngx-datatable-column name="createdDate"></ngx-datatable-column>
         </ngx-datatable>
 
-        <div>maxSize = 5, rotate = false</div>
-        <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination>
-        
-        <div>maxSize = 5, rotate = true</div>
-        <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
-        
-        <div>maxSize = 5, rotate = true, ellipses = false</div>
-        <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+        <div>maxSize = {{ticketList.maxPages}}, rotate = true</div>
+        <ngb-pagination [collectionSize]=ticketList.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
         
         <hr>
         
-        <pre>Current page: {{page}}</pre>
-
         <ul>
             <li *ngFor='let sel of selected'>
               {{sel.name}}

@@ -12,7 +12,9 @@ export class TicketListComponent implements OnInit {
   //This will become input
   @Input() ticketList: {"list": Ticket[], "maxPages": number};
   selected = [];
+  currentPage:number;
   ngOnInit() {
+    this.currentPage = 1;
     
   }
 
