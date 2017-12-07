@@ -9,11 +9,11 @@
             </tr>
         </thead>
         <tbody>
-		<tr *ngFor="let row of ticketListResults.ticketList" routerLink="/ticket/{{row.ticketId}}">
+		<tr *ngFor="let row of ticketListResults.ticketList"> 
                     <td> 
                         <input type="checkbox" [checked]="isChecked(row)"   (change)="checkboxSelect(row)">  </td>
-                    <td> {{row.ticketId}} </td>
-                    <td> {{row.title}} </td>
+                    <td routerLink="/ticket/{{row.ticketId}}" class="btn btn-primary"> {{row.ticketId}} </td>
+		    <td routerLink="/ticket/{{row.ticketId}}"> {{row.title}} </td>
                     <td> {{row.status}} </td>
                     <td> {{row.priority}}  </td>
                     <td> {{row.owner}} </td>
