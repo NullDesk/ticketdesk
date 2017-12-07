@@ -3,7 +3,7 @@
     <table class="table">
         <thead class="thead-default">
             <tr>
-                <th> <input  type="checkbox" [checked]="isChecked(row)"  (change)="selectAll()"> </th>
+                <th> <input  type="checkbox" [checked]="checkAll()"  (change)="selectAll()"> </th>
                 <th>TicketID</th>
                 <th *ngFor = "let heading of headingsList">{{heading}}</th>
             </tr>
@@ -11,7 +11,7 @@
         <tbody>
             <tr *ngFor="let row of ticketListResults.ticketList">
                     <td> 
-                        <input type="checkbox" [checked]="isChecked(row)"  (change)="checkboxSelect(row)">  </td>
+                        <input type="checkbox" [checked]="isChecked(row)"   (change)="checkboxSelect(row)">  </td>
                     <td> {{row.ticketId}} </td>
                     <td> {{row.title}} </td>
                     <td> {{row.status}} </td>
