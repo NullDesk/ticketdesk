@@ -1,29 +1,49 @@
-<form [formGroup]="form" class="row">
+
+
+<form class="form-group" [formGroup]="form">
 	
-	<div class="col-md-5">
-	      <label for="ticketType">Ticket Type</label>
-	      <select formControlName="ticketType">
-		      <option *ngFor="let typ of ticketTypes" [value]="typ">{{typ}}</option>
-	      </select>
-	      <label for="category">Category</label>
-	      <select formControlName="category">
-		      <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
-	      </select>
-	      <label for="subcategory">Subcategory</label>
-	      <select formControlName="subcategory">
-		      <option *ngFor="let subcat of displayedSubcategories" [value]="subcat">{{subcat}}</option>
-	      </select>
-	</div>	
-	
-	<div class="col-md-5">
-	      <input formControlName="title" placeholder="Title">
-	      <textarea formControlName="details" placeholder="Description"></textarea>
+	<div class="form-group row">
+		<div class="col-md-3 mb-3">
+			<label for="ticketType">Ticket Type</label>
+			<select formControlName="ticketType"  class="form-control">
+				<option *ngFor="let typ of ticketTypes" [value]="typ">{{typ}}</option>
+			</select>
+		</div>
 	</div>
-	<div class="col-md-2">
-<app-attach-file></app-attach-file>
-	<button type="button" (click)="submit()">Submit</button>
+	
+	<div class="form-group row">
+		<div class="col-md-3 mb-3">
+			<label for="category">Category</label>
+			<select formControlName="category"  class="form-control">
+				<option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+			</select>
+		</div>
+		<div class="col-md-3 mb-3">
+			<label for="subcategory">Subcategory</label>
+			<select formControlName="subcategory"  class="form-control">
+				<option *ngFor="let subcat of displayedSubcategories" [value]="subcat">{{subcat}}</option>
+			</select>
+		</div>
+	</div>
+	
+	
+	<div class="form-group row">
+		<label class="center-block">Title
+			<input formControlName="title" placeholder="Title"  class="form-control">
+		</label>
+	</div>
+	
+	
+	<div class="form-group row">
+		<textarea formControlName="details" placeholder="Description"  class="form-control"></textarea>
+	</div>
+	
+	
+	
+	<div class="row">
+		<div class="col-md-4">
+			<app-attach-file></app-attach-file>
+			<button class="btn btn-primary" type="button" (click)="submit()">Submit</button>
+		</div>
 	</div>
 </form>
-<p>
-this might show something: {{ form.value | json }}
-</p>
