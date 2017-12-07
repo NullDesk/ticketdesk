@@ -1,7 +1,6 @@
 <form [formGroup]="form" class="row">
 	
-
-		<div class="col-md-5" formGroupName="categoryTree">
+	<div class="col-md-5">
 	      <label for="category">Category</label>
 	      <select formControlName="category">
 		      <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
@@ -12,12 +11,13 @@
 	      </select>
 	</div>	
 	
-	<div class="col-md-5" formGroupName="freeEntry">
+	<div class="col-md-5">
 	      <input formControlName="title" placeholder="Title">
-	      <textarea formControlName="description" placeholder="Description"></textarea>
+	      <textarea formControlName="details" placeholder="Description"></textarea>
 	</div>
 	<div class="col-md-2">
-	<button type="button">Submit</button>
+<app-attach-file></app-attach-file>
+	<button type="button" (click)="submit()">Submit</button>
 	</div>
 </form>
 <p>
