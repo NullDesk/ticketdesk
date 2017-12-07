@@ -23,6 +23,7 @@ import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SingleTicketService } from './services/single-ticket.service';
+import { AdUserComponent } from './ad-user/ad-user.component';
 
 
 
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
 	ContactInfoComponent,
 	SearchBoxComponent,
 	AttachFileComponent,
+	AdUserComponent,
   ],
   imports: [
 	  ServicesModule,
