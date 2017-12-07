@@ -15,6 +15,14 @@ import { AdContactService } from './ad-contact.service';
     HttpModule
   ],
   declarations: [],
-  providers: [FileService, SingleTicketService, SubmitTicketService, UploadService, MultiTicketService, SchemaService, AdContactService]
+  providers: [
+    FileService, 
+    SingleTicketService, 
+    SubmitTicketService, 
+    UploadService, 
+    MultiTicketService, 
+    SchemaService, 
+    AdContactService
+  ]
 })
 export class ServicesModule { }

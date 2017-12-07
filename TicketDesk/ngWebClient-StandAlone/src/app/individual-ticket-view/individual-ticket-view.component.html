@@ -32,10 +32,9 @@
               <h4 class="card-title">{{single_ticket.title}}</h4>
               <div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div>
               <p class="card-text">{{single_ticket.details}}</p>
-              <a href="#" class="btn btn-dark">Comment</a>
-              <a href="#" class="btn btn-dark">Assign</a>
-              <a href="#" class="btn btn-dark">Take Over</a>
-              <a href="#" class="btn btn-dark">Edit</a>
+              <span *ngFor="let button of buttonTitles">
+                <a href="#" class="btn btn-dark ">{{ button }}</a>
+              </span>    
             </div>
           </div>
         </ng-template>

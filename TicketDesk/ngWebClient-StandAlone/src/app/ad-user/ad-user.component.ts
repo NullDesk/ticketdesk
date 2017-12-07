@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User_Details } from 'app/models/user';
+import { single_user } from 'app/services/user_db';
 
 @Component({
   selector: 'app-ad-user',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ad-user.component.css']
 })
 export class AdUserComponent implements OnInit {
-
-  constructor() { }
+  user: User_Details;
+  constructor() 
+  { 
+    this.user = single_user;
+  }
 
   ngOnInit() {
   }

@@ -15,6 +15,7 @@ export class IndividualTicketViewComponent implements OnInit {
 
   single_ticket:Ticket = null;
   ticketId: number = null;
+  buttonTitles: Array<String> = null;
 
   constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute ) { 
     this.activatedRoute.params.subscribe(params => {
@@ -25,5 +26,6 @@ export class IndividualTicketViewComponent implements OnInit {
   ngOnInit() {
     console.log('Starting Invidividual ticket view');
     this.single_ticket = this.singleTicketService.getTicketDetails(this.ticketId);
+    this.buttonTitles = this.singleTicketService.getAvailableTicketActions(this.ticketId);
   }
 }

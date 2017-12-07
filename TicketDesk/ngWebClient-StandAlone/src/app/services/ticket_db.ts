@@ -83,47 +83,61 @@ export var tickets:[Ticket] = [
 ];
 
 export var logs:[Logs] = [
-	{"ticketId": 1111,
-	"entries" : [
-	{	"owner" : "1000",
-		"description" : "To be, or not to be: that is the question: Whether ‘tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end",
-		"date" : "Tuesday, November 14, 2017 9:00 PM",
-		"status_change" : "closed ticket"},
-	
-	{	"owner" : "1002",
-		"description" : "I am looking into why the graphics card is not working. Maybe not it's plugged in?",
-		"date" : "Tuesday, November 14, 2017 8:45 PM",
-		"status_change" : "Started work on ticket"},
-	
-	{	"owner" : "1000",
-		"description" : "I am assigning tech #123 because he is the most knowlege about graphics cards",
-		"date" : "Tuesday, November 14, 2017 8:30 PM",
-		"status_change" : "assigned to tech"},
-	{	"owner" : "1001",
-		"description" : "Two weeks ago, my EVGA GTX 780 Ti of 3.5 years started to malfunction (artifacts, display disruptions, etc.) and shortly after that, finally died.",
-		"date" : "Tuesday, November 14, 2017 8:13 PM",
-		"status_change" : "user created the ticket"}	
-	
-	]
+	{
+		"ticketId": 1111,
+		"entries": [
+			{
+				"owner": "1000",
+				"description": "To be, or not to be: that is the question: Whether ‘tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end",
+				"date": "Tuesday, November 14, 2017 9:00 PM",
+				"status_change": "closed ticket"
+			},
+
+			{
+				"owner": "1002",
+				"description": "I am looking into why the graphics card is not working. Maybe not it's plugged in?",
+				"date": "Tuesday, November 14, 2017 8:45 PM",
+				"status_change": "Started work on ticket"
+			},
+
+			{
+				"owner": "1000",
+				"description": "I am assigning tech #123 because he is the most knowlege about graphics cards",
+				"date": "Tuesday, November 14, 2017 8:30 PM",
+				"status_change": "assigned to tech"
+			},
+			{
+				"owner": "1001",
+				"description": "Two weeks ago, my EVGA GTX 780 Ti of 3.5 years started to malfunction (artifacts, display disruptions, etc.) and shortly after that, finally died.",
+				"date": "Tuesday, November 14, 2017 8:13 PM",
+				"status_change": "user created the ticket"
+			}
+
+		]
 	},
-	
-	{"ticketId": 2222,
-	"entries" : [
-	{	"owner" : "1001",
-		"description" : "Test ticket Submission",
-		"date" : "Tuesday, November 14, 2017 9:00 PM",
-		"status_change" : "Created Ticket"}	
-	
-	]
+
+	{
+		"ticketId": 2222,
+		"entries": [
+			{
+				"owner": "1001",
+				"description": "Test ticket Submission",
+				"date": "Tuesday, November 14, 2017 9:00 PM",
+				"status_change": "Created Ticket"
+			}
+
+		]
 	},
 
 	{
 		"ticketId": 3333,
-		"entries" : [
-		{"owner" : "1001",
-		"description" : "Test ticket Submission",
-		"date" : "Tuesday, November 14, 2017 9:00 PM",
-		"status_change" : "Created Ticket"}
+		"entries": [
+			{
+				"owner": "1001",
+				"description": "Test ticket Submission",
+				"date": "Tuesday, November 14, 2017 9:00 PM",
+				"status_change": "Created Ticket"
+			}
 		]
 	}
 
