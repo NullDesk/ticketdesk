@@ -3,12 +3,15 @@
     <table class="table">
         <thead class="thead-default">
             <tr>
+                <th> <input  type="checkbox" [checked]="isChecked(row)"  (change)="selectAll()"> </th>
                 <th>TicketID</th>
                 <th *ngFor = "let heading of headingsList">{{heading}}</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let row of ticketListResults.ticketList">
+                    <td> 
+                        <input type="checkbox" [checked]="isChecked(row)"  (change)="checkboxSelect(row)">  </td>
                     <td> {{row.ticketId}} </td>
                     <td> {{row.title}} </td>
                     <td> {{row.status}} </td>
@@ -23,6 +26,9 @@
         
         <!-- Pagination goes here !-->
     </table>
+    <ul>
+        <li *ngFor="let sel of selected">{{sel.title}}</li>
+    </ul>
     
     <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
