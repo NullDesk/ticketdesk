@@ -1,5 +1,5 @@
 export class TicketPreview {
-    ticketId: number;
+    ticketid: number;
 	title: string;
 	status: string; 
 	priority?: string; 

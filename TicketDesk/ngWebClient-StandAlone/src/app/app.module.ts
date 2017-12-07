@@ -21,6 +21,9 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { SingleTicketService } from './services/single-ticket.service';
+
 
 
 const appRoutes: Routes = [
@@ -57,7 +60,8 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
 	  ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true})
+	RouterModule.forRoot(appRoutes, {enableTracing: true}),
+	NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

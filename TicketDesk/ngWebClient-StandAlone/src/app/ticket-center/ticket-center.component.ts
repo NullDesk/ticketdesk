@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable, Component, OnInit } from '@angular/core';
+import { Ticket } from '../models/data';
+import { MultiTicketService } from '../services/multi-ticket.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import { tickets } from '../services/ticket_db';
 
 @Component({
   selector: 'app-ticket-center',
@@ -6,10 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ticket-center.component.css']
 })
 export class TicketCenterComponent implements OnInit {
+  ticketList: Ticket[];
+  listName: string = "all";
+  constructor(private multiTicketService : MultiTicketService) { 
+    
+  }
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() { 
+    this.ticketList = this.multiTicketService.FilterList("all");
   }
 
 }
