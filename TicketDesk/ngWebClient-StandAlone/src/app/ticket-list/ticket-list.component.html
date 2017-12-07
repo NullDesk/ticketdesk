@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let row of ticketListResults.ticketList">
+		<tr *ngFor="let row of ticketListResults.ticketList" routerLink="/ticket/{{row.ticketId}}">
                     <td> 
                         <input type="checkbox" [checked]="isChecked(row)"   (change)="checkboxSelect(row)">  </td>
                     <td> {{row.ticketId}} </td>
