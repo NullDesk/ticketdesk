@@ -16,6 +16,7 @@ export class IndividualTicketViewComponent implements OnInit {
   single_ticket:Ticket = null;
   ticketId: number = null;
   buttonTitles: Array<String> = null;
+  isCollapsed: boolean = true;
 
   constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute ) { 
     this.activatedRoute.params.subscribe(params => {

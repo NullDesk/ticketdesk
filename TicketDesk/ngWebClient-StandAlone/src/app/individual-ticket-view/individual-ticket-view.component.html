@@ -33,8 +33,19 @@
               <div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div>
               <p class="card-text">{{single_ticket.details}}</p>
               <span *ngFor="let button of buttonTitles">
-                <a href="#" class="btn btn-dark ">{{ button }}</a>
-              </span>    
+                <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
+                <button type="button" class="btn btn-dark" (click)="isCollapsed = !isCollapsed"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                  {{ button }}
+                </button>
+              </span>
+              <div id="collapseExample" [ngbCollapse]="isCollapsed">
+                  <div class="card">
+                    <div class="card-body">
+                      You can collapse this card by clicking a button
+                    </div>
+                  </div>
+                </div>    
             </div>
           </div>
         </ng-template>
