@@ -1,6 +1,5 @@
-<p>
-  ad-user works!
-  Name: {{single_user['first_name']}} {{single_user['last_name']}}
-  Phone: {{single_user['phone_number']}}
-  Email: {{single_user['email']}}
-</p>
+<div class="card-block">
+  <h4 class="card-title"><i class="fa fa-address-book-o" aria-hidden="true"></i> {{user.first_name}} {{user.last_name}}</h4>
+  <h6 class="card-subtitle mb-2 text-muted">	{{user.phone_number}}</h6>
+  <p class="card-text">	{{user.e_mail}}</p>
+</div>
