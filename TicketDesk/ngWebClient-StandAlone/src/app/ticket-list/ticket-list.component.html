@@ -1,4 +1,30 @@
-<div class="container">
-    <app-ticket-list-row  *ngFor="let ticket  of ticketList"
-    [ticket]="ticket"> </app-ticket-list-row> 
+<div>
+        <ngx-datatable
+            [rows]="ticketList"
+            [columns]="columnHeadings">
+            [rowHeight]="'auto'"
+            [selected]="selected"
+            [selectionType]="'checkbox'"
+            [selectAllRowsOnPage]="false"
+            (select)='onSelect($event)'>
+            <ngx-datatable-column
+                [width]="30"
+                [sortable]="false"
+                [canAutoResize]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [headerCheckboxable]="true"
+                [checkboxable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="title"></ngx-datatable-column>
+
+
+        </ngx-datatable>
+        <ul>
+            <li *ngFor='let sel of selected'>
+              {{sel.name}}
+            </li>
+            <li *ngIf="!selected?.length">No Selections</li>
+          </ul>
 </div>
