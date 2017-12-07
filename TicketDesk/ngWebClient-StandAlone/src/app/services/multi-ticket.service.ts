@@ -7,11 +7,10 @@ export class MultiTicketService {
 
   constructor() { };
 
-  FilterList(
+  filterList(
     listName: string,
     page?: number  
-  )
-    :Ticket[]{
+  ):{"list":Ticket[], "maxPages": number}{
 
       let defaultOwner = "1000";
       let currentUser = defaultOwner;
@@ -45,14 +44,35 @@ export class MultiTicketService {
         }
       }
 
+      let result = this.paginate(myList, page)
+
 
     // Open
     // Assigned 
     // Closed
     // Submitted
     // All
+    return result
+  }
 
-    return myList
+  paginate(thisList:Ticket[], page?: number):{"list":Ticket[],"maxPages": number }{
+
+    let ticketsPerPage = 4;
+    if(!page) page = 1;
+    
+    let myResult:{"list":Ticket[],"maxPages": number } = {"list": [], "maxPages": Math.ceil(thisList.length/ticketsPerPage)};
+    
+    
+    let start = (page - 1) * ticketsPerPage;
+    let finish = (page) * ticketsPerPage;
+    for(var i = start ; i < finish; i++  ){
+
+      myResult.list.push(thisList[i]);
+      console.log(myResult.list[i]);
+      if(thisList[i + 1] == null) break;
+    }
+
+    return myResult;
   }
 
   

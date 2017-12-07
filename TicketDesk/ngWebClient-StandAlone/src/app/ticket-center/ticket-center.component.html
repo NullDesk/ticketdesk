@@ -1,4 +1,22 @@
 
-  ticket-center works!
-  <app-ticket-list [ticketList] = "ticketList"> </app-ticket-list>
+  <ngb-tabset justify="fill">
+      <ngb-tab *ngFor = "let tabName of tabNames" [class.listName]="tabName" title="{{tabName}}" > 
+          <ng-template ngbTabContent>
+              {{setListName(tabName)}}
+              <h2>tab= {{tabName}}</h2>
+              <h2>{{listName}}</h2>
+            <app-ticket-list [ticketList] = "ticketList"> </app-ticket-list>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item">Action - 1</button>
+                <button class="dropdown-item">Another Action</button>
+                <button class="dropdown-item">Something else is here</button>
+              </div>
+            </div>
+          </ng-template>
+      </ngb-tab>
+  </ngb-tabset>
+
+
 

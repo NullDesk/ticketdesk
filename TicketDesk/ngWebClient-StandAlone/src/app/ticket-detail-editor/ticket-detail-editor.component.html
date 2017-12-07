@@ -1,6 +1,10 @@
 <form [formGroup]="form" class="row">
 	
 	<div class="col-md-5">
+	      <label for="ticketType">Ticket Type</label>
+	      <select formControlName="ticketType">
+		      <option *ngFor="let typ of ticketTypes" [value]="typ">{{typ}}</option>
+	      </select>
 	      <label for="category">Category</label>
 	      <select formControlName="category">
 		      <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
