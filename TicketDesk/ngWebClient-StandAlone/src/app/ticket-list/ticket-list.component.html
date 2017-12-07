@@ -1,50 +1,13 @@
-<div>
-        <ngx-datatable
-            [rows]="ticketList.list"
-            [columns]="columnHeadings">
-            [rowHeight]="'auto'"
-            [selected]="selected"
-            [selectionType]="'checkbox'"
-            [selectAllRowsOnPage]="false"
-            [displayCheck]="displayCheck"
-            (activate)="onActivate($event)"
-            (select)='onSelect($event)'>
-            <ngx-datatable-column
-                [width]="30"
-                [sortable]="false"
-                [canAutoResize]="false"
-                [draggable]="false"
-                [resizeable]="false"
-                [headerCheckboxable]="true"
-                [checkboxable]="true">
-            </ngx-datatable-column>
-            <ngx-datatable-column name="TicketId"></ngx-datatable-column>
-            <ngx-datatable-column name="Title"></ngx-datatable-column>
-            <ngx-datatable-column name="Status"></ngx-datatable-column>
-            <ngx-datatable-column name="Priority"></ngx-datatable-column>
-            <ngx-datatable-column name="Owner"></ngx-datatable-column>
-            <ngx-datatable-column name="AssignedTo"></ngx-datatable-column>
-            <ngx-datatable-column name="Category"></ngx-datatable-column>
-            <ngx-datatable-column name="createdDate"></ngx-datatable-column>
-        </ngx-datatable>
 
-        <div>maxSize = 5, rotate = false</div>
-        <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination>
-        
-        <div>maxSize = 5, rotate = true</div>
-        <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
-        
-        <div>maxSize = 5, rotate = true, ellipses = false</div>
-        <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
-        
-        <hr>
-        
-        <pre>Current page: {{page}}</pre>
-
-        <ul>
-            <li *ngFor='let sel of selected'>
-              {{sel.name}}
-            </li>
-            <li *ngIf="!selected?.length">No Selections</li>
-          </ul>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th> This is a heading </th>
+        </tr>
+    </thead>
+    <tbody>
+        <app-ticket-list-row-stack [ticketList] = "ticketListResults.ticketList"> </app-ticket-list-row-stack>
+    </tbody>
+   
+    <!-- Pagination goes here !-->
+</table>
