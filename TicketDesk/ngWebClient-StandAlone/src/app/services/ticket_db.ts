@@ -85,7 +85,7 @@ export let tickets:[Ticket] = [
 export let logs:[Logs] = [
 	{"ticketId": 1111,
 	"entries" : [
-	{	"owner" : "1002",
+	{	"owner" : "1000",
 		"description" : "To be, or not to be: that is the question: Whether ‘tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end",
 		"date" : "Tuesday, November 14, 2017 9:00 PM",
 		"status_change" : "closed ticket"},
@@ -109,12 +109,22 @@ export let logs:[Logs] = [
 	
 	{"ticketId": 2222,
 	"entries" : [
-	{	"owner" : "1002",
+	{	"owner" : "1001",
 		"description" : "Test ticket Submission",
 		"date" : "Tuesday, November 14, 2017 9:00 PM",
 		"status_change" : "Created Ticket"}	
 	
 	]
+	},
+
+	{
+		"ticketId": 3333,
+		"entries" : [
+		{"owner" : "1001",
+		"description" : "Test ticket Submission",
+		"date" : "Tuesday, November 14, 2017 9:00 PM",
+		"status_change" : "Created Ticket"}
+		]
 	}
 
 ];
