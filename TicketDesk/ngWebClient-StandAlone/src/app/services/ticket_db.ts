@@ -1,6 +1,6 @@
 import { Ticket, Logs } from '../models/data'
 
-export let tickets:[Ticket] = [
+export var tickets:[Ticket] = [
 
 	{"ticketId": 1111, 
 	"projectId": 10, 
@@ -82,7 +82,7 @@ export let tickets:[Ticket] = [
 
 ];
 
-export let logs:[Logs] = [
+export var logs:[Logs] = [
 	{"ticketId": 1111,
 	"entries" : [
 	{	"owner" : "1000",
