@@ -1,4 +1,5 @@
 
+
 <table class="table">
     <thead>
         <tr>
@@ -11,3 +12,7 @@
    
     <!-- Pagination goes here !-->
 </table>
+
+        <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
+        <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+
