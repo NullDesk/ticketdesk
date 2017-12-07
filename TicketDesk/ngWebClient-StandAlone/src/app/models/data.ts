@@ -8,14 +8,17 @@ export interface Ticket {
 	ticketType: string, 
 	category: string, 
     subcategory: string,	
-	owner: string, 
-	tagList: [string]	
+	owner: string,
+	assignedTo: string,
+	status: string, 
+	tagList: string	
 }
 
 export const BLANK_TICKET: Ticket = {ticketId: -1,
 projectId: -1,
 	comment: '', title: '', details: '', ticketType: '',
-	category: '', subcategory: '', owner: '', tagList: ['']
+	category: '', subcategory: '', owner: '',
+	assignedTo: '', status: '', tagList: ''
 
 } 
 

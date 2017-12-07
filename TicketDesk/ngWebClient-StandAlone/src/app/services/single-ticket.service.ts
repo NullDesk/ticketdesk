@@ -34,6 +34,7 @@ export class SingleTicketService {
         return log.entries;
       }
     }
+    return null;
 
   };
 
