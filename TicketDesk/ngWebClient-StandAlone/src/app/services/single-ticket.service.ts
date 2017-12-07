@@ -11,7 +11,7 @@ export class SingleTicketService {
     let get_ticket: Ticket = null; //
 
     for (let ticket of tickets) { // "search" database here to match ticketId
-      if (ticket.ticketId === ticketId) {
+      if (ticket.ticketId == ticketId) {
         get_ticket = ticket;
         break;
       }
@@ -29,7 +29,7 @@ export class SingleTicketService {
       console.log(`log.ticketId: ${log.ticketId}`);
       console.log(`ticketId: ${ticketId}`);
 
-      if (log.ticketId === ticketId) {
+      if (log.ticketId == ticketId) {
         console.log('Entered if statement');
         console.log(`entries list: ${log.entries}`);
         return log.entries;

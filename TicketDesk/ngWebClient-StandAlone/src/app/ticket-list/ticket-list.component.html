@@ -6,6 +6,8 @@
             [selected]="selected"
             [selectionType]="'checkbox'"
             [selectAllRowsOnPage]="false"
+            [displayCheck]="displayCheck"
+            (activate)="onActivate($event)"
             (select)='onSelect($event)'>
             <ngx-datatable-column
                 [width]="30"

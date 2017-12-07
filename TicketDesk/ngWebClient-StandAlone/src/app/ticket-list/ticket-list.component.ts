@@ -1,5 +1,4 @@
 import { Component, OnInit, Input} from '@angular/core';
-
 import { Ticket } from '../models/data';
 
 @Component({

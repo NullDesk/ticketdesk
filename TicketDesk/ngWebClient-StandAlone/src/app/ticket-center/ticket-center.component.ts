@@ -9,15 +9,22 @@ import { tickets } from '../services/ticket_db';
   templateUrl: './ticket-center.component.html',
   styleUrls: ['./ticket-center.component.css']
 })
+
+
 export class TicketCenterComponent implements OnInit {
+  tabNames: string[] = ["Open", "Assigned", "All", "Submitted", "Closed" ] //MAKE input/ settings at some point
   ticketList: Ticket[];
-  listName: string = "all";
+  listName: string;
   constructor(private multiTicketService : MultiTicketService) { 
     
   }
+  setListName(tabName : string){
+    this.listName = tabName;
+    this.ticketList = this.multiTicketService.FilterList(this.listName);
+  }
 
   ngOnInit() { 
-    this.ticketList = this.multiTicketService.FilterList("all");
+    this.ticketList = this.multiTicketService.FilterList(this.listName);
   }
 
 }
