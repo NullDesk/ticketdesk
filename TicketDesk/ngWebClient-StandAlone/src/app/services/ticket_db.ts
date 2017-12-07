@@ -12,7 +12,7 @@ export var tickets:[Ticket] = [
 	"owner" : "1000",
 	"assignedTo" : "1000",
 	"status" : "closed", 
-    "tagList": "tag1 tag2"},
+	"tagList": "tag1 tag2"},
 
     {"ticketId": 2222, 
     "projectId": 11,

@@ -1,18 +1,29 @@
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th> This is a heading </th>
-        </tr>
-    </thead>
-    <tbody>
-        <app-ticket-list-row-stack [ticketList] = "ticketListResults.ticketList"> </app-ticket-list-row-stack>
-    </tbody>
-   
-    <!-- Pagination goes here !-->
-</table>
-
-        <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
-        <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
-
+<div class="container">
+    <table class="table">
+        <thead class="thead-default">
+            <tr>
+                <th>TicketID</th>
+                <th *ngFor = "let heading of headingsList">{{heading}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of ticketListResults.ticketList">
+                    <td> {{row.ticketId}} </td>
+                    <td> {{row.title}} </td>
+                    <td> {{row.status}} </td>
+                    <td> {{row.priority}}  </td>
+                    <td> {{row.owner}} </td>
+                    <td> {{row.assignedTo}} </td>
+                    <td> {{row.category}}  </td>
+                    <td> {{row.age}}</td>
+                </tr>
+                
+        </tbody>
+        
+        <!-- Pagination goes here !-->
+    </table>
+    
+    <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
+    <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+</div>

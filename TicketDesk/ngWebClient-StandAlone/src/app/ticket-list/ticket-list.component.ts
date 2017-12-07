@@ -10,12 +10,15 @@ import { Ticket } from '../models/data';
 
 export class TicketListComponent implements OnInit {
   //This will become input
+  ticketList: Ticket[];
+  headingsList: string [] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
   @Input() ticketListResults: {"ticketList": Ticket[], "maxPages": number};
   @Input() columns: string[];
   selected = [];
   currentPage:number;
   ngOnInit() {
     this.currentPage = 1;
+    this.ticketList = this.ticketListResults.ticketList
   }
 
   onSelect({selected}) {
