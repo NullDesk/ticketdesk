@@ -11,12 +11,12 @@ export class MultiTicketService {
     listName: string,
     page?: number  
   )
-    :[Ticket]{
+    :Ticket[]{
 
       let defaultOwner = "1000";
       let currentUser = defaultOwner;
 
-      let myList =  [];
+      let myList:Ticket[] = [];
 
       for(let ticket of tickets){
         if(listName == "Open" ){
@@ -52,7 +52,7 @@ export class MultiTicketService {
     // Submitted
     // All
 
-    return tickets
+    return myList
   }
 
   
