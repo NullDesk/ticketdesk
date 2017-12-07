@@ -7,7 +7,6 @@ import { ServicesModule } from './services/services.module';
 
 import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
-import { FoobarComponent } from './foobar/foobar.component';
 import { AttachFileComponent } from './attach-file/attach-file.component';
 import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -33,14 +32,13 @@ const appRoutes: Routes = [
 	{ path: 'center', component: TicketCenterComponent },
 	{ path: 'report', component: ReportViewComponent },
 	{ path: 'settings', component: SettingsViewComponent },
-	{ path: '', component: FoobarComponent },
+	{ path: '', pathMatch: 'full', redirectTo: 'center'},
 	{ path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    FoobarComponent,
 	TicketDetailEditorComponent,
 	TicketSubmitComponent,
     NotFoundComponent,
