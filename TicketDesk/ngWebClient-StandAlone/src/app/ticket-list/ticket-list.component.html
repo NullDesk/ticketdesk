@@ -19,16 +19,13 @@
                     <td> {{row.owner}} </td>
                     <td> {{row.assignedTo}} </td>
                     <td> {{row.category}}  </td>
-                    <td> {{row.age}}</td>
+                    <td> {{row.createdDate}}</td>
                 </tr>
                 
         </tbody>
         
         <!-- Pagination goes here !-->
     </table>
-    <ul>
-        <li *ngFor="let sel of selected">{{sel.title}}</li>
-    </ul>
     
     <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>

@@ -11,7 +11,8 @@ export interface Ticket {
 	owner: string,
 	assignedTo: string,
 	status: string, 
-	tagList: string	
+	tagList: string,
+	createdDate: string
 }
 
 export const BLANK_TICKET: Ticket = {ticketId: -1,
