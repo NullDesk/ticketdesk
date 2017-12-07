@@ -16,10 +16,14 @@
                 [headerCheckboxable]="true"
                 [checkboxable]="true">
             </ngx-datatable-column>
-
-            <ngx-datatable-column name="title"></ngx-datatable-column>
-
-
+            <ngx-datatable-column name="TicketId"></ngx-datatable-column>
+            <ngx-datatable-column name="Title"></ngx-datatable-column>
+            <ngx-datatable-column name="Status"></ngx-datatable-column>
+            <ngx-datatable-column name="Priority"></ngx-datatable-column>
+            <ngx-datatable-column name="Owner"></ngx-datatable-column>
+            <ngx-datatable-column name="AssignedTo"></ngx-datatable-column>
+            <ngx-datatable-column name="Category"></ngx-datatable-column>
+            <ngx-datatable-column name="createdDate"></ngx-datatable-column>
         </ngx-datatable>
         <ul>
             <li *ngFor='let sel of selected'>

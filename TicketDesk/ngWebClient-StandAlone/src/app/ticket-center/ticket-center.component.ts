@@ -2,6 +2,7 @@ import { Injectable, Component, OnInit } from '@angular/core';
 import { Ticket } from '../models/data';
 import { MultiTicketService } from '../services/multi-ticket.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import { tickets } from '../services/ticket_db';
 
 @Component({
   selector: 'app-ticket-center',
@@ -16,7 +17,7 @@ export class TicketCenterComponent implements OnInit {
   }
 
   ngOnInit() { 
-    this.ticketList = this.multiTicketService.FilterList("all")
+    this.ticketList = this.multiTicketService.FilterList("all");
   }
 
 }
