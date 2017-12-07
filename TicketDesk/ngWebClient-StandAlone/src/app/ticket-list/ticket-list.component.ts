@@ -10,7 +10,7 @@ import { Ticket } from '../models/data';
 
 export class TicketListComponent implements OnInit {
   //This will become input
-  @Input() ticketList: Ticket[];
+  @Input() ticketList: {"list": Ticket[], "maxPages": number};
   selected = [];
   ngOnInit() {
     
