@@ -15,14 +15,12 @@ import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
 import { ReportViewComponent } from './report-view/report-view.component';
 import { TicketCenterComponent } from './ticket-center/ticket-center.component';
 import { SettingsViewComponent } from './settings-view/settings-view.component';
-import { TicketListRowComponent } from './ticket-list-row/ticket-list-row.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SingleTicketService } from './services/single-ticket.service';
 import { AdUserComponent } from './ad-user/ad-user.component';
-import { TicketListRowStackComponent } from './ticket-list-row-stack/ticket-list-row-stack.component';
 
 
 
@@ -46,14 +44,12 @@ const appRoutes: Routes = [
     TicketCenterComponent,
 	ReportViewComponent,
 	SettingsViewComponent,
-	TicketListRowComponent,
 	TicketListComponent,
 	ActivityLogComponent,
 	ContactInfoComponent,
 	SearchBoxComponent,
 	AttachFileComponent,
 	AdUserComponent,
-	TicketListRowStackComponent,
   ],
   imports: [
 	  ServicesModule,
