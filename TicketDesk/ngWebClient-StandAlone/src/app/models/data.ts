@@ -12,7 +12,7 @@ export interface Ticket {
 	assignedTo: string,
 	status: string, 
 	tagList: string,
-	createdDate: string
+	createdDate?: string	
 }
 
 export const BLANK_TICKET: Ticket = {ticketId: -1,

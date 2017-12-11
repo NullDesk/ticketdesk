@@ -33,13 +33,13 @@
               <div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div>
               <p class="card-text">{{single_ticket.details}}</p>
               <span *ngFor="let button of buttonTitles">
+                <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
                 <button type="button" class="btn btn-dark" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{ button }} </button>
               </span>
               <div [ngbCollapse]="isCollapsed">
                 <div class="col-xs-12" style="height:10px;"></div>
                 <div class="form-group">
                   <textarea class="form-control" id="exampleFormControlTextarea1"  placeholder="Comment"  rows="5"></textarea>
-                  <br />
                   <button class="btn btn-primary pull-right"type="button" (click)="submit()">Submit</button>
                 </div>
               </div>    
