@@ -565,6 +565,24 @@ namespace TicketDesk.Localization.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual Duration.
+        /// </summary>
+        public static string TicketActualDuration {
+            get {
+                return ResourceManager.GetString("TicketActualDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual.
+        /// </summary>
+        public static string TicketActualDurationShort {
+            get {
+                return ResourceManager.GetString("TicketActualDurationShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Affects Customer.
         /// </summary>
         public static string TicketAffectsCustomer {
@@ -723,6 +741,24 @@ namespace TicketDesk.Localization.Domain {
         public static string TicketDueDateShort {
             get {
                 return ResourceManager.GetString("TicketDueDateShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estimated Duration.
+        /// </summary>
+        public static string TicketEstimatedDuration {
+            get {
+                return ResourceManager.GetString("TicketEstimatedDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estimated.
+        /// </summary>
+        public static string TicketEstimatedDurationShort {
+            get {
+                return ResourceManager.GetString("TicketEstimatedDurationShort", resourceCulture);
             }
         }
         

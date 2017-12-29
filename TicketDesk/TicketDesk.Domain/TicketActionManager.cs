@@ -122,6 +122,8 @@ namespace TicketDesk.Domain
             string category,
             string owner,
             string tagList,
+            decimal? estimatedDuration,
+            decimal? actualDuraion,
             ApplicationSetting settings)
         {
             const TicketActivity activity = TicketActivity.EditTicketInfo;
@@ -184,6 +186,16 @@ namespace TicketDesk.Domain
                     {
                         sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
                         ticket.Category = category;
+                    }
+                    if (ticket.EstimatedDuration != estimatedDuration)
+                    {
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.EstimatedDuration), ticket.EstimatedDuration, estimatedDuration));
+                        ticket.EstimatedDuration = estimatedDuration;
+                    }
+                    if (ticket.ActualDuration != actualDuraion)
+                    {
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ActualDuration), ticket.ActualDuration, actualDuraion));
+                        ticket.ActualDuration = actualDuraion;
                     }
                     if (SecurityProvider.IsTdHelpDeskUser && ticket.Owner != owner)
                     {

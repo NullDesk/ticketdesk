@@ -135,12 +135,25 @@
                                 @Html.TextBoxFor(model => model.DueDateAsString, new { @class = "form-control input-sm", tabindex = 6 })
                             </div>
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EstimatedDuration, new { @class = "col-md-2 col-sm-3 control-label" })
+                            <div class="col-md-3 col-sm-6">
+                                @Html.TextBoxFor(model => model.EstimatedDuration, new { @class = "form-control input-sm", tabindex = 7 })
+                                @Html.ValidationMessageFor(model => model.EstimatedDuration, "", new { @class = "text-danger" })
+                            </div>
+
+                            @Html.LabelFor(model => model.ActualDuration, new { @class = "col-md-2 col-sm-3 control-label" })
+                            <div class="col-md-3 col-sm-6">
+                                @Html.TextBoxFor(model => model.ActualDuration, new { @class = "form-control input-sm", tabindex = 8 })
+                                @Html.ValidationMessageFor(model => model.ActualDuration, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                         @if (Model.AllowEditTags())
                         {
                             <div class="form-group">
                                 @Html.LabelFor(model => model.TagList, new { @class = "col-md-2 col-sm-1 control-label" })
                                 <div class="col-md-8 col-sm-11">
-                                    @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 7 })
+                                    @Html.TextBoxFor(m => m.TagList, new { id = "ticketTags", @class = "form-control input-sm", tabindex = 9 })
                                 </div>
                             </div>
                         }
@@ -163,7 +176,7 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab1">
                                                 <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                                                @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required = "", data_val = "true", cols = "92", rows = "15", style = "height:200px", tabindex = 8 })
+                                                @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required = "", data_val = "true", cols = "92", rows = "15", style = "height:200px", tabindex = 10 })
 
                                             </div>
                                             <div class="tab-pane fade" id="tab2">
@@ -188,7 +201,7 @@
                             {
                                 @Html.LabelFor(model => model.Owner, new { @class = "col-md-2 col-sm-1 control-label" })
                                 <div class="col-md-3 col-sm-5">
-                                    @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 9 })
+                                    @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 11 })
                                     @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
                                 </div>
                             }
@@ -196,7 +209,7 @@
                             {
                                 @Html.LabelFor(model => model.AssignedTo, new { @class = "col-md-2 col-sm-2 control-label" })
                                 <div class="col-md-3 col-sm-4">
-                                    @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 10 })
+                                    @Html.DropDownListFor(model => model.AssignedTo, Model.GetAssignedToList(), new { @class = "form-control input-sm", tabindex = 12 })
                                     @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
                                 </div>
                             }

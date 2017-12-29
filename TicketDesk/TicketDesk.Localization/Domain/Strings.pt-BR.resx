@@ -422,4 +422,16 @@
   <data name="TicketDueDateShort" xml:space="preserve">
     <value>Data de Vencimento</value>
   </data>
+  <data name="TicketActualDuration" xml:space="preserve">
+    <value>Duração real</value>
+  </data>
+  <data name="TicketActualDurationShort" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="TicketEstimatedDuration" xml:space="preserve">
+    <value>Duração estimada</value>
+  </data>
+  <data name="TicketEstimatedDurationShort" xml:space="preserve">
+    <value>Duração</value>
+  </data>
 </root>

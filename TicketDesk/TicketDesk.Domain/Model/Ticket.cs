@@ -78,9 +78,14 @@ namespace TicketDesk.Domain.Model
         [Display(ResourceType = typeof(Strings), Name = "TicketCreatedDate", ShortName = "TicketCreatedDateShort")]
         public DateTimeOffset CreatedDate { get; set; }
 
-
         [Display(ResourceType = typeof(Strings), Name = "TicketDueDate", ShortName = "TicketDueDateShort")]
         public DateTimeOffset? DueDate { get; set; }
+
+        [Display(ResourceType = typeof(Strings), Name = "TicketEstimatedDuration", ShortName = "TicketEstimatedDurationShort")]
+        public decimal? EstimatedDuration { get; set; }
+
+        [Display(ResourceType = typeof(Strings), Name = "TicketActualDuration", ShortName = "TicketActualDurationShort")]
+        public decimal? ActualDuration { get; set; }
 
         [NotMapped]
         public string DueDateAsString

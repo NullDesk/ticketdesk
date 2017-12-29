@@ -84,6 +84,26 @@ else
 </div>
 
 <div class="form-group">
+    <div class="col-sm-4">&nbsp;</div>
+    <div class="col-sm-6">
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.EstimatedDuration, new { @class = "col-sm-6 control-label" })
+            <div class="col-sm-6" style="padding-right:0">
+                @Html.TextBoxFor(model => model.EstimatedDuration, new { @class = "form-control input-sm", style = "padding-right:0", tabindex = 8 })                
+            </div>
+            @Html.ValidationMessageFor(model => model.EstimatedDuration, "", new { @class = "text-danger", style = "float:right" })
+        </div>
+        <div class="col-sm-6" style="padding-right:0">
+            @Html.LabelFor(model => model.ActualDuration, new { @class = "col-sm-6 control-label" })
+            <div class="col-sm-6" style="padding-right:0">
+                @Html.TextBoxFor(model => model.ActualDuration, new { @class = "form-control input-sm", style = "padding-right:0", tabindex = 9 })                
+            </div>
+            @Html.ValidationMessageFor(model => model.ActualDuration, "", new { @class = "text-danger", style = "float:right" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
     <label class="col-sm-2 control-label text-right" for="wmd-input-ticketDetails">@Strings.Details_Label</label>
 
     @if (Model.IsHtml)
@@ -100,7 +120,7 @@ else
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="tab1">
                         <div id="wmd-button-bar-ticketDetails" class="" style="display: inline-block"></div>
-                        @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required = "", data_val = "true", cols = "92", rows = "15", style = "height:200px", tabindex = 8 })
+                        @Html.TextAreaFor(model => model.Details, new { id = "wmd-input-ticketDetails", @class = "wmd-input form-control", data_val_required = "", data_val = "true", cols = "92", rows = "15", style = "height:200px", tabindex = 10 })
 
                     </div>
                     <div class="tab-pane fade" id="tab2">
@@ -126,7 +146,7 @@ else
     <div class="form-group">
         @Html.LabelFor(model => model.Owner, new { @class = "col-sm-2 control-label" })
         <div class="col-sm-3">
-            @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 9 })
+            @Html.DropDownListFor(model => model.Owner, Model.GetOwnersList(), new { @class = "form-control input-sm", tabindex = 11 })
             @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
         </div>
     </div>
