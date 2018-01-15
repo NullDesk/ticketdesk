@@ -1,0 +1,21 @@
+<div class="container">
+  
+  <ngb-tabset justify="fill">
+    <ngb-tab *ngFor = "let tabName of tabNames" [class.listName]="tabName" title="{{tabName}}" > 
+      <ng-template ngbTabContent>
+        {{setListName(tabName)}}
+        <app-ticket-list [ticketListResults] = "ticketListResults"> </app-ticket-list>
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item">Assign</button>
+            <button class="dropdown-item">Change Status</button>
+            <button class="dropdown-item">Close</button>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+
+

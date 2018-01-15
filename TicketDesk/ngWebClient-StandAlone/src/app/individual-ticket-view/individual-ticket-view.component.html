@@ -1,0 +1,57 @@
+<div class="col-xs-12" style="height:30px;"></div>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="row"> 
+        <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
+          <h6 class="card-title">Active   <i class="fa fa-envelope-open" aria-hidden="true"></i></h6> 
+          <h6 class="card-title"><a href="ticket/{{single_ticket.ticketId}}">{{single_ticket.ticketId}}</a></h6>
+        </div>
+        <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
+          <h6 class="card-title">Assigned To:</h6>
+          <h6 class="card-subtitle mb-2">Nazar Stelmakh</h6>
+        </div>
+        <div class="col-lg-3" style="border-right: 1px solid #dcdcdc;">
+          <app-contact-info></app-contact-info>
+        </div>
+        <div class="col-lg-2" style="border-right: 1px solid #dcdcdc;">
+          <h6 class="card-title">Categories</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.category}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.subcategory}}</h6>
+        </div>
+        <div class="col-lg-3">
+          <h6 class="card-subtitle mb-2 text-muted">{{single_ticket.tagList}}</h6>
+        </div>
+      </div>
+    </div>
+    <ngb-tabset #t="ngbTabset">
+      <ngb-tab id="tab-selectbyid1" title="Ticket">
+        <ng-template ngbTabContent>
+          <div class="card" style="border: 0px solid #dcdcdc;">
+            <div class="card-body">
+              <h4 class="card-title">{{single_ticket.title}}</h4>
+              <div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div>
+              <p class="card-text">{{single_ticket.details}}</p>
+              <span *ngFor="let button of buttonTitles">
+                <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
+                <button type="button" class="btn btn-dark" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{ button }} </button>
+              </span>
+              <div [ngbCollapse]="isCollapsed">
+                <div class="col-xs-12" style="height:10px;"></div>
+                <div class="form-group">
+                  <textarea class="form-control" id="exampleFormControlTextarea1"  placeholder="Comment"  rows="5"></textarea>
+                  <button class="btn btn-primary pull-right"type="button" (click)="submit()">Submit</button>
+                </div>
+              </div>    
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-selectbyid2" title="Activity">
+        <ng-template ngbTabContent>
+          <app-activity-log></app-activity-log>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>  
+</div>
