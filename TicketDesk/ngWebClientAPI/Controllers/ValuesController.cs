@@ -4,6 +4,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ngWebClientAPI.Controllers;
+
+
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Globalization;
+
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using TicketDesk.Domain;
+using TicketDesk.Domain.Model;
+using TicketDesk.IO;
+using TicketDesk.Localization.Controllers;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -16,9 +29,14 @@ namespace ngWebClientAPI.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public async Task<Ticket> Get(int id)
         {
-            return "value";
+            TdDomainContext context = new TdDomainContext();
+
+            TicketController ticket = new TicketController(context);
+            var model = await ticket.getTicket(id);
+
+            return model;
         }
 
         // POST api/values
