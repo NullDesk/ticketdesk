@@ -114,6 +114,24 @@
                             </div>
                         </div>
                         <div class="row">
+                            @Html.LabelFor(m => m.TargetDate, new { @class = "col-sm-5 col-lg-4 text-right" })
+                            <div class="col-sm-7 col-lg-8">
+                                @if (Model.TargetDate.HasValue)
+                                {
+                                    @Model.TargetDateAsString
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.ResolutionDate, new { @class = "col-sm-5 col-lg-4 text-right" })
+                            <div class="col-sm-7 col-lg-8">
+                                @if (Model.ResolutionDate.HasValue)
+                                {
+                                    @Model.ResolutionDateAsString
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
                             @Html.LabelFor(m => m.LastUpdateBy, new {@class = "col-sm-5 col-lg-4 text-right"})
                             <div class="col-sm-7 col-lg-8">
                                 @Model.GetLastUpdatedByInfo().DisplayName

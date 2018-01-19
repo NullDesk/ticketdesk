@@ -434,4 +434,16 @@
   <data name="TicketEstimatedDurationShort" xml:space="preserve">
     <value>Estimated</value>
   </data>
+  <data name="TicketResolutionDate" xml:space="preserve">
+    <value>Resolution Date</value>
+  </data>
+  <data name="TicketResolutionDateShort" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="TicketTargetDate" xml:space="preserve">
+    <value>Target Date</value>
+  </data>
+  <data name="TicketTargetDateShort" xml:space="preserve">
+    <value>Target</value>
+  </data>
 </root>

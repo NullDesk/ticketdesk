@@ -174,6 +174,7 @@ namespace TicketDesk.Domain.Model
             {
                 var unassignedSortColumns = new List<UserTicketListSortColumn>();
                 var unassignedFilterColumns = new List<UserTicketListFilterColumn>();
+                unassignedSortColumns.Add(new UserTicketListSortColumn("TargetDate", ColumnSortDirection.Ascending));
                 unassignedSortColumns.Add(new UserTicketListSortColumn("DueDate", ColumnSortDirection.Ascending));
                 unassignedSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
                 unassignedFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
@@ -183,6 +184,7 @@ namespace TicketDesk.Domain.Model
                 var assignedToMeSortColumns = new List<UserTicketListSortColumn>();
                 var assignedToMeFilterColumns = new List<UserTicketListFilterColumn>();
                 assignedToMeSortColumns.Add(new UserTicketListSortColumn("TicketStatus", ColumnSortDirection.Ascending));
+                assignedToMeSortColumns.Add(new UserTicketListSortColumn("TargetDate", ColumnSortDirection.Ascending));
                 assignedToMeSortColumns.Add(new UserTicketListSortColumn("DueDate", ColumnSortDirection.Ascending));
                 assignedToMeSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
                 assignedToMeFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
@@ -192,6 +194,7 @@ namespace TicketDesk.Domain.Model
 
             var mySortColumns = new List<UserTicketListSortColumn>();
             var myFilterColumns = new List<UserTicketListFilterColumn>();
+            mySortColumns.Add(new UserTicketListSortColumn("TargetDate", ColumnSortDirection.Ascending));
             mySortColumns.Add(new UserTicketListSortColumn("DueDate", ColumnSortDirection.Ascending));
             mySortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             myFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));
@@ -202,6 +205,7 @@ namespace TicketDesk.Domain.Model
             var openSortColumns = new List<UserTicketListSortColumn>();
             var openFilterColumns = new List<UserTicketListFilterColumn>();
             openSortColumns.Add(new UserTicketListSortColumn("TicketStatus", ColumnSortDirection.Ascending));
+            openSortColumns.Add(new UserTicketListSortColumn("TargetDate", ColumnSortDirection.Ascending));
             openSortColumns.Add(new UserTicketListSortColumn("DueDate", ColumnSortDirection.Ascending));
             openSortColumns.Add(new UserTicketListSortColumn("LastUpdateDate", ColumnSortDirection.Descending));
             openFilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, TicketStatus.Closed));

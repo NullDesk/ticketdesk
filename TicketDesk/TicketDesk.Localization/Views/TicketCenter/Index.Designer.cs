@@ -232,6 +232,15 @@ namespace TicketDesk.Localization.Views.TicketCenter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string TicketList_Target {
+            get {
+                return ResourceManager.GetString("TicketList_Target", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string TicketList_Title {

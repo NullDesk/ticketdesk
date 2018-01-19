@@ -28,7 +28,7 @@ namespace TicketDesk.Web.Client
             string linkText, AjaxOptions ajaxOptions)
         {
             var imgContent = string.Empty;
-            var linkContent = linkText;
+            var linkContent = linkText ?? " ";
             var indexContent = string.Empty;
             var sortColumns = currentDisplayPreferences.SortColumns;
             var cColumn = sortColumns.SingleOrDefault(sc => sc.ColumnName == sortColumn);

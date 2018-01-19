@@ -56,6 +56,9 @@
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "Priority", Index.TicketList_Priority, ajaxSortOptions)
                         </th>
                         <th>
+                            @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "TargetDate", Index.TicketList_Target, ajaxSortOptions)
+                        </th>
+                        <th>
                             @Ajax.SortableColumnHeader(Html, Model.CurrentListSetting, Model.CurrentPage, "SortList", Model.CurrentListSetting.ListName, "DueDate", Index.TicketList_Due, ajaxSortOptions)
                         </th>
                         <th class="hidden-sm hidden-xs">
@@ -103,6 +106,9 @@
                             </td>
                             <td class="hidden-sm hidden-xs">
                                 @Html.DisplayFor(modelItem => item.Priority)
+                            </td>
+                            <td class="hidden-sm hidden-xs">
+                                @Html.DisplayFor(modelItem => item.TargetDateAsString)
                             </td>
                             <td class="hidden-sm hidden-xs">
                                 @Html.DisplayFor(modelItem => item.DueDateAsString)

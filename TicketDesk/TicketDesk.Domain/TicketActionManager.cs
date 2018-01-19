@@ -124,6 +124,8 @@ namespace TicketDesk.Domain
             string tagList,
             decimal? estimatedDuration,
             decimal? actualDuraion,
+            string targetDateAsString,
+            string resolutionDateAsString,
             ApplicationSetting settings)
         {
             const TicketActivity activity = TicketActivity.EditTicketInfo;
@@ -176,6 +178,24 @@ namespace TicketDesk.Domain
                             "</dd>", 
                             PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.DueDate), ticket.DueDateAsString, dueDateAsString));
                         ticket.DueDateAsString = dueDateAsString;
+                    }
+                    if (ticket.TargetDateAsString != targetDateAsString)
+                    {
+                        sb.AppendLine(
+                            string.Format("<dd>    " +
+                            Strings.Changes_From_To +
+                            "</dd>",
+                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TargetDate), ticket.TargetDateAsString, targetDateAsString));
+                        ticket.TargetDateAsString = targetDateAsString;
+                    }
+                    if (ticket.ResolutionDateAsString != resolutionDateAsString)
+                    {
+                        sb.AppendLine(
+                            string.Format("<dd>    " +
+                            Strings.Changes_From_To +
+                            "</dd>",
+                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ResolutionDate), ticket.ResolutionDateAsString, resolutionDateAsString));
+                        ticket.ResolutionDateAsString = resolutionDateAsString;
                     }
                     if (ticket.TicketType != ticketType)
                     {

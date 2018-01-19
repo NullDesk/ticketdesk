@@ -871,6 +871,24 @@ namespace TicketDesk.Localization.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resolution Date.
+        /// </summary>
+        public static string TicketResolutionDate {
+            get {
+                return ResourceManager.GetString("TicketResolutionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolution.
+        /// </summary>
+        public static string TicketResolutionDateShort {
+            get {
+                return ResourceManager.GetString("TicketResolutionDateShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string TicketStatusActive {
@@ -921,6 +939,24 @@ namespace TicketDesk.Localization.Domain {
         public static string TicketTagListShort {
             get {
                 return ResourceManager.GetString("TicketTagListShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Date.
+        /// </summary>
+        public static string TicketTargetDate {
+            get {
+                return ResourceManager.GetString("TicketTargetDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string TicketTargetDateShort {
+            get {
+                return ResourceManager.GetString("TicketTargetDateShort", resourceCulture);
             }
         }
         
