@@ -17,11 +17,16 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.IO;
 using TicketDesk.Localization.Controllers;
+using System.Data.Entity.Migrations;
+using Newtonsoft.Json;
 
 namespace ngWebClientAPI.Controllers
 {
     public class ValuesController : ApiController
     {
+
+        private TdDomainContext Context { get; set; }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -29,13 +34,11 @@ namespace ngWebClientAPI.Controllers
         }
 
         // GET api/values/5
-        public async Task<Ticket> Get(int id)
+        public async Task<string> Get(int id)
         {
-            TdDomainContext context = new TdDomainContext();
-
-            TicketController ticket = new TicketController(context);
-            var model = await ticket.getTicket(id);
-
+      
+            TicketController ticketController = new TicketController(new TdDomainContext());
+            string model = await ticketController.getTicket(id);
             return model;
         }
 
