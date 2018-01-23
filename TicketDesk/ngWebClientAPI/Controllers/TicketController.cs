@@ -101,12 +101,13 @@ namespace ngWebClientAPI.Controllers
                       TicketEvents = new[] { TicketEvent.CreateActivityEvent("17f78f38-fa68-445f-90de-38896140db28", TicketActivity.Create, null, null, null) }
                   });
             }
-
+            
             string output = JsonConvert.SerializeObject(model, Formatting.Indented,
                             new JsonSerializerSettings
                             {
                                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                             });
+            output = JsonConversion.SerializeObject(model);
             return output;
         }
 
