@@ -446,4 +446,7 @@
   <data name="TicketTargetDateShort" xml:space="preserve">
     <value>Target</value>
   </data>
+  <data name="DefaultLogonDomain" xml:space="preserve">
+    <value>Default Logon Domain</value>
+  </data>
 </root>

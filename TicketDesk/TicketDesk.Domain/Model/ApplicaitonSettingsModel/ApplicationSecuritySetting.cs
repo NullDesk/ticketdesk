@@ -28,6 +28,7 @@ namespace TicketDesk.Domain.Model
                 var jsettings = new JsonSerializerSettings {ObjectCreationHandling = ObjectCreationHandling.Replace};
                 var jData = JsonConvert.DeserializeObject<ApplicationSecuritySetting>(value, jsettings);
                 DefaultNewUserRoles = jData.DefaultNewUserRoles;
+                DefaultLogonDomain = jData.DefaultLogonDomain;
             }
         }
 
@@ -49,5 +50,9 @@ namespace TicketDesk.Domain.Model
                 defaultNewUserRoles = value;
             }
         }
+
+        [NotMapped]
+        [Display(Name = "DefaultLogonDomain", ResourceType = typeof(Strings)) ]
+        public string DefaultLogonDomain { get; set; }
     }
 }

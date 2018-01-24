@@ -169,6 +169,15 @@ namespace TicketDesk.Localization.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default Logon Domain.
+        /// </summary>
+        public static string DefaultLogonDomain {
+            get {
+                return ResourceManager.GetString("DefaultLogonDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default New User Roles.
         /// </summary>
         public static string DefaultNewUserRoles {
