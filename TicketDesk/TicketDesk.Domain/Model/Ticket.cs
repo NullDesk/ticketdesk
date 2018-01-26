@@ -144,7 +144,6 @@ namespace TicketDesk.Domain.Model
         [MaxLength(8)]
         [Timestamp]
         public byte[] Version { get; set; }
-
         public virtual Project Project { get; set; }
 
         public virtual ICollection<TicketEvent> TicketEvents { get; set; }

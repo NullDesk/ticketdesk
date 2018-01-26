@@ -11,12 +11,14 @@ namespace ngWebClientAPI
 {
     public class JsonConversion
     {
-        public string SerializeTicket(Ticket tckt)
+        public static string SerializeTicket(Ticket tckt)
         {
             string json = "{";
             json += "\"TicketID\":\"" + tckt.TicketId.ToString() + "\","; //conversion of ticket id to string
             json += "\"ProjectID\":\"" + tckt.ProjectId.ToString() + "\",";
             json += "\"Title\":\"" + tckt.Title + "\"";
+            json += "\"Details\":\"" + tckt.Details.ToString() + "\"";
+
             return json + "}";
         }
 

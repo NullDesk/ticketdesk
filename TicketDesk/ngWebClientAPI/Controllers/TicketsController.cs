@@ -1,58 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using ngWebClientAPI.Controllers;
-
-
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Globalization;
-
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Web.Http.Description;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.IO;
-using TicketDesk.Localization.Controllers;
-using System.Data.Entity.Migrations;
-using Newtonsoft.Json;
 
 namespace ngWebClientAPI.Controllers
 {
-    public class ValuesController : ApiController
+    public class TicketsController : ApiController
     {
+        private TicketController ticketController = new TicketController(new TdDomainContext());
 
         private TdDomainContext Context { get; set; }
 
-        // GET api/values
+        // GET api/tickets
         public IEnumerable<string> Get()
         {
+            
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET api/tickes/5
         public async Task<string> Get(int id)
         {
-      
-            TicketController ticketController = new TicketController(new TdDomainContext());
             string model = await ticketController.getTicket(id);
             return model;
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        // POST api/tickets
+        public async Task<Boolean> Post([FromBody]Ticket value)
         {
+            bool status = await ticketController.CreateTicketAsync(value);
+            return status;
         }
 
-        // PUT api/values/5
+        // PUT api/tickets/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/tickets/5
         public void Delete(int id)
         {
         }

@@ -76,7 +76,9 @@ namespace ngWebClientAPI.Controllers
         public async Task<string> getTicket(int id)
         {
             var model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
-            if (model == null)
+
+            
+           if (model == null)
             {
                 Context.Tickets.AddOrUpdate(t => t.Title,
                   new Ticket
@@ -100,18 +102,16 @@ namespace ngWebClientAPI.Controllers
                       TicketType = "Problem",
                       TicketEvents = new[] { TicketEvent.CreateActivityEvent("17f78f38-fa68-445f-90de-38896140db28", TicketActivity.Create, null, null, null) }
                   });
+                Context.SaveChanges();
             }
+
+
+            string output = JsonConvert.SerializeObject(model);
             
-            string output = JsonConvert.SerializeObject(model, Formatting.Indented,
-                            new JsonSerializerSettings
-                            {
-                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                            });
-            output = JsonConversion.SerializeObject(model);
             return output;
         }
 
-        private async Task<bool> CreateTicketAsync(Ticket ticket)
+        public async Task<bool> CreateTicketAsync(Ticket ticket)
         {
 
             Context.Tickets.Add(ticket);
@@ -120,6 +120,5 @@ namespace ngWebClientAPI.Controllers
 
             return ticket.TicketId != default(int);
         }
-
     }
 }
