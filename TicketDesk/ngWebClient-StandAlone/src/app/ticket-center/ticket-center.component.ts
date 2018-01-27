@@ -1,6 +1,6 @@
-import {Injectable, Component, OnInit } from '@angular/core';
-import {Ticket } from '../models/data';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import { Injectable, Component, OnInit } from '@angular/core';
+import { Ticket } from '../models/data';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-center',
@@ -10,11 +10,9 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 
 
 export class TicketCenterComponent implements OnInit {
-  tabNames: string[] = ["Open", "Assigned", "All", "Submitted", "Closed" ] //MAKE input/ settings at some point
-  listName: string;
-  
+  tabNames: string[] = ["Open", "Assigned", "All", "Submitted", "Closed"] //MAKE input/ settings at some point
 
-  ngOnInit() { 
+  ngOnInit() {
   }
 
 }

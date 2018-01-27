@@ -1,27 +1,28 @@
-import { Component, OnInit, Input,
-         OnChanges, SimpleChanges, SimpleChange 
-       } from '@angular/core';
+import {
+  Component, OnInit, Input,
+  OnChanges, SimpleChanges, SimpleChange
+} from '@angular/core';
 import { MultiTicketService } from '../services/multi-ticket.service';
 import { Ticket } from '../models/data';
 
 @Component({
   selector: 'app-ticket-center-list',
-  templateUrl: './ticket-center-list.component.html',
-  styleUrls: ['./ticket-center-list.component.css']
+  template: `<app-ticket-list [ticketListResults]="ticketListResults"> </app-ticket-list>`
+
 })
 export class TicketCenterListComponent implements OnChanges, OnInit {
   @Input() listName: string;
-  ticketListResults: {"ticketList":Ticket[], "maxPages" : number};
-  
-  constructor(private multiTicketService : MultiTicketService) { 
-    
+  ticketListResults: { "ticketList": Ticket[], "maxPages": number };
+
+  constructor(private multiTicketService: MultiTicketService) {
+
   }
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     const name: SimpleChange = changes.name;
     this.ticketListResults = this.multiTicketService.filterList(this.listName);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.ticketListResults = this.multiTicketService.filterList(this.listName);
   }
 
