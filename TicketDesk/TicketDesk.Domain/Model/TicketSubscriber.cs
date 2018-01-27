@@ -29,7 +29,7 @@ namespace TicketDesk.Domain.Model
         public string SubscriberId { get; set; }
 
         
-        public virtual Ticket Ticket { get; set; }
+        //public virtual Ticket Ticket { get; set; }
 
     }
 }

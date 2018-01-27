@@ -30,7 +30,7 @@ namespace TicketDesk.Domain.Model
 
         public int TicketId { get; set; }
 
-        public virtual Ticket Ticket { get; set; }
+        //public virtual Ticket Ticket { get; set; }
 
         #region utility
 

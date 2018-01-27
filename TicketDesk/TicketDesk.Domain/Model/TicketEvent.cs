@@ -58,7 +58,7 @@ namespace TicketDesk.Domain.Model
         [Timestamp]
         public byte[] Version { get; set; }
 
-        public virtual Ticket Ticket { get; set; }
+        //public virtual Ticket Ticket { get; set; }
 
         public virtual ICollection<TicketEventNotification> TicketEventNotifications { get; set; }
 
@@ -99,6 +99,7 @@ namespace TicketDesk.Domain.Model
         public void CreateSubscriberEventNotifications()
         {
             
+            /*
             foreach (var subscriber in Ticket.TicketSubscribers)
             {
                 var isSubscriberEvent = EventBy == subscriber.SubscriberId;
@@ -112,6 +113,7 @@ namespace TicketDesk.Domain.Model
                     });
 
             }
+            */
         }
     }
 }
