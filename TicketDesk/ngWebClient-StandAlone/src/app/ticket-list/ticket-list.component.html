@@ -1,5 +1,4 @@
-
-<div class="container">
+<div class="table-responsive">
     <table class="table">
         <thead class="thead-default">
             <tr>
@@ -12,7 +11,7 @@
 		<tr *ngFor="let row of ticketListResults.ticketList"> 
                     <td> 
                         <input type="checkbox" [checked]="isChecked(row)"   (change)="checkboxSelect(row)">  </td>
-                    <td routerLink="/ticket/{{row.ticketId}}" class="btn btn-primary"> {{row.ticketId}} </td>
+                    <td routerLink="/ticket/{{row.ticketId}}"><button type="button" class="btn btn-primary"> {{row.ticketId}}</button>  </td>
 		    <td routerLink="/ticket/{{row.ticketId}}"> {{row.title}} </td>
                     <td> {{row.status}} </td>
                     <td> {{row.priority}}  </td>
