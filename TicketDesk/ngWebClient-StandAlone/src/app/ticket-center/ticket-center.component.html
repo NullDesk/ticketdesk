@@ -3,8 +3,8 @@
   <ngb-tabset justify="fill">
     <ngb-tab *ngFor = "let tabName of tabNames" [class.listName]="tabName" title="{{tabName}}" > 
       <ng-template ngbTabContent>
-        {{setListName(tabName)}}
-        <app-ticket-list [ticketListResults] = "ticketListResults"> </app-ticket-list>
+        <p>Ticket Center Listname : "{{listName}}  ------  tabName:"{{tabName}}"</p>
+        <app-ticket-center-list [listName] = "tabName"> </app-ticket-center-list>
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">

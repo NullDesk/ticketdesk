@@ -21,6 +21,7 @@ import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SingleTicketService } from './services/single-ticket.service';
 import { AdUserComponent } from './ad-user/ad-user.component';
+import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 
 
 
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
 	SearchBoxComponent,
 	AttachFileComponent,
 	AdUserComponent,
+	TicketCenterListComponent,
   ],
   imports: [
 	  ServicesModule,
