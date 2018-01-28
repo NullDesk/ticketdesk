@@ -24,7 +24,7 @@ namespace ngWebClientAPI.Controllers
         // GET api/tickets
         public async Task<string> Get()
         {
-            var model = await Context.Tickets.ToListAsync(); //returns list of all ticets
+            var model = await ticketController.GetTicketList(); //returns list of all ticets
             return JsonConvert.SerializeObject(model);
         }
 

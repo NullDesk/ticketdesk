@@ -120,5 +120,11 @@ namespace ngWebClientAPI.Controllers
 
             return ticket.TicketId != default(int);
         }
+
+        public async Task<List<Ticket>> GetTicketList()
+        {
+            var ticketList = await Context.Tickets.ToListAsync();
+            return ticketList;
+        }
     }
 }
