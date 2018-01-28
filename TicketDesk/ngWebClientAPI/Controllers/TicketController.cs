@@ -76,7 +76,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<string> getTicket(int id)
         {
             var model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
-
+            
             
            if (model == null)
             {

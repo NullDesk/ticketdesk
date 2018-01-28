@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
+using Newtonsoft.Json;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -21,10 +22,10 @@ namespace ngWebClientAPI.Controllers
         private TdDomainContext Context { get; set; }
 
         // GET api/tickets
-        public IEnumerable<string> Get()
+        public async Task<string> Get()
         {
-            
-            return new string[] { "value1", "value2" };
+            var model = await Context.Tickets.ToListAsync(); //returns list of all ticets
+            return JsonConvert.SerializeObject(model);
         }
 
         // GET api/tickes/5

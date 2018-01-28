@@ -189,7 +189,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonConversion.cs" />
     <Compile Include="Controllers\TicketController.cs" />
-    <Compile Include="Controllers\Tickets1Controller.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
