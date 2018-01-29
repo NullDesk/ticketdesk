@@ -31,6 +31,10 @@ namespace TicketDesk.Domain.Model
             TicketSubscribers = new HashSet<TicketSubscriber>();
             TicketTags = new HashSet<TicketTag>();
             DueDate = null;
+            EstimatedDuration = null;
+            ActualDuration = null;
+            TargetDate = null;
+            ResolutionDate = null;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
         [Key]
@@ -78,9 +82,20 @@ namespace TicketDesk.Domain.Model
         [Display(ResourceType = typeof(Strings), Name = "TicketCreatedDate", ShortName = "TicketCreatedDateShort")]
         public DateTimeOffset CreatedDate { get; set; }
 
+        [Display(ResourceType = typeof(Strings), Name = "TicketTargetDate", ShortName = "TicketTargetDateShort")]
+        public DateTimeOffset? TargetDate { get; set; }
+
+        [Display(ResourceType = typeof(Strings), Name = "TicketResolutionDate", ShortName = "TickeResolutionDateShort")]
+        public DateTimeOffset? ResolutionDate { get; set; }
 
         [Display(ResourceType = typeof(Strings), Name = "TicketDueDate", ShortName = "TicketDueDateShort")]
         public DateTimeOffset? DueDate { get; set; }
+
+        [Display(ResourceType = typeof(Strings), Name = "TicketEstimatedDuration", ShortName = "TicketEstimatedDurationShort")]
+        public decimal? EstimatedDuration { get; set; }
+
+        [Display(ResourceType = typeof(Strings), Name = "TicketActualDuration", ShortName = "TicketActualDurationShort")]
+        public decimal? ActualDuration { get; set; }
 
         [NotMapped]
         public string DueDateAsString
@@ -107,16 +122,78 @@ namespace TicketDesk.Domain.Model
         }
 
         [NotMapped]
+        public bool IsDue
+        {
+            get
+            {
+                if (this.IsOpen && this.DueDate.HasValue)
+                {
+                    return this.DueDate.Value.DateTime.Date == DateTime.Today.Date;
+                }
+
+                return false;
+            }
+        }
+
+        [NotMapped]
         public bool IsOverDue
         {
             get
             {
                 if (this.IsOpen && this.DueDate.HasValue)
                 {
-                    return this.DueDate.Value.DateTime < DateTime.Today.Date.AddDays(1.0);
+                    return this.DueDate.Value.DateTime.Date < DateTime.Today.Date;
                 }
 
                 return false;
+            }
+        }
+
+        [NotMapped]
+        public string TargetDateAsString
+        {
+            get
+            {
+                return TargetDate.HasValue ? TargetDate.Value.Date.ToShortDateString() : string.Empty;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty((value ?? string.Empty).Trim()))
+                {
+                    this.TargetDate = null;
+                }
+                else
+                {
+                    DateTime dt;
+                    if (DateTime.TryParse(value, out dt))
+                    {
+                        this.TargetDate = dt;
+                    }
+                }
+            }
+        }
+
+        [NotMapped]
+        public string ResolutionDateAsString
+        {
+            get
+            {
+                return ResolutionDate.HasValue ? ResolutionDate.Value.Date.ToShortDateString() : string.Empty;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty((value ?? string.Empty).Trim()))
+                {
+                    this.ResolutionDate = null;
+                }
+                else
+                {
+                    DateTime dt;
+                    if (DateTime.TryParse(value, out dt))
+                    {
+                        this.ResolutionDate = dt;
+                    }
+                }
             }
         }
 

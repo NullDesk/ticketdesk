@@ -41,7 +41,14 @@ namespace TicketDesk.Web.Client.Controllers
         [Route("index")]
         public ActionResult Index()
         {
-            return View();
+            if (ApplicationConfig.HomeEnabled)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToActionPermanent("Index", "TicketCenter");
+            }
         }
  
         [Route("about")]

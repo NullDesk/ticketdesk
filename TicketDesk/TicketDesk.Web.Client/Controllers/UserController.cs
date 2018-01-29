@@ -13,6 +13,7 @@
 
 using System;
 using System.Configuration;
+using System.DirectoryServices;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -149,10 +150,44 @@ namespace TicketDesk.Web.Client.Controllers
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                default:
-                    ModelState.AddModelError("", Strings.InvalidLoginAttempt);
-                    return View(model);
             }
+
+            var domain = (DomainContext.TicketDeskSettings.SecuritySettings.DefaultLogonDomain ?? string.Empty).Trim();
+            if (!string.IsNullOrEmpty(domain))
+            {
+                var user = await UserManager.FindByNameAsync(model.UserNameOrEmail);
+                if (user == null)
+                {
+                    user = await UserManager.FindByNameAsync(model.UserNameOrEmail + "@" + domain);
+                }
+
+                if (user != null)
+                {
+                    var dsEntry = new DirectoryEntry("LDAP://" + domain)
+                    {
+                        Username = user.UserName,
+                        Password = model.Password
+                    };
+                    var dsSearch = new DirectorySearcher(dsEntry);
+                    dsSearch.Filter = "(objectclass=user)";
+                    var OK = false;
+                    try
+                    {
+                        OK = dsSearch.FindOne() != null;
+                    }
+                    catch { }
+
+                    if (OK)
+                    {
+                        await UserManager.ResetAccessFailedCountAsync(user.Id);
+                        await SignInManager.SignInAsync(user, model.RememberMe, true);
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+            }
+
+            ModelState.AddModelError("", Strings.InvalidLoginAttempt);
+            return View(model);
         }
 
         [Route("sign-out")]

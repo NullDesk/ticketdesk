@@ -422,4 +422,31 @@
   <data name="TicketDueDateShort" xml:space="preserve">
     <value>Data de Vencimento</value>
   </data>
+  <data name="TicketActualDuration" xml:space="preserve">
+    <value>Duração real</value>
+  </data>
+  <data name="TicketActualDurationShort" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="TicketEstimatedDuration" xml:space="preserve">
+    <value>Duração estimada</value>
+  </data>
+  <data name="TicketEstimatedDurationShort" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="TicketResolutionDate" xml:space="preserve">
+    <value>Data de resolução</value>
+  </data>
+  <data name="TicketResolutionDateShort" xml:space="preserve">
+    <value>Resolução</value>
+  </data>
+  <data name="TicketTargetDate" xml:space="preserve">
+    <value>Data-alvo</value>
+  </data>
+  <data name="TicketTargetDateShort" xml:space="preserve">
+    <value>Alvo</value>
+  </data>
+  <data name="DefaultLogonDomain" xml:space="preserve">
+    <value>Domínio de logon padrão</value>
+  </data>
 </root>

@@ -71,15 +71,16 @@
                    class="@Html.IsActiveRoute("New", "Ticket") btn btn-default navbar-btn hidden-sm hidden-md hidden-lg "><i class="fa fa-plus"></i></a>
             </div>
             @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-
-
         </div>
         <div>
             <div id="main-menu-collapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="@Html.IsActiveRoute("Index", "Home")">
-                        <a href="@Url.Action("Index", "Home", new {area = ""})"><i class="fa fa-home"></i> @_Layout.Home</a>
-                    </li>
+                    @if (ApplicationConfig.HomeEnabled)
+                    {
+                        <li class="@Html.IsActiveRoute("Index", "Home")">
+                            <a href="@Url.Action("Index", "Home", new { area = "" })"><i class="fa fa-home"></i> @_Layout.Home</a>
+                        </li>
+                    }
                     <li class="@Html.IsActiveRoute("Index", "TicketCenter")">
                         <a href="@Url.Action("Index", "TicketCenter", new {area = ""})"><i class="fa fa-ticket"></i> @_Layout.TicketCenter</a>
                     </li>

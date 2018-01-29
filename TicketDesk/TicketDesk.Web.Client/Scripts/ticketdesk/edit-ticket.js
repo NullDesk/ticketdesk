@@ -222,7 +222,9 @@
             if ($('#wmd-input-activity').length) {
                 configureCommentEditor();
             }
-            $("#DueDateAsString").datepicker({ autoclose: true, clearBtn: true });
+            $("#DueDateAsString").datepicker({ autoclose: true, clearBtn: true, todayBtn: "linked" });
+            $("#TargetDateAsString").datepicker({ autoclose: true, clearBtn: true, todayBtn: "linked" });
+            $("#ResolutionDateAsString").datepicker({ autoclose: true, clearBtn: true, todayBtn: "linked" });
         };
 
         var renderDetailsPanel = function (data) {

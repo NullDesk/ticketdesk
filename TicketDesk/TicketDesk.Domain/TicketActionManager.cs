@@ -122,6 +122,10 @@ namespace TicketDesk.Domain
             string category,
             string owner,
             string tagList,
+            decimal? estimatedDuration,
+            decimal? actualDuraion,
+            string targetDateAsString,
+            string resolutionDateAsString,
             ApplicationSetting settings)
         {
             const TicketActivity activity = TicketActivity.EditTicketInfo;
@@ -175,6 +179,24 @@ namespace TicketDesk.Domain
                             PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.DueDate), ticket.DueDateAsString, dueDateAsString));
                         ticket.DueDateAsString = dueDateAsString;
                     }
+                    if (ticket.TargetDateAsString != targetDateAsString)
+                    {
+                        sb.AppendLine(
+                            string.Format("<dd>    " +
+                            Strings.Changes_From_To +
+                            "</dd>",
+                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TargetDate), ticket.TargetDateAsString, targetDateAsString));
+                        ticket.TargetDateAsString = targetDateAsString;
+                    }
+                    if (ticket.ResolutionDateAsString != resolutionDateAsString)
+                    {
+                        sb.AppendLine(
+                            string.Format("<dd>    " +
+                            Strings.Changes_From_To +
+                            "</dd>",
+                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ResolutionDate), ticket.ResolutionDateAsString, resolutionDateAsString));
+                        ticket.ResolutionDateAsString = resolutionDateAsString;
+                    }
                     if (ticket.TicketType != ticketType)
                     {
                         sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
@@ -184,6 +206,16 @@ namespace TicketDesk.Domain
                     {
                         sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
                         ticket.Category = category;
+                    }
+                    if (ticket.EstimatedDuration != estimatedDuration)
+                    {
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.EstimatedDuration), ticket.EstimatedDuration, estimatedDuration));
+                        ticket.EstimatedDuration = estimatedDuration;
+                    }
+                    if (ticket.ActualDuration != actualDuraion)
+                    {
+                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ActualDuration), ticket.ActualDuration, actualDuraion));
+                        ticket.ActualDuration = actualDuraion;
                     }
                     if (SecurityProvider.IsTdHelpDeskUser && ticket.Owner != owner)
                     {
