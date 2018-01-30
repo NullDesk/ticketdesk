@@ -21,7 +21,7 @@ import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SingleTicketService } from './services/single-ticket.service';
 import { AdUserComponent } from './ad-user/ad-user.component';
-
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 
 
 const appRoutes: Routes = [
