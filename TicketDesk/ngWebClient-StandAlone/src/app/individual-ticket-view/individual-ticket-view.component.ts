@@ -1,3 +1,4 @@
+import { SingleTicketService } from './../services/single-ticket.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivityLogComponent } from '../activity-log/activity-log.component';
 import { ContactInfoComponent } from '../contact-info/contact-info.component';
@@ -20,7 +21,7 @@ export class IndividualTicketViewComponent implements OnInit {
 
   constructor(
     private singleTicketService: SingleTicketService, 
-    private activatedRoute: ActivatedRoute ) { 
+    private activatedRoute: ActivatedRoute) { 
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = params['ticketID'];
   });
@@ -28,7 +29,9 @@ export class IndividualTicketViewComponent implements OnInit {
 
   ngOnInit() {
     console.log('Starting Invidividual ticket view');
+    const { singleTicketService } = this
     this.single_ticket = this.singleTicketService.getTicketDetails(this.ticketId);
-    this.buttonTitles = this.singleTicketService.getAvailableTicketActions(this.ticketId);
+    this.buttonTitles = 
+    this.singleTicketService.getAvailableTicketActions(this.ticketId);
   }
 }
