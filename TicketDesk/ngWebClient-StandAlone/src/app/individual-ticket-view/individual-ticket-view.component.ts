@@ -18,7 +18,9 @@ export class IndividualTicketViewComponent implements OnInit {
   buttonTitles: Array<String> = null;
   public isCollapsed = true;
 
-  constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute ) { 
+  constructor(
+    private singleTicketService: SingleTicketService, 
+    private activatedRoute: ActivatedRoute ) { 
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = params['ticketID'];
   });

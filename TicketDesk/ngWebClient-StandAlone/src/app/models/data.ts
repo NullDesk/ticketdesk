@@ -7,7 +7,7 @@ export interface Ticket {
 	priority?: string, 
 	ticketType: string, 
 	category: string, 
-    subcategory: string,	
+	subcategory: string,	
 	owner: string,
 	assignedTo: string,
 	status: string, 
