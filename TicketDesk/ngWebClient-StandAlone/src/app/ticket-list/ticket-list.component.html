@@ -2,33 +2,36 @@
     <table class="table">
         <thead class="thead-default">
             <tr>
-                <th> <input  type="checkbox" [checked]="checkAll()"  (change)="selectAll()"> </th>
+                <th>
+                    <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
                 <th>TicketID</th>
-                <th *ngFor = "let heading of headingsList">{{heading}}</th>
+                <th *ngFor="let heading of headingsList">{{heading}}</th>
             </tr>
         </thead>
         <tbody>
-		<tr *ngFor="let row of ticketListResults.ticketList"> 
-                    <td> 
-                        <input type="checkbox" [checked]="isChecked(row)"   (change)="checkboxSelect(row)">  </td>
-                    <td routerLink="/ticket/{{row.ticketId}}"><button type="button" class="btn btn-primary"> {{row.ticketId}}</button>  </td>
-		    <td routerLink="/ticket/{{row.ticketId}}"> {{row.title}} </td>
-                    <td> {{row.status}} </td>
-                    <td> {{row.priority}}  </td>
-                    <td> {{row.owner}} </td>
-                    <td> {{row.assignedTo}} </td>
-                    <td> {{row.category}}  </td>
-                    <td> {{row.createdDate}}</td>
-                </tr>
-                
+            <tr *ngFor="let row of displayList">
+                <td>
+                    <input  type="checkbox" [(ngModel)]="row.isChecked"> </td>
+                <td routerLink="/ticket/{{row.ticket.ticketId}}">
+                    <button type="button" class="btn btn-primary"> {{row.ticket.ticketId}}</button>
+                </td>
+                <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{row.ticket.title}} </td>
+                <td> {{row.ticket.status}} </td>
+                <td> {{row.ticket.priority}} </td>
+                <td> {{row.ticket.owner}} </td>
+                <td> {{row.ticket.assignedTo}} </td>
+                <td> {{row.ticket.category}} </td>
+                <td> {{row.ticket.createdDate}}</td>
+            </tr>
+
         </tbody>
-        
+
         <!-- Pagination goes here !-->
     </table>
     <ul>
-        <li *ngFor="let sel of selected">{{sel.title}}</li>
+        <li *ngFor="let sel of displayList">{{sel.ticket.title}} is {{sel.isChecked}}</li>
     </ul>
-    
+
     <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
 </div>

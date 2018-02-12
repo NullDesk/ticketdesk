@@ -1,5 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Ticket } from '../models/data';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket-list',
@@ -10,45 +11,43 @@ import { Ticket } from '../models/data';
 
 export class TicketListComponent implements OnInit {
   //This will become input
-  headingsList: string [] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
-  @Input() ticketListResults: {"ticketList": Ticket[], "maxPages": number};
+  private headingsList: string[] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
+  private displayList: { "ticket": Ticket, "isChecked": boolean }[]
+  @Input() ticketListResults: { "ticketList": Ticket[], "maxPages": number };
   @Input() columns: string[];
   selected = new Set();
   isSelected: Map<number, boolean> = new Map;
-  currentPage:number;
+  currentPage: number;
+  //TODO RENAME TICKETLIST THROUGHOUT
   ngOnInit() {
+    this.displayList = this.ticketListResults.ticketList.map(
+      function (x) { return { "ticket": x, "isChecked": false } }
+    )
     this.currentPage = 1;
-    for (let ticket of this.ticketListResults.ticketList){
+    for (let ticket of this.ticketListResults.ticketList) {
       this.isSelected.set(ticket.ticketId, false);
     }
   }
-  checkAll(){
-    return (this.selected.size != 0)
+  isAllChecked() {
+    return this.displayList.every(x => x.isChecked)
   }
-  isChecked(ticket:Ticket){
+  isChecked(ticket: Ticket) {
     return this.isSelected.get(ticket.ticketId)
   }
-  selectAll(){
-    if (this.selected.size == 0){
-      this.selected = new Set(this.ticketListResults.ticketList)
-    }else {
-      for (let ticket of this.ticketListResults.ticketList){
-        this.isSelected.set(ticket.ticketId, false);
-      }
-      this.selected = new Set();
-    }
+  selectAll(ev) {
+    this.displayList.forEach(x => { x.isChecked = ev.target.checked })
   }
 
-  checkboxSelect(ticket:Ticket) {
+  checkboxSelect(ticket: Ticket) {
     //optimize this with another selection array
-    if (this.isSelected.get(ticket.ticketId)){
+    if (this.isSelected.get(ticket.ticketId)) {
       this.selected.delete(ticket)
-    }else {
+    } else {
       this.selected.add(ticket)
     }
     this.isSelected.set(ticket.ticketId,
-              !this.isSelected.get(ticket.ticketId))
+      !this.isSelected.get(ticket.ticketId))
   }
-  
+
 
 }
