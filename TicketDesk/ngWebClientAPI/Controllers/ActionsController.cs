@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TicketDesk.Domain;
+using TicketDesk.Domain.Model;
 using System.Threading.Tasks;
 using TicketDesk.Web.Identity;
 using Microsoft.AspNet.Identity;
@@ -18,7 +19,7 @@ namespace ngWebClientAPI.Controllers
     [RoutePrefix("api/actions")]
     public class ActionsController : ApiController
     {
-        TicketDeskContextSecurityProvider secur;
+        TicketActivityController ticketActivityController;
         public ActionsController()
         {
             TdIdentityContext context = new TdIdentityContext();
@@ -45,7 +46,8 @@ namespace ngWebClientAPI.Controllers
                 userManager.AddToRole(user.Id, "TdInternalUsers");
                 context.SaveChanges();
             }
-            secur = new TicketDeskContextSecurityProvider(userManager, user.Id);
+            TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider(userManager, user.Id);
+            ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
         }
         [HttpPost]
         [Route("force-close")]
@@ -53,7 +55,6 @@ namespace ngWebClientAPI.Controllers
         {
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
-            TicketActivityController ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
             var stuff = await ticketActivityController.ForceClose(ticketId, comment);
             return "Successfully Forced Closed Ticket";
         }
@@ -64,10 +65,17 @@ namespace ngWebClientAPI.Controllers
         {
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
-            bool assignedToMe = data["assignedToMe"].ToObject<bool>();;
-            TicketActivityController ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
+            bool assignedToMe = data["assignedToMe"].ToObject<bool>();
             var stuff = await ticketActivityController.ReOpen(ticketId, comment, assignedToMe);
             return "Successfully ReOpened Ticket";
+        }
+        
+        [HttpGet]
+        [Route("activity-buttons/{ticketId}")]
+        public TicketActivity ActivityButtons(int ticketId)
+        {
+            var activities = ticketActivityController.ActivityButtons(ticketId);
+            return activities;
         }
 
     }

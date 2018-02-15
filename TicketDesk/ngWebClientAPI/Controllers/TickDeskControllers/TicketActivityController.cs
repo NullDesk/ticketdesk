@@ -65,13 +65,13 @@ namespace ngWebClientAPI.Controllers
             ViewBag.IsMultiProject = isMulti;
         }
 
-        [Route("activity-buttons")]
-        public ActionResult ActivityButtons(int ticketId)
+        
+        public TicketActivity ActivityButtons(int ticketId)
         {
             //WARNING! This is also used as a child action and cannot be made async in MVC 5
             var ticket = Context.Tickets.Find(ticketId);
-            var activities = Context.TicketActions.GetValidTicketActivities(ticket);
-            return PartialView("_ActivityButtons", activities);
+            TicketActivity activities = Context.TicketActions.GetValidTicketActivities(ticket);
+            return activities;
         }
 
         [HttpPost]
