@@ -2,10 +2,22 @@ import { Injectable } from '@angular/core';
 import { Ticket, Logs, Entry } from '../models/data';
 import { tickets, logs } from './ticket_db';
 
+/**
+ * DESIGN THOUGHTS:
+ * Since this class will only deal with single tickets, I think we should inject
+ * a class that actually makes calls to API (api.service.ts?), and assign a class
+ * member var to that ticket so all functions have access to it and returning
+ * various ticket properties will be handled simply
+ */
+
+
 @Injectable()
 export class SingleTicketService {
 
-  constructor() { }
+  // probably need an injection from class that makes calls to API
+  constructor() { 
+    // should we get ticket also as injection? 
+  }
 
   getTicketDetails(ticketId: number): Ticket {
     let get_ticket: Ticket = null; //
@@ -17,6 +29,10 @@ export class SingleTicketService {
       }
     }
     return get_ticket;
+  }
+
+  getOwner(ticketId: number) {
+    // const ticket = 
   }
 
   getTicketFiles(ticketId: number) {

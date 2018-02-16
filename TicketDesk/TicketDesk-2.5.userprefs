@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{88F97EFB-B7DB-4F84-97D8-B98932F0B323}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7/build/net45/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props">
+    <Files>
+      <File FileName="packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7/build/net45/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Line="17" Column="162" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.TicketDesk.Web.Client PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.ngWebClient PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
