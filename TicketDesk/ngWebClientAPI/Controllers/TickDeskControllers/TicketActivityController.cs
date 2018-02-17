@@ -74,38 +74,25 @@ namespace ngWebClientAPI.Controllers
             return activities;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("add-comment")]
-        public async Task<string> AddComment(int ticketId, string comment)
+        public async Task<Ticket> AddComment(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.AddComment(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.AddComment);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("assign")]
-        public async Task<string> Assign(int ticketId,  string comment, string assignedTo, string priority)
+        public async Task<Ticket> Assign(int ticketId,  string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.Assign(comment, assignedTo, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.Assign);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("cancel-more-info")]
-        public async Task<string> CancelMoreInfo(int ticketId, string comment)
+        public async Task<Ticket> CancelMoreInfo(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.CancelMoreInfo(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.CancelMoreInfo);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("edit-ticket-info")]
-        public async Task<string> EditTicketInfo(
+        public async Task<Ticket> EditTicketInfo(
             int ticketId,
             int projectId,
             string comment,
@@ -122,80 +109,56 @@ namespace ngWebClientAPI.Controllers
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
 
-        public async Task<string> ForceClose(int ticketId, string comment)
+        public async Task<Ticket> ForceClose(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.ForceClose(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ForceClose);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("give-up")]
-        public async Task<string> GiveUp(int ticketId, string comment)
+        public async Task<Ticket> GiveUp(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.GiveUp(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.GiveUp);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("pass")]
-        public async Task<string> Pass(int ticketId, string comment, string assignedTo, string priority)
+        public async Task<Ticket> Pass(int ticketId, string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.Pass(comment, assignedTo, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.Pass);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("reassign")]
-        public async Task<string> ReAssign(int ticketId, string comment, string assignedTo, string priority)
+        public async Task<Ticket> ReAssign(int ticketId, string comment, string assignedTo, string priority)
         {
             var activityFn = Context.TicketActions.ReAssign(comment, assignedTo, priority);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReAssign);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("request-more-info")]
-        public async Task<string> RequestMoreInfo(int ticketId, string comment)
+        public async Task<Ticket> RequestMoreInfo(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.RequestMoreInfo(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.RequestMoreInfo);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("reopen")]
-        public async Task<string> ReOpen(int ticketId, string comment, bool assignToMe = false)
+
+        public async Task<Ticket> ReOpen(int ticketId, string comment, bool assignToMe = false)
         {
             var activityFn = Context.TicketActions.ReOpen(comment, assignToMe);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReOpen);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("resolve")]
-        public async Task<string> Resolve(int ticketId, string comment)
+        public async Task<Ticket> Resolve(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.Resolve(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.ReOpen);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("supply-more-info")]
-        public async Task<string> SupplyMoreInfo(int ticketId, string comment, bool reactivate = false)
+        public async Task<Ticket> SupplyMoreInfo(int ticketId, string comment, bool reactivate = false)
         {
             var activityFn = Context.TicketActions.SupplyMoreInfo(comment, reactivate);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.SupplyMoreInfo);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("take-over")]
-        public async Task<string> TakeOver(
+        public async Task<Ticket> TakeOver(
             int ticketId,
             string comment,
             string priority)
@@ -204,16 +167,13 @@ namespace ngWebClientAPI.Controllers
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.TakeOver);
         }
 
-
-        private async Task<string> PerformTicketAction(int ticketId, Action<Ticket> activityFn, TicketActivity activity)
+        private async Task<Ticket> PerformTicketAction(int ticketId, Action<Ticket> activityFn, TicketActivity activity)
         {
-            var ticket = await Context.Tickets.FindAsync(ticketId);
+            Ticket ticket = await Context.Tickets.FindAsync(ticketId);
             ticket.PerformAction(activityFn);
             var result = await Context.SaveChangesAsync();
 
-
             //TryValidateModel(ticket);
-            Console.WriteLine("Here we are");
             /*  
              Had to comment this out because for some reason 
              the validation fails. 
@@ -241,7 +201,7 @@ namespace ngWebClientAPI.Controllers
             //ViewBag.CommentRequired = activity.IsCommentRequired();
             //ViewBag.Activity = activity;
             // ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
-            return "Returning";
+            return ticket;
         }
     }
 }
