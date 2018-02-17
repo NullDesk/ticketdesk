@@ -12,16 +12,21 @@ import { AttachFileComponent } from '../attach-file/attach-file.component';
   providers: [SubmitTicketService, SchemaService]
 })
 export class TicketDetailEditorComponent implements OnInit {
+	@Input('initialTicketValue') initialTicketValue: Ticket;
   form: FormGroup;
 	displayedSubcategories: string[] = ["Select a category"];
 	subcategories: Object = {};
 	ticketTypes: string[];
 	categories: string[];
-  constructor(@Inject(FormBuilder) fb: FormBuilder, 
+  
+	constructor(@Inject(FormBuilder) fb: FormBuilder, 
 	  private sts: SubmitTicketService, 
 	  private router: Router,
   private schema: SchemaService) {
-	  this.subcategories = schema.getCategoryTree();
+		
+	  console.log("is this the ticket passed down?");
+		console.log(this.initialTicketValue);
+		  this.subcategories = schema.getCategoryTree();
 	this.categories = Object.keys(this.subcategories);
 	  this.ticketTypes = schema.getTicketTypes();
 	  this.form = fb.group(
@@ -29,11 +34,13 @@ export class TicketDetailEditorComponent implements OnInit {
 	  this.form.get("category").valueChanges.subscribe(
 	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue];}
 	  );
+		console.log("this is what the form has right now:");
+		console.log(this.form.value);
       
   };
-	@Input('initialTicketValue') tkt: Ticket;
  	@ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
 	ngOnInit() {
+	  this.form.patchValue(this.initialTicketValue);
 	}
 
 	submit(){

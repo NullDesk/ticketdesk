@@ -32,7 +32,7 @@
               <h4 class="card-title">{{single_ticket.title}}</h4>
               <div class="text-muted small"> Tuesday, November 14, 2017 8:13 PM</div>
               <p class="card-text">{{single_ticket.details}}</p>
-            <app-ticket-action-box [permissions]="ticketActionPermissions"></app-ticket-action-box>
+            <app-ticket-action-box [ticket]="single_ticket" [permissions]="ticketActionPermissions"></app-ticket-action-box>
 	    </div>
           </div>
         </ng-template>

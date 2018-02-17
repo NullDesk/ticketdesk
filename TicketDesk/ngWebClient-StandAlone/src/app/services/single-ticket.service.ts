@@ -50,6 +50,6 @@ export class SingleTicketService {
       // 3333: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver']
     // }
     // const actions: Array<String> = ticketActions[ticketId]
-    return 12345;
+    return (2**17)-1;
   }
 }

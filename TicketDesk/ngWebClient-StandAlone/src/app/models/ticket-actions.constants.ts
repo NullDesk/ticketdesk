@@ -14,7 +14,7 @@ export class TicketActionEnum {
 	static readonly GIVEUP: TicketActionEnum = new TicketActionEnum("Give Up", 2**11, true, false);
 	static readonly FORCECLOSE: TicketActionEnum = new TicketActionEnum("Force Close", 2**12, true, false);
 	static readonly EDITATTACHMENTS: TicketActionEnum = new TicketActionEnum("Edit Attachments", 2**13, false, false);
-	static readonly EDITACTIVITY: TicketActionEnum = new TicketActionEnum("Edit Activity", 2**14, false, false);
+	static readonly EDITTICKET: TicketActionEnum = new TicketActionEnum("Edit Activity", 2**14, false, false);
 	static readonly CREATE: TicketActionEnum = new TicketActionEnum("Create", 2**15, false, false);
 	static readonly CREATEONBEHALFOF: TicketActionEnum = new TicketActionEnum("Create On Behalf Of", 2**16, false, true);
         static readonly allActivities: TicketActionEnum[] = [
@@ -32,7 +32,7 @@ TicketActionEnum.REOPEN,
 TicketActionEnum.GIVEUP,
 TicketActionEnum.FORCECLOSE,
 TicketActionEnum.EDITATTACHMENTS,
-TicketActionEnum.EDITACTIVITY,
+TicketActionEnum.EDITTICKET,
 TicketActionEnum.CREATE,
 TicketActionEnum.CREATEONBEHALFOF];
 
