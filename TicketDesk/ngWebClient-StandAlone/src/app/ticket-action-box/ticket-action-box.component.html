@@ -1,0 +1,7 @@
+              <span *ngFor="let action of allowedActions">
+                <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
+		<button type="button" class="btn btn-dark" (click)="isCollapsed = !setActiveAction(action) && !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{ action.displayText }} </button>
+              </span>
+              <div [ngbCollapse]="isCollapsed">
+		      <app-ticket-action-entry [commentPlaceholder]="commentPlaceholder"></app-ticket-action-entry>
+              </div>    

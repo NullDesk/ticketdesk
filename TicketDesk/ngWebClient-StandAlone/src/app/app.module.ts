@@ -22,6 +22,8 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { SingleTicketService } from './services/single-ticket.service';
 import { AdUserComponent } from './ad-user/ad-user.component';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
+import { TicketActionEntryComponent } from './ticket-action-entry/ticket-action-entry.component';
+import { TicketActionBoxComponent } from './ticket-action-box/ticket-action-box.component';
 
 
 
@@ -52,6 +54,8 @@ const appRoutes: Routes = [
 	AttachFileComponent,
 	AdUserComponent,
 	TicketCenterListComponent,
+	TicketActionEntryComponent,
+	TicketActionBoxComponent,
   ],
   imports: [
 	  ServicesModule,

@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SchemaService } from '../services/schema.service';
 import { SubmitTicketService } from '../services/submit-ticket.service';
-import {Ticket, BLANK_TICKET} from '../models/data';
-import {AttachFileComponent } from '../attach-file/attach-file.component';
+import { Ticket, BLANK_TICKET } from '../models/data';
+import { AttachFileComponent } from '../attach-file/attach-file.component';
 @Component({
   selector: 'app-ticket-detail-editor',
   templateUrl: './ticket-detail-editor.component.html',
@@ -29,7 +29,6 @@ export class TicketDetailEditorComponent implements OnInit {
 	  this.form.get("category").valueChanges.subscribe(
 	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue];}
 	  );
-
       
   };
 	@Input('initialTicketValue') tkt: Ticket;

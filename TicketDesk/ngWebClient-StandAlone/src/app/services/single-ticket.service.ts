@@ -41,15 +41,15 @@ export class SingleTicketService {
 
   }
 
-  getAvailableTicketActions(ticketId: number): Array<String> {
+  getAvailableTicketActions(ticketId: number): number {
     // available actions: AddComment (all users), Assign (staff/admin), Close, EditTicketInfo (regular), ForceClose (regular), GiveUp, 
     // ModifyAttachments (all users), Pass, RequestMoreInfo, ReOpen, Resolve, SupplyMoreInfo, TakeOver (staff/admin)
-    const ticketActions = {
-      1111: ['AddComment', 'ModifyAttachments', 'EditTicketInfo', 'ForceClose'],
-      2222: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver'],
-      3333: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver']
-    }
-    const actions: Array<String> = ticketActions[ticketId]
-    return actions;
+    // const ticketActions = {
+      // 1111: ['AddComment', 'ModifyAttachments', 'EditTicketInfo', 'ForceClose'],
+      // 2222: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver'],
+      // 3333: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver']
+    // }
+    // const actions: Array<String> = ticketActions[ticketId]
+    return 12345;
   }
 }
