@@ -23,8 +23,6 @@ import { SingleTicketService } from './services/single-ticket.service';
 import { AdUserComponent } from './ad-user/ad-user.component';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 
-
-
 const appRoutes: Routes = [
 	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
 	{ path: 'submit', component: TicketSubmitComponent },

@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/f96911eb-9288-41c5-afd8-30e2a9b16f96/resourcegroups/Default-Web-CentralUS/providers/microsoft.insights/components/ticketdesk2</ApplicationInsightsResourceId>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

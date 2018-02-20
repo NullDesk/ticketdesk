@@ -91,7 +91,7 @@ namespace TicketDesk.Domain.Model
         [Timestamp]
         public byte[] Version { get; set; }
 
-        public virtual TicketEvent TicketEvent { get; set; }
+        //public virtual TicketEvent TicketEvent { get; set; }
 
         public virtual TicketSubscriber TicketSubscriber { get; set; }
 

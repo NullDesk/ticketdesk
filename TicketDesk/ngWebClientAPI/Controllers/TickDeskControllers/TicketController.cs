@@ -76,7 +76,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<string> getTicket(int id)
         {
             var model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
-
+            
             
            if (model == null)
             {
@@ -119,6 +119,12 @@ namespace ngWebClientAPI.Controllers
             //ticket.CommitPendingAttachments(tempId);
 
             return ticket.TicketId != default(int);
+        }
+
+        public async Task<List<Ticket>> GetTicketList()
+        {
+            var ticketList = await Context.Tickets.ToListAsync();
+            return ticketList;
         }
     }
 }
