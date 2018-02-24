@@ -189,9 +189,9 @@ namespace TicketDesk.Web.Client
                     var domainContext = DependencyResolver.Current.GetService<TdDomainContext>();
                     var multiProject = domainContext.Projects.Count() > 1;
                     var notes = domainContext.TicketEventNotifications
-                        .Include(t => t.TicketEvent)
-                        .Include(t => t.TicketEvent.Ticket)
-                        .Include(t => t.TicketEvent.Ticket.Project)
+                        //.Include(t => t.TicketEvent)
+                        //.Include(t => t.TicketEvent.Ticket)
+                        //.Include(t => t.TicketEvent.Ticket.Project)
                         .Where(t => notificationIds.Contains(t.EventId))
                         .ToArray();
 
@@ -226,9 +226,9 @@ namespace TicketDesk.Web.Client
                     var multiProject = domainContext.Projects.Count() > 1;
                     //fetch these back and make sure all dependent entities we need are loaded
                     var notes = domainContext.TicketEventNotifications
-                        .Include(t => t.TicketEvent)
-                        .Include(t => t.TicketEvent.Ticket)
-                        .Include(t => t.TicketEvent.Ticket.Project)
+                        //.Include(t => t.TicketEvent)
+                        //.Include(t => t.TicketEvent.Ticket)
+                        //.Include(t => t.TicketEvent.Ticket.Project)
                         .Include(t => t.TicketSubscriber)
                         .Where(t => notificationIds.Contains(t.EventId))
                         .ToArray();
