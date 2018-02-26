@@ -23,7 +23,6 @@ export class SingleTicketViewComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { 
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = params['ticketID'];
-      this.userName = params['first_name'] + params['last_name']
     });
   }
 
