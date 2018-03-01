@@ -11,6 +11,7 @@ import { SchemaService } from './schema.service';
 import { AdContactService } from './ad-contact.service';
 import { WindowsAuthenticationInterceptorService } from './windows-authentication-interceptor.service';
 import { SearchService } from './search.service';
+import { WindowsAuthenticationInterceptorService } from './windows-authentication-interceptor.service';
 
 @NgModule({
   imports: [
