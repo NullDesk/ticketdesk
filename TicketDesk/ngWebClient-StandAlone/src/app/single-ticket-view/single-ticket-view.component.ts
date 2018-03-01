@@ -6,7 +6,6 @@ import { SingleTicketService } from '../services/single-ticket.service';
 import { Ticket } from '../models/data';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
-
 @Component({
   selector: 'app-single-ticket-view',
   templateUrl: './single-ticket-view.component.html',
