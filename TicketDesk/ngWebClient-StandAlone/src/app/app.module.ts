@@ -24,7 +24,7 @@ import { AdUserComponent } from './ad-user/ad-user.component';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 
 const appRoutes: Routes = [
-	{ path: 'ticket/:ticketID', component: SingleTicketViewComponent }, 
+	{ path: 'ticket/:ticketID', component: SingleTicketViewComponent },
 	{ path: 'submit', component: TicketSubmitComponent },
 	{ path: 'center', component: TicketCenterComponent },
 	{ path: 'report', component: ReportViewComponent },

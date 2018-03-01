@@ -9,7 +9,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class CreateLogEntryComponent implements OnInit {
   form: FormGroup;
-  constructor(@Inject(FormBuilder) fb: FormBuilder) { 
+  constructor(@Inject(FormBuilder) fb: FormBuilder) {
     this.form = fb.group({
 			freeEntry: fb.group({description: ''})
     });

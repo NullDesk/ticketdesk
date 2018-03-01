@@ -7,12 +7,12 @@ export class UploadService {
   }
 
 upload(fileToUpload: any) {
-    let input = new FormData();
-    input.append("file", fileToUpload);
+    const input = new FormData();
+    input.append('file', fileToUpload);
 
     /*return this.http
         .post("/api/uploadFile", input);
-*/ return "yup everything worked, sure did"
+*/ return 'yup everything worked, sure did';
 }
 
 }

@@ -5,7 +5,7 @@
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
                 <th>TicketID</th>
-                <th *ngFor="let heading of headingsList">{{heading}}</th>
+                <th *ngFor="let heading of headingsList">{{ heading }}</th>
             </tr>
         </thead>
         <tbody>
@@ -13,21 +13,21 @@
                 <td>
                     <input  type="checkbox" [(ngModel)]="row.state"> </td>
                 <td routerLink="/ticket/{{row.ticketId}}">
-                    <button type="button" class="btn btn-primary"> {{row.ticketId}}</button>
+                    <button type="button" class="btn btn-primary"> {{ row.ticketId }}</button>
                 </td>
-                <td routerLink="/ticket/{{row.ticketId}}"> {{row.title}} </td>
-                <td> {{row.status}} </td>
-                <td> {{row.priority}} </td>
-                <td> {{row.owner}} </td>
-                <td> {{row.assignedTo}} </td>
-                <td> {{row.category}} </td>
-                <td> {{row.createdDate}}</td>
+                <td routerLink="/ticket/{{row.ticketId}}"> {{ row.title }} </td>
+                <td> {{ row.status }} </td>
+                <td> {{ row.priority }} </td>
+                <td> {{ row.owner }} </td>
+                <td> {{ row.assignedTo }} </td>
+                <td> {{ row.category }} </td>
+                <td> {{ row.createdDate }}</td>
             </tr>
 
         </tbody>
 
         <!-- Pagination goes here !-->
     </table>
-    <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>
+    <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
 </div>

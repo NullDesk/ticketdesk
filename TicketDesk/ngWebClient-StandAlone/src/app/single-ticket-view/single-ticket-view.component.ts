@@ -13,14 +13,14 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 })
 export class SingleTicketViewComponent implements OnInit {
 
-  ticket:Ticket = null;
+  ticket: Ticket = null;
   ticketId: number = null;
-  userName: string = ''
+  userName = '';
   buttonTitles: Array<String> = null;
   public isCollapsed = true;
 
-  constructor(private singleTicketService: SingleTicketService, 
-    private activatedRoute: ActivatedRoute) { 
+  constructor(private singleTicketService: SingleTicketService,
+    private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = params['ticketID'];
     });
@@ -28,9 +28,9 @@ export class SingleTicketViewComponent implements OnInit {
 
   ngOnInit() {
     console.log('Starting Invidividual ticket view');
-    this.ticket = 
+    this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
-    this.buttonTitles = 
+    this.buttonTitles =
       this.singleTicketService.getAvailableTicketActions(this.ticketId);
   }
 }

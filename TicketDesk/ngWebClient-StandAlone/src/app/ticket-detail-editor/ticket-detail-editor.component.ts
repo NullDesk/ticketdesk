@@ -13,12 +13,12 @@ import {AttachFileComponent } from '../attach-file/attach-file.component';
 })
 export class TicketDetailEditorComponent implements OnInit {
   form: FormGroup;
-	displayedSubcategories: string[] = ["Select a category"];
+	displayedSubcategories: string[] = ['Select a category'];
 	subcategories: Object = {};
 	ticketTypes: string[];
 	categories: string[];
-  constructor(@Inject(FormBuilder) fb: FormBuilder, 
-	  private sts: SubmitTicketService, 
+  constructor(@Inject(FormBuilder) fb: FormBuilder,
+	  private sts: SubmitTicketService,
 	  private router: Router,
   private schema: SchemaService) {
 	  this.subcategories = schema.getCategoryTree();
@@ -26,13 +26,13 @@ export class TicketDetailEditorComponent implements OnInit {
 	  this.ticketTypes = schema.getTicketTypes();
 	  this.form = fb.group(
 	    BLANK_TICKET);
-	  this.form.get("category").valueChanges.subscribe(
-	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue];}
+	  this.form.get('category').valueChanges.subscribe(
+	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue]; }
 	  );
 
-      
-  };
-	@Input('initialTicketValue') tkt: Ticket;
+
+  }
+	@Input() initialTicketValue: Ticket;
  	@ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
 	ngOnInit() {
 	}
@@ -40,7 +40,7 @@ export class TicketDetailEditorComponent implements OnInit {
 	submit(){
 		// do the ticket
 		// get back the ID
-		let ticketId = this.sts.submitTicket(this.form.value);
+		const ticketId = this.sts.submitTicket(this.form.value);
 		this.attachFileComponent.addFile();
 		this.router.navigate(['/ticket/' + ticketId.toString()]);
 	}

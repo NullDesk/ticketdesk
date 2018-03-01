@@ -5,13 +5,13 @@ import { tickets, logs } from './ticket_db';
 @Injectable()
 export class SingleTicketService {
 
-  constructor() { 
+  constructor() {
   }
 
   getTicketDetails(ticketId: number): Ticket {
-    let get_ticket: Ticket = null; 
+    let get_ticket: Ticket = null;
 
-    for (let ticket of tickets) { // "search" database here to match ticketId
+    for (const ticket of tickets) { // "search" database here to match ticketId
       if (ticket.ticketId == ticketId) {
         get_ticket = ticket;
         break;
@@ -21,7 +21,7 @@ export class SingleTicketService {
   }
 
   getOwner(ticketId: number) {
-    
+
   }
 
   getTicketFiles(ticketId: number) {
@@ -29,7 +29,7 @@ export class SingleTicketService {
   }
 
   getTicketLog(ticketId: number): [Entry] {
-    for (let log of logs) {
+    for (const log of logs) {
       console.log(`log.ticketId: ${log.ticketId}`);
       console.log(`ticketId: ${ticketId}`);
 
@@ -51,8 +51,8 @@ export class SingleTicketService {
       1111: ['AddComment', 'ModifyAttachments', 'EditTicketInfo', 'ForceClose'],
       2222: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver'],
       3333: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver']
-    }
-    const actions: Array<String> = ticketActions[ticketId]
+    };
+    const actions: Array<String> = ticketActions[ticketId];
     return actions;
   }
 }
