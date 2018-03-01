@@ -11,7 +11,7 @@ export class CreateLogEntryComponent implements OnInit {
   form: FormGroup;
   constructor(@Inject(FormBuilder) fb: FormBuilder) {
     this.form = fb.group({
-			freeEntry: fb.group({description: ''})
+      freeEntry: fb.group({description: ''})
     });
   }
   ngOnInit() {

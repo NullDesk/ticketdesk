@@ -9,8 +9,7 @@ import { single_user } from 'app/services/user_db';
 })
 export class AdUserComponent implements OnInit {
   user: UserDetails;
-  constructor()
-  {
+  constructor() {
     this.user = single_user;
   }
 

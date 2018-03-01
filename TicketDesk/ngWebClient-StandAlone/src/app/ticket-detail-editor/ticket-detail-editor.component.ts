@@ -13,35 +13,35 @@ import {AttachFileComponent } from '../attach-file/attach-file.component';
 })
 export class TicketDetailEditorComponent implements OnInit {
   form: FormGroup;
-	displayedSubcategories: string[] = ['Select a category'];
-	subcategories: Object = {};
-	ticketTypes: string[];
-	categories: string[];
+  displayedSubcategories: string[] = ['Select a category'];
+  subcategories: Object = {};
+  ticketTypes: string[];
+  categories: string[];
   constructor(@Inject(FormBuilder) fb: FormBuilder,
-	  private sts: SubmitTicketService,
-	  private router: Router,
+    private sts: SubmitTicketService,
+    private router: Router,
   private schema: SchemaService) {
-	  this.subcategories = schema.getCategoryTree();
-	this.categories = Object.keys(this.subcategories);
-	  this.ticketTypes = schema.getTicketTypes();
-	  this.form = fb.group(
-	    BLANK_TICKET);
-	  this.form.get('category').valueChanges.subscribe(
-	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue]; }
-	  );
+    this.subcategories = schema.getCategoryTree();
+  this.categories = Object.keys(this.subcategories);
+    this.ticketTypes = schema.getTicketTypes();
+    this.form = fb.group(
+      BLANK_TICKET);
+    this.form.get('category').valueChanges.subscribe(
+    (newValue) => {this.displayedSubcategories = this.subcategories[newValue]; }
+    );
 
 
   }
-	@Input() initialTicketValue: Ticket;
- 	@ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
-	ngOnInit() {
-	}
+  @Input() initialTicketValue: Ticket;
+   @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
+  ngOnInit() {
+  }
 
-	submit(){
-		// do the ticket
-		// get back the ID
-		const ticketId = this.sts.submitTicket(this.form.value);
-		this.attachFileComponent.addFile();
-		this.router.navigate(['/ticket/' + ticketId.toString()]);
-	}
+  submit() {
+    // do the ticket
+    // get back the ID
+    const ticketId = this.sts.submitTicket(this.form.value);
+    this.attachFileComponent.addFile();
+    this.router.navigate(['/ticket/' + ticketId.toString()]);
+  }
 }

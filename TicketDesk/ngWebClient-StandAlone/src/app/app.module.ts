@@ -24,41 +24,41 @@ import { AdUserComponent } from './ad-user/ad-user.component';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 
 const appRoutes: Routes = [
-	{ path: 'ticket/:ticketID', component: SingleTicketViewComponent },
-	{ path: 'submit', component: TicketSubmitComponent },
-	{ path: 'center', component: TicketCenterComponent },
-	{ path: 'report', component: ReportViewComponent },
-	{ path: 'settings', component: SettingsViewComponent },
-	{ path: '', pathMatch: 'full', redirectTo: 'center'},
-	{ path: '**', component: NotFoundComponent }
+  { path: 'ticket/:ticketID', component: SingleTicketViewComponent },
+  { path: 'submit', component: TicketSubmitComponent },
+  { path: 'center', component: TicketCenterComponent },
+  { path: 'report', component: ReportViewComponent },
+  { path: 'settings', component: SettingsViewComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'center'},
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-		declarations: [
-		AppComponent,
-		TicketDetailEditorComponent,
-		TicketSubmitComponent,
-		NotFoundComponent,
-		SingleTicketViewComponent,
-		TicketCenterComponent,
-		ReportViewComponent,
-		SettingsViewComponent,
-		TicketListComponent,
-		ActivityLogComponent,
-		ContactInfoComponent,
-		SearchBoxComponent,
-		AttachFileComponent,
-		AdUserComponent,
-		TicketCenterListComponent,
+    declarations: [
+    AppComponent,
+    TicketDetailEditorComponent,
+    TicketSubmitComponent,
+    NotFoundComponent,
+    SingleTicketViewComponent,
+    TicketCenterComponent,
+    ReportViewComponent,
+    SettingsViewComponent,
+    TicketListComponent,
+    ActivityLogComponent,
+    ContactInfoComponent,
+    SearchBoxComponent,
+    AttachFileComponent,
+    AdUserComponent,
+    TicketCenterListComponent,
   ],
   imports: [
-	  ServicesModule,
+    ServicesModule,
     BrowserModule,
     NgbModule.forRoot(),
     AngularFontAwesomeModule,
-	  ReactiveFormsModule,
-	  FormsModule,
-	RouterModule.forRoot(appRoutes, {enableTracing: true})
+    ReactiveFormsModule,
+    FormsModule,
+  RouterModule.forRoot(appRoutes, {enableTracing: true})
   ],
   providers: [],
   bootstrap: [AppComponent]

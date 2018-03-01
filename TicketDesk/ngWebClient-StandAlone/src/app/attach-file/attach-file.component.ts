@@ -7,7 +7,7 @@ import {UploadService} from '../services/upload.service';
   providers: [UploadService]
 })
 export class AttachFileComponent implements OnInit {
-	@ViewChild('fileInput') fileInput;
+  @ViewChild('fileInput') fileInput;
 
   constructor(private uploadService: UploadService) { }
 
@@ -21,7 +21,7 @@ public hasAFile(): boolean {
 }
 
 addFile(): void {
-	const fi = this.fileInput.nativeElement;
+  const fi = this.fileInput.nativeElement;
     if (fi.files && fi.files[0]) {
         const fileToUpload = fi.files[0];
         this.uploadService

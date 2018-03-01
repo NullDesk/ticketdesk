@@ -9,9 +9,9 @@ export class SearchBoxComponent implements OnInit {
 
   searchBox: FormControl;
 
-	constructor() {
-	this.searchBox = new FormControl('');
-	}
+  constructor() {
+  this.searchBox = new FormControl('');
+  }
 
   ngOnInit() {
   }
