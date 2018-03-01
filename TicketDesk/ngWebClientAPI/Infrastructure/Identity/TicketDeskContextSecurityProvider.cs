@@ -26,15 +26,17 @@ namespace ngWebClientAPI.Controllers
     {
         private TicketDeskUserManager UserManager { get; set; }
 
-        public TicketDeskContextSecurityProvider(TicketDeskUserManager um, string userID)
+        public TicketDeskContextSecurityProvider()
         {
-            //UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
+            UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
             //CurrentUserId = HttpContext.Current.User.Identity.GetUserId();
-           
+            CurrentUserId = "c57be164-0eb5-4cdf-b6b0-19edec1caaca";
+           /*
             bool a = um.IsTdAdministrator(userID);
             UserManager = um;
             CurrentUserId = userID;
-           
+            */
+
         }
         public override string CurrentUserId { get; set; }
 

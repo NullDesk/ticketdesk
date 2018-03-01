@@ -41,7 +41,8 @@ namespace ngWebClientAPI.Controllers
                 userManager.AddToRole(user.Id, "TdInternalUsers");
                 context.SaveChanges();
             }
-            TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider(userManager, user.Id);
+            
+            TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
             ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
         }
 

@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace ngWebClientAPI
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
@@ -16,7 +16,7 @@ namespace ngWebClientAPI
             //HttpConfiguration httpConfiguration = new HttpConfiguration();
             //WebApiConfig.Register(httpConfiguration);
             //app.UseWebApi(httpConfiguration);
-
+            var container = RegisterStructureMap(app);
         }
     }
 }

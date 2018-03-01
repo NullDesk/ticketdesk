@@ -58,8 +58,7 @@ namespace TicketDesk.Web.Client.Models
 
         public TicketDeskUserManager UserManager
         {
-            get { return 
-                    .Current.GetService<TicketDeskUserManager>(); }
+            get { return DependencyResolver.Current.GetService<TicketDeskUserManager>(); }
         }
 
         public async Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TdDomainContext context)
