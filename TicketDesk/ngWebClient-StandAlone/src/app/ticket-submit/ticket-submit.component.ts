@@ -9,7 +9,7 @@ import { TicketDetailEditorComponent } from '../ticket-detail-editor/ticket-deta
 })
 export class TicketSubmitComponent implements OnInit {
   private initialTicket: Ticket = BLANK_TICKET;
-  constructor() { 
+  constructor() {
   }
 
   ngOnInit() {

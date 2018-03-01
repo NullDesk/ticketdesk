@@ -10,14 +10,14 @@
           </h6> 
           <h6 class="card-title">
             <a href="ticket/{{ticket.ticketId}}">
-              {{ticket.ticketId}}
+              {{ ticket.ticketId }}
             </a>
           </h6>
         </div>
         <div class="col-lg-2 colBorder">
           <h6 class="card-title">Assigned To:</h6>
           <h6 class="card-subtitle mb-2">
-            {{ticket.assignedTo}}
+            {{ ticket.assignedTo }}
           </h6>
         </div>
         <div class="col-lg-3 colBorder">
@@ -26,15 +26,15 @@
         <div class="col-lg-2 colBorder">
           <h6 class="card-title">Categories</h6>
           <h6 class="card-subtitle mb-2 text-muted">
-            {{ticket.category}}
+            {{ ticket.category }}
           </h6>
           <h6 class="card-subtitle mb-2 text-muted">
-            {{ticket.subcategory}}
+            {{ ticket.subcategory }}
           </h6>
         </div>
         <div class="col-lg-3">
           <h6 class="card-subtitle mb-2 text-muted">
-            {{ticket.tagList}}
+            {{ ticket.tagList }}
           </h6>
         </div>
       </div>
@@ -44,9 +44,9 @@
         <ng-template ngbTabContent>
           <div class="card cardBorder">
             <div class="card-body">
-              <h4 class="card-title">{{ticket.title}}</h4>
-              <div class="text-muted small">{{ticket.createdDate}}</div>
-              <p class="card-text">{{ticket.details}}</p>
+              <h4 class="card-title">{{ ticket.title }}</h4>
+              <div class="text-muted small">{{ ticket.createdDate }}</div>
+              <p class="card-text">{{ ticket.details }}</p>
               <span *ngFor="let button of buttonTitles">
                 <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
                 <button type="button" 

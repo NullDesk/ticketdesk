@@ -12,7 +12,7 @@ import { Ticket } from '../models/data';
 })
 export class TicketCenterListComponent implements OnChanges, OnInit {
   @Input() listName: string;
-  ticketListResults: { "ticketList": Ticket[], "maxPages": number };
+  ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
 
   constructor(private multiTicketService: MultiTicketService) {
 
