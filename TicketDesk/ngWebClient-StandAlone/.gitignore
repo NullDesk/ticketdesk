@@ -41,4 +41,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
+/TicketDesk-2.5.userprefs
 package-lock.json

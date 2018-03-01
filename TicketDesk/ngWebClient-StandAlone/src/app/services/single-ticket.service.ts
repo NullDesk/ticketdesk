@@ -5,10 +5,11 @@ import { tickets, logs } from './ticket_db';
 @Injectable()
 export class SingleTicketService {
 
-  constructor() { }
+  constructor() { 
+  }
 
   getTicketDetails(ticketId: number): Ticket {
-    let get_ticket: Ticket = null; //
+    let get_ticket: Ticket = null; 
 
     for (let ticket of tickets) { // "search" database here to match ticketId
       if (ticket.ticketId == ticketId) {
@@ -17,6 +18,10 @@ export class SingleTicketService {
       }
     }
     return get_ticket;
+  }
+
+  getOwner(ticketId: number) {
+    
   }
 
   getTicketFiles(ticketId: number) {
@@ -42,8 +47,6 @@ export class SingleTicketService {
   }
 
   getAvailableTicketActions(ticketId: number): Array<String> {
-    // available actions: AddComment (all users), Assign (staff/admin), Close, EditTicketInfo (regular), ForceClose (regular), GiveUp, 
-    // ModifyAttachments (all users), Pass, RequestMoreInfo, ReOpen, Resolve, SupplyMoreInfo, TakeOver (staff/admin)
     const ticketActions = {
       1111: ['AddComment', 'ModifyAttachments', 'EditTicketInfo', 'ForceClose'],
       2222: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver'],

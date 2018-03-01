@@ -8,7 +8,7 @@ import { ServicesModule } from './services/services.module';
 import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { AttachFileComponent } from './attach-file/attach-file.component';
-import { IndividualTicketViewComponent } from './individual-ticket-view/individual-ticket-view.component';
+import { SingleTicketViewComponent } from './single-ticket-view/single-ticket-view.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TicketDetailEditorComponent } from './ticket-detail-editor/ticket-detail-editor.component';
 import { TicketSubmitComponent } from './ticket-submit/ticket-submit.component';
@@ -24,7 +24,7 @@ import { AdUserComponent } from './ad-user/ad-user.component';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 
 const appRoutes: Routes = [
-	{ path: 'ticket/:ticketID', component: IndividualTicketViewComponent }, 
+	{ path: 'ticket/:ticketID', component: SingleTicketViewComponent }, 
 	{ path: 'submit', component: TicketSubmitComponent },
 	{ path: 'center', component: TicketCenterComponent },
 	{ path: 'report', component: ReportViewComponent },
@@ -34,22 +34,22 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-	TicketDetailEditorComponent,
-	TicketSubmitComponent,
-    NotFoundComponent,
-    IndividualTicketViewComponent,
-    TicketCenterComponent,
-	ReportViewComponent,
-	SettingsViewComponent,
-	TicketListComponent,
-	ActivityLogComponent,
-	ContactInfoComponent,
-	SearchBoxComponent,
-	AttachFileComponent,
-	AdUserComponent,
-	TicketCenterListComponent,
+		declarations: [
+		AppComponent,
+		TicketDetailEditorComponent,
+		TicketSubmitComponent,
+		NotFoundComponent,
+		SingleTicketViewComponent,
+		TicketCenterComponent,
+		ReportViewComponent,
+		SettingsViewComponent,
+		TicketListComponent,
+		ActivityLogComponent,
+		ContactInfoComponent,
+		SearchBoxComponent,
+		AttachFileComponent,
+		AdUserComponent,
+		TicketCenterListComponent,
   ],
   imports: [
 	  ServicesModule,
