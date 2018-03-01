@@ -5,14 +5,17 @@ import { SingleTicketService } from './single-ticket.service';
 import { SubmitTicketService } from './submit-ticket.service';
 import { UploadService } from './upload.service';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MultiTicketService } from './multi-ticket.service';
 import { SchemaService } from './schema.service';
 import { AdContactService } from './ad-contact.service';
+import { WindowsAuthenticationInterceptorService } from './windows-authentication-interceptor.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
   declarations: [],
   providers: [
@@ -22,7 +25,12 @@ import { AdContactService } from './ad-contact.service';
     UploadService,
     MultiTicketService,
     SchemaService,
-    AdContactService
+    AdContactService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WindowsAuthenticationInterceptorService,
+      multi: true
+    }
   ]
 })
 export class ServicesModule { }
