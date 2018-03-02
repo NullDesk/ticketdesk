@@ -10,7 +10,7 @@
 					<div class="col-md-3">
 						<label for="ticketType">Ticket Type</label>
 						<select formControlName="ticketType"  class="form-control">
-							<option *ngFor="let typ of ticketTypes" [value]="typ">{{typ}}</option>
+							<option *ngFor="let typ of ticketTypes" [value]="typ">{{ typ }}</option>
 						</select>
 					</div>
 				</div>
@@ -19,13 +19,13 @@
 					<div class="col-md-6">
 						<label for="category">Category</label>
 						<select formControlName="category"  class="form-control">
-							<option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+							<option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
 						</select>
 					</div>
 					<div class="col-md-6">
 						<label for="subcategory">Subcategory</label>
 						<select formControlName="subcategory"  class="form-control">
-							<option *ngFor="let subcat of displayedSubcategories" [value]="subcat">{{subcat}}</option>
+							<option *ngFor="let subcat of displayedSubcategories" [value]="subcat">{{ subcat }}</option>
 						</select>
 					</div>
 				</div>
