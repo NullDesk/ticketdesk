@@ -9,23 +9,22 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let row of ticketListResults.ticketList">
+            <tr *ngFor="let row of displayList">
                 <td>
-                    <input  type="checkbox" [(ngModel)]="row.state"> </td>
-                <td routerLink="/ticket/{{row.ticketId}}">
-                    <button type="button" class="btn btn-primary"> {{row.ticketId}}</button>
+                    <input  type="checkbox" [(ngModel)]="row.checked"> </td>
+                <td routerLink="/ticket/{{row.ticket.ticketId}}">
+                    <button type="button" class="btn btn-primary"> {{row.ticket.ticketId}}</button>
                 </td>
-                <td routerLink="/ticket/{{row.ticketId}}"> {{row.title}} </td>
-                <td> {{row.status}} </td>
-                <td> {{row.priority}} </td>
-                <td> {{row.owner}} </td>
-                <td> {{row.assignedTo}} </td>
-                <td> {{row.category}} </td>
-                <td> {{row.createdDate}}</td>
+                <td routerLink="/ticket/{{row.ticketId}}"> {{row.ticket.title}} </td>
+                <td> {{row.ticket.status}} </td>
+                <td> {{row.ticket.priority}} </td>
+                <td> {{row.ticket.owner}} </td>
+                <td> {{row.ticket.assignedTo}} </td>
+                <td> {{row.ticket.category}} </td>
+                <td> {{row.ticket.createdDate}}</td>
             </tr>
 
         </tbody>
-
         <!-- Pagination goes here !-->
     </table>
     <div>maxSize = {{ticketListResults.maxPages}}, rotate = true</div>

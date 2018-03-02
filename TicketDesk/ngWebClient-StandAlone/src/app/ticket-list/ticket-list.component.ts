@@ -11,21 +11,25 @@ import { FormsModule } from '@angular/forms';
 export class TicketListComponent implements OnInit {
   // This will become input
   private headingsList: string[] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
+  // Adds a vairable to add keep track of checkbox
+  private displayList: {'ticket': Ticket, 'checked': boolean}[];
   @Input() ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
   @Input() columns: string[];
   currentPage: number;
   ngOnInit() {
-    // State is created from ngModal in Angular
-    this.ticketListResults.ticketList.forEach(x => x.state = false);
+    this.displayList = [];
+    for (const ticket of this.ticketListResults.ticketList) {
+      this.displayList.push({'ticket': ticket, 'checked': false});
+    }
     this.currentPage = 1;
   }
   isAllChecked() {
-    return this.ticketListResults.ticketList.every(x => x.state);
+    return this.displayList.every(x => x.checked);
   }
   selectAll(ev) {
-    this.ticketListResults.ticketList.forEach(x => { x.state = ev.target.checked; });
+    this.displayList.forEach(x => {x.checked = ev.target.checked; });
   }
   getSelected() {
-    return this.ticketListResults.ticketList.filter( x => x.state);
+    return this.displayList.filter( x => x.checked);
   }
 }
