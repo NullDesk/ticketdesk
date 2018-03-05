@@ -18,8 +18,8 @@ export class TicketListComponent implements OnInit {
   currentPage: number;
   ngOnInit() {
     this.displayList = [];
-    for (let ticket of this.ticketListResults.ticketList) {
-      if (ticket) { // ticket is of type ticket 
+    for (const ticket of this.ticketListResults.ticketList) {
+      if (ticket) { // ticket is of type ticket
         this.displayList.push({'ticket': ticket, 'checked': false});
       }
     }
