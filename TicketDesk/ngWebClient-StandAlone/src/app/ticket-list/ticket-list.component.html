@@ -11,12 +11,11 @@
         <tbody>
             <tr *ngFor="let row of displayList">
                 <td>
-
-                    <input  type="checkbox" [(ngModel)]="row.checked"> </td>
+                    <input  type="checkbox" [(checked)]="row.checked"> </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}">
                     <button type="button" class="btn btn-primary"> {{row.ticket.ticketId}}</button>
                 </td>
-                <td routerLink="/ticket/{{row.ticketId}}"> {{row.ticket.title}} </td>
+                <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{row.ticket.title}} </td>
                 <td> {{row.ticket.status}} </td>
                 <td> {{row.ticket.priority}} </td>
                 <td> {{row.ticket.owner}} </td>
