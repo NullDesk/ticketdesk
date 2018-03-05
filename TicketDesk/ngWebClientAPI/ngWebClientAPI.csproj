@@ -257,6 +257,7 @@
     </Compile>
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
+    <Compile Include="Models\APITicketConversion.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />

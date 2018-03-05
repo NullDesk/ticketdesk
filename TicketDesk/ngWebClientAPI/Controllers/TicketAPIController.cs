@@ -6,6 +6,8 @@ using TicketDesk.Domain.Model;
 using Newtonsoft.Json;
 using System.Web.Mvc;
 using System.Net;
+using ngWebClientAPI.Models;
+using System.Collections.Generic;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -21,7 +23,12 @@ namespace ngWebClientAPI.Controllers
             try
             {
                 var model = await ticketController.GetTicketList(); //returns list of all tickets
-                return JsonConvert.SerializeObject(model);
+                List<FrontEndTicket> TicketList = new List<FrontEndTicket>();
+                foreach(var item in model)
+                {
+                    TicketList.Add(APITicketConversion.ConvertGETTicket(item));
+                }
+                return JsonConvert.SerializeObject(TicketList);
             }
             catch(Exception ex)
             {
@@ -45,8 +52,21 @@ namespace ngWebClientAPI.Controllers
             }*/
             Ticket model = await ticketController.getTicket(ticketId);
             //result = new HttpStatusCodeResult(HttpStatusCode.OK, JsonConvert.SerializeObject(model));
-            //return result;
-            return JsonConvert.SerializeObject(model);
+            //return JsonConvert.SerializeObject(model);
+            if (model == null)
+            {
+                return null;
+            }
+            try
+            {
+                FrontEndTicket retVal = APITicketConversion.ConvertGETTicket(model);
+                return JsonConvert.SerializeObject(retVal);
+            }
+            catch
+            {
+                return null;
+            }
+            
         }
 
         [System.Web.Http.HttpPost]

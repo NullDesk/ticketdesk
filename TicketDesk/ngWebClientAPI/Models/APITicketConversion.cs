@@ -9,7 +9,7 @@ namespace ngWebClientAPI.Models
 {
     public class APITicketConversion
     {
-        public string ConvertGETTicket(Ticket ticket)
+        public static FrontEndTicket ConvertGETTicket(Ticket ticket)
         {
             FrontEndTicket FETicket = new FrontEndTicket();
             FETicket.ticketId = ticket.TicketId;
@@ -22,9 +22,9 @@ namespace ngWebClientAPI.Models
             FETicket.owner = ticket.Owner;
             FETicket.assignedTo = ticket.AssignedTo;
             FETicket.status = ticket.TicketStatus;
-            FETicket.tagList = ticket.TicketTags.ToString(); //should work to put tags in string representation of list
+            FETicket.tagList = ticket.TagList;
             FETicket.createdDate = ticket.CreatedDate.ToString();
-            return JsonConvert.SerializeObject(FETicket);
+            return FETicket;
         }
     }
 
