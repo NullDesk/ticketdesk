@@ -28,6 +28,7 @@ namespace TicketDesk.Localization
         // Include ONLY cultures you are implementing
         private static readonly Dictionary<string, string> _cultures = new Dictionary<string, string> {
             {"en-US", "English"}, // United States English culture
+            {"it-IT", "Italiano"}, // United States English culture
             {"pt-BR", "Português do Brasil"},  // Brazilian Portuguese culture
             {"de-DE", "Deutsch (Deutschland)"}  // Deutsche (Deutschland) Kultureinstellungen
         };
