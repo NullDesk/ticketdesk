@@ -9,6 +9,41 @@ namespace ngWebClientAPI.Models
 {
     public class APITicketConversion
     {
+        public static Ticket ConvertPOSTTicket(string jsonData)
+        {
+            FrontEndTicket data;
+            try
+            {
+                data = JsonConvert.DeserializeObject<FrontEndTicket>(jsonData);
+            }
+            catch
+            {
+                // misconfigured ticket sent from front end
+                return null;
+            }
+            Ticket ticket = new Ticket(); //made new ticket object
+            ticket.TicketId = 1; //this will have to change, not sure how TD currently numbering tickets
+            ticket.ProjectId = data.projectId; //assuming front end will pass back project ID as int
+            ticket.Details = data.comment; //assuming coming from comment field
+            ticket.Priority = null; //we don't know priority yet
+            ticket.TicketType = data.ticketType;
+            ticket.Category = data.category;
+            //data.subcategory; //no subcategory thing in TD currently, might add?
+            ticket.Owner = data.owner; //might have to use auth data to get owner/created by info
+            ticket.AssignedTo = null; //probably will be null since we don't want users to assign their own tickets
+            ticket.TicketStatus = TicketStatus.Active; //assuming ticket is open
+            ticket.TagList = data.tagList;
+            ticket.CreatedDate = DateTime.Now; //we get the datetime ourselves when new ticket
+            ticket.Title = data.title;
+            ticket.CreatedBy = data.owner; //might have to use the auth stuff
+            ticket.IsHtml = false;
+            ticket.CurrentStatusDate = ticket.CreatedDate;
+            ticket.CurrentStatusSetBy = ticket.CreatedBy;
+            ticket.LastUpdateBy = ticket.CreatedBy;
+            ticket.LastUpdateDate = ticket.CreatedDate;
+            ticket.AffectsCustomer = true;
+            return ticket;
+        }
         public static FrontEndTicket ConvertGETTicket(Ticket ticket)
         {
             FrontEndTicket FETicket = new FrontEndTicket();
@@ -24,6 +59,7 @@ namespace ngWebClientAPI.Models
             FETicket.status = ticket.TicketStatus;
             FETicket.tagList = ticket.TagList;
             FETicket.createdDate = ticket.CreatedDate.ToString();
+            FETicket.title = ticket.Title;
             return FETicket;
         }
     }
@@ -43,5 +79,6 @@ namespace ngWebClientAPI.Models
         public TicketStatus status { get; set; }
         public string tagList { get; set; }
         public string createdDate { get; set; }
+        public string title { get; set; }
     }
 }

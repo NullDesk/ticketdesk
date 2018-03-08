@@ -71,10 +71,11 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("")]
-        public async Task<Boolean> createTicket([FromBody]Ticket value)
+        public async Task<int> createTicket([FromBody]string jsonData)
         {
-            bool status = await ticketController.CreateTicketAsync(value);
-            return status;
+            Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
+            bool status = await ticketController.CreateTicketAsync(ticket);
+            return 1;
         }
     }
 }
