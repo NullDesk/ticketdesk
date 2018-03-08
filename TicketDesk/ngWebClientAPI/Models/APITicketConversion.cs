@@ -28,7 +28,7 @@ namespace ngWebClientAPI.Models
             ticket.Priority = null; //we don't know priority yet
             ticket.TicketType = data.ticketType;
             ticket.Category = data.category;
-            //data.subcategory; //no subcategory thing in TD currently, might add?
+            ticket.SubCategory = data.subcategory; //no subcategory thing in TD currently, might add?
             ticket.Owner = data.owner; //might have to use auth data to get owner/created by info
             ticket.AssignedTo = null; //probably will be null since we don't want users to assign their own tickets
             ticket.TicketStatus = TicketStatus.Active; //assuming ticket is open
@@ -60,6 +60,7 @@ namespace ngWebClientAPI.Models
             FETicket.tagList = ticket.TagList;
             FETicket.createdDate = ticket.CreatedDate.ToString();
             FETicket.title = ticket.Title;
+            FETicket.subcategory = ticket.SubCategory;
             return FETicket;
         }
     }
