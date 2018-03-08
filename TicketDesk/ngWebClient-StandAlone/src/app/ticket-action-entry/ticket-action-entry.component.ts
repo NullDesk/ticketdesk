@@ -20,7 +20,7 @@ export class TicketActionEntryComponent implements OnInit {
 	}
   
 	ngOnInit() {
-  	this.ticketActionForm = this.fb.group(this.action.fromTemplate);
+  	this.ticketActionForm = this.fb.group(this.action.formTemplate);
 	}
 	
 	submit() {

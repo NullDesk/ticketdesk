@@ -2,7 +2,7 @@
 
 export class TicketActionEnum {
 	static readonly ADDCOMMENT: TicketActionEnum = new TicketActionEnum("Add Comment", 2 ** 0, true, false, {ticketId: 0, comment: ""});
-	static readonly PROVIDEMOREINFO: TicketActionEnum = new TicketActionEnum("Provide More Information", 2**1, true, false, {ticketId: 0, comment: "", reactive: true}});
+	static readonly PROVIDEMOREINFO: TicketActionEnum = new TicketActionEnum("Provide More Information", 2**1, true, false, {ticketId: 0, comment: "", reactive: true});
 	static readonly CANCELMOREINFO: TicketActionEnum = new TicketActionEnum("Cancel Request For More Information", 2**2, false, false, {ticketId: 0, comment: ""});
 	static readonly REQUESTMOREINFO: TicketActionEnum = new TicketActionEnum("Request More Information", 2**3, true, false, {ticketId: 0, comment: ""});
 	static readonly TAKEOVER: TicketActionEnum = new TicketActionEnum("Take Over", 2**4, false, false, {ticketId: 0, comment: "", priority: ""});
@@ -15,9 +15,9 @@ export class TicketActionEnum {
 	static readonly GIVEUP: TicketActionEnum = new TicketActionEnum("Give Up", 2**11, true, false, {ticketId: 0, comment: ""});
 	static readonly FORCECLOSE: TicketActionEnum = new TicketActionEnum("Force Close", 2**12, true, false, {ticketId: 0, comment: ""});
 	static readonly EDITATTACHMENTS: TicketActionEnum = new TicketActionEnum("Edit Attachments", 2**13, false, false, {ticketId: 0, comment: ""});
-	static readonly EDITTICKET: TicketActionEnum = new TicketActionEnum("Edit Activity", 2**14, false, false, {});
-	static readonly CREATE: TicketActionEnum = new TicketActionEnum("Create", 2**15, false, false, {});
-	static readonly CREATEONBEHALFOF: TicketActionEnum = new TicketActionEnum("Create On Behalf Of", 2**16, false, true);
+	static readonly EDITTICKET: TicketActionEnum = new TicketActionEnum("Edit Activity", 2**14, false, false, {ticketId: 0, comment: ""});
+	static readonly CREATE: TicketActionEnum = new TicketActionEnum("Create", 2**15, false, false, {ticketId: 0, comment: ""});
+	static readonly CREATEONBEHALFOF: TicketActionEnum = new TicketActionEnum("Create On Behalf Of", 2**16, false, true, {ticketId: 0, comment: ""});
         static readonly allActivities: TicketActionEnum[] = [
 TicketActionEnum.ADDCOMMENT,
 TicketActionEnum.PROVIDEMOREINFO,
