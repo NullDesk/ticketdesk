@@ -21,7 +21,7 @@ export class SingleTicketService {
   }
 
   getOwner(ticketId: number) {
-
+  // todo: refactor this into the ticket itself
   }
 
   getTicketFiles(ticketId: number) {
