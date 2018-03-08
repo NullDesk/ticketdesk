@@ -16,12 +16,12 @@ import { AdContactService } from './ad-contact.service';
   ],
   declarations: [],
   providers: [
-    FileService, 
-    SingleTicketService, 
-    SubmitTicketService, 
-    UploadService, 
-    MultiTicketService, 
-    SchemaService, 
+    FileService,
+    SingleTicketService,
+    SubmitTicketService,
+    UploadService,
+    MultiTicketService,
+    SchemaService,
     AdContactService
   ]
 })

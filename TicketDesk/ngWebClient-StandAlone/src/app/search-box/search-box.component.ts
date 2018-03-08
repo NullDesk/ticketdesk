@@ -7,11 +7,11 @@ import { FormControl } from '@angular/forms';
 })
 export class SearchBoxComponent implements OnInit {
 
-  searchBox: FormControl;	
+  searchBox: FormControl;
 
-	constructor() {
-	this.searchBox = new FormControl('');
-	}
+  constructor() {
+  this.searchBox = new FormControl('');
+  }
 
   ngOnInit() {
   }

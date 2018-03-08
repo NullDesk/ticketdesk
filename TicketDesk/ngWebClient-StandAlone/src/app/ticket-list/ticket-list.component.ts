@@ -1,5 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Ticket } from '../models/data';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket-list',
@@ -7,48 +8,24 @@ import { Ticket } from '../models/data';
   styleUrls: ['./ticket-list.component.css']
 })
 
-
 export class TicketListComponent implements OnInit {
-  //This will become input
-  headingsList: string [] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
-  @Input() ticketListResults: {"ticketList": Ticket[], "maxPages": number};
+  // This will become input
+  private headingsList: string[] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
+  @Input() ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
   @Input() columns: string[];
-  selected = new Set();
-  isSelected: Map<number, boolean> = new Map;
-  currentPage:number;
+  currentPage: number;
   ngOnInit() {
+    // State is created from ngModal in Angular
+    this.ticketListResults.ticketList.forEach(x => x.state = false);
     this.currentPage = 1;
-    for (let ticket of this.ticketListResults.ticketList){
-      this.isSelected.set(ticket.ticketId, false);
-    }
   }
-  checkAll(){
-    return (this.selected.size != 0)
+  isAllChecked() {
+    return this.ticketListResults.ticketList.every(x => x.state);
   }
-  isChecked(ticket:Ticket){
-    return this.isSelected.get(ticket.ticketId)
+  selectAll(ev) {
+    this.ticketListResults.ticketList.forEach(x => { x.state = ev.target.checked; });
   }
-  selectAll(){
-    if (this.selected.size == 0){
-      this.selected = new Set(this.ticketListResults.ticketList)
-    }else {
-      for (let ticket of this.ticketListResults.ticketList){
-        this.isSelected.set(ticket.ticketId, false);
-      }
-      this.selected = new Set();
-    }
+  getSelected() {
+    return this.ticketListResults.ticketList.filter( x => x.state);
   }
-
-  checkboxSelect(ticket:Ticket) {
-    //optimize this with another selection array
-    if (this.isSelected.get(ticket.ticketId)){
-      this.selected.delete(ticket)
-    }else {
-      this.selected.add(ticket)
-    }
-    this.isSelected.set(ticket.ticketId,
-              !this.isSelected.get(ticket.ticketId))
-  }
-  
-
 }

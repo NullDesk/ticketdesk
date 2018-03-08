@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User_Details } from 'app/models/user';
+import { UserDetails } from 'app/models/user';
 import { single_user } from 'app/services/user_db';
 
 @Component({
@@ -8,9 +8,8 @@ import { single_user } from 'app/services/user_db';
   styleUrls: ['./ad-user.component.css']
 })
 export class AdUserComponent implements OnInit {
-  user: User_Details;
-  constructor() 
-  { 
+  user: UserDetails;
+  constructor() {
     this.user = single_user;
   }
 

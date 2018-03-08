@@ -8,25 +8,27 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 
 
 @Component({
-  selector: 'app-individual-ticket-view',
-  templateUrl: './individual-ticket-view.component.html',
-  styleUrls: ['./individual-ticket-view.component.css']
+  selector: 'app-single-ticket-view',
+  templateUrl: './single-ticket-view.component.html',
+  styleUrls: ['./single-ticket-view.component.css']
 })
-export class IndividualTicketViewComponent implements OnInit {
+export class SingleTicketViewComponent implements OnInit {
 
-  single_ticket:Ticket = null;
+  ticket: Ticket = null;
   ticketId: number = null;
-	ticketActionPermissions: number = 0;
+  ticketActionPermissions = 0;
   public isCollapsed = true;
 
-  constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute ) { 
+  constructor(private singleTicketService: SingleTicketService,
+    private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = params['ticketID'];
-  });
+    });
   }
 
   ngOnInit() {
-    this.single_ticket = this.singleTicketService.getTicketDetails(this.ticketId);
     this.ticketActionPermissions = this.singleTicketService.getAvailableTicketActions(this.ticketId);
+    this.ticket =
+      this.singleTicketService.getTicketDetails(this.ticketId);
   }
 }

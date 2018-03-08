@@ -12,42 +12,34 @@ import { AttachFileComponent } from '../attach-file/attach-file.component';
   providers: [SubmitTicketService, SchemaService]
 })
 export class TicketDetailEditorComponent implements OnInit {
-	@Input('initialTicketValue') initialTicketValue: Ticket;
+  @Input('initialTicketValue') initialTicketValue: Ticket;
   form: FormGroup;
-	displayedSubcategories: string[] = ["Select a category"];
-	subcategories: Object = {};
-	ticketTypes: string[];
-	categories: string[];
-  
-	constructor(@Inject(FormBuilder) fb: FormBuilder, 
-	  private sts: SubmitTicketService, 
-	  private router: Router,
-  private schema: SchemaService) {
-		
-	  console.log("is this the ticket passed down?");
-		console.log(this.initialTicketValue);
-		  this.subcategories = schema.getCategoryTree();
-	this.categories = Object.keys(this.subcategories);
-	  this.ticketTypes = schema.getTicketTypes();
-	  this.form = fb.group(
-	    BLANK_TICKET);
-	  this.form.get("category").valueChanges.subscribe(
-	  (newValue) => {this.displayedSubcategories = this.subcategories[newValue];}
-	  );
-		console.log("this is what the form has right now:");
-		console.log(this.form.value);
-      
-  };
- 	@ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
-	ngOnInit() {
-	  this.form.patchValue(this.initialTicketValue);
-	}
+  displayedSubcategories: string[] = ['Select a category'];
+  subcategories: Object = {};
+  ticketTypes: string[];
+  categories: string[];
+  constructor(@Inject(FormBuilder) fb: FormBuilder,
+    private sts: SubmitTicketService,
+    private router: Router,
+    private schema: SchemaService) {
+    this.subcategories = schema.getCategoryTree();
+    this.categories = Object.keys(this.subcategories);
+    this.ticketTypes = schema.getTicketTypes();
+    this.form = fb.group(BLANK_TICKET);
+    this.form.get('category').valueChanges.subscribe(
+      (newValue) => {this.displayedSubcategories = this.subcategories[newValue]; }
+    );
+  }
+  @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
+  ngOnInit() {
+    this.form.patchValue(this.initialTicketValue);
+  }
 
-	submit(){
-		// do the ticket
-		// get back the ID
-		let ticketId = this.sts.submitTicket(this.form.value);
-		this.attachFileComponent.addFile();
-		this.router.navigate(['/ticket/' + ticketId.toString()]);
-	}
+  submit() {
+    // do the ticket
+    // get back the ID
+    const ticketId = this.sts.submitTicket(this.form.value);
+    this.attachFileComponent.addFile();
+    this.router.navigate(['/ticket/' + ticketId.toString()]);
+  }
 }
