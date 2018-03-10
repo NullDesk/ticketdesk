@@ -18,10 +18,10 @@ using TicketDesk.Web.Identity.Model;
 
 namespace ngWebClientAPI.Controllers
 {
-    [RoutePrefix("api/wonder")]
+    [RoutePrefix("wonder")]
+    //[Route("{action=index}")]
     public class TicketCenterAPIController : ApiController
     {
-
         private TicketCenterController ticketCenterController;
 
         public TicketCenterAPIController()
@@ -57,15 +57,23 @@ namespace ngWebClientAPI.Controllers
         [Route("{listName?}/{page:int?}")]
         public Task<TicketCenterListViewModel> Index(int? page, string listName)
         {
-            Task<TicketCenterListViewModel> stuff = ticketCenterController.Index(null, "unassigned");
+            Task<TicketCenterListViewModel> stuff = ticketCenterController.Index(page, listName);
             return stuff;
         }
 
+        [HttpGet]
         [Route("pageList/{listName=mytickets}/{page:int?}")]
         public void PageList(int? page, string listName)
         {
             var stuff = ticketCenterController.PageList(page, listName);
             return;
+        }
+
+        [HttpGet]
+        [Route("cook")]
+        public void Stuff()
+        {
+            Console.WriteLine("hello");
         }
 
 
