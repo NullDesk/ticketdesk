@@ -27,9 +27,13 @@ export class SingleTicketViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(response => this.ticketActionPermissions = response['actionPermissions']);
-    console.log(this.ticketActionPermissions);
+    this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(response => {
+      console.warn("response", response['actionPermissions']);
+      this.ticketActionPermissions = response['actionPermissions']
+      console.warn("in the subscription function", this.ticketActionPermissions);
+    });
     
+    console.warn("just on init", this.ticketActionPermissions);
     this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
   }
