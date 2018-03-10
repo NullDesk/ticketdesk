@@ -1,6 +1,6 @@
 <div class="form-inline my-2 my-lg-0">
-  <input [formControl]="searchBox" class="form-control" type="text" placeholder="Search">
-  <button class="btn btn-primary my-2 my-sm-0" type="submit">
-      <i class="fa fa-search" aria-hidden="true"></i>
-  </button>
+  <input [formControl]="searchBox" class="form-control" type="text" placeholder="Search" (keyup.enter)=goToSearchPage()>
+    <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="goToSearchPage()">
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
 </div>

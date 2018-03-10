@@ -32,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'center', component: TicketCenterComponent },
   { path: 'report', component: ReportViewComponent },
   { path: 'settings', component: SettingsViewComponent },
+  { path: 'search/:term', component: SearchResultsViewComponent},
   { path: '', pathMatch: 'full', redirectTo: 'center'},
   { path: '**', component: NotFoundComponent }
 ];
