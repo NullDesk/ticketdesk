@@ -7,5 +7,5 @@ export class TicketPreview {
   assigned?: string;
   category: string;
     subcategory: string;
-  createdDate: number; //Change this? YES! This needs to be a date
+  createdDate: number; // Change this? YES! This needs to be a date
 }
