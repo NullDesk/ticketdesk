@@ -58,8 +58,6 @@ namespace ngWebClientAPI.Controllers
         public Task<TicketCenterListViewModel> cookies()
         {
             Task<TicketCenterListViewModel> stuff = ticketCenterController.Index(null, "assignedToMe");
-
-            Console.WriteLine("This is a wonderfull place to be");
             return stuff;
         }
     }

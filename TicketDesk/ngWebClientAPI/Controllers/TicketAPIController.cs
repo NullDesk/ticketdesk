@@ -38,7 +38,7 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("{ticketId}")]
-        public async Task<string> getSingleTicket(int ticketId)
+        public async Task<FrontEndTicket> getSingleTicket(int ticketId)
         {
             HttpStatusCodeResult result;
             /*try
@@ -60,7 +60,8 @@ namespace ngWebClientAPI.Controllers
             try
             {
                 FrontEndTicket retVal = APITicketConversion.ConvertGETTicket(model);
-                return JsonConvert.SerializeObject(retVal);
+
+                return retVal;
             }
             catch
             {
@@ -73,6 +74,7 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("")]
         public async Task<int> createTicket([FromBody]string jsonData)
         {
+            /*KEVIN: Thsi should probably not be just a string but a JSON object, FrontEndTicket type*/
             Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
             bool status = await ticketController.CreateTicketAsync(ticket);
             return 1;

@@ -30,7 +30,7 @@ namespace ngWebClientAPI.Controllers
         {
             UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
             //CurrentUserId = HttpContext.Current.User.Identity.GetUserId();
-            CurrentUserId = "c57be164-0eb5-4cdf-b6b0-19edec1caaca";
+            CurrentUserId = "64165817-9cb5-472f-8bfb-6a35ca54be6a";
            /*
             bool a = um.IsTdAdministrator(userID);
             UserManager = um;
