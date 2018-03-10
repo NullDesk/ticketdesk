@@ -60,7 +60,8 @@ export class SingleTicketService {
 		console.log('Calling getAvailableTicketActions');
 		
     return this.http.get(
-      settings.getValidActionsURL,
+      settings.getValidActionsURL + ticketId.toString(),
+      {responseType : 'text'}
     );
   }
 }
