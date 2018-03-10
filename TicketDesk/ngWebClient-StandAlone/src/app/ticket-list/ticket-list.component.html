@@ -13,15 +13,15 @@
                 <td>
                     <input  type="checkbox" [(checked)]="row.checked"> </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}">
-                    <button type="button" class="btn btn-primary"> {{row.ticket.ticketId}}</button>
+                    <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
-                <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{row.ticket.title}} </td>
-                <td> {{row.ticket.status}} </td>
-                <td> {{row.ticket.priority}} </td>
-                <td> {{row.ticket.owner}} </td>
-                <td> {{row.ticket.assignedTo}} </td>
-                <td> {{row.ticket.category}} </td>
-                <td> {{row.ticket.createdDate}}</td>
+                <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
+                <td> {{ row.ticket.status }} </td>
+                <td> {{ row.ticket.priority }} </td>
+                <td> {{ row.ticket.owner }} </td>
+                <td> {{ row.ticket.assignedTo }} </td>
+                <td> {{ row.ticket.category }} </td>
+                <td> {{ row.ticket.createdDate }}</td>
             </tr>
 
         </tbody>
