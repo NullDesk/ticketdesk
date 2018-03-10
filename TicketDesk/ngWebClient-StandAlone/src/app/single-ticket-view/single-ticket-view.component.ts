@@ -22,15 +22,14 @@ export class SingleTicketViewComponent implements OnInit {
   constructor(private singleTicketService: SingleTicketService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
-      this.ticketId = params['ticketID'];
+      this.ticketId = Number(params['ticketID']);
     });
   }
 
   ngOnInit() {
-    console.log("trying to initiate single ticket view");
-    console.log(this.ticketId);
-    this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(response => this.ticketActionPermissions = response['actionPermissions']);
+    //this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(response => this.ticketActionPermissions = response['actionPermissions']);
     console.log(this.ticketActionPermissions);
+    
     this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
   }

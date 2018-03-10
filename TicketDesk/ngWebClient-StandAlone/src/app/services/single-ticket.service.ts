@@ -21,7 +21,7 @@ export class SingleTicketService {
   getTicketDetails(ticketId: number): Ticket {
     let get_ticket: Ticket = null;
 
-    for (const ticket of tickets) { // "search" database here to match ticketId
+    for (let ticket of tickets) { // "search" database here to match ticketId
       if (ticket.ticketId === ticketId) {
         get_ticket = ticket;
         break;
