@@ -48,10 +48,12 @@ namespace ngWebClientAPI.Controllers
 
         [HttpGet]
         [Route("activity-buttons/{ticketId}")]
-        public TicketActivity ActivityButtons(int ticketId)
+        public JObject ActivityButtons(int ticketId)
         {
             var activities = ticketActivityController.ActivityButtons(ticketId);
-            return activities;
+            var jsonActivity = new JObject();
+            jsonActivity.Add("actionPermissions", (int) activities);
+            return jsonActivity;
         }
 
         [HttpPost]
