@@ -6,6 +6,10 @@ import { Ticket, Logs, Entry } from '../models/data';
 import { tickets, logs } from './ticket_db';
 import * as settings from '../app-settings';
 
+interface TicketPermissions {
+  ticketPermissions: number;
+} 
+
 @Injectable()
 export class SingleTicketService {
 
@@ -54,7 +58,8 @@ export class SingleTicketService {
 
   getAvailableTicketActions(ticketId: number) {
 		console.log('Calling getAvailableTicketActions');
-		return this.http.get(
+		
+    return this.http.get(
       settings.getValidActionsURL,
     );
   }
