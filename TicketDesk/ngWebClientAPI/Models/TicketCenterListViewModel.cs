@@ -14,12 +14,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using PagedList;
+using X.PagedList;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using TicketDesk.Web.Identity;
 
-namespace TicketDesk.Web.Client.Models
+namespace ngWebClientAPI.Models
 {
     public class TicketCenterListViewModel
     {
@@ -28,7 +28,6 @@ namespace TicketDesk.Web.Client.Models
         public static async Task<TicketCenterListViewModel> GetViewModelAsync(int currentPage, string listName, TdDomainContext context, string userId)
         {
             var userSettings = await context.UserSettingsManager.GetSettingsForUserAsync(userId);
-       
            
             var vm = new TicketCenterListViewModel()
             {
@@ -67,6 +66,7 @@ namespace TicketDesk.Web.Client.Models
 
             //if filtering by project, add filter for selected project
             var projectId = await context.UserSettingsManager.GetUserSelectedProjectIdAsync(context);
+          
             if (projectId != default(int))
             {
                 filterColumns.Add(new UserTicketListFilterColumn("ProjectId", true, projectId));

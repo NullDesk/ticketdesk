@@ -28,6 +28,7 @@ namespace TicketDesk.Web.Client
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             RegisterBundles(BundleTable.Bundles);
+
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
             ConfigureSearch();
