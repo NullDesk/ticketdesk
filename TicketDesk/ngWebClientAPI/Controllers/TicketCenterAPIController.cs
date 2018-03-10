@@ -54,11 +54,22 @@ namespace ngWebClientAPI.Controllers
             ticketCenterController = new TicketCenterController(new TdDomainContext(secur));
         }
         [HttpGet]
-        [Route("cook")]
-        public Task<TicketCenterListViewModel> cookies()
+        [Route("{listName?}/{page:int?}")]
+        public Task<TicketCenterListViewModel> Index(int? page, string listName)
         {
-            Task<TicketCenterListViewModel> stuff = ticketCenterController.Index(null, "assignedToMe");
+            Task<TicketCenterListViewModel> stuff = ticketCenterController.Index(null, "unassigned");
             return stuff;
         }
+
+        [Route("pageList/{listName=mytickets}/{page:int?}")]
+        public void PageList(int? page, string listName)
+        {
+            var stuff = ticketCenterController.PageList(page, listName);
+            return;
+        }
+
+
+
+
     }
 }

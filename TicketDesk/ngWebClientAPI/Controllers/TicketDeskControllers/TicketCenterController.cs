@@ -49,7 +49,7 @@ namespace ngWebClientAPI.Controllers
             var pageNumber = page ?? 1;
 
             TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUserId);//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
-            Console.WriteLine("Useless print statement");
+           
             return viewModel;
         }
 
