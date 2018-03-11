@@ -295,7 +295,8 @@ namespace TicketDesk.Web.Client.Controllers
         [ChildActionOnly]
         public ActionResult SetupCompleteInfo()
         {
-            HttpContext.GetOwinContext().Authentication.SignOut();
+            HttpContext.GetOwinContext().
+                .SignOut();
 
             if (!Model.DatabaseStatus.IsDatabaseReady || !Model.DatabaseStatus.IsCompatibleWithEfModel || Model.DatabaseStatus.HasLegacySecurityObjects)
             {
