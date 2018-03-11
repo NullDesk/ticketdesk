@@ -9,20 +9,19 @@ namespace ngWebClientAPI.Models
 {
     public class APITicketConversion
     {
-        public static Ticket ConvertPOSTTicket(string jsonData)
+        public static Ticket ConvertPOSTTicket(JObject jsonData)
         {
             FrontEndTicket data;
             try
             {
-                data = JsonConvert.DeserializeObject<FrontEndTicket>(jsonData);
+                data = jsonData.ToObject<FrontEndTicket>();
             }
             catch
             {
-                // misconfigured ticket sent from front end
                 return null;
             }
             Ticket ticket = new Ticket(); //made new ticket object
-            ticket.TicketId = 1; //this will have to change, not sure how TD currently numbering tickets
+            ticket.TicketId = default(int); //inserting to DB will assign backend ticketID
             ticket.ProjectId = data.projectId; //assuming front end will pass back project ID as int
             ticket.Details = data.comment; //assuming coming from comment field
             ticket.Priority = null; //we don't know priority yet
@@ -44,7 +43,7 @@ namespace ngWebClientAPI.Models
             ticket.AffectsCustomer = true;
             return ticket;
         }
-        public static FrontEndTicket ConvertGETTicket(Ticket ticket)
+        public static JObject ConvertGETTicket(Ticket ticket)
         {
             FrontEndTicket FETicket = new FrontEndTicket();
             FETicket.ticketId = ticket.TicketId;
@@ -61,7 +60,8 @@ namespace ngWebClientAPI.Models
             FETicket.createdDate = ticket.CreatedDate.ToString();
             FETicket.title = ticket.Title;
             FETicket.subcategory = ticket.SubCategory;
-            return FETicket;
+
+            return JObject.FromObject(FETicket);
         }
     }
 
