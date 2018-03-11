@@ -41,18 +41,20 @@ namespace ngWebClientAPI.Models
             ticket.LastUpdateBy = ticket.CreatedBy;
             ticket.LastUpdateDate = ticket.CreatedDate;
             ticket.AffectsCustomer = true;
+            ticket.SemanticId = ticket.CreatedDate.ToString("yyMMddHHmm"); //formatting for semantic numbering
             return ticket;
         }
         public static JObject ConvertGETTicket(Ticket ticket)
         {
             FrontEndTicket FETicket = new FrontEndTicket();
-            FETicket.ticketId = ticket.TicketId;
+            string ticketID = ticket.SemanticId + ticket.TicketId.ToString();
+            FETicket.ticketId = int.Parse(ticketID); //gross conversion to string back to int to get around bit shifting
             FETicket.projectId = ticket.ProjectId;
             FETicket.comment = ticket.Details;
             FETicket.priority = ticket.Priority;
             FETicket.ticketType = ticket.TicketType;
             FETicket.category = ticket.Category;
-            FETicket.subcategory = null; //no subcategory in TicketDesk db, might want to add?
+            FETicket.subcategory = ticket.SubCategory; //no subcategory in TicketDesk db, might want to add?
             FETicket.owner = ticket.Owner;
             FETicket.assignedTo = ticket.AssignedTo;
             FETicket.status = ticket.TicketStatus;

@@ -176,6 +176,9 @@ namespace TicketDesk.Domain.Model
             get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
         }
 
+        // per Clark PUD request to have semantic ticket number as ID.  Still use generated ticketId as primary ID
+        public string SemanticId { get; set; }
+
         public void EnsureSubscribers()
         {
             EnsureSubscriber(Owner);
