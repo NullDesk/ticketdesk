@@ -34,6 +34,7 @@ namespace SLAWatchdog
                     //threads will sleep longer if application has been first started
                     firstStartup = false; //once past first startup want to skip longer sleep
                     Thread.Sleep(1);//to be changed
+                    continue;
                 }
                 currTime = DateTime.Now;
                 if (DateTime.Compare(currTime, suspendCheckTime) >= 0)
@@ -43,6 +44,8 @@ namespace SLAWatchdog
                     diff = resumeCheckTieme - currTime;
                     Thread.Sleep(46800 * 1000 + (int)diff.TotalMilliseconds);
                 }
+                //check for sla violation
+                Thread.Sleep(sleepTime);
             }
         }
     }
