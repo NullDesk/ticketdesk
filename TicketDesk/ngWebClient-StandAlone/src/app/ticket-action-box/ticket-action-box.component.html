@@ -5,5 +5,5 @@
 	      <div [ngbCollapse]="isCollapsed">
 
 		      <div *ngIf="detailEditorNeeded"><app-ticket-detail-editor [initialTicketValue]="ticket" ></app-ticket-detail-editor></div>
-		      <app-ticket-action-entry [action]="action" [commentPlaceholder]="commentPlaceholder" *ngIf="!detailEditorNeeded"></app-ticket-action-entry>
+		      <app-ticket-action-entry [action]="activeAction" [commentPlaceholder]="commentPlaceholder" *ngIf="!detailEditorNeeded"></app-ticket-action-entry>
 		      </div>    
