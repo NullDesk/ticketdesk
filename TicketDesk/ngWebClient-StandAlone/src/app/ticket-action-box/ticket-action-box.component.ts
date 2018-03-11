@@ -14,6 +14,7 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
   allowedActions: TicketActionEnum[];
   activeAction: TicketActionEnum = null;
   detailEditorNeeded = false;
+  public isCollapsed = true;
   commentPlaceholder = 'Comment';
 
   setActiveAction(action: TicketActionEnum) {
@@ -28,6 +29,7 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
+    console.warn("on init permissions", this.permissions);
     this.allowedActions = TicketActionEnum.getActivityList(this.permissions);
     console.warn("ticket box says permissions are", this.allowedActions)
   }
