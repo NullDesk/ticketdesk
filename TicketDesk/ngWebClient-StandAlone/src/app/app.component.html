@@ -1,0 +1,31 @@
+<base href="/">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="nav-link" routerLink="/submit">
+		        <button type="button" class="btn btn-primary">Submit a ticket	
+			<i class="fa fa-plus" aria-hidden="true"></i> 
+		</button>
+		</a>
+
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" (click)="navbarCollapsed = !navbarCollapsed"
+            [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarNavDropdown">
+        <ul class="navbar-nav navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/center">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/report">Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/settings">Settings</a>
+            </li>
+        </ul>
+        <app-search-box></app-search-box>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

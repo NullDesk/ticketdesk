@@ -25,6 +25,6 @@ namespace TicketDesk.Domain.Model
         [Timestamp]
         public byte[] Version { get; set; }
 
-        public virtual ICollection<Ticket> Tickets { get; set; } 
+        //public virtual ICollection<Ticket> Tickets { get; set; } 
     }
 }
