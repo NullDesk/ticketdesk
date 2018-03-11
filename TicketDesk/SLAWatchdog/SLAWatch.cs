@@ -13,7 +13,7 @@ namespace SLAWatchdog
         {
             int numPriority = 3; //number of priorities. Want to set this in one place
             int sleepTime = 300000; //microseconds
-            for(int i = 0; i < numPriority; i++)
+            for (int i = 0; i < numPriority; i++)
             {
                 Thread watchThread = new Thread(() => threadActions("high", true, sleepTime));
             }
@@ -36,12 +36,12 @@ namespace SLAWatchdog
                     Thread.Sleep(1);//to be changed
                 }
                 currTime = DateTime.Now;
-                if(DateTime.Compare(currTime, suspendCheckTime) >= 0)
+                if (DateTime.Compare(currTime, suspendCheckTime) >= 0)
                 {
                     //past 6 PM suspend checking until the next morning
                     //assuming no thread will wake past 7PM
                     diff = resumeCheckTieme - currTime;
-                    Thread.Sleep(46800*1000 + (int)diff.TotalMilliseconds);
+                    Thread.Sleep(46800 * 1000 + (int)diff.TotalMilliseconds);
                 }
             }
         }
