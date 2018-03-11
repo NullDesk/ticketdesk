@@ -74,9 +74,7 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("")]
         public async Task<int> createTicket([FromBody]JObject jsonData)
-
         {
-            
             Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
             bool status = await ticketController.CreateTicketAsync(ticket);
             return 1;
