@@ -3,7 +3,7 @@ import {
   OnChanges, SimpleChanges, SimpleChange
 } from '@angular/core';
 import { MultiTicketService } from '../services/multi-ticket.service';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 
 @Component({
   selector: 'app-ticket-center-list',

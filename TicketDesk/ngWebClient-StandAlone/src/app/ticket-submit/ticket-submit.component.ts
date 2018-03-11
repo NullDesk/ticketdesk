@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ticket, BLANK_TICKET } from '../models/data';
+import { Ticket, BLANK_TICKET } from '../models/ticket';
 import { TicketDetailEditorComponent } from '../ticket-detail-editor/ticket-detail-editor.component';
 
 @Component({

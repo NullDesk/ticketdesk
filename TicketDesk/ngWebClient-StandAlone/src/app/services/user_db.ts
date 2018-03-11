@@ -1,34 +1,27 @@
-import {User_Details} from '../models/user'
-
-export var single_user = 
-	{"first_name" : "John",
-	"last_name" : "Cena",
-	"phone_number" : "555-555-5555",
-	"e_mail" : "john.cena@example.com",
-	"u_id" : "1000"};
+import {UserDetails} from '../models/user-details'
 
 export var Users = [
-	{"first_name" : "John",
-	"last_name" : "Cena",
-	"phone_number" : "555-555-5555",
-	"e_mail" : "john.cena@example.com",
-	"u_id" : "1000"},
+	{firstName : "John",
+	lastName : "Cena",
+	phoneNumber : "555-555-5555",
+	email : "john.cena@example.com",
+	userId : "1000"},
 
-	{"first_name" : "Jane",
-	"last_name" : "Doe",
-	"phone_number" : "555-555-5555",
-	"e_mail" : "jane.doe@example.com",
-	"u_id" : "1001"},
+	{firstName : "Jane",
+	lastName : "Doe",
+	phoneNumber : "555-555-5555",
+	email : "jane.doe@example.com",
+	userId : "1001"},
 
-	{"first_name" : "John",
-	"last_name" : "Doe",
-	"phone_number" : "555-555-5555",
-	"e_mail" : "john.doe@example.com",
-	"u_id" : "1002"},
+	{firstName : "John",
+	lastName : "Doe",
+	phoneNumber : "555-555-5555",
+	email : "john.doe@example.com",
+	userId : "1002"},
 
-	{"first_name" : "Bob",
-	"last_name" : "Smith",
-	"phone_number" : "555-555-5555",
-	"e_mail" : "bob.smith@example.com",
-	"u_id" : "1003"},
+	{firstName : "Bob",
+	lastName : "Smith",
+	phoneNumber : "555-555-5555",
+	email : "bob.smith@example.com",
+	userId : "1003"},
 ];

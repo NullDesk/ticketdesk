@@ -1,4 +1,4 @@
-import {Ticket} from '../models/data';
+import { Ticket } from '../models/ticket';
 import { Injectable } from '@angular/core';
 
 @Injectable()

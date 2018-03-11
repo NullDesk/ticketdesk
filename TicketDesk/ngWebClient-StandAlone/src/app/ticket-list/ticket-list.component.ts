@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 
 @Component({
   selector: 'app-ticket-list',
@@ -15,7 +15,7 @@ export class TicketListComponent implements OnInit {
   @Input() columns: string[];
   selected = new Set();
   isSelected: Map<number, boolean> = new Map;
-  currentPage:number;
+  currentPage: number;
   ngOnInit() {
     this.currentPage = 1;
     for (let ticket of this.ticketListResults.ticketList){
@@ -41,13 +41,13 @@ export class TicketListComponent implements OnInit {
 
   checkboxSelect(ticket:Ticket) {
     //optimize this with another selection array
-    if (this.isSelected.get(ticket.ticketId)){
+    if (this.isSelected.get(ticket.ticketId)) {
       this.selected.delete(ticket)
     }else {
       this.selected.add(ticket)
     }
-    this.isSelected.set(ticket.ticketId,
-              !this.isSelected.get(ticket.ticketId))
+    this.isSelected.set(ticket.ticketId, 
+      !this.isSelected.get(ticket.ticketId))
   }
   
 
