@@ -23,7 +23,8 @@ namespace TicketDesk.Web.Client
 {
     public class TicketDeskSignInManager : SignInManager<TicketDeskUser, string>
     {
-        public TicketDeskSignInManager(TicketDeskUserManager userManager, IAuthenticationManager authenticationManager)
+        public TicketDeskSignInManager(TicketDeskUserManager userManager, I
+            Manager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
