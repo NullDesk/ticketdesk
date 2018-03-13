@@ -1,5 +1,6 @@
                 <div class="col-xs-12" style="height:10px;"></div>
-                <div class="form-group" id="ticketActionForm">
+                <div class="form-group" [formGroup]="ticketActionForm">
                   <textarea class="form-control" id="comment" required [placeholder]="commentPlaceholder"  rows="5"></textarea>
+                  <app-ad-user-selector></app-ad-user-selector>
                   <button class="btn btn-primary pull-right"type="button" (click)="submit()">Submit</button>
                 </div>

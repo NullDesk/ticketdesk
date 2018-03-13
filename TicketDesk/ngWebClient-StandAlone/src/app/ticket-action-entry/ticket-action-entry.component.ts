@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
+import { AdUserSelectorComponent } from '../ad-user-selector/ad-user-selector.component';
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
@@ -18,6 +19,7 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
 
   constructor(@Inject(FormBuilder) fb: FormBuilder) {
     this.fb  = fb;
+
   }
 
   ngOnInit() {

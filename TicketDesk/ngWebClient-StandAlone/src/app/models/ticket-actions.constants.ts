@@ -1,3 +1,5 @@
+import { actionURLs } from '../app-settings';
+
 // http://andregiannico.com/typescript-constants
 
 export class TicketActionEnum {
@@ -83,5 +85,9 @@ export class TicketActionEnum {
   }
   public static getActivityList(activityNumber: number) {
     return TicketActionEnum.allActivities.filter(action => TicketActionEnum.isAllowedAction(action, activityNumber));
+  }
+  
+  public getURL(): string {
+    return actionURLs[this.enumInteger];
   }
 }
