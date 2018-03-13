@@ -41,19 +41,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("{ticketId}")]
         public async Task<JObject> getSingleTicket(int ticketId)
         {
-            HttpStatusCodeResult result;
-            /*try
-            {
-                Ticket model = await ticketController.getTicket(ticketId);
-                result = new HttpStatusCodeResult(HttpStatusCode.OK, JsonConvert.SerializeObject(model));
-            }
-            catch(Exception ex)
-            {
-                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
-            }*/
+            int convertedId = APITicketConversion.ConverTicketId(ticketId);//for when we get semantic numbering to front end
             Ticket model = await ticketController.getTicket(ticketId);
-            //result = new HttpStatusCodeResult(HttpStatusCode.OK, JsonConvert.SerializeObject(model));
-            //return JsonConvert.SerializeObject(model);
             if (model == null)
             {
                 return null;
@@ -61,7 +50,6 @@ namespace ngWebClientAPI.Controllers
             try
             {
                 JObject retVal = APITicketConversion.ConvertGETTicket(model);
-
                 return retVal;
             }
             catch

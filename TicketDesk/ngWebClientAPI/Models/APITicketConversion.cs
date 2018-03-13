@@ -65,6 +65,13 @@ namespace ngWebClientAPI.Models
 
             return JObject.FromObject(FETicket);
         }
+
+        public static int ConverTicketId(int id)
+        {
+            string sId = id.ToString();
+            //yymmddhhmm
+            return int.Parse(sId.Substring(10, sId.Length-10));
+        }
     }
 
     public class FrontEndTicket
