@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Net;
 using ngWebClientAPI.Models;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -18,27 +19,27 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("")]
-        public async Task<string> getAllTickets()
+        public async Task<JObject> getAllTickets()
         {
             try
             {
                 var model = await ticketController.GetTicketList(); //returns list of all tickets
-                List<FrontEndTicket> TicketList = new List<FrontEndTicket>();
+                List<JObject> TicketList = new List<JObject>();
                 foreach(var item in model)
                 {
                     TicketList.Add(APITicketConversion.ConvertGETTicket(item));
                 }
-                return JsonConvert.SerializeObject(TicketList);
+                return JObject.FromObject(TicketList);
             }
             catch(Exception ex)
             {
-                return ex.Message;
+                return JObject.FromObject(ex.Message);
             }
         }
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("{ticketId}")]
-        public async Task<FrontEndTicket> getSingleTicket(int ticketId)
+        public async Task<JObject> getSingleTicket(int ticketId)
         {
             HttpStatusCodeResult result;
             /*try
@@ -59,7 +60,7 @@ namespace ngWebClientAPI.Controllers
             }
             try
             {
-                FrontEndTicket retVal = APITicketConversion.ConvertGETTicket(model);
+                JObject retVal = APITicketConversion.ConvertGETTicket(model);
 
                 return retVal;
             }
@@ -72,10 +73,9 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("")]
-        public async Task<int> createTicket([FromBody] Ticket ticket)
+        public async Task<int> createTicket([FromBody]JObject jsonData)
         {
-            /*KEVIN: Thsi should probably not be just a string but a JSON object, FrontEndTicket type*/
-            //Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
+            Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
             bool status = await ticketController.CreateTicketAsync(ticket);
             return 1;
         }

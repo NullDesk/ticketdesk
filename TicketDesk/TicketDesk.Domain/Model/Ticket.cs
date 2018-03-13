@@ -171,6 +171,9 @@ namespace TicketDesk.Domain.Model
             get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
         }
 
+        
+        public string SubCategory { get; set; }
+
         public void EnsureSubscribers()
         {
             EnsureSubscriber(Owner);
