@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/com
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Ticket, Logs, Entry } from '../models/data';
+import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { tickets, logs } from './ticket_db';
 import * as settings from '../app-settings';
 
@@ -56,6 +57,11 @@ export class SingleTicketService {
 
   }
 
+  performTicketAction(value: object, action: TicketActionEnum) {
+    console.log('performing ' + action.displayText);
+    return this.http.post<Object>(action.getURL(), value);
+    
+  }
   getAvailableTicketActions(ticketId: number) {
 		console.log('Calling getAvailableTicketActions');
 		

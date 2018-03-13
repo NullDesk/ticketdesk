@@ -19,14 +19,13 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
 
   constructor(@Inject(FormBuilder) fb: FormBuilder) {
     this.fb  = fb;
-
   }
 
   ngOnInit() {
   }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['action'] && changes['action'].currentValue) {
-      console.warn('this is the cahnge for the action entry', changes);
       this.ticketActionForm = this.fb.group(changes.action.currentValue.formTemplate);
     }
   }
