@@ -9,20 +9,20 @@ import * as settings from '../app-settings';
 
 interface TicketPermissions {
   ticketPermissions: number;
-} 
+}
 
 @Injectable()
 export class SingleTicketService {
 
   constructor(
-		private http: HttpClient
+    private http: HttpClient
   ) {
   }
 
   getTicketDetails(ticketId: number): Ticket {
     let get_ticket: Ticket = null;
 
-    for (let ticket of tickets) { // "search" database here to match ticketId
+    for (const ticket of tickets) { // "search" database here to match ticketId
       if (ticket.ticketId === ticketId) {
         get_ticket = ticket;
         break;
@@ -57,14 +57,13 @@ export class SingleTicketService {
 
   }
 
-  performTicketAction(value: object, action: TicketActionEnum) {
+  submitTicketAction(value: object, action: TicketActionEnum) {
     console.log('performing ' + action.displayText);
     return this.http.post<Object>(action.getURL(), value);
-    
   }
   getAvailableTicketActions(ticketId: number) {
-		console.log('Calling getAvailableTicketActions');
-		
+    console.log('Calling getAvailableTicketActions');
+
     return this.http.get(
       settings.getValidActionsURL + ticketId.toString()
     );

@@ -32,8 +32,8 @@ export class SingleTicketViewComponent implements OnInit {
       // this.ticketActionPermissions = response['actionPermissions']
       // console.warn("in the subscription function", this.ticketActionPermissions);
    //  });
-    this.ticketActionPermissions = 31161; 
-    console.warn("just on init", this.ticketActionPermissions);
+    this.ticketActionPermissions = 31161;
+    console.warn('just on init', this.ticketActionPermissions);
     this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
   }

@@ -1,4 +1,4 @@
-export const serviceBaseURL = "http://localhost:50067/api";
+export const serviceBaseURL = 'http://localhost:50067/api';
 export const actionURLs = {
   1 : serviceBaseURL + '/actions/comment',
   2 : serviceBaseURL + '/actions/provide-more-info',
@@ -17,7 +17,7 @@ export const actionURLs = {
   16384 : serviceBaseURL + '/actions/edit-ticket',
   32768 : serviceBaseURL + '/actions/create',
   65536 : serviceBaseURL + '/actions/create-on-behalf-of/',
-} 
+};
 
-export const getValidActionsURL = serviceBaseURL + "/actions/activity-buttons/";
+export const getValidActionsURL = serviceBaseURL + '/actions/activity-buttons/';
 
