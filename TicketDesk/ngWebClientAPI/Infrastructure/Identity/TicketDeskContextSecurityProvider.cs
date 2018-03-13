@@ -19,7 +19,7 @@ using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
 using TicketDesk.Web.Identity;
 
-namespace ngWebClientAPI.Controllers
+namespace ngWebClientAPI
 {
 
     public sealed class TicketDeskContextSecurityProvider : TdDomainSecurityProviderBase

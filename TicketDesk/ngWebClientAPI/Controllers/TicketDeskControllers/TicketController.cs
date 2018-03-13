@@ -116,7 +116,7 @@ namespace ngWebClientAPI.Controllers
 
             Context.Tickets.Add(ticket);
             await Context.SaveChangesAsync();
-            //ticket.CommitPendingAttachments(tempId);
+            ticket.CommitPendingAttachments(Guid.NewGuid());
 
             return ticket.TicketId != default(int);
         }

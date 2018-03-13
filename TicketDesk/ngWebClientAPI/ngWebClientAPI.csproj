@@ -22,7 +22,8 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <NuGetPackageImportStamp>
@@ -59,6 +60,9 @@
     </Reference>
     <Reference Include="HtmlSanitizer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlSanitizer.4.0.183\lib\net45\HtmlSanitizer.dll</HintPath>
+    </Reference>
+    <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -212,8 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DatabaseConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Database.cs" />
+    <Compile Include="App_Start\Startup.Filters.cs" />
+    <Compile Include="App_Start\Startup.Search.cs" />
     <Compile Include="App_Start\Startup.SimpleInjector.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -250,6 +258,9 @@
     <Compile Include="Controllers\TicketDeskControllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Infrastructure\DbSetupFilter.cs" />
+    <Compile Include="Infrastructure\Filters\LocalizationFilter.cs" />
+    <Compile Include="Infrastructure\Filters\TdAuthorizeAttribute.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskContextSecurityProvider.cs" />
     <Compile Include="Controllers\TicketCenterAPIController.cs" />
     <Compile Include="Controllers\TicketAPIController.cs" />
@@ -259,7 +270,12 @@
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
     <Compile Include="Models\APITicketConversion.cs" />
+    <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
+    <Compile Include="Models\Extensions\SelectListExtensions.cs" />
+    <Compile Include="Models\Extensions\StringExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
+    <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -355,9 +371,21 @@
       <Project>{be8715f9-e858-473e-a2b6-561c9edca416}</Project>
       <Name>TicketDesk.Localization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.PushNotifications\TicketDesk.PushNotifications.csproj">
+      <Project>{6e3b1af8-762d-4b69-84c3-c79e74aa9c82}</Project>
+      <Name>TicketDesk.PushNotifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Azure\TicketDesk.Search.Azure.csproj">
+      <Project>{be284cb5-bf8b-4b51-a865-f2ab7bea2d02}</Project>
+      <Name>TicketDesk.Search.Azure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Search.Common\TicketDesk.Search.Common.csproj">
       <Project>{f8c97321-f0cc-4af9-86e6-95e0e4840430}</Project>
       <Name>TicketDesk.Search.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketDesk.Search.Lucene\TicketDesk.Search.Lucene.csproj">
+      <Project>{54390f7f-a440-40f7-8b1a-28ab599a5213}</Project>
+      <Name>TicketDesk.Search.Lucene</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj">
       <Project>{bd3617c2-a91e-40f3-a441-b085d2491399}</Project>

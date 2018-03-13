@@ -24,7 +24,7 @@ namespace TicketDesk.Domain.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "TicketDeskCore";
         }
 

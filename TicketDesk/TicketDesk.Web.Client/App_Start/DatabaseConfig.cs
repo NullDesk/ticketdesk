@@ -55,7 +55,7 @@ namespace TicketDesk.Web.Client
                     }
                     catch (Exception)//no metadata in DB, force run initializer anyway
                     {
-                        ctx.Database.Initialize(true);
+                        
                     }
                     if (IsFirstRunDemoRefreshEnabled())
                     {

@@ -18,8 +18,8 @@ using TicketDesk.Web.Identity.Model;
 
 namespace ngWebClientAPI.Controllers
 {
-    [RoutePrefix("wonder")]
-    //[Route("{action=index}")]
+    [RoutePrefix("tickets")]
+    [Route("{action=index}")]
     public class TicketCenterAPIController : ApiController
     {
         private TicketCenterController ticketCenterController;
@@ -75,9 +75,5 @@ namespace ngWebClientAPI.Controllers
         {
             Console.WriteLine("hello");
         }
-
-
-
-
     }
 }

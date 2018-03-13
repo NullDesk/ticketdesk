@@ -20,8 +20,8 @@ using ngWebClientAPI.Models;
 
 namespace ngWebClientAPI.Controllers
 {
-    [RoutePrefix("tickets")]
-    [Route("{action=index}")]
+    //[RoutePrefix("tickets")]
+    //[Route("{action=index}")]
     //[TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketCenterController : Controller
     {
