@@ -22,7 +22,7 @@ export class SingleTicketViewComponent implements OnInit {
   constructor(private singleTicketService: SingleTicketService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
-      this.ticketId = params['ticketID'];
+      this.ticketId = Number(params['ticketID']);
     });
   }
 
