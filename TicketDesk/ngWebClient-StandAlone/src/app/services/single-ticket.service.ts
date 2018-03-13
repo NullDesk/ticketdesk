@@ -7,8 +7,7 @@ import { tickets, logs } from './ticket_db';
 @Injectable()
 export class SingleTicketService {
 
-  constructor() {
-  }
+  constructor() { }
 
   getTicketDetails(ticketId: number): Ticket {
     let getTicket: Ticket = null;

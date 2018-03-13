@@ -1,4 +1,5 @@
-import { Ticket, Logs } from '../models/data';
+import { Ticket } from '../models/ticket';
+import { Logs } from '../models/logs';
 
 export let tickets: Ticket[] = [
 

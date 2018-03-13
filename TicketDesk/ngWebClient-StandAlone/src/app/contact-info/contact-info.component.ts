@@ -8,14 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./contact-info.component.css']
 })
 export class ContactInfoComponent implements OnInit {
-  @Input() userId: string
+  @Input() ownerId: string
   user: UserDetails
   constructor(private contactService: AdContactService) { 
     this.contactService = contactService
   }
 
   ngOnInit() { 
-    this.user = this.contactService.getContactCardInfo(this.userId)
+    this.user = this.contactService.getContactCardInfo(this.ownerId)
   }
 
 }

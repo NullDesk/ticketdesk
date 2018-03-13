@@ -16,7 +16,7 @@ export class SingleTicketViewComponent implements OnInit {
   ticketId: number = null;
   ticketActionPermissions = 0;
   public isCollapsed = true;
-
+  ticketStatus: string;
   constructor(private singleTicketService: SingleTicketService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
@@ -24,8 +24,15 @@ export class SingleTicketViewComponent implements OnInit {
     });
   }
 
+  ticketIsOpen(): boolean {
+    const status = this.ticketStatus.toLowerCase();
+    return status.indexOf('active') !== -1
+      || status.indexOf('moreinfo') !== -1;
+  }
+
   ngOnInit() {
     this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
+    this.ticketStatus = this.ticket.status;
   }
 }
