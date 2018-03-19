@@ -271,6 +271,7 @@
     <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
     <Compile Include="Models\APITicketConversion.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
+    <Compile Include="Models\APIActionsConversion.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />

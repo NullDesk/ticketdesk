@@ -66,7 +66,7 @@ namespace ngWebClientAPI.Models
             return JObject.FromObject(FETicket);
         }
 
-        public static int ConverTicketId(int id)
+        public static int ConvertTicketId(int id)
         {
             string sId = id.ToString();
             //yymmddhhmm
