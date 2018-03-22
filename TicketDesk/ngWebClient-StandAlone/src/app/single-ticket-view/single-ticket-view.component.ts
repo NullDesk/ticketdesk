@@ -19,18 +19,21 @@ export class SingleTicketViewComponent implements OnInit {
   ticketActionPermissions = 0;
   public isCollapsed = true;
 
-  constructor(private singleTicketService: SingleTicketService,
+  constructor(private router: Router,
+    private singleTicketService: SingleTicketService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
+      if (params['ticketId'] === '' || isNaN(Number(params['ticketID']))) {
+        this.router.navigate(['/NaNTicketID']);
+        return;
+      }
       this.ticketId = Number(params['ticketID']);
     });
   }
 
   ngOnInit() {
     // this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(response => {
-      // console.warn("response", response['actionPermissions']);
       // this.ticketActionPermissions = response['actionPermissions']
-      // console.warn("in the subscription function", this.ticketActionPermissions);
    //  });
     this.ticketActionPermissions = 31161;
     console.warn('just on init', this.ticketActionPermissions);
