@@ -177,6 +177,7 @@ namespace TicketDesk.Domain.Model
         }
 
         // per Clark PUD request to have semantic ticket number as ID.  Still use generated ticketId as primary ID
+        [NotMapped]
         public string SemanticId { get; set; }
 
         public void EnsureSubscribers()

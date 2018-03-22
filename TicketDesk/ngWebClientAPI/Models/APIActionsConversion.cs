@@ -35,7 +35,7 @@ namespace ngWebClientAPI.Models
             {
                 return null;
             }
-            info.ticketId = APITicketConversion.ConvertTicketId(action.ticketId);
+            info.ticketId = APITicketConversion.ConvertTicketId(info.ticketId);
             return info;
         }
     }

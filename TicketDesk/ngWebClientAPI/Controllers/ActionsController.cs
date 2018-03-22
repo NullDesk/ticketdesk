@@ -68,7 +68,7 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("resolve")]
-        public async HttpStatusCodeResult Resolve([FromBody] JObject data)
+        public async Task<HttpStatusCodeResult> Resolve([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
             //convert data to comment and ID
@@ -89,16 +89,23 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("add-comment")]
-        public async Task<JObject> AddComment([FromBody] JObject data)
+        public async Task<HttpStatusCodeResult> AddComment([FromBody] JObject data)
         {
             //convert all things to front end ticket fffffffffffffffffffffffffffffffffffff
-            InfoObject info = APIActionsConversion.ConvertInfo(data);
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            Ticket ticket = await ticketActivityController.AddComment(info.ticketId, info.comment);
-            JObject test = APITicketConversion.ConvertGETTicket(ticket);
-            //return APITicketConversion.ConvertGETTicket(ticket);
-            return test;
+            HttpStatusCodeResult result;
+            try
+            {
+                InfoObject info = APIActionsConversion.ConvertInfo(data);
+                int ticketId = data["ticketId"].ToObject<int>();
+                string comment = data["comment"].ToObject<string>();
+                Ticket ticket = await ticketActivityController.AddComment(info.ticketId, info.comment);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return result;
         }
 
         [System.Web.Http.HttpPost]
@@ -106,12 +113,21 @@ namespace ngWebClientAPI.Controllers
         public async Task<JObject> Assign([FromBody] JObject data)
         {
             //convertAssign
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            string assignedTo = data["assignedTo"].ToObject<string>();
-            string priority = data["priority"].ToObject<string>();
-            Ticket ticket = await ticketActivityController.Assign(ticketId, comment, assignedTo, priority);
-            return APITicketConversion.ConvertGETTicket(ticket);
+            HttpStatusCodeResult result;
+            try
+            {
+                int ticketId = data["ticketId"].ToObject<int>();
+                string comment = data["comment"].ToObject<string>();
+                string assignedTo = data["assignedTo"].ToObject<string>();
+                string priority = data["priority"].ToObject<string>();
+                Ticket ticket = await ticketActivityController.Assign(ticketId, comment, assignedTo, priority);
+                return APITicketConversion.ConvertGETTicket(ticket);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            
         }
 
         [System.Web.Http.HttpPost]
