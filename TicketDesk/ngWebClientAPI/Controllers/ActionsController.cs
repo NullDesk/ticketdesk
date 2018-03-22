@@ -110,7 +110,7 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("assign")]
-        public async Task<JObject> Assign([FromBody] JObject data)
+        public async Task<HttpStatusCodeResult> Assign([FromBody] JObject data)
         {
             //convertAssign
             HttpStatusCodeResult result;
@@ -121,12 +121,13 @@ namespace ngWebClientAPI.Controllers
                 string assignedTo = data["assignedTo"].ToObject<string>();
                 string priority = data["priority"].ToObject<string>();
                 Ticket ticket = await ticketActivityController.Assign(ticketId, comment, assignedTo, priority);
-                return APITicketConversion.ConvertGETTicket(ticket);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
+            return result;
             
         }
 
