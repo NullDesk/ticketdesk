@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MultiTicketService } from '../services/multi-ticket.service';
+import { SearchService} from '../services/search.service';
 import { Ticket } from '../models/data';
 
 @Component({
@@ -13,7 +13,7 @@ export class SearchResultsViewComponent implements OnInit {
   private term: string;
   private ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
 
-  constructor(private multiTicketService: MultiTicketService,
+  constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.term = params['term'];
@@ -21,7 +21,7 @@ export class SearchResultsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ticketListResults = this.multiTicketService.filterList(this.term);
+    this.ticketListResults = this.searchService.search(this.term);
   }
 
 }

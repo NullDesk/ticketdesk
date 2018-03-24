@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { MultiTicketService } from './multi-ticket.service';
 import { SchemaService } from './schema.service';
 import { AdContactService } from './ad-contact.service';
+import { SearchService } from './search.service';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { AdContactService } from './ad-contact.service';
     SubmitTicketService,
     UploadService,
     MultiTicketService,
+    SearchService,
     SchemaService,
     AdContactService
   ]
