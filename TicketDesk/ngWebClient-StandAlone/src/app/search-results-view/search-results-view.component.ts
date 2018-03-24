@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MultiTicketService } from '../services/multi-ticket.service';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 
 @Component({
   selector: 'app-search-results-view',

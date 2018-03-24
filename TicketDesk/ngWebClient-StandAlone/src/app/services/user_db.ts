@@ -1,4 +1,4 @@
-import {UserDetails} from '../models/user';
+import { UserDetails } from '../models/user-details';
 
 export let single_user = {
   'firstName' : 'John',
