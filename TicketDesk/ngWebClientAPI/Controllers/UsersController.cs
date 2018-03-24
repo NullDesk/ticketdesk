@@ -27,6 +27,7 @@ namespace ngWebClientAPI.Controllers
             user.LastName = employee.LastName;
             user.Phone = employee.Phone;
             user.Email = employee.Email;
+            user.ID = employee.Id;
             var mygroup = employee.Groups;
             user.Groups = new List<string>();
 

@@ -14,5 +14,6 @@ namespace ngWebClientAPI.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public List<string> Groups { get; set; }
+        public string ID { get; set; }
     }
 }
