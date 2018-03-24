@@ -22,8 +22,7 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <NuGetPackageImportStamp>
@@ -271,6 +270,7 @@
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
     <Compile Include="Models\APITicketConversion.cs" />
+    <Compile Include="Models\CPUUser.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\APIActionsConversion.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
