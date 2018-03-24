@@ -10,6 +10,7 @@ import { MultiTicketService } from './multi-ticket.service';
 import { SchemaService } from './schema.service';
 import { AdContactService } from './ad-contact.service';
 import { WindowsAuthenticationInterceptorService } from './windows-authentication-interceptor.service';
+import { SearchService } from './search.service';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { WindowsAuthenticationInterceptorService } from './windows-authenticatio
     SubmitTicketService,
     UploadService,
     MultiTicketService,
+    SearchService,
     SchemaService,
     AdContactService,
     {
