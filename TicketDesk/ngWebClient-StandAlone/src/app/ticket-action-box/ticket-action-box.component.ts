@@ -29,16 +29,16 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    console.warn("on init permissions", this.permissions);
+    console.warn('on init permissions', this.permissions);
     this.allowedActions = TicketActionEnum.getActivityList(this.permissions);
-    console.warn("ticket box says permissions are", this.allowedActions)
+    console.warn('ticket box says permissions are', this.allowedActions);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.warn("changes called!", changes)
+    console.warn('changes called!', changes);
     if (changes['permissions']) {
-      console.log("changed")
-      this.permissions = changes['permissions'].currentValue
+      console.log('changed');
+      this.permissions = changes['permissions'].currentValue;
       this.allowedActions = TicketActionEnum.getActivityList(this.permissions);
     }
   }

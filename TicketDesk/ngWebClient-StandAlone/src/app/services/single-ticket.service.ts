@@ -8,7 +8,7 @@ import * as settings from '../app-settings';
 
 interface TicketPermissions {
   ticketPermissions: number;
-} 
+}
 
 @Injectable()
 export class SingleTicketService {
@@ -21,7 +21,7 @@ export class SingleTicketService {
   getTicketDetails(ticketId: number): Ticket {
     let get_ticket: Ticket = null;
 
-    for (let ticket of tickets) { // "search" database here to match ticketId
+    for (const ticket of tickets) { // "search" database here to match ticketId
       if (ticket.ticketId === ticketId) {
         get_ticket = ticket;
         break;
@@ -58,7 +58,7 @@ export class SingleTicketService {
 
   getAvailableTicketActions(ticketId: number) {
 		console.log('Calling getAvailableTicketActions');
-		
+
     return this.http.get(
       settings.getValidActionsURL + ticketId.toString()
     );
