@@ -59,10 +59,11 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("activity-buttons/{ticketId}")]
-        public TicketActivity ActivityButtons(int ticketId)
+        public TicketActivity ActivityButtons(long ticketId)
         {
             //convert ticketid - assuming id is semantically numbered
-            var activities = ticketActivityController.ActivityButtons(ticketId);
+            int id = APITicketConversion.ConvertTicketId(ticketId);
+            var activities = ticketActivityController.ActivityButtons(id);
             return activities;
         }
 
@@ -82,7 +83,7 @@ namespace ngWebClientAPI.Controllers
             }
             catch(Exception ex)
             {
-                result = new HttpStatusCodeResult(HttpStatusCode.Conflict);
+                result = new HttpStatusCodeResult(HttpStatusCode.Conflict, ex.ToString());
             }
             return result;
         }
@@ -91,19 +92,16 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("add-comment")]
         public async Task<HttpStatusCodeResult> AddComment([FromBody] JObject data)
         {
-            //convert all things to front end ticket fffffffffffffffffffffffffffffffffffff
             HttpStatusCodeResult result;
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
-                int ticketId = data["ticketId"].ToObject<int>();
-                string comment = data["comment"].ToObject<string>();
                 Ticket ticket = await ticketActivityController.AddComment(info.ticketId, info.comment);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
-                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.ToString());
             }
             return result;
         }
@@ -133,12 +131,20 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("cancel-more-info")]
-        public Task<Ticket> CancelMoreInfo([FromBody] JObject data) {
+        public async Task<HttpStatusCodeResult> CancelMoreInfo([FromBody] JObject data) {
             //convertInfo
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.CancelMoreInfo(ticketId, comment);
-            return ticket;
+            HttpStatusCodeResult result;
+            try
+            {
+                InfoObject info = APIActionsConversion.ConvertInfo(data);
+                await ticketActivityController.CancelMoreInfo(info.ticketId, info.comment);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+            return result;
         }
 
         [System.Web.Http.HttpPost]
@@ -161,24 +167,40 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("force-close")]
-        public async Task<string> ForceClose([FromBody]JObject data)
+        public async Task<HttpStatusCodeResult> ForceClose([FromBody]JObject data)
         {
             //convertInfo
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            var stuff = await ticketActivityController.ForceClose(ticketId, comment);
-            return "Successfully Forced Closed Ticket";
+            HttpStatusCodeResult result;
+            try
+            {
+                InfoObject info = APIActionsConversion.ConvertInfo(data);
+                await ticketActivityController.ForceClose(info.ticketId, info.comment);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+            return result;
         }
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("give-up")]
-        public async Task<Ticket> GiveUp([FromBody] JObject data)
+        public async Task<HttpStatusCodeResult> GiveUp([FromBody] JObject data)
         {
             //convertInfo
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            Ticket ticket = await ticketActivityController.GiveUp(ticketId, comment);
-            return ticket;
+            HttpStatusCodeResult result;
+            try
+            {
+                InfoObject info = APIActionsConversion.ConvertInfo(data);
+                await ticketActivityController.GiveUp(info.ticketId, info.comment);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+            return result;
         }
 
         [System.Web.Http.HttpPost]
