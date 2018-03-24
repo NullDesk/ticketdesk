@@ -1,7 +1,7 @@
 import { Input, Inject, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SchemaService } from '../services/schema.service';
+import { SchemaService, CategoryTree } from '../services/schema.service';
 import { SubmitTicketService } from '../services/submit-ticket.service';
 import { Ticket, BLANK_TICKET } from '../models/data';
 import { AttachFileComponent } from '../attach-file/attach-file.component';
@@ -15,16 +15,13 @@ export class TicketDetailEditorComponent implements OnInit {
   @Input('initialTicketValue') initialTicketValue: Ticket;
   form: FormGroup;
   displayedSubcategories: string[] = ['Select a category'];
-  subcategories: Object = {};
+  subcategories: CategoryTree = {};
   ticketTypes: string[];
   categories: string[];
   constructor(@Inject(FormBuilder) fb: FormBuilder,
     private sts: SubmitTicketService,
     private router: Router,
     private schema: SchemaService) {
-    this.subcategories = schema.getCategoryTree();
-    this.categories = Object.keys(this.subcategories);
-    this.ticketTypes = schema.getTicketTypes();
     this.form = fb.group(BLANK_TICKET);
     this.form.get('category').valueChanges.subscribe(
       (newValue) => {this.displayedSubcategories = this.subcategories[newValue]; }
@@ -33,6 +30,11 @@ export class TicketDetailEditorComponent implements OnInit {
   @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
   ngOnInit() {
     this.form.patchValue(this.initialTicketValue);
+    this.schema.getTicketTypes().subscribe(res => this.ticketTypes = res);
+    this.schema.getCategoryTree().subscribe(res => {
+      this.subcategories = res;
+      this.categories = Object.keys(res);
+    });
   }
 
   submit() {

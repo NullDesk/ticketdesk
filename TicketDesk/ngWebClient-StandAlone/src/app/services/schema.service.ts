@@ -11,8 +11,8 @@ interface Schema {
   typeList: string[];
 }
 
-interface CategoryTree {
-  [key: string]: string;
+export interface CategoryTree {
+  [key: string]: string[];
 }
 
 @Injectable()
@@ -27,7 +27,7 @@ export class SchemaService {
     return this.schema.map(res => res.categoryTree);
   }
 
-  public getTicketTypes(): Observable<String[]> {
+  public getTicketTypes(): Observable<string[]> {
     return this.schema.map(res => res.typeList);
   }
 
