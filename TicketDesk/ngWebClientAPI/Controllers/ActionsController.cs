@@ -8,10 +8,21 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TicketDesk.Web.Identity.Model;
 using Newtonsoft.Json.Linq;
+using ngWebClientAPI.Models;
+using System.Web.Mvc;
+using System.Net;
+
+/*
+ * This needs refactor....badly
+ * Need to refactor it to return success/depending on whether or not the action could or could not
+ * be completed.  This will involve HTTPstatusCodes being passed to the front end w/messages
+ * indicating what happened.  For success not much is needed other than like 200 or somehting close.
+ * Failure needs more detailed messages and catch conditions....need better error checking
+ */
 
 namespace ngWebClientAPI.Controllers
 {
-    [RoutePrefix("api/actions")]
+    [System.Web.Http.RoutePrefix("api/actions")]
     public class ActionsController : ApiController
     {
         TicketActivityController ticketActivityController;
@@ -46,57 +57,92 @@ namespace ngWebClientAPI.Controllers
             ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
         }
 
-        [HttpGet]
-        [Route("activity-buttons/{ticketId}")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("activity-buttons/{ticketId}")]
         public TicketActivity ActivityButtons(int ticketId)
         {
+            //convert ticketid - assuming id is semantically numbered
             var activities = ticketActivityController.ActivityButtons(ticketId);
             return activities;
         }
 
-        [HttpPost]
-        [Route("resolve")]
-        public Task<Ticket> Resolve([FromBody] JObject data)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("resolve")]
+        public async Task<HttpStatusCodeResult> Resolve([FromBody] JObject data)
         {
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.Resolve(ticketId, comment);
-            return ticket;
+            HttpStatusCodeResult result;
+            //convert data to comment and ID
+            try
+            {
+                InfoObject info = APIActionsConversion.ConvertInfo(data);
+                int ticketId = data["ticketId"].ToObject<int>();
+                string comment = data["comment"].ToObject<string>();
+                Ticket ticket = await ticketActivityController.Resolve(info.ticketId, info.comment);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.Conflict);
+            }
+            return result;
         }
 
-        [HttpPost]
-        [Route("add-comment")]
-        public Task<Ticket> AddComment([FromBody] JObject data)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("add-comment")]
+        public async Task<HttpStatusCodeResult> AddComment([FromBody] JObject data)
         {
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.AddComment(ticketId, comment);
-            return ticket;
+            //convert all things to front end ticket fffffffffffffffffffffffffffffffffffff
+            HttpStatusCodeResult result;
+            try
+            {
+                InfoObject info = APIActionsConversion.ConvertInfo(data);
+                int ticketId = data["ticketId"].ToObject<int>();
+                string comment = data["comment"].ToObject<string>();
+                Ticket ticket = await ticketActivityController.AddComment(info.ticketId, info.comment);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return result;
         }
 
-        [HttpPost]
-        [Route("assign")]
-        public Task<Ticket> Assign([FromBody] JObject data)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("assign")]
+        public async Task<HttpStatusCodeResult> Assign([FromBody] JObject data)
         {
-            int ticketId = data["ticketId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            string assignedTo = data["assignedTo"].ToObject<string>();
-            string priority = data["priority"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.Assign(ticketId, comment, assignedTo, priority);
-            return ticket;
+            //convertAssign
+            HttpStatusCodeResult result;
+            try
+            {
+                int ticketId = data["ticketId"].ToObject<int>();
+                string comment = data["comment"].ToObject<string>();
+                string assignedTo = data["assignedTo"].ToObject<string>();
+                string priority = data["priority"].ToObject<string>();
+                Ticket ticket = await ticketActivityController.Assign(ticketId, comment, assignedTo, priority);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            return result;
+            
         }
 
-        [HttpPost]
-        [Route("cancel-more-info")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("cancel-more-info")]
         public Task<Ticket> CancelMoreInfo([FromBody] JObject data) {
+            //convertInfo
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             Task<Ticket> ticket = ticketActivityController.CancelMoreInfo(ticketId, comment);
             return ticket;
         }
 
-        [HttpPost]
-        [Route("edit-ticket-info")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("edit-ticket-info")]
         public Task<Ticket> EditTicketInfo([FromBody] JObject data)
         {
             int ticketId = data["ticketId"].ToObject<int>();
@@ -113,42 +159,46 @@ namespace ngWebClientAPI.Controllers
             return ticket;
         }
 
-        [HttpPost]
-        [Route("force-close")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("force-close")]
         public async Task<string> ForceClose([FromBody]JObject data)
         {
+            //convertInfo
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             var stuff = await ticketActivityController.ForceClose(ticketId, comment);
             return "Successfully Forced Closed Ticket";
         }
 
-        [HttpPost]
-        [Route("give-up")]
-        public Task<Ticket> GiveUp([FromBody] JObject data)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("give-up")]
+        public async Task<Ticket> GiveUp([FromBody] JObject data)
         {
+            //convertInfo
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.GiveUp(ticketId, comment);
+            Ticket ticket = await ticketActivityController.GiveUp(ticketId, comment);
             return ticket;
         }
 
-        [HttpPost]
-        [Route("pass")]
-        public Task<Ticket> Pass([FromBody] JObject data)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("pass")]
+        public async Task<Ticket> Pass([FromBody] JObject data)
         {
+            //convertAssign
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             string priority = data["priority"].ToObject<string>();
             string assignedTo = data["assignedTo"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.Pass(ticketId, comment, assignedTo, priority);
+            Ticket ticket = await ticketActivityController.Pass(ticketId, comment, assignedTo, priority);
             return ticket;
         }
 
-        [HttpPost]
-        [Route("reassign")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("reassign")]
         public Task<Ticket> ReAssign([FromBody] JObject data)
         {
+            //convertAssign
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             string assignedTo = data["assignedTo"].ToObject<string>();
@@ -158,18 +208,19 @@ namespace ngWebClientAPI.Controllers
             return ticket;
         }
 
-        [HttpPost]
-        [Route("request-more-info")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("request-more-info")]
         public Task<Ticket> RequestMoreInfo([FromBody] JObject data)
         {
+            //convertinfo
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             Task<Ticket> ticket = ticketActivityController.RequestMoreInfo(ticketId, comment);
             return ticket;
         }
 
-        [HttpPost]
-        [Route("reopen")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("reopen")]
         public Task<Ticket> ReOpen([FromBody] JObject data)
         {
             int ticketId = data["ticketId"].ToObject<int>();
@@ -180,8 +231,8 @@ namespace ngWebClientAPI.Controllers
             return ticket;
         }
 
-        [HttpPost]
-        [Route("supply-more-info")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("supply-more-info")]
         public Task<Ticket> SupplyMoreInfo([FromBody] JObject data)
         {
             int ticketId = data["ticketId"].ToObject<int>();
@@ -192,10 +243,11 @@ namespace ngWebClientAPI.Controllers
             return ticket;
         }
 
-        [HttpPost]
-        [Route("take-over")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("take-over")]
         public Task<Ticket> TakeOver([FromBody] JObject data)
         {
+            //convertAssign
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             string priority = data["priority"].ToObject<string>();

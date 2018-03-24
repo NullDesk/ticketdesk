@@ -16,12 +16,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TicketDesk.Web.Identity.Model;
 
+using Newtonsoft.Json.Linq;
+using X.PagedList;
+
 namespace ngWebClientAPI.Controllers
 {
-    [RoutePrefix("api/wonder")]
+    [RoutePrefix("api/tickets")]
     public class TicketCenterAPIController : ApiController
     {
-
         private TicketCenterController ticketCenterController;
 
         public TicketCenterAPIController()
@@ -53,12 +55,58 @@ namespace ngWebClientAPI.Controllers
             TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
             ticketCenterController = new TicketCenterController(new TdDomainContext(secur));
         }
-        [HttpGet]
-        [Route("cook")]
-        public Task<TicketCenterListViewModel> cookies()
+
+        [Route("reset-user-lists")]
+        public async Task<IPagedList<Ticket>> ResetUserLists()
         {
-            Task<TicketCenterListViewModel> stuff = ticketCenterController.Index(null, "assignedToMe");
-            return stuff;
+            IPagedList<Ticket> ticketList = await ticketCenterController.ResetUserLists();
+            return ticketList;
+        }
+
+        [HttpGet]
+        [Route("{listName?}/{page:int?}")]
+        public async Task<IPagedList<Ticket>> Index(JObject data)
+        {
+            int? page = data["page"].ToObject<int?>();
+            string listName = data["listName"].ToObject<string>();
+
+            IPagedList<Ticket> ticketList = await ticketCenterController.Index(page, listName);
+            return ticketList;
+        }
+
+        [HttpGet]
+        [Route("pageList")]
+        public async Task<IPagedList<Ticket>> PageList(JObject data)
+        {
+            int? page = data["page"].ToObject<int?>();
+            string listName = data["listName"].ToObject<string>();
+            IPagedList<Ticket> ticketList = await ticketCenterController.PageList(page, listName);
+            return ticketList;
+        }
+
+        [Route("filterList")]
+        public async Task<IPagedList<Ticket>> filterlist(JObject data)
+        {
+            string listName = data["listName"].ToObject<string>();
+            int pageSize = data["pageSize"].ToObject<int>();
+            string ticketStatus = data["ticketStatus"].ToObject<string>();
+            string owner = data["owner"].ToObject<string>();
+            string assignedTo = data["assignedTo"].ToObject<string>();
+
+            IPagedList<Ticket> ticketList = await ticketCenterController.FilterList(listName, pageSize, ticketStatus, owner, assignedTo);
+            return ticketList;
+        }
+
+        [Route("sortList")]
+        public async Task<IPagedList<Ticket>> SortList(JObject data)
+        {
+            int? page = data["page"].ToObject<int?>();
+            string listName = data["listName"].ToObject<string>();
+            string columnName = data["columnName"].ToObject<string>();
+            bool isMultiSort = data["isMultiSort"].ToObject<bool>();
+
+            IPagedList<Ticket> ticketList = await ticketCenterController.SortList(page, listName, columnName, isMultiSort);
+            return ticketList;
         }
     }
 }

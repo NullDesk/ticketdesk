@@ -18,12 +18,12 @@ using System.Linq;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using TicketDesk.Domain;
-using TicketDesk.Domain.Migrations;
 using TicketDesk.Domain.Model;
+using TicketDesk.Domain.Migrations;
 using TicketDesk.Search.Common;
 using Configuration = TicketDesk.Domain.Migrations.Configuration;
 
-namespace TicketDesk.Web.Client
+namespace ngWebClientAPI
 {
     public static class DatabaseConfig
     {

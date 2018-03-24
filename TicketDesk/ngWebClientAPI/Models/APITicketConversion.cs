@@ -9,28 +9,36 @@ namespace ngWebClientAPI.Models
 {
     public class APITicketConversion
     {
-        public static Ticket ConvertPOSTTicket(string jsonData)
+        public static Ticket ConvertPOSTTicket(JObject jsonData)
         {
-            FrontEndTicket data;
+            FrontEndTicket data = new FrontEndTicket();
             try
             {
-                data = JsonConvert.DeserializeObject<FrontEndTicket>(jsonData);
+
+                //data = jsonData.ToObject<FrontEndTicket>();//this conversion results in null for everything
+                
+                data.comment = jsonData["comment"].ToString();
+                data.ticketType = jsonData["ticketType"].ToString();
+                data.owner = jsonData["owner"].ToString();
+                data.category = jsonData["category"].ToString();
+                data.subcategory = jsonData["subcategory"].ToString();
+                data.tagList = jsonData["tagList"].ToString();
+                data.title = jsonData["title"].ToString();
             }
-            catch
+            catch(Exception ex)
             {
-                // misconfigured ticket sent from front end
                 return null;
             }
             Ticket ticket = new Ticket(); //made new ticket object
-            ticket.TicketId = 1; //this will have to change, not sure how TD currently numbering tickets
-            ticket.ProjectId = data.projectId; //assuming front end will pass back project ID as int
+            ticket.TicketId = default(int); //inserting to DB will assign backend ticketID
+            ticket.ProjectId = 1; //assuming front end will pass back project ID as int
             ticket.Details = data.comment; //assuming coming from comment field
-            ticket.Priority = null; //we don't know priority yet
+            ticket.Priority = "None"; //we don't know priority yet
             ticket.TicketType = data.ticketType;
             ticket.Category = data.category;
-            //data.subcategory; //no subcategory thing in TD currently, might add?
+            ticket.SubCategory = data.subcategory; //no subcategory thing in TD currently, might add?
             ticket.Owner = data.owner; //might have to use auth data to get owner/created by info
-            ticket.AssignedTo = null; //probably will be null since we don't want users to assign their own tickets
+            ticket.AssignedTo = "Open"; //probably will be null since we don't want users to assign their own tickets
             ticket.TicketStatus = TicketStatus.Active; //assuming ticket is open
             ticket.TagList = data.tagList;
             ticket.CreatedDate = DateTime.Now; //we get the datetime ourselves when new ticket
@@ -42,31 +50,67 @@ namespace ngWebClientAPI.Models
             ticket.LastUpdateBy = ticket.CreatedBy;
             ticket.LastUpdateDate = ticket.CreatedDate;
             ticket.AffectsCustomer = true;
+            ticket.SemanticId = ticket.CreatedDate.ToString("yyMMddHHmm"); //formatting for semantic numbering
             return ticket;
         }
         public static FrontEndTicket ConvertGETTicket(Ticket ticket)
         {
             FrontEndTicket FETicket = new FrontEndTicket();
-            FETicket.ticketId = ticket.TicketId;
+            string ticketID;
+            /*if (ticket.SemanticId != null)
+            {
+                ticketID = ticket.SemanticId + ticket.TicketId.ToString();
+            }
+            else
+            {
+                ticketID = ticket.CreatedDate.ToString("yyMMddHHmm") + ticket.TicketId.ToString();
+            }*/
+            ticketID = ticket.CreatedDate.ToString("yyMMddHHmm") + ticket.TicketId.ToString();
+            /*uint x; Int64 y;
+            if (uint.TryParse(ticketID, out x))
+            {
+                FETicket.ticketId = (int)x; //gross conversion to string back to int to get around bit shifting
+            }
+            else
+            {
+                Int64.TryParse(ticketID, out y);
+                FETicket.ticketId = (int)y;
+            }*/
+            Int64 y = Int64.Parse(ticketID);
+            FETicket.ticketId = y;
             FETicket.projectId = ticket.ProjectId;
             FETicket.comment = ticket.Details;
             FETicket.priority = ticket.Priority;
             FETicket.ticketType = ticket.TicketType;
             FETicket.category = ticket.Category;
-            FETicket.subcategory = null; //no subcategory in TicketDesk db, might want to add?
+            FETicket.subcategory = ticket.SubCategory; //no subcategory in TicketDesk db, might want to add?
             FETicket.owner = ticket.Owner;
             FETicket.assignedTo = ticket.AssignedTo;
             FETicket.status = ticket.TicketStatus;
             FETicket.tagList = ticket.TagList;
             FETicket.createdDate = ticket.CreatedDate.ToString();
             FETicket.title = ticket.Title;
+            FETicket.subcategory = ticket.SubCategory;
+
             return FETicket;
+        }
+
+        public static int ConvertTicketId(Int64 id)
+        {
+            string sId = id.ToString();
+            if(sId.Length < 10)
+            {
+                //we might be doing some testing with short ints here
+                return (int)id;
+            }
+            //yymmddhhmm
+            return int.Parse(sId.Substring(10, sId.Length-10));
         }
     }
 
     public class FrontEndTicket
     {
-        public int ticketId { get; set; }
+        public Int64 ticketId { get; set; }
         public int projectId { get; set; }
         public string comment { get; set; }
         public string details { get; set; }
@@ -80,5 +124,10 @@ namespace ngWebClientAPI.Models
         public string tagList { get; set; }
         public string createdDate { get; set; }
         public string title { get; set; }
+    }
+
+    public class JList
+    {
+        public List<FrontEndTicket> list { get; set; }
     }
 }
