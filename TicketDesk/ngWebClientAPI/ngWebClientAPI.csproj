@@ -254,6 +254,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ActionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchAPIController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketController.cs" />
