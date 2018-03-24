@@ -4,3 +4,4 @@ export const getValidActionsURL = serviceBaseURL + '/actions/activity-buttons/';
 
 export const getSchemaURL = serviceBaseURL + '/ticket/schema';
 
+export const getSchemaURL = serviceBaseURL + '/ticket/schema';
