@@ -27,7 +27,7 @@ this.types = Array.from( new Set(tickets.map((tkt) => tkt['ticketType'])));
     ));
       this.categoryTree[cat] = subcats;
     }
-    console.log(this.categoryTree);
+    console.log(JSON.stringify(this.categoryTree));
   }
 
 
