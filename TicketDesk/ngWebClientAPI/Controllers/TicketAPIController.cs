@@ -35,16 +35,16 @@ namespace ngWebClientAPI.Controllers
             }
             catch(Exception ex)
             {
-                return JObject.FromObject(ex);
+                return JObject.FromObject(ex.Message);
             }
         }
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("{ticketId}")]
-        public async Task<JObject> getSingleTicket(int ticketId)
+        public async Task<JObject> getSingleTicket(Int64 ticketId)
         {
             int convertedId = APITicketConversion.ConvertTicketId(ticketId);//for when we get semantic numbering to front end
-            Ticket model = await ticketController.getTicket(ticketId);
+            Ticket model = await ticketController.getTicket(convertedId);
             if (model == null)
             {
                 return null;

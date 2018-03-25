@@ -56,12 +56,28 @@ namespace ngWebClientAPI.Models
         public static FrontEndTicket ConvertGETTicket(Ticket ticket)
         {
             FrontEndTicket FETicket = new FrontEndTicket();
-            string ticketID = ticket.SemanticId + ticket.TicketId.ToString();
-            uint x;
+            string ticketID;
+            /*if (ticket.SemanticId != null)
+            {
+                ticketID = ticket.SemanticId + ticket.TicketId.ToString();
+            }
+            else
+            {
+                ticketID = ticket.CreatedDate.ToString("yyMMddHHmm") + ticket.TicketId.ToString();
+            }*/
+            ticketID = ticket.CreatedDate.ToString("yyMMddHHmm") + ticket.TicketId.ToString();
+            /*uint x; Int64 y;
             if (uint.TryParse(ticketID, out x))
             {
                 FETicket.ticketId = (int)x; //gross conversion to string back to int to get around bit shifting
             }
+            else
+            {
+                Int64.TryParse(ticketID, out y);
+                FETicket.ticketId = (int)y;
+            }*/
+            Int64 y = Int64.Parse(ticketID);
+            FETicket.ticketId = y;
             FETicket.projectId = ticket.ProjectId;
             FETicket.comment = ticket.Details;
             FETicket.priority = ticket.Priority;
@@ -79,9 +95,14 @@ namespace ngWebClientAPI.Models
             return FETicket;
         }
 
-        public static int ConvertTicketId(int id)
+        public static int ConvertTicketId(Int64 id)
         {
             string sId = id.ToString();
+            if(sId.Length < 10)
+            {
+                //we might be doing some testing with short ints here
+                return (int)id;
+            }
             //yymmddhhmm
             return int.Parse(sId.Substring(10, sId.Length-10));
         }
@@ -89,7 +110,7 @@ namespace ngWebClientAPI.Models
 
     public class FrontEndTicket
     {
-        public int ticketId { get; set; }
+        public Int64 ticketId { get; set; }
         public int projectId { get; set; }
         public string comment { get; set; }
         public string details { get; set; }
