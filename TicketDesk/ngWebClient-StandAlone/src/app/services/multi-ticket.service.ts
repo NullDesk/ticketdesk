@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 import { tickets } from './ticket_db';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class MultiTicketService {
             myList.push(ticket);
           }
         } else if (listName === 'Submitted') {
-          if (currentUser === ticket.owner) {
+          if (currentUser === ticket.ownerId) {
             myList.push(ticket);
           }
 

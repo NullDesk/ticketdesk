@@ -1,5 +1,5 @@
 import { Injectable, Component, OnInit } from '@angular/core';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({

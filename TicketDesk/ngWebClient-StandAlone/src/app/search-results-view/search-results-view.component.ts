@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Ticket } from '../models/ticket';
 import { SearchService} from '../services/search.service';
-import { Ticket } from '../models/data';
 
 @Component({
   selector: 'app-search-results-view',
