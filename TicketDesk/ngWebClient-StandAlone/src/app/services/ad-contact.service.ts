@@ -7,18 +7,13 @@ import { UserDetails } from 'app/models/user';
 export class AdContactService {
 
   constructor() { }
-  GetUser() {
-    return single_user;
-  }
 
-  GetContactCardInfo(userID: string) {
-    let SingleUser: UserDetails = null;
+  getContactCardInfo(userID: string): UserDetails {
     for (const user of Users) {
       if (user.u_id === userID) {
-        SingleUser = user;
-        break;
+        return user; 
       }
     }
-    return SingleUser;
+    return null;
   }
 }
