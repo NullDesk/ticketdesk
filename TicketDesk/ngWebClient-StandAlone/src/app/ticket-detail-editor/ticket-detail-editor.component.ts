@@ -18,6 +18,7 @@ export class TicketDetailEditorComponent implements OnInit {
   subcategories: CategoryTree = {};
   ticketTypes: string[];
   categories: string[];
+  buttonText: string = "Submit";
   constructor(@Inject(FormBuilder) fb: FormBuilder,
     private sts: SubmitTicketService,
     private router: Router,
@@ -40,8 +41,14 @@ export class TicketDetailEditorComponent implements OnInit {
   submit() {
     // do the ticket
     // get back the ID
-    const ticketId = this.sts.submitTicket(this.form.value);
-    this.attachFileComponent.addFile();
-    this.router.navigate(['/ticket/' + ticketId.toString()]);
+    this.buttonText = "Please wait..."; 
+    this.sts.submitTicket(this.form.value).subscribe( res => { 
+      if (res['ticketID']) {
+        this.attachFileComponent.addFile();
+        this.router.navigate(['/ticket/' + res['ticketID'].toString()]);
+      } else {
+        this.router.navigate(['OH_NO_OH_NO_OH_NO']);
+      }
+    });
   }
 }

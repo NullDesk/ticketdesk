@@ -1,6 +1,8 @@
-import {Ticket} from '../models/data';
+import { Ticket } from '../models/data';
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import * as settings from '../app-settings';
+
 @Injectable()
 export class SubmitTicketService {
 
@@ -10,7 +12,6 @@ export class SubmitTicketService {
   submitTicket(tkt: Ticket) {
   console.log(tkt);
   console.log('POST');
-  const url = `http://localhost:50067/api/tickets`;
-  return this.http.post(url, tkt)
+  return this.http.post(settings.submitTicketURL, tkt)
   }
 }
