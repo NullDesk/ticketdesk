@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Ticket } from '../models/ticket';
 import { tickets } from './ticket_db';
+import { HttpClient, HttpParams, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
+import * as settings from '../app-settings';
+
 
 @Injectable()
 export class MultiTicketService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) {
+  }
 
   filterList(
     listName: string,
     page?: number
   ): {'ticketList': Ticket[], 'maxPages': number} {
 
+      const params = new HttpParams().set('listName', listName).set('page', String(page));
+      let ticketList = this.http.get( settings.getTicketsIndex, {params: params});
+      console.log(ticketList);
+
+      // OLD MOCK TRASH
       const defaultOwner = '1000';
       const currentUser = defaultOwner;
 

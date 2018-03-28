@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
 export class TicketCenterComponent implements OnInit {
-  tabNames: string[] = ['Open', 'Assigned', 'All', 'Submitted', 'Closed']; // Make input settings at some point
+  tabNames: string[] = ['unassigned', 'assignedToMe', 'mytickets', 'opentickets', 'historytickets']; // Make input settings at some point
 
   ngOnInit() {
   }
