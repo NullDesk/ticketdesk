@@ -73,9 +73,9 @@ namespace ngWebClientAPI.Controllers
 
                    });
         }
-        public async Task<string> getTicket(int id)
+        public async Task<Ticket> getTicket(int id)
         {
-            var model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
+            Ticket model = await Context.Tickets.Include(t => t.TicketSubscribers).FirstOrDefaultAsync(t => t.TicketId == id);
             
             
            if (model == null)
@@ -106,9 +106,9 @@ namespace ngWebClientAPI.Controllers
             }
 
 
-            string output = JsonConvert.SerializeObject(model);
+            //string output = JsonConvert.SerializeObject(model);
             
-            return output;
+            return model;
         }
 
         public async Task<bool> CreateTicketAsync(Ticket ticket)

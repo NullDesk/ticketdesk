@@ -77,7 +77,7 @@ namespace TicketDesk.Domain.Model
 
             var email = new TicketEmail
             {
-                Ticket = note.TicketEvent.Ticket,
+               // Ticket = note.TicketEvent.Ticket,
                 SiteRootUrl = RootUrl,
                 IsMultiProject = multiProject,
                 ForNewTicket = forNewTicket

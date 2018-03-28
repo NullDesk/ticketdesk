@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
@@ -15,7 +11,6 @@ using Newtonsoft.Json.Linq;
 
 namespace ngWebClientAPI.Controllers
 {
-
     [RoutePrefix("api/actions")]
     public class ActionsController : ApiController
     {
@@ -46,7 +41,8 @@ namespace ngWebClientAPI.Controllers
                 userManager.AddToRole(user.Id, "TdInternalUsers");
                 context.SaveChanges();
             }
-            TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider(userManager, user.Id);
+            
+            TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
             ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
         }
 
@@ -179,7 +175,7 @@ namespace ngWebClientAPI.Controllers
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             bool assignToMe = data["assignToMe"].ToObject<bool>();
-
+      
             Task<Ticket> ticket = ticketActivityController.ReOpen(ticketId, comment, assignToMe);
             return ticket;
         }
@@ -188,7 +184,6 @@ namespace ngWebClientAPI.Controllers
         [Route("supply-more-info")]
         public Task<Ticket> SupplyMoreInfo([FromBody] JObject data)
         {
-
             int ticketId = data["ticketId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             bool reactive = data["reactive"].ToObject<bool>();

@@ -21,7 +21,7 @@ namespace TicketDesk.Web.Client.Controllers
         {
             Context = context;
         }
-
+        /*
         [Route("projects")]
         public async Task<ActionResult> Index()
         {
@@ -29,6 +29,7 @@ namespace TicketDesk.Web.Client.Controllers
             await model.LoadAsync();
             return View(model);
         }
+        */
 
         [Route("project/new")]
         public ActionResult New()
