@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Ticket } from '../models/ticket';
+import { Logs } from '../models/logs';
+import { Entry } from '../models/entry';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { Ticket, Logs, Entry } from '../models/data';
 import { tickets, logs } from './ticket_db';
 import * as settings from '../app-settings';
 
@@ -19,15 +21,14 @@ export class SingleTicketService {
   }
 
   getTicketDetails(ticketId: number): Ticket {
-    let get_ticket: Ticket = null;
-
-    for (const ticket of tickets) { // "search" database here to match ticketId
+    let getTicket: Ticket = null;
+    for (const ticket of tickets) {
       if (ticket.ticketId === ticketId) {
-        get_ticket = ticket;
+        getTicket = ticket;
         break;
       }
     }
-    return get_ticket;
+    return getTicket;
   }
 
   getOwner(ticketId: number) {
@@ -38,14 +39,9 @@ export class SingleTicketService {
 
   }
 
-  getTicketLog(ticketId: number): [Entry] {
+  getTicketLog(ticketId: number): Entry[] {
     for (const log of logs) {
-      console.log(`log.ticketId: ${log.ticketId}`);
-      console.log(`ticketId: ${ticketId}`);
-
       if (log.ticketId === ticketId) {
-        console.log('Entered if statement');
-        console.log(`entries list: ${log.entries}`);
         return log.entries;
       }
     }

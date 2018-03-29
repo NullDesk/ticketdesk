@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Ticket } from '../models/data';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, Input} from '@angular/core';
+import { Ticket } from '../models/ticket';
 
 @Component({
   selector: 'app-ticket-list',

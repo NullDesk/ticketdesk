@@ -4,10 +4,14 @@
     <div class="card-header">
       <div class="row"> 
         <div class="col-lg-2 colBorder">
-          <h6 class="card-title">Active   
-            <i class="fa fa-envelope-open" 
-            aria-hidden="true"></i>
+          <h6 *ngIf="ticketIsOpen(); else closedTicket" class="card-title">Active   
+            <span class="fa fa-envelope-open" 
+              aria-hidden="true"></span>
           </h6> 
+          <ng-template #closedTicket class="card-title">Closed
+              <span class="fa fa-envelope" 
+              aria-hidden="true"></span>
+          </ng-template>
           <h6 class="card-title">
             <a href="ticket/{{ ticket.ticketId }}">
               {{ ticket.ticketId }}
@@ -21,7 +25,7 @@
           </h6>
         </div>
         <div class="col-lg-3 colBorder">
-          <app-contact-info></app-contact-info>
+          <app-contact-info [ownerId]="ticket.ownerId"></app-contact-info>
         </div>
         <div class="col-lg-2 colBorder">
           <h6 class="card-title">Categories</h6>

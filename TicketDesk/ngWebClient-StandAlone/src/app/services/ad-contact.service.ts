@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { single_user } from './user_db';
 import { Users } from './user_db';
-import { UserDetails } from 'app/models/user';
+import { UserDetails } from 'app/models/user-details';
 
 @Injectable()
 export class AdContactService {
