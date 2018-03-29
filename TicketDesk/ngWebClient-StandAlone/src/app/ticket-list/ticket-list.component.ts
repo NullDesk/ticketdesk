@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./ticket-list.component.css']
 })
 
-export class ListTicketListComponent implements OnInit {
+export class TicketListComponent implements OnInit {
   // Adds a vairable to add keep track of checkbox
   private displayList: {'ticket': ListTicket, 'checked': boolean}[];
   @Input() ticketListResults: { 'ticketList': ListTicket[], 'maxPages': number };
