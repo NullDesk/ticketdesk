@@ -1,6 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { Ticket } from '../models/ticket';
-import { ListTicket } from '../models/list-ticket';
+import { Component, OnInit, Input } from '@angular/core';
+import { ListTicket, displayCols, colHeadings } from '../models/list-ticket';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,8 +9,6 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class ListTicketListComponent implements OnInit {
-  // This will become input
-  private headingsList: string[] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
   // Adds a vairable to add keep track of checkbox
   private displayList: {'ticket': ListTicket, 'checked': boolean}[];
   @Input() ticketListResults: { 'ticketList': ListTicket[], 'maxPages': number };
@@ -23,7 +20,6 @@ export class ListTicketListComponent implements OnInit {
     this.displayList = this.ticketListResults.ticketList
           .filter( x => x)
           .map(ticket => ({'ticket': ticket, 'checked': false}));
-     this.currentPage = 1;
     this.currentPage = 1;
   }
 

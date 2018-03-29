@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Ticket } from '../models/ticket';
+import { ListTicket } from '../models/list-ticket';
 import { tickets } from './ticket_db';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import * as settings from '../app-settings';
@@ -19,7 +20,7 @@ export class MultiTicketService {
   ): {'ticketList': Ticket[], 'maxPages': number} {
 
       const params = new HttpParams().set('listName', listName).set('page', String(page));
-      let ticketList = this.http.get( settings.getTicketsIndex, {params: params});
+      let ticketList = this.http.get<ListTicket[]>( settings.getTicketsIndex, {params: params});
       console.log(ticketList);
 
       // OLD MOCK TRASH
