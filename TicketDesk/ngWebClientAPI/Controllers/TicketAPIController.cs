@@ -63,11 +63,22 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("")]
-        public async Task<bool> createTicket([FromBody]JObject jsonData)
+        public async Task<HttpStatusCodeResult> createTicket([FromBody]JObject jsonData)
         {
-            Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
-            bool status = await ticketController.CreateTicketAsync(ticket);
-            return status;
+            HttpStatusCodeResult result; 
+            //convert data to comment and ID
+            try
+            {
+                Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
+                bool status = await ticketController.CreateTicketAsync(ticket);
+               result = new HttpStatusCodeResult(HttpStatusCode.OK, ticket.TicketId.ToString());
+                
+            }
+            catch (Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            return result;
         }
     }
 }
