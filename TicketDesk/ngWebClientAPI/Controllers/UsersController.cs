@@ -4,11 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using EmployeeInformationManager;
+//using EmployeeInformationManager;
 using ngWebClientAPI.Models;
 using System.Diagnostics;
-
-namespace ngWebClientAPI.Controllers
+ namespace ngWebClientAPI.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/users")]
@@ -16,9 +15,9 @@ namespace ngWebClientAPI.Controllers
     {
         [HttpGet]
         [Route("userId")]
-        public CPUUser userID()
+        public int userID()
         {
-            var employeeManager = new EmployeeInformationManager.EmployeeManager();
+            /* var employeeManager = new EmployeeInformationManager.EmployeeManager();
             //var userId = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
             var userId = "NStelmakh";
             var employee = employeeManager.GetADUserByLogin(userId);
@@ -35,8 +34,9 @@ namespace ngWebClientAPI.Controllers
             {
                 user.Groups.Add(group.Name);
             }
-
-            return user;
+            
+            return user;*/
+            return 0;
         }
 
     }
