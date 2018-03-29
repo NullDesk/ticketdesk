@@ -14,7 +14,7 @@ export class SubmitTicketService {
   console.log('POST');
   return this.http.post(settings.submitTicketURL, tkt).map(res => {
     console.warn("ayyy lmao", JSON.stringify(res));
-    return res
+    return res;
   });
   }
 }
