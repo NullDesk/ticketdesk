@@ -17,6 +17,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using TicketDesk.Web.Identity.Model;
 
 using Newtonsoft.Json.Linq;
+
 using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
@@ -57,35 +58,43 @@ namespace ngWebClientAPI.Controllers
         }
 
         [Route("reset-user-lists")]
-        public async Task<IPagedList<Ticket>> ResetUserLists()
+        public async Task<List<TicketCenterDTO>> ResetUserLists()
         {
-            IPagedList<Ticket> ticketList = await ticketCenterController.ResetUserLists();
-            return ticketList;
+            List<Ticket> ticketList = await ticketCenterController.ResetUserLists();
+            List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
+            return tkDTO;
         }
 
-        [HttpGet]
-        [Route("{listName?}/{page:int?}")]
-        public async Task<IPagedList<Ticket>> Index(JObject data)
+        [HttpPost]
+        [Route("index")]
+        public async Task<List<TicketCenterDTO>> Index(JObject data)
         {
             int? page = data["page"].ToObject<int?>();
-            string listName = data["listName"].ToObject<string>();
+            string listName = null;
 
-            IPagedList<Ticket> ticketList = await ticketCenterController.Index(page, listName);
-            return ticketList;
+            if(data["listName"].HasValues)
+            {
+                data["listName"].ToObject<string>();
+            }
+
+            List<Ticket> ticketList = await ticketCenterController.Index(page, listName);
+            List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
+            return tkDTO;
         }
 
         [HttpGet]
         [Route("pageList")]
-        public async Task<IPagedList<Ticket>> PageList(JObject data)
+        public async Task<List<TicketCenterDTO>> PageList(JObject data)
         {
             int? page = data["page"].ToObject<int?>();
             string listName = data["listName"].ToObject<string>();
-            IPagedList<Ticket> ticketList = await ticketCenterController.PageList(page, listName);
-            return ticketList;
+            List<Ticket> ticketList = await ticketCenterController.PageList(page, listName);
+            List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
+            return tkDTO;
         }
 
         [Route("filterList")]
-        public async Task<IPagedList<Ticket>> filterlist(JObject data)
+        public async Task<List<TicketCenterDTO>> filterlist(JObject data)
         {
             string listName = data["listName"].ToObject<string>();
             int pageSize = data["pageSize"].ToObject<int>();
@@ -93,20 +102,23 @@ namespace ngWebClientAPI.Controllers
             string owner = data["owner"].ToObject<string>();
             string assignedTo = data["assignedTo"].ToObject<string>();
 
-            IPagedList<Ticket> ticketList = await ticketCenterController.FilterList(listName, pageSize, ticketStatus, owner, assignedTo);
-            return ticketList;
+            List<Ticket> ticketList = await ticketCenterController.FilterList(listName, pageSize, ticketStatus, owner, assignedTo);
+            List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
+            return tkDTO;
         }
 
         [Route("sortList")]
-        public async Task<IPagedList<Ticket>> SortList(JObject data)
+        public async Task<List<TicketCenterDTO>> SortList(JObject data)
         {
             int? page = data["page"].ToObject<int?>();
             string listName = data["listName"].ToObject<string>();
             string columnName = data["columnName"].ToObject<string>();
             bool isMultiSort = data["isMultiSort"].ToObject<bool>();
 
-            IPagedList<Ticket> ticketList = await ticketCenterController.SortList(page, listName, columnName, isMultiSort);
-            return ticketList;
+            List<Ticket> ticketList = await ticketCenterController.SortList(page, listName, columnName, isMultiSort);
+            List< TicketCenterDTO> tkDTO =  TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
+
+            return tkDTO;
         }
     }
 }
