@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 import { tickets } from './ticket_db';
 
 @Injectable()

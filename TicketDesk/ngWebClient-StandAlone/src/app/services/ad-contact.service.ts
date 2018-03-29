@@ -9,8 +9,8 @@ export class AdContactService {
 
   getContactCardInfo(userID: string): UserDetails {
     for (const user of Users) {
-      if (user.u_id === userID) {
-        return user; 
+      if (user.userId === userID) {
+        return user;
       }
     }
     return null;

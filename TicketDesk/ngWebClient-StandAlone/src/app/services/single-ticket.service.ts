@@ -53,7 +53,7 @@ export class SingleTicketService {
   }
 
   getAvailableTicketActions(ticketId: number) {
-		console.log('Calling getAvailableTicketActions');
+    console.log('Calling getAvailableTicketActions');
     return this.http.get(
       settings.getValidActionsURL + ticketId.toString()
     );
