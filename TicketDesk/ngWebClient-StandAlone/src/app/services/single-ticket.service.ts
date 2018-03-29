@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Host } from '@angular/core';
 import { Ticket } from '../models/ticket';
 import { Logs } from '../models/logs';
 import { Entry } from '../models/entry';
@@ -14,11 +14,23 @@ interface TicketPermissions {
 
 @Injectable()
 export class SingleTicketService {
-
-  constructor(
-    private http: HttpClient
-  ) {
+  // error 500, success 200
+  const 
+      HOST: string = "http://localhost:50067/";
+      END_POINT: string = "api/ticket/";
+      PATH: String;
+      api: HttpClient;
+      ticket: Object;
+  constructor(private http: HttpClient) {
+    this.http.get(
+      this.HOST.concat(this.END_POINT))
+    .subscribe(data => {
+      this.ticket = data; // need to validate against ticket model
+      console.warn('ticket data:', this.ticket)
+    })
   }
+
+
 
   getTicketDetails(ticketId: number): Ticket {
     let getTicket: Ticket = null;
