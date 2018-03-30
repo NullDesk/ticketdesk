@@ -21,7 +21,8 @@ export class MultiTicketService {
 
       const params = new HttpParams().set('listName', listName).set('page', String(page));
       let ticketList = this.http.get<ListTicket[]>( settings.getTicketsIndex, {params: params});
-      console.log(ticketList);
+      console.warn('This is what I got from the fucking Get call');
+      console.warn(ticketList);
 
       // OLD MOCK TRASH
       const defaultOwner = '1000';
