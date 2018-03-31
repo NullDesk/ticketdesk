@@ -27,7 +27,6 @@ namespace ngWebClientAPI.Models
         public static InfoObject ConvertInfo(JObject data)
         {
             InfoObject info = new InfoObject();
-            
             info.ticketId = APITicketConversion.ConvertTicketId(data["ticketId"].ToObject<Int64>());
             info.comment = data["comment"].ToString();
             return info;
