@@ -13,7 +13,7 @@ export class SubmitTicketService {
   console.log(tkt);
   console.log('POST');
   return this.http.post(settings.submitTicketURL, tkt).map(res => {
-    console.warn("ayyy lmao", JSON.stringify(res));
+    console.warn('ayyy lmao', JSON.stringify(res));
     return res;
   });
   }

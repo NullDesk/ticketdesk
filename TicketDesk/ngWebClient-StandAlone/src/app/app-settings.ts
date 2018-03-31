@@ -1,6 +1,7 @@
 export const serviceBaseURL = 'http://localhost:50067/api';
 export const submitTicketURL = serviceBaseURL + '/tickets';
-export const forceCloseURL = serviceBaseURL + '/actions/force-close';
+export const ticketDetailsURL = serviceBaseURL + '/ticket/';
+export const ticketEventsURL = ticketDetailsURL + 'events/';
 export const actionURLs = {
   1 : serviceBaseURL + '/actions/add-comment',
   2 : serviceBaseURL + '/actions/supply-more-info',
@@ -22,5 +23,4 @@ export const actionURLs = {
 };
 
 export const getValidActionsURL = serviceBaseURL + '/actions/activity-buttons/';
-
 export const getSchemaURL = serviceBaseURL + '/ticket/schema';

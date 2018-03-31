@@ -1,6 +1,8 @@
 export interface Entry {
-  ownerId: string;
-  description: string;
+  eventId: number;
+  userId: string;
+  actionText: string;
   date: string;
-  statusChange: string;
+  comment: string;
+  actionEnum: number;
 }

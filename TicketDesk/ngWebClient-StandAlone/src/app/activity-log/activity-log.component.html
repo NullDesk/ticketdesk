@@ -1,9 +1,9 @@
 <div class="card-body">
-    <div class="card" style="border-right: 0;border-left: 0; border-top: 0;" *ngFor="let log of ticket_log">
+    <div class="card" style="border-right: 0;border-left: 0; border-top: 0;" *ngFor="let log of ticketLog">
       <div class="card-block">
-        <h5 class="card-title"><strong>{{ log.owner }}</strong> {{ log.status_change }}</h5>
+        <h5 class="card-title"><strong>{{ log.userId }}</strong> {{ log.actionText }}</h5>
         <h6 class="card-subtitle mb-2 text-muted"><div class="text-muted small">{{ log.date }}</div></h6>
-        <p class="card-text">{{ log.description }}</p>
+        <p class="card-text" *ngIf="log.comment">{{ log.comment }}</p>
       </div>
     </div>
   </div>

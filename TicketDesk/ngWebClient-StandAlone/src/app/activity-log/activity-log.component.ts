@@ -11,7 +11,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./activity-log.component.css']
 })
 export class ActivityLogComponent implements OnInit {
-  ticket_log: Entry[] = null;
+  ticketLog: Entry[] = null;
   ticketId: number = null;
 
   constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute) {
@@ -21,10 +21,11 @@ export class ActivityLogComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.ticket_log = this.singleTicketService.getTicketLog(this.ticketId);
-    console.log('Ticket log: ' + this.ticket_log);
-
+    this.singleTicketService.getTicketLog(this.ticketId).subscribe(
+      res => {
+        this.ticketLog = res;
+      }
+    );
   }
 
 }

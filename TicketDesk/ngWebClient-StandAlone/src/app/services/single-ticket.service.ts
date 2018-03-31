@@ -13,6 +13,10 @@ interface TicketPermissions {
   ticketPermissions: number;
 }
 
+interface EventList {
+  events: Entry[];
+}
+
 @Injectable()
 export class SingleTicketService {
 
@@ -21,15 +25,8 @@ export class SingleTicketService {
   ) {
   }
 
-  getTicketDetails(ticketId: number): Ticket {
-    let getTicket: Ticket = null;
-    for (const ticket of tickets) {
-      if (ticket.ticketId === ticketId) {
-        getTicket = ticket;
-        break;
-      }
-    }
-    return getTicket;
+  getTicketDetails(ticketId: number): Observable<Object> {
+    return this.http.get(settings.ticketDetailsURL + ticketId.toString());
   }
 
   getOwner(ticketId: number) {
@@ -40,13 +37,14 @@ export class SingleTicketService {
 
   }
 
-  getTicketLog(ticketId: number): Entry[] {
-    for (const log of logs) {
-      if (log.ticketId === ticketId) {
-        return log.entries;
-      }
-    }
-    return null;
+  getTicketLog(ticketId: number): Observable<Entry[]> {
+    return this.http.get<EventList>(
+      settings.ticketEventsURL + ticketId.toString()
+    ).map(res => {
+      if (res['events']) {
+        return res['events'];
+      } // todo: actual error handling here
+    });
   }
 
   changeTicketSubscription(ticketID: number) {
