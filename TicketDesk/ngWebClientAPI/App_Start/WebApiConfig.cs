@@ -25,7 +25,7 @@ namespace ngWebClientAPI
                 defaults: new { id = RouteParameter.Optional }
             );
             /*Enable any HTTP request for any controller from the ngWebClient front end.*/
-            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*") { SupportsCredentials = true };
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
             config.EnableCors(cors);
 
            // config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DependencyInjectionCoreSetup._Container);
