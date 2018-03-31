@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AdUserComponent } from '../ad-user/ad-user.component';
+import { AdContactService } from './../services/ad-contact.service';
+import { UserDetails } from 'app/models/user-details';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-contact-info',
@@ -7,10 +8,14 @@ import { AdUserComponent } from '../ad-user/ad-user.component';
   styleUrls: ['./contact-info.component.css']
 })
 export class ContactInfoComponent implements OnInit {
-
-  constructor() { }
+  @Input() ownerId: string;
+  user: UserDetails;
+  constructor(private contactService: AdContactService) {
+    this.contactService = contactService;
+  }
 
   ngOnInit() {
+    this.user = this.contactService.getContactCardInfo(this.ownerId);
   }
 
 }

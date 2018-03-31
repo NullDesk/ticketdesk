@@ -20,11 +20,11 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SingleTicketService } from './services/single-ticket.service';
-import { AdUserComponent } from './ad-user/ad-user.component';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 import { TicketActionEntryComponent } from './ticket-action-entry/ticket-action-entry.component';
 import { TicketActionBoxComponent } from './ticket-action-box/ticket-action-box.component';
 import { AdUserSelectorComponent } from './ad-user-selector/ad-user-selector.component';
+import { SearchResultsViewComponent } from './search-results-view/search-results-view.component';
 
 const appRoutes: Routes = [
   { path: 'ticket/:ticketID', component: SingleTicketViewComponent },
@@ -32,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'center', component: TicketCenterComponent },
   { path: 'report', component: ReportViewComponent },
   { path: 'settings', component: SettingsViewComponent },
+  { path: 'search/:term', component: SearchResultsViewComponent},
   { path: '', pathMatch: 'full', redirectTo: 'center'},
   { path: '**', component: NotFoundComponent }
 ];
@@ -53,9 +54,9 @@ const appRoutes: Routes = [
     ContactInfoComponent,
     SearchBoxComponent,
     AttachFileComponent,
-    AdUserComponent,
     TicketCenterListComponent,
     AdUserSelectorComponent,
+    SearchResultsViewComponent,
   ],
   imports: [
     ServicesModule,

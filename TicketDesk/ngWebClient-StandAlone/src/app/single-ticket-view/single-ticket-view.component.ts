@@ -3,9 +3,8 @@ import { ActivityLogComponent } from '../activity-log/activity-log.component';
 import { ContactInfoComponent } from '../contact-info/contact-info.component';
 import { TicketActionBoxComponent } from '../ticket-action-box/ticket-action-box.component';
 import { SingleTicketService } from '../services/single-ticket.service';
-import { Ticket } from '../models/data';
+import { Ticket } from '../models/ticket';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
 
 @Component({
   selector: 'app-single-ticket-view',
@@ -13,7 +12,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./single-ticket-view.component.css']
 })
 export class SingleTicketViewComponent implements OnInit {
-
   ticket: Ticket = null;
   ticketId: number = null;
   ticketActionPermissions = 0;
@@ -31,13 +29,15 @@ export class SingleTicketViewComponent implements OnInit {
     });
   }
 
+  ticketIsOpen(): boolean {
+    const status = this.ticket.status.toLowerCase();
+    return status.indexOf('active') !== -1
+      || status.indexOf('moreinfo') !== -1;
+  }
+
   ngOnInit() {
-    // this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(response => {
-      // this.ticketActionPermissions = response['actionPermissions']
-   //  });
-    this.ticketActionPermissions = 31161;
-    console.warn('just on init', this.ticketActionPermissions);
     this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
+    this.ticketStatus = this.ticket.status;
   }
 }
