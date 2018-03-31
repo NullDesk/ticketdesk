@@ -29,7 +29,7 @@ namespace ngWebClientAPI.Models
             foreach(var tk in tickets)
             {
                 TicketCenterDTO tkDataTransfer = new TicketCenterDTO();
-                tkDataTransfer.ticketId = tk.TicketId;
+                tkDataTransfer.ticketId = Int64.Parse(tk.CreatedDate.ToString("yyMMddHHmm") + tk.TicketId.ToString());
                 tkDataTransfer.title = tk.Title;
                 tkDataTransfer.status = tk.TicketStatus;
                 tkDataTransfer.owner = tk.Owner;
@@ -37,10 +37,11 @@ namespace ngWebClientAPI.Models
                 tkDataTransfer.category = tk.Category;
                 tkDataTransfer.subcategory = tk.SubCategory;
                 tkDataTransfer.priority = tk.Priority;
-                tkDataTransfer.createdDate = tk.CreatedDate.ToString("yyMMddHHmm");
-                tkDataTransfer.LastUpdateDate = tk.LastUpdateDate.ToString("yyMMddHHmm");
+                tkDataTransfer.createdDate = tk.CreatedDate.ToString();
+                tkDataTransfer.LastUpdateDate = tk.LastUpdateDate.ToString();
                 ticketCenterDTOs.Add(tkDataTransfer);
             }
+
             return ticketCenterDTOs;
         }
     }

@@ -35,7 +35,7 @@ namespace ngWebClientAPI.Controllers
             var userManager = new TicketDeskUserManager(userStore);
             var roleManager = new TicketDeskRoleManager(roleStore);
 
-            roleManager.EnsureDefaultRolesExist();
+           // roleManager.EnsureDefaultRolesExist();
 
             TicketDeskUser user = userManager.FindByName("admin@example.com");
             if (user == null)
