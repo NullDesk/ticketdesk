@@ -10,6 +10,7 @@ using System.Net;
 using ngWebClientAPI.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -94,11 +95,6 @@ namespace ngWebClientAPI.Controllers
             try
             {
                 EventList eventList = new EventList();
-                /*foreach(var item in model.TicketEvents)
-                {
-                    //refactor this to return a smaller TicketEvent object
-                    eventList.list.Add(item);
-                }*/
                 eventList.list = model.TicketEvents.ToList();
                 return JObject.FromObject(eventList);
             }

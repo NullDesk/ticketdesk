@@ -22,8 +22,6 @@ using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
 {
-    //[RoutePrefix("tickets")]
-    //[Route("{action=index}")]
     //[TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketCenterController : Controller
     {
@@ -62,7 +60,6 @@ namespace ngWebClientAPI.Controllers
             return await GetTicketListPartial(page, listName);
         }
 
-        //[Route("filterList/{listName=opentickets}/{page:int?}")]
         public async Task<List<Ticket>> FilterList(
             string listName,
             int pageSize,
@@ -83,7 +80,6 @@ namespace ngWebClientAPI.Controllers
 
         }
 
-        //[Route("sortList/{listName=opentickets}/{page:int?}")]
         public async Task<List<Ticket>> SortList(
             int? page,
             string listName,
@@ -127,8 +123,6 @@ namespace ngWebClientAPI.Controllers
 
             return await GetTicketListPartial(page, listName);
         }
-
-
 
         private async Task<List<Ticket>> GetTicketListPartial(int? page, string listName)
         {
