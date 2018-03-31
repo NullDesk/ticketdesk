@@ -1,7 +1,10 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
+import { AdUserSelectorComponent } from '../ad-user-selector/ad-user-selector.component';
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { SingleTicketService } from '../services/single-ticket.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-action-entry',
@@ -15,23 +18,31 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
   action: TicketActionEnum;
   ticketActionForm: FormGroup;
   fb: FormBuilder;
-
-  constructor(@Inject(FormBuilder) fb: FormBuilder) {
+  ticketId: number = null;
+  constructor(@Inject(FormBuilder) fb: FormBuilder,
+    private singleTicketService: SingleTicketService,
+    private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe(params => {
+      this.ticketId = Number(params['ticketID']);
+    });
     this.fb  = fb;
   }
 
   ngOnInit() {
   }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['action'] && changes['action'].currentValue) {
-      console.warn('this is the cahnge for the action entry', changes);
       this.ticketActionForm = this.fb.group(changes.action.currentValue.formTemplate);
     }
   }
 
   submit() {
+    const formValue = this.ticketActionForm.value;
+    formValue.ticketId = this.ticketId;
+    console.log(formValue);
+    this.singleTicketService.submitTicketAction(formValue, this.action);
     console.log('you made a click');
   }
-
 
 }

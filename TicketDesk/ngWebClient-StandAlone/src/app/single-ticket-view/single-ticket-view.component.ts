@@ -16,16 +16,21 @@ export class SingleTicketViewComponent implements OnInit {
   ticketId: number = null;
   ticketActionPermissions = 0;
   public isCollapsed = true;
-  ticketStatus: string;
-  constructor(private singleTicketService: SingleTicketService,
+
+  constructor(private router: Router,
+    private singleTicketService: SingleTicketService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
+      if (params['ticketId'] === '' || isNaN(Number(params['ticketID']))) {
+        this.router.navigate(['/NaNTicketID']);
+        return;
+      }
       this.ticketId = Number(params['ticketID']);
     });
   }
 
   ticketIsOpen(): boolean {
-    const status = this.ticketStatus.toLowerCase();
+    const status = this.ticket.status.toLowerCase();
     return status.indexOf('active') !== -1
       || status.indexOf('moreinfo') !== -1;
   }
@@ -37,6 +42,5 @@ export class SingleTicketViewComponent implements OnInit {
     });
     this.ticket =
       this.singleTicketService.getTicketDetails(this.ticketId);
-    this.ticketStatus = this.ticket.status;
   }
 }

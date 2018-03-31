@@ -23,6 +23,7 @@ import { SingleTicketService } from './services/single-ticket.service';
 import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 import { TicketActionEntryComponent } from './ticket-action-entry/ticket-action-entry.component';
 import { TicketActionBoxComponent } from './ticket-action-box/ticket-action-box.component';
+import { AdUserSelectorComponent } from './ad-user-selector/ad-user-selector.component';
 import { SearchResultsViewComponent } from './search-results-view/search-results-view.component';
 
 const appRoutes: Routes = [
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     SearchBoxComponent,
     AttachFileComponent,
     TicketCenterListComponent,
+    AdUserSelectorComponent,
     SearchResultsViewComponent,
   ],
   imports: [
