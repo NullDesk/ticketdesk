@@ -94,7 +94,13 @@ namespace ngWebClientAPI.Controllers
             try
             {
                 EventList eventList = new EventList();
-                eventList.list = model.TicketEvents.ToList();
+                //eventList.list = model.TicketEvents.ToList();
+                List<TicketEvent> events = model.TicketEvents.ToList();
+                eventList.list = new List<FrontEndEvent>();
+                foreach(var item in events)
+                {
+                    eventList.list.Add(APITicketConversion.ConvertEvent(item));
+                }
                 return JObject.FromObject(eventList);
             }
             catch(Exception ex)

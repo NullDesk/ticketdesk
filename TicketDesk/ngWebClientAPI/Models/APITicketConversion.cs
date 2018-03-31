@@ -106,8 +106,31 @@ namespace ngWebClientAPI.Models
             //yymmddhhmm
             return int.Parse(sId.Substring(10, sId.Length-10));
         }
-    }
 
+        public static FrontEndEvent ConvertEvent(TicketEvent item)
+        {
+            FrontEndEvent singleEvent = new FrontEndEvent();
+
+            singleEvent.eventId = item.EventId;
+            singleEvent.userId = item.EventBy;
+            singleEvent.actionText = item.EventDescription;
+            singleEvent.date = item.EventDate.ToString();
+            singleEvent.comment = item.Comment;
+            singleEvent.actionEnum = item.ForActivity.ToString();
+
+            return singleEvent;
+        }
+    }
+    public class FrontEndEvent
+    {
+        public int eventId { get; set; }
+        public string userId { get; set; }
+        public string actionText { get; set; }
+        public string date { get; set; }
+        public string comment { get; set; }
+        public string actionEnum { get; set; }
+
+    }
     public class FrontEndTicket
     {
         public Int64 ticketId { get; set; }
@@ -133,6 +156,6 @@ namespace ngWebClientAPI.Models
 
     public class EventList
     {
-        public List<TicketEvent> list { get; set; }
+        public List<FrontEndEvent> list { get; set; }
     }
 }
