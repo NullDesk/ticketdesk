@@ -26,16 +26,10 @@ namespace ngWebClientAPI.Models
 
         public static InfoObject ConvertInfo(JObject data)
         {
-            InfoObject info;
-            try
-            {
-                info = data.ToObject<InfoObject>();
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
-            info.ticketId = APITicketConversion.ConvertTicketId(info.ticketId);
+            InfoObject info = new InfoObject();
+            
+            info.ticketId = APITicketConversion.ConvertTicketId(data["ticketId"].ToObject<Int64>());
+            info.comment = data["comment"].ToString();
             return info;
         }
     }
