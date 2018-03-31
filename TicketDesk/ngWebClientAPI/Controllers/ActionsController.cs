@@ -95,15 +95,16 @@ namespace ngWebClientAPI.Controllers
             HttpStatusCodeResult result;
             try
             {
-                InfoObject info = APIActionsConversion.ConvertInfo(data);
-                int ticketId = data["ticketId"].ToObject<int>();
+                //InfoObject info = APIActionsConversion.ConvertInfo(data);
+                Int64 ticketId = data["ticketId"].ToObject<Int64>();
+                int ticketdeskId = APITicketConversion.ConvertTicketId(ticketId);
                 string comment = data["comment"].ToObject<string>();
-                Ticket ticket = await ticketActivityController.AddComment(info.ticketId, info.comment);
+                Ticket ticket = await ticketActivityController.AddComment(ticketdeskId, comment);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
-                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.ToString());
             }
             return result;
         }
