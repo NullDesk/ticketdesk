@@ -1,6 +1,5 @@
 using System;
 using System.Web.Http;
-using System.Web;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ using Newtonsoft.Json.Linq;
 
 namespace ngWebClientAPI.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/actions")]
     public class ActionsController : ApiController
     {
@@ -50,14 +48,10 @@ namespace ngWebClientAPI.Controllers
 
         [HttpGet]
         [Route("activity-buttons/{ticketId}")]
-        public JObject ActivityButtons(int ticketId)
+        public TicketActivity ActivityButtons(int ticketId)
         {
-            var userId = HttpContext.Current.User.Identity.Name;
-
             var activities = ticketActivityController.ActivityButtons(ticketId);
-            var jsonActivity = new JObject();
-            jsonActivity.Add("actionPermissions", (int) activities);
-            return jsonActivity;
+            return activities;
         }
 
         [HttpPost]
