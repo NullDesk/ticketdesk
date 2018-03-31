@@ -1,13 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { Ticket } from '../models/ticket';
 import { Logs } from '../models/logs';
 import { Entry } from '../models/entry';
 import { tickets, logs } from './ticket_db';
+import * as settings from '../app-settings';
+
+interface TicketPermissions {
+  ticketPermissions: number;
+}
 
 @Injectable()
 export class SingleTicketService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) {
+  }
+
 
   getTicketDetails(ticketId: number): Ticket {
     let getTicket: Ticket = null;
@@ -21,7 +34,7 @@ export class SingleTicketService {
   }
 
   getOwner(ticketId: number) {
-
+  // todo: refactor this into the ticket itself
   }
 
   getTicketFiles(ticketId: number) {
@@ -41,15 +54,15 @@ export class SingleTicketService {
 
   }
 
-  getAvailableTicketActions(ticketId: number): number {
-    // available actions: AddComment (all users), Assign (staff/admin), Close, EditTicketInfo (regular), ForceClose (regular), GiveUp,
-    // ModifyAttachments (all users), Pass, RequestMoreInfo, ReOpen, Resolve, SupplyMoreInfo, TakeOver (staff/admin)
-    // const ticketActions = {
-      // 1111: ['AddComment', 'ModifyAttachments', 'EditTicketInfo', 'ForceClose'],
-      // 2222: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver'],
-      // 3333: ['AddComment', 'ModifyAttachments', 'Assign', 'TakeOver']
-    // }
-    // const actions: Array<String> = ticketActions[ticketId]
-    return (2 ** 17) - 1;
+  submitTicketAction(value: object, action: TicketActionEnum) {
+    console.log('performing ' + action.displayText);
+    return this.http.post<Object>(action.getURL(), value);
+  }
+  getAvailableTicketActions(ticketId: number) {
+    console.log('Calling getAvailableTicketActions');
+
+    return this.http.get(
+      settings.getValidActionsURL + ticketId.toString()
+    );
   }
 }

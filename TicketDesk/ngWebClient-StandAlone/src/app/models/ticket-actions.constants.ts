@@ -1,11 +1,14 @@
+import { Validators } from '@angular/forms';
+import { actionURLs } from '../app-settings';
+
 // http://andregiannico.com/typescript-constants
 
 export class TicketActionEnum {
   static readonly ADDCOMMENT = new TicketActionEnum(
-    'Add Comment', 2 ** 0, true, false, {ticketId: 0, comment: ''}
+    'Add Comment', 2 ** 0, true, false, {ticketId: 0, comment: ['', Validators.required]}
   );
   static readonly PROVIDEMOREINFO = new TicketActionEnum(
-    'Provide More Information', 2 ** 1, true, false, {ticketId: 0, comment: '', reactive: true}
+    'Provide More Information', 2 ** 1, true, false, {ticketId: 0, comment: ['', Validators.required], reactive: true}
   );
   static readonly CANCELMOREINFO = new TicketActionEnum(
     'Cancel Request For More Information', 2 ** 2, false, false, {ticketId: 0, comment: ''}
@@ -83,5 +86,9 @@ export class TicketActionEnum {
   }
   public static getActivityList(activityNumber: number) {
     return TicketActionEnum.allActivities.filter(action => TicketActionEnum.isAllowedAction(action, activityNumber));
+  }
+
+  public getURL(): string {
+    return actionURLs[this.enumInteger];
   }
 }

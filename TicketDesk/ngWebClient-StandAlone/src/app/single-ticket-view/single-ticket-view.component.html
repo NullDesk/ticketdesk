@@ -13,7 +13,7 @@
               aria-hidden="true"></span>
           </ng-template>
           <h6 class="card-title">
-            <a href="ticket/{{ticket.ticketId}}">
+            <a href="ticket/{{ ticket.ticketId }}">
               {{ ticket.ticketId }}
             </a>
           </h6>
@@ -51,29 +51,7 @@
               <h4 class="card-title">{{ ticket.title }}</h4>
               <div class="text-muted small">{{ ticket.createdDate }}</div>
               <p class="card-text">{{ ticket.details }}</p>
-              <span *ngFor="let button of buttonTitles">
-                <!--<a href="#" class="btn btn-dark ">{{ button }}</a>-->
-                <button type="button" 
-                  class="btn btn-dark" 
-                  (click)="isCollapsed = !isCollapsed" 
-                  [attr.aria-expanded]="!isCollapsed" 
-                  aria-controls="collapseExample"> {{ button }} 
-                </button>
-              </span>
-              <div [ngbCollapse]="isCollapsed">
-                <div class="col-xs-12" style="height:10px;"></div>
-                <div class="form-group">
-                  <textarea class="form-control" 
-                    id="exampleFormControlTextarea1"  
-                    placeholder="Comment"  rows="5">
-                  </textarea>
-                  <button class="btn btn-primary pull-right" 
-                    type="button" 
-                    (click)="submit()">
-                    Submit
-                  </button>
-                </div>
-              </div>    
+              <app-ticket-action-box [ticket]="ticket" [permissions]="ticketActionPermissions"></app-ticket-action-box>
             </div>
           </div>
         </ng-template>

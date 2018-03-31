@@ -1,18 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Ticket } from '../models/ticket';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
+import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-ticket-action-box',
   templateUrl: './ticket-action-box.component.html',
   styleUrls: ['./ticket-action-box.component.css']
 })
-export class TicketActionBoxComponent implements OnInit {
+export class TicketActionBoxComponent implements OnInit, OnChanges {
   @Input() ticket: Ticket;
   @Input() permissions: number;
   allowedActions: TicketActionEnum[];
   activeAction: TicketActionEnum = null;
   detailEditorNeeded = false;
+  public isCollapsed = true;
   commentPlaceholder = 'Comment';
 
   setActiveAction(action: TicketActionEnum) {
@@ -28,6 +30,13 @@ export class TicketActionBoxComponent implements OnInit {
 
   ngOnInit() {
     this.allowedActions = TicketActionEnum.getActivityList(this.permissions);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['permissions']) {
+      this.permissions = changes['permissions'].currentValue;
+      this.allowedActions = TicketActionEnum.getActivityList(this.permissions);
+    }
   }
 
 }
