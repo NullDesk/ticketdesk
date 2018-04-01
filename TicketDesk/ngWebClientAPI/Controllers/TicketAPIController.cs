@@ -25,7 +25,7 @@ namespace ngWebClientAPI.Controllers
             {
                 var model = await ticketController.GetTicketList(); //returns list of all tickets
                 List<FrontEndTicket> TicketList = new List<FrontEndTicket>();
-                foreach(var item in model)
+                foreach (var item in model)
                 {
                     TicketList.Add(APITicketConversion.ConvertGETTicket(item));
                 }
@@ -33,7 +33,7 @@ namespace ngWebClientAPI.Controllers
                 lst.list = TicketList;
                 return JObject.FromObject(lst);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return JObject.FromObject(ex.Message);
             }
@@ -58,7 +58,7 @@ namespace ngWebClientAPI.Controllers
             {
                 return null;
             }
-            
+
         }
 
         [System.Web.Http.HttpPost]
@@ -68,6 +68,14 @@ namespace ngWebClientAPI.Controllers
             Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
             bool status = await ticketController.CreateTicketAsync(ticket);
             return status;
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("categories")]
+        public async Task<JObject> getCategories([FromBody]JObject jsonData)
+        {
+            //CategorySetting category = await TdDomainContext.CategorySetting;
+            return null;
         }
     }
 }
