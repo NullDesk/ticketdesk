@@ -254,6 +254,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ActionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchAPIController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketActivityController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketController.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
     <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
     <Compile Include="Models\APITicketConversion.cs" />
+    <Compile Include="Models\CPUUser.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\APIActionsConversion.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
@@ -278,6 +280,7 @@
     <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
+    <Compile Include="Models\TicketCenterDTO.cs" />
     <Compile Include="Models\TicketCenterListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

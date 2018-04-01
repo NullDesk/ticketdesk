@@ -11,13 +11,13 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using ngWebClientAPI.Models;
-
 using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
@@ -34,38 +34,36 @@ namespace ngWebClientAPI.Controllers
         }
 
         [Route("reset-user-lists")]
-        public async Task<IPagedList<Ticket>> ResetUserLists()
+        public async Task<List<Ticket>> ResetUserLists()
         {
             var uId = Context.SecurityProvider.CurrentUserId;
             await Context.UserSettingsManager.ResetAllListSettingsForUserAsync(uId);
             var x = await Context.SaveChangesAsync();
 
-            IPagedList<Ticket> ticketList = await Index(null, null);
+            List<Ticket> ticketList = await Index(null, null);
             return ticketList;
 
         }
 
-        // GET: TicketCenter
-        //[Route("{listName?}/{page:int?}")]
-        public async Task<IPagedList<Ticket>> Index(int? page, string listName)
+        
+        public async Task<List<Ticket>> Index(int? page, string listName)
         {
-
             listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "mytickets");
             var pageNumber = page ?? 1;
 
             TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUserId);//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
-            IPagedList<Ticket> ticketList = viewModel.Tickets;
+            List<Ticket> ticketList = viewModel.Tickets;
             return ticketList;
         }
 
         [Route("pageList/{listName=mytickets}/{page:int?}")]
-        public async Task<IPagedList<Ticket>> PageList(int? page, string listName)
+        public async Task<List<Ticket>> PageList(int? page, string listName)
         {
             return await GetTicketListPartial(page, listName);
         }
 
         //[Route("filterList/{listName=opentickets}/{page:int?}")]
-        public async Task<IPagedList<Ticket>> FilterList(
+        public async Task<List<Ticket>> FilterList(
             string listName,
             int pageSize,
             string ticketStatus,
@@ -86,7 +84,7 @@ namespace ngWebClientAPI.Controllers
         }
 
         //[Route("sortList/{listName=opentickets}/{page:int?}")]
-        public async Task<IPagedList<Ticket>> SortList(
+        public async Task<List<Ticket>> SortList(
             int? page,
             string listName,
             string columnName,
@@ -132,12 +130,12 @@ namespace ngWebClientAPI.Controllers
 
 
 
-        private async Task<IPagedList<Ticket>> GetTicketListPartial(int? page, string listName)
+        private async Task<List<Ticket>> GetTicketListPartial(int? page, string listName)
         {
             var pageNumber = page ?? 1;
 
             TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUserId);
-            IPagedList<Ticket> tickets = viewModel.Tickets;
+            List<Ticket> tickets = viewModel.Tickets;
 
             return tickets;
 
