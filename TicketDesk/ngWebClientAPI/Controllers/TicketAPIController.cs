@@ -44,10 +44,10 @@ namespace ngWebClientAPI.Controllers
         public async Task<JObject> getSingleTicket(Int64 ticketId)
         {
             int convertedId = APITicketConversion.ConvertTicketId(ticketId);//for when we get semantic numbering to front end
-            Ticket model = await ticketController.getTicket(convertedId);
+            Ticket model = await ticketController.getTicket(convertedId); //Expect full semantic id
             if (model == null)
             {
-                return null;
+                return null; //Should probably error handle better here... Leaving as null for now
             }
             try
             {
@@ -63,11 +63,42 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("")]
-        public async Task<bool> createTicket([FromBody]JObject jsonData)
+        public async Task<HttpStatusCodeResult> createTicket([FromBody]JObject jsonData)
         {
-            Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
-            bool status = await ticketController.CreateTicketAsync(ticket);
-            return status;
+            HttpStatusCodeResult result; 
+            //convert data to comment and ID
+            try
+            {
+                Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
+                bool status = await ticketController.CreateTicketAsync(ticket);
+               result = new HttpStatusCodeResult(HttpStatusCode.OK, APITicketConversion.ConvertTicketId(ticket.TicketId).ToString());
+                
+            }
+            catch 
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            return result;
+        }
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("events/{ticketId}")]
+        public async Task<JObject> GetEvents(Int64 ticketId)
+        {
+            int convertedId = APITicketConversion.ConvertTicketId(ticketId);//for when we get semantic numbering to front end
+            Ticket model = await ticketController.getTicket(convertedId);
+            if (model == null)
+            {
+                return null; // Should probably handle errors better here. Returning Null for now
+            }
+            try
+            {
+                return JObject.FromObject(model.TicketEvents);
+            }
+            catch(Exception ex)
+            {
+                return JObject.FromObject(ex);
+            }
+
         }
 
         [System.Web.Http.HttpGet]
