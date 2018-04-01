@@ -5,6 +5,7 @@ using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using Newtonsoft.Json;
 using System.Web.Mvc;
+using System.Linq;
 using System.Net;
 using ngWebClientAPI.Models;
 using System.Collections.Generic;
@@ -92,7 +93,14 @@ namespace ngWebClientAPI.Controllers
             }
             try
             {
-                return JObject.FromObject(model.TicketEvents);
+                EventList eventList = new EventList();
+                /*foreach(var item in model.TicketEvents)
+                {
+                    //refactor this to return a smaller TicketEvent object
+                    eventList.list.Add(item);
+                }*/
+                eventList.list = model.TicketEvents.ToList();
+                return JObject.FromObject(eventList);
             }
             catch(Exception ex)
             {

@@ -130,4 +130,9 @@ namespace ngWebClientAPI.Models
     {
         public List<FrontEndTicket> list { get; set; }
     }
+
+    public class EventList
+    {
+        public List<TicketEvent> list { get; set; }
+    }
 }
