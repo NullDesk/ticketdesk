@@ -9,6 +9,7 @@ using System.Net;
 using ngWebClientAPI.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -92,7 +93,9 @@ namespace ngWebClientAPI.Controllers
             }
             try
             {
-                return JObject.FromObject(model.TicketEvents);
+                EventList eventList = new EventList();
+                eventList.list = model.TicketEvents.ToList();
+                return JObject.FromObject(eventList);
             }
             catch(Exception ex)
             {
