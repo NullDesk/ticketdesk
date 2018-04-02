@@ -4,6 +4,7 @@ import { ListTicket } from '../models/list-ticket';
 import { tickets } from './ticket_db';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import * as settings from '../app-settings';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -17,14 +18,15 @@ export class MultiTicketService {
   filterList(
     listName: string,
     page?: number
-  ): {'ticketList': ListTicket[], 'maxPages': number} {
+  ): Observable<ListTicket[]> {
 
       const params = new HttpParams().set('listName', listName).set('page', String(page));
-      let ticketList = this.http.get<ListTicket[]>( settings.getTicketsIndex, {params: params});
+      const ticketList = this.http.get<ListTicket[]>( settings.getTicketsIndex, {params: params});
       console.warn('This is what I got from the fucking Get call');
       console.warn(ticketList);
       ticketList.forEach( x => console.warn(x) );
-
+      return ticketList;
+     /*
       // OLD MOCK TRASH
       const defaultOwner = '1000';
       const currentUser = defaultOwner;
@@ -63,6 +65,7 @@ export class MultiTicketService {
     // Submitted
     // All
     return result;
+    */
   }
 
   paginate(thisList: ListTicket[], page?: number): {'ticketList': ListTicket[], 'maxPages': number } {
