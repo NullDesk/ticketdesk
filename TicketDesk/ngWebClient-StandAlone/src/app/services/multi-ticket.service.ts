@@ -17,12 +17,13 @@ export class MultiTicketService {
   filterList(
     listName: string,
     page?: number
-  ): {'ticketList': Ticket[], 'maxPages': number} {
+  ): {'ticketList': ListTicket[], 'maxPages': number} {
 
       const params = new HttpParams().set('listName', listName).set('page', String(page));
       let ticketList = this.http.get<ListTicket[]>( settings.getTicketsIndex, {params: params});
       console.warn('This is what I got from the fucking Get call');
       console.warn(ticketList);
+      ticketList.forEach( x => console.warn(x) );
 
       // OLD MOCK TRASH
       const defaultOwner = '1000';
@@ -53,7 +54,7 @@ export class MultiTicketService {
         }
       }
 
-      const result = this.paginate(myList, page);
+      const result = this.paginate(ticketList, page);
 
 
     // Open
@@ -64,12 +65,12 @@ export class MultiTicketService {
     return result;
   }
 
-  paginate(thisList: Ticket[], page?: number): {'ticketList': Ticket[], 'maxPages': number } {
+  paginate(thisList: ListTicket[], page?: number): {'ticketList': ListTicket[], 'maxPages': number } {
 
     const ticketsPerPage = 4;
     if (!page) { page = 1; }
 
-    const myResult: {'ticketList': Ticket[],
+    const myResult: {'ticketList': ListTicket[],
         'maxPages': number } = {'ticketList': [],
           'maxPages': Math.ceil(thisList.length / ticketsPerPage)};
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MultiTicketService } from '../services/multi-ticket.service';
-import { Ticket } from '../models/ticket';
+import { ListTicket } from '../models/list-ticket';
 
 @Component({
   selector: 'app-ticket-center-list',
@@ -9,7 +9,7 @@ import { Ticket } from '../models/ticket';
 })
 export class TicketCenterListComponent implements OnInit {
   @Input() listName: string;
-  ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
+  ticketListResults: { 'ticketList': ListTicket[], 'maxPages': number };
 
   constructor(private multiTicketService: MultiTicketService) {
 
