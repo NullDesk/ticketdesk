@@ -15,13 +15,21 @@ export class MultiTicketService {
   ) {
   }
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'my-auth-token'
+    })
+  };
+
   filterList(
     listName: string,
     page?: number
   ): Observable<ListTicket[]> {
 
-      const params = new HttpParams().set('listName', listName).set('page', String(page));
-      const ticketList = this.http.get<ListTicket[]>( settings.getTicketsIndex, {params: params});
+      // const params = new HttpParams().set('listName', listName).set('page', String(page));
+      const params = {page: page, listName: listName};
+      const ticketList = this.http.post<ListTicket[]>( settings.getTicketsIndex, params);
       console.warn('This is what I got from the fucking Get call');
       console.warn(ticketList);
       ticketList.forEach( x => console.warn(x) );
