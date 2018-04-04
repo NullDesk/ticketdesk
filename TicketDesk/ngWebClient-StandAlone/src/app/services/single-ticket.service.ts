@@ -23,7 +23,7 @@ export class SingleTicketService {
   ) {
   }
 
-  getTicketDetails(ticketId: number): Observable<Object> {
+  getTicketDetails(ticketId: number): Observable<any> {
     return this.http.get(settings.ticketDetailsURL + ticketId.toString());
   }
 
