@@ -16,11 +16,13 @@ export class TicketListComponent implements OnInit {
   currentPage: number;
 
   ngOnInit() {
-    // filter removes objects not of type ticket or null/undefined
-    this.displayList = this.ticketListResults.ticketList
-          .filter( x => x)
-          .map(ticket => ({'ticket': ticket, 'checked': false}));
-    this.currentPage = 1;
+  // filter removes objects not of type ticket or null/undefined
+    if (Array.isArray(this.displayList)) {
+      this.displayList = this.ticketListResults.ticketList
+            .filter( x => x)
+            .map(ticket => ({'ticket': ticket, 'checked': false}));
+      this.currentPage = 1;
+      }
   }
 
   isAllChecked() {
