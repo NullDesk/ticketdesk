@@ -1,5 +1,5 @@
 import { Ticket } from '../models/ticket';
-import { Logs } from '../models/logs';
+import { Entry } from '../models/entry';
 
 export let tickets: Ticket[] = [
 
@@ -101,10 +101,9 @@ export let tickets: Ticket[] = [
     createdDate: '11/16/17' }
 ];
 
-export let logs: Logs[] = [
-  {
-    ticketId: 18032412221,
-    entries: [
+export let entries = {
+    18032412221 :
+    [
       {
         ownerId: '1000',
         description: `To be, or not to be: that is the question: Whether ‘tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end`,
@@ -133,11 +132,10 @@ export let logs: Logs[] = [
       }
 
     ]
-  },
+  ,
 
-  {
-    ticketId: 2222,
-    entries: [
+    2222 :
+     [
       {
         ownerId: '1001',
         description: 'Test ticket Submission',
@@ -146,11 +144,11 @@ export let logs: Logs[] = [
       }
 
     ]
-  },
+  ,
 
-  {
-    ticketId: 3333,
-    entries: [
+
+  3333 :
+    [
       {
         ownerId: '1001',
         description: 'Test ticket Submission',
@@ -158,6 +156,5 @@ export let logs: Logs[] = [
         statusChange: 'Created Ticket'
       }
     ]
-  }
+  };
 
-];

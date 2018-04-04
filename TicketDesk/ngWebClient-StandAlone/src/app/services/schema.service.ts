@@ -3,7 +3,7 @@ import { tickets } from './ticket_db';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of'; 
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/publishReplay';
 import * as settings from '../app-settings';
 
@@ -20,10 +20,10 @@ export interface CategoryTree {
 export class SchemaService {
 
   private schema: Observable<Schema> = Observable.of({
-    categoryTree: {"cats": ["calico", "tabby", "tortoiseshell"],
-    "dogs": ["pomeranian", "weimeraner", "australian shepherd"],
-    "rabbits": ["twitchy nose", "tail"]},
-    typeList: ["problem", "big problem", "secret ice cream"]
+    categoryTree: {'cats': ['calico', 'tabby', 'tortoiseshell'],
+    'dogs': ['pomeranian', 'weimeraner', 'australian shepherd'],
+    'rabbits': ['twitchy nose', 'tail']},
+    typeList: ['problem', 'big problem', 'secret ice cream']
   })// this.http.get<Schema>(settings.getSchemaURL)
     .publishReplay(1) // this tells Rx to cache the latest emitted value
     .refCount(); // and this tells Rx to keep the Observable alive as long as there are any Subscribers

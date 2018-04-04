@@ -4,9 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { Ticket } from '../models/ticket';
-import { Logs } from '../models/logs';
 import { Entry } from '../models/entry';
-import { tickets, logs } from './ticket_db';
 import * as settings from '../app-settings';
 
 interface TicketPermissions {
