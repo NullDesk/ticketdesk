@@ -30,9 +30,7 @@ export class SingleTicketViewComponent implements OnInit {
   }
 
   ticketIsOpen(): boolean {
-    const status = this.ticket.status.toLowerCase();
-    return status.indexOf('active') !== -1
-      || status.indexOf('moreinfo') !== -1;
+    return this.ticket.status === 'active' || this.ticket.status === 'moreinfo';
   }
 
   ngOnInit() {
