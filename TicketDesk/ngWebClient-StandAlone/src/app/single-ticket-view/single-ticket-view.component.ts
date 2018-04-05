@@ -41,7 +41,8 @@ export class SingleTicketViewComponent implements OnInit {
       this.ticketActionPermissions = response['actionPermissions'];
     });
     this.singleTicketService.getTicketDetails(this.ticketId).subscribe(response => {
-      this.ticket = response;
+      console.warn('ticket is', response);
+      this.ticket = <Ticket>response;
     });
   }
 }
