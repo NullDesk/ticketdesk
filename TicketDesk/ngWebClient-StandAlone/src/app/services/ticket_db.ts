@@ -6,7 +6,6 @@ export let tickets: Ticket[] = [
   {
     ticketId: 18032412221,
     projectId: 10,
-    comment: 'Initial Submission',
     details: `Two weeks ago, my EVGA GTX 780 Ti of 3.5 years started to malfunction (artifacts, display disruptions, etc.) and shortly after that, finally died. This was especially annoying because it was only half a year after EVGA\'s warranty expired. So I researched online and bought an EVGA GTX 1080 Ti (which I can still return). This card is overkill for my setup, I do know that, especially for gaming with 1920x1080. However, I intend to buy a second monitor with either a 2k or 4k resolution which should be enough to keep up with this beast.', 'title': 'My Computer is broken.`,
     title: 'Broken Graphics Card',
     priority: '5',
@@ -15,14 +14,13 @@ export let tickets: Ticket[] = [
     subcategory: 'Graphics Card',
     ownerId: '1000',
     assignedTo: '1000',
-    status: 'closed',
+    status: 0,
     tagList: 'tag1 tag2',
     createdDate: '11/12/17'},
 
   {
     ticketId: 2222,
     projectId: 11,
-    comment: 'test comment 1',
     title: 'test title 1',
     details: 'detail test 1',
     priority: '4',
@@ -31,14 +29,13 @@ export let tickets: Ticket[] = [
     subcategory: 'subcategory test 1',
     ownerId: '1001',
     assignedTo: '1002',
-    status: 'open',
+    status: 3,
     tagList: 'List test 1',
     createdDate: '11/13/17' },
 
   {
     ticketId: 3333,
     projectId: 12,
-    comment: 'test comment 2',
     title: 'test title 2',
     details: 'detail test 2',
     priority: '2',
@@ -47,7 +44,7 @@ export let tickets: Ticket[] = [
     subcategory: 'subcategory test 2',
     ownerId: '1001',
     assignedTo: '1002',
-    status: 'open',
+    status: 0,
     tagList: 'List test 2',
     createdDate: '11/14/17'
   },
@@ -55,7 +52,6 @@ export let tickets: Ticket[] = [
   {
     ticketId: 4444,
     projectId: 13,
-    comment: 'test comment 3',
     title: 'test title 3',
     details: 'detail test 3',
     priority: '1',
@@ -64,14 +60,13 @@ export let tickets: Ticket[] = [
     subcategory: 'subcategory test 3',
     ownerId: '1003',
     assignedTo: '1001',
-    status: 'closed',
+    status: 3,
     tagList: 'List test 3',
     createdDate: '11/15/17' },
 
   {
     ticketId: 5555,
     projectId: 14,
-    comment: 'test comment 4',
     title: 'test title 4',
     details: 'detail test 4',
     priority: '3',
@@ -80,14 +75,13 @@ export let tickets: Ticket[] = [
     subcategory: 'subcategory test 4',
     ownerId: '1001',
     assignedTo: '1002',
-    status: 'open',
+    status: 0,
     tagList: 'List test 4',
     createdDate: '11/12/17' },
 
   {
     ticketId: 6666,
     projectId: 15,
-    comment: 'test comment 5',
     title: 'test title 5',
     details: 'detail test 5',
     priority: '4',
@@ -96,7 +90,7 @@ export let tickets: Ticket[] = [
     subcategory: 'subcategory test 5',
     ownerId: '1002',
     assignedTo: '1003',
-    status: 'closed',
+    status: 0,
     tagList: 'List test 5',
     createdDate: '11/16/17' }
 ];

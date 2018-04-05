@@ -19,11 +19,11 @@ export class MultiTicketService {
 
       for (const ticket of tickets) {
         if (listName === 'Open' ) {
-          if (ticket.status === 'open') {
+          if (ticket.status === 0) {
             myList.push(ticket);
           }
         } else if (listName === 'Closed') {
-          if (ticket.status === 'closed') {
+          if (ticket.status === 3) {
             myList.push(ticket);
           }
         } else if (listName === 'Assigned') {
