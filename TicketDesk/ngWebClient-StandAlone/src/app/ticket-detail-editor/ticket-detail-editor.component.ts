@@ -43,6 +43,7 @@ export class TicketDetailEditorComponent implements OnInit {
     // get back the ID
     this.buttonText = 'Please wait...';
     this.sts.submitTicket(this.form.value).subscribe( res => {
+      console.warn("THIS IS WHAT WE GOT BACK");
       if (res['ticketID']) {
         this.attachFileComponent.addFile();
         this.router.navigate(['/ticket/' + res['ticketID'].toString()]);
