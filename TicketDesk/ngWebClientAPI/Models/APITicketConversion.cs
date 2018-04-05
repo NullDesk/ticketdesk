@@ -154,6 +154,7 @@ namespace ngWebClientAPI.Models
         public string assignedTo { get; set; }
         public TicketStatus status { get; set; }
         public string tagList { get; set; }
+        public string createdDate { get; set; }
         public string title { get; set; }
     }
 
