@@ -1,7 +1,7 @@
 <ngb-tabset justify="fill" (tabChange)="onTabChange">
   <ngb-tab *ngFor="let tabName of tabNames" [class.listName]="tabName" title="{{tabName}}">
     <ng-template ngbTabContent>
-      <div *ngIf="ticketListResults.ticketList" >
+      <div *ngIf="listReady" >
         <app-ticket-list [ticketListResults]="ticketListResult"> </app-ticket-list>
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
