@@ -1,13 +1,15 @@
-<ngb-tabset justify="fill" (tabChange)="onTabChange($event)">
-  <ngb-tab *ngFor="let tabName of tabNames" id={{tabName}} title="{{tabName}} id">
+<ngb-tabset justify="fill" (tabChange)="onTabChange">
+  <ngb-tab *ngFor="let tabName of tabNames" [class.listName]="tabName" title="{{tabName}}">
     <ng-template ngbTabContent>
-      <app-ticket-list [ticketListResults]="ticketListResults"> </app-ticket-list>
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button class="dropdown-item">Assign</button>
-          <button class="dropdown-item">Change Status</button>
-          <button class="dropdown-item">Close</button>
+      <div *ngIf="ticketListResults.ticketList" >
+        <app-ticket-list [ticketListResults]="ticketListResult"> </app-ticket-list>
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item">Assign</button>
+            <button class="dropdown-item">Change Status</button>
+            <button class="dropdown-item">Close</button>
+          </div>
         </div>
       </div>
     </ng-template>
