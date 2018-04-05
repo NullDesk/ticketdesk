@@ -75,9 +75,9 @@ namespace ngWebClientAPI.Controllers
                result = new HttpStatusCodeResult(HttpStatusCode.OK, APITicketConversion.ConvertTicketId(ticket.TicketId).ToString());
                 
             }
-            catch 
+            catch (Exception ex)
             {
-                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
             return result;
         }
