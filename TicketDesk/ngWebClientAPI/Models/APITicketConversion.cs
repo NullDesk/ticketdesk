@@ -19,11 +19,21 @@ namespace ngWebClientAPI.Models
                 
                 data.comment = jsonData["comment"].ToString();
                 data.ticketType = jsonData["ticketType"].ToString();
-                data.owner = jsonData["owner"].ToString();
+                
                 data.category = jsonData["category"].ToString();
                 data.subcategory = jsonData["subcategory"].ToString();
                 data.tagList = jsonData["tagList"].ToString();
                 data.title = jsonData["title"].ToString();
+
+                if(jsonData["priority"] != null )
+                {
+                    data.priority = jsonData["priority"].ToString();
+                }
+                if(jsonData["ownerId"] != null)
+                {
+                    data.owner = jsonData["ownerId"].ToString();
+                }
+               
             }
             catch(Exception ex)
             {
@@ -145,7 +155,6 @@ namespace ngWebClientAPI.Models
         public string assignedTo { get; set; }
         public TicketStatus status { get; set; }
         public string tagList { get; set; }
-        public string createdDate { get; set; }
         public string title { get; set; }
     }
 
