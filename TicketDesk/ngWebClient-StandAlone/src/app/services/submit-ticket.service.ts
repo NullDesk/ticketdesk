@@ -12,7 +12,7 @@ export class SubmitTicketService {
   submitTicket(tkt: Ticket) {
   console.log(tkt);
   console.log('POST');
-  return this.http.post(settings.submitTicketURL, tkt).map(res => {
+  return this.http.post(settings.ticketDetailsURL, tkt).map(res => {
     console.warn('ayyy lmao', JSON.stringify(res));
     return res;
   });

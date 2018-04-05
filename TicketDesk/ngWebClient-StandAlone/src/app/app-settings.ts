@@ -1,5 +1,4 @@
 export const serviceBaseURL = 'http://localhost:50067/api';
-export const submitTicketURL = serviceBaseURL + '/tickets';
 export const ticketDetailsURL = serviceBaseURL + '/ticket/';
 export const ticketEventsURL = ticketDetailsURL + 'events/';
 export const actionURLs = {
