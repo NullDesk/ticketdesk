@@ -12,7 +12,6 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
 
 
 export class TicketCenterComponent implements OnInit {
-  ticketList: ListTicket[];
   tabNames: string[] = ['unassigned', 'assignedToMe', 'mytickets', 'opentickets', 'historytickets']; // Make input settings at some point
   ticketListResults: { 'ticketList': ListTicket[], 'maxPages': number };
 
@@ -21,11 +20,12 @@ export class TicketCenterComponent implements OnInit {
 
   ngOnInit() {
     this.getTicketList('');
+    this.ticketListResults.maxPages = 1;
   }
 
   getTicketList(listName: string): void {
     this.multiTicketService.indexList(listName, 1)
-        .subscribe(ticketList => this.ticketList = ticketList);
+        .subscribe(ticketList => this.ticketListResults.ticketList = ticketList);
   }
 
   onTabChange(event: NgbTabChangeEvent) {
