@@ -1,6 +1,10 @@
 import { AdContactService } from './../services/ad-contact.service';
 import { UserDetails } from 'app/models/user-details';
 import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
+
+export const OWNER_ID_PARAM = 'ownerId'
 
 @Component({
   selector: 'app-contact-info',
@@ -8,10 +12,21 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./contact-info.component.css']
 })
 export class ContactInfoComponent implements OnInit {
-  @Input() ownerId: string;
+  ownerId: string;
   user: UserDetails;
-  constructor(private contactService: AdContactService) {
-    this.contactService = contactService;
+
+  constructor(private router: Router, 
+    private contactService: AdContactService,
+    private activatedRoute: ActivatedRoute,
+    private _ownerId: string) {
+    // this.activatedRoute.params.subscribe(params => {
+    //   if (params[OWNER_ID_PARAM] === '' 
+    //     || isNaN(Number(params[OWNER_ID_PARAM]))) {
+    //     this.router.navigate(['/NaNTickedId'])
+    //     return
+    //   }
+    //   this.ownerId = _ownerId
+    // });
   }
 
   ngOnInit() {
