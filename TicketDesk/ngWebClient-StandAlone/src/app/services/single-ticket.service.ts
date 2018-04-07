@@ -10,7 +10,7 @@ import * as settings from '../app-settings';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 interface TicketPermissions {
-  actionPermissions: number;
+  ticketPermissions: number;
 }
 
 interface EventList {
@@ -56,7 +56,7 @@ export class SingleTicketService {
     console.log('Calling getAvailableTicketActions');
     return this.http.get<TicketPermissions>(
       settings.getValidActionsURL + ticketId.toString()
-    ).map(res => res.actionPermissions);
+    ).map(res => res.ticketPermissions);
   }
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
