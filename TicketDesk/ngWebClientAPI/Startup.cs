@@ -26,6 +26,7 @@ namespace ngWebClientAPI
             var container = RegisterStructureMap(app);
             ConfigureDatabase();
             ConfigureSearch();
+            GlobalConfig.categories = null;
             //ConfigureAuth(app, container);
             //ConfigurePushNotifications();
             //ConfigureApplicationInsights();

@@ -114,24 +114,9 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("categories")]
         public async Task<JObject> getCategories([FromBody]JObject jsonData)
         {
-            //CategorySetting category;
             try
             {
-                var dict = new Dictionary<string, List<string>>();
-                var section = (ConfigurationManager.GetSection("CategorySettings") as System.Collections.Hashtable)
-                 .Cast<System.Collections.DictionaryEntry>()
-                 .ToDictionary(n => n.Key.ToString(), n => n.Value.ToString());
-                foreach (var item in section)
-                {
-                    if (dict.ContainsKey(item.Value))
-                    {
-                        dict[item.Value].Add(item.Key);
-                    }
-                    else
-                    {
-                        dict.Add(item.Value, new List<string>() { item.Key });
-                    }
-                }
+                Dictionary<string, List<string>> dict = GlobalConfig.categories;
                 return JObject.FromObject(dict);
             }
             catch (Exception ex)
