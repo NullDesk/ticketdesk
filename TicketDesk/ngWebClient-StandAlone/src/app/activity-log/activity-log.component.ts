@@ -23,6 +23,7 @@ export class ActivityLogComponent implements OnInit {
     this.singleTicketService.getTicketLog(this.ticketId).subscribe(
       res => {
         this.ticketLog = res;
+        console.warn("here is ticket log", res);
       }
     );
   }
