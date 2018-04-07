@@ -16,6 +16,7 @@ export class TicketListComponent implements OnInit {
   currentPage: number;
 
   ngOnInit() {
+    console.log('maxPages: ', this.ticketListResults.maxPages, 'TicketList: ', this.ticketListResults.ticketList );
   // filter removes objects not of type ticket or null/undefined
     if (Array.isArray(this.displayList)) {
       this.displayList = this.ticketListResults.ticketList
