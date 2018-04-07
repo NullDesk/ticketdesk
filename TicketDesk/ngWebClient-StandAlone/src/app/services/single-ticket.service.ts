@@ -54,12 +54,9 @@ export class SingleTicketService {
   }
   getAvailableTicketActions(ticketId: number): Observable<number> {
     console.log('Calling getAvailableTicketActions');
-    return this.http.get<TicketPermissions>(
+    return this.http.get<number>(
       settings.getValidActionsURL + ticketId.toString()
-    ).map(res => {
-      console.warn("ticket actions got", res);
-      return res.ticketPermissions
-    });
+    );
   }
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
