@@ -16,7 +16,7 @@ export class TicketListComponent implements OnInit {
   currentPage: number;
 
   ngOnInit() {
-    console.log('TicketList:', JSON.stringify(this.ticketListResults));
+    console.warn('colHeadings', JSON.stringify(colHeadings));
     // filter removes objects not of type ticket or null/undefined
     this.displayList = this.ticketListResults.ticketList
           .filter( x => x)

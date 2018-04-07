@@ -4,7 +4,7 @@
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th *ngFor="let heading of colHeadings">{{ heading }}</th>
+                <th *ngFor="let heading of colHeadings" >{{heading}}</th>
             </tr>
         </thead>
         <tbody>
