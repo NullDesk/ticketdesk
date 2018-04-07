@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class TicketListComponent implements OnInit {
   // Adds a vairable to add keep track of checkbox
   private displayList: {'ticket': ListTicket, 'checked': boolean}[];
-  @Input() ticketListResults: { 'ticketList': ListTicket[], 'maxPages': number };
+  @Input() ticketListResults: { ticketList: ListTicket[], maxPages: number };
   @Input() columns: string[];
   currentPage: number;
 
