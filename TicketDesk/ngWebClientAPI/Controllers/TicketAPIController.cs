@@ -112,7 +112,7 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("categories")]
-        public async Task<JObject> getCategories([FromBody]JObject jsonData)
+        public async Task<JObject> getCategories()
         {
             try
             {
@@ -120,6 +120,19 @@ namespace ngWebClientAPI.Controllers
                 return JObject.FromObject(dict);
             }
             catch (Exception ex)
+            {
+                return JObject.FromObject(ex);
+            }
+        }
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("priorities")]
+        public async Task<JObject> getPriorities()
+        {
+            try
+            {
+                return JObject.FromObject(GlobalConfig.priorities);   
+            }
+            catch(Exception ex)
             {
                 return JObject.FromObject(ex);
             }

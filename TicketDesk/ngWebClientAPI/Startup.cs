@@ -27,6 +27,7 @@ namespace ngWebClientAPI
             ConfigureDatabase();
             ConfigureSearch();
             GlobalConfig.categories = null;
+            GlobalConfig.priorities = null;
             //ConfigureAuth(app, container);
             //ConfigurePushNotifications();
             //ConfigureApplicationInsights();

@@ -9,6 +9,8 @@ namespace ngWebClientAPI
     public static class GlobalConfig
     {
         static Dictionary<string, List<string>> _categories;
+        static PriorityList _priorities;
+
         public static Dictionary<string, List<string>> categories
         {
             get
@@ -18,6 +20,18 @@ namespace ngWebClientAPI
             set
             {
                 _categories = setDictionary();
+            }
+        }
+
+        public static PriorityList priorities
+        {
+            get
+            {
+                return _priorities;
+            }
+            set
+            {
+                _priorities = setPriorityList();
             }
         }
 
@@ -40,5 +54,18 @@ namespace ngWebClientAPI
             }
             return categoryDict;
         }
+
+        private static PriorityList setPriorityList()
+        {
+            PriorityList priorityList = new PriorityList();
+            var data = ConfigurationManager.GetSection("PrioritySettings") as System.Collections.Specialized.NameValueCollection;
+            priorityList.list = data["Priorities"].Split(',').ToList();
+            return priorityList;
+        }
+    }
+
+    public class PriorityList
+    {
+        public List<string> list { get; set; }
     }
 }
