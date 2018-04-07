@@ -12,8 +12,8 @@ export interface ListTicket {
   }
 
 // Columns to displayed in a ticket list. Does not include ticketId, or title, as that will always be displayed.
-export const displayCols: string [] = ['status', 'priority', 'owner', 'assignedTo', 'category', 'subcategory',
+export const displayColumns: string [] = ['status', 'priority', 'owner', 'assignedTo', 'category', 'subcategory',
                                        'createdDate', 'updatedDate'];
 // Headings for table (displayed to User)
-export const colHeadings: string[] = ['TicketID', 'Title', 'Status', 'Priority', 'Owner', 'Assigned To', 'Category',
+export const columnHeadings: string[] = ['TicketID', 'Title', 'Status', 'Priority', 'Owner', 'Assigned To', 'Category',
                                       'Created Date', 'Last Updated'];
