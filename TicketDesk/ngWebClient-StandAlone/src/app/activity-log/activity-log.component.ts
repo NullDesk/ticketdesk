@@ -22,8 +22,7 @@ export class ActivityLogComponent implements OnInit {
   ngOnInit() {
     this.singleTicketService.getTicketLog(this.ticketId).subscribe(
       res => {
-        this.ticketLog = res;
-        console.warn('here is ticket log', res);
+        this.ticketLog = res.list;
       }
     );
   }
