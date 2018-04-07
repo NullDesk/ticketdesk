@@ -9,15 +9,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let row of displayList">
-                <td>
-                    <input  type="checkbox" [(checked)]="row.checked"> </td>
-                <td routerLink="/ticket/{{row.ticket.ticketId}}">
-                    <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
-                </td>
-                <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
-                <td *ngFor="let col of displayCols"> {{row.ticket.col}} </td>
+                <td> <input  type="checkbox" [(checked)]="row.checked"> </td>
+                <app-ticket-list-row [ticket]="row"> </app-ticket-list-row> 
             </tr>
-
         </tbody>
         <!-- Pagination goes here !-->
     </table>
