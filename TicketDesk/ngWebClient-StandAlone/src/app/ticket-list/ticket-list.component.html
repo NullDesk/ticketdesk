@@ -4,8 +4,7 @@
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th>TicketID</th>
-                <th *ngFor="let heading of headingsList">{{ heading }}</th>
+                <th *ngFor="let heading of colHeadings">{{ heading }}</th>
             </tr>
         </thead>
         <tbody>
@@ -16,12 +15,7 @@
                     <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
-                <td> {{ row.ticket.status }} </td>
-                <td> {{ row.ticket.priority }} </td>
-                <td> {{ row.ticket.owner }} </td>
-                <td> {{ row.ticket.assignedTo }} </td>
-                <td> {{ row.ticket.category }} </td>
-                <td> {{ row.ticket.createdDate }}</td>
+                <td *ngFor="let col of displayCols"> {{row.ticket.col}} </td>
             </tr>
 
         </tbody>
@@ -29,4 +23,7 @@
     </table>
     <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+    <ul>
+        <li *ngFor="let ticket of ticketListResults.ticketList"> {{ticket.ticketId}} </li>
+    </ul>
 </div>

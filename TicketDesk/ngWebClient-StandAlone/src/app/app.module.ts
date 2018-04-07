@@ -20,7 +20,6 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SingleTicketService } from './services/single-ticket.service';
-import { TicketCenterListComponent } from './ticket-center-list/ticket-center-list.component';
 import { TicketActionEntryComponent } from './ticket-action-entry/ticket-action-entry.component';
 import { TicketActionBoxComponent } from './ticket-action-box/ticket-action-box.component';
 import { AdUserSelectorComponent } from './ad-user-selector/ad-user-selector.component';
@@ -54,7 +53,6 @@ const appRoutes: Routes = [
     ContactInfoComponent,
     SearchBoxComponent,
     AttachFileComponent,
-    TicketCenterListComponent,
     AdUserSelectorComponent,
     SearchResultsViewComponent,
   ],
