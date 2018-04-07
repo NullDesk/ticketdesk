@@ -259,6 +259,7 @@
     <Compile Include="Controllers\TicketDeskControllers\TicketCenterController.cs" />
     <Compile Include="Controllers\TicketDeskControllers\TicketController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="GlobalConfig.cs" />
     <Compile Include="Infrastructure\DbSetupFilter.cs" />
     <Compile Include="Infrastructure\Filters\LocalizationFilter.cs" />
     <Compile Include="Infrastructure\Filters\TdAuthorizeAttribute.cs" />

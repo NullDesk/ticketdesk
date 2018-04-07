@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using Newtonsoft.Json;
 using System.Web.Mvc;
+using System.Linq;
 using System.Net;
 using ngWebClientAPI.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System.Linq;
+using System.Configuration;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -26,7 +26,7 @@ namespace ngWebClientAPI.Controllers
             {
                 var model = await ticketController.GetTicketList(); //returns list of all tickets
                 List<FrontEndTicket> TicketList = new List<FrontEndTicket>();
-                foreach(var item in model)
+                foreach (var item in model)
                 {
                     TicketList.Add(APITicketConversion.ConvertGETTicket(item));
                 }
@@ -34,7 +34,7 @@ namespace ngWebClientAPI.Controllers
                 lst.list = TicketList;
                 return JObject.FromObject(lst);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return JObject.FromObject(ex.Message);
             }
@@ -59,7 +59,7 @@ namespace ngWebClientAPI.Controllers
             {
                 return null;
             }
-            
+
         }
 
         [System.Web.Http.HttpPost]
@@ -108,6 +108,21 @@ namespace ngWebClientAPI.Controllers
                 return JObject.FromObject(ex);
             }
 
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("categories")]
+        public async Task<JObject> getCategories([FromBody]JObject jsonData)
+        {
+            try
+            {
+                Dictionary<string, List<string>> dict = GlobalConfig.categories;
+                return JObject.FromObject(dict);
+            }
+            catch (Exception ex)
+            {
+                return JObject.FromObject(ex);
+            }
         }
     }
 }

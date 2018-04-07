@@ -26,6 +26,7 @@ namespace TicketDesk.Domain.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "TicketDeskCore";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(TdDomainContext context)

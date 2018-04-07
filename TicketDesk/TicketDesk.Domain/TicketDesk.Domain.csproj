@@ -163,6 +163,7 @@
     <Compile Include="Model\ApplicaitonSettingsModel\ApplicationSelectListSetting.cs" />
     <Compile Include="Model\ApplicaitonSettingsModel\ClientSettings.cs" />
     <Compile Include="Model\ApplicationSettings.cs" />
+    <Compile Include="Model\CategorySetting.cs" />
     <Compile Include="Model\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />

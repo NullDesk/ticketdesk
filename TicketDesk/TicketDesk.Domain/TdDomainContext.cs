@@ -135,7 +135,7 @@ namespace TicketDesk.Domain
         public DbSet<TicketTag> TicketTags { get; set; }
         public DbSet<TicketSubscriber> TicketSubscribers { get; set; }
         public DbSet<TicketEventNotification> TicketEventNotifications { get; set; }
-
+        public DbSet<CategorySetting> CategorySettings { get; set; } 
 
         //These DbSets contain json serialized content. Callers cannot use standard LINQ to Entities 
         //  expressions with these safely. Marking internal to prevent callers having direct access
@@ -153,7 +153,38 @@ namespace TicketDesk.Domain
             }
         }
 
+        public CategorySetting TdCategorySettings
+        {
+            get
+            {
+                var aps = CategorySettings.ToList();
+                if(aps == null)
+                {
+                    List<Tuple<string, string>> defaultCategories = new List<Tuple<string, string>>()
+                    {
+                        new Tuple<string, string>("Hardware", "Monitor"),
+                        new Tuple<string, string>("Hardware", "PC"),
+                        new Tuple<string, string>("Software","Program")
+                    };
+                    foreach(var item in defaultCategories)
+                    {
+                        CategorySetting e = new CategorySetting();
+                        e.Category = item.Item1;
+                        e.SubCategory = item.Item2;
+                        CategorySettings.Add(e);
+                    }
+                    //aps = CategorySettings.ToList();
+                }
+                //not really sure if we want to return anything here since we will do some
+                //other stuff when querying this table
+                return null;
 
+            }
+            set
+            {
+                CategorySettings.Add(value);
+            }
+        }
         /// <summary>
         /// Gets or sets the application settings specific to ticketdesk.
         /// </summary>
