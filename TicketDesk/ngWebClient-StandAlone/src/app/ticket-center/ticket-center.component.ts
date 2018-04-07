@@ -29,6 +29,7 @@ export class TicketCenterComponent implements OnInit {
     this.multiTicketService.indexList(listName, 1)
         .subscribe(ticketList => {
           this.ticketListResults.ticketList = ticketList;
+          console.warn('got that ticketList', JSON.stringify(this.ticketListResults.ticketList));
           this.listReady = true; });
   }
 
