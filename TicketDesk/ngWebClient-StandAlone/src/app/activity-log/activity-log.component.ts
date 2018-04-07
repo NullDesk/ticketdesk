@@ -10,7 +10,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./activity-log.component.css']
 })
 export class ActivityLogComponent implements OnInit {
-  ticketLog: Entry[] = null;
+  ticketLog: Entry[] = [];
   ticketId: number = null;
 
   constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute) {
@@ -22,6 +22,7 @@ export class ActivityLogComponent implements OnInit {
   ngOnInit() {
     this.singleTicketService.getTicketLog(this.ticketId).subscribe(
       res => {
+        console.warn("res.list is ", res.list);
         this.ticketLog = res.list;
       }
     );
