@@ -38,14 +38,14 @@ export class SingleTicketService {
 
   }
 
-  getTicketLog(ticketId: number): Observable<Entry[]> {
-    return this.http.get<EventList>(
+  getTicketLog(ticketId: number): Observable<any> {
+    return this.http.get(
       settings.ticketEventsURL + ticketId.toString()
-    ).map(res => {
-      if (res['events']) {
-        return res['events'];
-      } // todo: actual error handling here
-    });
+    ); // .map(res => {
+     // if (res['events']) {
+      //  return res['events'];
+   //   } // todo: actual error handling here
+   // });
   }
 
   changeTicketSubscription(ticketID: number) {

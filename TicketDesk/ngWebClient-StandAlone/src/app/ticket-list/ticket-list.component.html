@@ -15,7 +15,7 @@
                     <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
-                <td *ngFor="let col of displayCols"> {{row.ticket.col}} </td>
+                <td *ngFor="let col of displayCols"> {{ row.ticket.col }} </td>
             </tr>
 
         </tbody>
@@ -24,6 +24,6 @@
     <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
     <ul>
-        <li *ngFor="let ticket of ticketListResults.ticketList"> {{ticket.ticketId}} </li>
+        <li *ngFor="let ticket of ticketListResults.ticketList"> {{ ticket.ticketId }} </li>
     </ul>
 </div>
