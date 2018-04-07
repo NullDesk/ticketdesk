@@ -10,21 +10,19 @@ import { FormsModule } from '@angular/forms';
 
 export class TicketListComponent implements OnInit {
   // Adds a vairable to add keep track of checkbox
-  private displayList: {'ticket': ListTicket, 'checked': boolean}[];
+  private displayList: {ticket: ListTicket, checked: boolean}[];
   @Input() ticketListResults: { ticketList: ListTicket[], maxPages: number };
   @Input() columns: string[];
   currentPage: number;
 
   ngOnInit() {
     console.log('TicketList:', JSON.stringify(this.ticketListResults));
-  // filter removes objects not of type ticket or null/undefined
-    if (Array.isArray(this.displayList)) {
-      this.displayList = this.ticketListResults.ticketList
-            .filter( x => x)
-            .map(ticket => ({'ticket': ticket, 'checked': false}));
-      this.currentPage = 1;
-      }
-  }
+    // filter removes objects not of type ticket or null/undefined
+    this.displayList = this.ticketListResults.ticketList
+          .filter( x => x)
+          .map(ticket => ({ticket: ticket, checked: false}));
+    this.currentPage = 1;
+}
 
   isAllChecked() {
     return this.displayList.every(x => x.checked);
