@@ -12,13 +12,13 @@ export const OWNER_ID_PARAM = 'ownerId'
   styleUrls: ['./contact-info.component.css']
 })
 export class ContactInfoComponent implements OnInit {
+  @Input()
   ownerId: string;
   user: UserDetails;
 
   constructor(private router: Router, 
     private contactService: AdContactService,
-    private activatedRoute: ActivatedRoute,
-    private _ownerId: string) {
+    private activatedRoute: ActivatedRoute) {
     // this.activatedRoute.params.subscribe(params => {
     //   if (params[OWNER_ID_PARAM] === '' 
     //     || isNaN(Number(params[OWNER_ID_PARAM]))) {
