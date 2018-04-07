@@ -20,10 +20,7 @@ interface EventList {
 @Injectable()
 export class SingleTicketService {
 
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  constructor(private http: HttpClient) {}
 
   getTicketDetails(ticketId: number): Observable<any> {
     return this.http.get(settings.ticketDetailsURL + ticketId.toString())
