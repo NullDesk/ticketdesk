@@ -35,7 +35,7 @@ namespace ngWebClientAPI.Controllers
             var userManager = new TicketDeskUserManager(userStore);
             var roleManager = new TicketDeskRoleManager(roleStore);
 
-            roleManager.EnsureDefaultRolesExist();
+           // roleManager.EnsureDefaultRolesExist();
 
             TicketDeskUser user = userManager.FindByName("admin@example.com");
             if (user == null)
@@ -53,7 +53,9 @@ namespace ngWebClientAPI.Controllers
                 userManager.AddToRole(user.Id, "TdInternalUsers");
                 context.SaveChanges();
             }
+
             TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
+
             ticketCenterController = new TicketCenterController(new TdDomainContext(secur));
         }
 
@@ -72,11 +74,11 @@ namespace ngWebClientAPI.Controllers
             int? page = data["page"].ToObject<int?>();
             string listName = null;
 
-            if(data["listName"].HasValues)
+            if(data["listName"] == null)
             {
-                data["listName"].ToObject<string>();
+                listName = data["listName"].ToObject<string>();
             }
-
+            listName = "opentickets";
             List<Ticket> ticketList = await ticketCenterController.Index(page, listName);
             List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
             return tkDTO;
