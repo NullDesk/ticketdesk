@@ -56,7 +56,10 @@ export class SingleTicketService {
     console.log('Calling getAvailableTicketActions');
     return this.http.get<TicketPermissions>(
       settings.getValidActionsURL + ticketId.toString()
-    ).map(res => res.ticketPermissions);
+    ).map(res => {
+      console.warn("ticket actions got", res);
+      return res.ticketPermissions
+    });
   }
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
