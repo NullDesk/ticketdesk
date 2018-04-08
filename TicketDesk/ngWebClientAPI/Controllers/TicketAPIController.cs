@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using Newtonsoft.Json;
 using System.Web.Mvc;
 using System.Linq;
 using System.Net;
 using ngWebClientAPI.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System.Linq;
+using System.Configuration;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -109,8 +108,30 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("categories")]
         public async Task<JObject> getCategories([FromBody]JObject jsonData)
         {
-            //CategorySetting category = await TdDomainContext.CategorySetting;
-            return null;
+            //CategorySetting category;
+            try
+            {
+                var dict = new Dictionary<string, List<string>>();
+                var section = (ConfigurationManager.GetSection("CategorySettings") as System.Collections.Hashtable)
+                 .Cast<System.Collections.DictionaryEntry>()
+                 .ToDictionary(n => n.Key.ToString(), n => n.Value.ToString());
+                foreach (var item in section)
+                {
+                    if (dict.ContainsKey(item.Value))
+                    {
+                        dict[item.Value].Add(item.Key);
+                    }
+                    else
+                    {
+                        dict.Add(item.Value, new List<string>() { item.Key });
+                    }
+                }
+                return JObject.FromObject(dict);
+            }
+            catch (Exception ex)
+            {
+                return JObject.FromObject(ex);
+            }
         }
     }
 }

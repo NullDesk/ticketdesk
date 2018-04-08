@@ -96,7 +96,7 @@ namespace ngWebClientAPI.Controllers
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
-                Ticket ticket = await ticketActivityController.AddComment(info.ticketdeskId, info.comment);
+                Ticket ticket = await ticketActivityController.AddComment(info.ticketId, info.comment);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch(Exception ex)
