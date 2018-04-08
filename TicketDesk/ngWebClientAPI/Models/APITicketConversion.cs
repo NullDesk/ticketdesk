@@ -17,13 +17,23 @@ namespace ngWebClientAPI.Models
 
                 //data = jsonData.ToObject<FrontEndTicket>();//this conversion results in null for everything
                 
-                data.comment = jsonData["comment"].ToString();
+                data.details = jsonData["details"].ToString();
                 data.ticketType = jsonData["ticketType"].ToString();
-                data.owner = jsonData["owner"].ToString();
+                
                 data.category = jsonData["category"].ToString();
                 data.subcategory = jsonData["subcategory"].ToString();
                 data.tagList = jsonData["tagList"].ToString();
                 data.title = jsonData["title"].ToString();
+
+                if(jsonData["priority"] != null )
+                {
+                    data.priority = jsonData["priority"].ToString();
+                }
+                if(jsonData["ownerId"] != null)
+                {
+                    data.owner = jsonData["ownerId"].ToString();
+                }
+               
             }
             catch(Exception ex)
             {
@@ -32,7 +42,7 @@ namespace ngWebClientAPI.Models
             Ticket ticket = new Ticket(); //made new ticket object
             ticket.TicketId = default(int); //inserting to DB will assign backend ticketID
             ticket.ProjectId = 1; //assuming front end will pass back project ID as int
-            ticket.Details = data.comment; //assuming coming from comment field
+            ticket.Details = data.details; //assuming coming from comment field
             ticket.Priority = "None"; //we don't know priority yet
             ticket.TicketType = data.ticketType;
             ticket.Category = data.category;
@@ -79,7 +89,7 @@ namespace ngWebClientAPI.Models
             Int64 y = Int64.Parse(ticketID);
             FETicket.ticketId = y;
             FETicket.projectId = ticket.ProjectId;
-            FETicket.comment = ticket.Details;
+            FETicket.details = ticket.Details;
             FETicket.priority = ticket.Priority;
             FETicket.ticketType = ticket.TicketType;
             FETicket.category = ticket.Category;
@@ -106,13 +116,35 @@ namespace ngWebClientAPI.Models
             //yymmddhhmm
             return int.Parse(sId.Substring(10, sId.Length-10));
         }
-    }
 
+        public static FrontEndEvent ConvertEvent(TicketEvent item)
+        {
+            FrontEndEvent singleEvent = new FrontEndEvent();
+
+            singleEvent.eventId = item.EventId;
+            singleEvent.userId = item.EventBy;
+            singleEvent.actionText = item.EventDescription;
+            singleEvent.date = item.EventDate.ToString();
+            singleEvent.comment = item.Comment;
+            singleEvent.actionEnum = item.ForActivity.ToString();
+
+            return singleEvent;
+        }
+    }
+    public class FrontEndEvent
+    {
+        public int eventId { get; set; }
+        public string userId { get; set; }
+        public string actionText { get; set; }
+        public string date { get; set; }
+        public string comment { get; set; }
+        public string actionEnum { get; set; }
+
+    }
     public class FrontEndTicket
     {
         public Int64 ticketId { get; set; }
         public int projectId { get; set; }
-        public string comment { get; set; }
         public string details { get; set; }
         public string priority { get; set; }
         public string ticketType { get; set; }
@@ -133,6 +165,6 @@ namespace ngWebClientAPI.Models
 
     public class EventList
     {
-        public List<TicketEvent> list { get; set; }
+        public List<FrontEndEvent> list { get; set; }
     }
 }
