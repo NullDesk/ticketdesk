@@ -49,14 +49,12 @@ export class SingleTicketService {
     console.log('performing ' + action.displayText);
     return this.http.post<Object>(action.getURL(), value);
   }
-  getAvailableTicketActions(ticketId: number) {
+  getAvailableTicketActions(ticketId: number): Observable<number> {
     console.log('Calling getAvailableTicketActions');
-
-    return this.http.get(
+    return this.http.get<number>(
       settings.getValidActionsURL + ticketId.toString()
     );
   }
-
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
       // ... this is a client side error, handle it!

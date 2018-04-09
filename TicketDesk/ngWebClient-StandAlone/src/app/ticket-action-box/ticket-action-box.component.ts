@@ -35,6 +35,7 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['permissions']) {
       this.permissions = changes['permissions'].currentValue;
+      console.warn('permissions now', this.permissions);
       this.allowedActions = TicketActionEnum.getActivityList(this.permissions);
     }
   }
