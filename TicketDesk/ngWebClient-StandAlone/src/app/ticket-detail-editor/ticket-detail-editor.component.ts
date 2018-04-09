@@ -19,6 +19,7 @@ export class TicketDetailEditorComponent implements OnInit {
   ticketTypes: string[];
   categories: string[];
   buttonText = 'Submit';
+  submitting = false;
   constructor(@Inject(FormBuilder) fb: FormBuilder,
     private sts: SubmitTicketService,
     private router: Router,
@@ -42,6 +43,8 @@ export class TicketDetailEditorComponent implements OnInit {
     // do the ticket
     // get back the ID
     this.buttonText = 'Please wait...';
+    if (this.submitting) { return; }
+    this.submitting = true;
     this.sts.submitTicket(this.form.value).subscribe( res => {
       console.warn('THIS IS WHAT WE GOT BACK', res);
       if (res['ticketID']) {
@@ -50,6 +53,7 @@ export class TicketDetailEditorComponent implements OnInit {
       } else {
         this.router.navigate(['OH_NO_OH_NO_OH_NO']);
       }
+      this.submitting = false;
     });
   }
 }

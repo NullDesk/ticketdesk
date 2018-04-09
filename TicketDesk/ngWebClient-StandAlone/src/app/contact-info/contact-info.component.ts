@@ -15,7 +15,10 @@ export class ContactInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.contactService.getContactCardInfo(this.ownerId);
+    this.contactService.getContactCardInfo(this.ownerId)
+      .subscribe(res => {
+        this.user = res;
+      });
   }
 
 }

@@ -29,6 +29,6 @@
     <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
     <ul>
-        <li *ngFor="let ticket of ticketListResults.ticketList"> {{ticket.ticketId}} </li>
+        <li *ngFor="let ticket of ticketListResults.ticketList"> {{ ticket.ticketId }} </li>
     </ul>
 </div>
