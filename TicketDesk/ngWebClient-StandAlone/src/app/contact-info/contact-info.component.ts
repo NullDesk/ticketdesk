@@ -1,8 +1,6 @@
 import { AdContactService } from './../services/ad-contact.service';
 import { UserDetails } from 'app/models/user-details';
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -15,9 +13,7 @@ export class ContactInfoComponent implements OnInit {
   ownerId: string;
   user: UserDetails;
 
-  constructor(private router: Router,
-    private contactService: AdContactService,
-    private activatedRoute: ActivatedRoute) { }
+  constructor(private contactService: AdContactService) { }
 
   ngOnInit() {
     this.contactService.getContactCardInfo(this.ownerId)
