@@ -24,7 +24,6 @@ import { TicketActionEntryComponent } from './ticket-action-entry/ticket-action-
 import { TicketActionBoxComponent } from './ticket-action-box/ticket-action-box.component';
 import { AdUserSelectorComponent } from './ad-user-selector/ad-user-selector.component';
 import { SearchResultsViewComponent } from './search-results-view/search-results-view.component';
-import { TicketListRowComponent } from './ticket-list-row/ticket-list-row.component';
 
 const appRoutes: Routes = [
   { path: 'ticket/:ticketID', component: SingleTicketViewComponent },
@@ -56,7 +55,6 @@ const appRoutes: Routes = [
     AttachFileComponent,
     AdUserSelectorComponent,
     SearchResultsViewComponent,
-    TicketListRowComponent,
   ],
   imports: [
     ServicesModule,
