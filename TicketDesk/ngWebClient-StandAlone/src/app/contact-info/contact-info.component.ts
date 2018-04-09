@@ -4,7 +4,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 
-export const OWNER_ID_PARAM = 'ownerId'
 
 @Component({
   selector: 'app-contact-info',
