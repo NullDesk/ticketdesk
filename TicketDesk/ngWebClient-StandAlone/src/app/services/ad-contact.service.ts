@@ -15,10 +15,10 @@ export class AdContactService {
 
   getContactCardInfo(userID: string): Observable<UserDetails> {
     return Observable.of({
-      firstName: '<First Name>', 
-      lastName: '<Last Name>', 
-      phoneNumber: '<Phone Number>', 
-      email: 'stillneed@activedirectory.com', 
+      firstName: '<First Name>',
+      lastName: '<Last Name>',
+      phoneNumber: '<Phone Number>',
+      email: 'stillneed@activedirectory.com',
       userId: userID});
   }
 

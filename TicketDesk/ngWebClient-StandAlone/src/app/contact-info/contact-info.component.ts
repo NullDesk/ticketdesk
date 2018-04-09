@@ -15,11 +15,11 @@ export class ContactInfoComponent implements OnInit {
   ownerId: string;
   user: UserDetails;
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private contactService: AdContactService,
     private activatedRoute: ActivatedRoute) {
     // this.activatedRoute.params.subscribe(params => {
-    //   if (params[OWNER_ID_PARAM] === '' 
+    //   if (params[OWNER_ID_PARAM] === ''
     //     || isNaN(Number(params[OWNER_ID_PARAM]))) {
     //     this.router.navigate(['/NaNTickedId'])
     //     return

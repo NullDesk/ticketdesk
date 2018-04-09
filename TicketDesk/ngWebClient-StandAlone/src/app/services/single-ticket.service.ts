@@ -38,7 +38,7 @@ export class SingleTicketService {
   getTicketLog(ticketId: number): Observable<any> {
     return this.http.get(
       settings.ticketEventsURL + ticketId.toString()
-    ).map(res => res['list']); 
+    ).map(res => res['list']);
   }
 
   changeTicketSubscription(ticketID: number) {
