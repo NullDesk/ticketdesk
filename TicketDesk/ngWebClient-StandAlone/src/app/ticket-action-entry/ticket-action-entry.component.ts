@@ -42,7 +42,7 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     formValue.ticketId = this.ticketId;
     console.log(formValue);
     this.singleTicketService.submitTicketAction(formValue, this.action).subscribe(
-      res => {console.warn("Ticket submission returned", res);}
+      res => {console.warn('Ticket submission returned', res); }
     );
     console.log('you made a click');
   }
