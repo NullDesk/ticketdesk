@@ -29,8 +29,6 @@ export class MultiTicketService {
     // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: page, listName: listName};
     const ticketList = this.http.post<ListTicket[]>( settings.getTicketsIndex, params, this.httpOptions);
-    console.warn('This is what I got from the fucking Get call');
-    console.warn(ticketList);
     return ticketList.map(res => {
       console.warn('TicketList Responese', JSON.stringify(res));
       return res;
