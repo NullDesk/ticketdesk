@@ -13,6 +13,7 @@ using System.Configuration;
 
 namespace ngWebClientAPI.Controllers
 {
+    [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/ticket")]
     public class TicketAPIController : ApiController
     {
@@ -70,7 +71,10 @@ namespace ngWebClientAPI.Controllers
             //convert data to comment and ID
             try
             {
-                Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData);
+                /*This is going to be temporary.*/
+                string userName = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
+
+                Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData, userName);
                 bool status = await ticketController.CreateTicketAsync(ticket);
                result = new HttpStatusCodeResult(HttpStatusCode.OK, APITicketConversion.ConvertTicketId(ticket.TicketId).ToString());
                 

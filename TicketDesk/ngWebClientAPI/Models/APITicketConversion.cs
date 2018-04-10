@@ -9,13 +9,11 @@ namespace ngWebClientAPI.Models
 {
     public class APITicketConversion
     {
-        public static Ticket ConvertPOSTTicket(JObject jsonData)
+        public static Ticket ConvertPOSTTicket(JObject jsonData, string userName)
         {
             FrontEndTicket data = new FrontEndTicket();
             try
             {
-
-                //data = jsonData.ToObject<FrontEndTicket>();//this conversion results in null for everything
                 
                 data.details = jsonData["details"].ToString();
                 data.ticketType = jsonData["ticketType"].ToString();
@@ -24,43 +22,67 @@ namespace ngWebClientAPI.Models
                 data.subcategory = jsonData["subcategory"].ToString();
                 data.tagList = jsonData["tagList"].ToString();
                 data.title = jsonData["title"].ToString();
+                
 
-                if(jsonData["priority"] != null )
+                if (jsonData["priority"] != null )
                 {
                     data.priority = jsonData["priority"].ToString();
                 }
-                if(jsonData["ownerId"] != null)
+                if (jsonData["assignedTo"] != null)
+                {
+                    data.assignedTo = jsonData["assignedTo"].ToString();
+                }
+
+                if (jsonData["ownerId"] != null )
                 {
                     data.owner = jsonData["ownerId"].ToString();
+                } else
+                {
+                    data.owner = userName;
                 }
-               
             }
             catch(Exception ex)
             {
                 return null;
             }
-            Ticket ticket = new Ticket(); //made new ticket object
-            ticket.TicketId = default(int); //inserting to DB will assign backend ticketID
-            ticket.ProjectId = 1; //assuming front end will pass back project ID as int
-            ticket.Details = data.details; //assuming coming from comment field
-            ticket.Priority = "None"; //we don't know priority yet
-            ticket.TicketType = data.ticketType;
-            ticket.Category = data.category;
-            ticket.SubCategory = data.subcategory; //no subcategory thing in TD currently, might add?
-            ticket.Owner = data.owner; //might have to use auth data to get owner/created by info
-            ticket.AssignedTo = "Open"; //probably will be null since we don't want users to assign their own tickets
-            ticket.TicketStatus = TicketStatus.Active; //assuming ticket is open
-            ticket.TagList = data.tagList;
-            ticket.CreatedDate = DateTime.Now; //we get the datetime ourselves when new ticket
-            ticket.Title = data.title;
-            ticket.CreatedBy = data.owner; //might have to use the auth stuff
-            ticket.IsHtml = false;
-            ticket.CurrentStatusDate = ticket.CreatedDate;
-            ticket.CurrentStatusSetBy = ticket.CreatedBy;
-            ticket.LastUpdateBy = ticket.CreatedBy;
-            ticket.LastUpdateDate = ticket.CreatedDate;
-            ticket.AffectsCustomer = true;
-            ticket.SemanticId = ticket.CreatedDate.ToString("yyMMddHHmm"); //formatting for semantic numbering
+
+            List<TicketTag> tt = new List<TicketTag>();
+
+            List<string> ts = data.tagList.Split(',').ToList();
+
+            foreach(var name in ts)
+            {
+                tt.Add(new TicketTag() { TagName = name });
+            }
+
+            DateTime now = DateTime.Now;
+
+            Ticket ticket = new Ticket
+            {
+                ProjectId = 1,
+                Title = data.title,
+                AffectsCustomer = false,
+                Category = data.category,
+                SubCategory = data.subcategory,
+                CreatedBy = data.owner,
+                TicketStatus = TicketStatus.Active,
+                CreatedDate = now,
+                CurrentStatusDate = now,
+                CurrentStatusSetBy = data.owner,
+                Details = data.details,
+                IsHtml = false,
+                LastUpdateBy = data.owner,
+                LastUpdateDate = now,
+                Owner = data.owner,
+                Priority = data.priority,
+                AssignedTo = data.assignedTo,
+                TagList = data.tagList,
+                TicketTags = tt,
+                TicketType = data.ticketType,
+                TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.owner, TicketActivity.Create, null, null, null) },
+                SemanticId = now.ToString("yyMMddHHmm"), /*Formatting for semantic numbering.*/
+            };
+
             return ticket;
         }
         public static FrontEndTicket ConvertGETTicket(Ticket ticket)
