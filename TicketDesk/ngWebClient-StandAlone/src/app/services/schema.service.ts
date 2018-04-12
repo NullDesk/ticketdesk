@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { tickets } from './ticket_db';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';

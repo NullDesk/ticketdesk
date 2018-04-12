@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Ticket } from '../models/ticket';
 import { SearchService} from '../services/search.service';
+import { ListTicket } from '../models/list-ticket';
+
 
 @Component({
   selector: 'app-search-results-view',
@@ -11,7 +12,7 @@ import { SearchService} from '../services/search.service';
 
 export class SearchResultsViewComponent implements OnInit {
   private term: string;
-  private ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
+  private ticketListResults: { ticketList: ListTicket[], maxPages: number };
 
   constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {
@@ -21,7 +22,14 @@ export class SearchResultsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ticketListResults = this.searchService.search(this.term);
+    this.getTicketList('');
   }
 
+  getTicketList(listName: string): void {
+    console.log('Getting ticketlist for', listName);
+    this.searchService.search(listName)
+        .subscribe(ticketList => {
+          this.ticketListResults.ticketList = ticketList;
+        });
+  }
 }

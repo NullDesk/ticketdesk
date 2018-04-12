@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Ticket } from '../models/ticket';
 import { ListTicket } from '../models/list-ticket';
-import { tickets } from './ticket_db';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import * as settings from '../app-settings';
 import { Observable } from 'rxjs/Observable';
@@ -12,8 +11,7 @@ export class MultiTicketService {
 
   constructor(
     private http: HttpClient
-  ) {
-  }
+  ) {}
 
   private httpOptions = {
     headers: new HttpHeaders({
