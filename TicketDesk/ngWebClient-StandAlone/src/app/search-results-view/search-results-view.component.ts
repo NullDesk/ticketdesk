@@ -12,7 +12,7 @@ import { ListTicket } from '../models/list-ticket';
 
 export class SearchResultsViewComponent implements OnInit {
   private term: string;
-  private ticketListResults: { ticketList: ListTicket[], maxPages: number };
+  private ticketListResults: { ticketList: ListTicket[], maxPages: number } = { ticketList: undefined, maxPages: 1};
   private listReady: Boolean = false;
   constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {
