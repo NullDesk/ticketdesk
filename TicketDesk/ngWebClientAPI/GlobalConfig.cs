@@ -9,7 +9,8 @@ namespace ngWebClientAPI
     public static class GlobalConfig
     {
         static Dictionary<string, List<string>> _categories;
-        static PriorityList _priorities;
+        static JStringList _priorities;
+        static JStringList _ticketTypes;
 
         public static Dictionary<string, List<string>> categories
         {
@@ -23,7 +24,7 @@ namespace ngWebClientAPI
             }
         }
 
-        public static PriorityList priorities
+        public static JStringList priorities
         {
             get
             {
@@ -32,6 +33,18 @@ namespace ngWebClientAPI
             set
             {
                 _priorities = setPriorityList();
+            }
+        }
+
+        public static JStringList ticketTypes
+        {
+            get
+            {
+                return _ticketTypes;
+            }
+            set
+            {
+                _ticketTypes = setTicketTypeList();
             }
         }
 
@@ -55,16 +68,24 @@ namespace ngWebClientAPI
             return categoryDict;
         }
 
-        private static PriorityList setPriorityList()
+        private static JStringList setPriorityList()
         {
-            PriorityList priorityList = new PriorityList();
+            JStringList priorityList = new JStringList();
             var data = ConfigurationManager.GetSection("PrioritySettings") as System.Collections.Specialized.NameValueCollection;
             priorityList.list = data["Priorities"].Split(',').ToList();
             return priorityList;
         }
+
+        private static JStringList setTicketTypeList()
+        {
+            JStringList typeList = new JStringList();
+            var data = ConfigurationManager.GetSection("TicketTypeSettings") as System.Collections.Specialized.NameValueCollection;
+            typeList.list = data["TicketTypes"].Split(',').ToList();
+            return typeList;
+        }
     }
 
-    public class PriorityList
+    public class JStringList
     {
         public List<string> list { get; set; }
     }

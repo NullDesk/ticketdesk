@@ -141,5 +141,19 @@ namespace ngWebClientAPI.Controllers
                 return JObject.FromObject(ex);
             }
         }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("tickettypes")]
+        public async Task<JObject> getTicketTypes()
+        {
+            try
+            {
+                return JObject.FromObject(GlobalConfig.ticketTypes);
+            }
+            catch(Exception ex)
+            {
+                return JObject.FromObject(ex);
+            }
+        }
     }
 }
