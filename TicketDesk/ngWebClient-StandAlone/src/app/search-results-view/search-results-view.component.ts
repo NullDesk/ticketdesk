@@ -13,7 +13,7 @@ import { ListTicket } from '../models/list-ticket';
 export class SearchResultsViewComponent implements OnInit {
   private term: string;
   private ticketListResults: { ticketList: ListTicket[], maxPages: number };
-
+  private listReady: Boolean = false;
   constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
@@ -26,10 +26,12 @@ export class SearchResultsViewComponent implements OnInit {
   }
 
   getTicketList(listName: string): void {
+    this.listReady = false;
     console.log('Getting ticketlist for', listName);
     this.searchService.search(listName)
         .subscribe(ticketList => {
           this.ticketListResults.ticketList = ticketList;
+          this.listReady = true;
         });
   }
 }
