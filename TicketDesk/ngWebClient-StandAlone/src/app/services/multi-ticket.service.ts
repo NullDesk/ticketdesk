@@ -13,11 +13,6 @@ export class MultiTicketService {
     private http: HttpClient
   ) {}
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
 
   // Get ticketList from index enpoint
   indexList(
@@ -26,7 +21,7 @@ export class MultiTicketService {
   ): Observable<TicketStub[]> {
     // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: page, listName: listName};
-    const ticketList = this.http.post<TicketStub[]>( settings.getTicketsIndex, params, this.httpOptions);
+    const ticketList = this.http.post<TicketStub[]>( settings.getTicketsIndex, params);
     return ticketList.map(res => {
       console.warn('TicketList Responese', JSON.stringify(res));
       return res;
@@ -34,7 +29,7 @@ export class MultiTicketService {
   }
 
   resetFilterAndSort() {
-    this.http.post( settings.resetTicketsFilterAndSort, '', this.httpOptions);
+    this.http.post( settings.resetTicketsFilterAndSort, '');
   }
 
   sortList(
