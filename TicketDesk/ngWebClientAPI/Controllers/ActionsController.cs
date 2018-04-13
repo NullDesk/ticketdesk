@@ -27,44 +27,20 @@ namespace ngWebClientAPI.Controllers
     {
         TicketActivityController ticketActivityController;
         public ActionsController()
-        {
-            TdIdentityContext context = new TdIdentityContext();
-            var userStore = new UserStore<TicketDeskUser>(context);
-            var roleStore = new RoleStore<TicketDeskRole>(context);
-            var userManager = new TicketDeskUserManager(userStore);
-            var roleManager = new TicketDeskRoleManager(roleStore);
-
-            roleManager.EnsureDefaultRolesExist();
-
-            TicketDeskUser user = userManager.FindByName("admin@example.com");
-            if (user == null)
-            {
-                user = new TicketDeskUser
-                {
-                    Id = "64165817-9cb5-472f-8bfb-6a35ca54be6a",
-                    UserName = "admin@example.com",
-                    Email = "admin@example.com",
-                    DisplayName = "Admin User"
-                };
-                userManager.Create(user, "123456");
-                userManager.AddToRole(user.Id, "TdAdministrators");
-                userManager.AddToRole(user.Id, "TdHelpDeskUsers");
-                userManager.AddToRole(user.Id, "TdInternalUsers");
-                context.SaveChanges();
-            }
-            
+        {            
             TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
             ticketActivityController = new TicketActivityController(new TdDomainContext(secur));
         }
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("activity-buttons/{ticketId}")]
-        public TicketActivity ActivityButtons(long ticketId)
+        public JObject ActivityButtons(long ticketId)
         {
-            //convert ticketid - assuming id is semantically numbered
             int id = APITicketConversion.ConvertTicketId(ticketId);
-            var activities = ticketActivityController.ActivityButtons(id);
-            return activities;
+            var permissions = new JObject();
+            int activities = (int) ticketActivityController.ActivityButtons(id);
+            permissions.Add("actionPermissions", activities);
+            return permissions;
         }
 
         [System.Web.Http.HttpPost]
