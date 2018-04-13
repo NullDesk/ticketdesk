@@ -10,7 +10,7 @@
 // For any distribution that contains code from this file, this notice of 
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
-
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -37,6 +37,7 @@ namespace ngWebClientAPI.Models
                 CurrentListSetting = userSettings.GetUserListSettingByName(listName)
         };
 
+            List<Ticket> tk = await vm.ListTicketsAsync(currentPage, context);
 
             vm.Tickets = await vm.ListTicketsAsync(currentPage, context);
 
@@ -60,7 +61,7 @@ namespace ngWebClientAPI.Models
             get { return DependencyResolver.Current.GetService<TicketDeskUserManager>(); }
         }
 
-        public async Task<IPagedList<Ticket>> ListTicketsAsync(int pageIndex, TdDomainContext context)
+        public async Task<List<Ticket>> ListTicketsAsync(int pageIndex, TdDomainContext context)
         {
             var filterColumns = CurrentListSetting.FilterColumns.ToList();
 
@@ -81,8 +82,9 @@ namespace ngWebClientAPI.Models
 
             query = filterColumns.ApplyToQuery(query);
             query = sortColumns.ApplyToQuery(query);
+            IPagedList<Ticket> ticketList = await query.ToPagedListAsync(pageIndex, pageSize);
 
-            return await query.ToPagedListAsync(pageIndex, pageSize);
+            return  ticketList.ToList();
         }
 
         /// <summary>
@@ -99,7 +101,7 @@ namespace ngWebClientAPI.Models
         /// Gets or (private) sets the list of tickets for the view.
         /// </summary>
         /// <value>The tickets.</value>
-        public IPagedList<Ticket> Tickets { get; private set; }
+        public List<Ticket> Tickets { get; private set; }
 
         public UserTicketListSetting CurrentListSetting { get; private set; }
 

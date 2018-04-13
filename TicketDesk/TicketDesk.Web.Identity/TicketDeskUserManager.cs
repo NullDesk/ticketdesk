@@ -29,22 +29,33 @@ namespace TicketDesk.Web.Identity
 
         public bool IsTdHelpDeskUser(string userId)
         {
-            return this.IsInRole(userId, "TdHelpDeskUsers") || IsTdAdministrator(userId) ;
+            bool IsTdHelpDeskUser = false;
+
+            /*Need to change this method.*/
+            return IsTdHelpDeskUser;
         }
 
         public bool IsTdInternalUser(string userId)
         {
-            return this.IsInRole(userId, "TdInternalUsers") || IsTdHelpDeskUser(userId);
+            /*Need to change this method.*/
+            bool IsTdInternalUser = true;
+
+            return IsTdInternalUser;
         }
 
         public bool IsTdAdministrator(string userId)
         {
-            return this.IsInRole(userId, "TdAdministrators");
+            /*Need to change this method.*/
+            bool IsTdAministrator = false; ;
+            return IsTdAministrator;
         }
 
         public bool IsTdPendingUser(string userId)
         {
-            return this.IsInRole(userId, "TdPendingUsers");
+            /*Need to change this method.*/
+            bool IsTdPendingUser = false;
+
+            return IsTdPendingUser;
         }
 
         private void ConfigureUserManager()

@@ -3,8 +3,11 @@
 *.mdf
 *.ldf
 *.v11.suo
-*/App_Data/*.mdf
-*/App_Data/*.ldf
+**/App_Data/*.mdf
+**/App_Data/*.ldf
+**/App_Data/ticketdesk-searchindex/*
+**/App_Data/attachments
+**/App_Data/filestore
 *.pubxml
 *Web.ticketdesk3dev.config
 **/TdSearchIndex/*

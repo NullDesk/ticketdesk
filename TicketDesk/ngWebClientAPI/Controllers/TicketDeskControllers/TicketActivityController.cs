@@ -28,8 +28,8 @@ using TicketDesk.Localization.Controllers;
 
 namespace ngWebClientAPI.Controllers
 {
-    [RoutePrefix("ticket-activity")]
-    [Route("{action}")]
+    //[RoutePrefix("ticket-activity")]
+    //[Route("{action}")]
     //[TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     [ValidateInput(false)]
     public class TicketActivityController : Controller

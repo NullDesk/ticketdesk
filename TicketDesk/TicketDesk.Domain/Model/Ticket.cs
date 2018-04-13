@@ -53,6 +53,11 @@ namespace TicketDesk.Domain.Model
         public string Category { get; set; }
 
         [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
+        [StringLength(50, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
+        [Display(ResourceType = typeof(Strings), Name = "TicketCategory", ShortName = "TicketCategoryShort")]
+        public string SubCategory { get; set; }
+
+        [Required(ErrorMessageResourceName = "FieldRequired", ErrorMessageResourceType = typeof(Validation))]
         [StringLength(500, ErrorMessageResourceName = "FieldMaximumLength", ErrorMessageResourceType = typeof(Validation))]
         [Display(ResourceType = typeof(Strings), Name = "TicketTitle", ShortName = "TicketTitleShort")]
         public string Title { get; set; }
@@ -170,6 +175,10 @@ namespace TicketDesk.Domain.Model
         {
             get { return TicketStatus != TicketStatus.Resolved && TicketStatus != TicketStatus.Closed; }
         }
+
+        // per Clark PUD request to have semantic ticket number as ID.  Still use generated ticketId as primary ID
+        [NotMapped]
+        public string SemanticId { get; set; }
 
         public void EnsureSubscribers()
         {
