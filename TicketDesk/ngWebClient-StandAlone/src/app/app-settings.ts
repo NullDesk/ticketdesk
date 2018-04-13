@@ -1,4 +1,6 @@
 export const serviceBaseURL = 'http://localhost:50067/api';
+export const ticketDetailsURL = serviceBaseURL + '/ticket/';
+export const ticketEventsURL = ticketDetailsURL + 'events/';
 export const actionURLs = {
   1 : serviceBaseURL + '/actions/add-comment',
   2 : serviceBaseURL + '/actions/supply-more-info',
@@ -20,4 +22,8 @@ export const actionURLs = {
 };
 
 export const getValidActionsURL = serviceBaseURL + '/actions/activity-buttons/';
-
+export const getSchemaURL = serviceBaseURL + '/ticket/schema';
+export const resetTicketsFilterAndSort = serviceBaseURL + '/tickets/reset-user-lists';
+export const getTicketsIndex = serviceBaseURL + '/tickets/index';
+export const getSortedTicketList = serviceBaseURL + '/tickets/sortList';
+export const getFilteredTicketList = serviceBaseURL + '/tickets/filterList';

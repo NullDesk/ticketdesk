@@ -1,5 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { Ticket } from '../models/ticket';
+import { Component, OnInit, Input } from '@angular/core';
+import { TicketStub, columnHeadings } from '../models/ticket-stub';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket-list',
@@ -8,27 +9,30 @@ import { Ticket } from '../models/ticket';
 })
 
 export class TicketListComponent implements OnInit {
-  // This will become input
-  private headingsList: string[] = ['Title', 'Status', 'Priority', 'Owner', 'Assigned', 'Category', 'Created Date'];
+  // imported into the class, so can be used in HTML
+  private colHeadings = columnHeadings;
   // Adds a vairable to add keep track of checkbox
-  private displayList: {'ticket': Ticket, 'checked': boolean}[];
-  @Input() ticketListResults: { 'ticketList': Ticket[], 'maxPages': number };
+  private displayList: {ticket: TicketStub, checked: boolean}[];
+  @Input() ticketListResults: { ticketList: TicketStub[], maxPages: number };
   @Input() columns: string[];
   currentPage: number;
+
   ngOnInit() {
-    this.displayList = [];
     // filter removes objects not of type ticket or null/undefined
-    for (const ticket of this.ticketListResults.ticketList.filter( x => x)) {
-        this.displayList.push({'ticket': ticket, 'checked': false});
-    }
+    this.displayList = this.ticketListResults.ticketList
+          .filter( x => x)
+          .map(ticket => ({ticket: ticket, checked: false}));
     this.currentPage = 1;
-  }
+}
+
   isAllChecked() {
     return this.displayList.every(x => x.checked);
   }
+
   selectAll(ev) {
     this.displayList.forEach(x => {x.checked = ev.target.checked; });
   }
+
   getSelected() {
     return this.displayList.filter( x => x.checked);
   }

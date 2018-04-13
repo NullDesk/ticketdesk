@@ -4,29 +4,31 @@
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th>TicketID</th>
-                <th *ngFor="let heading of headingsList">{{ heading }}</th>
+                <th *ngFor="let heading of colHeadings" >{{ heading }}</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let row of displayList">
-                <td>
-                    <input  type="checkbox" [(checked)]="row.checked"> </td>
+                <td> <input  type="checkbox" [(checked)]="row.checked"> </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}">
-                    <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
+                <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
                 <td> {{ row.ticket.status }} </td>
-                <td> {{ row.ticket.priority }} </td>
-                <td> {{ row.ticket.owner }} </td>
-                <td> {{ row.ticket.assignedTo }} </td>
-                <td> {{ row.ticket.category }} </td>
-                <td> {{ row.ticket.createdDate }}</td>
+                <td> {{ row.ticket.priority }}  </td>
+                <td> {{ row.ticket.owner }}  </td>
+                <td> {{ row.ticket.assignedTo }}  </td>
+                <td> {{ row.ticket.category }}  </td>
+                <td> {{ row.ticket.subcategory }}  </td>
+                <td> {{ row.ticket.createdDate }}  </td>
+                <td> {{ row.ticket.updatedDate }}  </td>
             </tr>
-
         </tbody>
         <!-- Pagination goes here !-->
     </table>
     <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
     <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+    <ul>
+        <li *ngFor="let ticket of ticketListResults.ticketList"> {{ ticket.ticketId }} </li>
+    </ul>
 </div>

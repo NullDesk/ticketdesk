@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SingleTicketService } from '../services/single-ticket.service';
 import { Ticket } from '../models/ticket';
-import { Logs } from '../models/logs';
 import { Entry } from '../models/entry';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
@@ -11,7 +10,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./activity-log.component.css']
 })
 export class ActivityLogComponent implements OnInit {
-  ticket_log: Entry[] = null;
+  ticketLog: Entry[] = [];
   ticketId: number = null;
 
   constructor(private singleTicketService: SingleTicketService, private activatedRoute: ActivatedRoute) {
@@ -21,10 +20,12 @@ export class ActivityLogComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.ticket_log = this.singleTicketService.getTicketLog(this.ticketId);
-    console.log('Ticket log: ' + this.ticket_log);
-
+    this.singleTicketService.getTicketLog(this.ticketId).subscribe(
+      res => {
+        console.warn('res.list is ', res.list);
+        this.ticketLog = res.list;
+      }
+    );
   }
 
 }

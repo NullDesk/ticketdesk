@@ -30,14 +30,16 @@ export class SingleTicketViewComponent implements OnInit {
   }
 
   ticketIsOpen(): boolean {
-    const status = this.ticket.status.toLowerCase();
-    return status.indexOf('active') !== -1
-      || status.indexOf('moreinfo') !== -1;
+    return this.ticket.status === 0 || this.ticket.status === 1;
   }
 
   ngOnInit() {
-    this.ticket =
-      this.singleTicketService.getTicketDetails(this.ticketId);
-    this.ticketStatus = this.ticket.status;
+    this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(permissionsResult => {
+      this.ticketActionPermissions = permissionsResult;
+    });
+    this.singleTicketService.getTicketDetails(this.ticketId).subscribe(response => {
+      console.warn('ticket is', response);
+      this.ticket = <Ticket>response;
+    });
   }
 }

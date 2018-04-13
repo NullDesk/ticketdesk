@@ -1,7 +1,6 @@
 export interface Ticket {
   ticketId: number;
   projectId: number;
-  comment: string;
   title: string;
   details: string;
   priority?: string;
@@ -10,15 +9,18 @@ export interface Ticket {
   subcategory: string;
   ownerId: string; // userId of person who is having the issue
   assignedTo: string;
-  status: string;
+  status: number;
   tagList: string;
   createdDate?: string;
+}
+
+export function getTicketStatusText(enumInt: number) {
+  return (enumInt > -1 && enumInt < 4) ? ['Active', 'Needs More Information', 'Resolved', 'Closed'][enumInt] : '';
 }
 
 export const BLANK_TICKET: Ticket = {
   ticketId: -1,
   projectId: -1,
-  comment: '',
   title: '',
   details: '',
   ticketType: '',
@@ -26,7 +28,7 @@ export const BLANK_TICKET: Ticket = {
   subcategory: '',
   ownerId: '',
   assignedTo: '',
-  status: '',
+  status: 0,
   tagList: ''
 };
 
