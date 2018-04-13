@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ListTicket, columnHeadings } from '../models/list-ticket';
+import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,8 +12,8 @@ export class TicketListComponent implements OnInit {
   // imported into the class, so can be used in HTML
   private colHeadings = columnHeadings;
   // Adds a vairable to add keep track of checkbox
-  private displayList: {ticket: ListTicket, checked: boolean}[];
-  @Input() ticketListResults: { ticketList: ListTicket[], maxPages: number };
+  private displayList: {ticket: TicketStub, checked: boolean}[];
+  @Input() ticketListResults: { ticketList: TicketStub[], maxPages: number };
   @Input() columns: string[];
   currentPage: number;
 

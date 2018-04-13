@@ -1,4 +1,4 @@
-export interface ListTicket {
+export interface TicketStub{
     ticketId: number;
     title: string;
     status: number;

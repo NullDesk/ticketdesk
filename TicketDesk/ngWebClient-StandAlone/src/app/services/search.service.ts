@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ListTicket } from '../models/list-ticket';
+import { TicketStub } from '../models/ticket-stub';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import * as settings from '../app-settings';
 import { Observable } from 'rxjs/Observable';
@@ -20,10 +20,10 @@ export class SearchService {
   // FAKE RETURNS index list right now. NOT SEARCHING!
   search(
     term: string,
-  ): Observable<ListTicket[]> {
+  ): Observable<TicketStub[]> {
     // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: 1, listName: term};
-    const ticketList = this.http.post<ListTicket[]>( settings.getTicketsIndex, params, this.httpOptions);
+    const ticketList = this.http.post<TicketStub[]>( settings.getTicketsIndex, params, this.httpOptions);
     return ticketList.map(res => {
       console.warn('TicketList Responese', JSON.stringify(res));
       return res;
