@@ -21,7 +21,7 @@ using TicketDesk.Web.Identity;
 
 namespace ngWebClientAPI
 {
-
+    [Authorize]
     public sealed class TicketDeskContextSecurityProvider : TdDomainSecurityProviderBase
     {
         private TicketDeskUserManager UserManager { get; set; }
@@ -29,8 +29,7 @@ namespace ngWebClientAPI
         public TicketDeskContextSecurityProvider()
         {
             UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            CurrentUserId = HttpContext.Current.User.Identity.Name;
-            //CurrentUserId = "64165817-9cb5-472f-8bfb-6a35ca54be6a";
+            CurrentUserId = HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
         }
         public override string CurrentUserId { get; set; }
 

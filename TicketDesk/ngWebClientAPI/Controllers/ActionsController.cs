@@ -22,6 +22,7 @@ using System.Net;
 
 namespace ngWebClientAPI.Controllers
 {
+    [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/actions")]
     public class ActionsController : ApiController
     {
@@ -136,7 +137,7 @@ namespace ngWebClientAPI.Controllers
             string ticketType = data["ticketType"].ToObject<string>();
             string category = data["category"].ToObject<string>();
             string owner = data["owner"].ToObject<string>();
-            string tagList = data["ticketId"].ToObject<string>();
+            string tagList = data["tagList"].ToObject<string>();
             Task<Ticket> ticket = ticketActivityController.EditTicketInfo(ticketId, projectId, comment, title, details, priority, ticketType, category, owner, tagList);
             return ticket;
         }
