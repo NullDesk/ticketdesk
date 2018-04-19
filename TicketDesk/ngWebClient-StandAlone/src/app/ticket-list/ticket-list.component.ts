@@ -18,6 +18,7 @@ export class TicketListComponent implements OnInit {
   currentPage: number;
 
   ngOnInit() {
+    console.warn('Loading list component');
     // filter removes objects not of type ticket or null/undefined
     this.displayList = this.ticketListResults.ticketList
           .filter( x => x)

@@ -1,4 +1,6 @@
-<ngb-tabset justify="fill" (tabChange)="onTabChange">
+<div class="container-fluid">
+<div class="card">
+<ngb-tabset justify="fill" [destroyOnHide]="false" (tabChange)="onTabChange">
   <ngb-tab *ngFor="let tabName of tabNames" [class.listName]="tabName" title="{{tabName}}">
     <ng-template ngbTabContent>
       <div *ngIf="listReady" >
@@ -15,3 +17,5 @@
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
+</div>
+</div>
