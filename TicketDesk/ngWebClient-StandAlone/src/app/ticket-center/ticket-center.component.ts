@@ -38,4 +38,8 @@ export class TicketCenterComponent implements OnInit {
     this.getTicketList(event.activeId);
   }
 
+  public userifyString(str: string) {
+    return str.replace(/([A-Z]+)/g, ' $1').replace(/([A-Z][a-z])/g, ' $1');
+  }
+
 }
