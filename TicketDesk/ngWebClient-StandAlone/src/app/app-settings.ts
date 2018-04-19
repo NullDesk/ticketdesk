@@ -22,7 +22,9 @@ export const actionURLs = {
 };
 
 export const getValidActionsURL = serviceBaseURL + '/actions/activity-buttons/';
-export const getSchemaURL = serviceBaseURL + '/ticket/schema';
+export const prioritiesURL = serviceBaseURL + '/ticket/priorities';
+export const ticketTypesURL = serviceBaseURL + '/ticket/types';
+export const categoriesURL = serviceBaseURL + '/ticket/categories';
 export const resetTicketsFilterAndSort = serviceBaseURL + '/tickets/reset-user-lists';
 export const getTicketsIndex = serviceBaseURL + '/tickets/index';
 export const getSortedTicketList = serviceBaseURL + '/tickets/sortList';
