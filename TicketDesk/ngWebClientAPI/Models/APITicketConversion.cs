@@ -12,6 +12,7 @@ namespace ngWebClientAPI.Models
         public static Ticket ConvertPOSTTicket(JObject jsonData, string userName)
         {
             FrontEndTicket data = new FrontEndTicket();
+            List<TicketTag> tt = new List<TicketTag>();
             try
             {
                 
@@ -19,41 +20,55 @@ namespace ngWebClientAPI.Models
                 data.ticketType = jsonData["ticketType"].ToString();
                 
                 data.category = jsonData["category"].ToString();
-                data.subcategory = jsonData["subcategory"].ToString();
-                data.tagList = jsonData["tagList"].ToString();
-                data.title = jsonData["title"].ToString();
                 
+                data.title = jsonData["title"].ToString();
 
-                if (jsonData["priority"] != null )
+                if(jsonData["subcategory"] != null && !String.IsNullOrEmpty(jsonData["subcategory"].ToString()))
                 {
+                    data.subcategory = jsonData["subcategory"].ToString();
+                }
+
+                if (jsonData["tagList"] != null && !String.IsNullOrEmpty(jsonData["tagList"].ToString()))
+                {
+                    
+                    List<string> ts = jsonData["tagList"].ToString().Split(',').ToList();
+
+                    foreach (var name in ts)
+                    {
+                        tt.Add(new TicketTag() { TagName = name });
+                    }
+
+                }
+                
+                if ( jsonData["priority"] != null && !String.IsNullOrEmpty(jsonData["priority"].ToString()))
+                {
+                    
                     data.priority = jsonData["priority"].ToString();
                 }
-                if (jsonData["assignedTo"] != null)
+                if (jsonData["assignedTo"] != null && !String.IsNullOrEmpty(jsonData["assignedTo"].ToString()))
                 {
+                    
                     data.assignedTo = jsonData["assignedTo"].ToString();
                 }
 
-                if (jsonData["ownerId"] != null )
+                if (jsonData["ownerId"] != null && !String.IsNullOrEmpty(jsonData["ownerId"].ToString()))
                 {
                     data.owner = jsonData["ownerId"].ToString();
                 } else
                 {
                     data.owner = userName;
                 }
+
+
             }
             catch(Exception ex)
             {
                 return null;
             }
 
-            List<TicketTag> tt = new List<TicketTag>();
+     
 
-            List<string> ts = data.tagList.Split(',').ToList();
-
-            foreach(var name in ts)
-            {
-                tt.Add(new TicketTag() { TagName = name });
-            }
+            
 
             DateTime now = DateTime.Now;
 

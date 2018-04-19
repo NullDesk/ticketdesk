@@ -32,8 +32,8 @@ namespace ngWebClientAPI
             //ConfigureAuth(app, container);
             //ConfigurePushNotifications();
             //ConfigureApplicationInsights();
-            WatchdogThreads threading = new WatchdogThreads(new TicketDesk.Domain.TdDomainContext());
-            WatchdogThreads.StartWatch();
+            //WatchdogThreads threading = new WatchdogThreads(new TicketDesk.Domain.TdDomainContext());
+            //WatchdogThreads.StartWatch();
         }
     }
 }
