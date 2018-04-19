@@ -21,7 +21,7 @@ export class TicketSubmitComponent implements OnInit {
   receiveTicket(ticket) {
     // do the ticket
     // get back the ID
-    console.warn("we got a ticket emitted", ticket);
+    console.warn('we got a ticket emitted', ticket);
     this.sts.submitTicket(ticket).subscribe( res => {
       console.warn('THIS IS WHAT WE GOT BACK', res);
       if (res['ticketID']) {
