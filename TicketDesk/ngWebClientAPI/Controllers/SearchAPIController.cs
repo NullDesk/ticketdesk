@@ -26,12 +26,10 @@ namespace ngWebClientAPI.Controllers
 
         [Route("")]
         [HttpPost]
-        public async /*Task<IEnumerable<Ticket>>*/ Task<List<ngWebClientAPI.Models.TicketCenterDTO>> Index(JObject data)
+        public async Task<List<ngWebClientAPI.Models.TicketCenterDTO>> Index(JObject data)
         {
             string term = data["term"].ToObject<string>();
-            //List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
 
-            //var projectId = await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context);
             if (!string.IsNullOrEmpty(term))
             {
                 var model = await TdSearchContext.Current.SearchAsync(Context.Tickets.Include(t => t.Project), term, 1);
