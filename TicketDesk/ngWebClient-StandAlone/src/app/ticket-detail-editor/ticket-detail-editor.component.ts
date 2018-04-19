@@ -11,8 +11,7 @@ import { AttachFileComponent } from '../attach-file/attach-file.component';
 })
 export class TicketDetailEditorComponent implements OnInit {
   @Input('initialTicketValue') initialTicketValue: Ticket;
-  @Output()
-  ticketEmitter = new EventEmitter();
+  @Output() ticketEmitter = new EventEmitter<any>();
   form: FormGroup;
   displayedSubcategories: string[] = ['Select a category'];
   subcategories: CategoryTree = {};
@@ -36,6 +35,7 @@ export class TicketDetailEditorComponent implements OnInit {
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = res;
       this.categories = Object.keys(res);
+      this.displayedSubcategories = this.subcategories[this.form.get('category').value];
     });
   }
 
