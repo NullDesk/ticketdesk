@@ -32,7 +32,7 @@ export class TicketCenterComponent implements OnInit {
           this.listReady = true; });
   }
 
-  onTabChange(event: NgbTabChangeEvent) {
+  public onTabChange(event: NgbTabChangeEvent) {
     this.listReady = false;
     console.log('getting ticket for => ', event.activeId);
     this.getTicketList(event.activeId);
