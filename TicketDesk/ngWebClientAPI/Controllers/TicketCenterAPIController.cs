@@ -32,6 +32,7 @@ namespace ngWebClientAPI.Controllers
             List<Ticket> ticketList = await ticketCenterController.ResetUserLists();
             List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
             return tkDTO;
+            
         }
 
         [HttpPost]

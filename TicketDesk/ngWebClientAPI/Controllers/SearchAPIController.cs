@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
 using System.Data.Entity;
 using System.Threading.Tasks;
 using TicketDesk.Domain;
@@ -12,7 +11,7 @@ using TicketDesk.Domain.Model;
 using TicketDesk.Search.Common;
 using TicketDesk.Localization.Controllers;
 using Newtonsoft.Json.Linq;
-
+using ngWebClientAPI.Models;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -27,15 +26,18 @@ namespace ngWebClientAPI.Controllers
 
         [Route("")]
         [HttpPost]
-        public async Task<IEnumerable<Ticket>> Index(JObject data)
+        public async /*Task<IEnumerable<Ticket>>*/ Task<List<ngWebClientAPI.Models.TicketCenterDTO>> Index(JObject data)
         {
             string term = data["term"].ToObject<string>();
+            //List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
 
             //var projectId = await Context.UserSettingsManager.GetUserSelectedProjectIdAsync(Context);
             if (!string.IsNullOrEmpty(term))
             {
                 var model = await TdSearchContext.Current.SearchAsync(Context.Tickets.Include(t => t.Project), term, 1);
-                return model;
+
+                List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(model.ToList());
+                return tkDTO;
             }
             return null;
         }
