@@ -12,7 +12,7 @@ import { AttachFileComponent } from '../attach-file/attach-file.component';
 export class TicketDetailEditorComponent implements OnInit {
   @Input('initialTicketValue') initialTicketValue: Ticket;
   @Output()
-  ticketEmitter = new EventEmitter<Ticket>();
+  ticketEmitter = new EventEmitter();
   form: FormGroup;
   displayedSubcategories: string[] = ['Select a category'];
   subcategories: CategoryTree = {};
