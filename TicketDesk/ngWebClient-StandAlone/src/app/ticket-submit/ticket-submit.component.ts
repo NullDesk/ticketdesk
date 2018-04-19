@@ -18,7 +18,7 @@ export class TicketSubmitComponent implements OnInit {
   ) {
   }
 
-  ticketEmit(ticket: Ticket) {
+  receiveTicket(ticket) {
     // do the ticket
     // get back the ID
     console.warn("we got a ticket emitted", ticket);

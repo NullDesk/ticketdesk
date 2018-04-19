@@ -40,6 +40,7 @@ export class TicketDetailEditorComponent implements OnInit {
   }
 
   ticketEmit() {
+    console.warn("form value", this.form.value);
     this.buttonText = 'Please wait...';
     if (this.submitting) { return; }
     this.submitting = true;
