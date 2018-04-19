@@ -1,5 +1,5 @@
 import { Injectable, Component, OnInit } from '@angular/core';
-import { TicketStub } from '../models/ticket-stub';
+import { TicketStub, ticketlistToUserDisplayMap } from '../models/ticket-stub';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MultiTicketService } from '../services/multi-ticket.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
@@ -39,7 +39,7 @@ export class TicketCenterComponent implements OnInit {
   }
 
   public userifyString(str: string) {
-    return str.replace(/([A-Z]+)/g, ' $1').replace(/([A-Z][a-z])/g, ' $1');
+    return ticketlistToUserDisplayMap.get(str);
   }
 
 }
