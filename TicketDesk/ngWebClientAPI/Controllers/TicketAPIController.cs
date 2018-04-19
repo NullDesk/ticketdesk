@@ -76,8 +76,15 @@ namespace ngWebClientAPI.Controllers
 
                 Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData, userName);
                 bool status = await ticketController.CreateTicketAsync(ticket);
-               result = new HttpStatusCodeResult(HttpStatusCode.OK, APITicketConversion.ConvertTicketId(ticket.TicketId).ToString());
-                
+
+                if(status)
+                {
+                    result = new HttpStatusCodeResult(HttpStatusCode.OK, APITicketConversion.ConvertTicketId(ticket.TicketId).ToString());
+                }
+                else
+                {
+                    result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Failed adding ticket to database");
+                }
             }
             catch (Exception ex)
             {
