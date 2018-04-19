@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ngWebClientAPI\ngWebClientAPI.csproj">
+      <Project>{64013999-1684-4a54-85f4-5633dc52a1c2}</Project>
+      <Name>ngWebClientAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ngWebClientAPI;
+using TicketDesk.Domain;
 
 namespace SLAWatchdog
 {
     public class WatchdogThreads
     {
-        public static void startWatch()
+        public static void StartWatch()
         {
             int numPriority = 3; //number of priorities. Want to set this in one place
-            int sleepTime = 300000; //microseconds
-            for (int i = 0; i < numPriority; i++)
+            //int sleepTime = 300000; //millisecond
+            int baseSleep = 60000;
+            foreach(var item in GlobalConfig.SLASettings)
             {
-                Thread watchThread = new Thread(() => threadActions("high", true, sleepTime));
+                Thread watchThread = new Thread(() => threadActions(item.Key, true, baseSleep * item.Value));
             }
         }
 
@@ -25,7 +28,7 @@ namespace SLAWatchdog
             DateTime resumeCheckTieme = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 00);
             DateTime currTime;
             TimeSpan diff;
-            //these threads should be always checking the db status and sending alerts
+            // these threads should be always checking the db status and sending alerts
             // they will sleep for longer if not in normal business hours i.e. 6 PM to 8 AM
             while (true)
             {
