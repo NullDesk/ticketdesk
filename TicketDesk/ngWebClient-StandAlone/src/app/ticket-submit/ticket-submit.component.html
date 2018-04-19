@@ -1,5 +1,5 @@
 
 <div class="container">
-	<app-ticket-detail-editor [initialTicketValue]='initialTicket'></app-ticket-detail-editor>
+	<app-ticket-detail-editor [initialTicketValue]='initialTicket' (ticketEmit)='ticketEmit($event)' ></app-ticket-detail-editor>
 </div>
 
