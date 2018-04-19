@@ -17,6 +17,7 @@ export class TicketDetailEditorComponent implements OnInit {
   displayedSubcategories: string[] = ['Select a category'];
   subcategories: CategoryTree = {};
   ticketTypes: string[];
+  priorities: string[];
   categories: string[];
   buttonText = 'Submit';
   submitting = false;
@@ -33,6 +34,7 @@ export class TicketDetailEditorComponent implements OnInit {
   ngOnInit() {
     this.form.patchValue(this.initialTicketValue);
     this.schema.getTicketTypes().subscribe(res => this.ticketTypes = res);
+    this.schema.getPriorities().subscribe(res => this.priorities = res);
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = res;
       this.categories = Object.keys(res);
@@ -48,7 +50,6 @@ export class TicketDetailEditorComponent implements OnInit {
     this.sts.submitTicket(this.form.value).subscribe( res => {
       console.warn('THIS IS WHAT WE GOT BACK', res);
       if (res['ticketID']) {
-        this.attachFileComponent.addFile();
         this.router.navigate(['/ticket/' + res['ticketID'].toString()]);
       } else {
         this.router.navigate(['OH_NO_OH_NO_OH_NO']);
