@@ -11,6 +11,7 @@ namespace ngWebClientAPI
         static Dictionary<string, List<string>> _categories;
         static JStringList _priorities;
         static JStringList _ticketTypes;
+        static Dictionary<string, int> _SLASettings;
 
         public static Dictionary<string, List<string>> categories
         {
@@ -48,6 +49,18 @@ namespace ngWebClientAPI
             }
         }
 
+        public static Dictionary<string, int> SLASettings
+        {
+            get
+            {
+                return _SLASettings;
+            }
+            set
+            {
+                _SLASettings = setSLASettings();
+            }
+        }
+
         private static Dictionary<string, List<string>> setDictionary()
         {
             Dictionary<string, List<string>> categoryDict = new Dictionary<string, List<string>>();
@@ -82,6 +95,17 @@ namespace ngWebClientAPI
             var data = ConfigurationManager.GetSection("TicketTypeSettings") as System.Collections.Specialized.NameValueCollection;
             typeList.list = data["TicketTypes"].Split(',').ToList();
             return typeList;
+        }
+
+        private static Dictionary<string, int> setSLASettings()
+        {
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            System.Collections.Specialized.NameValueCollection data = ConfigurationManager.GetSection("SLASettings") as System.Collections.Specialized.NameValueCollection;
+            foreach(var item in data.AllKeys)
+            {
+                dict.Add(item, Convert.ToInt32(data[item]));
+            }
+            return dict;
         }
     }
 

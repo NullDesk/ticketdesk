@@ -29,7 +29,7 @@ namespace TicketDesk.Web.Identity
 
         public bool IsTdHelpDeskUser(string userId)
         {
-            bool IsTdHelpDeskUser = false;
+            bool IsTdHelpDeskUser = true;
 
             /*Need to change this method.*/
             return IsTdHelpDeskUser;
@@ -46,7 +46,7 @@ namespace TicketDesk.Web.Identity
         public bool IsTdAdministrator(string userId)
         {
             /*Need to change this method.*/
-            bool IsTdAministrator = false; ;
+            bool IsTdAministrator = true; ;
             return IsTdAministrator;
         }
 

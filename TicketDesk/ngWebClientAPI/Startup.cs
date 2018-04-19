@@ -4,7 +4,6 @@ using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
 using ngWebClientAPI;
-
 using System.Web.Mvc;
 using System.Web.Optimization;
 
@@ -29,9 +28,12 @@ namespace ngWebClientAPI
             GlobalConfig.categories = null;
             GlobalConfig.priorities = null;
             GlobalConfig.ticketTypes = null;
+            GlobalConfig.SLASettings = null;
             //ConfigureAuth(app, container);
             //ConfigurePushNotifications();
             //ConfigureApplicationInsights();
+            WatchdogThreads threading = new WatchdogThreads(new TicketDesk.Domain.TdDomainContext());
+            WatchdogThreads.StartWatch();
         }
     }
 }

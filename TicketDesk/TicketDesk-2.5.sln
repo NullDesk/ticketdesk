@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Client", "TicketDesk.Web.Client\TicketDesk.Web.Client.csproj", "{4DE41C1E-3E56-480E-9C88-0A4D6BACC798}"
 EndProject
@@ -48,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Localization", "TicketDesk.Localization\TicketDesk.Localization.csproj", "{BE8715F9-E858-473E-A2B6-561C9EDCA416}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ngWebClientAPI", "ngWebClientAPI\ngWebClientAPI.csproj", "{64013999-1684-4A54-85F4-5633DC52A1C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLAWatchdog", "SLAWatchdog\SLAWatchdog.csproj", "{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{64013999-1684-4A54-85F4-5633DC52A1C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64013999-1684-4A54-85F4-5633DC52A1C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64013999-1684-4A54-85F4-5633DC52A1C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

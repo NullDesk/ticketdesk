@@ -143,7 +143,7 @@ namespace ngWebClientAPI.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("tickettypes")]
+        [System.Web.Http.Route("types")]
         public async Task<JObject> getTicketTypes()
         {
             try
