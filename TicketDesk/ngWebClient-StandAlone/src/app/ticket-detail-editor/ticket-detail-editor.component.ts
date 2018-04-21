@@ -14,19 +14,20 @@ export class TicketDetailEditorComponent implements OnInit {
   @Output() ticketEmitter = new EventEmitter<any>();
   form: FormGroup;
   displayedSubcategories: string[] = ['Select a category'];
-  subcategories: CategoryTree = { '': ['']};
+  subcategories: CategoryTree = {};
   ticketTypes: string[];
   priorities: string[];
   categories: string[];
   buttonText = 'Submit';
   submitting = false;
-  constructor(@Inject(FormBuilder) fb: FormBuilder,
-    private schema: SchemaService) {
+  constructor(
+    @Inject(FormBuilder) fb: FormBuilder,
+    private schema: SchemaService
+  ) {
     this.form = fb.group(BLANK_TICKET);
     this.form.get('category').valueChanges.subscribe(
       (newValue) => {
         this.displayedSubcategories = this.subcategories[newValue];
-        this.form.get('subcategory').setValue(this.displayedSubcategories[0]);
       }
     );
     this.form.get('category').setValidators([Validators.required, Validators.minLength(1)]);
@@ -34,15 +35,14 @@ export class TicketDetailEditorComponent implements OnInit {
   }
   @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
   ngOnInit() {
+    this.form.patchValue(this.initialTicketValue);
     this.schema.getTicketTypes().subscribe(res => this.ticketTypes = res);
     this.schema.getPriorities().subscribe(res => this.priorities = res);
     this.schema.getCategoryTree().subscribe(res => {
-      this.subcategories = Object.assign(this.subcategories, res);
+      this.subcategories = res; 
       this.categories = Object.keys(res);
       this.displayedSubcategories = this.subcategories[this.form.get('category').value];
-      this.form.patchValue(this.initialTicketValue);
     });
-    this.form.patchValue(this.initialTicketValue);
   }
 
   ticketEmit() {
