@@ -7,7 +7,9 @@ using System.Web.Http;
 using EmployeeInformationManager;
 using ngWebClientAPI.Models;
 using System.Diagnostics;
- namespace ngWebClientAPI.Controllers
+using Newtonsoft.Json.Linq;
+
+namespace ngWebClientAPI.Controllers
 {
     [Authorize]
     [RoutePrefix("api/users")]
@@ -38,15 +40,32 @@ using System.Diagnostics;
         }
         [HttpGet]
         [Route("permissions")]
-        public int GetPermission()
+        public JObject GetPermission()
         {
             var employeeManager = new EmployeeInformationManager.EmployeeManager();
             var userId = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
             var user = employeeManager.GetADUserByLogin(userId);
-            var permission = user.Groups;
+            var groups = user.Groups;
 
+            var highestPermission = "TD_User";
+            JObject result = new JObject();
 
-            return 0;
+            foreach (var group in groups)
+            {
+                if (group.Name.Equals("TD_Admin"))
+                {
+                    highestPermission = group.Name;
+                    break;
+                }
+                if (group.Name.Equals("TD_Resolver"))
+                {
+                    highestPermission = group.Name;
+                }
+            }
+
+            result.Add("UserPermissions", highestPermission);
+
+            return result;
         }
 
     }
