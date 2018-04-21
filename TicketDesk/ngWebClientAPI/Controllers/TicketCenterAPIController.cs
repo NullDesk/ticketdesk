@@ -41,11 +41,11 @@ namespace ngWebClientAPI.Controllers
         {
             int? page = data["page"].ToObject<int?>();
             string listName = null;
-            if(data["listName"] == null)
+
+            if (data["priority"] != null && !String.IsNullOrEmpty(data["priority"].ToString()))
             {
                 listName = data["listName"].ToObject<string>();
-            }
-            listName = "opentickets";
+            } 
             List<Ticket> ticketList = await ticketCenterController.Index(page, listName);
             List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
             return tkDTO;
