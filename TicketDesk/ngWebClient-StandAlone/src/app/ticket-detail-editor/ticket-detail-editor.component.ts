@@ -29,14 +29,16 @@ export class TicketDetailEditorComponent implements OnInit {
   }
   @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
   ngOnInit() {
-    this.form.patchValue(this.initialTicketValue);
     this.schema.getTicketTypes().subscribe(res => this.ticketTypes = res);
     this.schema.getPriorities().subscribe(res => this.priorities = res);
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = res;
       this.categories = Object.keys(res);
       this.displayedSubcategories = this.subcategories[this.form.get('category').value];
+      this.form.patchValue(this.initialTicketValue);  
+    }
     });
+    this.form.patchValue(this.initialTicketValue);
   }
 
   ticketEmit() {
