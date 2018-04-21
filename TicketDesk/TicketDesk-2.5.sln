@@ -49,8 +49,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Localization", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ngWebClientAPI", "ngWebClientAPI\ngWebClientAPI.csproj", "{64013999-1684-4A54-85F4-5633DC52A1C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLAWatchdog", "SLAWatchdog\SLAWatchdog.csproj", "{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
