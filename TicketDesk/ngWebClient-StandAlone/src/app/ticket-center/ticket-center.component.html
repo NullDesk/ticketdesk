@@ -1,7 +1,7 @@
 <div class="container-fluid">
 <div class="card">
 <ngb-tabset justify="fill" (tabChange)="onTabChange($event)">
-  <ngb-tab *ngFor="let tabName of tabNames" id="{{tabName}}" title="{{userifyString(tabName)}}">
+  <ngb-tab *ngFor="let tabName of tabNames" id="{{tabName}}" title="{{convertListNameToDisplayStr(tabName)}}">
     <ng-template ngbTabContent>
       <div *ngIf="listReady" >
         <app-ticket-list [ticketListResults]="ticketListResults"> </app-ticket-list>

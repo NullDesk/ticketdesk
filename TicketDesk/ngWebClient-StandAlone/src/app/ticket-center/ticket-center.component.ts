@@ -38,8 +38,7 @@ export class TicketCenterComponent implements OnInit {
     this.getTicketList(event.nextId);
   }
 
-  public userifyString(str: string) {
-    return ticketlistToUserDisplayMap.get(str);
+  public convertListNameToDisplayStr(str: string) {
+    return ticketlistToUserDisplayMap.has(str) ? ticketlistToUserDisplayMap.get(str) : str;
   }
-
 }
