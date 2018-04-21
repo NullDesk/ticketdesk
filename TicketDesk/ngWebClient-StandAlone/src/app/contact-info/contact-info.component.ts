@@ -17,8 +17,9 @@ export class ContactInfoComponent implements OnInit {
 
   ngOnInit() {
     this.contactService.getContactCardInfo(this.userName)
-      .subscribe(res => {
-        this.user = res;
+      .subscribe(userDetails => {
+        console.warn('userDetails in subscribe:', userDetails)
+        this.user = userDetails;
       });
   }
 
