@@ -1,4 +1,3 @@
-import { UserDetails } from 'app/models/user';
 import { UserDetails } from './../models/user-details';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -17,7 +16,7 @@ export class AdContactService {
     return this.http.get<UserDetails>(settings.adUserURL + userName)
       .pipe(catchError(this.handleError));
   }
-  
+
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
       // ... this is a client side error, handle it!
