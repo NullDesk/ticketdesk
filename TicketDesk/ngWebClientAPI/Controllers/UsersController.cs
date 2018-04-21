@@ -16,7 +16,7 @@ namespace ngWebClientAPI.Controllers
     public class UsersController : ApiController
     {
         [HttpGet]
-        [Route("{userName}")]
+        [Route("{userName?}")]
         public CPUUser userID(string userName = "")
         {
             var employeeManager = new EmployeeInformationManager.EmployeeManager();
