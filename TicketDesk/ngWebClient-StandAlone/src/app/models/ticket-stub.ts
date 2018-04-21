@@ -17,7 +17,7 @@ export const columnHeadings: string[] = ['TicketID', 'Title', 'Status', 'Priorit
 
 
 export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
-  [ 'unassigned', 'Unassigned Tickets'],
+  ['unassigned', 'Unassigned Tickets'],
   ['assignedToMe', 'My Assigned Tickets'],
   ['mytickets', 'My Tickets'],
   ['opentickets', 'Open Tickets'],

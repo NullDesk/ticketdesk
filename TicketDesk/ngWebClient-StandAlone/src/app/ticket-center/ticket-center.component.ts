@@ -32,13 +32,13 @@ export class TicketCenterComponent implements OnInit {
           this.listReady = true; });
   }
 
-  public onTabChange(event: NgbTabChangeEvent) {
+  onTabChange(event: NgbTabChangeEvent) {
     this.listReady = false;
     console.log('getting ticket for => ', event.nextId);
     this.getTicketList(event.nextId);
   }
 
-  public convertListNameToDisplayStr(str: string) {
+  convertListNameToDisplayStr(str: string) {
     return ticketlistToUserDisplayMap.has(str) ? ticketlistToUserDisplayMap.get(str) : str;
   }
 }
