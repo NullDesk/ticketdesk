@@ -36,7 +36,6 @@ export class TicketDetailEditorComponent implements OnInit {
       this.categories = Object.keys(res);
       this.displayedSubcategories = this.subcategories[this.form.get('category').value];
       this.form.patchValue(this.initialTicketValue);  
-    }
     });
     this.form.patchValue(this.initialTicketValue);
   }
