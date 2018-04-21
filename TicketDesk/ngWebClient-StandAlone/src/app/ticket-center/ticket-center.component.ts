@@ -34,8 +34,8 @@ export class TicketCenterComponent implements OnInit {
 
   public onTabChange(event: NgbTabChangeEvent) {
     this.listReady = false;
-    console.log('getting ticket for => ', event.activeId);
-    this.getTicketList(event.activeId);
+    console.log('getting ticket for => ', event.nextId);
+    this.getTicketList(event.nextId);
   }
 
   public userifyString(str: string) {
