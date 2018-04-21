@@ -29,15 +29,14 @@ namespace ngWebClientAPI.Controllers
         public async Task<List<ngWebClientAPI.Models.TicketCenterDTO>> Index(JObject data)
         {
             string term = data["term"].ToObject<string>();
+            List<TicketCenterDTO> tkDTO = new List<TicketCenterDTO>();
 
             if (!string.IsNullOrEmpty(term))
             {
                 var model = await TdSearchContext.Current.SearchAsync(Context.Tickets.Include(t => t.Project), term, 1);
-
-                List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(model.ToList());
-                return tkDTO;
+                tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(model.ToList());
             }
-            return null;
+            return tkDTO;
         }
     }
 }
