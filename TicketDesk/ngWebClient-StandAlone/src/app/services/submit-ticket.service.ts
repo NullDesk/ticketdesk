@@ -17,8 +17,9 @@ export class SubmitTicketService {
   }
 
   submitTicket(tkt: Ticket) {
-    return this.http.post<SubmissionResult>(settings.ticketDetailsURL, tkt)
+    return this.http.post<any>(settings.ticketDetailsURL, tkt)
       .map(res => {
+        console.warn('this is the response to ticket submission', res);
         if (res['httpCode'] == 200) {
           return res['ticketID'];
         } else {
