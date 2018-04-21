@@ -39,7 +39,7 @@ export class TicketDetailEditorComponent implements OnInit {
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = Object.assign(this.subcategories, res);
       this.categories = Object.keys(res);
-      // this.displayedSubcategories = this.subcategories[this.form.get('category').value];
+      this.displayedSubcategories = this.subcategories[this.form.get('category').value];
       this.form.patchValue(this.initialTicketValue);
     });
     this.form.patchValue(this.initialTicketValue);
