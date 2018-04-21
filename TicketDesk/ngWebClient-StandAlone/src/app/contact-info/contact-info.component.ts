@@ -16,10 +16,11 @@ export class ContactInfoComponent implements OnInit {
   constructor(private contactService: AdContactService) { }
 
   ngOnInit() {
-    this.contactService.getContactCardInfo(this.userName)
+    const { contactService, userName } = this;
+    contactService.getContactCardInfo(userName)
       .subscribe(userDetails => {
         console.warn('userDetails in subscribe:', userDetails)
-        this.user = userDetails;
+        this.user = contactService.formatUserDetails(userDetails);
       });
   }
 
