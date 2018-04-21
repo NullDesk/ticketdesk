@@ -41,6 +41,11 @@ namespace ngWebClientAPI.Models
                     }
 
                 }
+                else
+                {
+                    //No tag list received 
+                    tt.Add(new TicketTag() { TagName = "" });
+                }
                 
                 if ( jsonData["priority"] != null && !String.IsNullOrEmpty(jsonData["priority"].ToString()))
                 {
@@ -76,7 +81,7 @@ namespace ngWebClientAPI.Models
                 Title = data.title,
                 AffectsCustomer = false,
                 Category = data.category,
-                SubCategory = data.subcategory,
+                SubCategory = (data.subcategory != null) ? data.subcategory : "",
                 CreatedBy = data.owner,
                 TicketStatus = TicketStatus.Active,
                 CreatedDate = now,
@@ -87,9 +92,9 @@ namespace ngWebClientAPI.Models
                 LastUpdateBy = data.owner,
                 LastUpdateDate = now,
                 Owner = data.owner,
-                Priority = data.priority,
+                Priority = (data.priority != null) ? data.priority : "unassigned",
                 AssignedTo = data.assignedTo,
-                TagList = data.tagList,
+                TagList = (data.tagList != null) ? data.tagList : "",
                 TicketTags = tt,
                 TicketType = data.ticketType,
                 TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.owner, TicketActivity.Create, null, null, null) },

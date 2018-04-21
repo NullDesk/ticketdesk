@@ -96,7 +96,7 @@ namespace ngWebClientAPI.Controllers
             {
                 result.httpCode = HttpStatusCode.BadRequest;
                 result.ticketID = -1;
-                result.errorMessage = "Malformed Ticket recieved: " + ex.ToString();
+                result.errorMessage = "Malformed Ticket received: " + ex.ToString();
             }
             return JObject.FromObject(result);
         }
