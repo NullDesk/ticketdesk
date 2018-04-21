@@ -14,12 +14,14 @@ using System.Diagnostics;
     public class UsersController : ApiController
     {
         [HttpGet]
-        [Route("")]
-        public CPUUser userID()
+        [Route("{userName}")]
+        public CPUUser userID(string userName = "")
         {
             var employeeManager = new EmployeeInformationManager.EmployeeManager();
-            var userId = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
-            var employee = employeeManager.GetADUserByLogin(userId);
+            var id = (String.IsNullOrEmpty(userName)) 
+              ? System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty)
+              : userName;
+            var employee = employeeManager.GetADUserByLogin(id);
             CPUUser user = new CPUUser();
             user.FirstName = employee.FirstName;
             user.LastName = employee.LastName;
