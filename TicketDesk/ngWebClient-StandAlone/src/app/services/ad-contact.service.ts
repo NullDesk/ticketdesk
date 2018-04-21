@@ -1,24 +1,32 @@
+import { UserDetails } from './../models/user-details';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { UserDetails } from 'app/models/user-details';
 import { catchError, retry } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import * as settings from '../app-settings';
 
 @Injectable()
 export class AdContactService {
-
   constructor(private http: HttpClient) { }
 
-  getContactCardInfo(userID: string): Observable<UserDetails> {
+  getContactCardInfo(userName: string): Observable<UserDetails> {
+    return this.formatUserDetails(this.http.get(settings.adUserURL + userName))
+      .pipe(catchError(this.handleError));
+  }
+
+  private formatUserDetails(
+    userDetails: Observable<any>): Observable<UserDetails> {
+    console.warn('userDetails:', userDetails)  
     return Observable.of({
       firstName: '<First Name>',
       lastName: '<Last Name>',
       phoneNumber: '<Phone Number>',
       email: 'stillneed@activedirectory.com',
-      userId: userID});
+      userId: ''
+    });
+
   }
 
   private handleError(error: HttpErrorResponse): ErrorObservable {

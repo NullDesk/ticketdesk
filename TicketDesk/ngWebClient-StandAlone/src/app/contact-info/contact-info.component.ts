@@ -10,13 +10,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ContactInfoComponent implements OnInit {
   @Input()
-  ownerId: string;
+  userName: string;
   user: UserDetails;
 
   constructor(private contactService: AdContactService) { }
 
   ngOnInit() {
-    this.contactService.getContactCardInfo(this.ownerId)
+    this.contactService.getContactCardInfo(this.userName)
       .subscribe(res => {
         this.user = res;
       });

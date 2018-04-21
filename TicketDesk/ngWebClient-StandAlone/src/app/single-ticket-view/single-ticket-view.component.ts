@@ -34,7 +34,8 @@ export class SingleTicketViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.singleTicketService.getAvailableTicketActions(this.ticketId).subscribe(permissionsResult => {
+    this.singleTicketService.getAvailableTicketActions(
+      this.ticketId).subscribe(permissionsResult => {
       this.ticketActionPermissions = permissionsResult;
     });
     this.singleTicketService.getTicketDetails(this.ticketId).subscribe(response => {
