@@ -12,6 +12,7 @@ export class AdContactService {
   constructor(private http: HttpClient) { }
 
   getContactCardInfo(userName: string): Observable<UserDetails> {
+    console.warn('URL:', settings.adUserURL + userName);
     return this.http.get(settings.adUserURL + userName)
       .pipe(catchError(this.handleError));
   }
