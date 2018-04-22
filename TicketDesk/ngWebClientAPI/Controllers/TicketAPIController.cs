@@ -13,7 +13,7 @@ using System.Configuration;
 
 namespace ngWebClientAPI.Controllers
 {
-    [System.Web.Http.Authorize]
+    //[System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/ticket")]
     public class TicketAPIController : ApiController
     {
@@ -65,9 +65,10 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("")]
-        public async Task<HttpStatusCodeResult> createTicket([FromBody]JObject jsonData)
+        public async Task<JObject> createTicket([FromBody]JObject jsonData)
         {
-            HttpStatusCodeResult result; 
+            //make a new JObject to return to the front end
+            POSTTicketResult result = new POSTTicketResult(); 
             //convert data to comment and ID
             try
             {
@@ -79,18 +80,25 @@ namespace ngWebClientAPI.Controllers
 
                 if(status)
                 {
-                    result = new HttpStatusCodeResult(HttpStatusCode.OK, APITicketConversion.ConvertTicketId(ticket.TicketId).ToString());
+                    //Successfully inserted new ticket to DB
+                    result.httpCode = HttpStatusCode.OK;
+                    result.ticketID = Int64.Parse(ticket.SemanticId);
+                    result.errorMessage = "";
                 }
                 else
                 {
-                    result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Failed adding ticket to database");
+                    result.httpCode = HttpStatusCode.InternalServerError;
+                    result.ticketID = -1;
+                    result.errorMessage = "Internal Database Error";
                 }
             }
             catch (Exception ex)
             {
-                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
+                result.httpCode = HttpStatusCode.BadRequest;
+                result.ticketID = -1;
+                result.errorMessage = "Malformed Ticket recieved: " + ex.ToString();
             }
-            return result;
+            return JObject.FromObject(result);
         }
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("events/{ticketId}")]

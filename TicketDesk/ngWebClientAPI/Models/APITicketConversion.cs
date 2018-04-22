@@ -5,6 +5,8 @@ using System.Web;
 using TicketDesk.Domain.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net;
+
 namespace ngWebClientAPI.Models
 {
     public class APITicketConversion
@@ -66,10 +68,6 @@ namespace ngWebClientAPI.Models
                 return null;
             }
 
-     
-
-            
-
             DateTime now = DateTime.Now;
 
             Ticket ticket = new Ticket
@@ -104,25 +102,9 @@ namespace ngWebClientAPI.Models
         {
             FrontEndTicket FETicket = new FrontEndTicket();
             string ticketID;
-            /*if (ticket.SemanticId != null)
-            {
-                ticketID = ticket.SemanticId + ticket.TicketId.ToString();
-            }
-            else
-            {
-                ticketID = ticket.CreatedDate.ToString("yyMMddHHmm") + ticket.TicketId.ToString();
-            }*/
+
             ticketID = ticket.CreatedDate.ToString("yyMMddHHmm") + ticket.TicketId.ToString();
-            /*uint x; Int64 y;
-            if (uint.TryParse(ticketID, out x))
-            {
-                FETicket.ticketId = (int)x; //gross conversion to string back to int to get around bit shifting
-            }
-            else
-            {
-                Int64.TryParse(ticketID, out y);
-                FETicket.ticketId = (int)y;
-            }*/
+
             Int64 y = Int64.Parse(ticketID);
             FETicket.ticketId = y;
             FETicket.projectId = ticket.ProjectId;
@@ -193,6 +175,13 @@ namespace ngWebClientAPI.Models
         public string tagList { get; set; }
         public string createdDate { get; set; }
         public string title { get; set; }
+    }
+
+    public class POSTTicketResult
+    {
+        public HttpStatusCode httpCode;
+        public Int64 ticketID;
+        public string errorMessage;
     }
 
     public class JList
