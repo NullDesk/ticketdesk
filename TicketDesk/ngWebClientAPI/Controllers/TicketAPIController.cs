@@ -13,7 +13,7 @@ using System.Configuration;
 
 namespace ngWebClientAPI.Controllers
 {
-    //[System.Web.Http.Authorize]
+    [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/ticket")]
     public class TicketAPIController : ApiController
     {
