@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
+import { getTicketStatusText } from '../models/ticket';
 
 @Component({
   selector: 'app-ticket-list',
