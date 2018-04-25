@@ -22,8 +22,8 @@ using TicketDesk.IO;
 using TicketDesk.Search.Common;
 using ngWebClientAPI;
 using ngWebClientAPI.Models;
-using TicketDesk.Web.Identity;
-using TicketDesk.Web.Identity.Model;
+//using TicketDesk.Web.Identity;
+//using TicketDesk.Web.Identity.Model;
 using TicketDesk.Localization.Models;
 
 
@@ -45,37 +45,6 @@ namespace TicketDesk.Domain.Model
                 //not null comments only, otherwise we end up indexing empty array item, or blowing up azure required field
                 Events = t.TicketEvents.Where(c => !string.IsNullOrEmpty(c.Comment)).Select(c => c.Comment).ToArray()
             });
-        }
-
-        public static UserDisplayInfo GetAssignedToInfo(this Ticket ticket)
-        {
-            return GetUserInfo(ticket.AssignedTo);
-        }
-
-        public static UserDisplayInfo GetCreatedByInfo(this Ticket ticket)
-        {
-            return GetUserInfo(ticket.CreatedBy);
-        }
-
-        public static UserDisplayInfo GetOwnerInfo(this Ticket ticket)
-        {
-            return GetUserInfo(ticket.Owner);
-        }
-
-        public static UserDisplayInfo GetLastUpdatedByInfo(this Ticket ticket)
-        {
-            return GetUserInfo(ticket.LastUpdateBy);
-        }
-
-        public static UserDisplayInfo GetCurrentStatusSetByInfo(this Ticket ticket)
-        {
-            return GetUserInfo(ticket.CurrentStatusSetBy);
-        }
-
-        public static UserDisplayInfo GetUserInfo(string userId)
-        {
-            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            return userManager.GetUserInfo(userId);
         }
 
         public static HtmlString HtmlDetails(this Ticket ticket)
@@ -109,41 +78,6 @@ namespace TicketDesk.Domain.Model
             var context = DependencyResolver.Current.GetService<TdDomainContext>();
             return context.Projects.OrderBy(p => p.ProjectName)
                 .ToSelectList(p => p.ProjectId.ToString(), p => p.ProjectName, selectedProject ?? 0, true);
-        }
-
-        public static SelectList GetOwnersList(this Ticket ticket, bool excludeCurrentUser = false, bool excludeCurrentOwner = false)
-        {
-            var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
-            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            var sec = DependencyResolver.Current.GetService<TicketDeskContextSecurityProvider>();
-            IEnumerable<TicketDeskUser> all = roleManager.GetTdInternalUsers(userManager);
-            if (excludeCurrentUser)
-            {
-                all = all.Where(u => u.Id != sec.CurrentUserId);
-            }
-            if (excludeCurrentOwner)
-            {
-                all = all.Where(u => u.Id != ticket.Owner);
-            }
-            return all.ToUserSelectList(false, ticket.Owner);
-        }
-
-
-        public static SelectList GetAssignedToList(this Ticket ticket, bool excludeCurrentUser = false, bool excludeCurrentAssignedTo = false, bool includeEmptyText = true)
-        {
-            var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
-            var userManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            var sec = DependencyResolver.Current.GetService<TicketDeskContextSecurityProvider>();
-            IEnumerable<TicketDeskUser> all = roleManager.GetTdHelpDeskUsers(userManager);
-            if (excludeCurrentUser)
-            {
-                all = all.Where(u => u.Id != sec.CurrentUserId);
-            }
-            if (excludeCurrentAssignedTo)
-            {
-                all = all.Where(u => u.Id != ticket.AssignedTo);
-            }
-            return includeEmptyText ? all.ToUserSelectList(ticket.AssignedTo, Strings.AssignedTo_Unassigned) : all.ToUserSelectList(false, ticket.AssignedTo);
         }
 
         public static bool AllowEditTags(this Ticket ticket)

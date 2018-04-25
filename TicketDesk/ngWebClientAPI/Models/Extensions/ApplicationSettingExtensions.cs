@@ -14,7 +14,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using ngWebClientAPI;
-using TicketDesk.Web.Identity;
 
 namespace TicketDesk.Domain.Model
 {
@@ -33,16 +32,6 @@ namespace TicketDesk.Domain.Model
         public static SelectList GetTicketTypeList(this ApplicationSetting settings, bool includeEmpty, string selectedType)
         {
             return settings.SelectLists.TicketTypesList.ToSelectList(p => p, p => p, selectedType, includeEmpty);
-        }
-
-        public static MultiSelectList GetDefaultNewUserRolesList(this ApplicationSetting settings)
-        {
-            var roleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
-            return roleManager.Roles.ToMultiSelectList(
-                r => r.Name, 
-                r => r.DisplayName,
-                settings.SecuritySettings.DefaultNewUserRoles.ToArray(),
-                false);
         }
 
         public static string GetPriorities(this ApplicationSetting settings)

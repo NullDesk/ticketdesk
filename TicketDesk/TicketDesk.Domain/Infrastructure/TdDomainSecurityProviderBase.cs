@@ -31,14 +31,7 @@ namespace TicketDesk.Domain
 
         protected abstract Func<string, bool> GetIsTdPendingUser { get; }
 
-        public abstract Func<string, string> GetUserDisplayName { get; }
-
         public abstract string CurrentUserId { get; set; }
-
-        public string CurrentUserDisplayName
-        {
-            get { return GetUserDisplayName(CurrentUserId); }
-        }
 
         public bool IsTdHelpDeskUser
         {

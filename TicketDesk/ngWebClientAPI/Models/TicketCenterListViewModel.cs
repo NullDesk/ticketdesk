@@ -17,7 +17,6 @@ using System.Web.Mvc;
 using X.PagedList;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using TicketDesk.Web.Identity;
 
 namespace ngWebClientAPI.Models
 {
