@@ -14,7 +14,7 @@
                 <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
-                <td> {{ getTicketStatusText(row.ticket.status) }} </td>
+                <td> {{ getStatusText(row.ticket.status) }} </td>
                 <td> {{ row.ticket.priority }}  </td>
                 <td> {{ row.ticket.owner }}  </td>
                 <td> {{ row.ticket.assignedTo }}  </td>

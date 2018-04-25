@@ -12,6 +12,7 @@ import { getTicketStatusText } from '../models/ticket';
 export class TicketListComponent implements OnInit {
   // imported into the class, so can be used in HTML
   private colHeadings = columnHeadings;
+  private getStatusText = getTicketStatusText;
   // Adds a vairable to add keep track of checkbox
   private displayList: {ticket: TicketStub, checked: boolean}[];
   @Input() ticketListResults: { ticketList: TicketStub[], maxPages: number };
