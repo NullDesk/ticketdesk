@@ -418,7 +418,7 @@ namespace TicketDesk.Domain
                 act,
                 null,
                 null,
-                SecurityProvider.GetUserDisplayName(newTicket.Owner));
+               newTicket.Owner);
             newTicket.EnsureSubscribers();
         }
 

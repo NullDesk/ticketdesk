@@ -17,7 +17,7 @@ using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
-using TicketDesk.Web.Identity;
+
 
 namespace ngWebClientAPI
 {
@@ -51,11 +51,6 @@ namespace ngWebClientAPI
         protected override Func<string, bool> GetIsTdPendingUser
         {
             get { return UserManager.IsTdPendingUser; }
-        }
-
-        public override Func<string, string> GetUserDisplayName
-        {
-            get { return userId => UserManager.InfoCache.GetUserInfo(userId).IfNotNull(i => i.DisplayName); }
         }
 
     }
