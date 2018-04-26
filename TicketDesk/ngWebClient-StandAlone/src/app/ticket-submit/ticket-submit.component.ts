@@ -23,13 +23,9 @@ export class TicketSubmitComponent implements OnInit {
     // get back the ID
     console.warn('we got a ticket emitted', ticket);
     this.sts.submitTicket(ticket).subscribe( res => {
-      console.warn('THIS IS WHAT WE GOT BACK', JSON.stringify(res));
-      if (res['ticketID']) {
         this.router.navigate(['/ticket/' + res.toString()]);
-      } else {
-        console.warn('some kind of error');
       }
-    });
+    );
   }
 
   ngOnInit() {
