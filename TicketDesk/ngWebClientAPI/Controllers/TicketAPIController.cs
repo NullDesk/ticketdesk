@@ -68,14 +68,15 @@ namespace ngWebClientAPI.Controllers
         public async Task<JObject> createTicket([FromBody]JObject jsonData)
         {
             //make a new JObject to return to the front end
-            POSTTicketResult result = new POSTTicketResult(); 
+            POSTTicketResult result = new POSTTicketResult();
             //convert data to comment and ID
+            Ticket ticket = new Ticket();
             try
             {
                 /*This is going to be temporary.*/
                 string userName = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
 
-                Ticket ticket = APITicketConversion.ConvertPOSTTicket(jsonData, userName);
+                ticket = APITicketConversion.ConvertPOSTTicket(jsonData, userName);
                 bool status = await ticketController.CreateTicketAsync(ticket);
 
                 if(status)
@@ -96,7 +97,7 @@ namespace ngWebClientAPI.Controllers
             {
                 result.httpCode = HttpStatusCode.BadRequest;
                 result.ticketID = -1;
-                result.errorMessage = "Malformed Ticket received: " + ex.ToString();
+                result.errorMessage = "Malformed Ticket received: " + ticket.ToString();
             }
             return JObject.FromObject(result);
         }
