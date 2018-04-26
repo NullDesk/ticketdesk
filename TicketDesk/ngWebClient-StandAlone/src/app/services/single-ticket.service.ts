@@ -29,14 +29,6 @@ export class SingleTicketService {
       .pipe(catchError(this.handleError));
   }
 
-  getOwner(ticketId: number) {
-  // todo: refactor this into the ticket itself
-  }
-
-  getTicketFiles(ticketId: number) {
-
-  }
-
   getTicketLog(ticketId: number): Observable<any> {
     return this.http.get(
       settings.ticketEventsURL + ticketId.toString()
@@ -51,6 +43,7 @@ export class SingleTicketService {
     console.log('performing ' + action.displayText);
     return this.http.post<Object>(action.getURL(), value);
   }
+
   getAvailableTicketActions(ticketId: number): Observable<number> {
     console.log('Calling getAvailableTicketActions');
     return this.http.get<number>(

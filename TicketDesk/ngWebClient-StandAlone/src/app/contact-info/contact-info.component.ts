@@ -15,10 +15,14 @@ export class ContactInfoComponent implements OnInit {
   constructor(private contactService: AdContactService) { }
 
   ngOnInit() {
+    this.populateContactCard()
+  }
+
+  private populateContactCard() {
     const { contactService, userName } = this;
     contactService.getContactCardInfo(userName)
       .subscribe(userDetails => {
-        console.warn('userDetails', userDetails);
+        console.warn('user details for contact card', userDetails);
         this.user = userDetails;
       });
   }
