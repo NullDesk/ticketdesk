@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
 import { getTicketStatusText } from '../models/ticket';
@@ -17,6 +17,7 @@ export class TicketListComponent implements OnInit {
   private displayList: {ticket: TicketStub, checked: boolean}[];
   @Input() ticketListResults: { ticketList: TicketStub[], maxPages: number };
   @Input() columns: string[];
+  @Output() pageChange = new EventEmitter<number>();
   currentPage: number;
 
   ngOnInit() {

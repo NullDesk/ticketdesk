@@ -12,7 +12,7 @@ import { TicketStub } from '../models/ticket-stub';
 
 export class SearchResultsViewComponent implements OnInit {
   private term: string;
-  private ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: 1};
+  private ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: null};
   private listReady: Boolean = false;
   constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {

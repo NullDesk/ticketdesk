@@ -2,7 +2,7 @@ export interface TicketStub {
     ticketId: number;
     title: string;
     status: number;
-    owner: string;
+    ownerId: string;
     assignedTo?: string;
     category: string;
     subcategory: string;

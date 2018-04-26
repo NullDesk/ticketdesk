@@ -15,6 +15,8 @@ export class MultiTicketService {
 
 
   // Get ticketList from index enpoint
+  // Currently this endpoint does not return maxPage.
+  // So pagination is done one page at a time. Without knowledge of how many items there are.
   indexList(
     listName: string,
     page?: number

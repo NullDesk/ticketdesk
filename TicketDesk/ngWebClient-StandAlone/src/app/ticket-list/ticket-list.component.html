@@ -24,8 +24,8 @@
                 <td> {{ row.ticket.updatedDate }}  </td>
             </tr>
         </tbody>
-        <!-- Pagination goes here !-->
     </table>
-    <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
-    <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+    <div *ngIf="ticketListResults.maxPages" >
+        <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 (pageChange)="pageChange($event)" [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+    </div>
 </div>
