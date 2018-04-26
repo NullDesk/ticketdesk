@@ -23,8 +23,8 @@ export class SingleTicketService {
   constructor(private http: HttpClient) {}
 
   getTicketDetails(ticketId: number): Observable<any> {
-    const url = settings.ticketDetailsURL + ticketId.toString()
-    console.warn(`getting details for ticketId: ${ticketId} from url: ${url}`)
+    const url = settings.ticketDetailsURL + ticketId.toString();
+    console.warn(`getting details for ticketId: ${ticketId} from url: ${url}`);
     return this.http.get(url)
       .pipe(catchError(this.handleError));
   }
@@ -34,7 +34,7 @@ export class SingleTicketService {
   getTicketAssets(ticketId: number) {
 
   }
-  // TODO: implement this to change subscription for 
+  // TODO: implement this to change subscription for
   // who gets notifications
   changeTicketSubscription(ticketID: number) {
 
@@ -68,5 +68,5 @@ export class SingleTicketService {
     }
     return new ErrorObservable('Experiencing some issues, we are sorry');
   }
-  
+
 }

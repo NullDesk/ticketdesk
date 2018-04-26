@@ -15,7 +15,7 @@ export class ContactInfoComponent implements OnInit {
   constructor(private contactService: AdContactService) { }
 
   ngOnInit() {
-    this.populateContactCard()
+    this.populateContactCard();
   }
 
   private populateContactCard() {
