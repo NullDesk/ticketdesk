@@ -45,7 +45,7 @@ export class SingleTicketService {
 
   }
 
-  submitTicketAction(value: object, action: TicketActionEnum) {
+  submitTicketAction(value: any, action: TicketActionEnum) {
     console.log('performing ' + action.displayText);
     return this.http.post<any>(action.getURL(), value);
   }
