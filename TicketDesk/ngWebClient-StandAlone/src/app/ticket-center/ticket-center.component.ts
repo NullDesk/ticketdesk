@@ -17,6 +17,7 @@ export class TicketCenterComponent implements OnInit {
   ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: 2};
   currentList = '';
   listReady: Boolean = false;
+  tabsReady: Boolean = false;
 
   constructor(private multiTicketService: MultiTicketService) {
   }
@@ -27,6 +28,7 @@ export class TicketCenterComponent implements OnInit {
           if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {
             this.tabNames.unshift('unassigned', 'assignedToMe');
           }
+          this.tabsReady = true;
         });
     // Sending empty string, gets the default page from the backend, dependent on their permissions.
     // mytickets for standard users, unassigned for resolvers and admins
