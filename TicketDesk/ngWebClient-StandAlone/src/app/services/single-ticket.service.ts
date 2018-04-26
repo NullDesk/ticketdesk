@@ -29,14 +29,21 @@ export class SingleTicketService {
       .pipe(catchError(this.handleError));
   }
 
+  // TODO: implement to get assests such as links
+  // or files
+  getTicketAssets(ticketId: number) {
+
+  }
+  // TODO: implement this to change subscription for 
+  // who gets notifications
+  changeTicketSubscription(ticketID: number) {
+
+  }
+
   getTicketLog(ticketId: number): Observable<any> {
     return this.http.get(
       settings.ticketEventsURL + ticketId.toString()
     ).map(res => res['list']);
-  }
-
-  changeTicketSubscription(ticketID: number) {
-
   }
 
   submitTicketAction(value: object, action: TicketActionEnum) {
@@ -50,6 +57,7 @@ export class SingleTicketService {
       settings.getValidActionsURL + ticketId.toString()
     );
   }
+
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
       // ... this is a client side error, handle it!
@@ -60,4 +68,5 @@ export class SingleTicketService {
     }
     return new ErrorObservable('Experiencing some issues, we are sorry');
   }
+  
 }
