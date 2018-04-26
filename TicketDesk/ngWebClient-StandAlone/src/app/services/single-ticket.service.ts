@@ -23,7 +23,9 @@ export class SingleTicketService {
   constructor(private http: HttpClient) {}
 
   getTicketDetails(ticketId: number): Observable<any> {
-    return this.http.get(settings.ticketDetailsURL + ticketId.toString())
+    const url = settings.ticketDetailsURL + ticketId.toString()
+    console.warn(`getting details for ticketId: ${ticketId} from url: ${url}`)
+    return this.http.get(url)
       .pipe(catchError(this.handleError));
   }
 

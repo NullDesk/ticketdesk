@@ -2,7 +2,7 @@ export interface TicketStub {
     ticketId: number;
     title: string;
     status: number;
-    owner: string;
+    ownerId: string;
     assignedTo?: string;
     category: string;
     subcategory: string;
@@ -12,5 +12,14 @@ export interface TicketStub {
   }
 
 // Headings for table (displayed to User)
-export const columnHeadings: string[] = ['TicketID', 'Title', 'Status', 'Priority', 'Owner', 'Assigned To', 'Category',
-                                      'Created Date', 'Last Updated'];
+export const columnHeadings: string[] = [
+  'TicketID', 
+  'Title', 
+  'Status', 
+  'Priority', 
+  'Owner', 
+  'Assigned To', 
+  'Category',
+  'Created Date', 
+  'Last Updated'
+];
