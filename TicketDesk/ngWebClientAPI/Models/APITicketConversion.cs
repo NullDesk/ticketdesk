@@ -60,10 +60,10 @@ namespace ngWebClientAPI.Models
 
                 if (jsonData["ownerId"] != null && !String.IsNullOrEmpty(jsonData["ownerId"].ToString()))
                 {
-                    data.owner = jsonData["ownerId"].ToString();
+                    data.ownerId = jsonData["ownerId"].ToString();
                 } else
                 {
-                    data.owner = (userName != null) ? userName : "";
+                    data.ownerId = (userName != null) ? userName : "";
                 }
 
 
@@ -83,22 +83,22 @@ namespace ngWebClientAPI.Models
                 AffectsCustomer = false,
                 Category = (data.category != null) ? data.category : "DefaultCategory",
                 SubCategory = (data.subcategory != null) ? data.subcategory : "",
-                CreatedBy = data.owner,
+                CreatedBy = data.ownerId,
                 TicketStatus = TicketStatus.Active,
                 CreatedDate = now,
                 CurrentStatusDate = now,
-                CurrentStatusSetBy = data.owner,
+                CurrentStatusSetBy = data.ownerId,
                 Details = data.details,
                 IsHtml = false,
-                LastUpdateBy = data.owner,
+                LastUpdateBy = data.ownerId,
                 LastUpdateDate = now,
-                Owner = data.owner,
+                Owner = data.ownerId,
                 Priority = (data.priority != null) ? data.priority : "unassigned",
                 AssignedTo = (data.assignedTo != null) ? data.assignedTo : "",
                 TagList = (data.tagList != null) ? data.tagList : "",
                 TicketTags = tt,
                 TicketType = (data.ticketType != null) ? data.ticketType : "DefaultType",
-                TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.owner, TicketActivity.Create, null, null, null) },
+                TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.ownerId, TicketActivity.Create, null, null, null) },
                 SemanticId = now.ToString("yyMMddHHmm"), /*Formatting for semantic numbering.*/
             };
 
@@ -119,7 +119,7 @@ namespace ngWebClientAPI.Models
             FETicket.ticketType = ticket.TicketType;
             FETicket.category = ticket.Category;
             FETicket.subcategory = ticket.SubCategory; //no subcategory in TicketDesk db, might want to add?
-            FETicket.owner = ticket.Owner;
+            FETicket.ownerId = ticket.Owner;
             FETicket.assignedTo = ticket.AssignedTo;
             FETicket.status = ticket.TicketStatus;
             FETicket.tagList = ticket.TagList;
@@ -175,7 +175,7 @@ namespace ngWebClientAPI.Models
         public string ticketType { get; set; }
         public string category { get; set; }
         public string subcategory { get; set; }
-        public string owner { get; set; }
+        public string ownerId { get; set; }
         public string assignedTo { get; set; }
         public TicketStatus status { get; set; }
         public string tagList { get; set; }
