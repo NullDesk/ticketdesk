@@ -63,7 +63,7 @@ namespace ngWebClientAPI.Models
                     data.owner = jsonData["ownerId"].ToString();
                 } else
                 {
-                    data.owner = userName;
+                    data.owner = (userName != null) ? userName : "";
                 }
 
 
@@ -77,10 +77,11 @@ namespace ngWebClientAPI.Models
 
             Ticket ticket = new Ticket
             {
+                TicketId = default(int),
                 ProjectId = 1,
-                Title = data.title,
+                Title = (data.title != null) ? data.title : "DefaultTicket",
                 AffectsCustomer = false,
-                Category = data.category,
+                Category = (data.category != null) ? data.category : "DefaultCategory",
                 SubCategory = (data.subcategory != null) ? data.subcategory : "",
                 CreatedBy = data.owner,
                 TicketStatus = TicketStatus.Active,
@@ -93,10 +94,10 @@ namespace ngWebClientAPI.Models
                 LastUpdateDate = now,
                 Owner = data.owner,
                 Priority = (data.priority != null) ? data.priority : "unassigned",
-                AssignedTo = data.assignedTo,
+                AssignedTo = (data.assignedTo != null) ? data.assignedTo : "",
                 TagList = (data.tagList != null) ? data.tagList : "",
                 TicketTags = tt,
-                TicketType = data.ticketType,
+                TicketType = (data.ticketType != null) ? data.ticketType : "DefaultType",
                 TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.owner, TicketActivity.Create, null, null, null) },
                 SemanticId = now.ToString("yyMMddHHmm"), /*Formatting for semantic numbering.*/
             };
