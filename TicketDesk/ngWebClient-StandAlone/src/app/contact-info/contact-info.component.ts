@@ -2,7 +2,6 @@ import { AdContactService } from './../services/ad-contact.service';
 import { UserDetails } from 'app/models/user-details';
 import { Component, OnInit, Input } from '@angular/core';
 
-
 @Component({
   selector: 'app-contact-info',
   templateUrl: './contact-info.component.html',
@@ -19,8 +18,8 @@ export class ContactInfoComponent implements OnInit {
     const { contactService, userName } = this;
     contactService.getContactCardInfo(userName)
       .subscribe(userDetails => {
-        console.warn('userDetails', userDetails)
-        this.user = userDetails
+        console.warn('userDetails', userDetails);
+        this.user = userDetails;
       });
   }
 
