@@ -423,7 +423,6 @@
           <DevelopmentServerPort>50067</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:50067/</IISUrl>
-          <IISUrl>http://localhost:50065/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

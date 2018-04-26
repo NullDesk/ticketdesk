@@ -14,7 +14,7 @@ namespace ngWebClientAPI.Models
         public Int64 ticketId { get; set; }
         public string title { get; set; }
         public TicketStatus status { get; set; }
-        public string owner { get; set; }
+        public string ownerId { get; set; }
         public string assignedTo { get; set; }
         public string category { get; set; }
         public string subcategory { get; set; }
@@ -32,7 +32,7 @@ namespace ngWebClientAPI.Models
                 tkDataTransfer.ticketId = Int64.Parse(tk.CreatedDate.ToString("yyMMddHHmm") + tk.TicketId.ToString());
                 tkDataTransfer.title = tk.Title;
                 tkDataTransfer.status = tk.TicketStatus;
-                tkDataTransfer.owner = tk.Owner;
+                tkDataTransfer.ownerId = tk.Owner;
                 tkDataTransfer.assignedTo = tk.AssignedTo;
                 tkDataTransfer.category = tk.Category;
                 tkDataTransfer.subcategory = tk.SubCategory;
