@@ -18,8 +18,10 @@ export class ContactInfoComponent implements OnInit {
   ngOnInit() {
     const { contactService, userName } = this;
     contactService.getContactCardInfo(userName)
-      .subscribe(userDetails => this.user = userDetails);
-    console.warn('userDetails', this.user)
+      .subscribe(userDetails => {
+        console.warn('userDetails', userDetails)
+        this.user = userDetails
+      });
   }
 
 }
