@@ -12,8 +12,18 @@ export interface TicketStub {
   }
 
 // Headings for table (displayed to User)
-export const columnHeadings: string[] = ['TicketID', 'Title', 'Status', 'Priority', 'Owner', 'Assigned To', 'Category',
-                                      'Created Date', 'Last Updated'];
+export const columnHeadings: string[] = [
+  'TicketID',
+  'Title',
+  'Status',
+  'Priority',
+  'Owner',
+  'Assigned To',
+  'Category',
+  'Subcategory',
+  'Created Date',
+  'Last Updated'
+];
 
 
 export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
@@ -21,5 +31,5 @@ export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
   ['assignedToMe', 'My Assigned Tickets'],
   ['mytickets', 'My Tickets'],
   ['opentickets', 'Open Tickets'],
-  ['historytickets', 'Closed Tickets?????'],
+  ['historytickets', 'Closed Tickets'],
 ]);

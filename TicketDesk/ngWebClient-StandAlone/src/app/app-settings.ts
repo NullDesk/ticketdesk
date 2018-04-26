@@ -29,3 +29,4 @@ export const resetTicketsFilterAndSort = serviceBaseURL + '/tickets/reset-user-l
 export const getTicketsIndex = serviceBaseURL + '/tickets/index';
 export const getSortedTicketList = serviceBaseURL + '/tickets/sortList';
 export const getFilteredTicketList = serviceBaseURL + '/tickets/filterList';
+export const getUserPermissions = serviceBaseURL + '/users/permissions';

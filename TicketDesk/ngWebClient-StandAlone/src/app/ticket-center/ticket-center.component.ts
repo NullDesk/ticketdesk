@@ -1,5 +1,6 @@
 import { Injectable, Component, OnInit } from '@angular/core';
 import { TicketStub, ticketlistToUserDisplayMap } from '../models/ticket-stub';
+import { userPermissions } from '../models/user-details';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MultiTicketService } from '../services/multi-ticket.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
@@ -12,7 +13,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
 
 
 export class TicketCenterComponent implements OnInit {
-  tabNames: string[] = ['unassigned', 'assignedToMe', 'mytickets', 'opentickets', 'historytickets']; // Make input settings at some point
+  tabNames: string[] = ['mytickets', 'opentickets', 'historytickets'];
   ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: 2};
   currentList = '';
   listReady: Boolean = false;
@@ -21,7 +22,14 @@ export class TicketCenterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.multiTicketService.getUserPermissions()
+        .subscribe(permissions => {
+          if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {
+            this.tabNames.unshift('unassigned', 'assignedToMe');
+          }
+        });
     // Sending empty string, gets the default page from the backend, dependent on their permissions.
+    // mytickets for standard users, unassigned for resolvers and admins
     this.getTicketList(this.currentList, 1);
   }
 

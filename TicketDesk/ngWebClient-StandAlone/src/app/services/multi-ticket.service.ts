@@ -23,7 +23,7 @@ export class MultiTicketService {
   ): Observable<TicketStub[]> {
     // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: page, listName: listName};
-    const ticketList = this.http.post<TicketStub[]>( settings.getTicketsIndex, params);
+    const ticketList = this.http.post<TicketStub[]>(settings.getTicketsIndex, params);
     return ticketList.map(res => {
       console.warn('TicketList Responese', JSON.stringify(res));
       return res;
@@ -31,7 +31,7 @@ export class MultiTicketService {
   }
 
   resetFilterAndSort() {
-    this.http.post( settings.resetTicketsFilterAndSort, '');
+    this.http.post(settings.resetTicketsFilterAndSort, '');
   }
 
   sortList(
@@ -51,6 +51,10 @@ export class MultiTicketService {
     assignedTo?: string
   ) {
 
+  }
+
+  getUserPermissions() {
+    return this.http.get<string>(settings.getUserPermissions);
   }
 
 }

@@ -5,3 +5,9 @@ export interface UserDetails {
   email: string;
   userId: string;
 }
+
+export const userPermissions = {
+  admin: 'TD_Admin',
+  user: 'TD_User',
+  resolver: 'TD_Resolver'
+};
