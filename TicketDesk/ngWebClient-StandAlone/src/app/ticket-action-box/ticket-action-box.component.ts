@@ -10,6 +10,7 @@ import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_h
   styleUrls: ['./ticket-action-box.component.css'],
   providers: [SingleTicketService]
 })
+
 export class TicketActionBoxComponent implements OnInit, OnChanges {
   @Input() ticket: Ticket;
   @Input() permissions: number;
@@ -25,7 +26,6 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
     this.detailEditorNeeded = this.activeAction === TicketActionEnum.EDITTICKET;
     this.commentPlaceholder = action.requiresComment ? 'Comment (required)' : 'Comment (optional)';
     return true;
-
   }
 
   ticketEmit(ticket: Ticket) {
