@@ -34,7 +34,7 @@ namespace ngWebClientAPI.Models
                         lp => lp.ListMenuDisplayOrder),
                 CurrentPage = currentPage,
                 CurrentListSetting = userSettings.GetUserListSettingByName(listName)
-        };
+            };
 
             List<Ticket> tk = await vm.ListTicketsAsync(currentPage, context);
 
@@ -81,6 +81,7 @@ namespace ngWebClientAPI.Models
 
             query = filterColumns.ApplyToQuery(query);
             query = sortColumns.ApplyToQuery(query);
+
             IPagedList<Ticket> ticketList = await query.ToPagedListAsync(pageIndex, pageSize);
 
             return  ticketList.ToList();
