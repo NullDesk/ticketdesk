@@ -27,17 +27,17 @@ namespace ngWebClientAPI.Controllers
                   : userName;
                 var employee = employeeManager.GetADUserByLogin(id);
                 CPUUser user = new CPUUser();
-                user.FirstName = employee.FirstName;
-                user.LastName = employee.LastName;
-                user.Phone = employee.Phone;
-                user.Email = employee.Email;
-                user.ID = employee.Id.ToString();
+                user.firstName = employee.FirstName;
+                user.lastName = employee.LastName;
+                user.phoneNumber = employee.Phone;
+                user.email = employee.Email;
+                user.id = employee.Id.ToString();
                 var mygroup = employee.Groups;
-                user.Groups = new List<string>();
+                user.groups = new List<string>();
 
                 foreach (var group in mygroup)
                 {
-                    user.Groups.Add(group.Name);
+                    user.groups.Add(group.Name);
                 }
 
                 return user;

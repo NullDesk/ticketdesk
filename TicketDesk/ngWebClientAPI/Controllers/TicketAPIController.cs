@@ -83,7 +83,7 @@ namespace ngWebClientAPI.Controllers
                 {
                     //Successfully inserted new ticket to DB
                     result.httpCode = HttpStatusCode.OK;
-                    result.ticketID = Int64.Parse(ticket.SemanticId);
+                    result.ticketID = Int64.Parse(ticket.SemanticId + ticket.TicketId.ToString());
                     result.errorMessage = "";
                 }
                 else
