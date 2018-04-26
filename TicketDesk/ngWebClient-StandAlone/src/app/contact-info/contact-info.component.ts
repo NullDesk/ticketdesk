@@ -19,6 +19,7 @@ export class ContactInfoComponent implements OnInit {
     const { contactService, userName } = this;
     contactService.getContactCardInfo(userName)
       .subscribe(userDetails => this.user = userDetails);
+    console.warn('userDetails', this.user)
   }
 
 }
