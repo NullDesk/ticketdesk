@@ -23,15 +23,20 @@ export class SingleTicketService {
   constructor(private http: HttpClient) {}
 
   getTicketDetails(ticketId: number): Observable<any> {
-    return this.http.get(settings.ticketDetailsURL + ticketId.toString())
+    const url = settings.ticketDetailsURL + ticketId.toString();
+    console.warn(`getting details for ticketId: ${ticketId} from url: ${url}`);
+    return this.http.get(url)
       .pipe(catchError(this.handleError));
   }
 
-  getOwner(ticketId: number) {
-  // todo: refactor this into the ticket itself
-  }
+  // TODO: implement to get assets such as links
+  // or files
+  getTicketAssets(ticketId: number) {
 
-  getTicketFiles(ticketId: number) {
+  }
+  // TODO: implement this to change subscription for
+  // who gets notifications
+  changeTicketSubscription(ticketID: number) {
 
   }
 
@@ -39,10 +44,6 @@ export class SingleTicketService {
     return this.http.get(
       settings.ticketEventsURL + ticketId.toString()
     ).map(res => res['list']);
-  }
-
-  changeTicketSubscription(ticketID: number) {
-
   }
 
   submitTicketAction(value: any, action: TicketActionEnum) {
@@ -56,6 +57,7 @@ export class SingleTicketService {
       settings.getValidActionsURL + ticketId.toString()
     );
   }
+
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
       // ... this is a client side error, handle it!
@@ -66,4 +68,5 @@ export class SingleTicketService {
     }
     return new ErrorObservable('Experiencing some issues, we are sorry');
   }
+
 }

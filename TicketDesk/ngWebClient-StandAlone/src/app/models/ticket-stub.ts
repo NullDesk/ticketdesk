@@ -2,7 +2,7 @@ export interface TicketStub {
     ticketId: number;
     title: string;
     status: number;
-    owner: string;
+    ownerId: string;
     assignedTo?: string;
     category: string;
     subcategory: string;
@@ -11,10 +11,17 @@ export interface TicketStub {
     updatedDate?: string;
   }
 
-// Headings for table (displayed to User)
-export const columnHeadings: string[] = ['TicketID', 'Title', 'Status', 'Priority', 'Owner', 'Assigned To', 'Category',
-                                      'Created Date', 'Last Updated'];
-
+export const columnHeadings: string[] = [
+  'Ticket ID',
+  'Title',
+  'Status',
+  'Priority',
+  'Owner',
+  'Assigned To',
+  'Category',
+  'Created Date',
+  'Last Updated'
+];
 
 export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
   ['unassigned', 'Unassigned Tickets'],
