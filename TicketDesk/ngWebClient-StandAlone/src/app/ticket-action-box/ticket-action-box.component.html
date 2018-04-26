@@ -4,6 +4,6 @@
   </button>
 </span>
 <div [ngbCollapse]="isCollapsed">
-  <div *ngIf="detailEditorNeeded"><app-ticket-detail-editor [initialTicketValue]="ticket" ></app-ticket-detail-editor></div>
+  <div *ngIf="detailEditorNeeded"><app-ticket-detail-editor [initialTicketValue]="ticket" (ticketEmitter)="ticketEmit($event)"></app-ticket-detail-editor></div>
   <app-ticket-action-entry [action]="activeAction" [commentPlaceholder]="commentPlaceholder" *ngIf="!detailEditorNeeded"></app-ticket-action-entry>
 </div>

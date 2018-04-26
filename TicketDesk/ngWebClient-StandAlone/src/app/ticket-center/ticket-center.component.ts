@@ -1,5 +1,5 @@
 import { Injectable, Component, OnInit } from '@angular/core';
-import { TicketStub } from '../models/ticket-stub';
+import { TicketStub, ticketlistToUserDisplayMap } from '../models/ticket-stub';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MultiTicketService } from '../services/multi-ticket.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
@@ -34,8 +34,11 @@ export class TicketCenterComponent implements OnInit {
 
   onTabChange(event: NgbTabChangeEvent) {
     this.listReady = false;
-    console.log('getting ticket for => ', event.activeId);
-    this.getTicketList(event.activeId);
+    console.log('getting ticket for => ', event.nextId);
+    this.getTicketList(event.nextId);
   }
 
+  convertListNameToDisplayStr(str: string) {
+    return ticketlistToUserDisplayMap.has(str) ? ticketlistToUserDisplayMap.get(str) : str;
+  }
 }

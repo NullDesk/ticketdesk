@@ -3,5 +3,5 @@
                   <textarea formControlName="comment" class="form-control" [placeholder]="commentPlaceholder" rows="5"></textarea>
                   <div *ngIf="action.specifiesUser"><app-ad-user-selector></app-ad-user-selector></div>
                   {{ ticketActionForm.invalid }}
-                  <button class="btn btn-primary pull-right" type="button" (click)="submit()" [disabled]="ticketActionForm.invalid">Submit</button>
+                  <button class="btn btn-primary pull-right" type="button" (click)="submitAction()" [disabled]="ticketActionForm.invalid">Submit</button>
                 </div>

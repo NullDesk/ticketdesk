@@ -11,7 +11,6 @@ export interface TicketStub {
     updatedDate?: string;
   }
 
-// Headings for table (displayed to User)
 export const columnHeadings: string[] = [
   'Ticket ID',
   'Title',
@@ -23,3 +22,11 @@ export const columnHeadings: string[] = [
   'Created Date',
   'Last Updated'
 ];
+
+export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
+  ['unassigned', 'Unassigned Tickets'],
+  ['assignedToMe', 'My Assigned Tickets'],
+  ['mytickets', 'My Tickets'],
+  ['opentickets', 'Open Tickets'],
+  ['historytickets', 'Closed Tickets?????'],
+]);
