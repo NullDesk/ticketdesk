@@ -27,17 +27,16 @@ export class TicketCenterComponent implements OnInit {
 
   getTicketList(listName: string, page: number): void {
     this.listReady = false;
-    this.currentList = listName;
     console.log('Getting ticketlist for', listName, 'at page ', page);
     this.multiTicketService.indexList(listName, page)
         .subscribe(ticketList => {
           this.ticketListResults.ticketList = ticketList;
-          this.ticketListResults.maxPages++;
+          this.ticketListResults.maxPages = page + 1;
           this.listReady = true; });
   }
 
   onTabChange(event: NgbTabChangeEvent) {
-    this.ticketListResults.maxPages = 2;
+    this.currentList = event.nextId;
     console.log('getting ticket for => ', event.nextId);
     this.getTicketList(event.nextId, 1);
   }

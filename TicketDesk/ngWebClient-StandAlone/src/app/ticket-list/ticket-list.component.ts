@@ -39,4 +39,8 @@ export class TicketListComponent implements OnInit {
   getSelected() {
     return this.displayList.filter( x => x.checked);
   }
+
+  onPageChange(page: number) {
+    this.pageChange.emit(page);
+  }
 }
