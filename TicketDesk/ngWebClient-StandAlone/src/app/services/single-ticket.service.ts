@@ -29,7 +29,7 @@ export class SingleTicketService {
       .pipe(catchError(this.handleError));
   }
 
-  // TODO: implement to get assests such as links
+  // TODO: implement to get assets such as links
   // or files
   getTicketAssets(ticketId: number) {
 

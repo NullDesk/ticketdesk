@@ -13,7 +13,7 @@ export interface TicketStub {
 
 // Headings for table (displayed to User)
 export const columnHeadings: string[] = [
-  'TicketID',
+  'Ticket ID',
   'Title',
   'Status',
   'Priority',
