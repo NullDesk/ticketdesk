@@ -21,7 +21,7 @@
     <Use64BitIISExpress>
     </Use64BitIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <IISExpressUseClassicPipelineMode>
@@ -284,7 +284,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\APITicketConversion.cs" />
-    <Compile Include="Models\CPUUser.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\APIActionsConversion.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />

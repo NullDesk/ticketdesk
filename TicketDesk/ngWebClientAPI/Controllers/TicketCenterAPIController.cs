@@ -14,7 +14,7 @@ using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     [RoutePrefix("api/tickets")]
     public class TicketCenterAPIController : ApiController
     {
@@ -22,7 +22,9 @@ namespace ngWebClientAPI.Controllers
 
         public TicketCenterAPIController()
         {
+            
             TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
+           
             ticketCenterController = new TicketCenterController(new TdDomainContext(secur));
         }
 
@@ -39,6 +41,7 @@ namespace ngWebClientAPI.Controllers
         [Route("index")]
         public async Task<List<TicketCenterDTO>> Index(JObject data)
         {
+            string userName = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
             int? page = data["page"].ToObject<int?>();
             string listName = null;
 

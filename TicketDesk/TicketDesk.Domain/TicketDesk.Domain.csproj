@@ -35,13 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CPU.Core.Objects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\CPU.Core.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="EmployeeInformationManager, Version=2.0.0.11, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\EmployeeInformationManager.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -56,6 +60,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.Linq, Version=1.2.2.1, Culture=neutral, PublicKeyToken=15767dc0c85f19f9, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\System.DirectoryServices.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -164,6 +172,7 @@
     <Compile Include="Model\ApplicaitonSettingsModel\ClientSettings.cs" />
     <Compile Include="Model\ApplicationSettings.cs" />
     <Compile Include="Model\CategorySetting.cs" />
+    <Compile Include="Model\CPUUser.cs" />
     <Compile Include="Model\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Model\Extensions\SearchManagerExtensions.cs" />
     <Compile Include="Model\Extensions\TicketActivityExtensions.cs" />

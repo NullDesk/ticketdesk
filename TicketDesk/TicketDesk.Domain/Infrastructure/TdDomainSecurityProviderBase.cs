@@ -23,34 +23,34 @@ namespace TicketDesk.Domain
     public abstract class TdDomainSecurityProviderBase
     {
 
-        protected abstract Func<string, bool> GetIsTdHelpDeskUser { get; }
+        protected abstract Func<CPUUser, bool> GetIsTdHelpDeskUser { get; }
 
-        protected abstract Func<string, bool> GetIsTdInternalUser { get; }
+        protected abstract Func<CPUUser, bool> GetIsTdInternalUser { get; }
 
-        protected abstract Func<string, bool> GetIsTdAdministrator { get; }
+        protected abstract Func<CPUUser, bool> GetIsTdAdministrator { get; }
 
-        protected abstract Func<string, bool> GetIsTdPendingUser { get; }
+        protected abstract Func<CPUUser, bool> GetIsTdPendingUser { get; }
 
-        public abstract string CurrentUserId { get; set; }
+        public abstract CPUUser CurrentUser { get; set; }
 
         public bool IsTdHelpDeskUser
         {
-            get { return GetIsTdHelpDeskUser(CurrentUserId); }
+            get { return GetIsTdHelpDeskUser(CurrentUser); }
         }
 
         public bool IsTdInternalUser
         {
-            get { return GetIsTdInternalUser(CurrentUserId); }
+            get { return GetIsTdInternalUser(CurrentUser); }
         }
 
         public bool IsTdAdministrator
         {
-            get { return GetIsTdAdministrator(CurrentUserId); }
+            get { return GetIsTdAdministrator(CurrentUser); }
         }
 
         public bool IsTdPendingUser
         {
-            get { return GetIsTdPendingUser(CurrentUserId); }
+            get { return GetIsTdPendingUser(CurrentUser); }
         }
 
         internal TicketActivity GetInternalUserPermissions()
@@ -91,7 +91,7 @@ namespace TicketDesk.Domain
             {
                 throw new SecurityException("User is not authorized to read ticket data.");
             }
-            var validTicketActivities = ticket.GetAvailableActivites(CurrentUserId);
+            var validTicketActivities = ticket.GetAvailableActivites(CurrentUser.UserName);
             var allowedActivities = IsTdAdministrator
                 ? GetAdministratorUserPermissions()
                 : IsTdHelpDeskUser

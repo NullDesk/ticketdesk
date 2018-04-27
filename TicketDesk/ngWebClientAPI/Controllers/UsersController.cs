@@ -8,6 +8,7 @@ using EmployeeInformationManager;
 using ngWebClientAPI.Models;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
+using TicketDesk.Domain.Model;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -21,7 +22,7 @@ namespace ngWebClientAPI.Controllers
         {
             try
             {
-                var employeeManager = new EmployeeInformationManager.EmployeeManager();
+                var employeeManager = new EmployeeManager();
                 var id = (String.IsNullOrEmpty(userName) && userName != "undefined")
                   ? System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty)
                   : userName;
@@ -46,8 +47,8 @@ namespace ngWebClientAPI.Controllers
             {
                 return null;
             }
-            
         }
+
         [HttpGet]
         [Route("permissions")]
         public JObject GetPermission()
