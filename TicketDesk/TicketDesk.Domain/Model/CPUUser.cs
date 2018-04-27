@@ -6,13 +6,13 @@ namespace TicketDesk.Domain.Model
 {
     public class CPUUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string UserName { get; set; }
-        public List<string> Groups { get; set; }
-        public string ID { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string phoneNumber { get; set; }
+        public string email { get; set; }
+        public string userName { get; set; }
+        public List<string> groups { get; set; }
+        public string id { get; set; }
 
         public CPUUser()
         {
@@ -24,18 +24,18 @@ namespace TicketDesk.Domain.Model
             var employeeManager = new EmployeeManager();
             var employee = employeeManager.GetADUserByLogin(userName);
 
-            FirstName = employee.FirstName;
-            LastName = employee.LastName;
-            Phone = employee.Phone;
-            Email = employee.Email;
-            UserName = employee.UserName.ToLower();
-            ID = employee.Id.ToString();
+            firstName = employee.FirstName;
+            lastName = employee.LastName;
+            phoneNumber = employee.Phone;
+            email = employee.Email;
+            userName = employee.UserName.ToLower();
+            id = employee.Id.ToString();
             var mygroup = employee.Groups;
-            Groups = new List<string>();
+            groups = new List<string>();
 
             foreach (var group in mygroup)
             {
-                Groups.Add(group.Name);
+                groups.Add(group.Name);
             }
         }
     }

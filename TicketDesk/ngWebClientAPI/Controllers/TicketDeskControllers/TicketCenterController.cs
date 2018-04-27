@@ -33,7 +33,7 @@ namespace ngWebClientAPI.Controllers
         [Route("reset-user-lists")]
         public async Task<List<Ticket>> ResetUserLists()
         {
-            var uId = Context.SecurityProvider.CurrentUser.UserName;
+            var uId = Context.SecurityProvider.CurrentUser.userName;
             await Context.UserSettingsManager.ResetAllListSettingsForUserAsync(uId);
             var x = await Context.SaveChangesAsync();
 
@@ -48,7 +48,7 @@ namespace ngWebClientAPI.Controllers
             listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "mytickets");
             var pageNumber = page ?? 1;
 
-            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.UserName);
+            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.userName);
             List<Ticket> ticketList = viewModel.Tickets;
             return ticketList;
         }
@@ -66,7 +66,7 @@ namespace ngWebClientAPI.Controllers
             string owner,
             string assignedTo)
         {
-            var uId = Context.SecurityProvider.CurrentUser.UserName;
+            var uId = Context.SecurityProvider.CurrentUser.userName;
             var userSetting = await Context.UserSettingsManager.GetSettingsForUserAsync(uId);
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
@@ -85,7 +85,7 @@ namespace ngWebClientAPI.Controllers
             string columnName,
             bool isMultiSort = false)
         {
-            var uId = Context.SecurityProvider.CurrentUser.UserName;
+            var uId = Context.SecurityProvider.CurrentUser.userName;
             var userSetting = await Context.UserSettingsManager.GetSettingsForUserAsync(uId);
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
@@ -127,7 +127,7 @@ namespace ngWebClientAPI.Controllers
         {
             var pageNumber = page ?? 1;
 
-            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.UserName);
+            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.userName);
             List<Ticket> tickets = viewModel.Tickets;
 
             return tickets;

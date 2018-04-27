@@ -44,7 +44,7 @@ namespace ngWebClientAPI.Models
                 else
                 {
                     //No tag list received 
-                    tt.Add(new TicketTag() { TagName = "" });
+                    tt.Add(new TicketTag() { TagName = "UnTagged" });
                 }
                 
                 if ( jsonData["priority"] != null && !String.IsNullOrEmpty(jsonData["priority"].ToString()))
@@ -63,7 +63,7 @@ namespace ngWebClientAPI.Models
                     data.ownerId = jsonData["ownerId"].ToString();
                 } else
                 {
-                    data.ownerId = userName;
+                    data.ownerId = (userName != null) ? userName : "NoName";
                 }
 
 
@@ -77,10 +77,11 @@ namespace ngWebClientAPI.Models
 
             Ticket ticket = new Ticket
             {
+                TicketId = default(int),
                 ProjectId = 1,
-                Title = data.title,
+                Title = (data.title != null) ? data.title : "DefaultTicket",
                 AffectsCustomer = false,
-                Category = data.category,
+                Category = (data.category != null) ? data.category : "DefaultCategory",
                 SubCategory = (data.subcategory != null) ? data.subcategory : "",
                 CreatedBy = data.ownerId,
                 TicketStatus = TicketStatus.Active,
@@ -93,10 +94,10 @@ namespace ngWebClientAPI.Models
                 LastUpdateDate = now,
                 Owner = data.ownerId,
                 Priority = (data.priority != null) ? data.priority : "unassigned",
-                AssignedTo = data.assignedTo,
-                TagList = (data.tagList != null) ? data.tagList : "",
+                AssignedTo = (data.assignedTo != null) ? data.assignedTo : "UnAssigned",
+                TagList = (data.tagList != null) ? data.tagList : "UnTagged",
                 TicketTags = tt,
-                TicketType = data.ticketType,
+                TicketType = (data.ticketType != null) ? data.ticketType : "DefaultType",
                 TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.ownerId, TicketActivity.Create, null, null, null) },
                 SemanticId = now.ToString("yyMMddHHmm"), /*Formatting for semantic numbering.*/
             };

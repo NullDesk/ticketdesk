@@ -352,7 +352,7 @@ namespace TicketDesk.Domain
             var o = ChangeTracker.Entries<Ticket>().Single(e => e.Entity.TicketId == modifiedTicket.TicketId);
             var now = DateTime.Now;
 
-            modifiedTicket.LastUpdateBy = SecurityProvider.CurrentUser.UserName;
+            modifiedTicket.LastUpdateBy = SecurityProvider.CurrentUser.userName;
             modifiedTicket.LastUpdateDate = now;
 
             if (o.State != EntityState.Added)//can't access orig values for new entities
@@ -362,7 +362,7 @@ namespace TicketDesk.Domain
                 //if status change, force update to status by/date
                 {
                     modifiedTicket.CurrentStatusDate = now;
-                    modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUser.UserName;
+                    modifiedTicket.CurrentStatusSetBy = SecurityProvider.CurrentUser.userName;
                 }
                 if (modifiedTicket.TagList != origTicket.TagList)
                 {
@@ -391,12 +391,12 @@ namespace TicketDesk.Domain
             //TODO: double check assigned if populated, make sure submitter can set this field.
 
             var now = DateTime.Now;
-            newTicket.Owner = newTicket.Owner ?? SecurityProvider.CurrentUser.UserName;
-            newTicket.CreatedBy = SecurityProvider.CurrentUser.UserName;
+            newTicket.Owner = newTicket.Owner ?? SecurityProvider.CurrentUser.userName;
+            newTicket.CreatedBy = SecurityProvider.CurrentUser.userName;
             newTicket.CreatedDate = now;
             newTicket.TicketStatus = TicketStatus.Active;
             newTicket.CurrentStatusDate = now;
-            newTicket.CurrentStatusSetBy = SecurityProvider.CurrentUser.UserName;
+            newTicket.CurrentStatusSetBy = SecurityProvider.CurrentUser.userName;
 
             //last update info will be set by PrePopulateModifiedTicket method, no need to set it here too
 
@@ -409,12 +409,12 @@ namespace TicketDesk.Domain
                     }));
             }
 
-            var act = (newTicket.Owner != SecurityProvider.CurrentUser.UserName)
+            var act = (newTicket.Owner != SecurityProvider.CurrentUser.userName)
                 ? TicketActivity.CreateOnBehalfOf
                 : TicketActivity.Create;
 
             newTicket.TicketEvents.AddActivityEvent(
-                SecurityProvider.CurrentUser.UserName,
+                SecurityProvider.CurrentUser.userName,
                 act,
                 null,
                 null,
