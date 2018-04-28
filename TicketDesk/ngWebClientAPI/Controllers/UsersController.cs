@@ -52,7 +52,7 @@ namespace ngWebClientAPI.Controllers
 
         [HttpGet]
         [Route("permissions")]
-        public JObject GetPermission()
+        public JObject getPermission()
         {
             JObject result = new JObject();
             try
@@ -78,12 +78,12 @@ namespace ngWebClientAPI.Controllers
                     }
                 }
 
-                result.Add("UserPermissions", highestPermission);
+                result.Add("userPermissions", highestPermission);
             }
 
             catch(Exception ex)
             {
-                result.Add("UserPermissions", ex.ToString());
+                result.Add("userPermissions", ex.ToString());
             }
             return result;
         }
