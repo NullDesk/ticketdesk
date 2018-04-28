@@ -44,7 +44,7 @@ export class TicketCenterComponent implements OnInit {
     this.multiTicketService.indexList(listName, page)
         .subscribe(ticketList => {
           this.ticketList = ticketList;
-          this.pagination.max = page + 1;
+          this.pagination.max = (ticketList.length === 0) ? page : page + 1;
           this.pagination.current = page;
           this.listReady = true; });
   }
