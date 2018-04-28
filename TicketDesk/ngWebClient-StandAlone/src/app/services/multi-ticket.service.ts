@@ -54,7 +54,9 @@ export class MultiTicketService {
   }
 
   getUserPermissions() {
-    return this.http.get<string>(settings.getUserPermissions);
+    return this.http.get<{UserPermissions: String}>(settings.getUserPermissions).map(res => {
+      return res.UserPermissions;
+    });
   }
 
 }
