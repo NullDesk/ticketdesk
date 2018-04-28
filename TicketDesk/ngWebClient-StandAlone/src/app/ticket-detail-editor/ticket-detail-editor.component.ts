@@ -46,6 +46,7 @@ export class TicketDetailEditorComponent implements OnInit {
       
       // Internet Explorer does not play nicely with the reactive forms. 
       // So we add default blank values.
+      this.ticketTypes.unshift('');
       this.categories.unshift('');
       this.categories.forEach(cat => {
         this.subcategories[cat].unshift('');
