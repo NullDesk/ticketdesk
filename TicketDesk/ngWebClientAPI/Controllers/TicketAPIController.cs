@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Net;
+using System.Linq;
 using System.Web.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using System.Web.Mvc;
-using System.Linq;
-using System.Net;
 using ngWebClientAPI.Models;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System.Configuration;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -25,7 +23,7 @@ namespace ngWebClientAPI.Controllers
         {
             try
             {
-                var model = await ticketController.GetTicketList(); //returns list of all tickets
+                var model = await ticketController.GetTicketList();
                 List<FrontEndTicket> TicketList = new List<FrontEndTicket>();
                 foreach (var item in model)
                 {
@@ -45,12 +43,9 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("{ticketId}")]
         public async Task<JObject> getSingleTicket(Int64 ticketId)
         {
-            int convertedId = APITicketConversion.ConvertTicketId(ticketId);//for when we get semantic numbering to front end
-            Ticket model = await ticketController.getTicket(convertedId); //Expect full semantic id
-            if (model == null)
-            {
-                return null; //Should probably error handle better here... Leaving as null for now
-            }
+            int convertedId = APITicketConversion.ConvertTicketId(ticketId);
+            Ticket model = await ticketController.getTicket(convertedId); 
+
             try
             {
                 FrontEndTicket retVal = APITicketConversion.ConvertGETTicket(model);
@@ -58,7 +53,8 @@ namespace ngWebClientAPI.Controllers
             }
             catch
             {
-                return null;
+                throw new Exception("getSingleTicket : Could not convert ticketId. Ticket is null");
+
             }
 
         }
@@ -67,21 +63,17 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("")]
         public async Task<JObject> createTicket([FromBody]JObject jsonData)
         {
-            //make a new JObject to return to the front end
             POSTTicketResult result = new POSTTicketResult();
-            //convert data to comment and ID
             Ticket ticket = new Ticket();
+
             try
             {
-                /*This is going to be temporary.*/
                 string userName = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
-
                 ticket = APITicketConversion.ConvertPOSTTicket(jsonData, userName);
                 bool status = await ticketController.CreateTicketAsync(ticket);
 
                 if(status)
                 {
-                    //Successfully inserted new ticket to DB
                     result.httpCode = HttpStatusCode.OK;
                     result.ticketID = Int64.Parse(ticket.SemanticId + ticket.TicketId.ToString());
                     result.errorMessage = "";
@@ -93,7 +85,7 @@ namespace ngWebClientAPI.Controllers
                     result.errorMessage = "Internal Database Error";
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 result.httpCode = HttpStatusCode.BadRequest;
                 result.ticketID = -1;
@@ -105,16 +97,12 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("events/{ticketId}")]
         public async Task<JObject> GetEvents(Int64 ticketId)
         {
-            int convertedId = APITicketConversion.ConvertTicketId(ticketId);//for when we get semantic numbering to front end
+            int convertedId = APITicketConversion.ConvertTicketId(ticketId);
             Ticket model = await ticketController.getTicket(convertedId);
-            if (model == null)
-            {
-                return null; // Should probably handle errors better here. Returning Null for now
-            }
+
             try
             {
                 EventList eventList = new EventList();
-                //eventList.list = model.TicketEvents.ToList();
                 List<TicketEvent> events = model.TicketEvents.ToList();
                 eventList.list = new List<FrontEndEvent>();
                 foreach(var item in events)
