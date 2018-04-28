@@ -26,10 +26,8 @@ export class TicketCenterComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.warn('Gonna go get a perm. For the curls.');
     this.userService.getUserPermissions()
         .subscribe(permissions => {
-          console.warn('Ticket Center Permissions: ', permissions);
           if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {
             this.tabNames.unshift('unassigned', 'assignedToMe');
           }
