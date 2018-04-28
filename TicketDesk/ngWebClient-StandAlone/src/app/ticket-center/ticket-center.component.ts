@@ -3,6 +3,7 @@ import { TicketStub, ticketlistToUserDisplayMap } from '../models/ticket-stub';
 import { userPermissions } from '../models/user-details';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MultiTicketService } from '../services/multi-ticket.service';
+import { UserService } from '../services/user.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
 
 @Component({
@@ -20,12 +21,13 @@ export class TicketCenterComponent implements OnInit {
   listReady: Boolean = false;
   tabsReady: Boolean = false;
 
-  constructor(private multiTicketService: MultiTicketService) {
+  constructor(private multiTicketService: MultiTicketService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
     console.warn('Gonna go get a perm. For the curls.');
-    this.multiTicketService.getUserPermissions()
+    this.userService.getUserPermissions()
         .subscribe(permissions => {
           console.warn('Ticket Center Permissions: ', permissions);
           if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {

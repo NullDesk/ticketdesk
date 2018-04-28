@@ -18,6 +18,12 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  getUserPermissions() {
+    return this.http.get<{userPermissions: String}>(settings.getUserPermissions).map(res => {
+      return res.userPermissions;
+    });
+  }
+
   private handleError(error: HttpErrorResponse): ErrorObservable {
     if (error.error instanceof ErrorEvent) {
       // ... this is a client side error, handle it!
