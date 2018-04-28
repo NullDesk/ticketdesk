@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/f96911eb-9288-41c5-afd8-30e2a9b16f96/resourcegroups/Default-Web-CentralUS/providers/microsoft.insights/components/ticketdesk2</ApplicationInsightsResourceId>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -958,10 +959,6 @@
     <ProjectReference Include="..\TicketDesk.Search.Lucene\TicketDesk.Search.Lucene.csproj">
       <Project>{54390f7f-a440-40f7-8b1a-28ab599a5213}</Project>
       <Name>TicketDesk.Search.Lucene</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj">
-      <Project>{bd3617c2-a91e-40f3-a441-b085d2491399}</Project>
-      <Name>TicketDesk.Web.Identity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

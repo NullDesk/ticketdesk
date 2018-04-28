@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Collections.Generic;
 using EmployeeInformationManager;
-using ngWebClientAPI.Models;
-using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using TicketDesk.Domain.Model;
 
@@ -27,13 +22,15 @@ namespace ngWebClientAPI.Controllers
                   ? System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty)
                   : userName;
                 var employee = employeeManager.GetADUserByLogin(id);
-                CPUUser user = new CPUUser();
-                user.firstName = employee.FirstName;
-                user.lastName = employee.LastName;
-                user.phoneNumber = employee.Phone;
-                user.email = employee.Email;
-                user.id = employee.Id.ToString();
-                user.userName = employee.UserName;
+                CPUUser user = new CPUUser
+                {
+                    firstName = employee.FirstName,
+                    lastName = employee.LastName,
+                    phoneNumber = employee.Phone,
+                    email = employee.Email,
+                    id = employee.Id.ToString(),
+                    userName = employee.UserName
+                };
                 var mygroup = employee.Groups;
                 user.groups = new List<string>();
 
@@ -44,7 +41,7 @@ namespace ngWebClientAPI.Controllers
 
                 return user;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -64,7 +61,6 @@ namespace ngWebClientAPI.Controllers
 
                 var highestPermission = "TD_User";
 
-
                 foreach (var group in groups)
                 {
                     if (group.Name.Equals("TD_Admin"))
@@ -77,16 +73,13 @@ namespace ngWebClientAPI.Controllers
                         highestPermission = group.Name;
                     }
                 }
-
                 result.Add("userPermissions", highestPermission);
             }
-
             catch(Exception ex)
             {
                 result.Add("userPermissions", ex.ToString());
             }
             return result;
         }
-
     }
 }
