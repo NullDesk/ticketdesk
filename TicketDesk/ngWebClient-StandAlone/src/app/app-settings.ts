@@ -31,3 +31,4 @@ export const getTicketList = serviceBaseURL + '/tickets/pageList';
 export const getSortedTicketList = serviceBaseURL + '/tickets/sortList';
 export const getFilteredTicketList = serviceBaseURL + '/tickets/filterList';
 export const getUserPermissions = serviceBaseURL + '/users/permissions';
+export const searchTerm = serviceBaseURL + '/search/';

@@ -17,7 +17,7 @@ export class SearchService {
   ): Observable<TicketStub[]> {
     // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: 1, listName: term};
-    const ticketList = this.http.post<TicketStub[]>( settings.getTicketsIndex, params);
+    const ticketList = this.http.post<TicketStub[]>( settings.searchTerm, params);
     return ticketList.map(res => {
       console.warn('TicketList Responese', JSON.stringify(res));
       return res;
