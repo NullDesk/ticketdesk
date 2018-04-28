@@ -125,21 +125,6 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("edit-ticket-info")]
         public async Task<HttpStatusCodeResult> EditTicketInfo([FromBody] JObject data)
         {
-<<<<<<< HEAD
-            Int64 semanticId = data["ticketId"].ToObject<Int64>();
-            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
-            int projectId = data["projectId"].ToObject<int>();
-            string comment = data["details"].ToObject<string>();
-            string title = data["title"].ToObject<string>();
-            string details = data["details"].ToObject<string>();
-            string priority = data["priority"].ToObject<string>();
-            string ticketType = data["ticketType"].ToObject<string>();
-            string category = data["category"].ToObject<string>();
-            string owner = data["owner"].ToObject<string>();
-            string tagList = data["tagList"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.EditTicketInfo(ticketId, projectId, comment, title, details, priority, ticketType, category, owner, tagList);
-            return ticket;
-=======
             HttpStatusCodeResult result;
             try
             {
@@ -161,7 +146,6 @@ namespace ngWebClientAPI.Controllers
                 result = new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.ToString());
             }
             return result;
->>>>>>> 8bb2d816d85de2a59821f2253a7621f03cd7e3ee
         }
 
         [System.Web.Http.HttpPost]
