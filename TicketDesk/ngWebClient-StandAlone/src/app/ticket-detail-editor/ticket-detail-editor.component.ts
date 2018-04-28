@@ -42,13 +42,16 @@ export class TicketDetailEditorComponent implements OnInit {
     this.schema.getPriorities().subscribe(res => this.priorities = res);
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = Object.assign(this.subcategories, res);
-      console.warn("how does this look", this.subcategories);
       this.categories = Object.keys(res);
+      
+      // Internet Explorer does not play nicely with the reactive forms. 
+      // So we add default blank values.
+      this.categories.unshift('');
       this.categories.forEach(cat => {
         this.subcategories[cat].unshift('');
       });
-      this.displayedSubcategories = this.subcategories[this.form.get('category').value];
       this.form.patchValue(this.initialTicketValue);
+      this.displayedSubcategories = this.subcategories[this.form.get('category').value];
     });
   }
 
