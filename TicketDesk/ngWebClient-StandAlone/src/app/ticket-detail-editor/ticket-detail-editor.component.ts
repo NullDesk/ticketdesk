@@ -30,6 +30,7 @@ export class TicketDetailEditorComponent implements OnInit {
         this.displayedSubcategories = this.subcategories[newValue];
       }
     );
+
     // todo: factor this out
     this.form.get('title').setValidators([Validators.required, Validators.minLength(1)]);
     this.form.get('category').setValidators([Validators.required, Validators.minLength(1)]);
@@ -41,6 +42,7 @@ export class TicketDetailEditorComponent implements OnInit {
     this.schema.getPriorities().subscribe(res => this.priorities = res);
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = Object.assign(this.subcategories, res);
+      console.warn("how does this look", this.subcategories);
       this.categories = Object.keys(res);
       this.categories.forEach(cat => {
         this.subcategories[cat].unshift('');
