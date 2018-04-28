@@ -46,6 +46,10 @@ export class TicketDetailEditorComponent implements OnInit {
   }
 
   ticketEmit() {
+    if (this.form.invalid) {
+      console.log('this should not have happened');
+      return;
+    }
     this.buttonText = 'Please wait...';
     if (this.submitting) { return; }
     this.submitting = true;
