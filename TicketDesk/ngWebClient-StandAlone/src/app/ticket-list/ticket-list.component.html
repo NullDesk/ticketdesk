@@ -25,7 +25,7 @@
             </tr>
         </tbody>
     </table>
-    <div *ngIf="ticketListResults.maxPages" >
-        <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 (pageChange)="onPageChange($event)" [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+    <div *ngIf="pagination" >
+        <ngb-pagination [collectionSize]=pagination.max*10 (pageChange)="onPageChange($event)" [(page)]="pagination.current" [maxSize]="5" [rotate]="true"></ngb-pagination>
     </div>
 </div>

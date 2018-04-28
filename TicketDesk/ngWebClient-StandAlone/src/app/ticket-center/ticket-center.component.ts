@@ -14,7 +14,8 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
 
 export class TicketCenterComponent implements OnInit {
   tabNames: string[] = ['mytickets', 'opentickets', 'historytickets'];
-  ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: 2};
+  ticketList: TicketStub[];
+  pagination: {current: number, max: number } = {current: 1, max: 2};
   currentList = '';
   listReady: Boolean = false;
   tabsReady: Boolean = false;
@@ -25,6 +26,7 @@ export class TicketCenterComponent implements OnInit {
   ngOnInit() {
     this.multiTicketService.getUserPermissions()
         .subscribe(permissions => {
+          console.log('Ticket Center Permissions: ', permissions);
           if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {
             this.tabNames.unshift('unassigned', 'assignedToMe');
           }
@@ -40,8 +42,9 @@ export class TicketCenterComponent implements OnInit {
     console.log('Getting ticketlist for', listName, 'at page ', page);
     this.multiTicketService.indexList(listName, page)
         .subscribe(ticketList => {
-          this.ticketListResults.ticketList = ticketList;
-          this.ticketListResults.maxPages = page + 1;
+          this.ticketList = ticketList;
+          this.pagination.max = page + 1;
+          this.pagination.current = page;
           this.listReady = true; });
   }
 

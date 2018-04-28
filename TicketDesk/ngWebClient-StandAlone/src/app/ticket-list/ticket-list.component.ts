@@ -15,18 +15,17 @@ export class TicketListComponent implements OnInit {
   private getStatusText = getTicketStatusText;
   // Adds a vairable to add keep track of checkbox
   private displayList: {ticket: TicketStub, checked: boolean}[];
-  @Input() ticketListResults: { ticketList: TicketStub[], maxPages: number };
+  @Input() ticketList:  TicketStub[];
+  @Input() pagination: {current: number, max: number } = null;
   @Input() columns: string[];
   @Output() pageChange = new EventEmitter<number>();
-  currentPage: number;
 
   ngOnInit() {
     // filter removes objects not of type ticket or null/undefined
-    this.displayList = this.ticketListResults.ticketList
+    this.displayList = this.ticketList
           .filter( x => x)
           .map(ticket => ({ticket: ticket, checked: false}));
-    this.currentPage = 1;
-}
+  }
 
   isAllChecked() {
     return this.displayList.every(x => x.checked);
