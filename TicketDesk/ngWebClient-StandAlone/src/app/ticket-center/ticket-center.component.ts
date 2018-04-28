@@ -17,7 +17,7 @@ export class TicketCenterComponent implements OnInit {
   tabNames: string[] = ['mytickets', 'opentickets', 'historytickets'];
   ticketList: TicketStub[];
   pagination: {current: number, max: number } = {current: 1, max: 2};
-  currentList = '';
+  currentList;
   listReady: Boolean = false;
   tabsReady: Boolean = false;
 
@@ -33,6 +33,7 @@ export class TicketCenterComponent implements OnInit {
           if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {
             this.tabNames.unshift('unassigned', 'assignedToMe');
           }
+          this.currentList = this.tabNames[0];
           this.tabsReady = true;
         });
     // Sending empty string, gets the default page from the backend, dependent on their permissions.
@@ -43,7 +44,7 @@ export class TicketCenterComponent implements OnInit {
   getTicketList(listName: string, page: number): void {
     this.listReady = false;
     console.log('Getting ticketlist for', listName, 'at page ', page);
-    this.multiTicketService.indexList(listName, page)
+    this.multiTicketService.getTicketList(listName, page)
         .subscribe(ticketList => {
           this.ticketList = ticketList;
           this.pagination.max = (ticketList.length === 0) ? page : page + 1;

@@ -17,15 +17,15 @@ export class MultiTicketService {
   // Get ticketList from index enpoint
   // Currently this endpoint does not return maxPage.
   // So pagination is done one page at a time. Without knowledge of how many items there are.
-  indexList(
+  getTicketList(
     listName: string,
     page?: number
   ): Observable<TicketStub[]> {
     // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: page, listName: listName};
-    const ticketList = this.http.post<TicketStub[]>(settings.getTicketsIndex, params);
+    const ticketList = this.http.post<TicketStub[]>(settings.getTicketList, params);
     return ticketList.map(res => {
-      console.warn('TicketList index response: ', JSON.stringify(res));
+      console.warn('TicketList PageList response: ', JSON.stringify(res));
       return res;
     });
   }
