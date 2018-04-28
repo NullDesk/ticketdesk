@@ -87,7 +87,8 @@ namespace ngWebClientAPI.Controllers
             HttpStatusCodeResult result;
             try
             {
-                int ticketId = data["ticketId"].ToObject<int>();
+                Int64 semanticId = data["ticketId"].ToObject<Int64>();
+                int ticketId = APITicketConversion.ConvertTicketId(semanticId);
                 string comment = data["comment"].ToObject<string>();
                 string assignedTo = data["assignedTo"].ToObject<string>();
                 string priority = data["priority"].ToObject<string>();
@@ -124,7 +125,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("edit-ticket-info")]
         public Task<Ticket> EditTicketInfo([FromBody] JObject data)
         {
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             int projectId = data["projectId"].ToObject<int>();
             string comment = data["comment"].ToObject<string>();
             string title = data["title"].ToObject<string>();
@@ -181,7 +183,8 @@ namespace ngWebClientAPI.Controllers
         public async Task<Ticket> Pass([FromBody] JObject data)
         {
             //convertAssign
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             string comment = data["comment"].ToObject<string>();
             string priority = data["priority"].ToObject<string>();
             string assignedTo = data["assignedTo"].ToObject<string>();
@@ -194,7 +197,8 @@ namespace ngWebClientAPI.Controllers
         public Task<Ticket> ReAssign([FromBody] JObject data)
         {
             //convertAssign
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             string comment = data["comment"].ToObject<string>();
             string assignedTo = data["assignedTo"].ToObject<string>();
             string priority = data["priority"].ToObject<string>();
@@ -208,7 +212,8 @@ namespace ngWebClientAPI.Controllers
         public Task<Ticket> RequestMoreInfo([FromBody] JObject data)
         {
             //convertinfo
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             string comment = data["comment"].ToObject<string>();
             Task<Ticket> ticket = ticketActivityController.RequestMoreInfo(ticketId, comment);
             return ticket;
@@ -218,7 +223,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("reopen")]
         public Task<Ticket> ReOpen([FromBody] JObject data)
         {
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             string comment = data["comment"].ToObject<string>();
             bool assignToMe = data["assignToMe"].ToObject<bool>();
       
@@ -230,7 +236,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("supply-more-info")]
         public Task<Ticket> SupplyMoreInfo([FromBody] JObject data)
         {
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             string comment = data["comment"].ToObject<string>();
             bool reactive = data["reactive"].ToObject<bool>();
 
@@ -243,7 +250,8 @@ namespace ngWebClientAPI.Controllers
         public Task<Ticket> TakeOver([FromBody] JObject data)
         {
             //convertAssign
-            int ticketId = data["ticketId"].ToObject<int>();
+            Int64 semanticId = data["ticketId"].ToObject<Int64>();
+            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             string comment = data["comment"].ToObject<string>();
             string priority = data["priority"].ToObject<string>();
             Task<Ticket> ticket = ticketActivityController.TakeOver(ticketId, comment, priority);
