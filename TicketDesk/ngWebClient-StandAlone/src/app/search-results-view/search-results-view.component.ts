@@ -18,17 +18,16 @@ export class SearchResultsViewComponent implements OnInit {
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.term = params['term'];
+      this.search(this.term);
     });
   }
 
-  ngOnInit() {
-    this.getTicketList('');
-  }
+  ngOnInit() {}
 
-  getTicketList(listName: string): void {
+  search(term: string): void {
     this.listReady = false;
-    console.log('Getting ticketlist for', listName);
-    this.searchService.search(listName)
+    console.log('searching for', term);
+    this.searchService.search(term)
         .subscribe(ticketList => {
           this.ticketList = ticketList;
           this.listReady = true;
