@@ -8,10 +8,10 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import * as settings from '../app-settings';
 
 @Injectable()
-export class AdContactService {
+export class UserService {
   constructor(private http: HttpClient) { }
 
-  getContactCardInfo(userName: string): Observable<UserDetails> {
+  getAdContactCardInfo(userName: string): Observable<UserDetails> {
     const url = settings.activeDirectoryUserURL + userName;
     console.warn(`getting contact info for ${userName} from ${url}`);
     return this.http.get<UserDetails>(url)
