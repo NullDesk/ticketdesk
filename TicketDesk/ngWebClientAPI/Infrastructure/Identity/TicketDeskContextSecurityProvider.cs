@@ -12,16 +12,14 @@
 // provided to the recipient.
 
 using System;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
 using TicketDesk.Domain;
-
+using TicketDesk.Domain.Model;
+using Microsoft.Owin.Host.SystemWeb;
 
 namespace ngWebClientAPI
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     public sealed class TicketDeskContextSecurityProvider : TdDomainSecurityProviderBase
     {
         private TicketDeskUserManager UserManager { get; set; }
@@ -29,26 +27,29 @@ namespace ngWebClientAPI
         public TicketDeskContextSecurityProvider()
         {
             UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
-            CurrentUserId = HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
+            string userName = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
+          
+            CurrentUser = new CPUUser(userName);
         }
-        public override string CurrentUserId { get; set; }
+        public override CPUUser CurrentUser { get; set; }
 
-        protected override Func<string, bool> GetIsTdHelpDeskUser
+
+        protected override Func<CPUUser, bool> GetIsTdHelpDeskUser
         {
             get { return UserManager.IsTdHelpDeskUser; }
         }
 
-        protected override Func<string, bool> GetIsTdInternalUser
+        protected override Func<CPUUser, bool> GetIsTdInternalUser
         {
             get { return UserManager.IsTdInternalUser; }
         }
 
-        protected override Func<string, bool> GetIsTdAdministrator
+        protected override Func<CPUUser, bool> GetIsTdAdministrator
         {
             get { return UserManager.IsTdAdministrator; }
         }
 
-        protected override Func<string, bool> GetIsTdPendingUser
+        protected override Func<CPUUser, bool> GetIsTdPendingUser
         {
             get { return UserManager.IsTdPendingUser; }
         }

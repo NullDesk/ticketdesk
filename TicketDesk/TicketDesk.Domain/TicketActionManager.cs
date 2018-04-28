@@ -72,7 +72,7 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -92,7 +92,7 @@ namespace TicketDesk.Domain
                 {
                     ticket.TicketStatus = TicketStatus.Active;
 
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -105,7 +105,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.TicketStatus = TicketStatus.Closed;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -182,7 +182,7 @@ namespace TicketDesk.Domain
                     }
                     sb.AppendLine("</dl>");
                     comment = sb.ToString();
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -195,7 +195,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.TicketStatus = TicketStatus.Closed;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -208,7 +208,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.AssignedTo = null;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
 
                 }
             };
@@ -222,7 +222,7 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -246,7 +246,7 @@ namespace TicketDesk.Domain
                 {
                     ticket.TicketStatus = TicketStatus.MoreInfo;
 
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -258,9 +258,9 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.AssignedTo = assignToMe ? SecurityProvider.CurrentUserId : null;
+                    ticket.AssignedTo = assignToMe ? SecurityProvider.CurrentUser.userName : null;
                     ticket.TicketStatus = TicketStatus.Active;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -273,7 +273,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.TicketStatus = TicketStatus.Resolved;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -289,7 +289,7 @@ namespace TicketDesk.Domain
                     {
                         ticket.TicketStatus = TicketStatus.Active;
                     }
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -301,7 +301,7 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.AssignedTo = SecurityProvider.CurrentUserId;
+                    ticket.AssignedTo = SecurityProvider.CurrentUser.userName;
                     if (!string.IsNullOrEmpty(priority))
                     {
                         if (ticket.Priority == priority)
@@ -313,7 +313,7 @@ namespace TicketDesk.Domain
                             ticket.Priority = priority;
                         }
                     }
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment, priority, null);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment, priority, null);
                 }
 
             };
@@ -323,7 +323,7 @@ namespace TicketDesk.Domain
         {
             return ticket =>
             {
-                if (SecurityProvider.CurrentUserId == assignTo) //attempting to assign/reassign to self
+                if (SecurityProvider.CurrentUser.userName == assignTo) //attempting to assign/reassign to self
                 {
                     TakeOver(comment, priority)(ticket);
                 }
@@ -344,7 +344,7 @@ namespace TicketDesk.Domain
                             }
                         }
 
-                        ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment, priority, SecurityProvider.CurrentUserId);
+                        ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment, priority, SecurityProvider.CurrentUser.userName);
                     }
                 }
             };

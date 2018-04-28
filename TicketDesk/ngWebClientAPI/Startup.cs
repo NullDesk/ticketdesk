@@ -12,6 +12,7 @@ using System.Web.Optimization;
 
 namespace ngWebClientAPI
 {
+    [System.Web.Http.Authorize]
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)

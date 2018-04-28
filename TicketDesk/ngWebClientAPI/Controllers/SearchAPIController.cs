@@ -15,6 +15,7 @@ using ngWebClientAPI.Models;
 
 namespace ngWebClientAPI.Controllers
 {
+    [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/search")]
     public class SearchAPIController : ApiController
     {
