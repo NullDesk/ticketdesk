@@ -74,18 +74,18 @@ namespace ngWebClientAPI.Controllers
 
         public async Task<Ticket> EditTicketInfo(
             int ticketId,
-            int projectId,
+//            int projectId,
             string comment,
             string title,
             string details,
             string priority,
             string ticketType,
             string category,
-            string owner,
-            string tagList)
+            string tagList,
+            string subCategory)
         {
-            var projectName = await Context.Projects.Where(p => p.ProjectId == projectId).Select(s=>s.ProjectName).FirstOrDefaultAsync();
-            var activityFn = Context.TicketActions.EditTicketInfo(comment, projectId, projectName, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
+            //var projectName = await Context.Projects.Where(p => p.ProjectId == projectId).Select(s=>s.ProjectName).FirstOrDefaultAsync();
+            var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, tagList, subCategory, Context.TicketDeskSettings);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
 
