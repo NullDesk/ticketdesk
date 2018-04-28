@@ -20,7 +20,7 @@ namespace ngWebClientAPI.Models
         public string subcategory { get; set; }
         public string priority { get; set; }
         public string createdDate { get; set; }  
-        public string LastUpdateDate { get; set; }
+        public string lastUpdateDate { get; set; }
 
 
         public static List<TicketCenterDTO> ticketsToTicketCenterDTO(List<Ticket> tickets)
@@ -38,7 +38,7 @@ namespace ngWebClientAPI.Models
                 tkDataTransfer.subcategory = tk.SubCategory;
                 tkDataTransfer.priority = tk.Priority;
                 tkDataTransfer.createdDate = tk.CreatedDate.ToString();
-                tkDataTransfer.LastUpdateDate = tk.LastUpdateDate.ToString();
+                tkDataTransfer.lastUpdateDate = tk.LastUpdateDate.ToString();
                 ticketCenterDTOs.Add(tkDataTransfer);
             }
 

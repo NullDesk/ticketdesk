@@ -101,7 +101,6 @@ namespace ngWebClientAPI.Models
                 TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.ownerId, TicketActivity.Create, null, null, null) },
                 SemanticId = now.ToString("yyMMddHHmm"), /*Formatting for semantic numbering.*/
             };
-
             return ticket;
         }
         public static FrontEndTicket ConvertGETTicket(Ticket ticket)

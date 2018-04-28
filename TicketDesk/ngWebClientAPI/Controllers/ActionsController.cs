@@ -128,7 +128,7 @@ namespace ngWebClientAPI.Controllers
             Int64 semanticId = data["ticketId"].ToObject<Int64>();
             int ticketId = APITicketConversion.ConvertTicketId(semanticId);
             int projectId = data["projectId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
+            string comment = data["details"].ToObject<string>();
             string title = data["title"].ToObject<string>();
             string details = data["details"].ToObject<string>();
             string priority = data["priority"].ToObject<string>();
