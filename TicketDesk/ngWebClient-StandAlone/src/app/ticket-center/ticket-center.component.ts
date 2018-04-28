@@ -35,10 +35,10 @@ export class TicketCenterComponent implements OnInit {
           }
           this.currentList = this.tabNames[0];
           this.tabsReady = true;
+          // Sending empty string, gets the default page from the backend, dependent on their permissions.
+          // mytickets for standard users, unassigned for resolvers and admins
+          this.getTicketList(this.currentList, 1);
         });
-    // Sending empty string, gets the default page from the backend, dependent on their permissions.
-    // mytickets for standard users, unassigned for resolvers and admins
-    this.getTicketList(this.currentList, 1);
   }
 
   getTicketList(listName: string, page: number): void {
