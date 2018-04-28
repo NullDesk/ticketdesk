@@ -20,7 +20,7 @@ export class SubmitTicketService {
     return this.http.post<any>(settings.ticketDetailsURL, tkt)
       .map(res => {
         console.warn('this is the response to ticket submission', res);
-        if (res['httpCode'] == 200) {
+        if (res['httpCode'] === 200) {
           return res['ticketID'];
         } else {
           return new ErrorObservable('An error occurred while submitting this ticket.');
