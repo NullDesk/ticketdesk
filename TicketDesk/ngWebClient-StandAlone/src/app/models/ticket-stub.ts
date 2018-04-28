@@ -8,7 +8,7 @@ export interface TicketStub {
     subcategory: string;
     priority?: string;
     createdDate: string;
-    updatedDate?: string;
+    LastUpdatedDate?: string;
   }
 
 export const columnHeadings: string[] = [
