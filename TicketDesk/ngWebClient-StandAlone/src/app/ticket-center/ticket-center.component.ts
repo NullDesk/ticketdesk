@@ -51,7 +51,6 @@ export class TicketCenterComponent implements OnInit {
 
   onTabChange(event: NgbTabChangeEvent) {
     this.currentList = event.nextId;
-    console.log('getting ticket for => ', event.nextId);
     this.getTicketList(event.nextId, 1);
   }
 
