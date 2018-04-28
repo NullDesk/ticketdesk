@@ -14,7 +14,7 @@ export class TicketDetailEditorComponent implements OnInit {
   @Output() ticketEmitter = new EventEmitter<any>();
   form: FormGroup;
   displayedSubcategories: string[] = ['Select a category'];
-  subcategories: CategoryTree = {};
+  subcategories: CategoryTree = {'' : ['']};
   ticketTypes: string[];
   priorities: string[];
   categories: string[];
@@ -30,22 +30,37 @@ export class TicketDetailEditorComponent implements OnInit {
         this.displayedSubcategories = this.subcategories[newValue];
       }
     );
+
+    // todo: factor this out
+    this.form.get('title').setValidators([Validators.required, Validators.minLength(1)]);
     this.form.get('category').setValidators([Validators.required, Validators.minLength(1)]);
     this.form.get('subcategory').setValidators([Validators.required, Validators.minLength(1)]);
   }
   @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
   ngOnInit() {
-    this.form.patchValue(this.initialTicketValue);
     this.schema.getTicketTypes().subscribe(res => this.ticketTypes = res);
     this.schema.getPriorities().subscribe(res => this.priorities = res);
     this.schema.getCategoryTree().subscribe(res => {
-      this.subcategories = res;
+      this.subcategories = Object.assign(this.subcategories, res);
       this.categories = Object.keys(res);
+      
+      // Internet Explorer does not play nicely with the reactive forms. 
+      // So we add default blank values.
+      this.ticketTypes.unshift('');
+      this.categories.unshift('');
+      this.categories.forEach(cat => {
+        this.subcategories[cat].unshift('');
+      });
+      this.form.patchValue(this.initialTicketValue);
       this.displayedSubcategories = this.subcategories[this.form.get('category').value];
     });
   }
 
   ticketEmit() {
+    if (this.form.invalid) {
+      console.log('this should not have happened');
+      return;
+    }
     this.buttonText = 'Please wait...';
     if (this.submitting) { return; }
     this.submitting = true;
