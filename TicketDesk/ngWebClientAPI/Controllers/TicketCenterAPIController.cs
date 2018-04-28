@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using ngWebClientAPI.Models;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-
-using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
 {
@@ -22,7 +17,6 @@ namespace ngWebClientAPI.Controllers
 
         public TicketCenterAPIController()
         {
-            
             TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
            
             ticketCenterController = new TicketCenterController(new TdDomainContext(secur));
@@ -34,9 +28,9 @@ namespace ngWebClientAPI.Controllers
             List<Ticket> ticketList = await ticketCenterController.ResetUserLists();
             List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
             return tkDTO;
-            
         }
 
+        /* Depricated - Use pageList instead... */
         [HttpPost]
         [Route("index")]
         public async Task<List<TicketCenterDTO>> Index(JObject data)
