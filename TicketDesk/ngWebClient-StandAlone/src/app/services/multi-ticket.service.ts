@@ -47,7 +47,7 @@ export class MultiTicketService {
     listName: string,
     page?: number,
     ticketStatus?: boolean,
-    owner?: string,
+    ownerId?: string,
     assignedTo?: string
   ) {
 

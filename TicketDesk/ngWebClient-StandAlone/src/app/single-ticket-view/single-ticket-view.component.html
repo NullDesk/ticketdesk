@@ -12,7 +12,7 @@
               <span class="fa fa-envelope" 
               aria-hidden="true"></span>
           </ng-template>
-          <h6 class="card-title">
+          <h6 class="card-title">Ticket ID:
             <a href="ticket/{{ ticket.ticketId }}">
               {{ ticket.ticketId }}
             </a>
@@ -25,10 +25,10 @@
           </h6>
         </div>
         <div class="col-lg-3 colBorder">
-          <app-contact-info [ownerId]="ticket.ownerId"></app-contact-info>
+          <app-contact-info [userName]="ticket.ownerId"></app-contact-info>
         </div>
         <div class="col-lg-2 colBorder">
-          <h6 class="card-title">Categories</h6>
+          <h6 class="card-title">Categories:</h6>
           <h6 class="card-subtitle mb-2 text-muted">
             {{ ticket.category }}
           </h6>

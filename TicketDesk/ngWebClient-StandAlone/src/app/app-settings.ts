@@ -1,4 +1,5 @@
 export const serviceBaseURL = 'http://localhost:50067/api';
+export const activeDirectoryUserURL = serviceBaseURL + '/users/';
 export const ticketDetailsURL = serviceBaseURL + '/ticket/';
 export const ticketEventsURL = ticketDetailsURL + 'events/';
 export const actionURLs = {

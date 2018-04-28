@@ -2,7 +2,6 @@ import { AdContactService } from './../services/ad-contact.service';
 import { UserDetails } from 'app/models/user-details';
 import { Component, OnInit, Input } from '@angular/core';
 
-
 @Component({
   selector: 'app-contact-info',
   templateUrl: './contact-info.component.html',
@@ -10,15 +9,20 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ContactInfoComponent implements OnInit {
   @Input()
-  ownerId: string;
+  userName: string;
   user: UserDetails;
 
   constructor(private contactService: AdContactService) { }
 
   ngOnInit() {
-    this.contactService.getContactCardInfo(this.ownerId)
-      .subscribe(res => {
-        this.user = res;
+    this.populateContactCard();
+  }
+
+  private populateContactCard() {
+    this.contactService.getContactCardInfo(this.userName)
+      .subscribe(userDetails => {
+        console.warn('user details for contact card', userDetails);
+        this.user = userDetails;
       });
   }
 

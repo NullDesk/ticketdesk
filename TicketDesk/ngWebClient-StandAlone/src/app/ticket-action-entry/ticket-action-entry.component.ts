@@ -9,7 +9,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-ticket-action-entry',
   templateUrl: './ticket-action-entry.component.html',
-  styleUrls: ['./ticket-action-entry.component.css']
+  styleUrls: ['./ticket-action-entry.component.css'],
+  providers: [SingleTicketService]
 })
 export class TicketActionEntryComponent implements OnInit, OnChanges {
   @Input()
@@ -33,16 +34,17 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['action'] && changes['action'].currentValue) {
-      this.ticketActionForm = this.fb.group(changes.action.currentValue.formTemplate);
+      this.ticketActionForm = this.fb
+        .group(changes.action.currentValue.formTemplate);
     }
   }
 
-  submit() {
+  submitAction() {
     const formValue = this.ticketActionForm.value;
     formValue.ticketId = this.ticketId;
     console.log(formValue);
     this.singleTicketService.submitTicketAction(formValue, this.action).subscribe(
-      res => {console.warn('Ticket submission returned', res); }
+      res => {console.warn('action submission returned', res); }
     );
     console.log('you made a click');
   }

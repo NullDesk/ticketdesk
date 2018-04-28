@@ -1,18 +1,17 @@
-import { Input, Inject, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Input, Output, EventEmitter, Inject, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SchemaService, CategoryTree } from '../services/schema.service';
-import { SubmitTicketService } from '../services/submit-ticket.service';
 import { Ticket, BLANK_TICKET } from '../models/ticket';
 import { AttachFileComponent } from '../attach-file/attach-file.component';
 @Component({
   selector: 'app-ticket-detail-editor',
   templateUrl: './ticket-detail-editor.component.html',
   styleUrls: ['./ticket-detail-editor.component.css'],
-  providers: [SubmitTicketService, SchemaService]
+  providers: [SchemaService]
 })
 export class TicketDetailEditorComponent implements OnInit {
   @Input('initialTicketValue') initialTicketValue: Ticket;
+  @Output() ticketEmitter = new EventEmitter<any>();
   form: FormGroup;
   displayedSubcategories: string[] = ['Select a category'];
   subcategories: CategoryTree = {};
@@ -21,14 +20,18 @@ export class TicketDetailEditorComponent implements OnInit {
   categories: string[];
   buttonText = 'Submit';
   submitting = false;
-  constructor(@Inject(FormBuilder) fb: FormBuilder,
-    private sts: SubmitTicketService,
-    private router: Router,
-    private schema: SchemaService) {
+  constructor(
+    @Inject(FormBuilder) fb: FormBuilder,
+    private schema: SchemaService
+  ) {
     this.form = fb.group(BLANK_TICKET);
     this.form.get('category').valueChanges.subscribe(
-      (newValue) => {this.displayedSubcategories = this.subcategories[newValue]; }
+      (newValue) => {
+        this.displayedSubcategories = this.subcategories[newValue];
+      }
     );
+    this.form.get('category').setValidators([Validators.required, Validators.minLength(1)]);
+    this.form.get('subcategory').setValidators([Validators.required, Validators.minLength(1)]);
   }
   @ViewChild(AttachFileComponent) attachFileComponent: AttachFileComponent;
   ngOnInit() {
@@ -38,23 +41,14 @@ export class TicketDetailEditorComponent implements OnInit {
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = res;
       this.categories = Object.keys(res);
+      this.displayedSubcategories = this.subcategories[this.form.get('category').value];
     });
   }
 
-  submit() {
-    // do the ticket
-    // get back the ID
+  ticketEmit() {
     this.buttonText = 'Please wait...';
     if (this.submitting) { return; }
     this.submitting = true;
-    this.sts.submitTicket(this.form.value).subscribe( res => {
-      console.warn('THIS IS WHAT WE GOT BACK', res);
-      if (res['ticketID']) {
-        this.router.navigate(['/ticket/' + res['ticketID'].toString()]);
-      } else {
-        this.router.navigate(['OH_NO_OH_NO_OH_NO']);
-      }
-      this.submitting = false;
-    });
+    this.ticketEmitter.emit(this.form.value);
   }
 }

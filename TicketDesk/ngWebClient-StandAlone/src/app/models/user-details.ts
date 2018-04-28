@@ -1,9 +1,10 @@
 export interface UserDetails {
+  id: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
   email: string;
-  userId: string;
+  phoneNumber: string;
+  groups: string[];
 }
 
 export const userPermissions = {
