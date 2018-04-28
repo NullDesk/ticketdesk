@@ -12,7 +12,7 @@ import { TicketStub } from '../models/ticket-stub';
 
 export class SearchResultsViewComponent implements OnInit {
   private term: string;
-  private ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: null};
+  private ticketList: TicketStub[];
   private listReady: Boolean = false;
   constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {
@@ -30,7 +30,7 @@ export class SearchResultsViewComponent implements OnInit {
     console.log('Getting ticketlist for', listName);
     this.searchService.search(listName)
         .subscribe(ticketList => {
-          this.ticketListResults.ticketList = ticketList;
+          this.ticketList = ticketList;
           this.listReady = true;
         });
   }
