@@ -25,6 +25,7 @@ export class MultiTicketService {
     const params = {page: page, listName: listName};
     const ticketList = this.http.post<TicketStub[]>(settings.getTicketList, params);
     return ticketList.map(res => {
+      console.warn('TicketList PageList response: ', JSON.stringify(res));
       return res;
     });
   }
