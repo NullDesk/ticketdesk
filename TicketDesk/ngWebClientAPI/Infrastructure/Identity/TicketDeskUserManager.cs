@@ -31,7 +31,31 @@ namespace ngWebClientAPI
             {
                 IsTdHelpDeskUser = false;
             }
-            
+
+            if (user.userName.CompareTo("dmaida") != 0)
+            {
+                IsTdHelpDeskUser = false;
+            }
+
+            if (user.userName.CompareTo("kharris") != 0)
+            {
+                IsTdHelpDeskUser = false;
+            }
+
+            if (user.userName.CompareTo("joswald") != 0)
+            {
+                IsTdHelpDeskUser = false;
+            }
+
+            if (user.userName.CompareTo("cstclaire") != 0)
+            {
+                IsTdHelpDeskUser = false;
+            }
+
+            if (user.userName.CompareTo("nstelmakh") != 0)
+            {
+                IsTdHelpDeskUser = false;
+            }
 
             /*Need to change this method.*/
             return IsTdHelpDeskUser;
@@ -41,15 +65,7 @@ namespace ngWebClientAPI
         {
             /*Need to change this method.*/
             bool IsTdInternalUser = true;
-            
-            if (user.userName.CompareTo("cstclaire") != 0)
-            {
-                IsTdInternalUser = false;
-            }
-            if (user.userName.CompareTo("joswald") == 0)
-            {
-                IsTdInternalUser = true;
-            }
+          
             
             return IsTdInternalUser;
         }

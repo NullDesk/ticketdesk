@@ -54,7 +54,7 @@ namespace ngWebClientAPI.Controllers
             return tkDTO;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("pageList")]
         public async Task<List<TicketCenterDTO>> PageList(JObject data)
         {
@@ -65,6 +65,7 @@ namespace ngWebClientAPI.Controllers
             return tkDTO;
         }
 
+        [HttpPost]
         [Route("filterList")]
         public async Task<List<TicketCenterDTO>> filterlist(JObject data)
         {
@@ -79,6 +80,7 @@ namespace ngWebClientAPI.Controllers
             return tkDTO;
         }
 
+        [HttpPost]
         [Route("sortList")]
         public async Task<List<TicketCenterDTO>> SortList(JObject data)
         {

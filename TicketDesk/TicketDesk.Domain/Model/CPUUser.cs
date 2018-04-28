@@ -28,7 +28,7 @@ namespace TicketDesk.Domain.Model
             lastName = employee.LastName;
             phoneNumber = employee.Phone;
             email = employee.Email;
-            userName = employee.UserName.ToLower();
+            this.userName = employee.UserName.ToLower();
             id = employee.Id.ToString();
             var mygroup = employee.Groups;
             groups = new List<string>();

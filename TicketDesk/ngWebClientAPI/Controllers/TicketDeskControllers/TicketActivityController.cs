@@ -28,34 +28,14 @@ using TicketDesk.Localization.Controllers;
 
 namespace ngWebClientAPI.Controllers
 {
-    //[RoutePrefix("ticket-activity")]
-    //[Route("{action}")]
-    //[TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     [ValidateInput(false)]
     public class TicketActivityController : Controller
     {
-        //private TicketActionManager actionManager = TicketActionManager.GetInstance(new TicketDeskContextSecurityProvider());
 
         private TdDomainContext Context { get; set; }
         public TicketActivityController(TdDomainContext context)
         {
             Context = context;
-        }
-
-        [Route("load-activity")]
-        public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId, Guid? tempId)
-        {
-            var ticket = await Context.Tickets.FindAsync(ticketId);
-            Context.TicketActions.IsTicketActivityValid(ticket, activity);
-            ViewBag.CommentRequired = activity.IsCommentRequired();
-            ViewBag.Activity = activity;
-            ViewBag.TempId = tempId ?? Guid.NewGuid();
-           // ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
-            if (activity == TicketActivity.EditTicketInfo)
-            {
-                await SetProjectInfoForModelAsync(ticket);
-            }
-            return PartialView("_ActivityForm", ticket);
         }
 
         private async Task SetProjectInfoForModelAsync(Ticket ticket)
@@ -109,6 +89,12 @@ namespace ngWebClientAPI.Controllers
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
         }
 
+        public async Task<Ticket> Close(int ticketId, string comment)
+        {
+            var activityFn = Context.TicketActions.ForceClose(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.Close);
+        }
+
         public async Task<Ticket> ForceClose(int ticketId, string comment)
         {
             var activityFn = Context.TicketActions.ForceClose(comment);
@@ -138,7 +124,6 @@ namespace ngWebClientAPI.Controllers
             var activityFn = Context.TicketActions.RequestMoreInfo(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.RequestMoreInfo);
         }
-
 
         public async Task<Ticket> ReOpen(int ticketId, string comment, bool assignToMe = false)
         {
