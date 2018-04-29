@@ -6,14 +6,15 @@
     <ng-template ngbTabContent>
       <div *ngIf="listReady" >
         <app-ticket-list [ticketList]="ticketList" [pagination]="pagination" (pageChange)="pageChange($event)"> </app-ticket-list>
-        <div ngbDropdown class="d-inline-block">
+        <!-- This commented out markup is for applying actions for multiple tickets -->
+        <!-- <div ngbDropdown class="d-inline-block">
           <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button class="dropdown-item">Assign</button>
             <button class="dropdown-item">Change Status</button>
             <button class="dropdown-item">Close</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </ng-template>
   </ngb-tab>
