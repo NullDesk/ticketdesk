@@ -43,7 +43,7 @@ namespace ngWebClientAPI.Controllers
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.ToString());
             }
         }
 
