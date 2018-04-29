@@ -128,59 +128,34 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    
-                    /*var sb = new StringBuilder(comment);
-                    sb.AppendLine();
-                   
-                    sb.AppendLine("<dl><dt>");
-                    sb.AppendLine(Strings.Changes_Title);
-                    sb.AppendLine("</dt>");*/
-
-                    //TODO: resource these strings!
-                    if (ticket.Title != title)
+                    if (ticket.Title != title && title != "")
                     {
-                        //sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Title)));
                         ticket.Title = title;
                     }
-                    /*if (ticket.ProjectId != projectId)
+                    if (ticket.Details != details && details != "")
                     {
-                        /*sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", 
-                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ProjectId),
-                            ticket.Project.ProjectName,
-                            projectName));
-                        ticket.ProjectId = projectId;
-                    }*/
-                    if (ticket.Details != details)
-                    {
-                        //sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Details)));
                         ticket.Details = details;
                     }
-                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditTags ) && ticket.TagList != tagList)
+                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditTags ) && ticket.TagList != tagList && tagList != "")
                     {
-                        //sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TagList)));
                         ticket.TagList = tagList;
                     }
-                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority)
+                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority && priority != "")
                     {
-                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
                         ticket.Priority = priority;
                     }
-                    if (ticket.TicketType != ticketType)
+                    if (ticket.TicketType != ticketType && ticketType != "")
                     {
-                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
                         ticket.TicketType = ticketType;
                     }
-                    if (ticket.Category != category)
+                    if (ticket.Category != category && category != "")
                     {
-                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
                         ticket.Category = category;
                     }
-                    if (ticket.SubCategory != subCategory)
+                    if (ticket.SubCategory != subCategory && subCategory != "")
                     {
                         ticket.SubCategory = subCategory;
                     }
-                    //sb.AppendLine("</dl>");
-                    //comment = sb.ToString();
                     ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
