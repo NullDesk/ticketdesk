@@ -31,6 +31,7 @@ namespace ngWebClientAPI.Controllers
         }
 
         /* Depricated - Use pageList instead... */
+
         [HttpPost]
         [Route("index")]
         public async Task<List<TicketCenterDTO>> Index(JObject data)

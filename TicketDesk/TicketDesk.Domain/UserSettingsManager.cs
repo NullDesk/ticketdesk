@@ -41,7 +41,7 @@ namespace TicketDesk.Domain
                                     Context.SecurityProvider.IsTdAdministrator;
             var settings = await Context.UserSettings.FindAsync(userId);
 
-            //ensure settings exist
+            /*Ensure settings exist*/
             if (settings == null )
             {
                 settings = UserSetting.GetDefaultSettingsForUser(userId, isHelpDeskUser);
@@ -51,7 +51,7 @@ namespace TicketDesk.Domain
                     await tempCtx.SaveChangesAsync();
                 }
             }
-            //ensure that the user has all required lists for their role, if not blow away list settings and recreate
+            /*Ensure that the user has all required list for thier role, if not blow away list settings and recreate.*/
             if (!settings.ListSettings.HasRequiredDefaultListSettings(isHelpDeskUser))
             {
                 settings.ListSettings = new UserTicketListSettingsCollection
@@ -72,8 +72,9 @@ namespace TicketDesk.Domain
             var existing = await Context.UserSettings.FindAsync(settings.UserId);
             if (existing != null)
             {
-                //replace existing with new settings
-                // ReSharper disable once RedundantAssignment
+                /*Replace existing with new settings 
+                   ReShaper disable once RedundantAssignment
+                 */
                 existing = settings;
             }
             else
@@ -93,6 +94,5 @@ namespace TicketDesk.Domain
             var settings = await GetSettingsForUserAsync(userId);
             return settings.GetUserListSettingByName(listName);
         }
-
     }
 }

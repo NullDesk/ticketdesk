@@ -14,8 +14,7 @@
 using System;
 using ngWebClientAPI.Models;
 using TicketDesk.Domain.Model;
-//using Microsoft.AspNet.Identity;
-//using TicketDesk.Web.Identity.Model;
+using System.Collections.Generic;
 
 namespace ngWebClientAPI
 {
@@ -24,15 +23,23 @@ namespace ngWebClientAPI
     {
         public bool IsTdHelpDeskUser(CPUUser user)
         {
-            bool IsTdHelpDeskUser = true;
+            bool IsTdHelpDeskUser = false;
             
-            /*Need to change this method.*/
+            if(user.groups.Contains("TD_Resolver"))
+            {
+                IsTdHelpDeskUser = true;
+            }
+           
             return IsTdHelpDeskUser;
         }
 
         public bool IsTdInternalUser(CPUUser user)
         {
-            /*Need to change this method.*/
+
+            /* This method needs to check if the CPU user is an active employee. 
+             * Right now I did not find any way to check if the user was active 
+             */
+
             bool IsTdInternalUser = true;
           
             return IsTdInternalUser;
@@ -40,15 +47,23 @@ namespace ngWebClientAPI
 
         public bool IsTdAdministrator(CPUUser user)
         {
-            /*Need to change this method.*/
-            bool IsTdAministrator = true;
-            
+            bool IsTdAministrator = false;
+
+            if (user.groups.Contains("TD_Admin"))
+            {
+                IsTdAministrator = true;
+            }
+
             return IsTdAministrator;
         }
 
         public bool IsTdPendingUser(CPUUser user)
         {
-            /*Need to change this method.*/
+            /*  
+             * This is a TicketDestk back-end attribute that exists
+             * for security. I am not sure this will be necessary for CPU's purposes.
+             */
+
             bool IsTdPendingUser = false;
             return IsTdPendingUser;
         }

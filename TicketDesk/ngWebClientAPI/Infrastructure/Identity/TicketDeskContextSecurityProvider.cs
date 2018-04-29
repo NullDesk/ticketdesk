@@ -15,7 +15,6 @@ using System;
 using System.Web.Mvc;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using Microsoft.Owin.Host.SystemWeb;
 
 namespace ngWebClientAPI
 {

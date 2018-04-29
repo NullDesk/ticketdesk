@@ -27,6 +27,7 @@ namespace TicketDesk.Domain.Model
             firstName = employee.FirstName;
             lastName = employee.LastName;
             phoneNumber = employee.Phone;
+  
             email = employee.Email;
             this.userName = employee.UserName.ToLower();
             id = employee.Id.ToString();
