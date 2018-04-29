@@ -4,7 +4,7 @@
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th *ngFor="let heading of colHeadings" (onClick)="headerSort(heading)" > {{ heading }} <i class="fa fa-fw fa-sort"> </i></th>
+                <th *ngFor="let heading of colHeadings" (click)="headerSort(heading)"> {{ heading }} <i class="fa fa-fw fa-sort"> </i></th>
             </tr>
         </thead>
         <tbody>
@@ -25,23 +25,6 @@
             </tr>
         </tbody>
     </table>
-<<<<<<< HEAD
-    <ngb-pagination *ngIf="pagination"
-        [collectionSize]=ticketListResults.maxPages*10 
-        [(page)]="currentPage" 
-        [maxSize]="5" 
-        [rotate]="true">
-    </ngb-pagination>
-||||||| merged common ancestors
-    <div *ngIf="pagination" >
-        <ngb-pagination 
-          [collectionSize]=ticketListResults.maxPages*10 
-          [(page)]="currentPage" 
-          [maxSize]="5" 
-          [rotate]="true">
-        </ngb-pagination>
-    </div>
-=======
     <ngb-pagination *ngIf="pagination"
         [collectionSize]=pagination.max*10
         (pageChange)="onPageChange($event)"
@@ -49,5 +32,4 @@
         [maxSize]="5"
         [rotate]="true">
     </ngb-pagination>
->>>>>>> ngWebClient-Dev
 </div>
