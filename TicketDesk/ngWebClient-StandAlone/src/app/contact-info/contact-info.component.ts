@@ -1,4 +1,4 @@
-import { AdContactService } from './../services/ad-contact.service';
+import { UserService } from './../services/user.service';
 import { UserDetails } from 'app/models/user-details';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -12,14 +12,14 @@ export class ContactInfoComponent implements OnInit {
   userName: string;
   user: UserDetails;
 
-  constructor(private contactService: AdContactService) { }
+  constructor(private contactService: UserService) { }
 
   ngOnInit() {
     this.populateContactCard();
   }
 
   private populateContactCard() {
-    this.contactService.getContactCardInfo(this.userName)
+    this.contactService.getAdContactCardInfo(this.userName)
       .subscribe(userDetails => {
         console.warn('user details for contact card', userDetails);
         this.user = userDetails;
