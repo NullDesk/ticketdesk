@@ -10,6 +10,14 @@
     <app-ad-user-selector></app-ad-user-selector>
   </div>
   <button 
+    class="btn btn-danger pull-left" 
+    type="button" 
+    (click)="cancelAction()" 
+    [disabled]="ticketActionForm.invalid">
+    Cancel
+  </button>
+
+  <button 
     class="btn btn-primary pull-right" 
     type="button" 
     (click)="submitAction()" 
