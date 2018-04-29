@@ -34,6 +34,7 @@ namespace ngWebClientAPI.Models
                 tkDataTransfer.status = tk.TicketStatus;
                 tkDataTransfer.ownerId = tk.Owner;
                 tkDataTransfer.assignedTo = tk.AssignedTo;
+                tkDataTransfer.assignedTo = (tk.AssignedTo != null) ? tkDataTransfer.assignedTo : "unassigned";
                 tkDataTransfer.category = tk.Category;
                 tkDataTransfer.subcategory = tk.SubCategory;
                 tkDataTransfer.priority = tk.Priority;
