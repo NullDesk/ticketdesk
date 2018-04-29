@@ -81,7 +81,7 @@ export class TicketActionEnum {
     public requiresComment: boolean,
     public specifiesUser: boolean,
     public formTemplate) {}
-    
+
   public static isAllowedAction(action: TicketActionEnum, activityNumber: number) {
     return (action.enumInteger & activityNumber) > 0;
   }

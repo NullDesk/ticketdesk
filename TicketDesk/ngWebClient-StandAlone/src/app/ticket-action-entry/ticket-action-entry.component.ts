@@ -47,7 +47,7 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     this.singleTicketService.submitTicketAction(formValue, this.action).subscribe(
       res => {
         this.actionBoxComponent.isCollapsed = true;
-        console.warn('action submission returned', res); 
+        console.warn('action submission returned', res);
       }
     );
     console.log('submit clicked');
