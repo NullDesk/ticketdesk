@@ -22,6 +22,10 @@ export class TicketListComponent implements OnInit, OnChanges {
   @Output() sortTrigger = new EventEmitter<number>();
 
   ngOnInit() {
+    this.makeDisplayList(this.ticketList);
+  }
+
+  makeDisplayList(ticketList: TicketStub[]) {
     // filter removes objects not of type ticket or null/undefined
     this.displayList = this.ticketList
           .filter( x => x)
@@ -53,7 +57,7 @@ export class TicketListComponent implements OnInit, OnChanges {
       const change = changes[propName];
       console.log('ngChange triggered new value: ', JSON.stringify(change.currentValue));
       if (propName === 'ticketList') {
-        this.ticketList = change.currentValue;
+        this.makeDisplayList(change.currentValue);
       }
       if (propName === 'pagination') {
         this.pagination = change.currentValue;
