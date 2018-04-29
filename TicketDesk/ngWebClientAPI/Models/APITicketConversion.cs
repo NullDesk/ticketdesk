@@ -20,9 +20,7 @@ namespace ngWebClientAPI.Models
                 
                 data.details = jsonData["details"].ToString();
                 data.ticketType = jsonData["ticketType"].ToString();
-                
                 data.category = jsonData["category"].ToString();
-                
                 data.title = jsonData["title"].ToString();
 
                 if(jsonData["subcategory"] != null && !String.IsNullOrEmpty(jsonData["subcategory"].ToString()))
@@ -32,24 +30,21 @@ namespace ngWebClientAPI.Models
 
                 if (jsonData["tagList"] != null && !String.IsNullOrEmpty(jsonData["tagList"].ToString()))
                 {
-                    
                     List<string> ts = jsonData["tagList"].ToString().Split(',').ToList();
 
                     foreach (var name in ts)
                     {
                         tt.Add(new TicketTag() { TagName = name });
                     }
-
                 }
                 else
                 {
-                    //No tag list received 
+                    /*No tag list received.*/
                     tt.Add(new TicketTag() { TagName = "Untagged" });
                 }
                 
                 if ( jsonData["priority"] != null && !String.IsNullOrEmpty(jsonData["priority"].ToString()))
                 {
-                    
                     data.priority = jsonData["priority"].ToString();
                 }
                 if (jsonData["assignedTo"] != null && !String.IsNullOrEmpty(jsonData["assignedTo"].ToString()))
@@ -65,8 +60,6 @@ namespace ngWebClientAPI.Models
                 {
                     data.ownerId = (userName != null) ? userName : "NoName";
                 }
-
-
             }
             catch(Exception ex)
             {
@@ -94,8 +87,8 @@ namespace ngWebClientAPI.Models
                 LastUpdateDate = now,
                 Owner = data.ownerId,
                 Priority = (data.priority != null) ? data.priority : "unassigned",
-                AssignedTo = (data.assignedTo != null) ? data.assignedTo : "unassigned",
-                TagList = (data.tagList != null) ? data.tagList : "Untagged",
+                AssignedTo = (data.assignedTo != null) ? data.assignedTo : null,
+                TagList = (data.tagList != null) ? data.tagList : "untagged",
                 TicketTags = tt,
                 TicketType = (data.ticketType != null) ? data.ticketType : "DefaultType",
                 TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.ownerId, TicketActivity.Create, null, null, null) },
@@ -117,15 +110,15 @@ namespace ngWebClientAPI.Models
             FETicket.priority = ticket.Priority;
             FETicket.ticketType = ticket.TicketType;
             FETicket.category = ticket.Category;
-            FETicket.subcategory = ticket.SubCategory; //no subcategory in TicketDesk db, might want to add?
+            FETicket.subcategory = ticket.SubCategory;
             FETicket.ownerId = ticket.Owner;
             FETicket.assignedTo = ticket.AssignedTo;
+            FETicket.assignedTo = (ticket.AssignedTo != null) ? FETicket.assignedTo : "unassigned";
             FETicket.status = ticket.TicketStatus;
             FETicket.tagList = ticket.TagList;
             FETicket.createdDate = ticket.CreatedDate.ToString();
             FETicket.title = ticket.Title;
             FETicket.subcategory = ticket.SubCategory;
-
             return FETicket;
         }
 
