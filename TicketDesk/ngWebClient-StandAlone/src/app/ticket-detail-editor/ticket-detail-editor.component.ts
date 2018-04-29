@@ -43,8 +43,8 @@ export class TicketDetailEditorComponent implements OnInit {
     this.schema.getCategoryTree().subscribe(res => {
       this.subcategories = Object.assign(this.subcategories, res);
       this.categories = Object.keys(res);
-      
-      // Internet Explorer does not play nicely with the reactive forms. 
+
+      // Internet Explorer does not play nicely with the reactive forms.
       // So we add default blank values.
       this.ticketTypes.unshift('');
       this.categories.unshift('');
