@@ -1,20 +1,12 @@
 using System;
+using System.Net;
+using System.Web.Mvc;
 using System.Web.Http;
+using System.Threading.Tasks;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using ngWebClientAPI.Models;
-using System.Web.Mvc;
-using System.Net;
-
-/*
- * This needs refactor....badly
- * Need to refactor it to return success/depending on whether or not the action could or could not
- * be completed.  This will involve HTTPstatusCodes being passed to the front end w/messages
- * indicating what happened.  For success not much is needed other than like 200 or somehting close.
- * Failure needs more detailed messages and catch conditions....need better error checking
- */
 
 namespace ngWebClientAPI.Controllers
 {
@@ -45,7 +37,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> Resolve([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
-            //convert data to comment and ID
+
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
@@ -66,6 +58,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> AddComment([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
+
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
@@ -83,8 +76,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("assign")]
         public async Task<HttpStatusCodeResult> Assign([FromBody] JObject data)
         {
-            //convertAssign
             HttpStatusCodeResult result;
+
             try
             {
                 Int64 semanticId = data["ticketId"].ToObject<Int64>();
@@ -97,7 +90,7 @@ namespace ngWebClientAPI.Controllers
             }
             catch(Exception ex)
             {
-                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
             return result;
             
@@ -106,8 +99,9 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("cancel-more-info")]
         public async Task<HttpStatusCodeResult> CancelMoreInfo([FromBody] JObject data) {
-            //convertInfo
+
             HttpStatusCodeResult result;
+
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
@@ -126,6 +120,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> EditTicketInfo([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
+
             try
             {
                 Int64 semanticId = data["ticketId"].ToObject<Int64>();
@@ -153,12 +148,14 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> Close([FromBody]JObject data)
         {
             HttpStatusCodeResult result;
+
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
                 await ticketActivityController.Close(info.ticketId, info.comment);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
@@ -169,8 +166,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("force-close")]
         public async Task<HttpStatusCodeResult> ForceClose([FromBody]JObject data)
         {
-            //convertInfo
             HttpStatusCodeResult result;
+
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
@@ -189,6 +186,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> GiveUp([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
+
             try
             {
                 InfoObject info = APIActionsConversion.ConvertInfo(data);
@@ -207,6 +205,7 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> Pass([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
+
             try
             {
                 Int64 semanticId = data["ticketId"].ToObject<Int64>();
@@ -216,7 +215,8 @@ namespace ngWebClientAPI.Controllers
                 int ticketId = APITicketConversion.ConvertTicketId(semanticId);
                 Ticket ticket = await ticketActivityController.Pass(ticketId, comment, assignedTo, priority);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
@@ -228,9 +228,9 @@ namespace ngWebClientAPI.Controllers
         public async Task<HttpStatusCodeResult> ReAssign([FromBody] JObject data)
         {
             HttpStatusCodeResult result;
+
             try
             {
-                //convertAssign
                 Int64 semanticId = data["ticketId"].ToObject<Int64>();
                 string comment = data["comment"].ToObject<string>();
                 string assignedTo = data["assignedTo"].ToObject<string>();
@@ -238,7 +238,8 @@ namespace ngWebClientAPI.Controllers
                 int ticketId = APITicketConversion.ConvertTicketId(semanticId);
                 await ticketActivityController.ReAssign(ticketId, comment, assignedTo, priority);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
@@ -249,8 +250,8 @@ namespace ngWebClientAPI.Controllers
         [System.Web.Http.Route("request-more-info")]
         public async Task<HttpStatusCodeResult> RequestMoreInfo([FromBody] JObject data)
         {
-            //convertinfo
             HttpStatusCodeResult result;
+
             try
             {
                 Int64 semanticId = data["ticketId"].ToObject<Int64>();
@@ -258,7 +259,8 @@ namespace ngWebClientAPI.Controllers
                 int ticketId = APITicketConversion.ConvertTicketId(semanticId);
                 await ticketActivityController.RequestMoreInfo(ticketId, comment);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
@@ -278,7 +280,8 @@ namespace ngWebClientAPI.Controllers
                 int ticketId = APITicketConversion.ConvertTicketId(semanticId);
                 await ticketActivityController.ReOpen(ticketId, comment, assignToMe);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
@@ -298,7 +301,8 @@ namespace ngWebClientAPI.Controllers
                 bool reactive = data["reactive"].ToObject<bool>();
                 await ticketActivityController.SupplyMoreInfo(ticketId, comment, reactive);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
@@ -318,7 +322,8 @@ namespace ngWebClientAPI.Controllers
                 string priority = data["priority"].ToObject<string>();
                 await ticketActivityController.TakeOver(ticketId, comment, priority);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result = new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.ToString());
             }
