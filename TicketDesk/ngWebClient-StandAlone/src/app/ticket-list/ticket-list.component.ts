@@ -49,10 +49,11 @@ export class TicketListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    for (let propName in changes) {
+    for (const propName of Object.keys(changes)) {
       const change = changes[propName];
+      console.log('ngChange triggered new value: ', JSON.stringify(change.currentValue));
       if (propName === 'ticketList') {
-        this.ticketList = change.currentValue; 
+        this.ticketList = change.currentValue;
       }
       if (propName === 'pagination') {
         this.pagination = change.currentValue;

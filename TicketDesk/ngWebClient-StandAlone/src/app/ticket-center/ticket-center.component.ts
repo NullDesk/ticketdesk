@@ -36,7 +36,6 @@ export class TicketCenterComponent implements OnInit {
           // Sending empty string, gets the default page from the backend, dependent on their permissions.
           // mytickets for standard users, unassigned for resolvers and admins
           this.getTicketList(this.currentList, 1);
-          this.listReady = true;
         });
   }
 
@@ -47,7 +46,7 @@ export class TicketCenterComponent implements OnInit {
           this.ticketList = ticketList;
           this.pagination.max = (ticketList.length === 0) ? page : page + 1;
           this.pagination.current = page;
-          });
+          this.listReady = true; });
   }
 
   onTabChange(event: NgbTabChangeEvent) {

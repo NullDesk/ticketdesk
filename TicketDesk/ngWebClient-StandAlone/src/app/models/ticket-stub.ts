@@ -21,7 +21,7 @@ export const columnHeadings: string[] = [
   'Category',
   'Subcategory',
   'Created Date',
-  'Last Updated'
+  'Last Update Date'
 ];
 
 export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
