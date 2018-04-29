@@ -4,13 +4,14 @@ import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { AdUserSelectorComponent } from '../ad-user-selector/ad-user-selector.component';
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { SingleTicketService } from '../services/single-ticket.service';
+import { RedirectService } from '../services/redirect.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-action-entry',
   templateUrl: './ticket-action-entry.component.html',
   styleUrls: ['./ticket-action-entry.component.css'],
-  providers: [SingleTicketService]
+  providers: [SingleTicketService, RedirectService]
 })
 export class TicketActionEntryComponent implements OnInit, OnChanges {
   @Input()
@@ -21,6 +22,7 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
   fb: FormBuilder;
   ticketId: number = null;
   constructor(@Inject(FormBuilder) fb: FormBuilder,
+    private redirectService: RedirectService,
     private singleTicketService: SingleTicketService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
@@ -46,10 +48,8 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     console.log(formValue);
     this.singleTicketService.submitTicketAction(formValue, this.action).subscribe(
       res => {
-        console.warn('action submission returned', res);
-        this.router.navigate(['/ticket', this.ticketId],
-          {queryParams: {'show' : 'log'}}
-        );
+          this.redirectService.requestTabChange();
+
       }
     );
   }

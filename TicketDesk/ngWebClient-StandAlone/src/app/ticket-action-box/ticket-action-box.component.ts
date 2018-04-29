@@ -2,13 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Ticket } from '../models/ticket';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { SingleTicketService } from '../services/single-ticket.service';
+import { RedirectService } from '../services/redirect.service';
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-ticket-action-box',
   templateUrl: './ticket-action-box.component.html',
   styleUrls: ['./ticket-action-box.component.css'],
-  providers: [SingleTicketService]
+  providers: [SingleTicketService, RedirectService]
 })
 export class TicketActionBoxComponent implements OnInit, OnChanges {
   @Input() ticket: Ticket;

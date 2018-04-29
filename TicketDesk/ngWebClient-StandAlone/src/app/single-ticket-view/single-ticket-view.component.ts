@@ -3,6 +3,7 @@ import { ActivityLogComponent } from '../activity-log/activity-log.component';
 import { ContactInfoComponent } from '../contact-info/contact-info.component';
 import { TicketActionBoxComponent } from '../ticket-action-box/ticket-action-box.component';
 import { SingleTicketService } from '../services/single-ticket.service';
+import { RedirectService } from '../services/redirect.service';
 import { Ticket } from '../models/ticket';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +11,8 @@ import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-single-ticket-view',
   templateUrl: './single-ticket-view.component.html',
-  styleUrls: ['./single-ticket-view.component.css']
+  styleUrls: ['./single-ticket-view.component.css'],
+  providers: [RedirectService]
 })
 export class SingleTicketViewComponent implements OnInit {
   ticket: Ticket = null;
@@ -22,6 +24,7 @@ export class SingleTicketViewComponent implements OnInit {
   public isCollapsed = true;
 
   constructor(private router: Router,
+    private redirectService: RedirectService,
     private singleTicketService: SingleTicketService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
@@ -31,13 +34,9 @@ export class SingleTicketViewComponent implements OnInit {
       }
       this.ticketId = Number(params['ticketID']);
     });
-    this.activatedRoute.queryParams.subscribe(
-      params => {
-        if (params['show'] === 'log') {
-          this.tabset.select('tab-selectbyid2');
-        }
-      }
-    );
+    this.redirectService.tabChangeRequested.subscribe( req => {
+      this.tabset.select('tab-selectbyid2');
+    });
   }
 
   ticketIsOpen(): boolean {
