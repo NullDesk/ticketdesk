@@ -15,6 +15,7 @@ export class SingleTicketViewComponent implements OnInit {
   ticket: Ticket = null;
   ticketId: number = null;
   ticketActionPermissions = 0;
+  tabset;
   public isCollapsed = true;
 
   constructor(private router: Router,
@@ -27,6 +28,13 @@ export class SingleTicketViewComponent implements OnInit {
       }
       this.ticketId = Number(params['ticketID']);
     });
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        if (params['show'] === 'log') {
+          this.tabset.select('tab-selectbyid2');
+        }
+      }
+    );
   }
 
   ticketIsOpen(): boolean {

@@ -31,7 +31,8 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
   ticketEmit(ticket: Ticket) {
     console.log('ticket box got an emitted ticket!');
     this.singleTicketService.submitTicketAction(ticket, this.activeAction).subscribe(
-      res => {console.warn('action submission returned', res); }
+      res => {console.warn('action submission returned', res);
+      document.location.reload(); }
     );
     console.log('you made a click');
   }

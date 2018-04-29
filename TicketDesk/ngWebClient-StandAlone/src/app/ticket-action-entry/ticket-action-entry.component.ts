@@ -22,6 +22,7 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
   ticketId: number = null;
   constructor(@Inject(FormBuilder) fb: FormBuilder,
     private singleTicketService: SingleTicketService,
+    private router: Router,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = Number(params['ticketID']);
@@ -44,9 +45,13 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     formValue.ticketId = this.ticketId;
     console.log(formValue);
     this.singleTicketService.submitTicketAction(formValue, this.action).subscribe(
-      res => {console.warn('action submission returned', res); }
+      res => {
+        console.warn('action submission returned', res);
+        this.router.navigate(['/ticket', this.ticketId],
+          {queryParams: {'show' : 'log'}}
+        );
+      }
     );
-    console.log('you made a click');
   }
 
 }
