@@ -123,21 +123,29 @@ namespace ngWebClientAPI.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("edit-ticket-info")]
-        public Task<Ticket> EditTicketInfo([FromBody] JObject data)
+        public async Task<HttpStatusCodeResult> EditTicketInfo([FromBody] JObject data)
         {
-            Int64 semanticId = data["ticketId"].ToObject<Int64>();
-            int ticketId = APITicketConversion.ConvertTicketId(semanticId);
-            int projectId = data["projectId"].ToObject<int>();
-            string comment = data["comment"].ToObject<string>();
-            string title = data["title"].ToObject<string>();
-            string details = data["details"].ToObject<string>();
-            string priority = data["priority"].ToObject<string>();
-            string ticketType = data["ticketType"].ToObject<string>();
-            string category = data["category"].ToObject<string>();
-            string owner = data["owner"].ToObject<string>();
-            string tagList = data["tagList"].ToObject<string>();
-            Task<Ticket> ticket = ticketActivityController.EditTicketInfo(ticketId, projectId, comment, title, details, priority, ticketType, category, owner, tagList);
-            return ticket;
+            HttpStatusCodeResult result;
+            try
+            {
+                Int64 semanticId = data["ticketId"].ToObject<Int64>();
+                int ticketId = APITicketConversion.ConvertTicketId(semanticId);
+                string comment = "Ticket information edited";
+                string title = data["title"].ToObject<string>();
+                string details = data["details"].ToObject<string>();
+                string priority = data["priority"].ToObject<string>();
+                string ticketType = data["ticketType"].ToObject<string>();
+                string category = data["category"].ToObject<string>();
+                string tagList = data["tagList"].ToObject<string>() != "" ? data["tagList"].ToObject<string>() : "untagged";
+                string subCategory = data["subCategory"].ToObject<string>();
+                Ticket ticket = await ticketActivityController.EditTicketInfo(ticketId, comment, title, details, priority, ticketType, category, tagList, subCategory);
+                result = new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                result = new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.ToString());
+            }
+            return result;
         }
 
         [System.Web.Http.HttpPost]

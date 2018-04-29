@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain", "Ticket
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Domain.Legacy", "TicketDesk.Domain.Legacy\TicketDesk.Domain.Legacy.csproj", "{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketDesk.Web.Identity", "TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj", "{BD3617C2-A91E-40F3-A441-B085D2491399}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{302374B4-125F-4C34-936B-3BCECF93EB71}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
@@ -67,10 +65,6 @@ Global
 		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A85D9882-1DB3-40EC-A23E-6B4562F48BCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD3617C2-A91E-40F3-A441-B085D2491399}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD3617C2-A91E-40F3-A441-B085D2491399}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9477C13-68C4-43E0-A30B-F06F444C5358}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,10 +101,6 @@ Global
 		{64013999-1684-4A54-85F4-5633DC52A1C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64013999-1684-4A54-85F4-5633DC52A1C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64013999-1684-4A54-85F4-5633DC52A1C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99B5EE5E-0CDE-46A2-9B6E-A266F3D5AA02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

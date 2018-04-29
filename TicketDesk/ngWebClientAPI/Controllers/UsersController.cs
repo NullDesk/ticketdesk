@@ -61,7 +61,6 @@ namespace ngWebClientAPI.Controllers
 
                 var highestPermission = "TD_User";
 
-
                 foreach (var group in groups)
                 {
                     if (group.Name.Equals("TD_Admin"))
@@ -74,16 +73,13 @@ namespace ngWebClientAPI.Controllers
                         highestPermission = group.Name;
                     }
                 }
-
                 result.Add("userPermissions", highestPermission);
             }
-
             catch(Exception ex)
             {
                 result.Add("userPermissions", ex.ToString());
             }
             return result;
         }
-
     }
 }

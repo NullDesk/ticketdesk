@@ -112,15 +112,15 @@ namespace TicketDesk.Domain
 
         public Action<Ticket> EditTicketInfo(
             string comment,
-            int projectId,
-            string projectName,
+//            int projectId,
+//            string projectName,
             string title,
             string details,
             string priority,
             string ticketType,
             string category,
-            string owner,
             string tagList,
+            string subCategory,
             ApplicationSetting settings)
         {
             const TicketActivity activity = TicketActivity.EditTicketInfo;
@@ -129,59 +129,58 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     
-                    var sb = new StringBuilder(comment);
+                    /*var sb = new StringBuilder(comment);
                     sb.AppendLine();
                    
                     sb.AppendLine("<dl><dt>");
                     sb.AppendLine(Strings.Changes_Title);
-                    sb.AppendLine("</dt>");
+                    sb.AppendLine("</dt>");*/
 
                     //TODO: resource these strings!
                     if (ticket.Title != title)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Title)));
+                        //sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Title)));
                         ticket.Title = title;
                     }
-                    if (ticket.ProjectId != projectId)
+                    /*if (ticket.ProjectId != projectId)
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", 
+                        /*sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", 
                             PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ProjectId),
                             ticket.Project.ProjectName,
                             projectName));
                         ticket.ProjectId = projectId;
-                    }
+                    }*/
                     if (ticket.Details != details)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Details)));
+                        //sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Details)));
                         ticket.Details = details;
                     }
                     if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditTags ) && ticket.TagList != tagList)
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TagList)));
+                        //sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TagList)));
                         ticket.TagList = tagList;
                     }
                     if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority)
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
+                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
                         ticket.Priority = priority;
                     }
                     if (ticket.TicketType != ticketType)
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
+                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
                         ticket.TicketType = ticketType;
                     }
                     if (ticket.Category != category)
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
+                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
                         ticket.Category = category;
                     }
-                    if (SecurityProvider.IsTdHelpDeskUser && ticket.Owner != owner)
+                    if (ticket.SubCategory != subCategory)
                     {
-                        //sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Owner), SecurityProvider.GetUserDisplayName(ticket.Owner), SecurityProvider.GetUserDisplayName(owner)));
-                        ticket.Owner = owner;
+                        ticket.SubCategory = subCategory;
                     }
-                    sb.AppendLine("</dl>");
-                    comment = sb.ToString();
+                    //sb.AppendLine("</dl>");
+                    //comment = sb.ToString();
                     ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };

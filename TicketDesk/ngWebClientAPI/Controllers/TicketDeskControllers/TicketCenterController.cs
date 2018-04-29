@@ -56,7 +56,12 @@ namespace ngWebClientAPI.Controllers
         [Route("pageList/{listName=mytickets}/{page:int?}")]
         public async Task<List<Ticket>> PageList(int? page, string listName)
         {
-            return await GetTicketListPartial(page, listName);
+            var pageNumber = page ?? 1;
+
+            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.userName);
+            List<Ticket> ticketList = viewModel.Tickets;
+
+            return ticketList;
         }
 
         public async Task<List<Ticket>> FilterList(

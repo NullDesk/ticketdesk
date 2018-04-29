@@ -44,7 +44,7 @@ namespace ngWebClientAPI.Models
                 else
                 {
                     //No tag list received 
-                    tt.Add(new TicketTag() { TagName = "UnTagged" });
+                    tt.Add(new TicketTag() { TagName = "Untagged" });
                 }
                 
                 if ( jsonData["priority"] != null && !String.IsNullOrEmpty(jsonData["priority"].ToString()))
@@ -94,14 +94,13 @@ namespace ngWebClientAPI.Models
                 LastUpdateDate = now,
                 Owner = data.ownerId,
                 Priority = (data.priority != null) ? data.priority : "unassigned",
-                AssignedTo = (data.assignedTo != null) ? data.assignedTo : "UnAssigned",
-                TagList = (data.tagList != null) ? data.tagList : "UnTagged",
+                AssignedTo = (data.assignedTo != null) ? data.assignedTo : "unassigned",
+                TagList = (data.tagList != null) ? data.tagList : "Untagged",
                 TicketTags = tt,
                 TicketType = (data.ticketType != null) ? data.ticketType : "DefaultType",
                 TicketEvents = new[] { TicketEvent.CreateActivityEvent(data.ownerId, TicketActivity.Create, null, null, null) },
                 SemanticId = now.ToString("yyMMddHHmm"), /*Formatting for semantic numbering.*/
             };
-
             return ticket;
         }
         public static FrontEndTicket ConvertGETTicket(Ticket ticket)
