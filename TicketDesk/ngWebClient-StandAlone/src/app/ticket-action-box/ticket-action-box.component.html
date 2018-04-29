@@ -1,7 +1,7 @@
 <span *ngFor="let action of allowedActions">
   <button 
     type="button" 
-    class="btn btn-dark" 
+    class="btn btn-outline-dark" 
     (click)="isCollapsed = !setActiveAction(action) && !isCollapsed" 
     [attr.aria-expanded]="!isCollapsed" 
     aria-controls="collapseExample">
