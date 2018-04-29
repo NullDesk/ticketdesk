@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivityLogComponent } from '../activity-log/activity-log.component';
 import { ContactInfoComponent } from '../contact-info/contact-info.component';
 import { TicketActionBoxComponent } from '../ticket-action-box/ticket-action-box.component';
 import { SingleTicketService } from '../services/single-ticket.service';
 import { Ticket } from '../models/ticket';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-single-ticket-view',
@@ -15,7 +16,9 @@ export class SingleTicketViewComponent implements OnInit {
   ticket: Ticket = null;
   ticketId: number = null;
   ticketActionPermissions = 0;
-  tabset;
+
+  @ViewChild('tabset')
+  tabset: NgbTabset;
   public isCollapsed = true;
 
   constructor(private router: Router,
