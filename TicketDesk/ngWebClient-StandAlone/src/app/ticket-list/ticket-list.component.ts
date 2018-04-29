@@ -42,4 +42,8 @@ export class TicketListComponent implements OnInit {
   onPageChange(page: number) {
     this.pageChange.emit(page);
   }
+
+  headerSort(header: string) {
+    console.log('I got this header: ', header);
+  }
 }
