@@ -14,22 +14,23 @@
                 <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
-                <td> {{ row.ticket.status }} </td>
+                <td> {{ getStatusText(row.ticket.status) }} </td>
                 <td> {{ row.ticket.priority }}  </td>
                 <td> {{ row.ticket.ownerId }}  </td>
                 <td> {{ row.ticket.assignedTo }}  </td>
                 <td> {{ row.ticket.category }}  </td>
                 <td> {{ row.ticket.subcategory }}  </td>
                 <td> {{ row.ticket.createdDate }}  </td>
-                <td> {{ row.ticket.updatedDate }}  </td>
+                <td> {{ row.ticket.lastUpdateDate }}  </td>
             </tr>
         </tbody>
+    </table>
+    <div *ngIf="pagination" >
         <ngb-pagination 
           [collectionSize]=ticketListResults.maxPages*10 
           [(page)]="currentPage" 
           [maxSize]="5" 
           [rotate]="true">
         </ngb-pagination>
-    </table>
-    <!-- <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div> -->
+    </div>
 </div>

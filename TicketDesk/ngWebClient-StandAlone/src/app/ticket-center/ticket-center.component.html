@@ -1,10 +1,11 @@
-<div class="container-fluid">
+<div class="col-xs-12" style="height:30px;"></div>
+<div class="container-fluid" class="px-5">
 <div class="card">
-<ngb-tabset type="pills" justify="fill" (tabChange)="onTabChange($event)">
+<ngb-tabset *ngIf="tabsReady" type="pills" justify="fill" (tabChange)="onTabChange($event)">
   <ngb-tab *ngFor="let tabName of tabNames" id="{{ tabName }}" title="{{ convertListNameToDisplayStr(tabName) }}">
     <ng-template ngbTabContent>
       <div *ngIf="listReady" >
-        <app-ticket-list [ticketListResults]="ticketListResults"> </app-ticket-list>
+        <app-ticket-list [ticketList]="ticketList" [pagination]="pagination" (pageChange)="pageChange($event)"> </app-ticket-list>
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
