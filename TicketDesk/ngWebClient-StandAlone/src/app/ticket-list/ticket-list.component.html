@@ -4,7 +4,7 @@
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th *ngFor="let heading of colHeadings" > (onClick)="headerSort({{heading}})" {{ heading }} <i class="fa fa-fw fa-sort"> </i></th>
+                <th *ngFor="let heading of colHeadings" (onClick)="headerSort({{heading}})" > {{ heading }} <i class="fa fa-fw fa-sort"> </i></th>
             </tr>
         </thead>
         <tbody>
