@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output,
+         EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
 import { getTicketStatusText } from '../models/ticket';
@@ -9,7 +10,7 @@ import { getTicketStatusText } from '../models/ticket';
   styleUrls: ['./ticket-list.component.css']
 })
 
-export class TicketListComponent implements OnInit {
+export class TicketListComponent implements OnInit, OnChanges {
   // imported into the class, so can be used in HTML
   private colHeadings = columnHeadings;
   private getStatusText = getTicketStatusText;
@@ -17,8 +18,8 @@ export class TicketListComponent implements OnInit {
   private displayList: {ticket: TicketStub, checked: boolean}[];
   @Input() ticketList:  TicketStub[];
   @Input() pagination: {current: number, max: number } = null;
-  @Input() columns: string[];
   @Output() pageChange = new EventEmitter<number>();
+  @Output() sortTrigger = new EventEmitter<number>();
 
   ngOnInit() {
     // filter removes objects not of type ticket or null/undefined
@@ -43,7 +44,24 @@ export class TicketListComponent implements OnInit {
     this.pageChange.emit(page);
   }
 
+  camelCaseSring(str: string) {
+    return str.charAt(0).toLowerCase() + str.slice(1).replace(/\s/g, '');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (let propName in changes) {
+      const change = changes[propName];
+      if (propName === 'ticketList') {
+        this.ticketList = change.currentValue; 
+      }
+      if (propName === 'pagination') {
+        this.pagination = change.currentValue;
+      }
+    }
+  }
+
   headerSort(header: string) {
-    console.log('I got this header: ', header);
+    const colName = this.camelCaseSring(header);
+
   }
 }
