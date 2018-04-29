@@ -36,18 +36,18 @@ export class TicketCenterComponent implements OnInit {
           // Sending empty string, gets the default page from the backend, dependent on their permissions.
           // mytickets for standard users, unassigned for resolvers and admins
           this.getTicketList(this.currentList, 1);
+          this.listReady = true;
         });
   }
 
   getTicketList(listName: string, page: number): void {
-    this.listReady = false;
     console.log('Getting ticketlist for', listName, 'at page ', page);
     this.multiTicketService.getTicketList(listName, page)
         .subscribe(ticketList => {
           this.ticketList = ticketList;
           this.pagination.max = (ticketList.length === 0) ? page : page + 1;
           this.pagination.current = page;
-          this.listReady = true; });
+          });
   }
 
   onTabChange(event: NgbTabChangeEvent) {
