@@ -20,6 +20,7 @@ export class TicketCenterComponent implements OnInit {
   currentList;
   listReady: Boolean = false;
   tabsReady: Boolean = false;
+  resetListSettings: Boolean = true;
 
   constructor(private multiTicketService: MultiTicketService,
               private userService: UserService) {
@@ -41,6 +42,10 @@ export class TicketCenterComponent implements OnInit {
 
   getTicketList(listName: string, page: number): void {
     console.log('Getting ticketlist for', listName, 'at page ', page);
+    if (this.resetListSettings) {
+      this.multiTicketService.resetFilterAndSort();
+      this.resetListSettings = false;
+    }
     this.multiTicketService.getTicketList(listName, page)
         .subscribe(ticketList => {
           this.ticketList = ticketList;
@@ -50,6 +55,7 @@ export class TicketCenterComponent implements OnInit {
   }
 
   onTabChange(event: NgbTabChangeEvent) {
+    this.resetListSettings = true;
     this.currentList = event.nextId;
     this.getTicketList(event.nextId, 1);
   }
