@@ -58,6 +58,15 @@ export class TicketCenterComponent implements OnInit {
     this.getTicketList(this.currentList, page);
   }
 
+  sortTrigger(colName: string) {
+    console.log('Getting sorting for', colName);
+    this.multiTicketService.sortList(this.pagination.current, this.currentList, colName, false)
+        .subscribe(ticketList => {
+          console.log('Got Sorted TicketList:', JSON.stringify(ticketList));
+          this.ticketList = ticketList;
+        });
+  }
+
   convertListNameToDisplayStr(str: string) {
     return ticketlistToUserDisplayMap.has(str) ? ticketlistToUserDisplayMap.get(str) : str;
   }

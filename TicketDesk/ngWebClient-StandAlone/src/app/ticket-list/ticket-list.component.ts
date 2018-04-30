@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output,
 import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
 import { getTicketStatusText } from '../models/ticket';
+import { toCamelCase } from '../../utils';
 
 @Component({
   selector: 'app-ticket-list',
@@ -19,7 +20,7 @@ export class TicketListComponent implements OnInit, OnChanges {
   @Input() ticketList:  TicketStub[];
   @Input() pagination: {current: number, max: number } = null;
   @Output() pageChange = new EventEmitter<number>();
-  @Output() sortTrigger = new EventEmitter<number>();
+  @Output() sortTrigger = new EventEmitter<string>();
 
   ngOnInit() {
     this.makeDisplayList(this.ticketList);
@@ -47,11 +48,6 @@ export class TicketListComponent implements OnInit, OnChanges {
   onPageChange(page: number) {
     this.pageChange.emit(page);
   }
-<<<<<<< HEAD
-
-  camelCaseSring(str: string) {
-    return str.charAt(0).toLowerCase() + str.slice(1).replace(/\s/g, '');
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
@@ -67,11 +63,7 @@ export class TicketListComponent implements OnInit, OnChanges {
   }
 
   headerSort(header: string) {
-    const colName = this.camelCaseSring(header);
-
+    const colName = toCamelCase(header);
+    this.sortTrigger.emit(colName);
   }
-||||||| merged common ancestors
-=======
-
->>>>>>> ngWebClient-Dev
 }
