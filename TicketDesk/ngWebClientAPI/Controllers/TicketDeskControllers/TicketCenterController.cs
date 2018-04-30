@@ -42,7 +42,6 @@ namespace ngWebClientAPI.Controllers
 
         }
 
-        
         public async Task<List<Ticket>> Index(int? page, string listName)
         {
             listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "mytickets");
