@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using TicketDesk.Domain;
 using TicketDesk.Domain.Model;
 using ngWebClientAPI.Models;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-
-using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     [RoutePrefix("api/tickets")]
     public class TicketCenterAPIController : ApiController
     {
@@ -23,6 +18,7 @@ namespace ngWebClientAPI.Controllers
         public TicketCenterAPIController()
         {
             TicketDeskContextSecurityProvider secur = new TicketDeskContextSecurityProvider();
+           
             ticketCenterController = new TicketCenterController(new TdDomainContext(secur));
         }
 
@@ -34,23 +30,26 @@ namespace ngWebClientAPI.Controllers
             return tkDTO;
         }
 
+        /* Depricated - Use pageList instead... */
+
         [HttpPost]
         [Route("index")]
         public async Task<List<TicketCenterDTO>> Index(JObject data)
         {
+            string userName = System.Web.HttpContext.Current.User.Identity.Name.ToLower().Replace(@"clarkpud\", string.Empty);
             int? page = data["page"].ToObject<int?>();
             string listName = null;
-            if(data["listName"] == null)
+
+            if (data["priority"] != null && !String.IsNullOrEmpty(data["priority"].ToString()))
             {
                 listName = data["listName"].ToObject<string>();
-            }
-            listName = "opentickets";
+            } 
             List<Ticket> ticketList = await ticketCenterController.Index(page, listName);
             List<TicketCenterDTO> tkDTO = TicketCenterDTO.ticketsToTicketCenterDTO(ticketList);
             return tkDTO;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("pageList")]
         public async Task<List<TicketCenterDTO>> PageList(JObject data)
         {
@@ -61,6 +60,7 @@ namespace ngWebClientAPI.Controllers
             return tkDTO;
         }
 
+        [HttpPost]
         [Route("filterList")]
         public async Task<List<TicketCenterDTO>> filterlist(JObject data)
         {
@@ -75,6 +75,7 @@ namespace ngWebClientAPI.Controllers
             return tkDTO;
         }
 
+        [HttpPost]
         [Route("sortList")]
         public async Task<List<TicketCenterDTO>> SortList(JObject data)
         {

@@ -72,7 +72,7 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -92,7 +92,7 @@ namespace TicketDesk.Domain
                 {
                     ticket.TicketStatus = TicketStatus.Active;
 
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -105,22 +105,22 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.TicketStatus = TicketStatus.Closed;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
 
         public Action<Ticket> EditTicketInfo(
             string comment,
-            int projectId,
-            string projectName,
+//            int projectId,
+//            string projectName,
             string title,
             string details,
             string priority,
             string ticketType,
             string category,
-            string owner,
             string tagList,
+            string subCategory,
             ApplicationSetting settings)
         {
             const TicketActivity activity = TicketActivity.EditTicketInfo;
@@ -128,61 +128,35 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    
-                    var sb = new StringBuilder(comment);
-                    sb.AppendLine();
-                   
-                    sb.AppendLine("<dl><dt>");
-                    sb.AppendLine(Strings.Changes_Title);
-                    sb.AppendLine("</dt>");
-
-                    //TODO: resource these strings!
-                    if (ticket.Title != title)
+                    if (ticket.Title != title && title != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Title)));
                         ticket.Title = title;
                     }
-                    if (ticket.ProjectId != projectId)
+                    if (ticket.Details != details && details != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", 
-                            PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.ProjectId),
-                            ticket.Project.ProjectName,
-                            projectName));
-                        ticket.ProjectId = projectId;
-                    }
-                    if (ticket.Details != details)
-                    {
-                        sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Details)));
                         ticket.Details = details;
                     }
-                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditTags ) && ticket.TagList != tagList)
+                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditTags ) && ticket.TagList != tagList && tagList != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    {0}</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TagList)));
                         ticket.TagList = tagList;
                     }
-                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority)
+                    if ((SecurityProvider.IsTdHelpDeskUser || settings.Permissions.AllowInternalUsersToEditPriority) && ticket.Priority != priority && priority != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Priority), ticket.Priority, priority));
                         ticket.Priority = priority;
                     }
-                    if (ticket.TicketType != ticketType)
+                    if (ticket.TicketType != ticketType && ticketType != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.TicketType), ticket.TicketType, ticketType));
                         ticket.TicketType = ticketType;
                     }
-                    if (ticket.Category != category)
+                    if (ticket.Category != category && category != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Category), ticket.Category, category));
                         ticket.Category = category;
                     }
-                    if (SecurityProvider.IsTdHelpDeskUser && ticket.Owner != owner)
+                    if (ticket.SubCategory != subCategory && subCategory != "")
                     {
-                        sb.AppendLine(string.Format("<dd>    " + Strings.Changes_From_To + "</dd>", PropertyUtility.GetPropertyDisplayString<Ticket>(p => p.Owner), SecurityProvider.GetUserDisplayName(ticket.Owner), SecurityProvider.GetUserDisplayName(owner)));
-                        ticket.Owner = owner;
+                        ticket.SubCategory = subCategory;
                     }
-                    sb.AppendLine("</dl>");
-                    comment = sb.ToString();
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -195,7 +169,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.TicketStatus = TicketStatus.Closed;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -208,7 +182,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.AssignedTo = null;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
 
                 }
             };
@@ -222,7 +196,7 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -246,7 +220,7 @@ namespace TicketDesk.Domain
                 {
                     ticket.TicketStatus = TicketStatus.MoreInfo;
 
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -258,9 +232,9 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.AssignedTo = assignToMe ? SecurityProvider.CurrentUserId : null;
+                    ticket.AssignedTo = assignToMe ? SecurityProvider.CurrentUser.userName : null;
                     ticket.TicketStatus = TicketStatus.Active;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -273,7 +247,7 @@ namespace TicketDesk.Domain
                 if (CheckSecurity(ticket, activity))
                 {
                     ticket.TicketStatus = TicketStatus.Resolved;
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -289,7 +263,7 @@ namespace TicketDesk.Domain
                     {
                         ticket.TicketStatus = TicketStatus.Active;
                     }
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment);
                 }
             };
         }
@@ -301,7 +275,7 @@ namespace TicketDesk.Domain
             {
                 if (CheckSecurity(ticket, activity))
                 {
-                    ticket.AssignedTo = SecurityProvider.CurrentUserId;
+                    ticket.AssignedTo = SecurityProvider.CurrentUser.userName;
                     if (!string.IsNullOrEmpty(priority))
                     {
                         if (ticket.Priority == priority)
@@ -313,7 +287,7 @@ namespace TicketDesk.Domain
                             ticket.Priority = priority;
                         }
                     }
-                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment, priority, null);
+                    ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment, priority, null);
                 }
 
             };
@@ -323,7 +297,7 @@ namespace TicketDesk.Domain
         {
             return ticket =>
             {
-                if (SecurityProvider.CurrentUserId == assignTo) //attempting to assign/reassign to self
+                if (SecurityProvider.CurrentUser.userName == assignTo) //attempting to assign/reassign to self
                 {
                     TakeOver(comment, priority)(ticket);
                 }
@@ -344,7 +318,7 @@ namespace TicketDesk.Domain
                             }
                         }
 
-                        ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUserId, activity, comment, priority, SecurityProvider.GetUserDisplayName(assignTo));
+                        ticket.TicketEvents.AddActivityEvent(SecurityProvider.CurrentUser.userName, activity, comment, priority, SecurityProvider.CurrentUser.userName);
                     }
                 }
             };

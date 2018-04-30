@@ -15,9 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using TicketDesk.Domain.Model;
-using TicketDesk.Web.Identity;
 using TicketDesk.Localization.Models;
 
 namespace ngWebClientAPI.Models
@@ -25,14 +23,10 @@ namespace ngWebClientAPI.Models
     public class FilterBarViewModel
     {
         private UserTicketListSetting CurrentListSetting { get; set; }
-        private TicketDeskRoleManager RoleManager { get; set; }
-        private TicketDeskUserManager UserManager { get; set; }
 
         public FilterBarViewModel(UserTicketListSetting currentListSetting)
         {
             CurrentListSetting = currentListSetting;
-            RoleManager = DependencyResolver.Current.GetService<TicketDeskRoleManager>();
-            UserManager = DependencyResolver.Current.GetService<TicketDeskUserManager>();
         }
 
 
@@ -110,49 +104,6 @@ namespace ngWebClientAPI.Models
             }
         }
 
-       
-
-        public SelectList SubmittersSelectList
-        {
-            get
-            {
-                string selectedUserName = "anyone";
-                var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "Owner");
-                if (fColumn != null)
-                {
-                    selectedUserName = fColumn.ColumnValue.ToString();
-                }
-               
-                var lusers = GetUsersInRole("TdInternalUsers");
-                lusers.Insert(0, new UserItem { Name = "anyone", DisplayName = Strings.AssignedTo_Anyone });
-
-                return new SelectList(lusers, "Name", "DisplayName", selectedUserName);
-            }
-        }
-
-       
-
-        public SelectList AssignedToSelectList
-        {
-            get
-            {
-                string selectedUserName = "anyone";
-                var fColumn = CurrentListSetting.FilterColumns.SingleOrDefault(fc => fc.ColumnName == "AssignedTo");
-                if (fColumn != null)
-                {
-                    //when filter for column exists, but the value is null it means the selection was unassigned
-                    selectedUserName = (fColumn.ColumnValue ?? "unassigned").ToString();
-                        //(string.IsNullOrEmpty(fColumn.ColumnValue.ToString())) ? "unassigned" : fColumn.ColumnValue.ToString();
-                }
-
-                var lusers = GetUsersInRole("TdHelpDeskUsers");
-                lusers.Insert(0, new UserItem { Name = "anyone", DisplayName = Strings.AssignedTo_Anyone });
-                lusers.Insert(1, new UserItem { Name = "unassigned", DisplayName = Strings.AssignedTo_Unassigned });
-
-                return new SelectList(lusers, "Name", "DisplayName", selectedUserName);
-            }
-        }
-
         public Dictionary<string, object> AssignedFilterHtmlAttributes
         {
             get
@@ -189,20 +140,6 @@ namespace ngWebClientAPI.Models
             //TODO: add caching and reuse UserDisplayInfo from UserDisplayInfoCache
             public string Name { get; set; }
             public string DisplayName { get; set; }
-        }
-
-        private List<UserItem> GetUsersInRole(string roleName)
-        {
-
-
-            //TODO: Add caching for this in role manager
-            return RoleManager
-                .FindByName(roleName)
-                .Users
-                .GetUsersInRole(UserManager)
-                .OrderBy(u => u.DisplayName)
-                .Select(u => new UserItem { Name = u.Id, DisplayName = u.DisplayName })
-                .ToList();
         }
     }
 }

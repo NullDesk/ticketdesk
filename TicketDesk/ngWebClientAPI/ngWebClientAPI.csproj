@@ -18,12 +18,12 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <IISExpressUseClassicPipelineMode>
     </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
@@ -54,11 +54,17 @@
     <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
       <HintPath>..\packages\AngleSharp.0.9.9.1\lib\net45\AngleSharp.dll</HintPath>
     </Reference>
+    <Reference Include="CPU.Core.Objects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\CPU.Core.Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="EmployeeInformationManager, Version=2.0.0.11, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\EmployeeInformationManager.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlSanitizer.4.0.183\lib\net45\HtmlSanitizer.dll</HintPath>
@@ -115,6 +121,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.Linq, Version=1.2.2.1, Culture=neutral, PublicKeyToken=15767dc0c85f19f9, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmployeeInformationManager.2.0.0.11\lib\net45\System.DirectoryServices.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -254,6 +264,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Infrastructure\Identity\TicketDeskUserManager.cs" />
     <Compile Include="SLAWatch.cs" />
     <Compile Include="Controllers\ActionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -272,16 +283,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Identity\TicketDeskSignInManager.cs" />
-    <Compile Include="Infrastructure\Identity\TicketDeskUserManagerExtensions.cs" />
     <Compile Include="Models\APITicketConversion.cs" />
-    <Compile Include="Models\CPUUser.cs" />
     <Compile Include="Models\Extensions\ApplicationSettingExtensions.cs" />
     <Compile Include="Models\APIActionsConversion.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\Extensions\SelectListExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />
-    <Compile Include="Models\Extensions\TicketDeskUserExtensions.cs" />
     <Compile Include="Models\Extensions\TicketExtensions.cs" />
     <Compile Include="Models\FilterBarViewModel.cs" />
     <Compile Include="Models\TicketCenterDTO.cs" />
@@ -395,10 +402,6 @@
       <Project>{54390f7f-a440-40f7-8b1a-28ab599a5213}</Project>
       <Name>TicketDesk.Search.Lucene</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TicketDesk.Web.Identity\TicketDesk.Web.Identity.csproj">
-      <Project>{bd3617c2-a91e-40f3-a441-b085d2491399}</Project>
-      <Name>TicketDesk.Web.Identity</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -418,7 +421,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50067</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50067/</IISUrl>
+          <IISUrl>http://localhost:50067</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
