@@ -5,12 +5,11 @@ import { Subject }    from 'rxjs/Subject';
 export class RedirectService {
 
   private tabChangeRequester = new Subject<boolean>();
-  tabChangeRequested = this.tabChangeRequested.asObservable();
+  tabChangeRequested = this.tabChangeRequester.asObservable();
 
   constructor() { }
 
   requestTabChange() {
-    console.log("requestTabChange called");
     this.tabChangeRequester.next(true);
   }
 }

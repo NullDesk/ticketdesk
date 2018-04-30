@@ -48,7 +48,6 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     this.singleTicketService.submitTicketAction(formValue, this.action).subscribe(
       res => {
           this.redirectService.requestTabChange();
-
       }
     );
   }
