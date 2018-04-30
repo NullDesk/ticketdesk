@@ -126,13 +126,13 @@ namespace ngWebClientAPI.Controllers
                 Int64 semanticId = data["ticketId"].ToObject<Int64>();
                 int ticketId = APITicketConversion.ConvertTicketId(semanticId);
                 string comment = "Ticket information edited";
-                string title = data["title"].ToObject<string>();
-                string details = data["details"].ToObject<string>();
-                string priority = data["priority"].ToObject<string>();
-                string ticketType = data["ticketType"].ToObject<string>();
-                string category = data["category"].ToObject<string>();
-                string tagList = data["tagList"].ToObject<string>() != "" ? data["tagList"].ToObject<string>() : "untagged";
-                string subCategory = data["subCategory"].ToObject<string>();
+                string title = data["title"] == null ? "" : data["title"].ToObject<string>();
+                string details = data["details"] == null ? "" : data["details"].ToObject<string>();
+                string priority = data["priority"] == null ? "" : data["priority"].ToObject<string>();
+                string ticketType = data["ticketType"] == null ? "" : data["ticketType"].ToObject<string>();
+                string category = data["category"] == null ? "" : data["category"].ToObject<string>();
+                string tagList = data["tagList"] == null ? "" : data["tagList"].ToObject<string>();
+                string subCategory = data["subCategory"] == null ? "" : data["subCategory"].ToObject<string>();
                 Ticket ticket = await ticketActivityController.EditTicketInfo(ticketId, comment, title, details, priority, ticketType, category, tagList, subCategory);
                 result = new HttpStatusCodeResult(HttpStatusCode.OK);
             }
