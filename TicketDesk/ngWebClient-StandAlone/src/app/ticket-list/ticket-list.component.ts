@@ -47,6 +47,7 @@ export class TicketListComponent implements OnInit, OnChanges {
   onPageChange(page: number) {
     this.pageChange.emit(page);
   }
+<<<<<<< HEAD
 
   camelCaseSring(str: string) {
     return str.charAt(0).toLowerCase() + str.slice(1).replace(/\s/g, '');
@@ -69,4 +70,8 @@ export class TicketListComponent implements OnInit, OnChanges {
     const colName = this.camelCaseSring(header);
 
   }
+||||||| merged common ancestors
+=======
+
+>>>>>>> ngWebClient-Dev
 }

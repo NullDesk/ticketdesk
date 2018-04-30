@@ -53,4 +53,8 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     console.log('submit clicked');
   }
 
+  cancelAction() {
+    console.warn('cancel button clicked')
+  }
+
 }

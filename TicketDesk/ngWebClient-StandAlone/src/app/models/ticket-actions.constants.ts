@@ -47,7 +47,7 @@ export class TicketActionEnum {
     'Edit Attachments', 2 ** 13, false, false, {ticketId: 0, comment: ''}
   );
   static readonly EDITTICKET = new TicketActionEnum(
-    'Edit Activity', 2 ** 14, false, false, {ticketId: 0, comment: ''}
+    'Edit Ticket', 2 ** 14, false, false, {ticketId: 0, comment: ''}
   );
   static readonly CREATE = new TicketActionEnum(
     'Create', 2 ** 15, false, false, {ticketId: 0, comment: ''}
