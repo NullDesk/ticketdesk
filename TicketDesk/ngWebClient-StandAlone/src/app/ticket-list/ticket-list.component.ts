@@ -3,7 +3,6 @@ import { Component, OnInit, Input, Output,
 import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
 import { getTicketStatusText } from '../models/ticket';
-import { toCamelCase } from '../../utils';
 
 @Component({
   selector: 'app-ticket-list',
@@ -63,7 +62,8 @@ export class TicketListComponent implements OnInit, OnChanges {
   }
 
   headerSort(header: string) {
-    const colName = toCamelCase(header);
+    const colName = header.replace(/\s/g, '');
+    console.log(colName, 'has been clicked');
     this.sortTrigger.emit(colName);
   }
 }
