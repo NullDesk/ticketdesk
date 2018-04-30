@@ -4,7 +4,6 @@ import { FileService } from './file.service';
 import { SingleTicketService } from './single-ticket.service';
 import { SubmitTicketService } from './submit-ticket.service';
 import { UploadService } from './upload.service';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MultiTicketService } from './multi-ticket.service';
 import { SchemaService } from './schema.service';
@@ -16,7 +15,6 @@ import { RedirectService } from './redirect.service';
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
     HttpClientModule
   ],
   declarations: [],

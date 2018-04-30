@@ -34,7 +34,7 @@ export class SingleTicketViewComponent implements OnInit {
       this.ticketId = Number(params['ticketID']);
     });
     this.redirectService.tabChangeRequested.subscribe( req => {
-      console.log("tab change subscribe called");
+      console.log('tab change subscribe called');
       this.tabset.select('tab-selectbyid2');
     });
   }
