@@ -10,6 +10,7 @@ export class RedirectService {
   constructor() { }
 
   requestTabChange() {
+    console.log("requestTabChange called");
     this.tabChangeRequester.next(true);
   }
 }

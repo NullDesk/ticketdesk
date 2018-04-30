@@ -9,7 +9,6 @@ import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_h
   selector: 'app-ticket-action-box',
   templateUrl: './ticket-action-box.component.html',
   styleUrls: ['./ticket-action-box.component.css'],
-  providers: [SingleTicketService, RedirectService]
 })
 export class TicketActionBoxComponent implements OnInit, OnChanges {
   @Input() ticket: Ticket;

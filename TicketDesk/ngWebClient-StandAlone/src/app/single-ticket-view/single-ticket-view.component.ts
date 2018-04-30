@@ -12,7 +12,6 @@ import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-single-ticket-view',
   templateUrl: './single-ticket-view.component.html',
   styleUrls: ['./single-ticket-view.component.css'],
-  providers: [RedirectService]
 })
 export class SingleTicketViewComponent implements OnInit {
   ticket: Ticket = null;
@@ -35,6 +34,7 @@ export class SingleTicketViewComponent implements OnInit {
       this.ticketId = Number(params['ticketID']);
     });
     this.redirectService.tabChangeRequested.subscribe( req => {
+      console.log("tab change subscribe called");
       this.tabset.select('tab-selectbyid2');
     });
   }

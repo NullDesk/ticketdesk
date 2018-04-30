@@ -11,7 +11,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   selector: 'app-ticket-action-entry',
   templateUrl: './ticket-action-entry.component.html',
   styleUrls: ['./ticket-action-entry.component.css'],
-  providers: [SingleTicketService, RedirectService]
 })
 export class TicketActionEntryComponent implements OnInit, OnChanges {
   @Input()
