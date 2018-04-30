@@ -43,9 +43,17 @@ export class TicketCenterComponent implements OnInit {
   getTicketList(listName: string, page: number): void {
     console.log('Getting ticketlist for', listName, 'at page ', page);
     if (this.resetListSettings) {
-      this.multiTicketService.resetFilterAndSort();
-      this.resetListSettings = false;
+      this.multiTicketService.resetFilterAndSort()
+          .subscribe( res => {
+            this.setNewList(listName, page);
+            this.resetListSettings = false;
+          });
+    } else {
+      this.setNewList(listName, page);
     }
+  }
+
+  setNewList(listName: string, page: number) {
     this.multiTicketService.getTicketList(listName, page)
         .subscribe(ticketList => {
           this.ticketList = ticketList;

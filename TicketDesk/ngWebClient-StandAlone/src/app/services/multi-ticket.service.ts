@@ -26,7 +26,7 @@ export class MultiTicketService {
   }
 
   resetFilterAndSort() {
-    this.http.post(settings.resetTicketsFilterAndSort, '');
+    return this.http.post(settings.resetTicketsFilterAndSort, '');
   }
 
   sortList(
