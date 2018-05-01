@@ -60,7 +60,6 @@ export class TicketListComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
       const change = changes[propName];
-      console.log('ngChange triggered new value: ', JSON.stringify(change.currentValue));
       if (propName === 'ticketList') {
         this.makeDisplayList(change.currentValue);
       }

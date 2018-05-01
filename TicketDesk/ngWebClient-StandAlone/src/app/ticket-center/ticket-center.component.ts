@@ -19,7 +19,7 @@ export class TicketCenterComponent implements OnInit {
   pagination: {current: number, max: number } = {current: 1, max: 2};
   currentList;
   sortingColumns: Set<String> = new Set();
-  listReady: Boolean = false; // This can be used to force reload of ticket-list
+  listReady: Boolean = false; // This can be used to force reload of ticket-list component
   tabsReady: Boolean = false;
 
   constructor(private multiTicketService: MultiTicketService,
@@ -82,7 +82,6 @@ export class TicketCenterComponent implements OnInit {
       const isMultiSort = this.sortingColumns.size > 1;
       this.multiTicketService.sortList(this.pagination.current, this.currentList, colName, isMultiSort)
           .subscribe(ticketList => {
-            console.log('Got Sorted TicketList:', JSON.stringify(ticketList));
             this.ticketList = ticketList;
           });
     }
