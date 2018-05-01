@@ -14,7 +14,7 @@ export interface TicketStub {
 export const columnHeadings: {header: string, direction: string}[] = [
   {header: 'Ticket ID', direction: 'false'},
   {header: 'Title', direction: 'false'},
-  {header: 'Status', direction: 'sortable'},
+  {header: 'Status', direction: 'false'},
   {header: 'Priority', direction: 'false'},
   {header: 'Owner', direction: 'sortable'},
   {header: 'Assigned To', direction: 'false'},
@@ -25,7 +25,6 @@ export const columnHeadings: {header: string, direction: string}[] = [
 ];
 
 export const headingToBackendCol: Map<string, string> = new Map([
-  ['Status', 'TicketStatus'],
   ['Owner', 'Owner'],
   ['Last Update Date', 'LastUpdateDate']
 ]);

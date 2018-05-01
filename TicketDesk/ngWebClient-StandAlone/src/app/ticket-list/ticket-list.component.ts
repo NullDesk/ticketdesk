@@ -28,7 +28,7 @@ export class TicketListComponent implements OnInit, OnChanges {
         x.direction = 'false';
         return x;
       });
-    }else {
+    } else {
       this.colHeadings = columnHeadings.map(x => Object.assign({}, x));
     }
     this.makeDisplayList(this.ticketList);
