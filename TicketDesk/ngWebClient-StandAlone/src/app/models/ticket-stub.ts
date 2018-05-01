@@ -11,18 +11,25 @@ export interface TicketStub {
     lastUpdateDate?: string;
   }
 
-export const columnHeadings: string[] = [
-  'Ticket ID',
-  'Title',
-  'Status',
-  'Priority',
-  'Owner',
-  'Assigned To',
-  'Category',
-  'Subcategory',
-  'Created Date',
-  'Last Update Date'
+export const columnHeadings: {header: string, direction: string}[] = [
+  {header: 'Ticket ID', direction: 'false'},
+  {header: 'Title', direction: 'false'},
+  {header: 'Status', direction: 'sortable'},
+  {header: 'Priority', direction: 'false'},
+  {header: 'Owner', direction: 'sortable'},
+  {header: 'Assigned To', direction: 'false'},
+  {header: 'Category', direction: 'false'},
+  {header: 'Subcategory', direction: 'false'},
+  {header: 'Category', direction: 'false'},
+  {header: 'Created Date', direction: 'false'},
+  {header: 'Last Update Date', direction: 'sortable'}
 ];
+
+export const headingToBackendCol: Map<string, string> = new Map([
+  ['Status', 'TicketStatus'],
+  ['Owner', 'Owner'],
+  ['Last Update Date', 'LastUpdateDate']
+]);
 
 export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
   ['unassigned', 'Unassigned Tickets'],

@@ -4,7 +4,12 @@
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th *ngFor="let heading of colHeadings" (click)="headerSort(heading)"> {{ heading }} <i class="fa fa-fw fa-sort"> </i></th>
+                <th *ngFor="let heading of colHeadings" (click)="headerSort(heading)">
+                     {{ heading.heading }}
+                     <i class="fa fa-fw fa-sort" *ngIf="heading.direction === 'sortable'"></i>
+                     <i class="fa fa-chevron-up" *ngIf="heading.direction === 'asc'" ></i>
+                     <i class="fa fa-chevron-down" *ngIf="heading.direction === 'desc'"></i>
+                </th>
             </tr>
         </thead>
         <tbody>
