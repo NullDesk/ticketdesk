@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-default">
             <tr>
                 <th>
@@ -12,7 +12,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table">
             <tr *ngFor="let row of displayList">
                 <td> <input  type="checkbox" [(checked)]="row.checked"> </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}">

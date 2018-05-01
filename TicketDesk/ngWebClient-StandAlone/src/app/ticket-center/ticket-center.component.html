@@ -1,5 +1,5 @@
 <div class="col-xs-12" style="height:30px;"></div>
-<div class="container-fluid" class="px-5">
+<div class="container-fluid" class="px-4">
 <div class="card">
 <ngb-tabset *ngIf="tabsReady" type="pills" justify="fill" (tabChange)="onTabChange($event)">
   <ngb-tab *ngFor="let tabName of tabNames" id="{{ tabName }}" title="{{ convertListNameToDisplayStr(tabName) }}">
