@@ -5,7 +5,12 @@
   <ngb-tab *ngFor="let tabName of tabNames" id="{{ tabName }}" title="{{ convertListNameToDisplayStr(tabName) }}">
     <ng-template ngbTabContent>
       <div *ngIf="listReady" >
-        <app-ticket-list [ticketList]="ticketList" [pagination]="pagination" (pageChange)="pageChange($event)" (sortTrigger)="sortTrigger($event)"> </app-ticket-list>
+        <app-ticket-list 
+          [ticketList]="ticketList"
+          [pagination]="pagination"
+          (pageChange)="pageChange($event)"
+          (sortTrigger)="sortTrigger($event)">
+        </app-ticket-list>
         <!-- This commented out markup is for applying actions for multiple tickets -->
         <!-- <div ngbDropdown class="d-inline-block">
           <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>

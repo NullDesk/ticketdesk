@@ -21,7 +21,6 @@ export class TicketCenterComponent implements OnInit {
   sortingColumns: Set<String> = new Set();
   listReady: Boolean = false; // This can be used to force reload of ticket-list
   tabsReady: Boolean = false;
-  resetListSettings: Boolean = true;
 
   constructor(private multiTicketService: MultiTicketService,
               private userService: UserService) {
@@ -65,7 +64,6 @@ export class TicketCenterComponent implements OnInit {
   }
 
   onTabChange(event: NgbTabChangeEvent) {
-    // This makes the ticket list compoent reload
     this.listReady = false;
     this.currentList = event.nextId;
     this.resetList(event.nextId, 1);
