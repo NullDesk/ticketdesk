@@ -66,9 +66,9 @@ export class TicketListComponent implements OnInit, OnChanges {
       const colName = colHeading.header.replace(/\s/g, '');
       // Cycle through all the sort options
       if (colHeading.direction === 'sortable') {
-        colHeading.direction = 'desc';
+        colHeading.direction = 'asc';
       } else {
-        colHeading.direction = (colHeading.direction === 'desc') ? 'asc' : 'sortable';
+        colHeading.direction = (colHeading.direction === 'asc') ? 'desc' : 'sortable';
       }
       this.sortTrigger.emit(colName);
     }

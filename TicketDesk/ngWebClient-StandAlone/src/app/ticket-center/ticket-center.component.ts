@@ -63,6 +63,8 @@ export class TicketCenterComponent implements OnInit {
   }
 
   onTabChange(event: NgbTabChangeEvent) {
+    // This makes the ticket list compoent reload
+    this.listReady = false;
     this.resetListSettings = true;
     this.currentList = event.nextId;
     this.getTicketList(event.nextId, 1);
