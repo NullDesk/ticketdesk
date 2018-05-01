@@ -16,12 +16,21 @@ export class TicketListComponent implements OnInit, OnChanges {
   private getStatusText = getTicketStatusText;
   // Adds a vairable to add keep track of checkbox
   private displayList: {ticket: TicketStub, checked: boolean}[];
+  @Input() notSortable: Boolean;
   @Input() ticketList:  TicketStub[];
   @Input() pagination: {current: number, max: number } = null;
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortTrigger = new EventEmitter<string>();
 
   ngOnInit() {
+    if (this.notSortable) {
+      this.colHeadings = columnHeadings.map(x => {
+        x.direction = 'false';
+        return x;
+      });
+    }else {
+    this.colHeadings = columnHeadings.map(x => Object.assign({}, x));
+    }
     this.makeDisplayList(this.ticketList);
   }
 

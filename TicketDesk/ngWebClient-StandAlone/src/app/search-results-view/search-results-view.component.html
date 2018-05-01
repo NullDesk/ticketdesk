@@ -4,7 +4,7 @@
     <div class="card-block">
       <h5 class="card-header">Results for: {{ term }}</h5>
       <div *ngIf="listReady" >
-        <app-ticket-list [ticketList]="ticketList"> </app-ticket-list>
+        <app-ticket-list [ticketList]="ticketList" [notSortable]="true"> </app-ticket-list>
       </div>
     </div>
   </div>

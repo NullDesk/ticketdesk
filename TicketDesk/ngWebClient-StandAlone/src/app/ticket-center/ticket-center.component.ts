@@ -19,7 +19,7 @@ export class TicketCenterComponent implements OnInit {
   pagination: {current: number, max: number } = {current: 1, max: 2};
   currentList;
   sortingColumns: Set<String> = new Set();
-  listReady: Boolean = false;
+  listReady: Boolean = false; // This can be used to force reload of ticket-list
   tabsReady: Boolean = false;
   resetListSettings: Boolean = true;
 
@@ -82,6 +82,7 @@ export class TicketCenterComponent implements OnInit {
   sortTrigger(colName: string) {
     console.log('Getting sorting for', colName);
     if (colName === 'reset') {
+      this.listReady = false;
       this.resetList(this.currentList, this.pagination.current);
       this.sortingColumns = new Set();
     } else {
