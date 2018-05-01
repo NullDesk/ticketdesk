@@ -43,18 +43,15 @@ export class TicketCenterComponent implements OnInit {
 
   getTicketList(listName: string, page: number): void {
     console.log('Getting ticketlist for', listName, 'at page ', page);
-    if (this.resetListSettings) {
-      this.resetList(listName, page);
-    } else {
-      this.setNewList(listName, page);
-    }
+    this.setNewList(listName, page);
   }
 
   resetList(listName: string, page: number) {
+    this.listReady = false;
+    this.sortingColumns = new Set();
     this.multiTicketService.resetFilterAndSort()
           .subscribe( res => {
             this.setNewList(listName, page);
-            this.resetListSettings = false;
           });
   }
 
@@ -70,9 +67,8 @@ export class TicketCenterComponent implements OnInit {
   onTabChange(event: NgbTabChangeEvent) {
     // This makes the ticket list compoent reload
     this.listReady = false;
-    this.resetListSettings = true;
     this.currentList = event.nextId;
-    this.getTicketList(event.nextId, 1);
+    this.resetList(event.nextId, 1);
   }
 
   pageChange(page: number) {
@@ -82,9 +78,7 @@ export class TicketCenterComponent implements OnInit {
   sortTrigger(colName: string) {
     console.log('Getting sorting for', colName);
     if (colName === 'reset') {
-      this.listReady = false;
       this.resetList(this.currentList, this.pagination.current);
-      this.sortingColumns = new Set();
     } else {
       this.sortingColumns.add(colName);
       const isMultiSort = this.sortingColumns.size > 1;

@@ -29,7 +29,7 @@ export class TicketListComponent implements OnInit, OnChanges {
         return x;
       });
     }else {
-    this.colHeadings = columnHeadings.map(x => Object.assign({}, x));
+      this.colHeadings = columnHeadings.map(x => Object.assign({}, x));
     }
     this.makeDisplayList(this.ticketList);
   }
