@@ -65,12 +65,18 @@ export class TicketListComponent implements OnInit, OnChanges {
     if (colHeading.direction !== 'false') {
       const colName = colHeading.header.replace(/\s/g, '');
       // Cycle through all the sort options
-      if (colHeading.direction === 'sortable') {
+      if (colHeading.direction === 'sortable' || colHeading.direction === 'desc') {
         colHeading.direction = 'asc';
       } else {
-        colHeading.direction = (colHeading.direction === 'asc') ? 'desc' : 'sortable';
+        colHeading.direction = 'desc';
       }
       this.sortTrigger.emit(colName);
+    }
+  }
+
+  resetSort(colHeading: {header: string, direction: string}) {
+    if (colHeading.direction !== 'false') {
+      this.sortTrigger.emit('reset');
     }
   }
 }

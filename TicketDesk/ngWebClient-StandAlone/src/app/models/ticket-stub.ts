@@ -20,7 +20,6 @@ export const columnHeadings: {header: string, direction: string}[] = [
   {header: 'Assigned To', direction: 'false'},
   {header: 'Category', direction: 'false'},
   {header: 'Subcategory', direction: 'false'},
-  {header: 'Category', direction: 'false'},
   {header: 'Created Date', direction: 'false'},
   {header: 'Last Update Date', direction: 'sortable'}
 ];

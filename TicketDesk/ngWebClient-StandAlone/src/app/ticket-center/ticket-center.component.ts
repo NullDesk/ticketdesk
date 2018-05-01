@@ -18,6 +18,7 @@ export class TicketCenterComponent implements OnInit {
   ticketList: TicketStub[];
   pagination: {current: number, max: number } = {current: 1, max: 2};
   currentList;
+  sortingColumns: Set<String> = new Set();
   listReady: Boolean = false;
   tabsReady: Boolean = false;
   resetListSettings: Boolean = true;
@@ -43,14 +44,18 @@ export class TicketCenterComponent implements OnInit {
   getTicketList(listName: string, page: number): void {
     console.log('Getting ticketlist for', listName, 'at page ', page);
     if (this.resetListSettings) {
-      this.multiTicketService.resetFilterAndSort()
+      this.resetList(listName, page);
+    } else {
+      this.setNewList(listName, page);
+    }
+  }
+
+  resetList(listName: string, page: number) {
+    this.multiTicketService.resetFilterAndSort()
           .subscribe( res => {
             this.setNewList(listName, page);
             this.resetListSettings = false;
           });
-    } else {
-      this.setNewList(listName, page);
-    }
   }
 
   setNewList(listName: string, page: number) {
@@ -76,11 +81,18 @@ export class TicketCenterComponent implements OnInit {
 
   sortTrigger(colName: string) {
     console.log('Getting sorting for', colName);
-    this.multiTicketService.sortList(this.pagination.current, this.currentList, colName, false)
-        .subscribe(ticketList => {
-          console.log('Got Sorted TicketList:', JSON.stringify(ticketList));
-          this.ticketList = ticketList;
-        });
+    if (colName === 'reset') {
+      this.resetList(this.currentList, this.pagination.current);
+      this.sortingColumns = new Set();
+    } else {
+      this.sortingColumns.add(colName);
+      const isMultiSort = this.sortingColumns.size > 1;
+      this.multiTicketService.sortList(this.pagination.current, this.currentList, colName, isMultiSort)
+          .subscribe(ticketList => {
+            console.log('Got Sorted TicketList:', JSON.stringify(ticketList));
+            this.ticketList = ticketList;
+          });
+    }
   }
 
   convertListNameToDisplayStr(str: string) {
