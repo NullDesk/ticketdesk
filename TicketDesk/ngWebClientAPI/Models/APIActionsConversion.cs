@@ -7,6 +7,7 @@ using TicketDesk.Domain.Model;
 
 namespace ngWebClientAPI.Models
 {
+    [System.Web.Http.Authorize]
     public class APIActionsConversion
     {
         public static AssignObject ConvertAssign(JObject data)

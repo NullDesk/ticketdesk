@@ -6,3 +6,9 @@ export interface UserDetails {
   phoneNumber: string;
   groups: string[];
 }
+
+export const userPermissions = {
+  admin: 'TD_Admin',
+  user: 'TD_User',
+  resolver: 'TD_Resolver'
+};

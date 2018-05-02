@@ -28,34 +28,14 @@ using TicketDesk.Localization.Controllers;
 
 namespace ngWebClientAPI.Controllers
 {
-    //[RoutePrefix("ticket-activity")]
-    //[Route("{action}")]
-    //[TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     [ValidateInput(false)]
     public class TicketActivityController : Controller
     {
-        //private TicketActionManager actionManager = TicketActionManager.GetInstance(new TicketDeskContextSecurityProvider());
 
         private TdDomainContext Context { get; set; }
         public TicketActivityController(TdDomainContext context)
         {
             Context = context;
-        }
-
-        [Route("load-activity")]
-        public async Task<ActionResult> LoadActivity(TicketActivity activity, int ticketId, Guid? tempId)
-        {
-            var ticket = await Context.Tickets.FindAsync(ticketId);
-            Context.TicketActions.IsTicketActivityValid(ticket, activity);
-            ViewBag.CommentRequired = activity.IsCommentRequired();
-            ViewBag.Activity = activity;
-            ViewBag.TempId = tempId ?? Guid.NewGuid();
-           // ViewBag.IsEditorDefaultHtml = Context.TicketDeskSettings.ClientSettings.GetDefaultTextEditorType() == "summernote";
-            if (activity == TicketActivity.EditTicketInfo)
-            {
-                await SetProjectInfoForModelAsync(ticket);
-            }
-            return PartialView("_ActivityForm", ticket);
         }
 
         private async Task SetProjectInfoForModelAsync(Ticket ticket)
@@ -94,19 +74,25 @@ namespace ngWebClientAPI.Controllers
 
         public async Task<Ticket> EditTicketInfo(
             int ticketId,
-            int projectId,
+//            int projectId,
             string comment,
             string title,
             string details,
             string priority,
             string ticketType,
             string category,
-            string owner,
-            string tagList)
+            string tagList,
+            string subCategory)
         {
-            var projectName = await Context.Projects.Where(p => p.ProjectId == projectId).Select(s=>s.ProjectName).FirstOrDefaultAsync();
-            var activityFn = Context.TicketActions.EditTicketInfo(comment, projectId, projectName, title, details, priority, ticketType, category, owner, tagList, Context.TicketDeskSettings);
+            //var projectName = await Context.Projects.Where(p => p.ProjectId == projectId).Select(s=>s.ProjectName).FirstOrDefaultAsync();
+            var activityFn = Context.TicketActions.EditTicketInfo(comment, title, details, priority, ticketType, category, tagList, subCategory, Context.TicketDeskSettings);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.EditTicketInfo);
+        }
+
+        public async Task<Ticket> Close(int ticketId, string comment)
+        {
+            var activityFn = Context.TicketActions.ForceClose(comment);
+            return await PerformTicketAction(ticketId, activityFn, TicketActivity.Close);
         }
 
         public async Task<Ticket> ForceClose(int ticketId, string comment)
@@ -138,7 +124,6 @@ namespace ngWebClientAPI.Controllers
             var activityFn = Context.TicketActions.RequestMoreInfo(comment);
             return await PerformTicketAction(ticketId, activityFn, TicketActivity.RequestMoreInfo);
         }
-
 
         public async Task<Ticket> ReOpen(int ticketId, string comment, bool assignToMe = false)
         {

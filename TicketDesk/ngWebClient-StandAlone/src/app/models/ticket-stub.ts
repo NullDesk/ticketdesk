@@ -8,7 +8,7 @@ export interface TicketStub {
     subcategory: string;
     priority?: string;
     createdDate: string;
-    updatedDate?: string;
+    lastUpdateDate?: string;
   }
 
 export const columnHeadings: string[] = [
@@ -19,6 +19,7 @@ export const columnHeadings: string[] = [
   'Owner',
   'Assigned To',
   'Category',
+  'Subcategory',
   'Created Date',
   'Last Updated'
 ];
@@ -28,5 +29,5 @@ export const ticketlistToUserDisplayMap: Map<string, string> = new Map([
   ['assignedToMe', 'My Assigned Tickets'],
   ['mytickets', 'My Tickets'],
   ['opentickets', 'Open Tickets'],
-  ['historytickets', 'Closed Tickets?????'],
+  ['historytickets', 'Closed Tickets'],
 ]);

@@ -14,7 +14,7 @@
 using System.Data.Entity;
 using TicketDesk.Domain;
 using TicketDesk.PushNotifications;
-using TicketDesk.Web.Identity;
+//using TicketDesk.Web.Identity;
 
 namespace ngWebClientAPI
 {
@@ -24,12 +24,12 @@ namespace ngWebClientAPI
         public void ConfigureDatabase()
         {   //kill initializer - features that may need one will reset this later
             Database.SetInitializer<TdDomainContext>(null);
-            Database.SetInitializer<TdIdentityContext>(null);
+            //Database.SetInitializer<TdIdentityContext>(null);
             Database.SetInitializer<TdPushNotificationContext>(null);
             //set the std migrator for identity
             if (DatabaseConfig.IsDatabaseReady)
             {
-                Database.SetInitializer(new TdIdentityDbInitializer());
+                //Database.SetInitializer(new TdIdentityDbInitializer());
                 Database.SetInitializer(new TdPushNotificationDbInitializer());
             }
             DatabaseConfig.RegisterDatabase();

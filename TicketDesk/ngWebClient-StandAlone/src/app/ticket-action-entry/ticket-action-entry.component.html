@@ -1,7 +1,21 @@
-                <div class="col-xs-12" style="height:10px;"></div>
-                <div *ngIf="ticketActionForm" class="form-group" [formGroup]="ticketActionForm">
-                  <textarea formControlName="comment" class="form-control" [placeholder]="commentPlaceholder" rows="5"></textarea>
-                  <div *ngIf="action.specifiesUser"><app-ad-user-selector></app-ad-user-selector></div>
-                  {{ ticketActionForm.invalid }}
-                  <button class="btn btn-primary pull-right" type="button" (click)="submitAction()" [disabled]="ticketActionForm.invalid">Submit</button>
-                </div>
+<div class="col-xs-12" style="height:10px;"></div>
+<div *ngIf="ticketActionForm" class="form-group" [formGroup]="ticketActionForm">
+  <textarea 
+    formControlName="comment" 
+    class="form-control" 
+    [placeholder]="commentPlaceholder" 
+    rows="5">
+  </textarea>
+  <div *ngIf="action.specifiesUser">
+    <app-ad-user-selector></app-ad-user-selector>
+  </div>
+  &nbsp;
+  <button 
+    class="btn btn-primary pull-right" 
+    type="button" 
+    (click)="submitAction()" 
+    [disabled]="ticketActionForm.invalid">
+    Submit
+  </button>
+  &nbsp;
+</div>

@@ -1,9 +1,23 @@
 <span *ngFor="let action of allowedActions">
-  <button type="button" class="btn btn-dark" (click)="isCollapsed = !setActiveAction(action) && !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-    {{ action.displayText }}
+  <button 
+    type="button" 
+    class="btn btn-dark" 
+    (click)="isCollapsed = !setActiveAction(action) && !isCollapsed" 
+    [attr.aria-expanded]="!isCollapsed" 
+    aria-controls="collapseExample">
+      {{ action.displayText }}
   </button>
 </span>
 <div [ngbCollapse]="isCollapsed">
-  <div *ngIf="detailEditorNeeded"><app-ticket-detail-editor [initialTicketValue]="ticket" (ticketEmitter)="ticketEmit($event)"></app-ticket-detail-editor></div>
-  <app-ticket-action-entry [action]="activeAction" [commentPlaceholder]="commentPlaceholder" *ngIf="!detailEditorNeeded"></app-ticket-action-entry>
+  <div *ngIf="detailEditorNeeded">
+    <app-ticket-detail-editor 
+      [initialTicketValue]="ticket" 
+      (ticketEmitter)="ticketEmit($event)">
+    </app-ticket-detail-editor>
+  </div>
+  <app-ticket-action-entry 
+    [action]="activeAction" 
+    [commentPlaceholder]="commentPlaceholder" 
+    *ngIf="!detailEditorNeeded">
+  </app-ticket-action-entry>
 </div>

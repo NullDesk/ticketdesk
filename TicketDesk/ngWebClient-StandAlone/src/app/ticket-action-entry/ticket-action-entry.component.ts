@@ -1,3 +1,4 @@
+import { TicketActionBoxComponent } from './../ticket-action-box/ticket-action-box.component';
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
@@ -24,15 +25,15 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
     private redirectService: RedirectService,
     private singleTicketService: SingleTicketService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private actionBoxComponent: TicketActionBoxComponent) {
     this.activatedRoute.params.subscribe(params => {
       this.ticketId = Number(params['ticketID']);
     });
     this.fb  = fb;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['action'] && changes['action'].currentValue) {
@@ -50,6 +51,9 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
           this.redirectService.requestTabChange();
       }
     );
+
+  cancelAction() {
+    console.warn('cancel button clicked')
   }
 
 }

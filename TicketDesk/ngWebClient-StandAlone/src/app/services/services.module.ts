@@ -7,7 +7,7 @@ import { UploadService } from './upload.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MultiTicketService } from './multi-ticket.service';
 import { SchemaService } from './schema.service';
-import { AdContactService } from './ad-contact.service';
+import { UserService } from './user.service';
 import { WindowsAuthenticationInterceptorService } from './windows-authentication-interceptor.service';
 import { SearchService } from './search.service';
 import { RedirectService } from './redirect.service';
@@ -28,6 +28,7 @@ import { RedirectService } from './redirect.service';
     SchemaService,
     AdContactService,
     RedirectService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: WindowsAuthenticationInterceptorService,

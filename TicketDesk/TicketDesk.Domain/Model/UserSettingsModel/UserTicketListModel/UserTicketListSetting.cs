@@ -56,7 +56,6 @@ namespace TicketDesk.Domain.Model
             {
                 FilterColumns.Add(new UserTicketListFilterColumn("TicketStatus", false, "Closed"));
             }
-            
         }
 
         /// <summary>
@@ -243,7 +242,6 @@ namespace TicketDesk.Domain.Model
                 };
             }
         }
-
     }
 }
 

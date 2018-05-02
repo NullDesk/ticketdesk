@@ -12,25 +12,24 @@ import { TicketStub } from '../models/ticket-stub';
 
 export class SearchResultsViewComponent implements OnInit {
   private term: string;
-  private ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: 1};
+  private ticketList: TicketStub[];
   private listReady: Boolean = false;
   constructor(private searchService: SearchService,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.term = params['term'];
+      this.search(this.term);
     });
   }
 
-  ngOnInit() {
-    this.getTicketList('');
-  }
+  ngOnInit() {}
 
-  getTicketList(listName: string): void {
+  search(term: string): void {
     this.listReady = false;
-    console.log('Getting ticketlist for', listName);
-    this.searchService.search(listName)
+    console.log('searching for', term);
+    this.searchService.search(term)
         .subscribe(ticketList => {
-          this.ticketListResults.ticketList = ticketList;
+          this.ticketList = ticketList;
           this.listReady = true;
         });
   }

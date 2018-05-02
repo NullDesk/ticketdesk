@@ -25,13 +25,10 @@ using SimpleInjector.Advanced;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using TicketDesk.Domain;
-//using TicketDesk.PushNotifications;
-using TicketDesk.Web.Identity;
-using TicketDesk.Web.Identity.Model;
-using ngWebClientAPI.Controllers;
 
 namespace ngWebClientAPI
 {
+    
     public partial class Startup
     {
         public Container RegisterStructureMap(IAppBuilder app)
@@ -63,6 +60,7 @@ namespace ngWebClientAPI
                     new TdDomainContext(),
                 hybridLifestyle);
 
+            /*
             container.Register(() => new TdIdentityContext(), hybridLifestyle);
 
             container.Register<IUserStore<TicketDeskUser>>(() =>
@@ -72,7 +70,7 @@ namespace ngWebClientAPI
             container.Register<IRoleStore<TicketDeskRole, string>>(() =>
                 new RoleStore<TicketDeskRole>(container.GetInstance<TdIdentityContext>()), 
                 hybridLifestyle);
-
+            */
 
             container.Register(() =>
             {
@@ -94,13 +92,6 @@ namespace ngWebClientAPI
                 return context.Authentication;
             },
             Lifestyle.Scoped);
-
-            container.Register<SignInManager<TicketDeskUser, string>, TicketDeskSignInManager>(Lifestyle.Scoped);
-
-            container.Register<TicketDeskRoleManager>(hybridLifestyle);
-
-            container.RegisterInitializer<TicketDeskUserManager>(manager =>
-                manager.ConfigureDataProtection(app));
 
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());

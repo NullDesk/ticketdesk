@@ -47,7 +47,7 @@ export class TicketActionEnum {
     'Edit Attachments', 2 ** 13, false, false, {ticketId: 0, comment: ''}
   );
   static readonly EDITTICKET = new TicketActionEnum(
-    'Edit Activity', 2 ** 14, false, false, {ticketId: 0, comment: ''}
+    'Edit Ticket', 2 ** 14, false, false, {ticketId: 0, comment: ''}
   );
   static readonly CREATE = new TicketActionEnum(
     'Create', 2 ** 15, false, false, {ticketId: 0, comment: ''}
@@ -81,9 +81,11 @@ export class TicketActionEnum {
     public requiresComment: boolean,
     public specifiesUser: boolean,
     public formTemplate) {}
+
   public static isAllowedAction(action: TicketActionEnum, activityNumber: number) {
     return (action.enumInteger & activityNumber) > 0;
   }
+
   public static getActivityList(activityNumber: number) {
     return TicketActionEnum.allActivities.filter(action => TicketActionEnum.isAllowedAction(action, activityNumber));
   }

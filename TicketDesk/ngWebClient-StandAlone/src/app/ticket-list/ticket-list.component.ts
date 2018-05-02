@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TicketStub, columnHeadings } from '../models/ticket-stub';
 import { FormsModule } from '@angular/forms';
+import { getTicketStatusText } from '../models/ticket';
 
 @Component({
   selector: 'app-ticket-list',
@@ -11,19 +12,20 @@ import { FormsModule } from '@angular/forms';
 export class TicketListComponent implements OnInit {
   // imported into the class, so can be used in HTML
   private colHeadings = columnHeadings;
+  private getStatusText = getTicketStatusText;
   // Adds a vairable to add keep track of checkbox
   private displayList: {ticket: TicketStub, checked: boolean}[];
-  @Input() ticketListResults: { ticketList: TicketStub[], maxPages: number };
+  @Input() ticketList:  TicketStub[];
+  @Input() pagination: {current: number, max: number } = null;
   @Input() columns: string[];
-  currentPage: number;
+  @Output() pageChange = new EventEmitter<number>();
 
   ngOnInit() {
     // filter removes objects not of type ticket or null/undefined
-    this.displayList = this.ticketListResults.ticketList
+    this.displayList = this.ticketList
           .filter( x => x)
           .map(ticket => ({ticket: ticket, checked: false}));
-    this.currentPage = 1;
-}
+  }
 
   isAllChecked() {
     return this.displayList.every(x => x.checked);
@@ -36,4 +38,9 @@ export class TicketListComponent implements OnInit {
   getSelected() {
     return this.displayList.filter( x => x.checked);
   }
+
+  onPageChange(page: number) {
+    this.pageChange.emit(page);
+  }
+
 }

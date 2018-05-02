@@ -14,7 +14,7 @@ namespace TicketDesk.Domain.Model
             //      The entire concept of child actions are heavily refactored in MVC 6, so this should not be an issue in future versions.
 
             var projects = context.Projects;
-            var settings = await userSettingsManager.GetSettingsForUserAsync(context.SecurityProvider.CurrentUserId);
+            var settings = await userSettingsManager.GetSettingsForUserAsync(context.SecurityProvider.CurrentUser.userName);
             var projectId = settings.SelectedProjectId ?? 0;
 
             //if user's selected project points to a project that no longer exists, reset
@@ -22,7 +22,7 @@ namespace TicketDesk.Domain.Model
             if (projectId != 0 && await projects.AllAsync(p => p.ProjectId != projectId))
             {
                 projectId = 0;
-                await UpdateUserSelectedProjectAsync(userSettingsManager, projectId, context.SecurityProvider.CurrentUserId);
+                await UpdateUserSelectedProjectAsync(userSettingsManager, projectId, context.SecurityProvider.CurrentUser.userName);
                 await context.SaveChangesAsync();
             }
             return projectId;

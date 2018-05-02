@@ -12,6 +12,7 @@ using System.Web.Optimization;
 
 namespace ngWebClientAPI
 {
+    [System.Web.Http.Authorize]
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
@@ -32,8 +33,8 @@ namespace ngWebClientAPI
             //ConfigureAuth(app, container);
             //ConfigurePushNotifications();
             //ConfigureApplicationInsights();
-            WatchdogThreads threading = new WatchdogThreads(new TicketDesk.Domain.TdDomainContext());
-            WatchdogThreads.StartWatch();
+            //WatchdogThreads threading = new WatchdogThreads(new TicketDesk.Domain.TdDomainContext());
+            //WatchdogThreads.StartWatch();
         }
     }
 }

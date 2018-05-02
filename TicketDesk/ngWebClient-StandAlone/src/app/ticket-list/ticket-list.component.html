@@ -11,21 +11,26 @@
             <tr *ngFor="let row of displayList">
                 <td> <input  type="checkbox" [(checked)]="row.checked"> </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}">
-                <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
+                  <button type="button" class="btn btn-primary"> {{ row.ticket.ticketId }}</button>
                 </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}"> {{ row.ticket.title }} </td>
-                <td> {{ row.ticket.status }} </td>
-                <td> {{ row.ticket.priority }}  </td>
-                <td> {{ row.ticket.ownerId }}  </td>
-                <td> {{ row.ticket.assignedTo }}  </td>
-                <td> {{ row.ticket.category }}  </td>
-                <td> {{ row.ticket.subcategory }}  </td>
-                <td> {{ row.ticket.createdDate }}  </td>
-                <td> {{ row.ticket.updatedDate }}  </td>
+                <td>{{ getStatusText(row.ticket.status) }} </td>
+                <td>{{ row.ticket.priority }}</td>
+                <td>{{ row.ticket.ownerId }}</td>
+                <td>{{ row.ticket.assignedTo }}</td>
+                <td>{{ row.ticket.category }}</td>
+                <td>{{ row.ticket.subcategory }}</td>
+                <td>{{ row.ticket.createdDate }}</td>
+                <td>{{ row.ticket.lastUpdateDate }}</td>
             </tr>
         </tbody>
-        <!-- Pagination goes here !-->
     </table>
-    <div>maxSize = {{ ticketListResults.maxPages }}, rotate = true</div>
-    <ngb-pagination [collectionSize]=ticketListResults.maxPages*10 [(page)]="currentPage" [maxSize]="5" [rotate]="true"></ngb-pagination>
+    <ngb-pagination *ngIf="pagination"
+        class="d-flex justify-content-center"
+        [collectionSize]=pagination.max*10
+        (pageChange)="onPageChange($event)"
+        [(page)]="pagination.current"
+        [maxSize]="5"
+        [rotate]="true">
+    </ngb-pagination>
 </div>

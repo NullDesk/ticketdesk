@@ -1,7 +1,9 @@
 import { Injectable, Component, OnInit } from '@angular/core';
 import { TicketStub, ticketlistToUserDisplayMap } from '../models/ticket-stub';
+import { userPermissions } from '../models/user-details';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MultiTicketService } from '../services/multi-ticket.service';
+import { UserService } from '../services/user.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
 
 @Component({
@@ -12,30 +14,49 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap/tabset/tabset';
 
 
 export class TicketCenterComponent implements OnInit {
-  tabNames: string[] = ['unassigned', 'assignedToMe', 'mytickets', 'opentickets', 'historytickets']; // Make input settings at some point
-  ticketListResults: { ticketList: TicketStub[], maxPages: number } = { ticketList: undefined, maxPages: 1};
+  tabNames: string[] = ['mytickets', 'opentickets', 'historytickets'];
+  ticketList: TicketStub[];
+  pagination: {current: number, max: number } = {current: 1, max: 2};
+  currentList;
   listReady: Boolean = false;
+  tabsReady: Boolean = false;
 
-  constructor(private multiTicketService: MultiTicketService) {
+  constructor(private multiTicketService: MultiTicketService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
-    this.getTicketList('');
-    this.ticketListResults.maxPages = 1;
+    this.userService.getUserPermissions()
+        .subscribe(permissions => {
+          if (permissions === userPermissions.admin || permissions === userPermissions.resolver) {
+            this.tabNames.unshift('unassigned', 'assignedToMe');
+          }
+          this.currentList = this.tabNames[0];
+          this.tabsReady = true;
+          // Sending empty string, gets the default page from the backend, dependent on their permissions.
+          // mytickets for standard users, unassigned for resolvers and admins
+          this.getTicketList(this.currentList, 1);
+        });
   }
 
-  getTicketList(listName: string): void {
-    console.log('Getting ticketlist for', listName);
-    this.multiTicketService.indexList(listName, 1)
+  getTicketList(listName: string, page: number): void {
+    this.listReady = false;
+    console.log('Getting ticketlist for', listName, 'at page ', page);
+    this.multiTicketService.getTicketList(listName, page)
         .subscribe(ticketList => {
-          this.ticketListResults.ticketList = ticketList;
+          this.ticketList = ticketList;
+          this.pagination.max = (ticketList.length === 0) ? page : page + 1;
+          this.pagination.current = page;
           this.listReady = true; });
   }
 
   onTabChange(event: NgbTabChangeEvent) {
-    this.listReady = false;
-    console.log('getting ticket for => ', event.nextId);
-    this.getTicketList(event.nextId);
+    this.currentList = event.nextId;
+    this.getTicketList(event.nextId, 1);
+  }
+
+  pageChange(page: number) {
+    this.getTicketList(this.currentList, page);
   }
 
   convertListNameToDisplayStr(str: string) {

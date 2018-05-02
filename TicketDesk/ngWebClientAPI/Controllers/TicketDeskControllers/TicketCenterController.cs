@@ -22,7 +22,6 @@ using X.PagedList;
 
 namespace ngWebClientAPI.Controllers
 {
-    //[TdAuthorize(Roles = "TdInternalUsers,TdHelpDeskUsers,TdAdministrators")]
     public class TicketCenterController : Controller
     {
         private TdDomainContext Context { get; set; }
@@ -34,7 +33,7 @@ namespace ngWebClientAPI.Controllers
         [Route("reset-user-lists")]
         public async Task<List<Ticket>> ResetUserLists()
         {
-            var uId = Context.SecurityProvider.CurrentUserId;
+            var uId = Context.SecurityProvider.CurrentUser.userName;
             await Context.UserSettingsManager.ResetAllListSettingsForUserAsync(uId);
             var x = await Context.SaveChangesAsync();
 
@@ -43,13 +42,12 @@ namespace ngWebClientAPI.Controllers
 
         }
 
-        
         public async Task<List<Ticket>> Index(int? page, string listName)
         {
             listName = listName ?? (Context.SecurityProvider.IsTdHelpDeskUser ? "unassigned" : "mytickets");
             var pageNumber = page ?? 1;
 
-            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUserId);//new TicketCenterListViewModel(listName, model, Context, User.Identity.GetUserId());
+            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.userName);
             List<Ticket> ticketList = viewModel.Tickets;
             return ticketList;
         }
@@ -57,7 +55,12 @@ namespace ngWebClientAPI.Controllers
         [Route("pageList/{listName=mytickets}/{page:int?}")]
         public async Task<List<Ticket>> PageList(int? page, string listName)
         {
-            return await GetTicketListPartial(page, listName);
+            var pageNumber = page ?? 1;
+
+            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.userName);
+            List<Ticket> ticketList = viewModel.Tickets;
+
+            return ticketList;
         }
 
         public async Task<List<Ticket>> FilterList(
@@ -67,7 +70,7 @@ namespace ngWebClientAPI.Controllers
             string owner,
             string assignedTo)
         {
-            var uId = Context.SecurityProvider.CurrentUserId;
+            var uId = Context.SecurityProvider.CurrentUser.userName;
             var userSetting = await Context.UserSettingsManager.GetSettingsForUserAsync(uId);
 
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
@@ -86,7 +89,7 @@ namespace ngWebClientAPI.Controllers
             string columnName,
             bool isMultiSort = false)
         {
-            var uId = Context.SecurityProvider.CurrentUserId;
+            var uId = Context.SecurityProvider.CurrentUser.userName;
             var userSetting = await Context.UserSettingsManager.GetSettingsForUserAsync(uId);
             var currentListSetting = userSetting.GetUserListSettingByName(listName);
 
@@ -128,7 +131,7 @@ namespace ngWebClientAPI.Controllers
         {
             var pageNumber = page ?? 1;
 
-            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUserId);
+            TicketCenterListViewModel viewModel = await TicketCenterListViewModel.GetViewModelAsync(pageNumber, listName, Context, Context.SecurityProvider.CurrentUser.userName);
             List<Ticket> tickets = viewModel.Tickets;
 
             return tickets;
