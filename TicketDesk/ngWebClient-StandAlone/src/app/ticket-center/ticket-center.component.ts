@@ -18,7 +18,8 @@ export class TicketCenterComponent implements OnInit {
   ticketList: TicketStub[];
   pagination: {current: number, max: number } = {current: 1, max: 2};
   currentList;
-  listReady: Boolean = false;
+  sortingColumns: Set<String> = new Set();
+  listReady: Boolean = false; // This can be used to force reload of ticket-list component
   tabsReady: Boolean = false;
 
   constructor(private multiTicketService: MultiTicketService,
@@ -40,8 +41,20 @@ export class TicketCenterComponent implements OnInit {
   }
 
   getTicketList(listName: string, page: number): void {
-    this.listReady = false;
     console.log('Getting ticketlist for', listName, 'at page ', page);
+    this.setNewList(listName, page);
+  }
+
+  resetList(listName: string, page: number) {
+    this.listReady = false;
+    this.sortingColumns = new Set();
+    this.multiTicketService.resetFilterAndSort()
+          .subscribe( res => {
+            this.setNewList(listName, page);
+          });
+  }
+
+  setNewList(listName: string, page: number) {
     this.multiTicketService.getTicketList(listName, page)
         .subscribe(ticketList => {
           this.ticketList = ticketList;
@@ -51,12 +64,27 @@ export class TicketCenterComponent implements OnInit {
   }
 
   onTabChange(event: NgbTabChangeEvent) {
+    this.listReady = false;
     this.currentList = event.nextId;
-    this.getTicketList(event.nextId, 1);
+    this.resetList(event.nextId, 1);
   }
 
   pageChange(page: number) {
     this.getTicketList(this.currentList, page);
+  }
+
+  sortTrigger(colName: string) {
+    console.log('Getting sorting for', colName);
+    if (colName === 'reset') {
+      this.resetList(this.currentList, this.pagination.current);
+    } else {
+      this.sortingColumns.add(colName);
+      const isMultiSort = this.sortingColumns.size > 1;
+      this.multiTicketService.sortList(this.pagination.current, this.currentList, colName, isMultiSort)
+          .subscribe(ticketList => {
+            this.ticketList = ticketList;
+          });
+    }
   }
 
   convertListNameToDisplayStr(str: string) {

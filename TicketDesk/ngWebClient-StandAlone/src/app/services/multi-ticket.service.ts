@@ -14,23 +14,19 @@ export class MultiTicketService {
   ) {}
 
 
-  // Get ticketList from index enpoint
   // Currently this endpoint does not return maxPage.
   // So pagination is done one page at a time. Without knowledge of how many items there are.
   getTicketList(
     listName: string,
     page?: number
   ): Observable<TicketStub[]> {
-    // const params = new HttpParams().set('listName', listName).set('page', String(page));
     const params = {page: page, listName: listName};
     const ticketList = this.http.post<TicketStub[]>(settings.getTicketList, params);
-    return ticketList.map(res => {
-      return res;
-    });
+    return ticketList;
   }
 
   resetFilterAndSort() {
-    this.http.post(settings.resetTicketsFilterAndSort, '');
+    return this.http.post(settings.resetTicketsFilterAndSort, '');
   }
 
   sortList(
@@ -39,7 +35,8 @@ export class MultiTicketService {
     columnName: string,
     isMultiSort: boolean
   ) {
-
+    const params = {page: page, listName: listName, columnName: columnName, isMultiSort: isMultiSort};
+    return this.http.post<TicketStub[]>(settings.getSortedTicketList, params);
   }
 
   filterList(

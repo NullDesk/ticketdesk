@@ -1,13 +1,18 @@
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-default">
             <tr>
                 <th>
                     <input type="checkbox" [checked]="isAllChecked()" (change)="selectAll($event)"> </th>
-                <th *ngFor="let heading of colHeadings" >{{ heading }}</th>
+                <th *ngFor="let heading of colHeadings" (click)="headerSort(heading)" (dblclick)="resetSort(heading)">
+                     {{ heading.header }}
+                     <i class="fa fa-fw fa-sort" *ngIf="heading.direction === 'sortable'"></i>
+                     <i class="fa fa-chevron-up" *ngIf="heading.direction === 'asc'" ></i>
+                     <i class="fa fa-chevron-down" *ngIf="heading.direction === 'desc'"></i>
+                </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table">
             <tr *ngFor="let row of displayList">
                 <td> <input  type="checkbox" [(checked)]="row.checked"> </td>
                 <td routerLink="/ticket/{{row.ticket.ticketId}}">
