@@ -53,8 +53,7 @@ namespace ngWebClientAPI.Controllers
             }
             catch
             {
-                throw new Exception("getSingleTicket : Could not convert ticketId. Ticket is null");
-
+                return null;
             }
 
         }
