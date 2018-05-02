@@ -5,4 +5,7 @@ export class UploadService {
   constructor() {
   }
 
+  upload(file) {
+    // Code to upload a file
+  }
 }

@@ -51,7 +51,8 @@ export class TicketActionEntryComponent implements OnInit, OnChanges {
           this.redirectService.requestTabChange();
       }
     );
-
+  }
+  
   cancelAction() {
     console.warn('cancel button clicked');
   }

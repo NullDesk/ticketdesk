@@ -26,7 +26,6 @@ import { RedirectService } from './redirect.service';
     MultiTicketService,
     SearchService,
     SchemaService,
-    AdContactService,
     RedirectService,
     UserService,
     {
