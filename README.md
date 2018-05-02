@@ -1,50 +1,45 @@
+## Back End
 
-<a href="https://zenhub.io"><img src="https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png"></a>
+### Setup
 
-TicketDesk
-==========
-TicketDesk is an issue tracking system for IT Help Desks.
+To run a local development copy of the project, the startup project needs to be set to ngWebClientAPI, with its specified port being 50067.
 
-TicketDesk is efficient and designed to do only one thing, facilitate communications between help desk staff and end users. The overriding design goal is to be as simple and frictionless for both users and help desk staff as is possible.
+### Configuration
 
-<img src="https://raw.githubusercontent.com/NullDesk/TicketDesk/develop/td25.png" title="TicketDesk 2.5"  />
+The API supports configuration via the[ Web.config file located under the ngWebClientAPI project](https://github.com/kixiQu/ticketdesk/blob/ngWebClient-Dev/TicketDesk/ngWebClientAPI/Web.config) for ticket types, priority levels, and ticket categories.  More settings can be added by adding a new section under "ConfigSections", then adding data under the new section specified in "ConfigSections".
 
-Documenation
-===========
-Documentation can be found in the [TicketDesk GitHub Wiki](https://github.com/StephenRedd/TicketDesk/wiki)
+### Security Settings
 
-Project Status
-===========
+Windows Authentication needs to be enabled. Anonymous Authentication needs to be disabled. 
 
-[TicketDesk 2.5 has been released](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.5.2) 
+```
+<authentication mode="Windows"/>
+    <authorization>
+    	<deny users="?"/>
+	</authorization>
+```
 
-The previous version is also available
-[TicektDesk 2.1](https://github.com/StephenRedd/TicketDesk/releases/tag/td2-v2.1.3).
+Located in the Web.config file
 
-- TicketDesk 2.5 requires Visual Studio 2015 with .Net Framework 4.6.2 or higher.
-  - Visual Studio 2017 also supported
-- TicketDesk 2.1 requires Visual Studio 2012 or higher with .Net Framework 4.5 or higher
+## Front End
 
-Getting started
-===========
+### Setup
 
-Development
------------
+Running the front end requires installing [Node.js](https://nodejs.org/en/) first (which will include Node Package Manager aka NPM), then [Angular 4](https://angular.io/), [ng-bootstrap](https://ng-bootstrap.github.io/#/home), and [TypeScript](https://www.typescriptlang.org/).
 
-Getting started with TicketDesk development should be a "clone, open, and run" experience.
+In order to do this, you may need to configure the npm proxy. This can be done by running:
 
-- You need Visual Studio 2015 with the latest update, or Visual Studio 2017. 
-- By default, TicketDesk will use SQL Server Express **LocalDB Edition** 2014 or 2016.
-- Clone the github repository
-- Switch to the desired branch
-  - development has the latest version
-  - master has latest release ready version
-- Open the project in Visual Studio
-- Hit CTRL+F5 to run (F5 to debug) the application
-- The site should open to the first-run-setup screen
-- Code, Contribute, and Enjoy!
+```
+npm config set proxy http://clarkpud%2F<username>:<password>@pudebcs:8080
+npm config set https-proxy http://clarkpud%2F<username>:<password>@pudebcs:8080
+```
 
-Deployment
------------
+Run `npm install` in [the ngWebClient-Standalone directory](https://github.com/kixiQu/ticketdesk/tree/ngWebClient-Dev/TicketDesk/ngWebClient-StandAlone) to install dependencies according to what's specified in [package.json](https://github.com/kixiQu/ticketdesk/blob/ngWebClient-Dev/TicketDesk/ngWebClient-StandAlone/package.json).
 
-TicketDesk is a straight forward ASP.Net and SQL server application. Please see the [Quick Setup Instructions](https://github.com/NullDesk/TicketDesk/wiki/Quick-Setup-Instructions) for an abbreviated overview of deploying TicketDesk.
+Run` npm install -g @angular/cli` to install Angular globally.
+
+Once the dependencies are installed, you can run the application front the command line using: `ng serve` to run on the default port of 4200, or use: `ng serve --port PORT_NUMBER` to choose a different port.
+
+### Configuration
+
+To make web service calls to the backend, you must set the `serviceBaseURL` constant in `app-settings.ts` to the base URL where the endpoint can be reached.
