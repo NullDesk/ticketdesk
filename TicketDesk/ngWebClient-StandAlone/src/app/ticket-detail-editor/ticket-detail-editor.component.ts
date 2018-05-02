@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { SchemaService, CategoryTree } from '../services/schema.service';
 import { Ticket, BLANK_TICKET } from '../models/ticket';
 import { AttachFileComponent } from '../attach-file/attach-file.component';
+import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-ticket-detail-editor',
   templateUrl: './ticket-detail-editor.component.html',
@@ -58,7 +59,7 @@ export class TicketDetailEditorComponent implements OnInit {
 
   ticketEmit() {
     if (this.form.invalid) {
-      console.log('this should not have happened');
+      // this shouldn't happen, but...
       return;
     }
     this.buttonText = 'Please wait...';

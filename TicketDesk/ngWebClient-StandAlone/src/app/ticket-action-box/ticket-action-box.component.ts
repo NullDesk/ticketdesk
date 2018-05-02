@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Ticket } from '../models/ticket';
 import { TicketActionEnum } from '../models/ticket-actions.constants';
 import { SingleTicketService } from '../services/single-ticket.service';
+import { RedirectService } from '../services/redirect.service';
 import { OnChanges, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-ticket-action-box',
   templateUrl: './ticket-action-box.component.html',
   styleUrls: ['./ticket-action-box.component.css'],
-  providers: [SingleTicketService]
 })
 
 export class TicketActionBoxComponent implements OnInit, OnChanges {
@@ -31,7 +31,8 @@ export class TicketActionBoxComponent implements OnInit, OnChanges {
   ticketEmit(ticket: Ticket) {
     console.log('ticket box got an emitted ticket!');
     this.singleTicketService.submitTicketAction(ticket, this.activeAction).subscribe(
-      res => {console.warn('action submission returned', res); }
+      res => {console.warn('action submission returned', res);
+      document.location.reload(); }
     );
     console.log('you made a click');
   }
