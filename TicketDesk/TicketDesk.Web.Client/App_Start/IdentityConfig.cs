@@ -11,6 +11,9 @@
 // attribution must remain intact, and a copy of the license must be 
 // provided to the recipient.
 
+using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
@@ -40,6 +43,18 @@ namespace TicketDesk.Web.Client
         }
     }
 
+    public static class IdentityConfig
+    {
+        private static bool IsUserInDatabase(DbContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+            var userId = context.Database.SqlQuery<int>(
+                "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'");
+            bool hasUserId = userId != null;
+
+            return !hasUserId;
+        }
+    }
 
 
 

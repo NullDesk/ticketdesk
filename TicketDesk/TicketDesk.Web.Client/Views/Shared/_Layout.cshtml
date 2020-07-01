@@ -104,7 +104,8 @@
                             @Html.Partial("_AdminMenuItems")
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    @*Language changes and About info not needed*@
+                    @*<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-language"></i>
                             <span class="">@_Layout.Language</span>
@@ -116,7 +117,7 @@
                     </li>
                     <li class="@Html.IsActiveRoute("About", "Home")">
                         <a href="@Url.Action("About", "Home", new {area = ""})"><i class="fa fa-info-circle fa-lg"></i> <span class="hidden-sm">@_Layout.About</span></a>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>
